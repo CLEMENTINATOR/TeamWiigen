@@ -28,7 +28,15 @@ bool TruchaRestorer::Prepare()
 		if(Config::HasNetwork())
 		{
 			Title ios;
+
+			stringstream down;
+			down << "Loading IOS" << shortId << "v" << _revision << " from NUS.";
+			OnProgress(down.str(), 0.25);
 			ios.LoadFromNusServer(_id, 0, wadFolder);
+
+			stringstream pack;
+			pack << "Saving as IOS" << shortId << "v" << _revision << ".wad.";
+			OnProgress(pack.str(), 0.75);
 			ios.PackAsWad(wad.str());
 		}
 		else
@@ -39,6 +47,7 @@ bool TruchaRestorer::Prepare()
 		}
 	}
 
+	OnProgress("Trucha restorer preparation done.", 1);
 	return true;
 }
 
@@ -54,7 +63,13 @@ void TruchaRestorer::Install()
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
 	newTitle.AddPatch(SimplePatch::ES_Identify());
 
-	
+	OnProgress("Loading title from IOS and aply patches", 0.25);
     newTitle.LoadFromWad(wad.str() , "sd:/temp");
+
+    stringstream inst;
+    inst << "Installing title.";
+    OnProgress(inst.str(), 0.75);
 	newTitle.Install();
+
+	OnProgress("Trucha bug restored.", 1);
 }

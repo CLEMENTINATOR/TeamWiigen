@@ -54,14 +54,12 @@ bool CiosCorp::Prepare()
 
 				stringstream downloadMessage;
 				downloadMessage << "Downloading IOS" << ite->sourceId << " version " << ite->revision << " from NUS";
-				cout << downloadMessage.str() << endl;
-				//OnProgress(downloadMessage.str(), step/NB_INSTALL_CIOS);
+				OnProgress(downloadMessage.str(), step/nbIosToInstall);
 				ios.LoadFromNusServer(source, ite->revision, wadFolder);
 
 				stringstream packMessage;
 				packMessage << "Saving as IOS" << ite->sourceId << "v" << ite->revision << ".wad";
-				cout << packMessage.str() << endl;
-				//OnProgress(downloadMessage.str(), (step + 0.5)/NB_INSTALL_CIOS);
+				OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
 				ios.PackAsWad(wadFile.str());
 			}
 			else
@@ -71,10 +69,10 @@ bool CiosCorp::Prepare()
 				return false;
 			}
 		}
-
-		//OnProgress("", step/NB_INSTALL_CIOS);
 		step += 1;
 	}
+
+	OnProgress("Cioscorp preparation done.", 1);
 
 	return true;
 }
@@ -132,25 +130,24 @@ void CiosCorp::Install()
 			ciosPatcher.AddPatch(SimplePatch::KoreanKey_EnablePatch());
 		}
 
-		stringstream progressMessage;
-		progressMessage << "Creating cIOS " << ite->destId << "from IOS" << ite->sourceId << "v" << ite->revision;
-
 		stringstream wadFile;
 		wadFile << wadFolder << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
 		if(!File::Exists(wadFile.str()))
 			throw Exception("File not found.", -1);
 
-		cout << progressMessage.str() << endl;
-		//OnProgress(progressMessage.str(), step/NB_INSTALL_CIOS);
+		stringstream progressMessage;
+		progressMessage << "Creating cIOS " << ite->destId << "from IOS" << ite->sourceId << "v" << ite->revision;
+		OnProgress(progressMessage.str(), step/nbIosToInstall);
 		ciosPatcher.LoadFromWad(wadFile.str(), wadFolder);
 
 		stringstream installMessage;
 		installMessage << "Installing cIOS" << ite->destId;
-		cout << installMessage.str() << endl;
-		//OnProgress(installMessage.str(), (step + 0.5)/NB_INSTALL_CIOS);
+		OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
 		ciosPatcher.Install();
 
 		step += 1;
 	}
+
+	OnProgress("Cioscorp installed.", 1);
 }

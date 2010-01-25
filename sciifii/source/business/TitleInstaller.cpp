@@ -26,7 +26,15 @@ bool TitleInstaller::Prepare()
 		if(Config::HasNetwork())
 		{
 			Title ios;
+
+			stringstream down;
+			down << "Loading IOS" << shortId << "v" << _revision << " from NUS.";
+			OnProgress(down.str(), 0.25);
 			ios.LoadFromNusServer(_id, 0, wadFolder);
+
+			stringstream pack;
+			pack << "Saving as IOS" << shortId << "v" << _revision << ".wad.";
+			OnProgress(pack.str(), 0.75);
 			ios.PackAsWad(wad.str());
 		}
 		else
@@ -37,6 +45,7 @@ bool TitleInstaller::Prepare()
 		}
 	}
 
+	OnProgress("Title installation preparation done.", 1);
 	return true;
 }
 
@@ -48,6 +57,16 @@ void TitleInstaller::Install()
 	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
 
 	Title newTitle;	
+
+	stringstream load;
+	load << "Loading title from IOS" << shortId << "v" << _revision << ".wad";
+	OnProgress(load.str(), 0.25);
     newTitle.LoadFromWad(wad.str() , "sd:/temp");
+
+    stringstream inst;
+    inst << "Installing title.";
+    OnProgress(inst.str(), 0.75);
 	newTitle.Install();
+
+	OnProgress("Title installation done.", 1);
 }

@@ -127,14 +127,12 @@ bool Cios::Prepare()
 
 			stringstream downloadMessage;
 			downloadMessage << "Downloading IOS" << 38 << " version " << 3867 << " from NUS";
-			cout << downloadMessage.str() << endl;
-			//OnProgress(downloadMessage.str(), 0.5);
+			OnProgress(downloadMessage.str(), 0.25);
 			ios.LoadFromNusServer(source, 3867, wadFolder);
 
 			stringstream packMessage;
 			packMessage << "Saving as IOS" << 38 << "v" << 3867 << ".wad";
-			cout << packMessage.str() << endl;
-			//OnProgress(downloadMessage.str(), (step + 0.5)/NB_INSTALL_CIOS);
+			OnProgress(packMessage.str(), 0.7);
 			ios.PackAsWad(wadFile.str());
 		}
 		else
@@ -145,9 +143,11 @@ bool Cios::Prepare()
 		}
 	}
 	
+	OnProgress("Deleting old IOS249 or stub.", 0.9);
+
 	Title::Uninstall(0x0000000100000000ULL + 249);
 
-	//OnProgress("", 1);
+	OnProgress("Waninkoko cIOS preparation done.", 1);
 
 	return true;
 }
@@ -216,9 +216,11 @@ void Cios::Install()
 	stringstream wadFile;
 	wadFile << wadFolder << "/IOS" << 38 << "v" << 3867 << ".wad";
 	
-	cout << "Load wad and patch it!" << endl;
+	OnProgress("Load base wad for cios and patch it!", 0.2);
 	cios.LoadFromWad(wadFile.str(), wadFolder);
 	
-	cout << "Install!" << endl;
+	OnProgress("Installation of the cIOS!", 0.6);
 	cios.Install();
+
+	OnProgress("cIOS installed.", 1);
 }

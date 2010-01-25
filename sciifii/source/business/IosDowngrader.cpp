@@ -34,17 +34,34 @@ bool IosDowngrader::Prepare()
 	if(!File::Exists(newWad.str()))
 	{
 		Title ios;
+
+		stringstream downloadMessage;
+		downloadMessage << "Downloading IOS" << shortId << " from NUS.";
+		OnProgress(downloadMessage.str(), 0);
 		ios.LoadFromNusServer(_id, 0, wadFolder);
+
+		stringstream packMessage;
+		packMessage << "Save as IOS" << shortId << ".wad.";
+		OnProgress(packMessage.str(), 0.25);
 		ios.PackAsWad(newWad.str());
 	}
 	
 	if(!File::Exists(oldWad.str()))
 	{
 		Title ios;
+
+		stringstream downloadMessage;
+		downloadMessage << "Downloading IOS" << shortId << "v" << _neededRevision << " from NUS.";
+		OnProgress(downloadMessage.str(), 0.5);
 		ios.LoadFromNusServer(_id, _neededRevision, wadFolder);
+
+		stringstream packMessage;
+		packMessage << "Save as IOS" << shortId << "v" << _neededRevision << ".wad.";
+		OnProgress(packMessage.str(), 0.75);
 		ios.PackAsWad(oldWad.str());
 	}
 
+	OnProgress("Downgrade preparation done.", 1);
 	return true;
 }
 
@@ -66,15 +83,20 @@ void IosDowngrader::Install()
 	oldTitle.TicketInstallingEvent += MakeDelegate(this, &IosDowngrader::SkipStep);
 	oldTitle.LoadFromWad(oldFile.str(), "sd:/temp");
 		
+	OnProgress("Installing the fake IOS", 0.2);
 	//this will be aborted by the event handler
 	newTitle.Install();
 
+	OnProgress("Installing the good IOS.",0.6);
 	//this will install the needed revision
 	oldTitle.Install();
+
+	OnProgress("IOS downgraded.", 1);
 }
 
 void IosDowngrader::DowngradeTmd(Object* sender, TitleEventArgs *args)
 {
+	OnProgress("Downgrading tmd.", 0.4);
 	string tmd_path = "wii:/tmp/title.tmd";
 	File::Delete(tmd_path);
 
@@ -95,5 +117,6 @@ void IosDowngrader::DowngradeTmd(Object* sender, TitleEventArgs *args)
 
 void IosDowngrader::SkipStep(Object* sender, TitleEventArgs *args)
 {
+	OnProgress("Skipping ticket installation.", 0.8);
 	args->skipStep = true;
 }

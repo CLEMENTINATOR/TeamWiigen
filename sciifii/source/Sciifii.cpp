@@ -5,6 +5,7 @@
 #include <libutils/system/Identification.h>
 
 #include "Sciifii.h"
+#include "Config.h"
 
 #include <libutils/fs/Directory.h>
 
@@ -18,15 +19,18 @@
 using namespace fastdelegate;
 using namespace std;
 
+#define TITLE_IOS(x) (0x0000000100000000ULL + x)
+
 Sciifii::Sciifii()
+: hasDisplayed(false)
 {
 	string dir = "sd:/sciifii";
 	
-	steps.push_back(new IosDowngrader(0x000000010000000fULL, 257, dir));
-	steps.push_back(new IosReloader(15, UserType_SU, "sd:/"));
-	steps.push_back(new TruchaRestorer(0x00000001000000024ULL, 0, dir));
-	steps.push_back(new IosReloader(36, UserType_SU, "sd:/"));
-	steps.push_back(new TitleInstaller(0x0000000100000000fULL, 0, dir));
+	steps.push_back(new IosDowngrader(Config::DowngradeIos(), Config::DowngradeIosRevision(), dir));
+	steps.push_back(new IosReloader(Config::DowngradeIos(), UserType_SU, "sd:/"));
+	steps.push_back(new TruchaRestorer(Config::TruchaIOS(), 0, dir));
+	steps.push_back(new IosReloader(Config::TruchaIOS(), UserType_SU, "sd:/"));
+	steps.push_back(new TitleInstaller(TITLE_IOS(Config::DowngradeIos()), 0, dir));
 	steps.push_back(new Cios(dir));
 	steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
 	steps.push_back(new CiosCorp(dir));
@@ -43,23 +47,52 @@ Sciifii::~Sciifii()
 
 void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 {
-	cout << (u8)args->percent << "%: " << args->message << endl;
+	//return to the begin of the line
+	cout << "\r";
+
+	//erase the line
+	s32 cols, rows;
+	CON_GetMetrics(&cols, &rows);
+	for(rows = 1; rows < cols; rows++)
+		cout << " ";
+
+	cout << "\r";
+
+	cout << (u32)(args->percent * 100) << "%:\t" << args->message;
+
+	hasDisplayed = true;
 }
 
 bool Sciifii::Prepare()
 {
 	bool error = false;
 
+	cout << "Sciifii is preparing required elements." << endl;
+
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+	{
 		error |= (*ite)->Prepare();
+		if(hasDisplayed)
+		{
+			cout << endl;
+			hasDisplayed = false;
+		}
+	}
 
 	return error;
 }
 
 void Sciifii::Execute()
 {
-	Identification::IdentifyAs(UserType_SU);
+	cout << "Please wait until sciifii finish the installation." << endl;
 
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+	{
 		(*ite)->Install();
+		if(hasDisplayed)
+		{
+			cout << endl;
+			hasDisplayed = false;
+		}
+	}
 }

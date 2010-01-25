@@ -10,9 +10,9 @@
 using namespace fastdelegate;
 using namespace std;
 
-TruchaRestorer::TruchaRestorer(u64 titleId, u16 revision, const string& wadFolder)
+TruchaRestorer::TruchaRestorer(u32 titleId, u16 revision, const string& wadFolder)
 : Installer(wadFolder),
-  _id(titleId),
+  _id(0x0000000100000000ULL + titleId),
   _revision(revision)
 {}
 
@@ -25,7 +25,7 @@ bool TruchaRestorer::Prepare()
 	
 	if(!File::Exists(wad.str()))
 	{
-		if(hasNetwork)
+		if(Config::HasNetwork())
 		{
 			Title ios;
 			ios.LoadFromNusServer(_id, 0, wadFolder);

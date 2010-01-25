@@ -14,7 +14,7 @@ private:
 	void SkipStep(Object* sender, TitleEventArgs *args);
 
 public:
-	IosDowngrader(u64 titleId, u16 neededRevision, const std::string& wadFolder);
+	IosDowngrader(u32 titleId, u16 neededRevision, const std::string& wadFolder);
 	bool Prepare();
 	void Install();
 };

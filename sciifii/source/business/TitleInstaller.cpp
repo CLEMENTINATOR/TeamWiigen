@@ -23,7 +23,7 @@ bool TitleInstaller::Prepare()
 	
 	if(!File::Exists(wad.str()))
 	{
-		if(hasNetwork)
+		if(Config::HasNetwork())
 		{
 			Title ios;
 			ios.LoadFromNusServer(_id, 0, wadFolder);

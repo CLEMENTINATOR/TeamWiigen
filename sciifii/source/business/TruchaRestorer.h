@@ -11,7 +11,7 @@ private:
 	u16 _revision;
 	
 public:
-	TruchaRestorer(u64 titleId, u16 revision, const std::string& wadFolder);
+	TruchaRestorer(u32 titleId, u16 revision, const std::string& wadFolder);
 	bool Prepare();
 	void Install();
 };

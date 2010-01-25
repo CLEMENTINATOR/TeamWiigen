@@ -121,7 +121,7 @@ bool Cios::Prepare()
 
 	if(!File::Exists(wadFile.str()))
 	{
-		if(hasNetwork)
+		if(Config::HasNetwork())
 		{
 			Title ios;
 

@@ -56,7 +56,6 @@ int main(int argc, char **argv)
 
   try
   {
-	  ConfigureSciifii();
 	  Sciifii sci;
 	  Device::Mount("sd:/");
 	  if(!sci.Prepare())

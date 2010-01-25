@@ -3,6 +3,8 @@
 
 #include <gctypes.h>
 #include <string>
+#include <libutils/Object.h>
+#include <vector>
 
 typedef struct
 {
@@ -17,16 +19,30 @@ typedef struct
 	std::string wadSource;
 } ciosDesc;
 
-extern bool allowIllegal;
+class Config : public Object
+{
+private:
+	bool _hasNetwork;
 
-extern ciosDesc installCioses[];
+	u32 _downgradeIos;
+	u16 _downgradeIosRevision;
 
-extern const u64 NB_INSTALL_CIOS;
+	u32 _truchaIos;
 
-extern bool hasNetwork;
+	std::vector<ciosDesc> _corp;
 
-extern u16 ios15Revision;
+	Config();
+	static Config& Instance();
 
-void ConfigureSciifii();
+public:
+	static bool HasNetwork();
+
+	static u32 DowngradeIos();
+	static u16 DowngradeIosRevision();
+
+	static u32 TruchaIOS();
+
+	static std::vector<ciosDesc>& CorpConfiguration();
+};
 
 #endif

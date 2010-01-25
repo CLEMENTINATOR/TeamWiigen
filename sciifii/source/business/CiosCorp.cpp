@@ -26,44 +26,40 @@ CiosCorp::CiosCorp(const std::string& workingDirectory)
 bool CiosCorp::Prepare()
 {
 	f32 step = 0;
+	u32 nbIosToInstall = Config::CorpConfiguration().size();
 
-	for(u32 ciosIndex = 0; ciosIndex < NB_INSTALL_CIOS; ciosIndex++)
+	for(vector<ciosDesc>::iterator ite = Config::CorpConfiguration().begin(); ite != Config::CorpConfiguration().end(); ++ite)
 	{
-		ciosDesc c = installCioses[ciosIndex];
-		u64 source = 0x0000000100000000ULL + c.sourceId;
+		u64 source = 0x0000000100000000ULL + ite->sourceId;
 
 		stringstream wadFile;
-		wadFile << wadFolder << "/IOS" << c.sourceId << "v" << c.revision << ".wad";
+		wadFile << wadFolder << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
 		if(!File::Exists(wadFile.str()))
 		{
-			if(c.wadSource != "")
+			if(ite->wadSource != "")
 			{
-				if(allowIllegal)
-				{
-					NetworkRequest req(c.wadSource);
+					NetworkRequest req(ite->wadSource);
 					Buffer response = req.GetResponse();
 
 					File &wad = File::Create(wadFile.str());
 					wad.Write(response);
 					wad.Close();
 					delete &wad;
-				}
-				continue;
 			}
 			
-			if(hasNetwork)
+			if(Config::HasNetwork())
 			{
 				Title ios;
 
 				stringstream downloadMessage;
-				downloadMessage << "Downloading IOS" << c.sourceId << " version " << c.revision << " from NUS";
+				downloadMessage << "Downloading IOS" << ite->sourceId << " version " << ite->revision << " from NUS";
 				cout << downloadMessage.str() << endl;
 				//OnProgress(downloadMessage.str(), step/NB_INSTALL_CIOS);
-				ios.LoadFromNusServer(source, c.revision, wadFolder);
+				ios.LoadFromNusServer(source, ite->revision, wadFolder);
 
 				stringstream packMessage;
-				packMessage << "Saving as IOS" << c.sourceId << "v" << c.revision << ".wad";
+				packMessage << "Saving as IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 				cout << packMessage.str() << endl;
 				//OnProgress(downloadMessage.str(), (step + 0.5)/NB_INSTALL_CIOS);
 				ios.PackAsWad(wadFile.str());
@@ -96,18 +92,18 @@ void CiosCorp::Install()
 	KoreanKeyPatch kkpatch;
 
 	f32 step = 0;
+	u32 nbIosToInstall = Config::CorpConfiguration().size();
 
-	for(u32 ciosIndex = 0; ciosIndex < NB_INSTALL_CIOS; ciosIndex++)
+	for(vector<ciosDesc>::iterator ite = Config::CorpConfiguration().begin(); ite != Config::CorpConfiguration().end(); ++ite)
 	{
-		ciosDesc c = installCioses[ciosIndex];
-		u64 dest = 0x0000000100000000ULL + c.destId;
+		u64 dest = 0x0000000100000000ULL + ite->destId;
 
 		TitlePatcher ciosPatcher(dest, 0xFFFF);
 
 		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());
 		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_New());
 
-		switch(c.dipVersion)
+		switch(ite->dipVersion)
 		{
 			case 13:
 				ciosPatcher.AddPatch(&dip13);
@@ -117,30 +113,30 @@ void CiosCorp::Install()
 				break;
 		}
 
-		switch(c.esVersion)
+		switch(ite->esVersion)
 		{
 			case 17:
 				ciosPatcher.AddPatch(&es17);
 				break;
 		}
 
-		if(c.IdentifyPatch)
+		if(ite->IdentifyPatch)
 			ciosPatcher.AddPatch(SimplePatch::ES_Identify());
 
-		if(c.NandPatch)
+		if(ite->NandPatch)
 			ciosPatcher.AddPatch(SimplePatch::FFS_PermsCheck());
 			
-		if(c.KoreanPatch)
+		if(ite->KoreanPatch)
 		{
 			ciosPatcher.AddPatch(&kkpatch);
 			ciosPatcher.AddPatch(SimplePatch::KoreanKey_EnablePatch());
 		}
 
 		stringstream progressMessage;
-		progressMessage << "Creating cIOS " << c.destId << "from IOS" << c.sourceId << "v" << c.revision;
+		progressMessage << "Creating cIOS " << ite->destId << "from IOS" << ite->sourceId << "v" << ite->revision;
 
 		stringstream wadFile;
-		wadFile << wadFolder << "/IOS" << c.sourceId << "v" << c.revision << ".wad";
+		wadFile << wadFolder << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
 		if(!File::Exists(wadFile.str()))
 			throw Exception("File not found.", -1);
@@ -150,7 +146,7 @@ void CiosCorp::Install()
 		ciosPatcher.LoadFromWad(wadFile.str(), wadFolder);
 
 		stringstream installMessage;
-		installMessage << "Installing cIOS" << c.destId;
+		installMessage << "Installing cIOS" << ite->destId;
 		cout << installMessage.str() << endl;
 		//OnProgress(installMessage.str(), (step + 0.5)/NB_INSTALL_CIOS);
 		ciosPatcher.Install();

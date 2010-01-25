@@ -8,9 +8,9 @@
 using namespace fastdelegate;
 using namespace std;
 
-IosDowngrader::IosDowngrader(u64 titleId, u16 neededRevision, const std::string& wadFolder)
+IosDowngrader::IosDowngrader(u32 titleId, u16 neededRevision, const std::string& wadFolder)
 : Installer(wadFolder),
-  _id(titleId),
+  _id(0x0000000100000000ULL + titleId),
   _neededRevision(neededRevision)
 {}
 
@@ -24,7 +24,7 @@ bool IosDowngrader::Prepare()
 	stringstream oldWad;
 	oldWad << wadFolder << "/IOS" << shortId << "v" << _neededRevision << ".wad";
 	
-	if((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !hasNetwork)
+	if((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !Config::HasNetwork())
 	{
 		cout << "You arent connected to the network and some wads are missing." << endl
 			 << "Please refer to the readme.";

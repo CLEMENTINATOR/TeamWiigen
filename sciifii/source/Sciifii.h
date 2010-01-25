@@ -9,11 +9,12 @@ class Sciifii : public Object
 {
 private:
 	std::vector<Installer*> steps;
+	void DisplayProgress(Object* sender, ProgressEventArgs* args);
 
+	bool hasDisplayed;
 public:
 	Sciifii();
 	~Sciifii();
-	void DisplayProgress(Object* sender, ProgressEventArgs* args);
 	bool Prepare();
 	void Execute();
 };

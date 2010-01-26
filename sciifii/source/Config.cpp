@@ -5,7 +5,7 @@ Config::Config()
 : _hasNetwork(false),
   _downgradeIos(15),
   _downgradeIosRevision(257),
-  _truchaIos(16),
+  _truchaIos(36),
   _corp()
 {
 	try

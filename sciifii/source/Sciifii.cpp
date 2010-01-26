@@ -29,10 +29,10 @@ Sciifii::Sciifii()
 	steps.push_back(new IosDowngrader(Config::DowngradeIos(), Config::DowngradeIosRevision(), dir));
 	steps.push_back(new IosReloader(Config::DowngradeIos(), UserType_SU, "sd:/"));
 	steps.push_back(new TruchaRestorer(Config::TruchaIOS(), 0, dir));
-	steps.push_back(new IosReloader(Config::TruchaIOS(), UserType_SU, "sd:/"));
+	steps.push_back(new IosReloader(Config::TruchaIOS(), "sd:/"));
 	steps.push_back(new TitleInstaller(TITLE_IOS(Config::DowngradeIos()), 0, dir));
 	steps.push_back(new Cios(dir));
-	steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
+	steps.push_back(new IosReloader(249, "sd:/"));
 	steps.push_back(new CiosCorp(dir));
 	
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)

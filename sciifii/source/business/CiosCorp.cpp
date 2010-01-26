@@ -36,20 +36,23 @@ bool CiosCorp::Prepare()
 		wadFile << wadFolder << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
 		if(!File::Exists(wadFile.str()))
-		{
-			if(ite->wadSource != "")
-			{
-					NetworkRequest req(ite->wadSource);
-					Buffer response = req.GetResponse();
-
-					File &wad = File::Create(wadFile.str());
-					wad.Write(response);
-					wad.Close();
-					delete &wad;
-			}
-			
+		{			
 			if(Config::HasNetwork())
 			{
+				//pour ios pas sur nus
+				if(ite->wadSource != "")
+				{
+						NetworkRequest req(ite->wadSource);
+						Buffer response = req.GetResponse();
+
+						File &wad = File::Create(wadFile.str());
+						wad.Write(response);
+						wad.Close();
+						delete &wad;
+						step += 1;
+						continue;
+				}
+				
 				Title ios;
 
 				stringstream downloadMessage;

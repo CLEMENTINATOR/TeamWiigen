@@ -663,14 +663,21 @@ void Title::Uninstall(u64 titleId)
 
 		/* Delete all tickets */
 		for (u32 tickViewIndex = 0; tickViewIndex < viewCnt; tickViewIndex++)
-			if(ES_DeleteTicket(&viewData[tickViewIndex]) < 0)
-				break;
-
+		{
+			ret = ES_DeleteTicket(&viewData[tickViewIndex]);
+			if(ret < 0)
+				throw Exception("Error deleting title tickets.", ret);
+		}
+		
 		// Delete title content
-		ES_DeleteTitleContent(titleId);
+		ret = ES_DeleteTitleContent(titleId);
+		if(ret < 0)
+			throw Exception("Error deleting title contents.", ret);
 
 		//delete title
-		ES_DeleteTitle(titleId);
+		ret = ES_DeleteTitle(titleId);
+		if(ret < 0)
+			throw Exception("Error deleting title.", ret);
 	}
 	catch(...)
 	{

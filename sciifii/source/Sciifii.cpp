@@ -15,13 +15,14 @@
 #include "business/TitleInstaller.h"
 #include "business/TruchaRestorer.h"
 #include "business/IosReloader.h"
+#include "business/SystemUpdater.h"
 
 using namespace fastdelegate;
 using namespace std;
 
 #define TITLE_IOS(x) (0x0000000100000000ULL + x)
 
-Sciifii::Sciifii()
+Sciifii::Sciifii(bool installCorp, bool updateSystem)
 : hasDisplayed(false)
 {
 	string dir = "sd:/sciifii";
@@ -32,8 +33,17 @@ Sciifii::Sciifii()
 	steps.push_back(new IosReloader(Config::TruchaIOS(), UserType_SU, "sd:/"));
 	steps.push_back(new TitleInstaller(TITLE_IOS(Config::DowngradeIos()), 0, dir));
 	steps.push_back(new Cios(dir));
-	steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
-	steps.push_back(new CiosCorp(dir));
+	
+	if(installCorp || updateSystem)
+		steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
+	
+	if(installCorp)
+		steps.push_back(new CiosCorp(dir));
+		
+	if(updateSystem && installCorp)
+		steps.push_back(new SystemUpdater(Config::PartialUpdateList(), dir));
+	else if(updateSystem)
+		steps.push_back(new SystemUpdater(Config::UpdateList(), dir));
 	
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 		(*ite)->Progressing += MakeDelegate(this, &Sciifii::DisplayProgress);

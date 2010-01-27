@@ -1,0 +1,106 @@
+#include <sstream>
+#include <iostream>
+
+#include <libutils/exception/Exception.h>
+#include <libutils/fs/File.h>
+#include <libutils/system/Title.h>
+
+#include "SystemUpdater.h"
+
+using namespace std;
+
+SystemUpdater::SystemUpdater(const vector<titleDescriptor>& titleList, const string& workingDirectory)
+: Installer(workingDirectory),
+  _titleList(titleList)
+{}
+
+bool SystemUpdater::Prepare()
+{
+	f32 step = 0;
+	u32 nbIosToInstall = _titleList.size();
+
+	for(vector<titleDescriptor>::iterator ite = _titleList.begin(); ite != _titleList.end(); ++ite)
+	{
+		u32 type = ite->title >> 32;
+		u32 shortId = (u32)ite->title;
+		
+		stringstream wadFile;
+		stringstream wadName;
+		
+		if(type == 1)
+			wadName << "IOS" << shortId << "v" << ite->revision << ".wad";
+		else
+			wadName << type << "-" << shortId << "v" << ite->revision << ".wad";
+			
+		wadFile << wadFolder << "/" << wadName.str();
+		
+		if(!File::Exists(wadFile.str()))
+		{			
+			if(Config::HasNetwork())
+			{				
+				Title t;
+
+				stringstream downloadMessage;
+				downloadMessage << "Downloading title" << shortId << " version " << ite->revision << " from NUS";
+				OnProgress(downloadMessage.str(), step/nbIosToInstall);
+				t.LoadFromNusServer(ite->title, ite->revision, wadFolder);
+
+				stringstream packMessage;
+				packMessage << "Saving it as" << wadName.str();
+				OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
+				t.PackAsWad(wadFile.str());
+			}
+			else
+			{
+				cout << "You arent connected to the network and some wads are missing." << endl
+				     << "Please refer to the readme.";
+				return false;
+			}
+		}
+		step += 1;
+	}
+
+	OnProgress("System update preparation done.", 1);
+
+	return true;
+}
+
+void SystemUpdater::Install()
+{
+	f32 step = 0;
+	u32 nbIosToInstall = _titleList.size();
+
+	for(vector<titleDescriptor>::iterator ite = _titleList.begin(); ite != _titleList.end(); ++ite)
+	{
+		u32 type = ite->title >> 32;
+		u32 shortId = (u32)ite->title;
+		
+		stringstream wadFile;
+		stringstream wadName;
+		
+		if(type == 1)
+			wadName << "IOS" << shortId << "v" << ite->revision << ".wad";
+		else
+			wadName << type << "-" << shortId << "v" << ite->revision << ".wad";
+			
+		wadFile << wadFolder << "/" << wadName.str();
+
+		if(!File::Exists(wadFile.str()))
+			throw Exception("File not found.", -1);
+
+		stringstream progressMessage;
+		progressMessage << "Loading title" << shortId << "from Wad.";
+		OnProgress(progressMessage.str(), step/nbIosToInstall);
+		Title t;
+		t.LoadFromWad(wadFile.str(), wadFolder);
+
+		stringstream installMessage;
+		installMessage << "Installing title " << shortId;
+		OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
+		t.Install();
+
+		step += 1;
+	}
+
+	OnProgress("System updated.", 1);
+}

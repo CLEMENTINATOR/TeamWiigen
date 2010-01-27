@@ -13,7 +13,7 @@ private:
 
 	bool hasDisplayed;
 public:
-	Sciifii();
+	Sciifii(bool installCorp, bool UpdateSystem);
 	~Sciifii();
 	bool Prepare();
 	void Execute();

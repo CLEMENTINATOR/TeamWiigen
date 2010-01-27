@@ -19,6 +19,12 @@ typedef struct
 	std::string wadSource;
 } ciosDesc;
 
+typedef struct
+{
+	u64 title;
+	u16 revision;
+} titleDescriptor;
+
 class Config : public Object
 {
 private:
@@ -30,7 +36,9 @@ private:
 	u32 _truchaIos;
 
 	std::vector<ciosDesc> _corp;
-
+	std::vector<titleDescriptor> _updateList;
+	std::vector<titleDescriptor> _partialUpdateList;
+	
 	Config();
 	static Config& Instance();
 
@@ -43,6 +51,8 @@ public:
 	static u32 TruchaIOS();
 
 	static std::vector<ciosDesc>& CorpConfiguration();
+	static std::vector<titleDescriptor>& UpdateList();
+	static std::vector<titleDescriptor>& PartialUpdateList();
 };
 
 #endif

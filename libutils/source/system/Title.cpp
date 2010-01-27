@@ -61,7 +61,7 @@ Buffer Title::GetTitleElementFromTemp(const string &path)
 	Buffer b;
 	if(!File::Exists(path))
 		return b;
-		
+
 	return File::ReadToEnd(path);
 }
 
@@ -223,7 +223,7 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 	TitleEventArgs processControl;
 
 	CreateTempDirectory(titleId, revision, tempFolder);
-		
+
 	try
 	{
 		// Obtain ticket
@@ -237,8 +237,8 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTicketLoaded(processControl);
 		}
-		
-		
+
+
 		//obtain TMD
 		stringstream tmdName;
 		if(revision!=0) tmdName << "tmd." << revision;
@@ -249,12 +249,12 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 		processControl.buffer = tmdServer.GetResponse();
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTmdLoading(processControl);
-		
+
 		bool skipTmd = processControl.skipStep;
 		Buffer b_tmd = processControl.buffer;
 		tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
 
-		
+
 		//Get contents
 		for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
 		{
@@ -268,9 +268,9 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 			NusServer contentServer(titleId, filename.str());
 			processControl.buffer = contentServer.GetResponse();
 			_dataLen += processControl.buffer.Length();
-			
+
 			INIT_PROCESS_CONTROL(processControl, content);
-			
+
 			OnContentLoading(processControl);
 			if(!processControl.skipStep)
 			{
@@ -279,7 +279,7 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 				OnContentLoaded(processControl);
 			}
 		}
-			
+
 		if(!skipTmd)
 		{
 			Tmd(b_tmd);
@@ -302,40 +302,40 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 {
 	if(!File::Exists(file))
 		throw Exception("The wad file doesn't exists.", -1);
-		
+
 	TitleEventArgs processControl;
-	
+
 	//getting wadBuffer
 	Buffer wadBuffer = File::ReadToEnd(file);
 
 	try
 	{
 		wad_header *header =  (wad_header*)wadBuffer.Content();
-		
+
 		//getting offsets
 		u32 o_cert = TITLE_ROUND_UP(header->header_len, 64);
 		u32 o_crl = o_cert + TITLE_ROUND_UP(header->certs_len, 64);
 		u32 o_tik = o_crl + TITLE_ROUND_UP(header->crl_len, 64);
 		u32 o_tmd = o_tik + TITLE_ROUND_UP(header->tik_len, 64);
 		u32 o_ctnt = o_tmd + TITLE_ROUND_UP(header->tmd_len, 64);
-		
+
 		//create temp directory
 		Buffer p_tmd((char*)header + o_tmd, TITLE_ROUND_UP(header->tmd_len, 64));
 		tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
 		CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
-		
+
 		// register certs and crl
 		{
 			Buffer b_cert((char*)header + o_cert, header->certs_len);
 			Certificate(b_cert);
 		}
-		
+
 		if(header->crl_len != 0)
 		{
 			Buffer b_crl((char*)header + o_crl, header->crl_len);
 			Crl(b_crl);
 		}
-			
+
 		//Getting Tiket
 		processControl.buffer.Clear();
 		processControl.buffer.Append((char*)header + o_tik, TITLE_ROUND_UP(header->tik_len, 64));
@@ -347,7 +347,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTicketLoaded(processControl);
 		}
-		
+
 		//Getting tmd
 		processControl.buffer = p_tmd;
 		INIT_PROCESS_CONTROL(processControl, NULL);
@@ -357,18 +357,18 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 		//we've reloaded the p_tmd
 		//so we reload the tmd_data
 		tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
-		
+
 		//getting contents
 		void* p_content = (char*)header + o_ctnt;
 		for (u32 contentIndex = 0; contentIndex < tmd_data->num_contents; contentIndex++)
 		{
 			tmd_content &content = tmd_data->contents[contentIndex];
 			u64 wadContentSize = content.size;
-			
+
 			processControl.buffer.Clear();
 			processControl.buffer.Append(p_content, TITLE_ROUND_UP(content.size, 64));
 			_dataLen += TITLE_ROUND_UP(content.size, 64);
-			
+
 			INIT_PROCESS_CONTROL(processControl, &content);
 			OnContentLoading(processControl);
 			if(!processControl.skipStep)
@@ -377,10 +377,10 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 				INIT_PROCESS_CONTROL(processControl, &content);
 				OnContentLoaded(processControl);
 			}
-			
+
 			p_content = (u8*)p_content + TITLE_ROUND_UP(wadContentSize, 64);
 		}
-		
+
 		if(!skipTmd)
 		{
 			Tmd(p_tmd);
@@ -413,7 +413,7 @@ void Title::PackAsWad(const string& fileName)
 
 	/* Generating the wad header */
 	wad_header header;
-	
+
 	header.header_len = 0x20;
 	header.type[0] = 0x49;
 	header.type[1] = 0x73; //"Is"
@@ -426,13 +426,13 @@ void Title::PackAsWad(const string& fileName)
 	tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
 	header.tmd_len = 484 + tmdData->num_contents * 36;
 	b_tmd.Truncate(header.tmd_len);
-	
+
 	header.data_len = _dataLen;
 	header.footer_len = 0;
-	
+
 	/* Creating the wad header Buffer */
 	Buffer wadHeader(&header, sizeof(wad_header));
-	
+
 	/* filling the buffers to be 0x40 aligned */
 	if(wadHeader.Length() % 64 != 0)
 	{
@@ -445,13 +445,13 @@ void Title::PackAsWad(const string& fileName)
 		Buffer tmdPadding(pad, 64 - b_tmd.Length() % 64);
 		b_tmd.Append(tmdPadding);
 	}
-	
+
 	if(b_cert.Length() % 64 != 0)
 	{
 		Buffer certPadding(pad, 64 - b_cert.Length() % 64);
 		b_cert.Append(certPadding);
 	}
-	
+
 	//truncate to be sure that the ticket has the good length (due to nus)
 	b_tik.Truncate(0x02A4ULL);
 	if(b_tik.Length() % 64 != 0)
@@ -459,23 +459,23 @@ void Title::PackAsWad(const string& fileName)
 		Buffer tikPadding(pad, 64 - b_tik.Length() % 64);
 		b_tik.Append(tikPadding);
 	}
-	
+
 	Directory::Create(Path::GetParentDirectory(fileName));
 	File& wad = File::Create(fileName);
-	
+
 	try
 	{
 		wad.Write(wadHeader);
 		wad.Write(b_cert);
 		wad.Write(b_tik);
 		wad.Write(b_tmd);
-		
+
 		tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
 		for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++)
 		{
 			tmd_content *tmdContent = &tmdData->contents[cnt];
 			Buffer b_content = GetContent(tmdContent->cid);
-			
+
 			if(b_content.Length() % 64 != 0)
 			{
 				Buffer contentPadding(pad, 64 - b_content.Length() % 64);
@@ -483,7 +483,7 @@ void Title::PackAsWad(const string& fileName)
 			}
 			wad.Write(b_content);
 		}
-		
+
 		wad.Close();
 		delete &wad;
 	}
@@ -561,7 +561,7 @@ void Title::Install()
 			ret = ES_AddTitleStart((signed_blob*)processControl.buffer.Content(), tmdLen, (signed_blob*)certificate.Content(), certificate.Length(), (signed_blob*)crl.Content(), crl.Length());
 			if(ret < 0)
 				throw Exception("Error starting title installation.", ret);
-				
+
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTmdInstalled(processControl);
 		}
@@ -652,7 +652,7 @@ void Title::Uninstall(u64 titleId)
 		Title::UninstallUsingISFS(titleId);
 		return;
 	}
-	
+
 	ret = ES_GetNumTicketViews(titleId, &viewCnt);
 	if(ret < 0)
 		throw Exception("Error getting view count.", ret);
@@ -674,7 +674,7 @@ void Title::Uninstall(u64 titleId)
 			if(ret < 0)
 				throw Exception("Error deleting title tickets.", ret);
 		}
-		
+
 		// Delete title content
 		ret = ES_DeleteTitleContent(titleId);
 		if(ret < 0)
@@ -702,17 +702,18 @@ void Title::Uninstall(u64 titleId)
  {
 	u32 titleType = titleId >> 32;
 	u32 id = (u32)titleId;
-	
+
 	stringstream ticketPath;
 	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id << setw(0) << ".tik";
-	
+
 	stringstream titlePath;
-	ticketPath << "wii:/title/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id;
-	
+	titlePath << "wii:/title/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id;
+
+
 	File::Delete(ticketPath.str());
 	Directory::Delete(titlePath.str());
  }
- 
+
 /*!
  * \brief Get the list of all installed IOS
  * \return A list of IOS number

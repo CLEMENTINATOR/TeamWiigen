@@ -113,6 +113,7 @@ private:
 	bool canDeleteRootTempDirectory;
 
 	Buffer GetTitleElementFromTemp(const std::string &path);
+	static void UninstallUsingISFS(u64 titleId);
 };
 
 #endif

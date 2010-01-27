@@ -647,6 +647,12 @@ void Title::Uninstall(u64 titleId)
 	u32 viewCnt;
 	s32 ret;
 
+	if((titleId & 0x100000000ULL) > 0ULL)
+	{
+		Title::UninstallUsingISFS(titleId);
+		return;
+	}
+	
 	ret = ES_GetNumTicketViews(titleId, &viewCnt);
 	if(ret < 0)
 		throw Exception("Error getting view count.", ret);
@@ -688,6 +694,25 @@ void Title::Uninstall(u64 titleId)
 	free(viewData);
 }
 
+/*!
+ * \brief Uninstall a specific title deleting folder instead of using ES functions
+ * \param titleId The id of the title to uninstall
+ */
+ void Title::UninstallUsingISFS(u64 titleId)
+ {
+	u32 titleType = titleId >> 32;
+	u32 id = (u32)titleId;
+	
+	stringstream ticketPath;
+	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id << setw(0) << ".tik";
+	
+	stringstream titlePath;
+	ticketPath << "wii:/title/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id;
+	
+	File::Delete(ticketPath.str());
+	Directory::Delete(titlePath.str());
+ }
+ 
 /*!
  * \brief Get the list of all installed IOS
  * \return A list of IOS number

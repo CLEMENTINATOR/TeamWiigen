@@ -711,7 +711,7 @@ void Title::Uninstall(u64 titleId)
 
 
 	File::Delete(ticketPath.str());
-	Directory::Delete(titlePath.str());
+	Directory::Delete(titlePath.str(), true);
  }
 
 /*!

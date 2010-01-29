@@ -62,6 +62,7 @@ void TruchaRestorer::Install()
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_Old());
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
 	newTitle.AddPatch(SimplePatch::ES_Identify());
+	newTitle.AddPatch(SimplePatch::FFS_PermsCheck());
 
 	OnProgress("Loading title from IOS and aply patches", 0.25);
     newTitle.LoadFromWad(wad.str() , "sd:/temp");

@@ -33,9 +33,10 @@ Sciifii::Sciifii(bool installCorp, bool updateSystem)
 	steps.push_back(new IosReloader(Config::TruchaIOS(), UserType_SU, "sd:/"));
 	steps.push_back(new TitleInstaller(TITLE_IOS(Config::DowngradeIos()), 0, dir));
 	steps.push_back(new Cios(dir));
-	steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
-	steps.push_back(new TitleInstaller(Config::TruchaIOS(), 0, dir));
-	
+
+	if(updateSystem && installCorp)
+		steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
+
 	if(installCorp)
 		steps.push_back(new CiosCorp(dir));
 		
@@ -68,6 +69,8 @@ void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 	cout << "\r";
 
 	cout << (u32)(args->percent * 100) << "%:\t" << args->message;
+
+	cout << flush;
 
 	hasDisplayed = true;
 }

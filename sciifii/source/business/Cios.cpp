@@ -142,10 +142,6 @@ bool Cios::Prepare()
 			return false;
 		}
 	}
-	
-	OnProgress("Deleting old IOS249 or stub.", 0.9);
-
-	Title::Uninstall(0x0000000100000000ULL + 249);
 
 	OnProgress("Waninkoko cIOS preparation done.", 1);
 
@@ -216,10 +212,13 @@ void Cios::Install()
 	stringstream wadFile;
 	wadFile << wadFolder << "/IOS" << 38 << "v" << 3867 << ".wad";
 	
-	OnProgress("Load base wad for cios and patch it!", 0.2);
+	OnProgress("Deleting old IOS249 or stub.", 0.2);
+	Title::Uninstall(0x0000000100000000ULL + 249);
+
+	OnProgress("Load base wad for cios and patch it!", 0.4);
 	cios.LoadFromWad(wadFile.str(), wadFolder);
 	
-	OnProgress("Installation of the cIOS!", 0.6);
+	OnProgress("Installation of the cIOS!", 0.8);
 	cios.Install();
 
 	OnProgress("cIOS installed.", 1);

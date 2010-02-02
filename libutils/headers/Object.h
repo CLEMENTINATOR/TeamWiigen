@@ -2,14 +2,20 @@
 #define _OBJECT_H_
 
 #include <malloc.h>
-#include <iostream>
+#include "debug_utils.h"
+#include <sstream>
 
-#define M1 mi1 = mallinfo()
+#define M1 mi1 = mallinfo();\
+
 #define MINIT mallinfo();\
-std::cout << "used space: " << mi2.uordblks + mi2.usmblks << std::endl
+std::stringstream debug_message;\
+debug_message << "used space: " << mi2.uordblks + mi2.usmblks << std::endl;\
+dbprintf(debug_message.str())
+
 #define M2(x) mi1 = mi2; mi2 = mallinfo();\
-std::cout << std::endl << (x) << " consumed " << mi2.uordblks + mi2.usmblks - mi1.uordblks - mi1.usmblks << std::endl \
-	 << "used space: " << mi2.uordblks + mi2.usmblks << std::endl;
+debug_message << std::endl << (x) << " consumed " << mi2.uordblks + mi2.usmblks - mi1.uordblks - mi1.usmblks << std::endl \
+			  << "used space: " << mi2.uordblks + mi2.usmblks << std::endl;\
+dbprintf(debug_message.str())
 
 class Object
 {

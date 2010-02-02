@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 	  exit(0);*/
 
   try
-  {
+  {	  
 	  Sciifii sci(true, false);
 	  Device::Mount("sd:/");
 	  if(!sci.Prepare())

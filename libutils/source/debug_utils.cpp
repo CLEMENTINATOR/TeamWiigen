@@ -5,10 +5,10 @@ File* f;
 
 void init_debug_out()
 {
-	if(File::Exists("sd:/debug.txt"))
-		File::Delete("sd:/debug.txt");
-		
-	f = &(File::Create("sd:/debug.txt"));
+	if(!File::Exists("sd:/debug.txt"))
+		f = &(File::Create("sd:/debug.txt"));
+	else
+		f = &(File::Open("sd:/debug.txt", FileMode_Write));
 }
 
 void dbprintf(const std::string &message)
@@ -23,4 +23,6 @@ void dbprintf(const std::string &message)
 	
 	Buffer b(message.c_str(), message.size());
 	f->Write(b);
+	f->Close();
+	delete f;
 }

@@ -300,93 +300,183 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
  */
 void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 {
+	struct mallinfo mi1, mi2;
+
 	if(!File::Exists(file))
 		throw Exception("The wad file doesn't exists.", -1);
 
+	MINIT;
 	TitleEventArgs processControl;
+	M2("Creation of the titleEventArgs");
 
 	//getting wadBuffer
+	M1;
 	Buffer wadBuffer = File::ReadToEnd(file);
+	M2("Creation of the wadBuffer");
 
 	try
 	{
+		M1;
 		wad_header *header =  (wad_header*)wadBuffer.Content();
+		M2("Creation of the header");
 
 		//getting offsets
+		M1;
 		u32 o_cert = TITLE_ROUND_UP(header->header_len, 64);
+		M2("Creation of the o_cert");
+		M1;
 		u32 o_crl = o_cert + TITLE_ROUND_UP(header->certs_len, 64);
+		M2("Creation of the o_crl");
+		M1;
 		u32 o_tik = o_crl + TITLE_ROUND_UP(header->crl_len, 64);
+		M2("Creation of the o_tik");
+		M1;
 		u32 o_tmd = o_tik + TITLE_ROUND_UP(header->tik_len, 64);
+		M2("Creation of the o_tmd");
+		M1;
 		u32 o_ctnt = o_tmd + TITLE_ROUND_UP(header->tmd_len, 64);
+		M2("Creation of the o_ctnt");
 
 		//create temp directory
+		M1;
 		Buffer p_tmd((char*)header + o_tmd, TITLE_ROUND_UP(header->tmd_len, 64));
+		M2("Creation of the p_tmd");
+		M1;
 		tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
+		M2("Creation of the tmd_data");
+		M1;
 		CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
+		M2("Creation of the tempDirectory");
 
 		// register certs and crl
 		{
+			M1;
 			Buffer b_cert((char*)header + o_cert, header->certs_len);
+			M2("Creation of the b_cert");
+			M1;
 			Certificate(b_cert);
+			M2("Creation of the certificate");
 		}
 
 		if(header->crl_len != 0)
 		{
+			M1;
 			Buffer b_crl((char*)header + o_crl, header->crl_len);
+			M2("Creation of the b_crl");
+			M1;
 			Crl(b_crl);
+			M2("Creation of the Crl");
 		}
 
 		//Getting Tiket
+		M1;
 		processControl.buffer.Clear();
+		M2("processControl.buffer.clear");
+		M1;
 		processControl.buffer.Append((char*)header + o_tik, TITLE_ROUND_UP(header->tik_len, 64));
+		M2("processControl.buffer.Append");
+		M1;
 		INIT_PROCESS_CONTROL(processControl, NULL);
+		M2("INIT_PROCESS_CONTROL");
+		M1;
 		OnTicketLoading(processControl);
+		M2("OnTicketLoading");
 		if(!processControl.skipStep)
 		{
+			M1;
 			Ticket(processControl.buffer);
+			M2("Ticket");
+			M1;
 			INIT_PROCESS_CONTROL(processControl, NULL);
+			M2("INIT_PROCESS_CONTROL");
+			M1;
 			OnTicketLoaded(processControl);
+			M2("OnTicketLoaded");
 		}
 
 		//Getting tmd
+		M1;
 		processControl.buffer = p_tmd;
+		M2("processControl.buffer");
+		M1;
 		INIT_PROCESS_CONTROL(processControl, NULL);
+		M2("INIT_PROCESS_CONTROL");
+		M1;
 		OnTmdLoading(processControl);
+		M2("OnTmdLoading");
+		M1;
 		bool skipTmd = processControl.skipStep;
+		M2("Creation of the skipTmd");
+		M1;
 		p_tmd = processControl.buffer;
+		M2("modification of the p_tmd");
 		//we've reloaded the p_tmd
 		//so we reload the tmd_data
+		M1;
 		tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
+		M2("modification of the tmd_data");
 
 		//getting contents
+		M1;
 		void* p_content = (char*)header + o_ctnt;
+		M2("Creation of the p_content");
 		for (u32 contentIndex = 0; contentIndex < tmd_data->num_contents; contentIndex++)
 		{
+			M1;
 			tmd_content &content = tmd_data->contents[contentIndex];
+			M2("Creation of the content");
+			M1;
 			u64 wadContentSize = content.size;
+			M2("Creation of the wadContentSize");
 
+			M1;
 			processControl.buffer.Clear();
+			M2("processControl.buffer.Clear");
+			M1;
 			processControl.buffer.Append(p_content, TITLE_ROUND_UP(content.size, 64));
+			M2("processControl.buffer.Append");
+			M1;
 			_dataLen += TITLE_ROUND_UP(content.size, 64);
+			M2("modification of the _dataLen");
 
+			M1;
 			INIT_PROCESS_CONTROL(processControl, &content);
+			M2("INIT_PROCESS_CONTROL");
+			M1;
 			OnContentLoading(processControl);
+			M2("OnContentLoading");
 			if(!processControl.skipStep)
 			{
+				M1;
 				AddContent(processControl.buffer, content.cid);
+				M2("AddContent");
+				M1;
 				INIT_PROCESS_CONTROL(processControl, &content);
+				M2("INIT_PROCESS_CONTROL");
+				M1;
 				OnContentLoaded(processControl);
+				M2("OnContentLoaded");
 			}
 
+			M1;
 			p_content = (u8*)p_content + TITLE_ROUND_UP(wadContentSize, 64);
+			M2("modification of the p_content");
 		}
 
 		if(!skipTmd)
 		{
+			M1;
 			Tmd(p_tmd);
+			M2("Creation of the Tmd");
+			M1;
 			processControl.buffer = p_tmd;
+			M2("processControl.buffer");
+			M1;
 			INIT_PROCESS_CONTROL(processControl, NULL);
+			M2("INIT_PROCESS_CONTROL");
+			M1;
 			OnTmdLoaded(processControl);
+			M2("OnTmdLoaded");
 		}
 	}
 	catch(AbortException &ex)

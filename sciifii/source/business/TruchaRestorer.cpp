@@ -53,44 +53,26 @@ bool TruchaRestorer::Prepare()
 
 void TruchaRestorer::Install()
 {
-	struct mallinfo mi1, mi2;
-	
 	u32 shortId = (u32)_id;
 	
 	stringstream wad;
 	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
 
-	MINIT;
 	TitlePatcher newTitle;	
-	M2("Creation of the patcher");
-	M1;
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_Old());
-	M2("Add ES hash check 1 patch");
-	M1;
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
-	M2("Add ES hash check 2 patch");
-	M1;
 	newTitle.AddPatch(SimplePatch::ES_Identify());
-	M2("Add ES identify patch");
-	M1;
 	newTitle.AddPatch(SimplePatch::FFS_PermsCheck());
-	M2("Add FFS permscheck patch");
 
 	OnProgress("Loading title from IOS and aply patches", 0.25);
 	
-	M1;
     newTitle.LoadFromWad(wad.str() , "sd:/temp");
-	M2("Loading from wad");
 	
     stringstream inst;
     inst << "Installing title.";
 	
-	M1;
     OnProgress(inst.str(), 0.75);
-	M2("Declaring progression");
-	M1;
 	newTitle.Install();
-	M2("Installation");
 	
 	OnProgress("Trucha bug restored.", 1);
 }

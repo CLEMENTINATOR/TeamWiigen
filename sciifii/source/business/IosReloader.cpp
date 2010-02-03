@@ -40,7 +40,7 @@ void IosReloader::Install()
 	
 	if(_device.length() > 0)
 	{
-		Device::UnMount(_device);
+		Device::Mount(_device);
 	}
 	
 	if(_identify)

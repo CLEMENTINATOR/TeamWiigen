@@ -858,12 +858,10 @@ u16 Title::GetInstalledTitleVersion(u64 titleId)
  */
 void Title::CreateTempDirectory(u64 titleId, u16 revision, const std::string& tempDirectory)
 {
-	MINIT;
 	if(Path::GetRoot(tempDirectory) == tempDirectory || Directory::Exists(tempDirectory))
 		canDeleteRootTempDirectory = false;
 	else
 		canDeleteRootTempDirectory = true;
-	M2("Directory detection");
 	
 	stringstream str;
 	str << tempDirectory << "/" << hex << setw(8) << setfill('0') << TITLE_TYPE(titleId);
@@ -874,9 +872,7 @@ void Title::CreateTempDirectory(u64 titleId, u16 revision, const std::string& te
 	_directory = str.str();
 	_directory=Path::CleanPath(_directory);
 	
-	M1;
 	Directory::Create(_directory);
-	M2("Directory creation");
 }
 
 /*!

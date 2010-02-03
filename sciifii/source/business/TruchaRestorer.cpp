@@ -58,7 +58,7 @@ void TruchaRestorer::Install()
 	stringstream wad;
 	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
 
-	TitlePatcher newTitle;	
+	TitlePatcher newTitle(_id, 0xFFFF);	
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_Old());
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
 	newTitle.AddPatch(SimplePatch::ES_Identify());

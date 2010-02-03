@@ -42,17 +42,18 @@ int main(int argc, char **argv)
 
   cout << endl << endl;
 
-  cout << "Cioscorp online Installer v1 based on cios corp v3.6" << endl
+  cout << "Sciifii Installer v1 based on cios corp v4.0" << endl
 	   << "Made by Arasium, Teton and Fanta." << endl
-	   << "Tested by Jicay, JeanMi, Vlad and Thetataz (and many others)." << endl
+	   << "Tested by Jicay, JeanMi59226, Vlad and Thetataz (and many others)." << endl
 	   << "Special thanks to Waninkoko for his help" << endl
 	   << "Thanks to da_letter_a for the cios corp knowledge." << endl
 	   << "mail: TeamWiigen@googlemail.com" << endl << endl
 	   << "this app comes with no warranty"<< endl
 	   << "so if you don't know what you're doing here, fuck off" << endl;
 
-  /*if(!Ask("(& don't press A as well x))"))
-	  exit(0);*/
+  WPAD_Init();
+  if(!Ask("(& don't press A as well x))"))
+	  exit(0);
 
   try
   {	  
@@ -64,6 +65,7 @@ int main(int argc, char **argv)
 		  Pause();
 		  exit(0);
 	  }
+	  WPAD_Shutdown();
 	  sci.Execute();
 	  Device::UnMount("sd:/");
   }
@@ -78,7 +80,6 @@ int main(int argc, char **argv)
   }
 
   cout << "This application will exit, please reboot you wii!";
-  WPAD_Init();
-  Pause();
-  STM_RebootSystem();
+  sleep(3);
+  exit(0);
 }

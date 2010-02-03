@@ -27,16 +27,22 @@ Sciifii::Sciifii(bool installCorp, bool updateSystem)
 {
 	string dir = "sd:/sciifii";
 	
+	//Downgrade IOS
 	steps.push_back(new IosDowngrader(Config::DowngradeIos(), Config::DowngradeIosRevision(), dir));
 	steps.push_back(new IosReloader(Config::DowngradeIos(), UserType_SU, "sd:/"));
+	
+	//Restore Trucha bug
 	steps.push_back(new TruchaRestorer(Config::TruchaIOS(), 0, dir));
 	steps.push_back(new IosReloader(Config::TruchaIOS(), UserType_SU, "sd:/"));
+	
+	//Repair downgraded ios and install cios
 	steps.push_back(new TitleInstaller(TITLE_IOS(Config::DowngradeIos()), 0, dir));
 	steps.push_back(new Cios(dir));
-
-	if(updateSystem || installCorp)
-		steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
-
+	
+	//Repair tbr ios
+	steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
+	steps.push_back(new TitleInstaller(TITLE_IOS(Config::TruchaIOS()), 0, dir));
+	
 	if(installCorp)
 		steps.push_back(new CiosCorp(dir));
 		

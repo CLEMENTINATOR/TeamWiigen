@@ -39,6 +39,11 @@ private:
 	std::vector<titleDescriptor> _updateList;
 	std::vector<titleDescriptor> _partialUpdateList;
 	
+	bool _restoreTrucha;
+	bool _installCios;
+	bool _installCorp;
+	bool _updateSystem;
+	
 	Config();
 	static Config& Instance();
 
@@ -53,6 +58,18 @@ public:
 	static std::vector<ciosDesc>& CorpConfiguration();
 	static std::vector<titleDescriptor>& UpdateList();
 	static std::vector<titleDescriptor>& PartialUpdateList();
+	
+	static bool RestoreTrucha();
+	static void RestoreTrucha(const bool& value);
+	
+	static bool InstallCios();
+	static void InstallCios(const bool& value);
+	
+	static bool InstallCorp();
+	static void InstallCorp(const bool& value);
+	
+	static bool UpdateSystem();
+	static void UpdateSystem(const bool& value);
 };
 
 #endif

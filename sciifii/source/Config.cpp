@@ -10,7 +10,11 @@ Config::Config()
   _truchaIos(36),
   _corp(),
   _updateList(),
-  _partialUpdateList()
+  _partialUpdateList(),
+  _restoreTrucha(true),
+  _installCios(true),
+  _installCorp(true),
+  _updateSystem(true)
 {
 	try
 	{
@@ -145,4 +149,41 @@ std::vector<titleDescriptor>& Config::UpdateList()
 std::vector<titleDescriptor>& Config::PartialUpdateList()
 {
 	return Instance()._partialUpdateList;
+}
+
+
+bool Config::RestoreTrucha()
+{
+	return Instance()._restoreTrucha;
+}
+void Config::RestoreTrucha(const bool& value)
+{
+	Instance()._restoreTrucha = value;
+}
+
+bool Config::InstallCios()
+{
+	return Instance()._installCios;
+}
+void Config::InstallCios(const bool& value)
+{
+	Instance()._installCios = value;
+}
+
+bool Config::InstallCorp()
+{
+	return Instance()._installCorp;
+}
+void Config::InstallCorp(const bool& value)
+{
+	Instance()._installCorp = value;
+}
+
+bool Config::UpdateSystem()
+{
+	return Instance()._updateSystem;
+}
+void Config::UpdateSystem(const bool& value)
+{
+	Instance()._updateSystem = value;
 }

@@ -7,6 +7,8 @@
 #include "Tools.h"
 #include "Sciifii.h"
 #include "Config.h"
+#include "ui/MainMenu.h"
+#include "ui/Disclaimer.h"
 
 #include <cstdlib>
 #include <unistd.h>
@@ -39,25 +41,17 @@ int main(int argc, char **argv)
   CON_InitEx(vmode, x, y, w, h);
   VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);	
 
-
-  cout << endl << endl;
-
-  cout << "Sciifii Installer v1 based on cios corp v4.0" << endl
-	   << "Made by Arasium, Teton and Fanta." << endl
-	   << "Tested by Jicay, JeanMi59226, Vlad and Thetataz (and many others)." << endl
-	   << "Special thanks to Waninkoko for his help" << endl
-	   << "Thanks to da_letter_a for the cios corp knowledge." << endl
-	   << "mail: TeamWiigen@googlemail.com" << endl << endl
-	   << "this app comes with no warranty"<< endl
-	   << "so if you don't know what you're doing here, fuck off" << endl;
-
   WPAD_Init();
-  if(!Ask("(& don't press A as well x))"))
-	  exit(0);
+  
+  MainMenu menu;
+  if(menu.Show() == mmResult_Exit)
+	exit(0);
 
+  Disclaimer::Show();
+  
   try
   {	  
-	  Sciifii sci(true, false);
+	  Sciifii sci;
 	  Device::Mount("sd:/");
 	  if(!sci.Prepare())
 	  {
@@ -79,7 +73,7 @@ int main(int argc, char **argv)
 	cout << "Unexpected Exception";
   }
 
-  cout << "This application will exit, please reboot you wii!";
+  cout << "This application will reboot in 3 seconds!";
   sleep(3);
-  exit(0);
+  STM_RebootSystem();
 }

@@ -23,6 +23,8 @@ typedef struct
 {
 	u64 title;
 	u16 revision;
+	bool usedInCorp;
+	bool usedForCios;
 } titleDescriptor;
 
 class Config : public Object
@@ -34,10 +36,13 @@ private:
 	u16 _downgradeIosRevision;
 
 	u32 _truchaIos;
+	
+	u32 _ciosSlot;
+	u16 _ciosRevision;
 
 	std::vector<ciosDesc> _corp;
+	std::vector<titleDescriptor> _systemTitleList;
 	std::vector<titleDescriptor> _updateList;
-	std::vector<titleDescriptor> _partialUpdateList;
 	
 	bool _restoreTrucha;
 	bool _installCios;
@@ -47,17 +52,21 @@ private:
 	Config();
 	static Config& Instance();
 
-public:
+	void CreateUpdateList();
+	
+public:	
 	static bool HasNetwork();
 
 	static u32 DowngradeIos();
 	static u16 DowngradeIosRevision();
 
 	static u32 TruchaIOS();
+	
+	static u32 CiosSlot();
+	static u16 CiosRevision();
 
 	static std::vector<ciosDesc>& CorpConfiguration();
 	static std::vector<titleDescriptor>& UpdateList();
-	static std::vector<titleDescriptor>& PartialUpdateList();
 	
 	static bool RestoreTrucha();
 	static void RestoreTrucha(const bool& value);

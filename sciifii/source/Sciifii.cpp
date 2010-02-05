@@ -57,9 +57,7 @@ Sciifii::Sciifii()
 	if(Config::InstallCorp())
 		steps.push_back(new CiosCorp(dir));
 		
-	if(Config::UpdateSystem() && Config::InstallCorp())
-		steps.push_back(new SystemUpdater(Config::PartialUpdateList(), dir));
-	else if(Config::UpdateSystem() )
+	if(Config::UpdateSystem() )
 		steps.push_back(new SystemUpdater(Config::UpdateList(), dir));
 	
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)

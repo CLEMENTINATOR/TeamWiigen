@@ -1,5 +1,6 @@
 #include "Config.h"
 #include <libutils/com/NetworkRequest.h>
+#include <libutils/system/Title.h>
 
 using namespace std;
 
@@ -51,7 +52,7 @@ Config::Config()
 	_corp.push_back((ciosDesc){	58,	58,	5918,	17,	0,	false,	false,	false, 	"http://dmanspokehackland.webs.com/cIOSCORP/IOS58-64-v5918.wad"});
 	_corp.push_back((ciosDesc){	60,	60,	6174,	13,	0, 	true,	false,	true,	""});
 	_corp.push_back((ciosDesc){	70,	60,	6174,	13,	0, 	true,	false,	true,	""});
-	
+
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000004ULL, 0xff00});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000009ULL, 0x030a});
 	 _systemTitleList.push_back((titleDescriptor){ 0x000000010000000aULL, 0x0300});
@@ -110,10 +111,18 @@ void Config::CreateUpdateList()
 				addIt = false;
 				break;
 			}
-			
+
 		if(_installCios && ios->title == 0x100000000ULL + _ciosSlot)
 			addIt = false;
-			
+
+			if(addIt && Title::IsInstalled(ios->title))
+			{
+			    if(Title::GetInstalledTitleVersion(ios->title)>=ios->revision)
+			    {
+			        addIt=false;
+			    }
+			}
+
 		if(addIt)
 			_updateList.push_back(*ios);
 	}

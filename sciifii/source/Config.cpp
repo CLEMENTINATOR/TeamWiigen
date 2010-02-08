@@ -122,10 +122,8 @@ void Config::CreateUpdateList(bool uninstall)
 				break;
 			}
 			
-		if(!IS_IOS(ios->title))
-		{
-			addIt = false;
-		}
+		if(!IS_IOS(ios->title) && Title::IsInstalled(ios->title) && Title::GetInstalledTitleVersion(ios->title) >= ios->revision)
+		  addIt=false;
 
 		if(addIt)
 			Instance()._updateList.push_back(*ios);

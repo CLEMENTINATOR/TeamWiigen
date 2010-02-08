@@ -8,13 +8,11 @@
 
 typedef enum
 {
-	mmResult_RestoreTrucha = 0,
-	mmResult_InstallCios = 1,
-	mmResult_InstallCorp = 2,
-	mmResult_Update = 3,
-	mmResult_Go = 4,
-	mmResult_Uninstall = 5,
-	mmResult_Exit = 6,
+	mmResult_Hack = 0,
+	mmResult_HackNoCorp = 1,
+	mmResult_AdvancedHack = 2,
+	mmResult_Unhack = 3,
+	mmResult_Exit = 4,
 	
 } MainMenuResult;
 
@@ -28,7 +26,6 @@ private:
 
 	void Display();
 	void ManageConfig(MainMenuResult choice);
-	bool GetConfig(MainMenuResult choice);
 public:
 	MainMenu();
 	MainMenuResult Show();

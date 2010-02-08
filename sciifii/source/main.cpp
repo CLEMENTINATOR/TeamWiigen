@@ -8,6 +8,7 @@
 #include "Sciifii.h"
 #include "Config.h"
 #include "ui/MainMenu.h"
+#include "ui/AdvancedMenu.h"
 #include "ui/Disclaimer.h"
 
 #include <cstdlib>
@@ -49,15 +50,23 @@ int main(int argc, char **argv)
   if(result == mmResult_Exit)
 	exit(0);
 	
-  bool uninstall = (result == mmResult_Uninstall ? true : false);
+  bool uninstall = (result == mmResult_Unhack ? true : false);
 
+  if(!uninstall)
+  {
+	AdvancedMenu aMenu;
+	AdvancedMenuResult aresult = aMenu.Show();
+	if(aresult == amResult_Exit)
+		exit(0);
+  }
+  
   Config::CreateUpdateList(uninstall);
   
   Disclaimer::Show();
   
   try
   {	  
-	  Sciifii sci(uninstall);
+	  Sciifii sci;
 	  Device::Mount("sd:/");
 	  if(!sci.Prepare())
 	  {

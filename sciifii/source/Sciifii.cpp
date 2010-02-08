@@ -22,12 +22,12 @@ using namespace std;
 
 #define TITLE_IOS(x) (0x0000000100000000ULL + x)
 
-Sciifii::Sciifii(bool uninstall)
+Sciifii::Sciifii()
 : hasDisplayed(false)
 {
 	string dir = "sd:/sciifii";
 	
-	if(Config::RestoreTrucha() || uninstall)
+	if(Config::RestoreTrucha())
 	{
 		//Downgrade IOS
 		steps.push_back(new IosDowngrader(Config::DowngradeIos(), Config::DowngradeIosRevision(), dir));
@@ -37,27 +37,27 @@ Sciifii::Sciifii(bool uninstall)
 		steps.push_back(new TruchaRestorer(Config::TruchaIOS(), 0, dir));
 	}
 	
-	if(Config::RestoreTrucha() || Config::InstallCios() || uninstall)
+	if(Config::RestoreTrucha() || Config::InstallCios())
 		steps.push_back(new IosReloader(Config::TruchaIOS(), UserType_SU, "sd:/"));
 	
 	//Repair downgraded ios
-	if(Config::RestoreTrucha() || uninstall)
+	if(Config::RestoreTrucha())
 		steps.push_back(new TitleInstaller(TITLE_IOS(Config::DowngradeIos()), 0, dir));
 		
 	//install cios
-	if(Config::InstallCios() || uninstall)
+	if(Config::InstallCios())
 		steps.push_back(new Cios(dir));
 	
 	steps.push_back(new IosReloader(249, UserType_SU, "sd:/"));
 	
 	//Repair tbr ios
-	if(Config::RestoreTrucha() || uninstall)
+	if(Config::RestoreTrucha())
 		steps.push_back(new TitleInstaller(TITLE_IOS(Config::TruchaIOS()), 0, dir));
 	
 	if(Config::InstallCorp())
 		steps.push_back(new CiosCorp(dir));
 		
-	if(Config::UpdateSystem() || uninstall)
+	if(Config::UpdateSystem())
 		steps.push_back(new SystemUpdater(Config::UpdateList(), dir));
 	
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)

@@ -13,12 +13,10 @@ MainMenu::MainMenu()
   menuMaxLength(0),
   selectIndex(0)
 {
-    actions.push_back("Restore Tucha Bug");
-    actions.push_back("Install cios rev17 (DL Bug Fix)");
-    actions.push_back("Install the cioscorp");
-    actions.push_back("Install firmware 4.2");
-    actions.push_back("Start Installation");
-	actions.push_back("Uninstall hacks and update to 4.2");
+    actions.push_back("Hack your wii!!");
+    actions.push_back("Hack your wii (no corp)!!");
+    actions.push_back("Hack your wii (advanced mode)!!");
+    actions.push_back("Unhack your wii.");
     actions.push_back("Exit");
 	
 	for(vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite++)
@@ -40,16 +38,7 @@ void MainMenu::Display()
     for (vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite ++)
     {
 		//add config result here		
-		if(position < 4)
-		{
-			bool selected = GetConfig((MainMenuResult)position);
-			string choice = selected ? "Yes" : "No";
-			string color = selected ? green : red;
-			cout << (position == cursorPosition ? ">>>\t" : "   \t") << setw(menuMaxLength) << left << *ite << setw(0) << right << "\t" << color << choice << "\x1b[37m" << endl;
-		}
-		else
-			cout << (position == cursorPosition ? ">>>\t" : "   \t") << *ite << endl;
-			
+		cout << (position == cursorPosition ? ">>>\t" : "   \t") << *ite << endl;	
         position++;
     }
 
@@ -79,13 +68,11 @@ MainMenuResult MainMenu::Show()
             if (cursorPosition >= nbItems)
                 cursorPosition = 0;
         }
-        else if (command & (WPAD_BUTTON_A | WPAD_BUTTON_LEFT | WPAD_BUTTON_RIGHT))
+        else if (command & WPAD_BUTTON_A)
         {
 			MainMenuResult item = (MainMenuResult)cursorPosition;
-			if(cursorPosition < 4)
-			  ManageConfig(item);
-			else
-			  return item;
+			ManageConfig(item);
+			return item;
 		}
         else if (command & WPAD_BUTTON_B)
             cursorPosition = nbItems - 1;
@@ -97,38 +84,22 @@ void MainMenu::ManageConfig(MainMenuResult choice)
 {
 	switch(choice)
 	{
-		case mmResult_RestoreTrucha:
-			Config::RestoreTrucha(!Config::RestoreTrucha());
+		case mmResult_Hack:
+			Config::RestoreTrucha(true);
+			Config::InstallCios(true);
+			Config::InstallCorp(true);
+			Config::UpdateSystem(true);
 			break;
-		case mmResult_InstallCios:
-			Config::InstallCios(!Config::InstallCios());
-			break;
-		case mmResult_InstallCorp:
-			Config::InstallCorp(!Config::InstallCorp());
-			break;
-		case mmResult_Update:
-			Config::UpdateSystem(!Config::UpdateSystem());
+		case mmResult_HackNoCorp:
+		case mmResult_Unhack:
+			Config::RestoreTrucha(true);
+			Config::InstallCios(true);
+			Config::InstallCorp(false);
+			Config::UpdateSystem(true);
 			break;
 		default:
 			break;
 	}
 	
 	return;
-}
-
-bool MainMenu::GetConfig(MainMenuResult choice)
-{
-	switch(choice)
-	{
-		case mmResult_RestoreTrucha:
-			return Config::RestoreTrucha();
-		case mmResult_InstallCios:
-			return Config::InstallCios();
-		case mmResult_InstallCorp:
-			return Config::InstallCorp();
-		case mmResult_Update:
-			return Config::UpdateSystem();
-		default:
-			return false;
-	}
 }

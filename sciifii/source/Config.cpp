@@ -103,7 +103,13 @@ void Config::CreateUpdateList(bool uninstall)
 {
 	if(uninstall)
 	{
-		Instance()._updateList = Instance()._systemTitleList;
+		for(vector<titleDescriptor>::iterator ios = Instance()._systemTitleList.begin(); ios != Instance()._systemTitleList.end(); ios++)
+		{
+			if(!IS_IOS(ios->title) && Title::IsInstalled(ios->title) && Title::GetInstalledTitleVersion(ios->title) >= ios->revision)
+				continue;
+				
+			Instance()._updateList.push_back(*ios);
+		}
 		return;
 	}
 	

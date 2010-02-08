@@ -77,18 +77,20 @@ int main(int argc, char **argv)
 	  WPAD_Shutdown();
 	  sci.Execute();
 	  Device::UnMount("sd:/");
+	  cout << "Installation done! Press A to reboot the wii.";
   }
   catch(Exception &ex)
   {
 	cout << endl << "\x1b[33m" << "Exception " << ex.GetCode() << endl
-		 << ex.GetMessage() << "\x1b[37m" << endl;
+		 << ex.GetMessage() << "\x1b[37m" << endl
+		 << "Press A to reboot the wii and the relaunch sciifii.";
   }
   catch(...)
   {
-	cout << "Unexpected Exception";
+	cout << "Unexpected Exception!" << endl
+		 << "Press A to reboot the wii and then relaunch sciifii.";
   }
-
-  cout << "This application will reboot in 3 seconds!";
-  sleep(3);
+  WPAD_Init();
+  Pause();
   STM_RebootSystem();
 }

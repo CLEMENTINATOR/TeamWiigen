@@ -5,7 +5,7 @@
 #include <exception/Exception.h>
 #include <com/NetworkRequest.h>
 
-#define BLOCK_SIZE		100
+#define BLOCK_SIZE		8192
 #define NETWORK_PORT 80
 
 static char hostip[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};

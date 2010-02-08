@@ -23,8 +23,7 @@ typedef struct
 {
 	u64 title;
 	u16 revision;
-	bool usedInCorp;
-	bool usedForCios;
+	bool onlyOnUninstall;
 } titleDescriptor;
 
 class Config : public Object
@@ -51,10 +50,10 @@ private:
 	
 	Config();
 	static Config& Instance();
-
-	void CreateUpdateList();
 	
 public:	
+	static void CreateUpdateList(bool uninstall);
+	
 	static bool HasNetwork();
 
 	static u32 DowngradeIos();

@@ -40,6 +40,9 @@ typedef struct {
  * The Title class allow the user to install/unistall/load from Nus serv or a WAD file.
  */
 
+inline u32 TITLE_ID(u64 title) { return (u32)title; }
+inline u32 TITLE_TYPE(u64 title) { return title >> 32; }
+inline bool IS_IOS(u64 title) { return (title & 0x100000000ULL) > 0; }
 
 class Title : public Object
 {

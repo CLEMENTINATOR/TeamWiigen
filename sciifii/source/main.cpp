@@ -44,14 +44,20 @@ int main(int argc, char **argv)
   WPAD_Init();
   
   MainMenu menu;
-  if(menu.Show() == mmResult_Exit)
+  MainMenuResult result = menu.Show();
+  
+  if(result == mmResult_Exit)
 	exit(0);
+	
+  bool uninstall = (result == mmResult_Uninstall ? true : false);
 
+  Config::CreateUpdateList(uninstall);
+  
   Disclaimer::Show();
   
   try
   {	  
-	  Sciifii sci;
+	  Sciifii sci(uninstall);
 	  Device::Mount("sd:/");
 	  if(!sci.Prepare())
 	  {

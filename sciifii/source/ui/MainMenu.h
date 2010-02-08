@@ -13,7 +13,8 @@ typedef enum
 	mmResult_InstallCorp = 2,
 	mmResult_Update = 3,
 	mmResult_Go = 4,
-	mmResult_Exit = 5,
+	mmResult_Uninstall = 5,
+	mmResult_Exit = 6,
 	
 } MainMenuResult;
 

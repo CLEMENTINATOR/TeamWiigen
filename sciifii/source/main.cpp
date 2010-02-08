@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 	
   bool uninstall = (result == mmResult_Unhack ? true : false);
 
-  if(!uninstall)
+  if(result == mmResult_AdvancedHack)
   {
 	AdvancedMenu aMenu;
 	AdvancedMenuResult aresult = aMenu.Show();

@@ -21,9 +21,6 @@ using namespace std;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
 
-inline u32 TITLE_ID(u64 title) { return (u32)title; }
-inline u32 TITLE_TYPE(u64 title) { return title >> 32; }
-
 /*!
  * \brief Constructor
  * \param automaticCleaning If true, temporary files will be automatically cleaned (true by default)

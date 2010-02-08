@@ -63,35 +63,21 @@ int main(int argc, char **argv)
   Config::CreateUpdateList(uninstall);
 
   Disclaimer::Show();
-<<<<<<< .mine
   WPAD_Shutdown();
   
-=======
-
->>>>>>> .r32
   try
   {
 	  Sciifii sci;
 	  Device::Mount("sd:/");
-<<<<<<< .mine
-	  if(sci.Prepare())
-=======
       WPAD_Shutdown();
-	  if(!sci.Prepare())
->>>>>>> .r32
+	  if(sci.Prepare())
 	  {
 	    sci.Execute();
 	    Device::UnMount("sd:/");
 	    cout << "Installation done! Press A to reboot the wii.";
 	  }
-<<<<<<< .mine
 	  else
 	    cout << "An error occured. Press A to reboot the wii.";
-=======
-	  sci.Execute();
-	  Device::UnMount("sd:/");
-	  cout << "Installation done! Press A to reboot the wii.";
->>>>>>> .r32
   }
   catch(Exception &ex)
   {

@@ -9,8 +9,8 @@ void Disclaimer::Show()
   //clear screen
   cout << "\x1b[2J";
   cout << "\x1b[2;0H";
-  
-  
+
+
   cout << endl << endl;
 
   cout << "Sciifii Installer v1 based on cios corp v4.0" << endl
@@ -19,6 +19,6 @@ void Disclaimer::Show()
 	   << "Special thanks to Waninkoko for his help" << endl
 	   << "Thanks to da_letter_a for the cios corp knowledge." << endl
 	   << "mail: TeamWiigen@googlemail.com" << endl << endl
-	   << "this app comes with no warranty"<< endl
-	   << "so if you don't know what you're doing here, fuck off." << endl << endl;
+	   << "This app comes with no warranty"<< endl
+	   << "So if you don't know what you're doing here, get out NOW !" << endl << endl;
 }

@@ -40,16 +40,16 @@ int main(int argc, char **argv)
 
   // Initialize the console
   CON_InitEx(vmode, x, y, w, h);
-  VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);	
+  VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);
 
   WPAD_Init();
-  
+
   MainMenu menu;
   MainMenuResult result = menu.Show();
-  
+
   if(result == mmResult_Exit)
 	exit(0);
-	
+
   bool uninstall = (result == mmResult_Unhack ? true : false);
 
   if(result == mmResult_AdvancedHack)
@@ -59,22 +59,22 @@ int main(int argc, char **argv)
 	if(aresult == amResult_Exit)
 		exit(0);
   }
-  
+
   Config::CreateUpdateList(uninstall);
-  
+
   Disclaimer::Show();
-  
+
   try
-  {	  
+  {
 	  Sciifii sci;
 	  Device::Mount("sd:/");
+      WPAD_Shutdown();
 	  if(!sci.Prepare())
 	  {
 		  cout << "Press a button to exit.";
 		  Pause();
 		  exit(0);
 	  }
-	  WPAD_Shutdown();
 	  sci.Execute();
 	  Device::UnMount("sd:/");
 	  cout << "Installation done! Press A to reboot the wii.";

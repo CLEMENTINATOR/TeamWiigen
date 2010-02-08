@@ -13,7 +13,7 @@ private:
 
 	bool hasDisplayed;
 public:
-	Sciifii(bool uninstall);
+	Sciifii();
 	~Sciifii();
 	bool Prepare();
 	void Execute();

@@ -17,7 +17,7 @@ Config::Config()
   _restoreTrucha(true),
   _installCios(true),
   _installCorp(true),
-  _updateSystem(true)
+  _updateSystem(false)
 {
 	try
 	{
@@ -75,8 +75,13 @@ Config::Config()
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000024ULL, 0x0d17,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000025ULL, 0x0f1d,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000026ULL, 0x0f1b,	false});
+	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000029ULL, 0x0d14,	false});
+	_systemTitleList.push_back((titleDescriptor){ 0x000000010000002BULL, 0x0d14,	false});
+	_systemTitleList.push_back((titleDescriptor){ 0x000000010000002DULL, 0x0d14,	false});
+	_systemTitleList.push_back((titleDescriptor){ 0x000000010000002EULL, 0x0d16,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000032ULL, 0x1400,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000033ULL, 0x1300,	false});
+	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000034ULL, 0x1700,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000035ULL, 0x151e,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000037ULL, 0x151e,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000038ULL, 0x151d,	false});
@@ -85,7 +90,6 @@ Config::Config()
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000046ULL, 0x1a1f,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e2,	false}); //we put the system menu after ios70 loading to avoid bricks if ios70 isn't ok
 	_systemTitleList.push_back((titleDescriptor){ 0x000000010000003cULL, 0x1900,	false}); //the ios60 stub is placed after the new SysMenu installation
-	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000feULL, 0x0104,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000100ULL, 0x0006,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000101ULL, 0x000a,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414141ULL, 0x0002,	false});
@@ -93,9 +97,10 @@ Config::Config()
 	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414341ULL, 0x0006,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414650ULL, 0x0007,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414750ULL, 0x0007,	false});
+	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000feULL, 0x0104,	true}); //bootmi IOS
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000deULL, 0xff00,	true}); // we put the stubs at the end to avoid any problems
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000dfULL, 0xff00,	true}); // hermes cioses
-	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000faULL, 0xff00,	true}); // this remove bootmii ios and DVDx
+	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000faULL, 0xff00,	true}); // this remove the 250
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000f9ULL, 0xff00,	true}); // the 249 at the end
 }
 
@@ -110,6 +115,8 @@ void Config::CreateUpdateList(bool uninstall)
 				
 			Instance()._updateList.push_back(*ios);
 		}
+		
+		Instance()._updateSystem = true;
 		return;
 	}
 	

@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 
 #include <libutils/exception/Exception.h>
 #include <libutils/fs/File.h>
@@ -30,7 +31,7 @@ bool SystemUpdater::Prepare()
 		if(type == 1)
 			wadName << "IOS" << shortId << "v" << ite->revision << ".wad";
 		else
-			wadName << type << "-" << shortId << "v" << ite->revision << ".wad";
+			wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
 			
 		wadFile << wadFolder << "/" << wadName.str();
 		

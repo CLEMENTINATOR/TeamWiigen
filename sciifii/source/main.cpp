@@ -48,7 +48,7 @@ int main(int argc, char **argv)
   MainMenuResult result = menu.Show();
 
   if(result == mmResult_Exit)
-	exit(0);
+		  STM_RebootSystem();
 
   bool uninstall = (result == mmResult_Unhack ? true : false);
 
@@ -57,14 +57,14 @@ int main(int argc, char **argv)
 	AdvancedMenu aMenu;
 	AdvancedMenuResult aresult = aMenu.Show();
 	if(aresult == amResult_Exit)
-		exit(0);
+		  STM_RebootSystem();
   }
 
   Config::CreateUpdateList(uninstall);
 
   Disclaimer::Show();
   WPAD_Shutdown();
-  
+
   try
   {
 	  Sciifii sci;

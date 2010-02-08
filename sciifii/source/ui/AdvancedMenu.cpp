@@ -13,13 +13,13 @@ AdvancedMenu::AdvancedMenu()
   menuMaxLength(0),
   selectIndex(0)
 {
-    actions.push_back("Restore Tucha Bug");
+    actions.push_back("Restore Trucha Bug");
     actions.push_back("Install cios rev17 (DL Bug Fix)");
     actions.push_back("Install the cioscorp");
     actions.push_back("Install firmware 4.2");
     actions.push_back("Start Installation");
     actions.push_back("Exit");
-	
+
 	for(vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite++)
 	{
 		if(ite->size() > menuMaxLength)
@@ -30,15 +30,15 @@ AdvancedMenu::AdvancedMenu()
 void AdvancedMenu::Display()
 {
 	u32 position = 0;
-	
+
     Disclaimer::Show();
 
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
-	
+
     for (vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite ++)
     {
-		//add config result here		
+		//add config result here
 		if(position < 4)
 		{
 			bool selected = GetConfig((AdvancedMenuResult)position);
@@ -48,7 +48,7 @@ void AdvancedMenu::Display()
 		}
 		else
 			cout << (position == cursorPosition ? ">>>\t" : "   \t") << *ite << endl;
-			
+
         position++;
     }
 
@@ -111,7 +111,7 @@ void AdvancedMenu::ManageConfig(AdvancedMenuResult choice)
 		default:
 			break;
 	}
-	
+
 	return;
 }
 

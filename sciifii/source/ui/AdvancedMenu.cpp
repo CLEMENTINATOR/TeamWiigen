@@ -18,7 +18,6 @@ AdvancedMenu::AdvancedMenu()
     actions.push_back("Install the cioscorp");
     actions.push_back("Install firmware 4.2");
     actions.push_back("Start Installation");
-	actions.push_back("Uninstall hacks and update to 4.2");
     actions.push_back("Exit");
 	
 	for(vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite++)

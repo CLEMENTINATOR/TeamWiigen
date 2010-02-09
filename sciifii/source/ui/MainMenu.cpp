@@ -31,6 +31,9 @@ void MainMenu::Display()
 	u32 position = 0;
 	
     Disclaimer::Show();
+	
+	cout << endl << endl << "All these options will also update your wii to 4.2." << endl
+		 << "If you don't want to update, use advanced mode." << endl << endl;
 
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";

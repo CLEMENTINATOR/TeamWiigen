@@ -88,6 +88,8 @@ void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 	cout << flush;
 
 	hasDisplayed = true;
+	
+	VIDEO_WaitVSync();
 }
 
 bool Sciifii::Prepare()

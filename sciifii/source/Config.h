@@ -50,7 +50,7 @@ private:
 	
 	Config();
 	static Config& Instance();
-	
+		
 public:	
 	static void CreateUpdateList(bool uninstall);
 	

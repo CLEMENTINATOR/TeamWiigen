@@ -1,6 +1,8 @@
 #include "Config.h"
 #include <libutils/com/NetworkRequest.h>
 #include <libutils/system/Title.h>
+#include <ogc/conf.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -17,7 +19,7 @@ Config::Config()
   _restoreTrucha(true),
   _installCios(true),
   _installCorp(true),
-  _updateSystem(false)
+  _updateSystem(true)
 {
 	try
 	{
@@ -26,7 +28,11 @@ Config::Config()
 	}
 	catch(...)
 	{}
-
+	
+	s32 region = CONF_GetRegion();
+	if(region == CONF_REGION_CN)
+		exit(0);
+		
 	_corp.push_back((ciosDesc){	9,	60,	6174,	13,	0,	true,	false,	true,	""});
 	_corp.push_back((ciosDesc){	11,	60,	6174,	13, 0,	true,	false,	true,	""});
 	_corp.push_back((ciosDesc){	17,	53,	5149,	17, 0,	false,	false,	true,	""});
@@ -87,16 +93,60 @@ Config::Config()
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000038ULL, 0x151d,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000039ULL, 0x161d,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x000000010000003dULL, 0x151d,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000046ULL, 0x1a1f,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e2,	false}); //we put the system menu after ios70 loading to avoid bricks if ios70 isn't ok
+	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000046ULL, 0x1a1f,	false}); //the sysMenu 4.2 ios
+	
+	switch(region) //sysMenu
+	{
+		case CONF_REGION_JP:
+			_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e0,	false});
+			break;
+		case CONF_REGION_US:
+			_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e1,	false});
+			break;
+		case CONF_REGION_EU:
+			_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e2,	false});
+			break;
+		case CONF_REGION_KR:
+			_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e6,	false});
+			break;
+	}
+	
 	_systemTitleList.push_back((titleDescriptor){ 0x000000010000003cULL, 0x1900,	false}); //the ios60 stub is placed after the new SysMenu installation
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000100ULL, 0x0006,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000101ULL, 0x000a,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414141ULL, 0x0002,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414241ULL, 0x0012,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414341ULL, 0x0006,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414650ULL, 0x0007,	false});
-	_systemTitleList.push_back((titleDescriptor){ 0x0001000248414750ULL, 0x0007,	false});
+	
+	switch(region)  //channels
+	{
+		case CONF_REGION_JP:
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414141ULL, 0x0002,	false});  //Photo
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414241ULL, 0x0012,	false});  //Shopping
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414341ULL, 0x0006,	false});  //Mii channel
+			_systemTitleList.push_back((titleDescriptor){ 0x000100024841464AULL, 0x0007,	false});  //weather
+			_systemTitleList.push_back((titleDescriptor){ 0x000100024841474AULL, 0x0007,	false});  //news
+			break;
+		case CONF_REGION_US:
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414141ULL, 0x0002,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414241ULL, 0x0012,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414341ULL, 0x0006,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414645ULL, 0x0007,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414745ULL, 0x0007,	false});
+			break;
+		case CONF_REGION_EU:
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414141ULL, 0x0002,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414241ULL, 0x0012,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414341ULL, 0x0006,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414650ULL, 0x0007,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414750ULL, 0x0007,	false});
+			break;
+		case CONF_REGION_KR:
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414141ULL, 0x0002,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x000100024841424BULL, 0x0012,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414341ULL, 0x0006,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414641ULL, 0x0007,	false});
+			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414741ULL, 0x0007,	false});
+			break;
+	}	
+	
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000feULL, 0x0104,	true}); //bootmi IOS
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000deULL, 0xff00,	true}); // we put the stubs at the end to avoid any problems
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000dfULL, 0xff00,	true}); // hermes cioses

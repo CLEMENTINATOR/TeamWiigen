@@ -16,6 +16,7 @@
 #include "business/TruchaRestorer.h"
 #include "business/IosReloader.h"
 #include "business/SystemUpdater.h"
+#include "business/LoaderGX.h"
 
 using namespace fastdelegate;
 using namespace std;
@@ -26,6 +27,8 @@ Sciifii::Sciifii()
 : hasDisplayed(false)
 {
 	string dir = "sd:/sciifii";
+	
+	Directory::Create(dir);
 	
 	if(Config::RestoreTrucha())
 	{
@@ -59,6 +62,9 @@ Sciifii::Sciifii()
 		
 	if(Config::UpdateSystem())
 		steps.push_back(new SystemUpdater(Config::UpdateList(), dir));
+		
+	if(Config::InstallGX())
+		steps.push_back(new LoaderGX(dir));
 	
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 		(*ite)->Progressing += MakeDelegate(this, &Sciifii::DisplayProgress);

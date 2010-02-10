@@ -17,6 +17,7 @@ AdvancedMenu::AdvancedMenu()
     actions.push_back("Install cios rev17 (DL Bug Fix)");
     actions.push_back("Install the cioscorp");
     actions.push_back("Install firmware 4.2");
+	actions.push_back("Install LoaderGX");
     actions.push_back("Start Installation");
     actions.push_back("Exit");
 
@@ -29,7 +30,7 @@ AdvancedMenu::AdvancedMenu()
 
 void AdvancedMenu::Display()
 {
-	u32 position = 0;
+	u32 position = 0, virtualPosition = 0;
 
     Disclaimer::Show();
 
@@ -39,9 +40,14 @@ void AdvancedMenu::Display()
     for (vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite ++)
     {
 		//add config result here
-		if(position < 4)
+		if(virtualPosition < 5)
 		{
-			bool selected = GetConfig((AdvancedMenuResult)position);
+			if(virtualPosition == amResult_InstallGX && !Config::HasNetwork())
+			{
+				virtualPosition++;
+				continue;
+			}
+			bool selected = GetConfig((AdvancedMenuResult)virtualPosition);
 			string choice = selected ? "Yes" : "No";
 			string color = selected ? green : red;
 			cout << (position == cursorPosition ? ">>>\t" : "   \t") << setw(menuMaxLength) << left << *ite << setw(0) << right << "\t" << color << choice << "\x1b[37m" << endl;
@@ -50,6 +56,7 @@ void AdvancedMenu::Display()
 			cout << (position == cursorPosition ? ">>>\t" : "   \t") << *ite << endl;
 
         position++;
+		virtualPosition++;
     }
 
     nbItems = position;
@@ -81,7 +88,7 @@ AdvancedMenuResult AdvancedMenu::Show()
         else if (command & (WPAD_BUTTON_A | WPAD_BUTTON_LEFT | WPAD_BUTTON_RIGHT))
         {
 			AdvancedMenuResult item = (AdvancedMenuResult)cursorPosition;
-			if(cursorPosition < 4)
+			if(cursorPosition < 5)
 			  ManageConfig(item);
 			else
 			  return item;
@@ -108,6 +115,9 @@ void AdvancedMenu::ManageConfig(AdvancedMenuResult choice)
 		case amResult_Update:
 			Config::UpdateSystem(!Config::UpdateSystem());
 			break;
+		case amResult_InstallGX:
+			Config::InstallGX(!Config::InstallGX());
+			break;
 		default:
 			break;
 	}
@@ -127,6 +137,8 @@ bool AdvancedMenu::GetConfig(AdvancedMenuResult choice)
 			return Config::InstallCorp();
 		case amResult_Update:
 			return Config::UpdateSystem();
+		case amResult_InstallGX:
+			return Config::InstallGX();
 		default:
 			return false;
 	}

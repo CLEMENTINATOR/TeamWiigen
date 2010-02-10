@@ -87,18 +87,9 @@ void MainMenu::ManageConfig(MainMenuResult choice)
 {
 	switch(choice)
 	{
-		case mmResult_Hack:
-			Config::RestoreTrucha(true);
-			Config::InstallCios(true);
-			Config::InstallCorp(true);
-			Config::UpdateSystem(true);
-			break;
 		case mmResult_HackNoCorp:
 		case mmResult_Unhack:
-			Config::RestoreTrucha(true);
-			Config::InstallCios(true);
-			Config::InstallCorp(false);
-			Config::UpdateSystem(true);
+			Config::InstallCorp(false); //the system will be overriden, so we can skip this to reduce operation time
 			break;
 		default:
 			break;

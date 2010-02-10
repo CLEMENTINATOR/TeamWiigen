@@ -47,6 +47,7 @@ private:
 	bool _installCios;
 	bool _installCorp;
 	bool _updateSystem;
+	bool _installGX;
 	
 	Config();
 	static Config& Instance();
@@ -78,6 +79,9 @@ public:
 	
 	static bool UpdateSystem();
 	static void UpdateSystem(const bool& value);
+	
+	static bool InstallGX();
+	static void InstallGX(const bool& value);
 };
 
 #endif

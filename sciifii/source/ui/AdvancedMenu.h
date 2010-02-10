@@ -12,8 +12,9 @@ typedef enum
 	amResult_InstallCios = 1,
 	amResult_InstallCorp = 2,
 	amResult_Update = 3,
-	amResult_Go = 4,
-	amResult_Exit = 5,
+	amResult_InstallGX = 4,
+	amResult_Go = 5,
+	amResult_Exit = 6,
 	
 } AdvancedMenuResult;
 

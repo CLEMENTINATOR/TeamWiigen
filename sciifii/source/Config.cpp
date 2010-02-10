@@ -19,7 +19,8 @@ Config::Config()
   _restoreTrucha(true),
   _installCios(true),
   _installCorp(true),
-  _updateSystem(true)
+  _updateSystem(true),
+  _installGX(true)
 {
 	try
 	{
@@ -27,7 +28,9 @@ Config::Config()
 		_hasNetwork = true;
 	}
 	catch(...)
-	{}
+	{
+		_installGX = false;
+	}
 	
 	s32 region = CONF_GetRegion();
 	if(region == CONF_REGION_CN)
@@ -273,4 +276,14 @@ bool Config::UpdateSystem()
 void Config::UpdateSystem(const bool& value)
 {
 	Instance()._updateSystem = value;
+}
+
+bool Config::InstallGX()
+{
+	return Instance()._installGX;
+}
+
+void Config::InstallGX(const bool& value)
+{
+	Instance()._installGX = value;
 }

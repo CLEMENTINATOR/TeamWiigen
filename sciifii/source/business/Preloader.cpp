@@ -15,8 +15,14 @@ Preloader::Preloader()
 : bootCid(0)
 {}
 
-void Preloader::Prepare()
+bool Preloader::Prepare()
 {
+	return true;
+}
+
+void Preloader::Install()
+{
+	OnProgress("Getting sysMenu ticket.", 0.1);
 	if(!File::Exists("wii:/ticket/00000001/00000002.tik"))
 		throw Exception("System menu ticket not found!", -1);
 		
@@ -24,6 +30,7 @@ void Preloader::Prepare()
 	static u32 tmd_size ATTRIBUTE_ALIGN(32);
 	static u64 title_id ATTRIBUTE_ALIGN(32)=0x0000000100000002LL;
 	
+	OnProgress("Getting sysMenu tmd.", 0.2);
 	s32 ret = ES_GetStoredTMDSize(title_id,&tmd_size);
 	if(ret < 0)
 		throw Exception("Unable to find System Menu TMD size.", ret);
@@ -39,6 +46,7 @@ void Preloader::Prepare()
 		
 	tmd* tmd_data = (tmd*)SIGNATURE_PAYLOAD(s_tmd);
 	
+	OnProgress("Getting sysMenu boot index.", 0.3);
 	for(u32 contentIndex = 0; contentIndex < tmd_data->num_contents; ++contentIndex)
 	{
 		if (tmd_data->contents[contentIndex].index == tmd_data->boot_index)
@@ -52,6 +60,7 @@ void Preloader::Prepare()
 		
 	free(s_tmd);
 	
+	OnProgress("Copiing sysMenu ticket.", 0.4);
 	//copy of the ticket
 	if(!File::Exists("wii:/title/00000001/00000002/content/ticket"))
 	{
@@ -71,6 +80,7 @@ void Preloader::Prepare()
 		}
 	}
 	
+	OnProgress("Copiing sysMenu.", 0.5);
 	//copy of the systemMenu		
 	stringstream outFile;
 	outFile << "wii:/title/00000001/00000002/content/1" << setw(7) << setfill('0') << hex << bootCid << ".app";
@@ -96,10 +106,7 @@ void Preloader::Prepare()
 			throw Exception("Error copying SysMenu!", -1);
 		}
 	}
-}
-
-void Preloader::Install()
-{	
+	
 	stringstream sysMenuApp;
 	sysMenuApp << "wii:/title/00000001/00000002/content/" << setw(8) << setfill('0') << hex << bootCid << ".app";
 	
@@ -108,18 +115,21 @@ void Preloader::Install()
 	
 	try
 	{
+		OnProgress("Deleting old preloader datas.", 0.6);
 		File::Delete("wii:/title/00000001/00000002/data/loader.ini");
+		
+		OnProgress("Deleting sysMenu.", 0.7);
 		Buffer originalPloader(priiloader_dat, priiloader_dat_size);
-	
 		File::Delete(sysMenuApp.str());
 	
-		
+		OnProgress("Creating priiloader.", 0.8);
 		File &ploader = File::Create(sysMenuApp.str());
 		ploader.Write(originalPloader);
 		ploader.Close();
 		delete &ploader;
 	
 		//checking installation
+		OnProgress("Checking Priiloader.", 0.9);
 		Buffer copiedPloader = File::ReadToEnd(sysMenuApp.str());
 		
 		if(copiedPloader.Length() != 0 || copiedPloader.Checksum() != originalPloader.Checksum())
@@ -129,8 +139,11 @@ void Preloader::Install()
 			File &f_backup = File::Create(sysMenuApp.str());
 			f_backup.Write(b_backup);
 			f_backup.Close();
+			OnProgress("Installation failed, sysMenu restored.", 1);
 			delete &f_backup;
 		}
+		else
+			OnProgress("Priiloader installation done!", 1);
 	}
 	catch(Exception &ex)
 	{
@@ -139,6 +152,7 @@ void Preloader::Install()
 		ploader.Write(b_backup);
 		ploader.Close();
 		delete &ploader;
+		OnProgress("Error, sysMenu restored.", 1);
 		throw;
 	}
 	catch(...)
@@ -148,6 +162,7 @@ void Preloader::Install()
 		ploader.Write(b_backup);
 		ploader.Close();
 		delete &ploader;
+		OnProgress("Error, sysMenu restored.", 1);
 		throw;
 	}
 }

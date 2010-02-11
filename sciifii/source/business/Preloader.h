@@ -1,15 +1,16 @@
 #ifndef PRELOADER_H_
 #define PRELOADER_H_
 
+#include "common/Installer.h"
 #include <gctypes.h>
 
-class Preloader
+class Preloader : public Installer
 {
 private:
     u32 bootCid;
 public:
 	Preloader();
-	void Prepare();
+	bool Prepare();
 	void Install();
 };
 

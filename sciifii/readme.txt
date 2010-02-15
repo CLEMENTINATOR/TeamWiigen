@@ -6,38 +6,38 @@ Thanks to da_letter_a for the cios corp knowledge
 Thanks to crwys for this readme
 
 Requirements:
-A SD Card (With at least 120mb of free space)
+A SD Card (With at least 180mb of free space)
 A way to launch homebrew on your wii (Bannerbomb,hbc,Twilight hack ect...)
 
 What it does:
 -Hack your wii! (Simple Mode)
 -Hack your wii (No Cios corp)
--Hack your wii (Advanced Mode) (Lets you choose what to install)
+-Hack your wii (Advanced Mode) (Lets you choose what to install,experts only)
 -Unhack your wii.
 
 Allows you to install:
 -Restore Trucha Bug
 -Install cios rev17 (DL Bug FIx)
--Install cioscorp
+-Install cioscorp   
 -Install firmware 4.2
 -Installer USB LoaderGX
 
+Please, read the da_letter_a cioscorp readme for more informations on the cioscorp.
 Other:
 Takes about 55 minutes to install (On a wireless 20mbps connection) (SD Card speeds and wireless speeds won't make much of a difference though)
 This auto detects your Wii's region of installation.
 
-PS : If the required files are already on the sd card, this installer
-will use them instead of downloading them.
+PS : If the required files are already on the sd card, this installer will use them instead of downloading them.
 So, this installer can also be used as an offline installer.
 
 
-Please, read the da_letter_a cioscorp readme for more informations on the corp.
-
-*--------------*
-* Instructions *
-*--------------*
 
 
+/*********************/
+NO-INTERNET WII USERS
+/*********************/
+If you don't have internet on your wii, please download these title from NUSD 
+and put the wad on sd:/Sciifii/ 
 
 - For the trucha steps:
 

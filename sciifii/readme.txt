@@ -1,17 +1,32 @@
-Sciifii v1 based on cios corp v4.0
+Sciifii installer V2 based on cios corp v3.6
 Made by Arasium, Teton and Fanta.
-Tested by Jicay, JeanMi, Vlad and Thetataz (and many others).
+Tested by Jicay, JeanMi59226, Vlad and Thetataz (and many others)
 Special thanks to Waninkoko for his help
-Thanks to da_letter_a for the cios corp knowledge.
-mail: TeamWiigen@googlemail.com
+Thanks to da_letter_a for the cios corp knowledge
+Thanks to crwys for this readme
 
+Requirements:
+A SD Card (With at least 120mb of free space)
+A way to launch homebrew on your wii (Bannerbomb,hbc,Twilight hack ect...)
 
-This app goal is to hack your wii without having to launch many
-homebrews. You just need the HBC.
-It will download the needed files from NUS and patch them to create
-the cioses and all other features.
+What it does:
+-Hack your wii! (Simple Mode)
+-Hack your wii (No Cios corp)
+-Hack your wii (Advanced Mode) (Lets you choose what to install)
+-Unhack your wii.
 
-If the required files are already on the sd card, this installer
+Allows you to install:
+-Restore Trucha Bug
+-Install cios rev17 (DL Bug FIx)
+-Install cioscorp
+-Install firmware 4.2
+-Installer USB LoaderGX
+
+Other:
+Takes about 55 minutes to install (On a wireless 20mbps connection) (SD Card speeds and wireless speeds won't make much of a difference though)
+This auto detects your Wii's region of installation.
+
+PS : If the required files are already on the sd card, this installer
 will use them instead of downloading them.
 So, this installer can also be used as an offline installer.
 
@@ -22,22 +37,7 @@ Please, read the da_letter_a cioscorp readme for more informations on the corp.
 * Instructions *
 *--------------*
 
-To hack your wii, you just need to select one of the two hack options.
-Using these options, the cios rev17(b) will be installed on your wii and
-the latest ioses and titles will beinstalled (ie system Menu 4.2). You
-can choose too install or not the CiosCorp selecting the good option.
 
-Expert users can select the advanced mode. Doing that you will be able
-to choose the steps you want to do (for exemple, your IOS36 has the
-trucha bug, so you can bypass the trucha step).
-
-Then, you can "virginise" your wii selecting the Uninstallation option.
-This will install titles from 4.2 system (including the stubs on slots
-249, 250 etc...). The only things to do will be to remove the HBC using
-Hackmii.
-
-
-For the offline mode, you need to download these ioses (with this name):
 
 - For the trucha steps:
 

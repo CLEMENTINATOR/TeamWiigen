@@ -31,11 +31,11 @@ Config::Config()
 	{
 		_installGX = false;
 	}
-	
+
 	s32 region = CONF_GetRegion();
 	if(region == CONF_REGION_CN)
 		exit(0);
-		
+
 	_corp.push_back((ciosDesc){	9,	60,	6174,	13,	0,	true,	false,	true,	""});
 	_corp.push_back((ciosDesc){	11,	60,	6174,	13, 0,	true,	false,	true,	""});
 	_corp.push_back((ciosDesc){	17,	53,	5149,	17, 0,	false,	false,	true,	""});
@@ -97,7 +97,7 @@ Config::Config()
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000039ULL, 0x161d,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x000000010000003dULL, 0x151d,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000046ULL, 0x1a1f,	false}); //the sysMenu 4.2 ios
-	
+
 	switch(region) //sysMenu
 	{
 		case CONF_REGION_JP:
@@ -113,11 +113,11 @@ Config::Config()
 			_systemTitleList.push_back((titleDescriptor){ 0x0000000100000002ULL, 0x01e6,	false});
 			break;
 	}
-	
+
 	_systemTitleList.push_back((titleDescriptor){ 0x000000010000003cULL, 0x1900,	false}); //the ios60 stub is placed after the new SysMenu installation
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000100ULL, 0x0006,	false});
 	_systemTitleList.push_back((titleDescriptor){ 0x0000000100000101ULL, 0x000a,	false});
-	
+
 	switch(region)  //channels
 	{
 		case CONF_REGION_JP:
@@ -148,8 +148,8 @@ Config::Config()
 			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414641ULL, 0x0007,	false});
 			_systemTitleList.push_back((titleDescriptor){ 0x0001000248414741ULL, 0x0007,	false});
 			break;
-	}	
-	
+	}
+
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000feULL, 0x0104,	true}); //bootmi IOS
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000deULL, 0xff00,	true}); // we put the stubs at the end to avoid any problems
 	_systemTitleList.push_back((titleDescriptor){ 0x00000001000000dfULL, 0xff00,	true}); // hermes cioses
@@ -165,21 +165,21 @@ void Config::CreateUpdateList(bool uninstall)
 		{
 			if(!IS_IOS(ios->title) && Title::IsInstalled(ios->title) && Title::GetInstalledTitleVersion(ios->title) >= ios->revision)
 				continue;
-				
+
 			Instance()._updateList.push_back(*ios);
 		}
-		
+
 		Instance()._updateSystem = true;
 		return;
 	}
-	
+
 	for(vector<titleDescriptor>::iterator ios = Instance()._systemTitleList.begin(); ios != Instance()._systemTitleList.end(); ios++)
 	{
 		bool addIt = true;
-		
+
 		if(ios->onlyOnUninstall)
 			continue;
-			
+
 		if(Instance()._installCorp)
 		  for(vector<ciosDesc>::iterator corp = Instance()._corp.begin(); corp != Instance()._corp.end(); corp++)
 			if(0x100000000ULL + corp->destId == ios->title)
@@ -187,7 +187,7 @@ void Config::CreateUpdateList(bool uninstall)
 				addIt = false;
 				break;
 			}
-			
+
 		if(!IS_IOS(ios->title) && Title::IsInstalled(ios->title) && Title::GetInstalledTitleVersion(ios->title) >= ios->revision)
 		  addIt=false;
 

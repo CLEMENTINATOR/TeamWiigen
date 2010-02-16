@@ -9,20 +9,22 @@
 
 class Installer : public Object
 {
+private:
+	std::string _options;
+
 protected:
-	std::string wadFolder;
-	Installer(const std::string& folder = "");
 	virtual void OnProgress(const std::string& message, f32 value);
 	virtual void OnWarning(const std::string& message, f32 value);
 
 public:
+	std::string Options();
+	void Options(const std::string& options);
+
 	virtual bool Prepare() = 0;
 	virtual void Install() = 0;
 	ProgressEvent Progressing;
 	ProgressEvent Warning;
 	virtual ~Installer();
-
-protected:
 };
 
 #endif

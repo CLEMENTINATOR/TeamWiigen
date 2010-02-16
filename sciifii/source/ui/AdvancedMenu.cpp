@@ -13,51 +13,33 @@ AdvancedMenu::AdvancedMenu()
   menuMaxLength(0),
   selectIndex(0)
 {
-    actions.push_back("Restore Trucha Bug");
-    actions.push_back("Install cios rev17 (DL Bug Fix)");
-    actions.push_back("Install the cioscorp");
-    actions.push_back("Install firmware 4.2");
-	actions.push_back("Install LoaderGX");
-    actions.push_back("Start Installation");
-    actions.push_back("Exit");
-
-	for(vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite++)
+	for(vector<option*>::iterator ite = Config::Options().begin(); ite != Config::Options().end(); ite++)
 	{
-		if(ite->size() > menuMaxLength)
-		  menuMaxLength = ite->size();
+		if((*ite)->text.size() > menuMaxLength)
+		  menuMaxLength = (*ite)->text.size();
 	}
 }
 
 void AdvancedMenu::Display()
 {
-	u32 position = 0, virtualPosition = 0;
+	u32 position = 0;
 
     Disclaimer::Show();
 
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
 
-    for (vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite ++)
-    {
-		//add config result here
-		if(virtualPosition < 5)
-		{
-			if(virtualPosition == amResult_InstallGX && !Config::HasNetwork())
-			{
-				virtualPosition++;
-				continue;
-			}
-			bool selected = GetConfig((AdvancedMenuResult)virtualPosition);
-			string choice = selected ? "Yes" : "No";
-			string color = selected ? green : red;
-			cout << (position == cursorPosition ? ">>>\t" : "   \t") << setw(menuMaxLength) << left << *ite << setw(0) << right << "\t" << color << choice << "\x1b[37m" << endl;
-		}
-		else
-			cout << (position == cursorPosition ? ">>>\t" : "   \t") << *ite << endl;
-
-        position++;
-		virtualPosition++;
+	for(vector<option*>::iterator ite = Config::Options().begin(); ite != Config::Options().end(); ite++)
+	{
+		string choice = (*ite)->selected ? "Yes" : "No";
+		string color = (*ite)->selected ? green : red;
+		cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << setw(menuMaxLength) << left << (*ite)->text << setw(0) << right << "\t" << color << choice << "\x1b[37m" << endl;
     }
+
+	cout << endl << endl;
+
+	cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << "Go" << endl;
+	cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << "Exit" << endl;
 
     nbItems = position;
 
@@ -87,59 +69,16 @@ AdvancedMenuResult AdvancedMenu::Show()
         }
         else if (command & (WPAD_BUTTON_A | WPAD_BUTTON_LEFT | WPAD_BUTTON_RIGHT))
         {
-			AdvancedMenuResult item = (AdvancedMenuResult)cursorPosition;
-			if(cursorPosition < 5)
-			  ManageConfig(item);
-			else
-			  return item;
+			if(cursorPosition == nbItems - 1)
+				return amResult_Exit;
+
+			if(cursorPosition == nbItems - 2)
+				return amResult_Exit;
+
+			option* opt = Config::Options()[cursorPosition];
+			opt->selected = !opt->selected;
 		}
         else if (command & WPAD_BUTTON_B)
             cursorPosition = nbItems - 1;
     }
-}
-
-
-void AdvancedMenu::ManageConfig(AdvancedMenuResult choice)
-{
-	switch(choice)
-	{
-		case amResult_RestoreTrucha:
-			Config::RestoreTrucha(!Config::RestoreTrucha());
-			break;
-		case amResult_InstallCios:
-			Config::InstallCios(!Config::InstallCios());
-			break;
-		case amResult_InstallCorp:
-			Config::InstallCorp(!Config::InstallCorp());
-			break;
-		case amResult_Update:
-			Config::UpdateSystem(!Config::UpdateSystem());
-			break;
-		case amResult_InstallGX:
-			Config::InstallGX(!Config::InstallGX());
-			break;
-		default:
-			break;
-	}
-
-	return;
-}
-
-bool AdvancedMenu::GetConfig(AdvancedMenuResult choice)
-{
-	switch(choice)
-	{
-		case amResult_RestoreTrucha:
-			return Config::RestoreTrucha();
-		case amResult_InstallCios:
-			return Config::InstallCios();
-		case amResult_InstallCorp:
-			return Config::InstallCorp();
-		case amResult_Update:
-			return Config::UpdateSystem();
-		case amResult_InstallGX:
-			return Config::InstallGX();
-		default:
-			return false;
-	}
 }

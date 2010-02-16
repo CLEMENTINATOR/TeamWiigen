@@ -23,7 +23,6 @@ private:
 	
 	static SimplePatch* ES_Cmd();
 public:
-	Cios(const std::string& workingDirectory);
 	bool Prepare();
 	void Install();
 };

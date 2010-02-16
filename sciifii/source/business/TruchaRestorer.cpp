@@ -10,9 +10,8 @@
 using namespace fastdelegate;
 using namespace std;
 
-TruchaRestorer::TruchaRestorer(u32 titleId, u16 revision, const string& wadFolder)
-: Installer(wadFolder),
-  _id(0x0000000100000000ULL + titleId),
+TruchaRestorer::TruchaRestorer(u32 titleId, u16 revision)
+: _id(0x0000000100000000ULL + titleId),
   _revision(revision)
 {}
 
@@ -21,7 +20,7 @@ bool TruchaRestorer::Prepare()
 	u32 shortId = (u32)_id;
 	
 	stringstream wad;
-	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
+	wad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _revision << ".wad";
 	
 	if(!File::Exists(wad.str()))
 	{
@@ -32,7 +31,7 @@ bool TruchaRestorer::Prepare()
 			stringstream down;
 			down << "Loading IOS" << shortId << "v" << _revision << " from NUS.";
 			OnProgress(down.str(), 0.25);
-			ios.LoadFromNusServer(_id, 0, wadFolder);
+			ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 			stringstream pack;
 			pack << "Saving as IOS" << shortId << "v" << _revision << ".wad.";
@@ -56,7 +55,7 @@ void TruchaRestorer::Install()
 	u32 shortId = (u32)_id;
 	
 	stringstream wad;
-	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
+	wad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _revision << ".wad";
 
 	TitlePatcher newTitle(_id, 0xFFFF);	
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_Old());

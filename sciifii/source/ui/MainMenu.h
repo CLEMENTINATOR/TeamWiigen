@@ -8,11 +8,9 @@
 
 typedef enum
 {
-	mmResult_Hack = 0,
-	mmResult_HackNoCorp = 1,
-	mmResult_AdvancedHack = 2,
-	mmResult_Unhack = 3,
-	mmResult_Exit = 4,
+	mmResult_Advanced = 0,
+	mmResult_Exit = 1,
+	mmResult_Nothing = 2,
 	
 } MainMenuResult;
 
@@ -25,7 +23,8 @@ private:
 	u32 selectIndex;
 
 	void Display();
-	void ManageConfig(MainMenuResult choice);
+	MainMenuResult ManageConfig(u32 selection);
+
 public:
 	MainMenu();
 	MainMenuResult Show();

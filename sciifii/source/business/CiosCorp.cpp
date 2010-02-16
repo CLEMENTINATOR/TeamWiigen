@@ -19,147 +19,132 @@
 
 using namespace std;
 
-CiosCorp::CiosCorp(const std::string& workingDirectory)
-        : Installer(workingDirectory)
-{}
-
 bool CiosCorp::Prepare()
 {
-    f32 step = 0;
-    u32 nbIosToInstall = Config::CorpConfiguration().size();
+	f32 step = 0;
+	vector<ciosDesc> corp = Config::CorpConfiguration();
+	u32 nbIosToInstall = corp.size();
 
-    for (vector<ciosDesc>::iterator ite = Config::CorpConfiguration().begin(); ite != Config::CorpConfiguration().end(); ++ite)
-    {
-        u64 source = 0x0000000100000000ULL + ite->sourceId;
+	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
+	{
+		//pour ios pas sur nus
+		if(ite->localOnly)
+		{
+			step++;
+			continue;
+		}
 
-        stringstream wadFile;
-        wadFile << wadFolder << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
+		u64 source = 0x0000000100000000ULL + ite->sourceId;
 
-        if (!File::Exists(wadFile.str()))
-        {
-            //pour ios pas sur nus
-           if (ite->wadSource != "")
-            {
-                /*if (Config::HasNetwork())
-                {
-                    NetworkRequest req(ite->wadSource);
-                    Buffer response = req.GetResponse();
+		stringstream wadFile;
+		wadFile << Config::WorkingDirectory() << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
-                    File &wad = File::Create(wadFile.str());
-                    wad.Write(response);
-                    wad.Close();
-                    delete &wad;
-                }*/
-                step += 1;
-                continue;
-            }
+		if(!File::Exists(wadFile.str()))
+		{	
+			
+			if(Config::HasNetwork())
+			{				
+				Title ios;
 
-            if (Config::HasNetwork())
-            {
-                Title ios;
+				stringstream downloadMessage;
+				downloadMessage << "Downloading IOS" << ite->sourceId << " version " << ite->revision << " from NUS";
+				OnProgress(downloadMessage.str(), step/nbIosToInstall);
+				ios.LoadFromNusServer(source, ite->revision, Config::WorkingDirectory());
 
-                stringstream downloadMessage;
-                downloadMessage << "Downloading IOS" << ite->sourceId << " version " << ite->revision << " from NUS";
-                OnProgress(downloadMessage.str(), step/nbIosToInstall);
-                ios.LoadFromNusServer(source, ite->revision, wadFolder);
+				stringstream packMessage;
+				packMessage << "Saving as IOS" << ite->sourceId << "v" << ite->revision << ".wad";
+				OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
+				ios.PackAsWad(wadFile.str());
+			}
+			else
+			{
+				cout << "You arent connected to the network and some wads are missing." << endl
+				     << "Please refer to the readme.";
+				return false;
+			}
+		}
+		step += 1;
+	}
 
-                stringstream packMessage;
-                packMessage << "Saving as IOS" << ite->sourceId << "v" << ite->revision << ".wad";
-                OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
-                ios.PackAsWad(wadFile.str());
-            }
-            else
-            {
-                cout << "You arent connected to the network and some wads are missing." << endl
-                << "Please refer to the readme.";
-                return false;
-            }
-        }
-        step += 1;
-    }
+	OnProgress("Cioscorp preparation done.", 1);
 
-    OnProgress("Cioscorp preparation done.", 1);
-
-    return true;
+	return true;
 }
 
 void CiosCorp::Install()
 {
-    ModulePatch dip13(dip13_dat, dip13_dat_size, "DIP");
-    dip13.ForbiddenModule = "IOSP";
+	ModulePatch dip13(dip13_dat, dip13_dat_size, "DIP");
+	dip13.ForbiddenModule = "IOSP";
 
-    ModulePatch dip17(dip17_dat, dip17_dat_size, "DIP");
-    dip17.ForbiddenModule = "IOSP";
+	ModulePatch dip17(dip17_dat, dip17_dat_size, "DIP");
+	dip17.ForbiddenModule = "IOSP";
 
-    ModulePatch es17(es17_dat, es17_dat_size, "ES");
+	ModulePatch es17(es17_dat, es17_dat_size, "ES");
 
-    KoreanKeyPatch kkpatch;
+	KoreanKeyPatch kkpatch;
 
-    f32 step = 0;
-    u32 nbIosToInstall = Config::CorpConfiguration().size();
+	f32 step = 0;
+	vector<ciosDesc> corp = Config::CorpConfiguration();
+	u32 nbIosToInstall = corp.size();
 
-    for (vector<ciosDesc>::iterator ite = Config::CorpConfiguration().begin(); ite != Config::CorpConfiguration().end(); ++ite)
-    {
-        u64 dest = 0x0000000100000000ULL + ite->destId;
+	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
+	{
+		stringstream wadFile;
+		wadFile << Config::WorkingDirectory() << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
-        TitlePatcher ciosPatcher(dest, 0xFFFF);
+		if(!File::Exists(wadFile.str()) && !ite->localOnly)
+			throw Exception("File not found.", -1);
+		else if(!File::Exists(wadFile.str()))
+			continue;
 
-        ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());
-        ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_New());
+		u64 dest = 0x0000000100000000ULL + ite->destId;
 
-        switch (ite->dipVersion)
-        {
-        case 13:
-            ciosPatcher.AddPatch(&dip13);
-            break;
-        case 17:
-            ciosPatcher.AddPatch(&dip17);
-            break;
-        }
+		TitlePatcher ciosPatcher(dest, 0xFFFF);
 
-        switch (ite->esVersion)
-        {
-        case 17:
-            ciosPatcher.AddPatch(&es17);
-            break;
-        }
+		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());
+		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_New());
 
-        if (ite->IdentifyPatch)
-            ciosPatcher.AddPatch(SimplePatch::ES_Identify());
+		switch(ite->dipVersion)
+		{
+			case 13:
+				ciosPatcher.AddPatch(&dip13);
+				break;
+			case 17:
+				ciosPatcher.AddPatch(&dip17);
+				break;
+		}
 
-        if (ite->NandPatch)
-            ciosPatcher.AddPatch(SimplePatch::FFS_PermsCheck());
+		switch(ite->esVersion)
+		{
+			case 17:
+				ciosPatcher.AddPatch(&es17);
+				break;
+		}
 
-        if (ite->KoreanPatch)
-        {
-            ciosPatcher.AddPatch(&kkpatch);
-            ciosPatcher.AddPatch(SimplePatch::KoreanKey_EnablePatch());
-        }
+		if(ite->IdentifyPatch)
+			ciosPatcher.AddPatch(SimplePatch::ES_Identify());
 
-        stringstream wadFile;
-        wadFile << wadFolder << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
+		if(ite->NandPatch)
+			ciosPatcher.AddPatch(SimplePatch::FFS_PermsCheck());
+			
+		if(ite->KoreanPatch)
+		{
+			ciosPatcher.AddPatch(&kkpatch);
+			ciosPatcher.AddPatch(SimplePatch::KoreanKey_EnablePatch());
+		}
 
-        if (!File::Exists(wadFile.str())&& ite->wadSource=="")
-            throw Exception("File not found.", -1);
-        else if ( ite->wadSource!="" && !File::Exists(wadFile.str()))
-        {
-            step += 1;
-        }
-        else
-        {
-            stringstream progressMessage;
-            progressMessage << "Creating cIOS " << ite->destId << "from IOS" << ite->sourceId << "v" << ite->revision;
-            OnProgress(progressMessage.str(), step/nbIosToInstall);
-            ciosPatcher.LoadFromWad(wadFile.str(), wadFolder);
+		stringstream progressMessage;
+		progressMessage << "Creating cIOS " << ite->destId << "from IOS" << ite->sourceId << "v" << ite->revision;
+		OnProgress(progressMessage.str(), step/nbIosToInstall);
+		ciosPatcher.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
 
-            stringstream installMessage;
-            installMessage << "Installing cIOS" << ite->destId;
-            OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
-            ciosPatcher.Install();
+		stringstream installMessage;
+		installMessage << "Installing cIOS" << ite->destId;
+		OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
+		ciosPatcher.Install();
 
-            step += 1;
-        }
-    }
+		step += 1;
+	}
 
-    OnProgress("Cioscorp installed.", 1);
+	OnProgress("Cioscorp installed.", 1);
 }

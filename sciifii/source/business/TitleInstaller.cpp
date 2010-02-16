@@ -8,9 +8,8 @@
 using namespace fastdelegate;
 using namespace std;
 
-TitleInstaller::TitleInstaller(u64 titleId, u16 revision, const std::string& wadFolder)
-: Installer(wadFolder),
-  _id(titleId),
+TitleInstaller::TitleInstaller(u64 titleId, u16 revision)
+: _id(titleId),
   _revision(revision)
 {}
 
@@ -19,7 +18,7 @@ bool TitleInstaller::Prepare()
 	u32 shortId = (u32)_id;
 	
 	stringstream wad;
-	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
+	wad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _revision << ".wad";
 	
 	if(!File::Exists(wad.str()))
 	{
@@ -30,7 +29,7 @@ bool TitleInstaller::Prepare()
 			stringstream down;
 			down << "Loading IOS" << shortId << "v" << _revision << " from NUS.";
 			OnProgress(down.str(), 0.25);
-			ios.LoadFromNusServer(_id, 0, wadFolder);
+			ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 			stringstream pack;
 			pack << "Saving as IOS" << shortId << "v" << _revision << ".wad.";
@@ -54,7 +53,7 @@ void TitleInstaller::Install()
 	u32 shortId = (u32)_id;
 	
 	stringstream wad;
-	wad << wadFolder << "/IOS" << shortId << "v" << _revision << ".wad";
+	wad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _revision << ".wad";
 
 	Title newTitle;	
 

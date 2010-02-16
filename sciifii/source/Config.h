@@ -5,6 +5,10 @@
 #include <string>
 #include <libutils/Object.h>
 #include <vector>
+#include <tinyxml.h>
+#include "business/common/Installer.h"
+
+#define SCIIFII_VERSION "2"
 
 typedef struct
 {
@@ -16,7 +20,7 @@ typedef struct
 	bool IdentifyPatch;
 	bool NandPatch;
 	bool KoreanPatch;
-	std::string wadSource;
+	bool localOnly;
 } ciosDesc;
 
 typedef struct
@@ -26,62 +30,65 @@ typedef struct
 	bool onlyOnUninstall;
 } titleDescriptor;
 
+typedef struct
+{
+	std::string name;
+	std::string text;
+	bool selected;
+} option;
+
+typedef struct
+{
+	std::vector<std::string> options;
+	std::string text;
+	std::string flag;
+} mode;
+
 class Config : public Object
 {
 private:
+	s32 _region;
 	bool _hasNetwork;
 
-	u32 _downgradeIos;
-	u16 _downgradeIosRevision;
+	bool _uninstall;
 
-	u32 _truchaIos;
-	
-	u32 _ciosSlot;
-	u16 _ciosRevision;
+	std::string _menuMessage;
+	std::string _workingDirectory;
+	bool _useAdvancedSettings;
+	std::string _disclaimer;
 
 	std::vector<ciosDesc> _corp;
 	std::vector<titleDescriptor> _systemTitleList;
 	std::vector<titleDescriptor> _updateList;
 	
-	bool _restoreTrucha;
-	bool _installCios;
-	bool _installCorp;
-	bool _updateSystem;
-	bool _installGX;
-	
+	std::vector<option*> _options;
+	std::vector<mode*> _modes;
+	std::vector<Installer*> _availableSteps;
+	std::vector<Installer*> _validatedSteps;
+
 	Config();
 	static Config& Instance();
-		
+	static std::vector<std::string> GetOptionList(const std::string& options);
+	void CreateCorpList(TiXmlElement* element);
+	void CreateUpdateList(TiXmlElement* element);
+	void CreateOptionList(TiXmlElement* element);
+	void CreateModeList(TiXmlElement* element);
+	void CreateStepList(TiXmlElement* element);
 public:	
-	static void CreateUpdateList(bool uninstall);
-	
+	static void Initialize();
+	static void ApplyMode(const mode& m);
+	static void ValidateOptions();
+
+	static std::string WorkingDirectory();
 	static bool HasNetwork();
-
-	static u32 DowngradeIos();
-	static u16 DowngradeIosRevision();
-
-	static u32 TruchaIOS();
-	
-	static u32 CiosSlot();
-	static u16 CiosRevision();
-
-	static std::vector<ciosDesc>& CorpConfiguration();
-	static std::vector<titleDescriptor>& UpdateList();
-	
-	static bool RestoreTrucha();
-	static void RestoreTrucha(const bool& value);
-	
-	static bool InstallCios();
-	static void InstallCios(const bool& value);
-	
-	static bool InstallCorp();
-	static void InstallCorp(const bool& value);
-	
-	static bool UpdateSystem();
-	static void UpdateSystem(const bool& value);
-	
-	static bool InstallGX();
-	static void InstallGX(const bool& value);
+	static std::vector<mode*> Modes();
+	static std::vector<option*> Options();
+	static std::vector<Installer*> Steps();
+	static std::vector<ciosDesc> CorpConfiguration();
+	static std::vector<titleDescriptor> UpdateConfiguration();
+	static std::string MenuMessage();
+	static std::string DisclaimerText();
+	static bool UseAdvancedMode();
 };
 
 #endif

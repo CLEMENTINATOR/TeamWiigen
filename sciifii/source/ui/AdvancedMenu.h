@@ -8,13 +8,8 @@
 
 typedef enum
 {
-	amResult_RestoreTrucha = 0,
-	amResult_InstallCios = 1,
-	amResult_InstallCorp = 2,
-	amResult_Update = 3,
-	amResult_InstallGX = 4,
-	amResult_Go = 5,
-	amResult_Exit = 6,
+	amResult_Continue = 0,
+	amResult_Exit = 1,
 	
 } AdvancedMenuResult;
 
@@ -27,8 +22,6 @@ private:
 	u32 selectIndex;
 
 	void Display();
-	void ManageConfig(AdvancedMenuResult choice);
-	bool GetConfig(AdvancedMenuResult choice);
 public:
 	AdvancedMenu();
 	AdvancedMenuResult Show();

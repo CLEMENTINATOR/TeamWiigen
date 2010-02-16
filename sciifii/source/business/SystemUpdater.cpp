@@ -10,17 +10,14 @@
 
 using namespace std;
 
-SystemUpdater::SystemUpdater(const vector<titleDescriptor>& titleList, const string& workingDirectory)
-: Installer(workingDirectory),
-  _titleList(titleList)
-{}
-
 bool SystemUpdater::Prepare()
 {
 	f32 step = 0;
-	u32 nbIosToInstall = _titleList.size();
 
-	for(vector<titleDescriptor>::iterator ite = _titleList.begin(); ite != _titleList.end(); ++ite)
+	vector<titleDescriptor> titles = Config::UpdateConfiguration();
+	u32 nbIosToInstall = titles.size();
+
+	for(vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
 	{
 		u32 type = ite->title >> 32;
 		u32 shortId = (u32)ite->title;
@@ -33,7 +30,7 @@ bool SystemUpdater::Prepare()
 		else
 			wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
 			
-		wadFile << wadFolder << "/" << wadName.str();
+		wadFile << Config::WorkingDirectory() << "/" << wadName.str();
 		
 		if(!File::Exists(wadFile.str()))
 		{			
@@ -44,7 +41,7 @@ bool SystemUpdater::Prepare()
 				stringstream downloadMessage;
 				downloadMessage << "Downloading title" << shortId << " version " << ite->revision << " from NUS";
 				OnProgress(downloadMessage.str(), step/nbIosToInstall);
-				t.LoadFromNusServer(ite->title, ite->revision, wadFolder);
+				t.LoadFromNusServer(ite->title, ite->revision, Config::WorkingDirectory());
 
 				stringstream packMessage;
 				packMessage << "Saving it as" << wadName.str();
@@ -69,9 +66,11 @@ bool SystemUpdater::Prepare()
 void SystemUpdater::Install()
 {
 	f32 step = 0;
-	u32 nbIosToInstall = _titleList.size();
 
-	for(vector<titleDescriptor>::iterator ite = _titleList.begin(); ite != _titleList.end(); ++ite)
+	vector<titleDescriptor> titles = Config::UpdateConfiguration();
+	u32 nbIosToInstall = titles.size();
+
+	for(vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
 	{
 		u32 type = ite->title >> 32;
 		u32 shortId = (u32)ite->title;
@@ -84,7 +83,7 @@ void SystemUpdater::Install()
 		else
 			wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
 			
-		wadFile << wadFolder << "/" << wadName.str();
+		wadFile << Config::WorkingDirectory() << "/" << wadName.str();
 
 		if(!File::Exists(wadFile.str()))
 			throw Exception("File not found.", -1);
@@ -93,7 +92,7 @@ void SystemUpdater::Install()
 		progressMessage << "Loading title" << shortId << "from Wad.";
 		OnProgress(progressMessage.str(), step/nbIosToInstall);
 		Title t;
-		t.LoadFromWad(wadFile.str(), wadFolder);
+		t.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
 
 		stringstream installMessage;
 		installMessage << "Installing title " << shortId;

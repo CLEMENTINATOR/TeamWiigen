@@ -1,5 +1,5 @@
 #include "LoaderGX.h"
-
+#include "../Config.h"
 #include <libutils/com/NetworkRequest.h>
 #include <libutils/fs/Directory.h>
 #include <libutils/fs/File.h>
@@ -7,8 +7,7 @@
 
 using namespace std;
 
-LoaderGX::LoaderGX(const string& workingDirectory)
-: Installer(workingDirectory)
+LoaderGX::LoaderGX()
 {
 	_language = GetLanguage();
 }
@@ -67,12 +66,12 @@ bool LoaderGX::Prepare()
 	}
 	
 	OnProgress("Obtain loaderGX channel.", 0.3);
-	if(!File::Exists(wadFolder + "/LoaderGX.wad"))
+	if(!File::Exists(Config::WorkingDirectory() + "/LoaderGX.wad"))
 	{
 		NetworkRequest req("http://www.techjawa.com/usbloadergx/ULNR.file");
 		Buffer response = req.GetResponse();
 		
-		File &wad = File::Create(wadFolder + "/LoaderGX.wad");
+		File &wad = File::Create(Config::WorkingDirectory() + "/LoaderGX.wad");
 		wad.Write(response);
 		wad.Close();
 		delete &wad;
@@ -134,7 +133,7 @@ void LoaderGX::Install()
 	Title loader;
 	
 	OnProgress("Creating LoaderGX channel from wad", 0.1);
-	loader.LoadFromWad(wadFolder + "/LoaderGX.wad");
+	loader.LoadFromWad(Config::WorkingDirectory() + "/LoaderGX.wad");
 	
 	OnProgress("Installing loaderGX channel", 0.6);
 	loader.Install();

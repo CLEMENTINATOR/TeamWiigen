@@ -8,9 +8,8 @@
 using namespace fastdelegate;
 using namespace std;
 
-IosDowngrader::IosDowngrader(u32 titleId, u16 neededRevision, const std::string& wadFolder)
-: Installer(wadFolder),
-  _id(0x0000000100000000ULL + titleId),
+IosDowngrader::IosDowngrader(u32 titleId, u16 neededRevision)
+: _id(0x0000000100000000ULL + titleId),
   _neededRevision(neededRevision)
 {}
 
@@ -19,10 +18,10 @@ bool IosDowngrader::Prepare()
 	u32 shortId = (u32)_id;
 	
 	stringstream newWad;
-	newWad << wadFolder << "/IOS" << shortId << ".wad";
+	newWad << Config::WorkingDirectory() << "/IOS" << shortId << ".wad";
 
 	stringstream oldWad;
-	oldWad << wadFolder << "/IOS" << shortId << "v" << _neededRevision << ".wad";
+	oldWad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _neededRevision << ".wad";
 	
 	if((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !Config::HasNetwork())
 	{
@@ -38,7 +37,7 @@ bool IosDowngrader::Prepare()
 		stringstream downloadMessage;
 		downloadMessage << "Downloading IOS" << shortId << " from NUS.";
 		OnProgress(downloadMessage.str(), 0);
-		ios.LoadFromNusServer(_id, 0, wadFolder);
+		ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 		stringstream packMessage;
 		packMessage << "Save as IOS" << shortId << ".wad.";
@@ -53,7 +52,7 @@ bool IosDowngrader::Prepare()
 		stringstream downloadMessage;
 		downloadMessage << "Downloading IOS" << shortId << "v" << _neededRevision << " from NUS.";
 		OnProgress(downloadMessage.str(), 0.5);
-		ios.LoadFromNusServer(_id, _neededRevision, wadFolder);
+		ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
 
 		stringstream packMessage;
 		packMessage << "Save as IOS" << shortId << "v" << _neededRevision << ".wad.";
@@ -70,10 +69,10 @@ void IosDowngrader::Install()
 	u32 shortId = (u32)_id;
 	
 	stringstream oldFile;
-	oldFile << wadFolder << "/IOS" << shortId << "v" << _neededRevision << ".wad";
+	oldFile << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _neededRevision << ".wad";
 
 	stringstream newFile;
-	newFile<< wadFolder << "/IOS" << shortId << ".wad";
+	newFile<< Config::WorkingDirectory() << "/IOS" << shortId << ".wad";
 	
 	Title newTitle;	
 	newTitle.TmdInstalledEvent += MakeDelegate(this, &IosDowngrader::DowngradeTmd);

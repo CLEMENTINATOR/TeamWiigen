@@ -24,7 +24,7 @@ INCLUDES	:=	include
 #---------------------------------------------------------------------------------
 # MS Visual Studio Style Fix
 #---------------------------------------------------------------------------------
-#STYLEFIX	= 2>&1 | sed -e 's/\([a-zA-Z\.]\+\):\([0-9]\+\):\([0-9]\+:\)\?\(.\+\)/\1(\2):\4/' -e 's/undefined/error: undefined/'
+STYLEFIX	= 2>&1 | sed -e 's/\([a-zA-Z\.]\+\):\([0-9]\+\):\([0-9]\+:\)\?\(.\+\)/\1(\2):\4/' -e 's/undefined/error: undefined/'
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -38,7 +38,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lutils -lpngu -lpng -lz -lasnd -lwiiuse -lbte -logc -lm -lfat -lfreetype -lmetaphrasis
+LIBS	:= -ltinyxml -lutils -lpngu -lpng -lz -lasnd -lwiiuse -lbte -logc -lm -lfat -lfreetype -lmetaphrasis
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

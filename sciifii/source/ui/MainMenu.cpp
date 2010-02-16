@@ -13,37 +13,34 @@ MainMenu::MainMenu()
   menuMaxLength(0),
   selectIndex(0)
 {
-    actions.push_back("Hack your wii!!");
-    actions.push_back("Hack your wii (no corp)!!");
-    actions.push_back("Hack your wii (advanced mode)!!");
-    actions.push_back("Unhack your wii.");
-    actions.push_back("Exit");
-
-	for(vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite++)
+    for(vector<mode*>::iterator ite = Config::Modes().begin(); ite != Config::Modes().end(); ite++)
 	{
-		if(ite->size() > menuMaxLength)
-		  menuMaxLength = ite->size();
+		if((*ite)->text.size() > menuMaxLength)
+		  menuMaxLength = (*ite)->text.size();
 	}
 }
 
 void MainMenu::Display()
 {
 	u32 position = 0;
-
+	
     Disclaimer::Show();
-
-	cout << endl << endl << "All these options will also update your wii to 4.2." << endl
-		 << "If you don't want to update, use advanced mode." << endl << endl;
+	
+	cout << endl << endl << Config::MenuMessage() << endl << endl;
 
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
+	
+	for(vector<mode*>::iterator ite = Config::Modes().begin(); ite != Config::Modes().end(); ite++)
+		cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << (*ite)->text << endl;
 
-    for (vector<string>::iterator ite = actions.begin(); ite != actions.end(); ite ++)
-    {
-		//add config result here
-		cout << (position == cursorPosition ? ">>>\t" : "   \t") << *ite << endl;
-        position++;
-    }
+	cout << endl << endl;
+
+	if(Config::UseAdvancedMode())
+		cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << "Advanced settings" << endl;
+
+
+	cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << "Exit" << endl;
 
     nbItems = position;
 
@@ -72,30 +69,21 @@ MainMenuResult MainMenu::Show()
                 cursorPosition = 0;
         }
         else if (command & WPAD_BUTTON_A)
-        {
-			MainMenuResult item = (MainMenuResult)cursorPosition;
-			ManageConfig(item);
-			return item;
-		}
+			return ManageConfig(cursorPosition);
         else if (command & WPAD_BUTTON_B)
             cursorPosition = nbItems - 1;
     }
 }
 
-
-void MainMenu::ManageConfig(MainMenuResult choice)
+MainMenuResult MainMenu::ManageConfig(u32 selection)
 {
-	switch(choice)
-	{
-		case mmResult_HackNoCorp:
-		Config::InstallCorp(false); //the system will be overriden, so we can skip this to reduce operation time
-		case mmResult_Unhack:
-			Config::InstallCorp(false);
-			Config::InstallGX(false);
-			break;
-		default:
-			break;
-	}
+	if(selection == nbItems - 1)
+		return mmResult_Exit;
 
-	return;
+	if(Config::UseAdvancedMode() && selection == nbItems - 2)
+		return mmResult_Advanced;
+
+	Config::ApplyMode(*Config::Modes()[selection]);
+
+	return mmResult_Nothing;
 }

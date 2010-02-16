@@ -12,7 +12,7 @@ private:
 	std::string GetLanguage();
 	
 public:
-	LoaderGX(const std::string& workingDirectory);
+	LoaderGX();
 	bool Prepare();
 	void Install();
 };

@@ -1,5 +1,6 @@
 #include <ogcsys.h>
 #include <libutils/exception/Exception.h>
+#include <libutils/Xml.h>
 #include <libutils/fs/Device.h>
 #include <iostream>
 
@@ -44,15 +45,16 @@ int main(int argc, char **argv)
 
   WPAD_Init();
 
+  Device::Mount("sd:/");
+  Config::Initialize();
+
   MainMenu menu;
   MainMenuResult result = menu.Show();
 
   if(result == mmResult_Exit)
 		  STM_RebootSystem();
 
-  bool uninstall = (result == mmResult_Unhack ? true : false);
-
-  if(result == mmResult_AdvancedHack)
+  if(result == mmResult_Advanced)
   {
 	AdvancedMenu aMenu;
 	AdvancedMenuResult aresult = aMenu.Show();
@@ -60,7 +62,7 @@ int main(int argc, char **argv)
 		  STM_RebootSystem();
   }
 
-  Config::CreateUpdateList(uninstall);
+  Config::ValidateOptions();
 
   Disclaimer::Show();
   WPAD_Shutdown();
@@ -68,7 +70,6 @@ int main(int argc, char **argv)
   try
   {
 	  Sciifii sci;
-	  Device::Mount("sd:/");
       WPAD_Shutdown();
 	  if(sci.Prepare())
 	  {

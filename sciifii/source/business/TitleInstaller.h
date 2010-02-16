@@ -10,7 +10,7 @@ private:
 	u16 _revision;
 
 public:
-	TitleInstaller(u64 titleId, u16 revision, const std::string& wadFolder);
+	TitleInstaller(u64 titleId, u16 revision);
 	bool Prepare();
 	void Install();
 };

@@ -18,10 +18,6 @@
 
 using namespace std;
 
-Cios::Cios(const std::string& workingDirectory)
-: Installer(workingDirectory)
-{}
-
 SimplePatch* Cios::DIP_Cmd1()
 {
   u8 oldCode[] = { 0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21 };
@@ -117,7 +113,7 @@ bool Cios::Prepare()
 	u64 source = 0x0000000100000000ULL + 38;
 
 	stringstream wadFile;
-	wadFile << wadFolder << "/IOS" << 38 << "v" << 3867 << ".wad";
+	wadFile << Config::WorkingDirectory() << "/IOS" << 38 << "v" << 3867 << ".wad";
 
 	if(!File::Exists(wadFile.str()))
 	{
@@ -128,7 +124,7 @@ bool Cios::Prepare()
 			stringstream downloadMessage;
 			downloadMessage << "Downloading IOS" << 38 << " version " << 3867 << " from NUS";
 			OnProgress(downloadMessage.str(), 0.25);
-			ios.LoadFromNusServer(source, 3867, wadFolder);
+			ios.LoadFromNusServer(source, 3867, Config::WorkingDirectory());
 
 			stringstream packMessage;
 			packMessage << "Saving as IOS" << 38 << "v" << 3867 << ".wad";
@@ -210,13 +206,13 @@ void Cios::Install()
 	cios.AddModule(&sdhcModule);
 	
 	stringstream wadFile;
-	wadFile << wadFolder << "/IOS" << 38 << "v" << 3867 << ".wad";
+	wadFile << Config::WorkingDirectory() << "/IOS" << 38 << "v" << 3867 << ".wad";
 	
 	OnProgress("Deleting old IOS249 or stub.", 0.2);
 	Title::Uninstall(0x0000000100000000ULL + 249);
 
 	OnProgress("Load base wad for cios and patch it!", 0.4);
-	cios.LoadFromWad(wadFile.str(), wadFolder);
+	cios.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
 	
 	OnProgress("Installation of the cIOS!", 0.8);
 	cios.Install();

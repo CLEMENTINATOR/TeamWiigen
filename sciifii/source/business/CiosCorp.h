@@ -10,7 +10,6 @@
 class CiosCorp : public Installer
 {
 public:
-	CiosCorp(const std::string& workingDirectory);
 	bool Prepare();
 	void Install();
 };

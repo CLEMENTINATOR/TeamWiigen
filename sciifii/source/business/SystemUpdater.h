@@ -9,10 +9,7 @@
 
 class SystemUpdater : public Installer
 {
-private:
-	std::vector<titleDescriptor> _titleList;
 public:
-	SystemUpdater(const std::vector<titleDescriptor>& titleList, const std::string& workingDirectory);
 	bool Prepare();
 	void Install();
 };

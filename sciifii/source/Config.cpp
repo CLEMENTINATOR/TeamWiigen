@@ -78,6 +78,8 @@ void Config::Initialize()
 				c.CreateModeList(child);
 			else if(nodeValue == "steps")
 				c.CreateStepList(child);
+			else if(nodeValue == "Disclaimer")
+				c._disclaimer = child->FirstChild()->Value();
 			else
 				throw Exception("Invalid XmlNode.", -1);
 		}

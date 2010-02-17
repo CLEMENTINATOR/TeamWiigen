@@ -241,10 +241,12 @@ vector<string> Config::GetOptionList(const std::string& options)
 
 void Config::ApplyMode(const mode& m)
 {
-	for(vector<option*>::iterator ite = Instance()._options.begin(); ite != Instance()._options.end(); ite++)
+	vector<option*> options = Instance()._options;
+	for(vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
 	{
 		bool found = false;
-		for(vector<string>::const_iterator site = m.options.begin(); site != m.options.end(); site++)
+		vector<string> moptions = m.options;
+		for(vector<string>::const_iterator site = moptions.begin(); site != moptions.end(); site++)
 			if((*ite)->name == (*site))
 			{
 				found = true;
@@ -260,7 +262,8 @@ void Config::ApplyMode(const mode& m)
 
 void Config::ValidateOptions()
 {
-	for(vector<Installer*>::iterator step = Instance()._availableSteps.begin(); step != Instance()._availableSteps.end(); step++)
+	vector<Installer*> steps = Instance()._availableSteps;
+	for(vector<Installer*>::iterator step = steps.begin(); step != steps.end(); step++)
 	{
 		bool validated = false;
 		vector<string> voptions = GetOptionList((*step)->Options());

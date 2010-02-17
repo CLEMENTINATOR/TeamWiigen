@@ -13,7 +13,8 @@ MainMenu::MainMenu()
   menuMaxLength(0),
   selectIndex(0)
 {
-    for(vector<mode*>::iterator ite = Config::Modes().begin(); ite != Config::Modes().end(); ite++)
+	vector<mode*> modes = Config::Modes();
+    for(vector<mode*>::iterator ite = modes.begin(); ite != modes.end(); ite++)
 	{
 		if((*ite)->text.size() > menuMaxLength)
 		  menuMaxLength = (*ite)->text.size();
@@ -31,7 +32,8 @@ void MainMenu::Display()
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
 	
-	for(vector<mode*>::iterator ite = Config::Modes().begin(); ite != Config::Modes().end(); ite++)
+	vector<mode*> modes = Config::Modes();
+	for(vector<mode*>::iterator ite = modes.begin(); ite != modes.end(); ite++)
 		cout << (position++ == cursorPosition ? ">>>\t" : "   \t") << (*ite)->text << endl;
 
 	cout << endl << endl;

@@ -13,7 +13,8 @@ AdvancedMenu::AdvancedMenu()
   menuMaxLength(0),
   selectIndex(0)
 {
-	for(vector<option*>::iterator ite = Config::Options().begin(); ite != Config::Options().end(); ite++)
+	vector<option*> options = Config::Options();
+	for(vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
 	{
 		if((*ite)->text.size() > menuMaxLength)
 		  menuMaxLength = (*ite)->text.size();
@@ -29,7 +30,8 @@ void AdvancedMenu::Display()
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
 
-	for(vector<option*>::iterator ite = Config::Options().begin(); ite != Config::Options().end(); ite++)
+	vector<option*> options = Config::Options();
+	for(vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
 	{
 		string choice = (*ite)->selected ? "Yes" : "No";
 		string color = (*ite)->selected ? green : red;

@@ -26,15 +26,14 @@ using namespace std;
 Sciifii::Sciifii()
 : hasDisplayed(false)
 {
-	for(vector<Installer*>::iterator ite = Config::Steps().begin(); ite != Config::Steps().end(); ite++)
-		steps.push_back(*ite);
-		
+	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 		(*ite)->Progressing += MakeDelegate(this, &Sciifii::DisplayProgress);
 }
 
 Sciifii::~Sciifii()
 {
+	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 		(*ite)->Progressing -= MakeDelegate(this, &Sciifii::DisplayProgress);
 }
@@ -67,6 +66,7 @@ bool Sciifii::Prepare()
 
 	cout << "Sciifii is preparing required elements." << endl;
 
+	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
 		error |= (*ite)->Prepare();
@@ -84,6 +84,7 @@ void Sciifii::Execute()
 {
 	cout << "Please wait until sciifii finish the installation." << endl;
 	
+	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
 		(*ite)->Install();

@@ -8,7 +8,6 @@
 class Sciifii : public Object
 {
 private:
-	std::vector<Installer*> steps;
 	void DisplayProgress(Object* sender, ProgressEventArgs* args);
 
 	bool hasDisplayed;

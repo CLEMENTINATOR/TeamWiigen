@@ -8,6 +8,7 @@
 #include "../SystemUpdater.h"
 #include "../LoaderGX.h"
 #include "../WadBatchInstaller.h"
+#include "../Preloader.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 
@@ -64,6 +65,10 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		else if(nodeValue == "GXLoader")
 		{
 			step = new LoaderGX();
+		}
+		else if(nodeValue == "Preloader")
+		{
+			step = new Preloader();
 		}
 		else if(nodeValue == "WadBatchInstaller")
 		{

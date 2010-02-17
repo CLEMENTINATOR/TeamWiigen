@@ -132,6 +132,7 @@
 	<CiosInstaller option="cIOS" />
 	<IOSReloader option="" id="249" user="0" fs="sd" />
 	<TitleInstaller option="TBR" id="36" revision="0" />
+	<Preloader option="Preloader" />
 	<CorpInstaller option="corp" />
 	<SystemUpdater option="update" />
 	<GXLoader option="GXLoader" />

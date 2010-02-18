@@ -110,16 +110,17 @@
   </system>
   
   <modes>
-	<mode text="Install only preloader" options="Preloader" flag="" />
-	<mode text="Hack your wii!!" options="TBR|cIOS|corp|update|GXLoader" flag="" />
-	<mode text="Hack your wii (no corp)" options="TBR|cIOS|update|GXLoader" flag="" />
+	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
+  <mode text="Hack your wii ! (Full Mode)" options="TBR|cIOS|update|Preloader|GXLoader" flag="" />
+	<mode text="Hack your wii ! (Over-Full Mode(cIOScorp included))" options="TBR|cIOS|corp|update|Preloader|GXLoader" flag="" />
+  <mode text="TESTEURS -> Install only preloader" options="Preloader" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
   
   <options>
     <option name="TBR" text="Restore Trucha Bug" networkRequired="false" />
     <option name="cIOS" text="Install cios38 rev17" networkRequired="false" />
-	<option name="Preloader" text="Install the preloader" networkRequired="false" />
+	  <option name="Preloader" text="Install the preloader" networkRequired="false" />
     <option name="corp" text="Install the corp cioses" networkRequired="false" />
     <option name="update" text="Update your wii to 4.2" networkRequired="false" />
     <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="true" />
@@ -130,15 +131,15 @@
     <IOSReloader option="TBR" id="15" user="0" fs="sd" />
     <TruchaRestorer option="TBR" id="36" revision="0" />
     <IOSReloader option="TBR|cIOS" id="36" user="0" fs="sd" />
-	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
-	<CiosInstaller option="cIOS" />
-	<IOSReloader option="" id="249" user="0" fs="sd" />
-	<TitleInstaller option="TBR" id="0000000100000024" revision="0" />
-	<Preloader option="Preloader" />
-	<CorpInstaller option="corp" />
-	<SystemUpdater option="update" />
-	<GXLoader option="GXLoader" />
-	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
+	  <TitleInstaller option="TBR" id="000000010000000f" revision="0" />
+	  <CiosInstaller option="cIOS" />
+	  <IOSReloader option="" id="249" user="0" fs="sd" />
+	  <TitleInstaller option="TBR" id="0000000100000024" revision="0" />
+	  <Preloader option="Preloader" />
+	  <CorpInstaller option="corp" />
+	  <SystemUpdater option="update" />
+	  <GXLoader option="GXLoader" />
+	  <WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
   
   <Disclaimer>Texte du disclaimer</Disclaimer>

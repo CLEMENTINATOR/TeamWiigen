@@ -110,7 +110,7 @@
   </system>
   
   <modes>
-	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
+	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|update|Preloader" flag="" />
   <mode text="Hack your wii ! (Full Mode)" options="TBR|cIOS|update|Preloader|GXLoader" flag="" />
 	<mode text="Hack your wii ! (Over-Full Mode(cIOScorp included))" options="TBR|cIOS|corp|update|Preloader|GXLoader" flag="" />
   <mode text="TESTEURS -> Install only preloader" options="Preloader" flag="" />
@@ -142,6 +142,6 @@
 	  <WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
   
-  <Disclaimer>Texte du disclaimer</Disclaimer>
+  <Disclaimer> </Disclaimer>
   
 </sciifii>

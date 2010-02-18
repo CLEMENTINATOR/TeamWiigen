@@ -128,6 +128,16 @@ bool Preloader::CheckPreloader()
 	Buffer copiedPloader = File::ReadToEnd(sysMenuApp.str());
 	Buffer originalPloader(priiloader_dat, priiloader_dat_size);
 	
+	File& fop = File::Create("sd:/fop");
+	fop.Write(originalPloader);
+	fop.Close();
+	delete &fop;
+	
+	File& fcp = File::Create("sd:/fcp");
+	fcp.Write(copiedPloader);
+	fcp.Close();
+	delete &fcp;
+	
 	if(copiedPloader.Checksum() != originalPloader.Checksum())
 		return false;
 		

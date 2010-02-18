@@ -21,21 +21,21 @@ bool SystemUpdater::Prepare()
 	{
 		u32 type = ite->title >> 32;
 		u32 shortId = (u32)ite->title;
-		
+
 		stringstream wadFile;
 		stringstream wadName;
-		
+
 		if(type == 1)
 			wadName << "IOS" << shortId << "v" << ite->revision << ".wad";
 		else
 			wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
-			
+
 		wadFile << Config::WorkingDirectory() << "/" << wadName.str();
-		
+
 		if(!File::Exists(wadFile.str()))
-		{			
+		{
 			if(Config::HasNetwork())
-			{				
+			{
 				Title t;
 
 				stringstream downloadMessage;
@@ -74,22 +74,22 @@ void SystemUpdater::Install()
 	{
 		u32 type = ite->title >> 32;
 		u32 shortId = (u32)ite->title;
-		
+
 		stringstream wadFile;
 		stringstream wadName;
-		
+
 		if(type == 1)
 			wadName << "IOS" << shortId << "v" << ite->revision << ".wad";
 		else
 			wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
-			
+
 		wadFile << Config::WorkingDirectory() << "/" << wadName.str();
 
 		if(!File::Exists(wadFile.str()))
 			throw Exception("File not found.", -1);
 
 		stringstream progressMessage;
-		progressMessage << "Loading title" << shortId << "from Wad.";
+		progressMessage << "Loading title " << shortId << " from Wad.";
 		OnProgress(progressMessage.str(), step/nbIosToInstall);
 		Title t;
 		t.LoadFromWad(wadFile.str(), Config::WorkingDirectory());

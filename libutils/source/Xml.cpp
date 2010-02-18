@@ -6,42 +6,62 @@
 
 using namespace std;
 
-u64 Xml::StrToU64(const string& val)
+u64 Xml::StrToU64(const string& val, NumberRepresentation rep)
 {
 	stringstream str(val);
 	u64 returnValue;
+	
+	if(rep == nr_hex)
+		str >> hex;
+		
 	str >> returnValue;
 	return returnValue;
 }
 
-u32 Xml::StrToU32(const string& val)
+u32 Xml::StrToU32(const string& val, NumberRepresentation rep)
 {
 	stringstream str(val);
 	u32 returnValue;
+	
+	if(rep == nr_hex)
+		str >> hex;
+		
 	str >> returnValue;
 	return returnValue;
 }
 
-u16 Xml::StrToU16(const string& val)
+u16 Xml::StrToU16(const string& val, NumberRepresentation rep)
 {
 	stringstream str(val);
 	u16 returnValue;
+	
+	if(rep == nr_hex)
+		str >> hex;
+		
 	str >> returnValue;
 	return returnValue;
 }
 
-u8 Xml::StrToU8(const string& val)
+u8 Xml::StrToU8(const string& val, NumberRepresentation rep)
 {
 	stringstream str(val);
 	u8 returnValue;
+	
+	if(rep == nr_hex)
+		str >> hex;
+		
 	str >> returnValue;
 	return returnValue;
 }
 
-s32 Xml::StrToS32(const string& val)
+s32 Xml::StrToS32(const string& val, NumberRepresentation rep)
 {
 	stringstream str(val);
 	s32 returnValue;
+	
+	if(rep == nr_hex)
+		str >> hex;
+		
 	str >> returnValue;
 	return returnValue;
 }

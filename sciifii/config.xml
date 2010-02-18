@@ -128,10 +128,10 @@
     <IOSReloader option="TBR" id="15" user="0" fs="sd" />
     <TruchaRestorer option="TBR" id="36" revision="0" />
     <IOSReloader option="TBR|cIOS" id="36" user="0" fs="sd" />
-	<TitleInstaller option="TBR" id="15" revision="0" />
+	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
 	<CiosInstaller option="cIOS" />
 	<IOSReloader option="" id="249" user="0" fs="sd" />
-	<TitleInstaller option="TBR" id="36" revision="0" />
+	<TitleInstaller option="TBR" id="0000000100000024" revision="0" />
 	<Preloader option="Preloader" />
 	<CorpInstaller option="corp" />
 	<SystemUpdater option="update" />

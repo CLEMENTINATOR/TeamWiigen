@@ -63,9 +63,6 @@ int main(int argc, char **argv)
   }
 
   Config::ValidateOptions();
-  
-  Pause();
-  STM_RebootSystem();
 
   Disclaimer::Show();
   WPAD_Shutdown();

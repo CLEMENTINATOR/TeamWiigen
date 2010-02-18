@@ -266,20 +266,26 @@ void Config::ValidateOptions()
 	for(vector<Installer*>::iterator step = steps.begin(); step != steps.end(); step++)
 	{
 		bool validated = false;
-		vector<string> voptions = GetOptionList((*step)->Options());
-
-		for(vector<string>::iterator ite = voptions.begin(); ite != voptions.end(); ite++)
+		
+		if((*step)->Options() == "")
+			validated = true;
+		else
 		{
-			for(vector<option*>::iterator opt = Instance()._options.begin(); opt != Instance()._options.end(); opt++)
+			vector<string> voptions = GetOptionList((*step)->Options());
+
+			for(vector<string>::iterator ite = voptions.begin(); ite != voptions.end(); ite++)
 			{
-				if((*opt)->name == *ite)
+				for(vector<option*>::iterator opt = Instance()._options.begin(); opt != Instance()._options.end(); opt++)
 				{
-					validated = true;
-					break;
+					if((*opt)->name == *ite)
+					{
+						validated = true;
+						break;
+					}
 				}
+				if(validated)
+					break;
 			}
-			if(validated)
-				break;
 		}
 
 		if(validated)

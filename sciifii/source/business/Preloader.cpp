@@ -129,16 +129,6 @@ bool Preloader::CheckPreloader()
     Buffer copiedPloader = File::ReadToEnd(sysMenuApp.str());
     Buffer originalPloader(priiloader_dat, priiloader_dat_size);
 
-    File &f_sys = File::Create("sd:/original.app");
-    f_sys.Write(originalPloader);
-    f_sys.Close();
-    delete &f_sys;
-
-    File &f_sys2 = File::Create("sd:/copied.app");
-    f_sys2.Write(copiedPloader);
-    f_sys2.Close();
-    delete &f_sys2;
-
     if (copiedPloader==originalPloader)
         return true;
 

@@ -109,19 +109,21 @@
 
   </system>
   
-  <options>
-    <option name="TBR" text="Restore Trucha Bug" networkRequired="false" />
-    <option name="cIOS" text="Install cios38 rev17" networkRequired="false" />
-    <option name="corp" text="Install the corp cioses" networkRequired="false" />
-    <option name="update" text="Update your wii to 4.2" networkRequired="false" />
-    <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="true" />
-  </options>
-  
   <modes>
+	<mode text="Install only preloader" options="Preloader" flag="" />
 	<mode text="Hack your wii!!" options="TBR|cIOS|corp|update|GXLoader" flag="" />
 	<mode text="Hack your wii (no corp)" options="TBR|cIOS|update|GXLoader" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
+  
+  <options>
+    <option name="TBR" text="Restore Trucha Bug" networkRequired="false" />
+    <option name="cIOS" text="Install cios38 rev17" networkRequired="false" />
+	<option name="Preloader" text="Install the preloader" networkRequired="false" />
+    <option name="corp" text="Install the corp cioses" networkRequired="false" />
+    <option name="update" text="Update your wii to 4.2" networkRequired="false" />
+    <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="true" />
+  </options>
   
   <steps>
     <IOSDowngrader option="TBR" id="15" revision="257" />

@@ -75,7 +75,7 @@ AdvancedMenuResult AdvancedMenu::Show()
 				return amResult_Exit;
 
 			if(cursorPosition == nbItems - 2)
-				return amResult_Exit;
+				return amResult_Continue;
 
 			option* opt = Config::Options()[cursorPosition];
 			opt->selected = !opt->selected;

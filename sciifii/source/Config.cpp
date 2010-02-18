@@ -277,9 +277,10 @@ void Config::ValidateOptions()
 
 			for(vector<string>::iterator ite = voptions.begin(); ite != voptions.end(); ite++)
 			{
-				for(vector<option*>::iterator opt = Instance()._options.begin(); opt != Instance()._options.end(); opt++)
+				vector<option*> opts = Instance()._options;
+				for(vector<option*>::iterator opt = opts.begin(); opt != opts.end(); opt++)
 				{
-					if((*opt)->name == *ite)
+					if((*opt)->name == *ite && (*opt)->selected)
 					{
 						validated = true;
 						break;

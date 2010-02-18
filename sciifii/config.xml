@@ -141,6 +141,6 @@
 	  <WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
   
-  <Disclaimer> </Disclaimer>
+  <Disclaimer> Sciifii Installer v2 made by TeamWiigen </Disclaimer>
   
 </sciifii>

@@ -8,8 +8,6 @@
 #include <libutils/exception/Exception.h>
 #include <ogc/conf.h>
 
-#include <iostream>
-
 using namespace std;
 
 Config::Config()
@@ -246,8 +244,6 @@ void Config::ApplyMode(const mode& m)
 {
 	vector<option*> options = Instance()._options;
 	
-	cout << "Mode: " << m.text << endl;
-	
 	for(vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
 	{
 		bool found = false;
@@ -258,9 +254,6 @@ void Config::ApplyMode(const mode& m)
 				found = true;
 				break;
 			}
-
-		if(found)
-			cout << (*ite)->name << endl;
 			
 		(*ite)->selected = found;
 	}

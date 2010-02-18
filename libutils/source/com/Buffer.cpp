@@ -15,8 +15,7 @@ Buffer::Buffer(const void* content, const u64 length)
         throw Exception("Not enough memory.", -1);
     memcpy(_innerBuffer, content, _length);
 
-    for (u64 index = 0; index < length; index++)
-        _checksum += ((u8*)content)[index];
+
 }
 
 Buffer::Buffer(const u8 value, const u64 length)
@@ -33,8 +32,7 @@ Buffer::Buffer(const u8 value, const u64 length)
 
     memset(_innerBuffer, value, _length);
 
-    for (u64 index = 0; index < length; index++)
-        _checksum += ((u8*)value)[index];
+
 }
 
 Buffer::Buffer(const Buffer& b)
@@ -48,7 +46,6 @@ Buffer::Buffer(const Buffer& b)
     if (!_innerBuffer)
         throw Exception("Not enough memory.", -1);
     memcpy(_innerBuffer, b._innerBuffer, _length);
-    _checksum=b._checksum;
 }
 
 Buffer& Buffer::operator=(const Buffer& b)
@@ -67,7 +64,7 @@ Buffer& Buffer::operator=(const Buffer& b)
         throw Exception("Not enough memory.", -1);
     memcpy(_innerBuffer, b._innerBuffer, _length);
 
-    _checksum=b._checksum;
+
 
     return *this;
 }
@@ -101,16 +98,12 @@ void Buffer::Append(const void* content, const u64 length)
 
     _innerBuffer = tempBuffer;
 
-    for (u64 index = 0; index < length; index++)
-        _checksum += ((u8*)content)[index];
 }
 
 void Buffer::Append(const Buffer& b)
 {
     Append(b.Content(), b.Length());
 
-    for (u64 index = 0; index < b.Length(); index++)
-        _checksum += ((u8*)b.Content())[index];
 }
 
 void Buffer::Clear()
@@ -121,7 +114,7 @@ void Buffer::Clear()
     _innerBuffer = NULL;
     _length = 0;
 
-    _checksum = 0;
+
 }
 
 void* Buffer::Content() const
@@ -157,13 +150,14 @@ void Buffer::Truncate(const u64 position)
 
     _innerBuffer = tempBuffer;
 
-    _checksum = 0;
-    for (u64 index = 0; index < _length; index++)
-        _checksum += ((u8*)_innerBuffer)[index];
+
 }
 
 u64 Buffer::Checksum()
 {
+    u64 _checksum;
+     for (u64 index = 0; index < _length; index++)
+        _checksum += ((u8*)_innerBuffer)[index];
     return _checksum;
 }
 

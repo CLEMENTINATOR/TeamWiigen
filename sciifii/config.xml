@@ -113,7 +113,6 @@
 	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|update|Preloader" flag="" />
   <mode text="Hack your wii ! (Full Mode)" options="TBR|cIOS|update|Preloader|GXLoader" flag="" />
 	<mode text="Hack your wii ! (Over-Full Mode(cIOScorp included))" options="TBR|cIOS|corp|update|Preloader|GXLoader" flag="" />
-  <mode text="TESTEURS -> Install only preloader" options="Preloader" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
   

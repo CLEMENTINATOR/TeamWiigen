@@ -46,8 +46,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		}
 		else if(nodeValue == "TitleInstaller")
 		{
-			u32 titleId = Xml::StrToU32(node->Attribute("id"));
-			u16 revision = Xml::StrToU16(node->Attribute("revision"));
+			u64 titleId = Xml::StrToU64(node->Attribute("id"), nr_hex);
+			u16 revision = Xml::StrToU16(node->Attribute("revision"), nr_hex);
 			step = new TitleInstaller(titleId, revision);
 		}
 		else if(nodeValue == "CiosInstaller")

@@ -134,8 +134,8 @@ void Config::CreateUpdateList(TiXmlElement* element)
 			if(string(child->Value()) != "title")
 				throw Exception("UpdateList child node is invalid", -1);
 
-			u64 id = Xml::StrToU64(child->Attribute("id"));
-			u16 revision= Xml::StrToU16(child->Attribute("revision"));
+			u64 id = Xml::StrToU64(child->Attribute("id"), nr_hex);
+			u16 revision= Xml::StrToU16(child->Attribute("revision"), nr_hex);
 			bool onlyUninstallation= Xml::StrToBool(child->Attribute("onlyUninstallation"));
 			s8 region = Xml::StrToS32(child->Attribute("region"));
 

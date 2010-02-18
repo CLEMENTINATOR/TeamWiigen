@@ -13,6 +13,7 @@ Buffer::Buffer(const void* content, const u64 length)
     _innerBuffer = memalign(32, _length);
     if (!_innerBuffer)
         throw Exception("Not enough memory.", -1);
+
     memcpy(_innerBuffer, content, _length);
 
 
@@ -157,7 +158,21 @@ u64 Buffer::Checksum()
 {
     u64 _checksum;
      for (u64 index = 0; index < _length; index++)
-        _checksum += ((u8*)_innerBuffer)[index];
+        _checksum +=((u8*)_innerBuffer)[index];
+
     return _checksum;
 }
 
+
+bool Buffer::operator==(const Buffer &buf)
+{
+   if(buf._length!=_length) return false;
+   else{
+       for(u64 i;i<_length;i++)
+       {
+           if(((u8*)_innerBuffer)[i]!=((u8*)buf._innerBuffer)[i]) return false;
+       }
+       return true;
+
+   }
+}

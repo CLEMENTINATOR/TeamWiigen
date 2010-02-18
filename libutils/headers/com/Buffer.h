@@ -15,6 +15,7 @@ public:
 	Buffer(const u8 value, const u64 length);
 	Buffer(const Buffer& b);
 	Buffer& operator=(const Buffer& b);
+	bool operator==(const Buffer &buf);
 	~Buffer();
 
 	void Append(const void* content, const u64 length);

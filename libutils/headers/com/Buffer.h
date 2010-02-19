@@ -9,6 +9,7 @@ class Buffer : public Object
 private:
 	u64 _length;
 	void* _innerBuffer;
+	u64 _checksum;
 
 public:
 	Buffer(const void* content = NULL, const u64 length = 0);

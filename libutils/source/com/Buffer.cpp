@@ -5,7 +5,8 @@
 
 Buffer::Buffer(const void* content, const u64 length)
         :  _length(length),
-        _innerBuffer(NULL)
+        _innerBuffer(NULL),
+		_checksum(0)
 {
     if (_length == 0)
         return;
@@ -15,13 +16,15 @@ Buffer::Buffer(const void* content, const u64 length)
         throw Exception("Not enough memory.", -1);
 
     memcpy(_innerBuffer, content, _length);
-
-
+	
+	for(u64 cindex = 0; cindex < _length; cindex++)
+		_checksum += ((u8*)_innerBuffer)[cindex];
 }
 
 Buffer::Buffer(const u8 value, const u64 length)
         :  _length(length),
-        _innerBuffer(NULL)
+        _innerBuffer(NULL),
+		_checksum(0)
 {
     if (_length == 0)
         return;
@@ -33,19 +36,23 @@ Buffer::Buffer(const u8 value, const u64 length)
 
     memset(_innerBuffer, value, _length);
 
-
+	for(u64 cindex = 0; cindex < _length; cindex++)
+		_checksum += value;
 }
 
 Buffer::Buffer(const Buffer& b)
         :  _length(b._length),
-        _innerBuffer(NULL)
+        _innerBuffer(NULL),
+		_checksum(b._checksum)
 {
     if (_length == 0)
         return;
 
     _innerBuffer = memalign(32, _length);
+	
     if (!_innerBuffer)
         throw Exception("Not enough memory.", -1);
+		
     memcpy(_innerBuffer, b._innerBuffer, _length);
 }
 
@@ -65,7 +72,7 @@ Buffer& Buffer::operator=(const Buffer& b)
         throw Exception("Not enough memory.", -1);
     memcpy(_innerBuffer, b._innerBuffer, _length);
 
-
+	_checksum = b._checksum;
 
     return *this;
 }
@@ -98,7 +105,9 @@ void Buffer::Append(const void* content, const u64 length)
         free(_innerBuffer);
 
     _innerBuffer = tempBuffer;
-
+	
+	for(u64 cindex = 0; cindex < length; cindex++)
+		_checksum += ((u8*)content)[cindex];
 }
 
 void Buffer::Append(const Buffer& b)
@@ -114,8 +123,7 @@ void Buffer::Clear()
 
     _innerBuffer = NULL;
     _length = 0;
-
-
+	_checksum = 0;
 }
 
 void* Buffer::Content() const
@@ -151,28 +159,27 @@ void Buffer::Truncate(const u64 position)
 
     _innerBuffer = tempBuffer;
 
-
+	_checksum = 0;
+	for(u64 cindex = 0; cindex < _length; cindex++)
+		_checksum += ((u8*)_innerBuffer)[cindex];
 }
 
 u64 Buffer::Checksum()
 {
-    u64 _checksum;
-     for (u64 index = 0; index < _length; index++)
-        _checksum +=((u8*)_innerBuffer)[index];
-
     return _checksum;
 }
 
 
-bool Buffer::operator==(const Buffer &buf)
+bool Buffer::operator==(const Buffer &b)
 {
-   if(buf._length!=_length) return false;
-   else{
-       for(u64 i;i<_length;i++)
-       {
-           if(((u8*)_innerBuffer)[i]!=((u8*)buf._innerBuffer)[i]) return false;
-       }
-       return true;
-
-   }
+   if(_checksum != b._checksum)
+	 return false;
+   else if(b._length != _length)
+	 return false;
+   else
+	   for(u64 i;i<_length;i++)
+		   if(((u8*)_innerBuffer)[i] != ((u8*)b._innerBuffer)[i])
+			 return false;
+   
+   return true;
 }

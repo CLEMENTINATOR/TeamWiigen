@@ -31,7 +31,7 @@ void WadBatchInstaller::Install()
 		OnProgress("Loading " + fileName, currentStep / steps);
 		wad.LoadFromWad(*ite);
 
-		OnProgress("Istall " + fileName, (currentStep + 0.5) / steps);
+		OnProgress("Install " + fileName, (currentStep + 0.5) / steps);
 		wad.Install();
 
 		currentStep++;

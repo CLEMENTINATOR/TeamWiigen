@@ -18,10 +18,10 @@ TruchaRestorer::TruchaRestorer(u32 titleId, u16 revision)
 bool TruchaRestorer::Prepare()
 {
 	u32 shortId = (u32)_id;
-	
+
 	stringstream wad;
 	wad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _revision << ".wad";
-	
+
 	if(!File::Exists(wad.str()))
 	{
 		if(Config::HasNetwork())
@@ -53,25 +53,25 @@ bool TruchaRestorer::Prepare()
 void TruchaRestorer::Install()
 {
 	u32 shortId = (u32)_id;
-	
+
 	stringstream wad;
 	wad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _revision << ".wad";
 
-	TitlePatcher newTitle(_id, 0xFFFF);	
+	TitlePatcher newTitle(_id, 0xFFFF);
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_Old());
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
 	newTitle.AddPatch(SimplePatch::ES_Identify());
 	newTitle.AddPatch(SimplePatch::FFS_PermsCheck());
 
-	OnProgress("Loading title from IOS and aply patches", 0.25);
-	
+	OnProgress("Loading title from IOS and applying patches", 0.25);
+
     newTitle.LoadFromWad(wad.str() , "sd:/temp");
-	
+
     stringstream inst;
     inst << "Installing title.";
-	
+
     OnProgress(inst.str(), 0.75);
 	newTitle.Install();
-	
+
 	OnProgress("Trucha bug restored.", 1);
 }

@@ -40,14 +40,14 @@ bool CiosCorp::Prepare()
 		wadFile << Config::WorkingDirectory() << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
 
 		if(!File::Exists(wadFile.str()))
-		{	
-			
+		{
+
 			if(Config::HasNetwork())
-			{				
+			{
 				Title ios;
 
 				stringstream downloadMessage;
-				downloadMessage << "Downloading IOS" << ite->sourceId << " version " << ite->revision << " from NUS";
+				downloadMessage << "Downloading IOS " << ite->sourceId << " version " << ite->revision << " from NUS";
 				OnProgress(downloadMessage.str(), step/nbIosToInstall);
 				ios.LoadFromNusServer(source, ite->revision, Config::WorkingDirectory());
 
@@ -126,7 +126,7 @@ void CiosCorp::Install()
 
 		if(ite->NandPatch)
 			ciosPatcher.AddPatch(SimplePatch::FFS_PermsCheck());
-			
+
 		if(ite->KoreanPatch)
 		{
 			ciosPatcher.AddPatch(&kkpatch);

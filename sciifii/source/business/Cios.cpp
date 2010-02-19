@@ -107,7 +107,7 @@ SimplePatch* Cios::ES_Cmd()
   static SimplePatch p(oldCode, newCode, 12, "ES");
   return &p;
 }
-  
+
 bool Cios::Prepare()
 {
 	u64 source = 0x0000000100000000ULL + 38;
@@ -122,7 +122,7 @@ bool Cios::Prepare()
 			Title ios;
 
 			stringstream downloadMessage;
-			downloadMessage << "Downloading IOS" << 38 << " version " << 3867 << " from NUS";
+			downloadMessage << "Downloading IOS " << 38 << " version " << 3867 << " from NUS";
 			OnProgress(downloadMessage.str(), 0.25);
 			ios.LoadFromNusServer(source, 3867, Config::WorkingDirectory());
 
@@ -147,7 +147,7 @@ bool Cios::Prepare()
 void Cios::Install()
 {
 	TitlePatcher cios(0x0000000100000000ULL + 249, 17);
-	
+
 	/* ES Patches */
 	cios.AddPatch(SimplePatch::ES_HashCheck_Old());
 	cios.AddPatch(SimplePatch::ES_HashCheck_New());
@@ -160,27 +160,27 @@ void Cios::Install()
 	cios.AddPatch(SimplePatch::ES_TitleVersionCheck());
 	cios.AddPatch(SimplePatch::ES_TitleDeleteCheck());
 	cios.AddPatch(SimplePatch::ES_MEM2Protection());
-	
+
 	/* FFS Patches */
 	cios.AddPatch(SimplePatch::FFS_PermsCheck());
-	
+
 	/* DIP Patches */
 	cios.AddPatch(SimplePatch::DIP_UnencryptedLimit());
 	cios.AddPatch(SimplePatch::DIP_EnableDvdVideo());
-	
+
 	/* DIP Plugin */
 	Buffer dipPlugin(dip_plugin_dat, dip_plugin_dat_size);
 	PluginPatch dipPatch(dipPlugin, 0x200, 0x2C000, "DIP");
 	dipPatch.DefineCommandHandle(Cios::DIP_Cmd1());
 	dipPatch.DefineCommandHandle(Cios::DIP_Cmd2());
 	cios.AddPatch(&dipPatch);
-	
+
 	/* ES Plugin */
 	Buffer esPlugin(es_plugin_dat, es_plugin_dat_size);
 	PluginPatch esPatch(esPlugin, 0x200, 0x5000, "ES");
 	esPatch.DefineCommandHandle(Cios::ES_Cmd());
 	cios.AddPatch(&esPatch);
-	
+
 	/* FFS Plugin */
 	Buffer ffsPlugin(ffs_plugin_dat, ffs_plugin_dat_size);
 	PluginPatch ffsPatch(ffsPlugin, 0x7200 , 0x47000, "FFS");
@@ -190,30 +190,30 @@ void Cios::Install()
 	ffsPatch.DefineCommandHandle(Cios::FFS_WriteCmd());
 	ffsPatch.DefineCommandHandle(Cios::FFS_SeekCmd());
 	ffsPatch.DefineCommandHandle(Cios::FFS_IoctlCmd());
-	ffsPatch.DefineCommandHandle(Cios::FFS_IoctlvCmd());	
+	ffsPatch.DefineCommandHandle(Cios::FFS_IoctlvCmd());
 	cios.AddPatch(&ffsPatch);
-	
+
 	/* ehci module */
 	TitleModule ehciModule(ehci_module_dat, ehci_module_dat_size, 3);
 	cios.AddModule(&ehciModule);
-	
+
 	/* fat module */
 	TitleModule fatModule(fat_module_dat, fat_module_dat_size);
 	cios.AddModule(&fatModule);
-	
+
 	/* sdhc module */
 	TitleModule sdhcModule(sdhc_module_dat, sdhc_module_dat_size);
 	cios.AddModule(&sdhcModule);
-	
+
 	stringstream wadFile;
 	wadFile << Config::WorkingDirectory() << "/IOS" << 38 << "v" << 3867 << ".wad";
-	
+
 	OnProgress("Deleting old IOS249 or stub.", 0.2);
 	Title::Uninstall(0x0000000100000000ULL + 249);
 
 	OnProgress("Load base wad for cios and patch it!", 0.4);
 	cios.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
-	
+
 	OnProgress("Installation of the cIOS!", 0.8);
 	cios.Install();
 

@@ -88,6 +88,7 @@ void Config::Initialize()
 		child = child->NextSiblingElement();
 	} while(child != NULL);
 
+	delete &doc;
 }
 
 void Config::CreateCorpList(TiXmlElement* element)

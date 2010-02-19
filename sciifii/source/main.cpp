@@ -84,12 +84,12 @@ int main(int argc, char **argv)
   {
 	cout << endl << "\x1b[33m" << "Exception " << ex.GetCode() << endl
 		 << ex.GetMessage() << "\x1b[37m" << endl
-		 << "Press A to reboot the wii and the relaunch sciifii.";
+		 << "Press A to reboot the wii and relaunch sciifii.";
   }
   catch(...)
   {
 	cout << "Unexpected Exception!" << endl
-		 << "Press A to reboot the wii and then relaunch sciifii.";
+		 << "Press A to reboot the wii and relaunch sciifii.";
   }
   WPAD_Init();
   Pause();

@@ -39,12 +39,12 @@ bool SystemUpdater::Prepare()
 				Title t;
 
 				stringstream downloadMessage;
-				downloadMessage << "Downloading title" << shortId << " version " << ite->revision << " from NUS";
+				downloadMessage << "Downloading title " << shortId << " version " << ite->revision << " from NUS";
 				OnProgress(downloadMessage.str(), step/nbIosToInstall);
 				t.LoadFromNusServer(ite->title, ite->revision, Config::WorkingDirectory());
 
 				stringstream packMessage;
-				packMessage << "Saving it as" << wadName.str();
+				packMessage << "Saving it as " << wadName.str();
 				OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
 				t.PackAsWad(wadFile.str());
 			}

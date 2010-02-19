@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sciifii version="2" MenuMessage="All this options will update your wii to 4.2" AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
+
+  <corp>
+    <corpItem slot="9" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="11" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="17" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="20" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="21" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="28" source="28" revision="1293" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+    <corpItem slot="30" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="33" source="33" revision="2834" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+    <corpItem slot="35" source="35" revision="3092" dipVersion="17" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
+    <corpItem slot="36" source="36" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
+    <corpItem slot="37" source="37" revision="3612" dipVersion="17" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
+    <corpItem slot="38" source="38" revision="3610" dipVersion="17" esVersion="17" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+    <corpItem slot="40" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="41" source="41" revision="3091" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="43" source="43" revision="3091" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="45" source="45" revision="3091" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="46" source="46" revision="3093" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="50" source="50" revision="4889" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="52" source="52" revision="5661" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="53" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="55" source="55" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="56" source="56" revision="5146" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
+    <corpItem slot="58" source="58" revision="5918" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="true" />
+    <corpItem slot="60" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+    <corpItem slot="70" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+  </corp>
+
+  <system>
+    <title id="0000000100000004" revision="ff00" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000009" revision="030a" onlyUninstallation="false" region="-1" />
+    <title id="000000010000000a" revision="0300" onlyUninstallation="false" region="-1" />
+    <title id="000000010000000b" revision="0100" onlyUninstallation="false" region="-1" />
+    <title id="000000010000000c" revision="010d" onlyUninstallation="false" region="-1" />
+    <title id="000000010000000d" revision="0111" onlyUninstallation="false" region="-1" />
+    <title id="000000010000000e" revision="0208" onlyUninstallation="false" region="-1" />
+    <title id="000000010000000f" revision="020b" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000010" revision="0200" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000011" revision="0307" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000014" revision="0100" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000015" revision="030e" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000016" revision="040d" onlyUninstallation="false" region="-1" />
+    <title id="000000010000001c" revision="060e" onlyUninstallation="false" region="-1" />
+    <title id="000000010000001e" revision="0b00" onlyUninstallation="false" region="-1" />
+    <title id="000000010000001f" revision="0d15" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000021" revision="0c13" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000022" revision="0d14" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000023" revision="0d15" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000024" revision="0d17" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000025" revision="0f1d" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000026" revision="0f1b" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000029" revision="0d14" onlyUninstallation="false" region="-1" />
+    <title id="000000010000002B" revision="0d14" onlyUninstallation="false" region="-1" />
+    <title id="000000010000002D" revision="0d14" onlyUninstallation="false" region="-1" />
+    <title id="000000010000002E" revision="0d16" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000032" revision="1400" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000033" revision="1300" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000034" revision="1700" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000035" revision="151e" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000037" revision="151e" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000038" revision="151d" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000039" revision="161d" onlyUninstallation="false" region="-1" />
+    <title id="000000010000003d" revision="151d" onlyUninstallation="false" region="-1" />
+    <title id="0000000100000046" revision="1a1f" onlyUninstallation="false" region="-1" />
+    
+    <!-- SysMenu-->
+    <!-- Region:
+          JAP: 0
+          EUR: 2
+          KK: 4
+          US: 1
+     -->
+    <title id="0000000100000002" revision="01e0" onlyUninstallation="false" region="0" />
+    <title id="0000000100000002" revision="01e1" onlyUninstallation="false" region="1" />
+    <title id="0000000100000002" revision="01e2" onlyUninstallation="false" region="2" />
+    <title id="0000000100000002" revision="01e6" onlyUninstallation="false" region="4" />
+
+    <!-- other ioses -->
+    <title id="000000010000003c" revision="1900" onlyUninstallation="false" region="-1" /> <!-- Stub 60 -->
+    <title id="0000000100000100" revision="0006" onlyUninstallation="false" region="-1" /> <!-- MIOS -->
+    <title id="0000000100000101" revision="000a" onlyUninstallation="false" region="-1" /> <!-- BC -->
+
+    <!-- Channels -->
+    <title id="0001000248414141" revision="0002" onlyUninstallation="false" region="-1" /> <!-- Photo -->
+    <title id="0001000248414341" revision="0006" onlyUninstallation="false" region="-1" /> <!-- Mii channel-->
+    <title id="0001000248414241" revision="0012" onlyUninstallation="false" region="0" /> <!-- Shop channel -->
+    <title id="0001000248414241" revision="0012" onlyUninstallation="false" region="1" />
+    <title id="0001000248414241" revision="0012" onlyUninstallation="false" region="2" />
+    <title id="000100024841424B" revision="0012" onlyUninstallation="false" region="4" />
+    <title id="000100024841464A" revision="0007" onlyUninstallation="false" region="0" /> <!-- weather -->
+    <title id="0001000248414645" revision="0007" onlyUninstallation="false" region="1" />
+    <title id="0001000248414650" revision="0007" onlyUninstallation="false" region="2" />
+    <title id="0001000248414641" revision="0007" onlyUninstallation="false" region="4" />
+    <title id="000100024841474A" revision="0007" onlyUninstallation="false" region="0" /> <!-- news -->
+    <title id="0001000248414745" revision="0007" onlyUninstallation="false" region="1" />
+    <title id="0001000248414750" revision="0007" onlyUninstallation="false" region="2" />
+    <title id="0001000248414741" revision="0007" onlyUninstallation="false" region="4" />
+
+    <!-- Stubs -->
+    <title id="00000001000000fe" revision="0104" onlyUninstallation="true" region="-1" />
+    <title id="00000001000000de" revision="ff00" onlyUninstallation="true" region="-1" />
+    <title id="00000001000000df" revision="ff00" onlyUninstallation="true" region="-1" />
+    <title id="00000001000000fa" revision="ff00" onlyUninstallation="true" region="-1" />
+    <title id="00000001000000f9" revision="ff00" onlyUninstallation="true" region="-1" />
+
+  </system>
+  
+  <modes>
+	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
+	<mode text="Hack your wii ! (Full Mode)" options="TBR|cIOS|update|Preloader|GXLoader" flag="" />
+	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
+  </modes>
+  
+  <options>
+    <option name="TBR" text="Restore Trucha Bug" networkRequired="false" />
+    <option name="cIOS" text="Install cios38 rev17" networkRequired="false" />
+	<option name="update" text="Update your wii to 4.2" networkRequired="false" />
+	<option name="Preloader" text="Install the preloader" networkRequired="false" />
+    <option name="corp" text="Install the corp cioses" networkRequired="false" />
+    <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="true" />
+  </options>
+  
+  <steps>
+    <IOSDowngrader option="TBR" id="15" revision="257" />
+    <IOSReloader option="TBR" id="15" user="0" fs="sd" />
+    <TruchaRestorer option="TBR" id="36" revision="0" />
+    <IOSReloader option="TBR|cIOS" id="36" user="0" fs="sd" />
+	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
+	<CiosInstaller option="cIOS" />
+	<IOSReloader option="" id="249" user="0" fs="sd" />
+	<TitleInstaller option="TBR" id="0000000100000024" revision="0" />
+	<Preloader option="Preloader" />
+	<SystemUpdater option="update" />
+	<CorpInstaller option="corp" />
+	<GXLoader option="GXLoader" />
+	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
+  </steps>
+  
+  <Disclaimer> mettre du text ici </Disclaimer>
+  
+</sciifii>

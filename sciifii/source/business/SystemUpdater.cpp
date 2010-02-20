@@ -31,8 +31,9 @@ bool SystemUpdater::Prepare()
             wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
         if (type!=1 && Title::IsInstalled(ite->title))
         {
-        if (Title::GetInstalledTitleVersion(ite->title)>=ite->revision)
+            if (Title::GetInstalledTitleVersion(ite->title)>=ite->revision)
             {
+                step+=1;
                 continue;
             }
         }
@@ -40,7 +41,7 @@ bool SystemUpdater::Prepare()
 
         if (!File::Exists(wadFile.str()))
         {
-        if (Config::HasNetwork())
+            if (Config::HasNetwork())
             {
                 Title t;
 
@@ -90,16 +91,17 @@ void SystemUpdater::Install()
             wadName << hex << setfill('0') << setw(8) <<  type << setw(0) << "-" << setw(8) << shortId << setw(0) << "v" << ite->revision << ".wad";
 
         if (type!=1 && Title::IsInstalled(ite->title))
-       {
-        if (Title::GetInstalledTitleVersion(ite->title)>=ite->revision)
+        {
+            if (Title::GetInstalledTitleVersion(ite->title)>=ite->revision)
             {
+                 step+=1;
                 continue;
             }
         }
         wadFile << Config::WorkingDirectory() << "/" << wadName.str();
 
         if (!File::Exists(wadFile.str()))
-        throw Exception("File not found.", -1);
+            throw Exception("File not found.", -1);
 
         stringstream progressMessage;
         progressMessage << "Loading title " << shortId << " from Wad.";
@@ -115,5 +117,5 @@ void SystemUpdater::Install()
         step += 1;
     }
 
-OnProgress("System updated.", 1);
+    OnProgress("System updated.", 1);
 }

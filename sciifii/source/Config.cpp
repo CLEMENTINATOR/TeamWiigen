@@ -108,8 +108,8 @@ void Config::CreateCorpList(TiXmlElement* element)
 			u32 slot = Xml::StrToU32(child->Attribute("slot"));
 			u32 source = Xml::StrToU32(child->Attribute("source"));
 			u16 revision = Xml::StrToU16(child->Attribute("revision"));
-			u8 dipVersion = Xml::StrToU8(child->Attribute("dipVersion"));
-			u8 esVersion = Xml::StrToU8(child->Attribute("esVersion"));
+			u16 dipVersion = Xml::StrToU16(child->Attribute("dipVersion"));
+			u16 esVersion = Xml::StrToU16(child->Attribute("esVersion"));
 			bool identifyPatch = Xml::StrToBool(child->Attribute("identifyPatch"));
 			bool nandPatch = Xml::StrToBool(child->Attribute("nandPatch"));
 			bool kkPatch = Xml::StrToBool(child->Attribute("kkPatch"));
@@ -244,7 +244,7 @@ vector<string> Config::GetOptionList(const std::string& options)
 void Config::ApplyMode(const mode& m)
 {
 	vector<option*> options = Instance()._options;
-	
+
 	for(vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
 	{
 		bool found = false;
@@ -255,7 +255,7 @@ void Config::ApplyMode(const mode& m)
 				found = true;
 				break;
 			}
-			
+
 		(*ite)->selected = found;
 	}
 
@@ -269,7 +269,7 @@ void Config::ValidateOptions()
 	for(vector<Installer*>::iterator step = steps.begin(); step != steps.end(); step++)
 	{
 		bool validated = false;
-		
+
 		if((*step)->Options() == "")
 			validated = true;
 		else

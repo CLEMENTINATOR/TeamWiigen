@@ -1,28 +1,31 @@
 Sciifii installer V2 based on cios corp v3.6
 Made by Arasium, Teton and Fanta.
-Tested by Jicay, JeanMi59226, Vlad and Thetataz (and many others)
+Tested by JeanMi59226, Jicay, crwys, Vlad and Thetataz (and many others)
 Special thanks to Waninkoko for his help
 Thanks to da_letter_a for the cios corp knowledge
 Thanks to crwys for this readme
 
 Requirements:
-A SD Card (With at least 180mb of free space)
+A SD Card (With at least 200mb of free space)
 A way to launch homebrew on your wii (Bannerbomb,hbc,Twilight hack ect...)
 
 What it does:
--Hack your wii! (Simple Mode)
--Hack your wii (No Cios corp)
--Hack your wii (Advanced Mode) (Lets you choose what to install,experts only)
+-Hack your wii ! (Light Mode : Restore Trucha Bug, Install cIOS rev17b, Install Priiloader)
+-Hack your wii ! (Full Mode)
+-Hack your wii ! (All Features)
+-Advanced Menu (Lets you choose what to install,experts only)
 -Unhack your wii.
 
 Allows you to install:
 -Restore Trucha Bug
--Install cios rev17 (DL Bug FIx)
--Install cioscorp   
+-Install cIOS rev17b
+-Install cIOScorp   
 -Install firmware 4.2
--Installer USB LoaderGX
+-Install Priiloader
+-Install USB LoaderGX
 
 Please, read the da_letter_a cioscorp readme for more informations on the cioscorp.
+
 Other:
 Takes about 55 minutes to install (On a wireless 20mbps connection) (SD Card speeds and wireless speeds won't make much of a difference though)
 This auto detects your Wii's region of installation.

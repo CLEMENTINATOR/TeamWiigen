@@ -15,8 +15,8 @@ typedef struct
 	u32 destId;
 	u32 sourceId;
 	u16 revision;
-	u8 dipVersion;
-	u8 esVersion;
+	u16 dipVersion;
+	u16 esVersion;
 	bool IdentifyPatch;
 	bool NandPatch;
 	bool KoreanPatch;
@@ -60,7 +60,7 @@ private:
 	std::vector<ciosDesc> _corp;
 	std::vector<titleDescriptor> _systemTitleList;
 	std::vector<titleDescriptor> _updateList;
-	
+
 	std::vector<option*> _options;
 	std::vector<mode*> _modes;
 	std::vector<Installer*> _availableSteps;
@@ -74,7 +74,7 @@ private:
 	void CreateOptionList(TiXmlElement* element);
 	void CreateModeList(TiXmlElement* element);
 	void CreateStepList(TiXmlElement* element);
-public:	
+public:
 	static void Initialize();
 	static void ApplyMode(const mode& m);
 	static void ValidateOptions();

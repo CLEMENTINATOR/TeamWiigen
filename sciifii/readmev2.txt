@@ -3,7 +3,6 @@ Made by Arasium, Teton and Fanta.
 Tested by JeanMi59226, Jicay, crwys, Vlad and Thetataz (and many others)
 Special thanks to Waninkoko for his help
 Thanks to da_letter_a for the cios corp knowledge
-Thanks to crwys for this readme
 
 Requirements:
 A SD Card (With at least 200mb of free space)
@@ -29,16 +28,15 @@ Estimated Install Time :
 						  On a 1MB/s connexion
 						  Download     Install    
 			Light   Mode:     2m10        1m40      
-			Full    Mode:     
+			Full    Mode:    26m20       11m00
 			All Features:
-
+			Unhack      :     
 			
 Please, read the da_letter_a cioscorp readme for more informations on the cioscorp.
 
 /*********************/
 NO-INTERNET WII USERS
 /*********************/
-
 
 If your wii do not have internet access,
 Please download our Sciifii Offline File Downloader computer program and run it to have the files.

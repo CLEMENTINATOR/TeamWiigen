@@ -30,7 +30,7 @@ Estimated Install Time :
 			Light   Mode:     2m10        1m40      
 			Full    Mode:    26m20       11m00
 			All Features:
-			Unhack      :     
+			Unhack      :    25m43       11m30
 			
 Please, read the da_letter_a cioscorp readme for more informations on the cioscorp.
 

@@ -49,7 +49,6 @@ Config& Config::Instance()
 void Config::Initialize()
 {
     Config& c = Instance();
-    if (! File::Exists("sd:/sciifii/config.xml"))  throw Exception("No config.xml file found !", -1);
     TiXmlDocument& doc = Xml::Load("sd:/sciifii/config.xml");
     TiXmlElement* root = doc.RootElement();
 
@@ -151,17 +150,17 @@ void Config::CreateUpdateList(TiXmlElement* element)
 
             if (region == -1 || region == _region)
             {
-                _systemTitleList.push_back((titleDescriptor)
-                {
-                    id, revision, onlyUninstallation
-                }
-                                          );
-                if (!onlyUninstallation)
-                    _updateList.push_back((titleDescriptor)
-                {
-                    id, revision, onlyUninstallation
-                }
-                                     );
+				titleDescriptor descriptor = (titleDescriptor){id, revision, onlyUninstallation};
+				u32 type = id >> 32;
+				
+				//skip some channels
+				if (type!=1 && Title::IsInstalled(id))
+					if (Title::GetInstalledTitleVersion(id) >= revision)
+						continue;
+				
+                _systemTitleList.push_back(descriptor);
+                if(!onlyUninstallation)
+                    _updateList.push_back(descriptor);
             }
         }
 

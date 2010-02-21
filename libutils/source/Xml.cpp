@@ -1,4 +1,5 @@
 #include <Xml.h>
+#include <fs/File.h>
 
 #include <exception/Exception.h>
 #include <fs/Device.h>
@@ -42,18 +43,6 @@ u16 Xml::StrToU16(const string& val, NumberRepresentation rep)
 	return returnValue;
 }
 
-u8 Xml::StrToU8(const string& val, NumberRepresentation rep)
-{
-	stringstream str(val);
-	u8 returnValue;
-	
-	if(rep == nr_hex)
-		str >> hex;
-		
-	str >> returnValue;
-	return returnValue;
-}
-
 s32 Xml::StrToS32(const string& val, NumberRepresentation rep)
 {
 	stringstream str(val);
@@ -79,6 +68,8 @@ bool Xml::StrToBool(const string& val)
 TiXmlDocument& Xml::Load(const string &file)
 {
 	Device::Mount(file);
+	if (! File::Exists(file))  
+		throw Exception("The specified xml file not found !", -1);
 	TiXmlDocument* doc = new TiXmlDocument(file.c_str());
 	doc->LoadFile();
 	Device::UnMount(file);

@@ -140,6 +140,8 @@
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
   
-  <Disclaimer> mettre du text ici </Disclaimer>
+  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER. 
+  You may use this software at your own risk. 
+  WE take no responsibility for damage caused by Sciifii.  </Disclaimer>
   
 </sciifii>

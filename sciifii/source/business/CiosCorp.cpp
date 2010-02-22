@@ -37,7 +37,7 @@ bool CiosCorp::Prepare()
 		u64 source = 0x0000000100000000ULL + ite->sourceId;
 
 		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormattedName(source,ite->revision);
 
 		if(!File::Exists(wadFile.str()))
 		{
@@ -52,7 +52,7 @@ bool CiosCorp::Prepare()
 				ios.LoadFromNusServer(source, ite->revision, Config::WorkingDirectory());
 
 				stringstream packMessage;
-				packMessage << "Saving as IOS" << ite->sourceId << "v" << ite->revision << ".wad";
+				packMessage << "Saving as " <<Title::GetWadFormattedName(source,ite->revision);
 				OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
 				ios.PackAsWad(wadFile.str());
 			}
@@ -90,7 +90,7 @@ void CiosCorp::Install()
 	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
 	{
 		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/IOS" << ite->sourceId << "v" << ite->revision << ".wad";
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormattedName(0x0000000100000000ULL + ite->sourceId,ite->revision);
 
 		if(!File::Exists(wadFile.str()) && !ite->localOnly)
 			throw Exception("File not found.", -1);
@@ -134,7 +134,7 @@ void CiosCorp::Install()
 		}
 
 		stringstream progressMessage;
-		progressMessage << "Creating cIOS " << ite->destId << "from IOS" << ite->sourceId << "v" << ite->revision;
+		progressMessage << "Creating cIOS" << ite->destId << " from IOS" << ite->sourceId << "v" << ite->revision;
 		OnProgress(progressMessage.str(), step/nbIosToInstall);
 		ciosPatcher.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
 

@@ -60,7 +60,7 @@ protected:
 	virtual void OnTmdLoaded(TitleEventArgs &processControl);
 	virtual void OnContentLoading(TitleEventArgs &processControl);
 	virtual void OnContentLoaded(TitleEventArgs &processControl);
-	
+
 	void Ticket(const Buffer& buffer);
 	Buffer Ticket();
 	void Tmd(const Buffer& buffer);
@@ -71,7 +71,7 @@ protected:
 	Buffer Crl();
 	void AddContent(const Buffer& buffer, u32 id);
 	Buffer GetContent(u32 id);
-	
+
 public:
 
 	Title(bool automaticCleaning = true);
@@ -80,6 +80,7 @@ public:
 	void LoadFromNusServer(u64 titleId, u16 revision = 0, const std::string& tempFolder = "sd:/tmp");
 	void PackAsWad(const std::string& fileName);
 	static std::vector<u8> GetInstalledIos();
+	static std::string GetWadFormattedName(u64 tid,u16 rev);
 	static u16 GetInstalledTitleVersion(u64 titleId);
 	void Install();
 	void Uninstall();
@@ -110,7 +111,7 @@ private:
 	u64 _titleId;
 	u16 _revision;
 	u32 _dataLen;
-	
+
 	std::string _directory;
 	bool automaticClean;
 	bool canDeleteRootTempDirectory;

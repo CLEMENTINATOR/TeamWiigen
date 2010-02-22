@@ -142,7 +142,7 @@ void Config::CreateUpdateList(TiXmlElement* element)
         {
             if (string(child->Value()) != "title")
                 throw Exception("UpdateList child node is invalid", -1);
-
+            bool isInstalled=false;
             u64 id = Xml::StrToU64(child->Attribute("id"), nr_hex);
             u16 revision= Xml::StrToU16(child->Attribute("revision"), nr_hex);
             bool onlyUninstallation= Xml::StrToBool(child->Attribute("onlyUninstallation"));
@@ -152,15 +152,17 @@ void Config::CreateUpdateList(TiXmlElement* element)
             {
 				titleDescriptor descriptor = (titleDescriptor){id, revision, onlyUninstallation};
 				u32 type = id >> 32;
-				
+
 				//skip some channels
 				if (type!=1 && Title::IsInstalled(id))
 					if (Title::GetInstalledTitleVersion(id) >= revision)
-						continue;
-				
-                _systemTitleList.push_back(descriptor);
-                if(!onlyUninstallation)
-                    _updateList.push_back(descriptor);
+						isInstalled=true;
+				if(!isInstalled)
+				{
+                    _systemTitleList.push_back(descriptor);
+                    if(!onlyUninstallation)
+                        _updateList.push_back(descriptor);
+				}
             }
         }
 

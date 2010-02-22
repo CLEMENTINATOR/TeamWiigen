@@ -113,7 +113,8 @@ bool Cios::Prepare()
 	u64 source = 0x0000000100000000ULL + 38;
 
 	stringstream wadFile;
-	wadFile << Config::WorkingDirectory() << "/IOS" << 38 << "v" << 3867 << ".wad";
+	wadFile << Config::WorkingDirectory() +"/";
+    wadFile << Title::GetWadFormattedName(source,3867);
 
 	if(!File::Exists(wadFile.str()))
 	{
@@ -127,7 +128,7 @@ bool Cios::Prepare()
 			ios.LoadFromNusServer(source, 3867, Config::WorkingDirectory());
 
 			stringstream packMessage;
-			packMessage << "Saving as IOS" << 38 << "v" << 3867 << ".wad";
+			packMessage << "Saving as "<<Title::GetWadFormattedName(source,3867);
 			OnProgress(packMessage.str(), 0.7);
 			ios.PackAsWad(wadFile.str());
 		}
@@ -206,7 +207,7 @@ void Cios::Install()
 	cios.AddModule(&sdhcModule);
 
 	stringstream wadFile;
-	wadFile << Config::WorkingDirectory() << "/IOS" << 38 << "v" << 3867 << ".wad";
+	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormattedName(0x0000000100000000ULL + 38,3867);
 
 	OnProgress("Deleting old IOS249 or stub.", 0.2);
 	Title::Uninstall(0x0000000100000000ULL + 249);

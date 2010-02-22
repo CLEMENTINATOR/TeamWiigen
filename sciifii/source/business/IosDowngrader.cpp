@@ -10,26 +10,26 @@ using namespace std;
 
 IosDowngrader::IosDowngrader(u32 titleId, u16 neededRevision)
 : _id(0x0000000100000000ULL + titleId),
-  _neededRevision(neededRevision)
+ _neededRevision(neededRevision)
 {}
 
 bool IosDowngrader::Prepare()
 {
 	u32 shortId = (u32)_id;
-	
+
 	stringstream newWad;
-	newWad << Config::WorkingDirectory() << "/IOS" << shortId << ".wad";
+	newWad << Config::WorkingDirectory() << "/"<<Title::GetWadFormattedName(_id,0);
 
 	stringstream oldWad;
-	oldWad << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _neededRevision << ".wad";
-	
+	oldWad << Config::WorkingDirectory() << "/" <<Title::GetWadFormattedName(_id,_neededRevision);
+
 	if((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !Config::HasNetwork())
 	{
 		cout << "You arent connected to the network and some wads are missing." << endl
 			 << "Please refer to the readme.";
 		return false;
 	}
-	
+
 	if(!File::Exists(newWad.str()))
 	{
 		Title ios;
@@ -40,11 +40,11 @@ bool IosDowngrader::Prepare()
 		ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 		stringstream packMessage;
-		packMessage << "Save as IOS" << shortId << ".wad.";
+		packMessage << "Saving as "<<Title::GetWadFormattedName(_id,0);
 		OnProgress(packMessage.str(), 0.25);
 		ios.PackAsWad(newWad.str());
 	}
-	
+
 	if(!File::Exists(oldWad.str()))
 	{
 		Title ios;
@@ -55,7 +55,7 @@ bool IosDowngrader::Prepare()
 		ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
 
 		stringstream packMessage;
-		packMessage << "Save as IOS" << shortId << "v" << _neededRevision << ".wad.";
+		packMessage << "Saving as " <<Title::GetWadFormattedName(_id,_neededRevision);
 		OnProgress(packMessage.str(), 0.75);
 		ios.PackAsWad(oldWad.str());
 	}
@@ -66,22 +66,20 @@ bool IosDowngrader::Prepare()
 
 void IosDowngrader::Install()
 {
-	u32 shortId = (u32)_id;
-	
 	stringstream oldFile;
-	oldFile << Config::WorkingDirectory() << "/IOS" << shortId << "v" << _neededRevision << ".wad";
+	oldFile << Config::WorkingDirectory() << "/"<<Title::GetWadFormattedName(_id,_neededRevision);
 
 	stringstream newFile;
-	newFile<< Config::WorkingDirectory() << "/IOS" << shortId << ".wad";
-	
-	Title newTitle;	
+	newFile<< Config::WorkingDirectory() << "/"<<Title::GetWadFormattedName(_id,0);
+
+	Title newTitle;
 	newTitle.TmdInstalledEvent += MakeDelegate(this, &IosDowngrader::DowngradeTmd);
     newTitle.LoadFromWad(newFile.str() , "sd:/temp");
-	
+
 	Title oldTitle;
 	oldTitle.TicketInstallingEvent += MakeDelegate(this, &IosDowngrader::SkipStep);
 	oldTitle.LoadFromWad(oldFile.str(), "sd:/temp");
-		
+
 	OnProgress("Installing the fake IOS", 0.2);
 	//this will be aborted by the event handler
 	newTitle.Install();

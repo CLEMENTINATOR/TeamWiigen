@@ -299,9 +299,9 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 {
 	if(!File::Exists(file))
 		throw Exception("The wad file doesn't exists.", -1);
-		
+
 	TitleEventArgs processControl;
-	
+
 	//getting wadBuffer
 	Buffer wadBuffer = File::ReadToEnd(file);
 
@@ -351,7 +351,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 		OnTmdLoading(processControl);
 		bool skipTmd = processControl.skipStep;
 		p_tmd = processControl.buffer;
-		
+
 		//we've reloaded the p_tmd
 		//so we reload the tmd_data
 		tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
@@ -859,7 +859,7 @@ void Title::CreateTempDirectory(u64 titleId, u16 revision, const std::string& te
 		canDeleteRootTempDirectory = false;
 	else
 		canDeleteRootTempDirectory = true;
-	
+
 	stringstream str;
 	str << tempDirectory << "/" << hex << setw(8) << setfill('0') << TITLE_TYPE(titleId);
 	str << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << setfill(' ') << dec;
@@ -868,7 +868,7 @@ void Title::CreateTempDirectory(u64 titleId, u16 revision, const std::string& te
 
 	_directory = str.str();
 	_directory=Path::CleanPath(_directory);
-	
+
 	Directory::Create(_directory);
 }
 
@@ -1036,4 +1036,24 @@ Title::~Title()
 string Title::TempDirectory()
 {
 	return _directory;
+}
+
+string Title::GetWadFormattedName(u64 tid,u16 rev)
+{
+  stringstream wadName;
+  u32 type=tid>> 32;
+  u32 id = (u32)tid;
+  if (type==1) // If IOS
+    {
+      wadName<<"IOS"<<id;
+    }
+  else
+    {
+      wadName<<hex<<setfill('0')<<setw(16)<<tid<<dec;
+    }
+  if (rev) wadName<<"-64-v"<<rev;
+  wadName<<".wad";
+
+  return wadName.str();
+
 }

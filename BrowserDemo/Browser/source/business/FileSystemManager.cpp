@@ -116,37 +116,27 @@ bool FileSystemManager::PasteFile(const string &sourceFile, const string &destDi
 			File::Delete(destFile);
 
 		File &destFileStream = File::Create(destFile);
-		File &sourceFileStream = File::Open(sourceFile, FileMode_Read);
-		u32 nbTotalRead = 0;
-		char buffer[4096];
+
+
 		try
 		{
-			while(nbTotalRead < sourceFileStream.Size())
-			{
-				u32 nbToRead = sourceFileStream.Size() - nbTotalRead;
-				if(nbToRead > 4096)
-					nbToRead = 4096;
-
-				u32 nbReads = sourceFileStream.Read(buffer, nbToRead);
-				destFileStream.Write(buffer,nbReads);
-				nbTotalRead += nbReads;
-			}
+			Buffer b= File::ReadToEnd(sourceFile);
+        destFileStream.Write(b);
 		}
 		catch(...)
 		{
 			destFileStream.Close();
-			sourceFileStream.Close();
+
 
 			delete &destFileStream;
-			delete &sourceFileStream;
+
 			throw;
 		}
 
 		destFileStream.Close();
-		sourceFileStream.Close();
 
 		delete &destFileStream;
-		delete &sourceFileStream;
+
 	}
 
 	return true;

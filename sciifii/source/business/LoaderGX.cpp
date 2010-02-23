@@ -89,18 +89,6 @@ bool LoaderGX::Prepare()
 		delete &boot;
 	}
 	
-	OnProgress("Obtain readme.txt", 0.6);
-	if(!File::Exists("sd:/apps/usbloader_gx/readme.txt"))
-	{
-		NetworkRequest req("http://docs.google.com/MiscCommands?command=saveasdoc&exportformat=txt&docID=dfwvk5sg_0gksqfcdj");
-		Buffer response = req.GetResponse();
-		
-		File &boot = File::Create("sd:/apps/usbloader_gx/readme.txt");
-		boot.Write(response);
-		boot.Close();
-		delete &boot;
-	}
-	
 	OnProgress("Obtain meta file.", 0.7);
 	if(!File::Exists("sd:/apps/usbloader_gx/meta.xml"))
 	{

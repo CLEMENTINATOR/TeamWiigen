@@ -35,9 +35,14 @@ Temps estinmé d'installation :
 S'il vous plait, regardez le fichier "readme" de da_letter_a cioscorp pour les informations sur le cioscorp.
 
 /*********************/
-Pour les utilisateurs de wii sans connexion internet
+Utilitaire PC
 /*********************/
 
-Si vous n'avez pas de connexion internet,
-Téléchargez le téléchargeur de fichiers "Sciifii Offline", programme pour pc afin d'obtenir les fichiers a placer sur votre sd.
-Mettez-les juste dans le repertoire suivant "sd:/sciifii" et ensuite lancez Sciifii sur votre wii.
+Requis : Framework.NET 3.5
+
+Si vous n'avez pas d'accès internet depuis votre wii, ou si vous voulez tout simplement télécharger plus vite les fichiers,
+Utilisez notre Sciifii Offline File Downloader, programme pc fourni normalement avec Sciifii et executez le afin d'obtenir
+les fichiers nécésairres a l'exécution de sciifii.
+Cet outil vous permet de choisir les fichiers a télécharger en fonction des options que vous allez utliser sur sciifii.
+Selectionnez l'option qui vous interresse et cliquez sur "Download".
+Ceci téléchargera l'ensemble des fichiers nécéssaires dans un dossier sciifii a copier a la racine de votre sd.

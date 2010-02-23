@@ -19,7 +19,7 @@ namespace SciifiiDTO
 
                 worker.ReportProgress((int)(100 * cstep));
 
-                NUSDownloader.DownloadWad(0x100000000UL + item.source, item.revision, folder);
+              if(!item.localOnly)  NUSDownloader.DownloadWad(0x100000000UL + item.source, item.revision, folder);
 
                 cstep += (double)1 / (config.corp.Length * nbStep);
             }

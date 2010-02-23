@@ -1047,7 +1047,7 @@ string Title::GetWadFormatedName(u64 tid,u16 rev)
   {
     wadName << "IOS" <<id;
 	if(rev > 0)
-		wadName << "-64-" << rev;
+		wadName << "-64-";
   }
   else
   {

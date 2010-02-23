@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
 #include <libutils/system/TitlePatcher.h>
 #include <libutils/system/SimplePatch.h>
 #include "../Config.h"
@@ -20,8 +21,7 @@ bool TruchaRestorer::Prepare()
 	u32 shortId = (u32)_id;
 
 	stringstream wad;
-	wad << Config::WorkingDirectory() << "/";
-	wad<<Title::GetWadFormattedName(_id,_revision);
+	wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
 
 	if(!File::Exists(wad.str()))
 	{
@@ -36,9 +36,7 @@ bool TruchaRestorer::Prepare()
 			ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 			stringstream pack;
-			pack << "Saving as IOS" << shortId ;
-			if(_revision) pack << "v" << _revision;
-			pack << ".wad";
+			pack << "Saving as " << Path::GetFileName(wad.str());
 
 			OnProgress(pack.str(), 0.75);
 			ios.PackAsWad(wad.str());
@@ -59,17 +57,18 @@ void TruchaRestorer::Install()
 {
     u32 shortId = (u32)_id;
 	stringstream wad;
-	stringstream install;
-	wad << Config::WorkingDirectory() << "/";
-	wad<<Title::GetWadFormattedName(_id,_revision);
+	wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
 
 	TitlePatcher newTitle(_id, 0xFFFF);
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_Old());
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
 	newTitle.AddPatch(SimplePatch::ES_Identify());
 	newTitle.AddPatch(SimplePatch::FFS_PermsCheck());
-    install<<"Loading IOS" <<shortId;
-	if(_revision!=0) install << "v" << _revision;
+    
+	stringstream install;
+	install << "Loading IOS" <<shortId;
+	if(_revision!=0) 
+		install << "v" << _revision;
     install<<" from Wad and applying patches";
 	OnProgress(install.str(), 0.25);
 

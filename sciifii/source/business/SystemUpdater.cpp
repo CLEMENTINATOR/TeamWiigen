@@ -4,6 +4,7 @@
 
 #include <libutils/exception/Exception.h>
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
 #include <libutils/system/Title.h>
 
 #include "SystemUpdater.h"
@@ -20,11 +21,7 @@ bool SystemUpdater::Prepare()
     for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
     {
         u32 type = ite->title >> 32;
-
-        stringstream wadFile;
-        stringstream wadName;
-
-        wadName<<Title::GetWadFormattedName(ite->title,ite->revision);
+		
         if (type!=1 && Title::IsInstalled(ite->title))
         {
             if (Title::GetInstalledTitleVersion(ite->title)>=ite->revision)
@@ -33,7 +30,10 @@ bool SystemUpdater::Prepare()
                 continue;
             }
         }
-        wadFile << Config::WorkingDirectory() << "/" << wadName.str();
+		
+		stringstream wadFile;
+
+        wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(ite->title,ite->revision);
 
         if (!File::Exists(wadFile.str()))
         {
@@ -47,7 +47,7 @@ bool SystemUpdater::Prepare()
                 t.LoadFromNusServer(ite->title, ite->revision, Config::WorkingDirectory());
 
                 stringstream packMessage;
-                packMessage << "Saving it as " << wadName.str();
+                packMessage << "Saving it as " << Path::GetFileName(wadFile.str());
                 OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
                 t.PackAsWad(wadFile.str());
             }
@@ -77,11 +77,7 @@ void SystemUpdater::Install()
     {
 
         stringstream wadFile;
-        stringstream wadName;
-
-       wadName<<Title::GetWadFormattedName(ite->title,ite->revision);
-
-        wadFile << Config::WorkingDirectory() << "/" << wadName.str();
+        wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(ite->title,ite->revision);
 
         if (!File::Exists(wadFile.str()))
             throw Exception("File not found.", -1);

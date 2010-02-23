@@ -80,7 +80,7 @@ public:
 	void LoadFromNusServer(u64 titleId, u16 revision = 0, const std::string& tempFolder = "sd:/tmp");
 	void PackAsWad(const std::string& fileName);
 	static std::vector<u8> GetInstalledIos();
-	static std::string GetWadFormattedName(u64 tid,u16 rev);
+	static std::string GetWadFormatedName(u64 tid,u16 rev);
 	static u16 GetInstalledTitleVersion(u64 titleId);
 	void Install();
 	void Uninstall();

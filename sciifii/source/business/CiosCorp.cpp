@@ -12,6 +12,7 @@
 #include <libutils/system/SimplePatch.h>
 #include <libutils/system/ModulePatch.h>
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
 
 #include "../../build/dip13_dat.h"
 #include "../../build/dip17_dat.h"
@@ -37,7 +38,7 @@ bool CiosCorp::Prepare()
 		u64 source = 0x0000000100000000ULL + ite->sourceId;
 
 		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormattedName(source,ite->revision);
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(source,ite->revision);
 
 		if(!File::Exists(wadFile.str()))
 		{
@@ -52,7 +53,7 @@ bool CiosCorp::Prepare()
 				ios.LoadFromNusServer(source, ite->revision, Config::WorkingDirectory());
 
 				stringstream packMessage;
-				packMessage << "Saving as " <<Title::GetWadFormattedName(source,ite->revision);
+				packMessage << "Saving as " << Path::GetFileName(wadFile.str());
 				OnProgress(packMessage.str(), (step + 0.5)/nbIosToInstall);
 				ios.PackAsWad(wadFile.str());
 			}
@@ -90,7 +91,7 @@ void CiosCorp::Install()
 	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
 	{
 		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormattedName(0x0000000100000000ULL + ite->sourceId,ite->revision);
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + ite->sourceId,ite->revision);
 
 		if(!File::Exists(wadFile.str()) && !ite->localOnly)
 			throw Exception("File not found.", -1);

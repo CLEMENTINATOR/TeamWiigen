@@ -8,6 +8,6 @@ namespace SciifiiDTO
 {
 	public partial class sciifii
 	{
-		public Region Region { get; set; }		
+		public Regions Region { get; set; }		
 	}
 }

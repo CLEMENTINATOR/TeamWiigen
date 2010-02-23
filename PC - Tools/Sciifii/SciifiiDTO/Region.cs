@@ -2,7 +2,7 @@ using System;
 
 namespace SciifiiDTO
 {
-	public enum Region
+	public enum Regions
 	{
 		JAP = 0,
 		USA = 1,

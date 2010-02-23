@@ -19,7 +19,7 @@ namespace SciifiiDTO
 
                 worker.ReportProgress((int)(100 * cstep));
 				
-				if(item.region != -1 && (Region)item.region != config.Region)
+				if(item.region != -1 && (Regions)item.region != config.Region)
 				{
 					cstep += (double)1 / (config.system.Length * nbStep);
 					continue;

@@ -38,7 +38,7 @@ namespace Sciifii
                 if(!option.networkRequired)
 					checkedListBox1.Items.Add(option, false);
 					
-			ddlRegion.DataSource = Enum.GetNames(typeof(Region));
+			ddlRegion.DataSource = Enum.GetNames(typeof(Regions));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace Sciifii
                 FolderBrowserDialog dial = new FolderBrowserDialog();
                 if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-					datas.Region = (Region)Enum.Parse(typeof(Region),ddlRegion.SelectedValue.ToString());
+                    datas.Region = (Regions)Enum.Parse(typeof(Regions), ddlRegion.SelectedValue.ToString());
                     directory = dial.SelectedPath;
                     StartJob();
                 }

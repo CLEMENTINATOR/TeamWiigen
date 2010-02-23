@@ -35,6 +35,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.ddlRegion = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -136,7 +137,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBox1;
-		private System.Windows.Forms.ComboBox ddlRegion;;
+		private System.Windows.Forms.ComboBox ddlRegion;
         private System.Windows.Forms.BindingSource sciifiiModeBindingSource;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Label label1;

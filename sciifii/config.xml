@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="2" MenuMessage="All this options will update your wii to 4.2" AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
+<sciifii version="2" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
 
   <corp>
     <corpItem slot="9" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />

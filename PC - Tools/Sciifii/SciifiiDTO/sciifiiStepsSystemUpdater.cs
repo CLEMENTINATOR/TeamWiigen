@@ -18,6 +18,12 @@ namespace SciifiiDTO
                     break;
 
                 worker.ReportProgress((int)(100 * cstep));
+				
+				if(item.region != -1 && (Region)item.region != config.Region)
+				{
+					cstep += (double)1 / (config.system.Length * nbStep);
+					continue;
+				}
 
                 NUSDownloader.DownloadWad(UInt64.Parse(item.id, System.Globalization.NumberStyles.HexNumber), UInt16.Parse(item.revision, System.Globalization.NumberStyles.HexNumber), folder);
 

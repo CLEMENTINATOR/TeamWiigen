@@ -11,7 +11,6 @@ Un moyen de lancer des homebrew sur votre wii (Bannerbomb,hbc,Twilight hack ect.
 Que fait Sciifii:
 -Hack your wii ! (Light Mode) : Restaure le Bug Trucha , Installe le cIOS rev17b, Installe le Priiloader
 -Hack your wii ! (Full Mode) : Restore Trucha Bug, Install cIOS rev17b,Install firmware 4.2, Install Priiloader, Install USB LoaderGX
--Hack your wii ! (All Features) : Install all the features listed below
 -Advanced Menu (Vous laisse choisir ce que vous voulez installer, pour utilisateurs experts)
 -Unhack your wii.
 

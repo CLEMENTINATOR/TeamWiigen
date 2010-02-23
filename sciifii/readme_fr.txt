@@ -3,6 +3,7 @@ Codé par Arasium, Teton and Fanta.
 Testé par JeanMi59226, Jicay, crwys, Vlad and Thetataz (and many others)
 Remerciement particulier a Waninkoko pour son aide
 Merci a da_letter_a pour les informations sur le cioscorp
+Traduit par Jeanmi/Teton
 
 Matériel requis:
 Une SD Card (avec 200mb d'espace libre)

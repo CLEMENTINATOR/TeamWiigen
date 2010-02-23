@@ -1038,20 +1038,25 @@ string Title::TempDirectory()
 	return _directory;
 }
 
-string Title::GetWadFormattedName(u64 tid,u16 rev)
+string Title::GetWadFormatedName(u64 tid,u16 rev)
 {
   stringstream wadName;
-  u32 type=tid>> 32;
+  u32 type= tid >> 32;
   u32 id = (u32)tid;
   if (type==1) // If IOS
-    {
-      wadName<<"IOS"<<id;
-    }
+  {
+    wadName << "IOS" <<id;
+	if(rev > 0)
+		wadName << "-64-" << rev;
+  }
   else
-    {
-      wadName<<hex<<setfill('0')<<setw(16)<<tid<<dec;
-    }
-  if (rev) wadName<<"-64-v"<<rev;
+  {
+    wadName << hex << setfill('0') << setw(8) << type << setw(0) << "-" << setw(8) << id << setw(0) << dec;
+  }
+  
+  if (rev > 0) 
+	wadName << "v" << rev;
+	
   wadName<<".wad";
 
   return wadName.str();

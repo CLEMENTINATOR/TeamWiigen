@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
 #include <libutils/system/Title.h>
 #include "../Config.h"
 #include <iostream>
@@ -16,8 +17,8 @@ TitleInstaller::TitleInstaller(u64 titleId, u16 revision)
 bool TitleInstaller::Prepare()
 {
 	stringstream wad;
-	wad << Config::WorkingDirectory() << "/";
-	wad<<Title::GetWadFormattedName(_id,_revision);
+	wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
+	
 	if(!File::Exists(wad.str()))
 	{
 		if(Config::HasNetwork())
@@ -25,14 +26,14 @@ bool TitleInstaller::Prepare()
 			Title ios;
 
 			stringstream down;
-			down << "Downloading title " <<hex<<setfill('0')<<setw(16)<<_id<<dec  ;
+			down << "Downloading title " << hex << setfill('0') << setw(16) << _id << dec;
 			if( _revision!=0) down<< " version " << _revision ;
 			down << " from NUS.";
 			OnProgress(down.str(), 0.25);
 			ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 			stringstream pack;
-			pack << "Saving as "<<Title::GetWadFormattedName(_id,_revision);
+			pack << "Saving as " << Path::GetFileName(wad.str());
 			OnProgress(pack.str(), 0.75);
 			ios.PackAsWad(wad.str());
 		}
@@ -51,15 +52,16 @@ bool TitleInstaller::Prepare()
 void TitleInstaller::Install()
 {
 	stringstream wad;
-	wad << Config::WorkingDirectory() << "/";
-	wad<<Title::GetWadFormattedName(_id,_revision);
+	wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
 
 	Title newTitle;
 
 	stringstream load;
-	load << "Loading title "<<hex<<setfill('0')<<setw(16)<<_id<<dec;
-	if(_revision!=0) load<< "v" << _revision;
+	load << "Loading title " << hex << setfill('0') << setw(16) << _id << dec;
+	if(_revision!=0) 
+		load << "v" << _revision;
 	load << " from Wad.";
+	
 	OnProgress(load.str(), 0.25);
     newTitle.LoadFromWad(wad.str() , "sd:/temp");
 

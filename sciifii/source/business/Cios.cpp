@@ -2,6 +2,7 @@
 #include "../Config.h"
 
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
 #include <libutils/system/Title.h>
 #include <libutils/system/TitlePatcher.h>
 #include <libutils/system/PluginPatch.h>
@@ -113,8 +114,7 @@ bool Cios::Prepare()
 	u64 source = 0x0000000100000000ULL + 38;
 
 	stringstream wadFile;
-	wadFile << Config::WorkingDirectory() +"/";
-    wadFile << Title::GetWadFormattedName(source,3867);
+	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(source,3867);
 
 	if(!File::Exists(wadFile.str()))
 	{
@@ -128,7 +128,7 @@ bool Cios::Prepare()
 			ios.LoadFromNusServer(source, 3867, Config::WorkingDirectory());
 
 			stringstream packMessage;
-			packMessage << "Saving as "<<Title::GetWadFormattedName(source,3867);
+			packMessage << "Saving as "<< Path::GetFileName(wadFile.str());
 			OnProgress(packMessage.str(), 0.7);
 			ios.PackAsWad(wadFile.str());
 		}
@@ -207,7 +207,7 @@ void Cios::Install()
 	cios.AddModule(&sdhcModule);
 
 	stringstream wadFile;
-	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormattedName(0x0000000100000000ULL + 38,3867);
+	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + 38,3867);
 
 	OnProgress("Deleting old IOS249 or stub.", 0.2);
 	Title::Uninstall(0x0000000100000000ULL + 249);

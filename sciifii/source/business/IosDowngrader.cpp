@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
 #include <libutils/system/Title.h>
 #include "../Config.h"
 #include <iostream>
@@ -18,10 +19,10 @@ bool IosDowngrader::Prepare()
 	u32 shortId = (u32)_id;
 
 	stringstream newWad;
-	newWad << Config::WorkingDirectory() << "/"<<Title::GetWadFormattedName(_id,0);
+	newWad << Config::WorkingDirectory() << "/"<<Title::GetWadFormatedName(_id,0);
 
 	stringstream oldWad;
-	oldWad << Config::WorkingDirectory() << "/" <<Title::GetWadFormattedName(_id,_neededRevision);
+	oldWad << Config::WorkingDirectory() << "/" <<Title::GetWadFormatedName(_id,_neededRevision);
 
 	if((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !Config::HasNetwork())
 	{
@@ -40,7 +41,7 @@ bool IosDowngrader::Prepare()
 		ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
 		stringstream packMessage;
-		packMessage << "Saving as "<<Title::GetWadFormattedName(_id,0);
+		packMessage << "Saving as "<< Path::GetFileName(newWad.str());
 		OnProgress(packMessage.str(), 0.25);
 		ios.PackAsWad(newWad.str());
 	}
@@ -55,7 +56,7 @@ bool IosDowngrader::Prepare()
 		ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
 
 		stringstream packMessage;
-		packMessage << "Saving as " <<Title::GetWadFormattedName(_id,_neededRevision);
+		packMessage << "Saving as " << Path::GetFileName(oldWad.str());
 		OnProgress(packMessage.str(), 0.75);
 		ios.PackAsWad(oldWad.str());
 	}
@@ -67,10 +68,10 @@ bool IosDowngrader::Prepare()
 void IosDowngrader::Install()
 {
 	stringstream oldFile;
-	oldFile << Config::WorkingDirectory() << "/"<<Title::GetWadFormattedName(_id,_neededRevision);
+	oldFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_neededRevision);
 
 	stringstream newFile;
-	newFile<< Config::WorkingDirectory() << "/"<<Title::GetWadFormattedName(_id,0);
+	newFile<< Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,0);
 
 	Title newTitle;
 	newTitle.TmdInstalledEvent += MakeDelegate(this, &IosDowngrader::DowngradeTmd);

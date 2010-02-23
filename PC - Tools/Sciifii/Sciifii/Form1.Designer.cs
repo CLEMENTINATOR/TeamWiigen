@@ -52,16 +52,6 @@
             this.comboBox1.TabIndex = 0;
             this.comboBox1.ValueMember = "options";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-			// 
-            // ddlRegion
-            // 
-            this.ddlRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ddlRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlRegion.FormattingEnabled = true;
-            this.ddlRegion.Location = new System.Drawing.Point(282, 12);
-            this.ddlRegion.Name = "ddlRegion";
-            this.ddlRegion.Size = new System.Drawing.Size(30, 21);
-            this.ddlRegion.TabIndex = 1;
             // 
             // sciifiiModeBindingSource
             // 
@@ -117,6 +107,16 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // ddlRegion
+            // 
+            this.ddlRegion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ddlRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlRegion.FormattingEnabled = true;
+            this.ddlRegion.Location = new System.Drawing.Point(282, 12);
+            this.ddlRegion.Name = "ddlRegion";
+            this.ddlRegion.Size = new System.Drawing.Size(49, 21);
+            this.ddlRegion.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,6 +127,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ddlRegion);
             this.Name = "Form1";
             this.Text = "Sciifii downloader";
             this.ResumeLayout(false);

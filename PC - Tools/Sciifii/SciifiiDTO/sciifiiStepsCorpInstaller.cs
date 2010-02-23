@@ -10,7 +10,7 @@ namespace SciifiiDTO
     {
         public void Download(string folder, sciifii config, BackgroundWorker worker, int step, int nbStep)
         {
-            double cstep = (double)step * nbStep;
+            double cstep = (double)step / nbStep;
 
             foreach (sciifiiCorpItem item in config.corp)
             {

@@ -91,7 +91,7 @@ namespace Sciifii
             List<string> options = new List<string>();
             List<object> steps = new List<object>();
 
-            foreach (sciifiiOption option in checkedListBox1.SelectedItems)
+            foreach (sciifiiOption option in checkedListBox1.CheckedItems)
                 options.Add(option.name);
 
             foreach (object o in datas.steps.Items)

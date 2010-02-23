@@ -147,10 +147,15 @@ void Config::CreateUpdateList(TiXmlElement* element)
             u16 revision= Xml::StrToU16(child->Attribute("revision"), nr_hex);
             bool onlyUninstallation= Xml::StrToBool(child->Attribute("onlyUninstallation"));
             s8 region = Xml::StrToS32(child->Attribute("region"));
+			
+			const char* cslot = child->Attribute("slot");
+			u64 slot = 0;
+			if(cslot)
+				slot = Xml::StrToU64(cslot);
 
             if (region == -1 || region == _region)
             {
-				titleDescriptor descriptor = (titleDescriptor){id, revision, onlyUninstallation};
+				titleDescriptor descriptor = (titleDescriptor){slot, id, revision, onlyUninstallation};
 				u32 type = id >> 32;
 
 				//skip some channels

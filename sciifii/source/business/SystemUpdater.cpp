@@ -5,7 +5,7 @@
 #include <libutils/exception/Exception.h>
 #include <libutils/fs/File.h>
 #include <libutils/fs/Path.h>
-#include <libutils/system/Title.h>
+#include <libutils/system/TitlePatcher.h>
 
 #include "SystemUpdater.h"
 
@@ -85,7 +85,7 @@ void SystemUpdater::Install()
         stringstream progressMessage;
         progressMessage << "Loading title " <<hex<<setfill('0')<<setw(16)<<ite->title<<dec<<" version "<<ite->revision<< " from Wad.";
         OnProgress(progressMessage.str(), step/nbIosToInstall);
-        Title t;
+        TitlePatcher t(ite->slot);
         t.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
 
         stringstream installMessage;

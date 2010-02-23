@@ -25,6 +25,7 @@ typedef struct
 
 typedef struct
 {
+	u64 slot;
 	u64 title;
 	u16 revision;
 	bool onlyOnUninstall;

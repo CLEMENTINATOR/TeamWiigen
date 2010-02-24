@@ -2,7 +2,7 @@
 
 <sciifii version="2" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
 
-  <corp>
+  <!--corp>
     <corpItem slot="9" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
     <corpItem slot="11" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
     <corpItem slot="17" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
@@ -28,6 +28,33 @@
     <corpItem slot="58" source="58" revision="5918" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="true" />
     <corpItem slot="60" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
     <corpItem slot="70" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+  </corp-->
+  
+  <corp>
+	<corpItem slot="9 source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="11" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="17" source="53" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="20" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="21" source="53" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="28" source="28" revision="1293" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+	<corpItem slot="30" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="33" source="33" revision="2834" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+	<corpItem slot="35" source="35" revision="3092" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
+	<corpItem slot="36" source="36" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
+	<corpItem slot="37" source="37" revision="3612" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
+	<corpItem slot="38" source="38" revision="3610" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+	<corpItem slot="40" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="41" source="41" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="43" source="43" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="45" source="45" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="46" source="46" revision="3093" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="50" source="50" revision="4889" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="52" source="52" revision="5661" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="53" source="53" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="55" source="55" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="56" source="56" revision="5146" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
+	<corpItem slot="60" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+	<corpItem slot="70" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
   </corp>
 
   <system>

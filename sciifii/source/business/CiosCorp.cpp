@@ -15,8 +15,8 @@
 #include <libutils/fs/Path.h>
 
 #include "../../build/dip13_dat.h"
-#include "../../build/dip17_dat.h"
-#include "../../build/es17_dat.h"
+#include "../../build/dip14_dat.h"
+#include "../../build/es14_dat.h"
 
 using namespace std;
 
@@ -77,10 +77,10 @@ void CiosCorp::Install()
 	ModulePatch dip13(dip13_dat, dip13_dat_size, "DIP");
 	dip13.ForbiddenModule = "IOSP";
 
-	ModulePatch dip17(dip17_dat, dip17_dat_size, "DIP");
-	dip17.ForbiddenModule = "IOSP";
+	ModulePatch dip14(dip14_dat, dip14_dat_size, "DIP");
+	dip14.ForbiddenModule = "IOSP";
 
-	ModulePatch es17(es17_dat, es17_dat_size, "ES");
+	ModulePatch es14(es14_dat, es14_dat_size, "ES");
 
 	KoreanKeyPatch kkpatch;
 
@@ -110,15 +110,15 @@ void CiosCorp::Install()
 			case 13:
 				ciosPatcher.AddPatch(&dip13);
 				break;
-			case 17:
-				ciosPatcher.AddPatch(&dip17);
+			case 14:
+				ciosPatcher.AddPatch(&dip14);
 				break;
 		}
 
 		switch(ite->esVersion)
 		{
-			case 17:
-				ciosPatcher.AddPatch(&es17);
+			case 14:
+				ciosPatcher.AddPatch(&es14);
 				break;
 		}
 

@@ -42,7 +42,7 @@
 	<corpItem slot="35" source="35" revision="3092" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
 	<corpItem slot="36" source="36" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
 	<corpItem slot="37" source="37" revision="3612" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-	<corpItem slot="38" source="38" revision="3610" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+	<corpItem slot="38" source="38" revision="3610" dipVersion="14" esVersion="14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
 	<corpItem slot="40" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 	<corpItem slot="41" source="41" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
 	<corpItem slot="43" source="43" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />

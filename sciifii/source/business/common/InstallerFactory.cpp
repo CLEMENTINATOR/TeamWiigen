@@ -1,5 +1,5 @@
 #include "InstallerFactory.h"
-#include "../IOSDowngrader.h"
+#include "../TitleDowngrader.h"
 #include "../IOSReloader.h"
 #include "../TruchaRestorer.h"
 #include "../TitleInstaller.h"
@@ -22,11 +22,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
 	string nodeValue(node->Value());
 
-		if(nodeValue == "IOSDowngrader")
+		if(nodeValue == "TitleDowngrader")
 		{
-			u32 titleId = Xml::StrToU32(node->Attribute("id"));
+			u64 titleId = Xml::StrToU64(node->Attribute("id"),nr_hex);
 			u16 revision = Xml::StrToU16(node->Attribute("revision"));
-			step = new IosDowngrader(titleId, revision);
+			step = new TitleDowngrader(titleId, revision);
 		}
 		else if(nodeValue == "IOSReloader")
 		{

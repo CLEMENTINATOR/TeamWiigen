@@ -1,4 +1,4 @@
-#include "IosDowngrader.h"
+#include "TitleDowngrader.h"
 
 #include <sstream>
 #include <libutils/fs/File.h>
@@ -9,12 +9,12 @@
 using namespace fastdelegate;
 using namespace std;
 
-IosDowngrader::IosDowngrader(u32 titleId, u16 neededRevision)
-: _id(0x0000000100000000ULL + titleId),
+TitleDowngrader::TitleDowngrader(u64 titleId, u16 neededRevision)
+: _id(titleId),
  _neededRevision(neededRevision)
 {}
 
-bool IosDowngrader::Prepare()
+bool TitleDowngrader::Prepare()
 {
 	u32 shortId = (u32)_id;
 
@@ -36,7 +36,7 @@ bool IosDowngrader::Prepare()
 		Title ios;
 
 		stringstream downloadMessage;
-		downloadMessage << "Downloading IOS" << shortId << " from NUS.";
+		downloadMessage << "Downloading IOS" << _id << " from NUS.";
 		OnProgress(downloadMessage.str(), 0);
 		ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
@@ -65,7 +65,7 @@ bool IosDowngrader::Prepare()
 	return true;
 }
 
-void IosDowngrader::Install()
+void TitleDowngrader::Install()
 {
 	stringstream oldFile;
 	oldFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_neededRevision);
@@ -74,11 +74,11 @@ void IosDowngrader::Install()
 	newFile<< Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,0);
 
 	Title newTitle;
-	newTitle.TmdInstalledEvent += MakeDelegate(this, &IosDowngrader::DowngradeTmd);
+	newTitle.TmdInstalledEvent += MakeDelegate(this, &TitleDowngrader::DowngradeTmd);
     newTitle.LoadFromWad(newFile.str() , "sd:/temp");
 
 	Title oldTitle;
-	oldTitle.TicketInstallingEvent += MakeDelegate(this, &IosDowngrader::SkipStep);
+	oldTitle.TicketInstallingEvent += MakeDelegate(this, &TitleDowngrader::SkipStep);
 	oldTitle.LoadFromWad(oldFile.str(), "sd:/temp");
 
 	OnProgress("Installing the fake IOS", 0.2);
@@ -92,7 +92,7 @@ void IosDowngrader::Install()
 	OnProgress("IOS downgraded.", 1);
 }
 
-void IosDowngrader::DowngradeTmd(Object* sender, TitleEventArgs *args)
+void TitleDowngrader::DowngradeTmd(Object* sender, TitleEventArgs *args)
 {
 	OnProgress("Downgrading tmd.", 0.4);
 	string tmd_path = "wii:/tmp/title.tmd";
@@ -113,7 +113,7 @@ void IosDowngrader::DowngradeTmd(Object* sender, TitleEventArgs *args)
 	args->abortProcess = true;
 }
 
-void IosDowngrader::SkipStep(Object* sender, TitleEventArgs *args)
+void TitleDowngrader::SkipStep(Object* sender, TitleEventArgs *args)
 {
 	OnProgress("Skipping ticket installation.", 0.8);
 	args->skipStep = true;

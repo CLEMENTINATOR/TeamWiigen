@@ -107,8 +107,8 @@ void Config::CreateCorpList(TiXmlElement* element)
             if (string(child->Value()) != "corpItem")
                 throw Exception("CorpItem child node is invalid", -1);
 
-            u32 slot = Xml::StrToU32(child->Attribute("slot"));
-            u32 source = Xml::StrToU32(child->Attribute("source"));
+            u64 slot = Xml::StrToU64(child->Attribute("slot"),nr_hex);
+            u64 source = Xml::StrToU64(child->Attribute("source"),nr_hex);
             u16 revision = Xml::StrToU16(child->Attribute("revision"));
             u16 dipVersion = Xml::StrToU16(child->Attribute("dipVersion"));
             u16 esVersion = Xml::StrToU16(child->Attribute("esVersion"));
@@ -117,11 +117,7 @@ void Config::CreateCorpList(TiXmlElement* element)
             bool kkPatch = Xml::StrToBool(child->Attribute("kkPatch"));
             bool localOnly = Xml::StrToBool(child->Attribute("localOnly"));
 
-            _corp.push_back((ciosDesc)
-            {
-                slot, source, revision, dipVersion, esVersion, identifyPatch, nandPatch, kkPatch, localOnly
-            }
-                           );
+            _corp.push_back((ciosDesc){slot, source, revision, dipVersion, esVersion, identifyPatch, nandPatch, kkPatch, localOnly});
         }
 
         child = child->NextSiblingElement();
@@ -142,16 +138,16 @@ void Config::CreateUpdateList(TiXmlElement* element)
         {
             if (string(child->Value()) != "title")
                 throw Exception("UpdateList child node is invalid", -1);
-            
+
             u64 id = Xml::StrToU64(child->Attribute("id"), nr_hex);
-            u16 revision= Xml::StrToU16(child->Attribute("revision"), nr_hex);
+            u16 revision= Xml::StrToU16(child->Attribute("revision"));
             bool onlyUninstallation= Xml::StrToBool(child->Attribute("onlyUninstallation"));
             s8 region = Xml::StrToS32(child->Attribute("region"));
-			
+
 			const char* cslot = child->Attribute("slot");
 			u64 slot = 0;
 			if(cslot)
-				slot = Xml::StrToU64(cslot);
+				slot = Xml::StrToU64(cslot,nr_hex);
 
             if (region == -1 || region == _region)
             {
@@ -165,7 +161,7 @@ void Config::CreateUpdateList(TiXmlElement* element)
 						child = child->NextSiblingElement();
 						continue;
 					}
-					
+
 				_systemTitleList.push_back(descriptor);
 				if(!onlyUninstallation)
 					_updateList.push_back(descriptor);

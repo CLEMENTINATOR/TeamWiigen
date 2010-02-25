@@ -34,11 +34,11 @@ bool CiosCorp::Prepare()
 			step++;
 			continue;
 		}
+        u32 id=(u32) ite->sourceId;
 
-		u64 source = 0x0000000100000000ULL + ite->sourceId;
 
 		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(source,ite->revision);
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( ite->sourceId,ite->revision);
 
 		if(!File::Exists(wadFile.str()))
 		{
@@ -48,9 +48,9 @@ bool CiosCorp::Prepare()
 				Title ios;
 
 				stringstream downloadMessage;
-				downloadMessage << "Downloading IOS " << ite->sourceId << " version " << ite->revision << " from NUS";
+				downloadMessage << "Downloading IOS " << id << " version " << ite->revision << " from NUS";
 				OnProgress(downloadMessage.str(), step/nbIosToInstall);
-				ios.LoadFromNusServer(source, ite->revision, Config::WorkingDirectory());
+				ios.LoadFromNusServer(ite->sourceId, ite->revision, Config::WorkingDirectory());
 
 				stringstream packMessage;
 				packMessage << "Saving as " << Path::GetFileName(wadFile.str());
@@ -91,17 +91,16 @@ void CiosCorp::Install()
 	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
 	{
 		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + ite->sourceId,ite->revision);
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( ite->sourceId,ite->revision);
 
 		if(!File::Exists(wadFile.str()) && !ite->localOnly)
 			throw Exception("File not found.", -1);
 		else if(!File::Exists(wadFile.str()))
 			continue;
 
-		u64 dest = 0x0000000100000000ULL + ite->destId;
-
-		TitlePatcher ciosPatcher(dest, 0xFFFF);
-
+		TitlePatcher ciosPatcher( ite->destId, 0xFFFF);
+        u32 destid= (u32)ite->destId;
+        u32 srcid=(u32)ite->sourceId ;
 		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());
 		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_New());
 
@@ -135,12 +134,12 @@ void CiosCorp::Install()
 		}
 
 		stringstream progressMessage;
-		progressMessage << "Creating cIOS" << ite->destId << " from IOS" << ite->sourceId << "v" << ite->revision;
+		progressMessage << "Creating cIOS" << destid << " from IOS" << srcid << "v" << ite->revision;
 		OnProgress(progressMessage.str(), step/nbIosToInstall);
 		ciosPatcher.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
 
 		stringstream installMessage;
-		installMessage << "Installing cIOS" << ite->destId;
+		installMessage << "Installing cIOS" <<destid;
 		OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
 		ciosPatcher.Install();
 

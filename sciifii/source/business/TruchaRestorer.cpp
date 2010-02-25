@@ -64,10 +64,10 @@ void TruchaRestorer::Install()
 	newTitle.AddPatch(SimplePatch::ES_HashCheck_New());
 	newTitle.AddPatch(SimplePatch::ES_Identify());
 	newTitle.AddPatch(SimplePatch::FFS_PermsCheck());
-    
+
 	stringstream install;
 	install << "Loading IOS" <<shortId;
-	if(_revision!=0) 
+	if(_revision!=0)
 		install << "v" << _revision;
     install<<" from Wad and applying patches";
 	OnProgress(install.str(), 0.25);

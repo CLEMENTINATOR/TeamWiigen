@@ -20,6 +20,7 @@ public:
 	static u32 StrToU32(const std::string& val, NumberRepresentation rep = nr_normal);
 	static u16 StrToU16(const std::string& val, NumberRepresentation rep = nr_normal);
 	static s32 StrToS32(const std::string& val, NumberRepresentation rep = nr_normal);
+	static std::string CharToStr(const char* value);
 	static bool StrToBool(const std::string& val);
 };
 

@@ -9,7 +9,7 @@ class TruchaRestorer : public Installer
 private:
 	u64 _id;
 	u16 _revision;
-	
+
 public:
 	TruchaRestorer(u32 titleId, u16 revision);
 	bool Prepare();

@@ -12,8 +12,8 @@
 
 typedef struct
 {
-	u32 destId;
-	u32 sourceId;
+	u64 destId;
+	u64 sourceId;
 	u16 revision;
 	u16 dipVersion;
 	u16 esVersion;

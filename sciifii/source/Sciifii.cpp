@@ -11,7 +11,7 @@
 
 #include "business/Cios.h"
 #include "business/CiosCorp.h"
-#include "business/IosDowngrader.h"
+#include "business/TitleDowngrader.h"
 #include "business/TitleInstaller.h"
 #include "business/TruchaRestorer.h"
 #include "business/IosReloader.h"
@@ -56,7 +56,7 @@ void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 	cout << flush;
 
 	hasDisplayed = true;
-	
+
 	VIDEO_WaitVSync();
 }
 
@@ -83,7 +83,7 @@ bool Sciifii::Prepare()
 void Sciifii::Execute()
 {
 	cout << "Please wait until sciifii finish the installation." << endl;
-	
+
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{

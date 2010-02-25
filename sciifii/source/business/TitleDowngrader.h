@@ -4,7 +4,7 @@
 #include <libutils/events/TitleEventArgs.h>
 #include "common/Installer.h"
 
-class IosDowngrader : public Installer
+class TitleDowngrader : public Installer
 {
 private:
 	u64 _id;
@@ -14,7 +14,7 @@ private:
 	void SkipStep(Object* sender, TitleEventArgs *args);
 
 public:
-	IosDowngrader(u32 titleId, u16 neededRevision);
+	TitleDowngrader(u64 titleId, u16 neededRevision);
 	bool Prepare();
 	void Install();
 };

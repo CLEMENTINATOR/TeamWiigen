@@ -151,8 +151,9 @@ void Device::UnMount()
  */
 void Device::UnMount(fatDevice &device)
 {
+	string devicePath = device.mount + ":";
 	/* Unmount device */
-	fatUnmount(device.mount.c_str());
+	fatUnmount(devicePath);
 
 	/* Shutdown interface */
 	device.interface->shutdown();

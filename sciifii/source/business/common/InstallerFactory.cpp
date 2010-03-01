@@ -32,11 +32,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		{
 			u32 id = Xml::StrToU32(node->Attribute("id"));
 			UserType ut = (UserType)Xml::StrToU16(node->Attribute("user"));
-			string fs = node->Attribute("fs");
-			if(fs.size() > 0)
-				fs = fs + ":/";
-
-			step = new IosReloader(id, ut, fs);
+			step = new IosReloader(id, ut);
 		}
 		else if(nodeValue == "TruchaRestorer")
 		{

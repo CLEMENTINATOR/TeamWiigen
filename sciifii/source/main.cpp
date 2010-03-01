@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 
     WPAD_Init();
 
-    Device::Mount("sd:/");
+
     try
     {
         Config::Initialize();
@@ -85,7 +85,6 @@ int main(int argc, char **argv)
         if (sci.Prepare())
         {
             sci.Execute();
-            Device::UnMount("sd:/");
             cout << "Installation done! Press A to reboot the wii.";
         }
         else

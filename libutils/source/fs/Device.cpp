@@ -19,6 +19,57 @@ static fatDevice devices[] = {
 	{ "gcb",	"SD Gecko (Slot B)",		&__io_gcsdb, 0 },
 };
 
+#define NB_DEVICES 5
+
+Device::Device()
+  : _started(false)
+{}
+
+Device& Device::Instance()
+{
+	static Device d;
+	return d;
+}
+
+void Device::Startup()
+{
+	Device &d = Instance();
+	if(!d._started)
+	{
+		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+		{
+			fatDevice *tempDevice = devices + deviceIndex;
+			if(tempDevice->interface != NULL)
+				tempDevice->interface->startup();
+		}
+		
+		d._started = true;
+	}
+}
+
+void Device::EnsureShutdown()
+{
+	Device &d = Instance();
+	if(d._started)
+	{
+		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+		{
+			fatDevice *tempDevice = devices + deviceIndex;
+			if(tempDevice->deviceHandles > 0)
+				throw Exception("Can shutdown device. Files are used.", tempDevice->deviceHandles);
+		}
+		
+		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+		{
+			fatDevice *tempDevice = devices + deviceIndex;
+			if(tempDevice->interface != NULL)
+				tempDevice->interface->shutdown();
+		}
+		
+		d._started = false;
+	}
+}
+
 /*!
  * \brief Return a path which is used by ISFS storage access fonctions
  * \param path A file path
@@ -44,7 +95,7 @@ fatDevice& Device::FindDevice(const string &pathName)
 {
 	string mountName = Path::GetRootName(pathName);
 	fatDevice *device = NULL;
-	for(u32 deviceIndex = 0; deviceIndex < 4; deviceIndex++)
+	for(u32 deviceIndex = 0; deviceIndex < NB_DEVICES; deviceIndex++)
 	{
 		fatDevice *tempDevice = devices + deviceIndex;
 		if(tempDevice->mount == mountName)
@@ -101,12 +152,10 @@ void Device::Mount()
 void Device::Mount(fatDevice &device)
 {
 	/* Initialize interface */
-	s32 ret = device.interface->startup();
-	if (!ret)
-		throw Exception("Error initializing device!",ret);
+	Startup();
 
 	/* Mount device */
-	ret = fatMountSimple(device.mount.c_str(), device.interface);
+	s32 ret = fatMountSimple(device.mount.c_str(), device.interface);
 	if (!ret)
 		throw Exception("Error mounting device!",ret);
 }
@@ -153,10 +202,7 @@ void Device::UnMount(fatDevice &device)
 {
 	string devicePath = device.mount + ":";
 	/* Unmount device */
-	fatUnmount(devicePath);
-
-	/* Shutdown interface */
-	device.interface->shutdown();
+	fatUnmount(devicePath.c_str());
 }
 
 /*!
@@ -167,7 +213,7 @@ vector<string> Device::GetAvailableRoots()
 {
 	vector<string> availableDevices;
 
-	for(u16 deviceIndex =0; deviceIndex < 5; deviceIndex++)
+	for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
 	{
 		try
 		{

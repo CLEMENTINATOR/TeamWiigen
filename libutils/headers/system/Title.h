@@ -73,7 +73,8 @@ protected:
 	Buffer GetContent(u32 id);
 
 public:
-
+	static void ReloadIOS(u32 ios);
+	
 	Title(bool automaticCleaning = true);
 	void LoadFromWad(const std::string& file, const std::string& tempFolder = "sd:/tmp");
 	void LoadFromNand(u64 titleId, const std::string& tempFolder = "sd:/tmp");

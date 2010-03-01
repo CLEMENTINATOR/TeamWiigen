@@ -27,12 +27,18 @@ typedef struct {
 class Device : public Object
 {
 public:
+	static void EnsureShutdown();
 	static std::vector<std::string> GetAvailableRoots();
 	static void Mount(const std::string &path);
 	static void UnMount(const std::string &path);
 	static bool IsFatPath(const std::string &path);
 	static std::string GetWiiPath(const std::string &path);
 private:
+	bool _started;
+	Device();
+	
+	static Device& Instance();
+	static void Startup();
 	static fatDevice& FindDevice(const std::string &pathName);
 	static void Mount(fatDevice &device);
 	static void Mount();

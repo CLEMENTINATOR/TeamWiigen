@@ -10,6 +10,7 @@
 #include <fs/Directory.h>
 #include <fs/File.h>
 #include <fs/Path.h>
+#include <fs/Device.h>
 #include <com/NusServer.h>
 #include <system/Certificate.h>
 #include <rijndael.h>
@@ -20,6 +21,12 @@
 using namespace std;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
+
+void Title::ReloadIOS(u32 ios)
+{
+	Device::EnsureShutdown();
+	IOS_ReloadIOS(ios);
+}
 
 /*!
  * \brief Constructor

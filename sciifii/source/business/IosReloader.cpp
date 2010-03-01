@@ -3,7 +3,7 @@
 #include <libutils/fs/Device.h>
 #include <ogc/ios.h>
 #include <sstream>
-
+#include <libutils/system/Title.h>
 using namespace std;
 
 IosReloader::IosReloader(u32 ios)
@@ -30,7 +30,7 @@ void IosReloader::Install()
 	stringstream txt;
 	txt << "Reloading under IOS" << _id;
 	OnProgress(txt.str(), 1);
-	IOS_ReloadIOS(_id);
+	Title::ReloadIOS(_id);
 	if(_identify)
 	  Identification::IdentifyAs(_type);
 }

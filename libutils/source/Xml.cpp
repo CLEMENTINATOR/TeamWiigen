@@ -12,8 +12,12 @@ string Xml::CharToStr(const char* value)
 
   else return "";
 }
-u64 Xml::StrToU64(const string& val, NumberRepresentation rep)
+
+
+u64 Xml::CharToU64(const char* val, NumberRepresentation rep)
 {
+  if (val==NULL)
+    throw Exception("Cannot parse NULL value to u64", -1);
   stringstream str(val);
   u64 returnValue;
 
@@ -24,8 +28,10 @@ u64 Xml::StrToU64(const string& val, NumberRepresentation rep)
   return returnValue;
 }
 
-u32 Xml::StrToU32(const string& val, NumberRepresentation rep)
+u32 Xml::CharToU32(const char* val, NumberRepresentation rep)
 {
+  if (val==NULL)
+    throw Exception("Cannot parse NULL value to u32", -1);
   stringstream str(val);
   u32 returnValue;
 
@@ -36,8 +42,10 @@ u32 Xml::StrToU32(const string& val, NumberRepresentation rep)
   return returnValue;
 }
 
-u16 Xml::StrToU16(const string& val, NumberRepresentation rep)
+u16 Xml::CharToU16(const char* val, NumberRepresentation rep)
 {
+  if (val==NULL)
+    throw Exception("Cannot parse NULL value to u16", -1);
   stringstream str(val);
   u16 returnValue;
 
@@ -48,8 +56,10 @@ u16 Xml::StrToU16(const string& val, NumberRepresentation rep)
   return returnValue;
 }
 
-s32 Xml::StrToS32(const string& val, NumberRepresentation rep)
+s32 Xml::CharToS32(const char* val, NumberRepresentation rep)
 {
+  if (val==NULL)
+    throw Exception("Cannot parse NULL value to s32", -1);
   stringstream str(val);
   s32 returnValue;
 
@@ -60,11 +70,80 @@ s32 Xml::StrToS32(const string& val, NumberRepresentation rep)
   return returnValue;
 }
 
-bool Xml::StrToBool(const string& val)
+bool Xml::CharToBool(const char* val)
 {
-  if (val == "true")
+  if (val==NULL)
+    throw Exception("Cannot parse NULL value to bool", -1);
+  if (!strcmp(val,"true"))
     return true;
-  else if (val == "false")
+  else if (!strcmp(val,"false"))
+    return false;
+  else
+    throw Exception("Error parsing bool value", -1);
+}
+
+u64 Xml::CharToU64(const char* val, u64 defaultval, NumberRepresentation rep)
+{
+  if (val==NULL) return defaultval;
+
+  stringstream str(val);
+  u64 returnValue;
+
+  if (rep == nr_hex)
+    str >> hex;
+
+  str >> returnValue;
+  return returnValue;
+
+}
+
+u32 Xml::CharToU32(const char* val, u32 defaultval,NumberRepresentation rep)
+{
+  if (val==NULL) return defaultval;
+
+  stringstream str(val);
+  u32 returnValue;
+
+  if (rep == nr_hex)
+    str >> hex;
+
+  str >> returnValue;
+  return returnValue;
+}
+
+u16 Xml::CharToU16(const char* val,  u16 defaultval,NumberRepresentation rep)
+{
+  if (val==NULL) return defaultval;
+  stringstream str(val);
+  u16 returnValue;
+
+  if (rep == nr_hex)
+    str >> hex;
+
+  str >> returnValue;
+  return returnValue;
+}
+
+s32 Xml::CharToS32(const char* val,  s32 defaultval,NumberRepresentation rep)
+{
+  if (val==NULL) return defaultval;
+  stringstream str(val);
+  s32 returnValue;
+
+  if (rep == nr_hex)
+    str >> hex;
+
+  str >> returnValue;
+  return returnValue;
+}
+
+bool Xml::CharToBool(const char* val,bool defaultval)
+{
+  if (val==NULL) return defaultval;
+  string value=CharToStr(val);
+  if (value == "true")
+    return true;
+  else if (value == "false")
     return false;
   else
     throw Exception("Error parsing bool value", -1);

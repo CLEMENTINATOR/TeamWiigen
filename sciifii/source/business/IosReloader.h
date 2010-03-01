@@ -11,13 +11,12 @@ class IosReloader : public Installer
 {
 private:
 	u32 _id;
-	std::string _device;
 	bool _identify;
 	UserType _type;
-	
+
 public:
-	IosReloader(u32 ios, const std::string& deviceToManage = "");
-	IosReloader(u32 ios, UserType type, const std::string& deviceToManage = "");
+	IosReloader(u32 ios);
+	IosReloader(u32 ios, UserType type);
 	bool Prepare();
 	void Install();
 };

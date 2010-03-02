@@ -16,6 +16,7 @@ class InstallerFactory : public Object
 {
 public:
 	static Installer* Create(TiXmlElement* node);
+	static Installer* CreateCios(TiXmlElement* node);
 };
 
 #endif /* INSTALLERFACTORY_H_ */

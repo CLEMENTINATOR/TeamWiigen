@@ -1,144 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <sciifii version="2" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
-
-  <!--corp>
-    <corpItem slot="9" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="11" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="17" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="20" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="21" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="28" source="28" revision="1293" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-    <corpItem slot="30" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="33" source="33" revision="2834" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-    <corpItem slot="35" source="35" revision="3092" dipVersion="17" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
-    <corpItem slot="36" source="36" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
-    <corpItem slot="37" source="37" revision="3612" dipVersion="17" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-    <corpItem slot="38" source="38" revision="3610" dipVersion="17" esVersion="17" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-    <corpItem slot="40" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="41" source="41" revision="3091" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="43" source="43" revision="3091" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="45" source="45" revision="3091" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="46" source="46" revision="3093" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="50" source="50" revision="4889" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="52" source="52" revision="5661" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="53" source="53" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="55" source="55" revision="5149" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="56" source="56" revision="5146" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
-    <corpItem slot="58" source="58" revision="5918" dipVersion="17" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="true" />
-    <corpItem slot="60" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-    <corpItem slot="70" source="60" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-  </corp-->
-  
-  <corp>
-	<corpItem slot="0000000100000009" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="000000010000000b" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000011" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000014" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000015" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="000000010000001C" source="000000010000001C" revision="1293" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-	<corpItem slot="000000010000001E" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000021" source="0000000100000021" revision="2834" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-	<corpItem slot="0000000100000023" source="0000000100000023" revision="3092" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
-	<corpItem slot="0000000100000024" source="0000000100000024" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
-	<corpItem slot="0000000100000025" source="0000000100000025" revision="3612" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000026" source="0000000100000026" revision="3610" dipVersion="14" esVersion="14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-	<corpItem slot="0000000100000028" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000029" source="0000000100000029" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="000000010000002B" source="000000010000002B" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="000000010000002D" source="000000010000002D" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="000000010000002E" source="000000010000002E" revision="3093" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000032" source="0000000100000032" revision="4889" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000034" source="0000000100000034" revision="5661" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000035" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000037" source="0000000100000037" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000038" source="0000000100000038" revision="5146" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
-	<corpItem slot="000000010000003C" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-	<corpItem slot="0000000100000046" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-  </corp>
-
-  <system>
-    <title id="0000000100000004" revision="65280" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000009" revision="778" onlyUninstallation="false" region="-1" />
-    <title id="000000010000000a" revision="768" onlyUninstallation="false" region="-1" />
-    <title id="000000010000000b" revision="256" onlyUninstallation="false" region="-1" />
-    <title id="000000010000000c" revision="269" onlyUninstallation="false" region="-1" />
-    <title id="000000010000000d" revision="273" onlyUninstallation="false" region="-1" />
-    <title id="000000010000000e" revision="520" onlyUninstallation="false" region="-1" />
-    <title id="000000010000000f" revision="523" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000010" revision="512" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000011" revision="775" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000014" revision="256" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000015" revision="782" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000016" revision="1037" onlyUninstallation="false" region="-1" />
-    <title id="000000010000001c" revision="1550" onlyUninstallation="false" region="-1" />
-    <title id="000000010000001f" revision="3349" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000021" revision="3091" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000022" revision="3348" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000023" revision="3349" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000024" revision="3351" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000025" revision="3869" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000026" revision="3867" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000029" revision="3348" onlyUninstallation="false" region="-1" />
-    <title id="000000010000002B" revision="3348" onlyUninstallation="false" region="-1" />
-    <title id="000000010000002D" revision="3348" onlyUninstallation="false" region="-1" />
-    <title id="000000010000002E" revision="3350" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000033" revision="4864" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000034" revision="5888" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000035" revision="5406" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000037" revision="5406" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000038" revision="5405" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000039" revision="5661" onlyUninstallation="false" region="-1" />
-    <title id="000000010000003d" revision="5405" onlyUninstallation="false" region="-1" />
-    <title id="0000000100000046" revision="6687" onlyUninstallation="false" region="-1" />
-    <!-- SysMenu-->
-    <!-- Region:
-          JAP: 0
-          EUR: 2
-          KK: 4
-          US: 1
-     -->
-    <title id="0000000100000002" revision="480" onlyUninstallation="false" region="0" />
-    <title id="0000000100000002" revision="481" onlyUninstallation="false" region="1" />
-    <title id="0000000100000002" revision="482" onlyUninstallation="false" region="2" />
-    <title id="0000000100000002" revision="486" onlyUninstallation="false" region="4" />
-    
-    <title id="0000000100000032" revision="5120" onlyUninstallation="false" region="-1" />
-    <title slot="0000000100000046" id="000000010000003c" revision="6174" onlyUninstallation="false" region="-1" />
-    <title id="000000010000001e" revision="2816" onlyUninstallation="false" region="-1" />
-    
-    <!-- other ioses -->
-    <title id="000000010000003c" revision="6400" onlyUninstallation="false" region="-1" /> <!-- Stub 60 -->
-    <title id="0000000100000100" revision="6" onlyUninstallation="false" region="-1" /> <!-- MIOS -->
-    <title id="0000000100000101" revision="10" onlyUninstallation="false" region="-1" /> <!-- BC -->
-
-    <!-- Channels -->
-    <title id="0001000248414141" revision="2" onlyUninstallation="false" region="-1" /> <!-- Photo -->
-    <title id="0001000248414341" revision="6" onlyUninstallation="false" region="-1" /> <!-- Mii channel-->
-    <title id="0001000248414241" revision="18" onlyUninstallation="false" region="0" /> <!-- Shop channel -->
-    <title id="0001000248414241" revision="18" onlyUninstallation="false" region="1" />
-    <title id="0001000248414241" revision="18" onlyUninstallation="false" region="2" />
-    <title id="000100024841424B" revision="18" onlyUninstallation="false" region="4" />
-    <title id="000100024841464A" revision="7" onlyUninstallation="false" region="0" /> <!-- weather -->
-    <title id="0001000248414645" revision="7" onlyUninstallation="false" region="1" />
-    <title id="0001000248414650" revision="7" onlyUninstallation="false" region="2" />
-	<!-- Inxistante -->
-    <!-- title id="0001000248414641" revision="0007" onlyUninstallation="false" region="4" /-->
-    <title id="000100024841474A" revision="7" onlyUninstallation="false" region="0" /> <!-- news -->
-    <title id="0001000248414745" revision="7" onlyUninstallation="false" region="1" />
-    <title id="0001000248414750" revision="7" onlyUninstallation="false" region="2" />
-    
-	<!-- Inxistante -->
-    <!--title id="0001000248414741" revision="0007" onlyUninstallation="false" region="4" /-->
-
-    <!-- Stubs -->
-    <title id="00000001000000fe" revision="260" onlyUninstallation="true" region="-1" />
-    <title id="00000001000000de" revision="65280" onlyUninstallation="true" region="-1" />
-    <title id="00000001000000df" revision="65280" onlyUninstallation="true" region="-1" />
-    <title id="00000001000000fa" revision="65280" onlyUninstallation="true" region="-1" />
-    <title id="00000001000000f9" revision="65280" onlyUninstallation="true" region="-1" />
-
-  </system>
   
   <modes>
 	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
@@ -161,17 +23,169 @@
     <TruchaRestorer option="TBR" id="36" revision="0" />
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
 	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
-	<CiosInstaller option="cIOS" />
+	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
+		<modules>
+			<module name="fat" url="https://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" hash="" />
+			<module name="ehci" url="https://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" hash="" position="3" />
+			<module name="sdhc" url="https://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" hash="" />
+		</modules>
+		<plugins>
+			<plugin dest="DIP" url="https://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha="https://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" offset="200" bss="2C000">
+				<handle name="DIP_Cmd1" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x01, 0x68, 0x05, 0x46, 0x8A, 0x21" />
+				<handle name="DIP_Cmd2" pattern="0xB5, 0xF0, 0x46, 0x5F, 0x46, 0x56, 0x46, 0x4D, 0x46, 0x44, 0xB4, 0xF0, 0x4B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x05, 0x46, 0x44, 0xB4, 0xF0, 0x4B" />
+			</plugin>
+			<plugin dest="ES" url="https://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha="" offset="200" bss="5000" >
+				<handle name="ES_Cmd" pattern="0xB5, 0x70, 0xB0, 0x88, 0x68, 0x85, 0x1C, 0x01, 0x31, 0x0C, 0x22, 0xC0" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x10, 0xB2, 0x01, 0x31, 0x0C, 0x22, 0xC0" />
+			</plugin>
+			<plugin dest="FFS" url="https://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha="" offset="7200" bss="47000">
+				<handle name="FFS_OpenCmd" pattern="0xB5, 0xF0, 0x46, 0x47, 0xB4, 0x80, 0xB0, 0x81, 0x1C, 0x04, 0x1C, 0x05, 0x35" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x1C, 0x04, 0x1C, 0x05, 0x35" />
+				<handle name="FFS_CloseCmd" pattern="0xB5, 0x70, 0x26, 0x00, 0x68, 0x84, 0x6A, 0x23, 0x2B, 0x00, 0xD0, 0x00, 0x1C" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x2B, 0x00, 0xD0, 0x00, 0x1C" />
+				<handle name="FFS_ReadCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x22, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x22, 0x0C, 0x18" />
+				<handle name="FFS_WriteCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x21, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x21, 0x0C, 0x18" />
+				<handle name="FFS_SeekCmd" pattern="0xB5, 0x10, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x81, 0x6A, 0x08, 0x28, 0x00, 0xD1" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x6A, 0x08, 0x28, 0x00, 0xD1" />
+				<handle name="FFS_IoctlCmd" pattern="0xB5, 0xF0, 0xB0, 0x9C, 0x24, 0x00, 0x1C, 0x05, 0x35, 0x0C, 0x68, 0x81, 0x26" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x35, 0x0C, 0x68, 0x81, 0x26" />
+				<handle name="FFS_IoctlvCmd" pattern="0xB5, 0xF0, 0xB0, 0x81, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x85, 0x68, 0xC3, 0x2B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x68, 0x85, 0x68, 0xC3, 0x2B" />
+			</plugin>
+		</plugins>
+		<patches>
+			<prebuild name="ES_HashCheck_Old" />
+			<prebuild name="ES_HashCheck_New" />
+			<prebuild name="ES_Identify" />
+			<prebuild name="ES_OpenTitleContent1" />
+			<prebuild name="ES_OpenTitleContent2" />
+			<prebuild name="ES_ReadContent" />
+			<prebuild name="ES_CloseContent" />
+			<prebuild name="ES_SetUIDCheck" />
+			<prebuild name="ES_TitleVersionCheck" />
+			<prebuild name="ES_TitleDeleteCheck" />
+			<prebuild name="ES_MEM2Protection" />
+			<prebuild name="FFS_PermsCheck" />
+			<prebuild name="DIP_UnencryptedLimit" />
+			<prebuild name="DIP_EnableDvdVideo" />
+		</patches>
+	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
-	<SystemUpdater option="update" />
+	<SystemUpdater option="update">
+		<title id="0000000100000004" revision="65280" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000009" revision="778" onlyUninstallation="false" region="-1" />
+		<title id="000000010000000a" revision="768" onlyUninstallation="false" region="-1" />
+		<title id="000000010000000b" revision="256" onlyUninstallation="false" region="-1" />
+		<title id="000000010000000c" revision="269" onlyUninstallation="false" region="-1" />
+		<title id="000000010000000d" revision="273" onlyUninstallation="false" region="-1" />
+		<title id="000000010000000e" revision="520" onlyUninstallation="false" region="-1" />
+		<title id="000000010000000f" revision="523" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000010" revision="512" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000011" revision="775" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000014" revision="256" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000015" revision="782" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000016" revision="1037" onlyUninstallation="false" region="-1" />
+		<title id="000000010000001c" revision="1550" onlyUninstallation="false" region="-1" />
+		<title id="000000010000001f" revision="3349" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000021" revision="3091" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000022" revision="3348" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000023" revision="3349" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000024" revision="3351" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000025" revision="3869" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000026" revision="3867" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000029" revision="3348" onlyUninstallation="false" region="-1" />
+		<title id="000000010000002B" revision="3348" onlyUninstallation="false" region="-1" />
+		<title id="000000010000002D" revision="3348" onlyUninstallation="false" region="-1" />
+		<title id="000000010000002E" revision="3350" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000033" revision="4864" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000034" revision="5888" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000035" revision="5406" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000037" revision="5406" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000038" revision="5405" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000039" revision="5661" onlyUninstallation="false" region="-1" />
+		<title id="000000010000003d" revision="5405" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000046" revision="6687" onlyUninstallation="false" region="-1" />
+		<!-- SysMenu-->
+		<!-- Region:
+			  JAP: 0
+			  EUR: 2
+			  KK: 4
+			  US: 1
+		 -->
+		<title id="0000000100000002" revision="480" onlyUninstallation="false" region="0" />
+		<title id="0000000100000002" revision="481" onlyUninstallation="false" region="1" />
+		<title id="0000000100000002" revision="482" onlyUninstallation="false" region="2" />
+		<title id="0000000100000002" revision="486" onlyUninstallation="false" region="4" />
+		
+		<title id="0000000100000032" revision="5120" onlyUninstallation="false" region="-1" />
+		<title slot="0000000100000046" id="000000010000003c" revision="6174" onlyUninstallation="false" region="-1" />
+		<title id="000000010000001e" revision="2816" onlyUninstallation="false" region="-1" />
+		
+		<!-- other ioses -->
+		<title id="000000010000003c" revision="6400" onlyUninstallation="false" region="-1" /> <!-- Stub 60 -->
+		<title id="0000000100000100" revision="6" onlyUninstallation="false" region="-1" /> <!-- MIOS -->
+		<title id="0000000100000101" revision="10" onlyUninstallation="false" region="-1" /> <!-- BC -->
+
+		<!-- Channels -->
+		<title id="0001000248414141" revision="2" onlyUninstallation="false" region="-1" /> <!-- Photo -->
+		<title id="0001000248414341" revision="6" onlyUninstallation="false" region="-1" /> <!-- Mii channel-->
+		<title id="0001000248414241" revision="18" onlyUninstallation="false" region="0" /> <!-- Shop channel -->
+		<title id="0001000248414241" revision="18" onlyUninstallation="false" region="1" />
+		<title id="0001000248414241" revision="18" onlyUninstallation="false" region="2" />
+		<title id="000100024841424B" revision="18" onlyUninstallation="false" region="4" />
+		<title id="000100024841464A" revision="7" onlyUninstallation="false" region="0" /> <!-- weather -->
+		<title id="0001000248414645" revision="7" onlyUninstallation="false" region="1" />
+		<title id="0001000248414650" revision="7" onlyUninstallation="false" region="2" />
+		<!-- Inxistante -->
+		<!-- title id="0001000248414641" revision="0007" onlyUninstallation="false" region="4" /-->
+		<title id="000100024841474A" revision="7" onlyUninstallation="false" region="0" /> <!-- news -->
+		<title id="0001000248414745" revision="7" onlyUninstallation="false" region="1" />
+		<title id="0001000248414750" revision="7" onlyUninstallation="false" region="2" />
+		
+		<!-- Inxistante -->
+		<!--title id="0001000248414741" revision="0007" onlyUninstallation="false" region="4" /-->
+
+		<!-- Stubs -->
+		<title id="00000001000000fe" revision="260" onlyUninstallation="true" region="-1" />
+		<title id="00000001000000de" revision="65280" onlyUninstallation="true" region="-1" />
+		<title id="00000001000000df" revision="65280" onlyUninstallation="true" region="-1" />
+		<title id="00000001000000fa" revision="65280" onlyUninstallation="true" region="-1" />
+		<title id="00000001000000f9" revision="65280" onlyUninstallation="true" region="-1" />
+	</SystemUpdater>
 	<Preloader option="Preloader" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
-	<CorpInstaller option="corp" />
+	<CorpInstaller option="corp">
+		<modules>
+			<module type="es" version="14" url="https://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha=""/>
+			<module type="dip" version="13" url="https://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha="https://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
+			<module type="dip" version="14" url="https://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha="" />
+		</modules>
+		<items>
+			<corpItem slot="0000000100000009" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000000b" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000011" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000014" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000015" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000001C" source="000000010000001C" revision="1293" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="000000010000001E" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000021" source="0000000100000021" revision="2834" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000023" source="0000000100000023" revision="3092" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000024" source="0000000100000024" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000025" source="0000000100000025" revision="3612" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000026" source="0000000100000026" revision="3610" dipVersion="14" esVersion="14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000028" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000029" source="0000000100000029" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000002B" source="000000010000002B" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000002D" source="000000010000002D" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000002E" source="000000010000002E" revision="3093" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000032" source="0000000100000032" revision="4889" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000034" source="0000000100000034" revision="5661" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000035" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000037" source="0000000100000037" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000038" source="0000000100000038" revision="5146" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
+			<corpItem slot="000000010000003C" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000046" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+		</items>
+	</CorpInstaller>
 	<GXLoader option="GXLoader" />
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
   
   <Disclaimer> This software comes with NO WARRANTY WHATSOEVER. 
   You may use this software at your own risk. 
-  WE take no responsibility for damage caused by Sciifii.  </Disclaimer>
+  We take no responsibility for damage caused by Sciifii.  </Disclaimer>
   
 </sciifii>

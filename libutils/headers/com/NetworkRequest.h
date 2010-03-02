@@ -24,6 +24,8 @@ public:
 	~NetworkRequest();
 	static std::string GetIp(void);
 	Buffer GetResponse();
+	Buffer GetResponse(const Buffer& sha);
+	Buffer GetResponse(const std::string& shaUrl);
 	void SetRequest(const std::string& url);
 
 private:

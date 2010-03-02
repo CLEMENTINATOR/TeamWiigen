@@ -2,6 +2,7 @@
 #include <cstring>
 #include <com/buffer.h>
 #include <exception/Exception.h>
+#include <sha1.h>
 
 Buffer::Buffer(const void* content, const u64 length)
         :  _length(length),
@@ -169,6 +170,12 @@ u64 Buffer::Checksum()
     return _checksum;
 }
 
+bool Buffer::ValidateSHA1(const Buffer& sha)
+{
+	u8 hash[20];
+	SHA1((u8*)_innerBuffer, _length, hash);
+	return memcmp((u8*)hash, (u8*)sha._innerBuffer, 20) == 0;
+}
 
 bool Buffer::operator==(const Buffer &b)
 {

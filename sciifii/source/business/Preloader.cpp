@@ -2,21 +2,34 @@
 
 #include <libutils/fs/File.h>
 #include <libutils/exception/Exception.h>
+#include <libutils/com/NetworkRequest.h>
 #include <malloc.h>
 #include <string.h>
 #include <sstream>
 #include <iomanip>
 
-#include "../../build/priiloader_dat.h"
+#include "../Config.h"
 
 using namespace std;
 
-Preloader::Preloader()
-        : bootCid(0)
+Preloader::Preloader(const string& url, const string& sha)
+        : bootCid(0),
+		  _url(url),
+		  _sha(sha)
 {}
 
 bool Preloader::Prepare()
 {
+	if(!File::Exists(Config::WorkingDirectory() + "/preloader.dat"))
+	{
+		NetworkRequest req(_url);
+		Buffer response = req.GetResponse(_sha);
+		
+		File &lang = File::Create(Config::WorkingDirectory() + "/preloader.dat");
+		lang.Write(response);
+		lang.Close();
+		delete &lang;
+	}
     return true;
 }
 
@@ -127,9 +140,9 @@ bool Preloader::CheckPreloader()
     sysMenuApp << "wii:/title/00000001/00000002/content/" << setw(8) << setfill('0') << hex << bootCid << ".app";
 
     Buffer copiedPloader = File::ReadToEnd(sysMenuApp.str());
-    Buffer originalPloader(priiloader_dat, priiloader_dat_size);
+    Buffer originalPloader = File::ReadToEnd(Config::WorkingDirectory() + "/preloader.dat");
 
-    if (copiedPloader==originalPloader)
+    if (copiedPloader == originalPloader)
         return true;
 
     return false;
@@ -166,7 +179,7 @@ void Preloader::Install()
         File::Delete(sysMenuApp.str());
 
         OnProgress("Creating priiloader.", 0.8);
-        Buffer originalPloader(priiloader_dat, priiloader_dat_size);
+        Buffer originalPloader = File::ReadToEnd(Config::WorkingDirectory() + "/preloader.dat");
         File &ploader = File::Create(sysMenuApp.str());
         ploader.Write(originalPloader);
         ploader.Close();

@@ -164,7 +164,7 @@
 	<CiosInstaller option="cIOS" />
 	<IOSReloader option="" id="249" user="0" />
 	<SystemUpdater option="update" />
-	<Preloader option="Preloader" />
+	<Preloader option="Preloader" url="https://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha="https://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
 	<CorpInstaller option="corp" />
 	<GXLoader option="GXLoader" />
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />

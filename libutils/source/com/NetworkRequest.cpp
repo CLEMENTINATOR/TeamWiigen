@@ -247,3 +247,19 @@ Buffer NetworkRequest::GetResponse()
 	return response;
 }
 
+Buffer NetworkRequest::GetResponse(const Buffer& sha)
+{
+	Buffer response = GetResponse();
+	if(!response.ValidateSHA1(sha))
+		throw Exception("SHA encryption is not valid.", -1);
+		
+	return response;
+}
+
+Buffer NetworkRequest::GetResponse(const std::string& shaUrl)
+{
+	NetworkRequest sha(shaUrl);
+	Buffer bsha = sha.GetResponse();
+	
+	return GetResponse(bsha);
+}

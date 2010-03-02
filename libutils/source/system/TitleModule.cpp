@@ -5,6 +5,10 @@ TitleModule::TitleModule(const u8* buffer, const u64 length, const s32 requiredP
   _position(requiredPosition)
 {}
 
+TitleModule::TitleModule(const TitleModule& m)
+: Buffer(m), _position(m._position)
+{}
+
 bool TitleModule::IsPositionRequired() const
 {
 	return _position > 0;

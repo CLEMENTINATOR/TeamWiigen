@@ -39,7 +39,7 @@ PluginPatch& PluginPatch::operator=(const PluginPatch& patch)
 PluginPatch::~PluginPatch()
 {}
 
-void PluginPatch::DefineCommandHandle(SimplePatch* handle)
+void PluginPatch::DefineCommandHandle(SimplePatch handle)
 {
 	_commandHandles.push_back(handle);
 }
@@ -220,8 +220,8 @@ void PluginPatch::Plug(u32 segmentIndex, u32 bssSegmentIndex, u8* source, u8* de
 u32 PluginPatch::Patching(TitleEventArgs &processControl) const
 {
   //apply cmd handles
-  for(vector<SimplePatch*>::const_iterator ite = _commandHandles.begin(); ite != _commandHandles.end(); ite++)
-		(*ite)->ApplyPatch(processControl);
+  for(vector<SimplePatch>::const_iterator ite = _commandHandles.begin(); ite != _commandHandles.end(); ite++)
+		ite->ApplyPatch(processControl);
 
   u8* sourceElf = (u8*)processControl.buffer.Content();
   ArmHeader* arm = NULL;

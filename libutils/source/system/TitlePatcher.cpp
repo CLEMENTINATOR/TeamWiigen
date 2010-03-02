@@ -21,7 +21,7 @@ void TitlePatcher::AddPatch(const Patch* patch)
   _patchList.push_back(patch);
 }
 
-void TitlePatcher::AddModule(TitleModule* module)
+void TitlePatcher::AddModule(TitleModule module)
 {
 	_moduleList.push_back(module);
 }
@@ -189,10 +189,10 @@ void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl)
 
 void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
 {
-  for(list<TitleModule*>::iterator ite = _moduleList.begin(); ite != _moduleList.end(); ite++)
+  for(list<TitleModule>::iterator ite = _moduleList.begin(); ite != _moduleList.end(); ite++)
   {
 	_tmdDirty = true;
-	InsertModule(**ite, processControl.buffer);
+	InsertModule(*ite, processControl.buffer);
   }
   
   if (_tmdDirty)

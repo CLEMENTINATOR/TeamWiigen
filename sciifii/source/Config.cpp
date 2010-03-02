@@ -57,7 +57,7 @@ void Config::Initialize()
 
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = root->Attribute("workingDirectory");
-    c._useAdvancedSettings = Xml::StrToBool(root->Attribute("AllowAdvancedMode"));
+    c._useAdvancedSettings = Xml::CharToBool(root->Attribute("AllowAdvancedMode"));
 
     TiXmlElement* child = root->FirstChildElement();
 
@@ -107,15 +107,15 @@ void Config::CreateCorpList(TiXmlElement* element)
             if (string(child->Value()) != "corpItem")
                 throw Exception("CorpItem child node is invalid", -1);
 
-            u64 slot = Xml::StrToU64(child->Attribute("slot"),nr_hex);
-            u64 source = Xml::StrToU64(child->Attribute("source"),nr_hex);
-            u16 revision = Xml::StrToU16(child->Attribute("revision"));
-            u16 dipVersion = Xml::StrToU16(child->Attribute("dipVersion"));
-            u16 esVersion = Xml::StrToU16(child->Attribute("esVersion"));
-            bool identifyPatch = Xml::StrToBool(child->Attribute("identifyPatch"));
-            bool nandPatch = Xml::StrToBool(child->Attribute("nandPatch"));
-            bool kkPatch = Xml::StrToBool(child->Attribute("kkPatch"));
-            bool localOnly = Xml::StrToBool(child->Attribute("localOnly"));
+            u64 slot = Xml::CharToU64(child->Attribute("slot"),nr_hex);
+            u64 source = Xml::CharToU64(child->Attribute("source"),nr_hex);
+            u16 revision = Xml::CharToU16(child->Attribute("revision"));
+            u16 dipVersion = Xml::CharToU16(child->Attribute("dipVersion"));
+            u16 esVersion = Xml::CharToU16(child->Attribute("esVersion"));
+            bool identifyPatch = Xml::CharToBool(child->Attribute("identifyPatch"));
+            bool nandPatch = Xml::CharToBool(child->Attribute("nandPatch"));
+            bool kkPatch = Xml::CharToBool(child->Attribute("kkPatch"));
+            bool localOnly = Xml::CharToBool(child->Attribute("localOnly"));
 
             _corp.push_back((ciosDesc){slot, source, revision, dipVersion, esVersion, identifyPatch, nandPatch, kkPatch, localOnly});
         }
@@ -139,15 +139,15 @@ void Config::CreateUpdateList(TiXmlElement* element)
             if (string(child->Value()) != "title")
                 throw Exception("UpdateList child node is invalid", -1);
 
-            u64 id = Xml::StrToU64(child->Attribute("id"), nr_hex);
-            u16 revision= Xml::StrToU16(child->Attribute("revision"));
-            bool onlyUninstallation= Xml::StrToBool(child->Attribute("onlyUninstallation"));
-            s8 region = Xml::StrToS32(child->Attribute("region"));
+            u64 id = Xml::CharToU64(child->Attribute("id"), nr_hex);
+            u16 revision= Xml::CharToU16(child->Attribute("revision"));
+            bool onlyUninstallation= Xml::CharToBool(child->Attribute("onlyUninstallation"));
+            s8 region = Xml::CharToS32(child->Attribute("region"));
 
 			const char* cslot = child->Attribute("slot");
 			u64 slot = 0;
 			if(cslot)
-				slot = Xml::StrToU64(cslot,nr_hex);
+				slot = Xml::CharToU64(cslot,nr_hex);
 
             if (region == -1 || region == _region)
             {

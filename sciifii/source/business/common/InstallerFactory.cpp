@@ -24,26 +24,26 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
 		if(nodeValue == "TitleDowngrader")
 		{
-			u64 titleId = Xml::StrToU64(node->Attribute("id"),nr_hex);
-			u16 revision = Xml::StrToU16(node->Attribute("revision"));
+			u64 titleId = Xml::CharToU64(node->Attribute("id"),nr_hex);
+			u16 revision = Xml::CharToU16(node->Attribute("revision"));
 			step = new TitleDowngrader(titleId, revision);
 		}
 		else if(nodeValue == "IOSReloader")
 		{
-			u32 id = Xml::StrToU32(node->Attribute("id"));
-			UserType ut = (UserType)Xml::StrToU16(node->Attribute("user"));
+			u32 id = Xml::CharToU32(node->Attribute("id"));
+			UserType ut = (UserType)Xml::CharToU16(node->Attribute("user"));
 			step = new IosReloader(id, ut);
 		}
 		else if(nodeValue == "TruchaRestorer")
 		{
-			u32 titleId = Xml::StrToU32(node->Attribute("id"));
-			u16 revision = Xml::StrToU16(node->Attribute("revision"));
+			u32 titleId = Xml::CharToU32(node->Attribute("id"));
+			u16 revision = Xml::CharToU16(node->Attribute("revision"));
 			step = new TruchaRestorer(titleId, revision);
 		}
 		else if(nodeValue == "TitleInstaller")
 		{
-			u64 titleId = Xml::StrToU64(node->Attribute("id"), nr_hex);
-			u16 revision = Xml::StrToU16(node->Attribute("revision"), nr_hex);
+			u64 titleId = Xml::CharToU64(node->Attribute("id"), nr_hex);
+			u16 revision = Xml::CharToU16(node->Attribute("revision"), nr_hex);
 			step = new TitleInstaller(titleId, revision);
 		}
 		else if(nodeValue == "CiosInstaller")
@@ -64,7 +64,9 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		}
 		else if(nodeValue == "Preloader")
 		{
-			step = new Preloader();
+			string url = Xml::CharToStr(node->Attribute("url"));
+			string sha = Xml::CharToStr(node->Attribute("sha"));
+			step = new Preloader(url, sha);
 		}
 		else if(nodeValue == "WadBatchInstaller")
 		{

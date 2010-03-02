@@ -23,7 +23,7 @@ private:
 	Buffer _plugin;
 	u32 _offset;
 	u32 _bssNewSize;
-	std::vector<SimplePatch*> _commandHandles;
+	std::vector<SimplePatch> _commandHandles;
 
 	bool IsElf(u8* buffer) const;
 	u32 FindIOSVersionIndex(const Buffer& b) const;
@@ -42,7 +42,7 @@ public:
 	PluginPatch(const PluginPatch& patch);
 	~PluginPatch();
 	PluginPatch& operator=(const PluginPatch& patch);
-	void DefineCommandHandle(SimplePatch* handle);
+	void DefineCommandHandle(SimplePatch handle);
 };
 
 #endif

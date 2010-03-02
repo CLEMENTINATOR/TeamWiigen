@@ -6,6 +6,7 @@
 #include <libutils/system/Title.h>
 #include <libutils/system/TitlePatcher.h>
 #include <libutils/system/PluginPatch.h>
+#include <libutils/exception/Exception.h>
 
 #include <sstream>
 #include <iostream>
@@ -55,35 +56,68 @@ void Cios::Install()
 {
 	TitlePatcher cios(0x0000000100000000ULL + _slot, _ciosRevision);
 	
-	for(vector<SimplePatch>::iterator patch = _patches.begin(); patch != _patches.end(); patch++)
-		cios.AddPatch(*patch);
-
-	for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
+	vector<Patch*> toDelete;
+	
+	try
 	{
-		Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
-		PluginPatch plugPatch(plug, plugin->offset, plugin->bss, 0x2C000, plugin->moduleName);
-		
-		for(vector<SimplePatch>::iterator handle = plugin->handles.begin(); handle != plugin->handles.end(); handle++)
-			plugPatch.DefineCommandHandle(*handle);
+	
+		for(vector<SimplePatch>::iterator patch = _patches.begin(); patch != _patches.end(); patch++)
+		{
+			Patch* p = new SimplePatch(*patch);
+			cios.AddPatch(p);
+			toDelete.push_back(p);
+		}
+
+		for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
+		{
+			Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
+			PluginPatch plugPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);
 			
-		cios.AddPatch(plugPatch);
+			for(vector<SimplePatch>::iterator handle = plugin->handles.begin(); handle != plugin->handles.end(); handle++)
+				plugPatch.DefineCommandHandle(*handle);
+				
+			Patch* p = new PluginPatch(plugPatch);
+			cios.AddPatch(p);
+			toDelete.push_back(p);
+		}
+		
+		for(vector<ModuleDescriptor>::iterator module = _modules.begin(); module != _modules.end(); module++)
+		{
+			Buffer bmod = File::ReadToEnd(Config::WorkingDirectory() + "/" + module->name + "_module.dat");
+			TitleModule tmodule((u8*)bmod.Content() , bmod.Length(), module->position);
+			cios.AddModule(tmodule);
+		}
+
+
+		stringstream wadFile;
+		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + _iosId, _iosRevision);
+
+		OnProgress("Deleting old IOS249 or stub.", 0.2);
+		Title::Uninstall(0x0000000100000000ULL + _slot);
+
+		OnProgress("Load base wad for cios and patch it!", 0.4);
+		cios.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
+
+		OnProgress("Installation of the cIOS!", 0.8);
+		cios.Install();
+
+		OnProgress("cIOS installed.", 1);
+	}
+	catch(Exception &ex)
+	{
+		for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
+			delete *ite;
+			
+		throw;
+	}
+	catch(...)
+	{
+		for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
+			delete *ite;
+			
+		throw;
 	}
 	
-	for(vector<ModuleDescriptor>::iterator module = _modules.begin(); module != _modules.end(); module++)
-		cios.AddModule(*module);
-
-
-	stringstream wadFile;
-	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + _iosId, _iosRevision);
-
-	OnProgress("Deleting old IOS249 or stub.", 0.2);
-	Title::Uninstall(0x0000000100000000ULL + _slot);
-
-	OnProgress("Load base wad for cios and patch it!", 0.4);
-	cios.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
-
-	OnProgress("Installation of the cIOS!", 0.8);
-	cios.Install();
-
-	OnProgress("cIOS installed.", 1);
+	for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
+		delete *ite;
 }

@@ -10,7 +10,7 @@ class TitlePatcher : public Title
 {
 private:
 	std::list<const Patch*> _patchList;
-	std::list<TitleModule*> _moduleList;
+	std::list<TitleModule> _moduleList;
 	
 	bool _tmdDirty;
 	bool _tikDirty;
@@ -30,6 +30,6 @@ public:
 	virtual void OnTicketInstalling(TitleEventArgs &processControl);
 	virtual void OnTmdInstalling(TitleEventArgs &processControl);
 	void AddPatch(const Patch* patch);
-	void AddModule(TitleModule* module);
+	void AddModule(TitleModule module);
 };
 #endif

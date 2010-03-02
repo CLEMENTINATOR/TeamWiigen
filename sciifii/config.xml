@@ -25,19 +25,19 @@
 	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
 	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
 		<modules>
-			<module name="fat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" hash="" />
-			<module name="ehci" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" hash="" position="3" />
-			<module name="sdhc" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" hash="" />
+			<module name="fat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" hash="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
+			<module name="ehci" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" hash="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" position="3" />
+			<module name="sdhc" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" hash="http://www.assembla.com/spaces/arasium/documents/bV4CHajG0r35PWeJe5avMc/download/sdhc_module.dat.sha" />
 		</modules>
 		<plugins>
 			<plugin dest="DIP" url="http://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha="http://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" offset="200" bss="2C000">
 				<handle name="DIP_Cmd1" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x01, 0x68, 0x05, 0x46, 0x8A, 0x21" />
 				<handle name="DIP_Cmd2" pattern="0xB5, 0xF0, 0x46, 0x5F, 0x46, 0x56, 0x46, 0x4D, 0x46, 0x44, 0xB4, 0xF0, 0x4B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x05, 0x46, 0x44, 0xB4, 0xF0, 0x4B" />
 			</plugin>
-			<plugin dest="ES" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha="" offset="200" bss="5000" >
+			<plugin dest="ES" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha="http://www.assembla.com/spaces/arasium/documents/bN2EHkjGWr34OyeJe5afGb/download/es_plugin.dat.sha" offset="200" bss="5000" >
 				<handle name="ES_Cmd" pattern="0xB5, 0x70, 0xB0, 0x88, 0x68, 0x85, 0x1C, 0x01, 0x31, 0x0C, 0x22, 0xC0" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x10, 0xB2, 0x01, 0x31, 0x0C, 0x22, 0xC0" />
 			</plugin>
-			<plugin dest="FFS" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha="" offset="7200" bss="47000">
+			<plugin dest="FFS" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha="http://www.assembla.com/spaces/arasium/documents/bMUsmsjG0r35PWeJe5avMc/download/ffs_plugin.dat.sha" offset="7200" bss="47000">
 				<handle name="FFS_OpenCmd" pattern="0xB5, 0xF0, 0x46, 0x47, 0xB4, 0x80, 0xB0, 0x81, 0x1C, 0x04, 0x1C, 0x05, 0x35" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x1C, 0x04, 0x1C, 0x05, 0x35" />
 				<handle name="FFS_CloseCmd" pattern="0xB5, 0x70, 0x26, 0x00, 0x68, 0x84, 0x6A, 0x23, 0x2B, 0x00, 0xD0, 0x00, 0x1C" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x2B, 0x00, 0xD0, 0x00, 0x1C" />
 				<handle name="FFS_ReadCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x22, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x22, 0x0C, 0x18" />
@@ -149,9 +149,9 @@
 	<Preloader option="Preloader" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
 	<CorpInstaller option="corp">
 		<modules>
-			<module type="es" version="14" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha=""/>
-			<module type="dip" version="13" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha="https://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
-			<module type="dip" version="14" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha="" />
+			<module type="es" version="14" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha"/>
+			<module type="dip" version="13" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
+			<module type="dip" version="14" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
 		</modules>
 		<items>
 			<corpItem slot="0000000100000009" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />

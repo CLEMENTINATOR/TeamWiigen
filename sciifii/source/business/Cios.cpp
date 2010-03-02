@@ -7,6 +7,7 @@
 #include <libutils/system/TitlePatcher.h>
 #include <libutils/system/PluginPatch.h>
 #include <libutils/exception/Exception.h>
+#include <libutils/com/NetworkRequest.h>
 
 #include <sstream>
 #include <iostream>
@@ -45,9 +46,72 @@ void Cios::AddPatch(SimplePatch descriptor)
 
 bool Cios::Prepare()
 {
-	//TODO download source
-	//TODO download modules
-	//TOTO download plugins
+	stringstream wadFile;
+	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( 0x100000000ULL + _iosId, _iosRevision);
+		
+	if(!File::Exists(wadFile.str()))
+	{
+		if(Config::HasNetwork())
+		{
+			Title ios;
+			ios.LoadFromNusServer(0x100000000ULL + _iosId, _iosRevision, Config::WorkingDirectory());
+			ios.PackAsWad(wadFile.str());
+		}
+		else
+		{
+			cout << "You arent connected to the network and some wads are missing." << endl
+				 << "Please refer to the readme.";
+			return false;
+		}
+	}
+	
+	for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
+	{
+		string pluginName = Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat";
+		
+		if(!File::Exists(pluginName))
+		{
+			if(Config::HasNetwork())
+			{
+				NetworkRequest request(plugin->url);
+				Buffer buf = request.GetResponse(plugin->hash);
+				File& file = File::Create(pluginName);
+				file.Write(buf);
+				file.Close();
+				delete &file;
+			}
+			else
+			{
+				cout << "You arent connected to the network and some wads are missing." << endl
+				     << "Please refer to the readme.";
+				return false;
+			}
+		}
+	}
+	
+	for(vector<ModuleDescriptor>::iterator module = _modules.begin(); module != _modules.end(); module++)
+	{
+		string moduleName = Config::WorkingDirectory() + "/" + module->name + "_module.dat";
+		
+		if(!File::Exists(moduleName))
+		{
+			if(Config::HasNetwork())
+			{
+				NetworkRequest request(module->url);
+				Buffer buf = request.GetResponse(module->hash);
+				File& file = File::Create(moduleName);
+				file.Write(buf);
+				file.Close();
+				delete &file;
+			}
+			else
+			{
+				cout << "You arent connected to the network and some wads are missing." << endl
+				     << "Please refer to the readme.";
+				return false;
+			}
+		}
+	}
 
 	return true;
 }

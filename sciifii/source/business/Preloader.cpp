@@ -22,13 +22,14 @@ bool Preloader::Prepare()
 {
 	if(!File::Exists(Config::WorkingDirectory() + "/preloader.dat"))
 	{
+        OnProgress("Downloading priiloader.", 0.2);
 		NetworkRequest req(_url);
 		Buffer response = req.GetResponse(_sha);
-		
 		File &lang = File::Create(Config::WorkingDirectory() + "/preloader.dat");
 		lang.Write(response);
 		lang.Close();
 		delete &lang;
+        OnProgress("Priiloader preparation done!", 1);
 	}
     return true;
 }

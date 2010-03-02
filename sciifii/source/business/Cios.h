@@ -3,27 +3,48 @@
 
 #include <string>
 #include <fastdelegate.h>
+#include <vector>
+
 #include <libutils/system/SimplePatch.h>
 
 #include "common/Installer.h"
 
+typedef struct 
+{
+	std::string name;
+	std::string url;
+	std::string hash;
+	u16 position;
+} ModuleDescriptor;
+
+typedef struct
+{
+	std::string moduleName;
+	std::string url;
+	std::string hash;
+	u32 offset;
+	u32 bss;
+	std::vector<SimplePatch> handles;
+} PluginDescriptor;
+
 class Cios : public Installer
 {
 private:
-	static SimplePatch* DIP_Cmd1();
-	static SimplePatch* DIP_Cmd2();
+	std::vector<ModuleDescriptor> _modules;
+	std::vector<PluginDescriptor> _plugins;
+	std::vector<SimplePatch> _patches;
+	u32 _iosId;
+	u16 _iosRevision;
+	u32 _slot;
+	u32 _ciosRevision;
 	
-	static SimplePatch* FFS_OpenCmd();
-	static SimplePatch* FFS_CloseCmd();
-	static SimplePatch* FFS_ReadCmd();
-	static SimplePatch* FFS_WriteCmd();
-	static SimplePatch* FFS_SeekCmd();
-	static SimplePatch* FFS_IoctlCmd();
-	static SimplePatch* FFS_IoctlvCmd();
-	
-	static SimplePatch* ES_Cmd();
 public:
+	Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision);
 	bool Prepare();
 	void Install();
+	
+	void AddModule(ModuleDescriptor descriptor);
+	void AddPlugin(PluginDescriptor descriptor);
+	void AddPatch(SimplePatch descriptor);
 };
 #endif

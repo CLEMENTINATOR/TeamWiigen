@@ -48,7 +48,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		}
 		else if(nodeValue == "CiosInstaller")
 		{
-			step = new Cios();
+			step = new Cios(38, 3867, 249, 17);
 		}
 		else if(nodeValue == "CorpInstaller")
 		{

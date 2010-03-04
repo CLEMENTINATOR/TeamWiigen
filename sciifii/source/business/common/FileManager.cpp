@@ -51,23 +51,42 @@ void FileManager::Init(TiXmlElement* config)
 
 bool FileManager::Download(const std::string& fileKey)
 {
-  FileManager &fm = FileManager::Instance();
-  fileObject fo;
-  map<string,fileObject>::iterator ite;
+  map<string,fileObject>::iterator ite = Instance()._fileList.find(fileKey);
+  
+  if (ite == Instance()._fileList.end())
+    throw Exception("File key not defined", -1);
 
-  ite=fm._fileList.find(fileKey);
-  if (ite== fm._fileList.end())
-    return false;
+  fileObject fo = ite->second;
 
-  fo=ite->second;
+  if(!File::Exists(wadFile.str()))
+  {
+	try
+	{
+	  NetworkRequest req(fo.url);
+	  Buffer response = req.GetResponse(fo.sha1);
 
-  NetworkRequest req(fo.url);
-  Buffer response = req.GetResponse(fo.sha1);
-
-  File &file = File::Create(fo.path);
-  file.Write(response);
-  file.Close();
-  delete &file;
-
+	  File &file = File::Create(fo.path);
+	  file.Write(response);
+	  file.Close();
+	  delete &file;
+	}
+	catch(...)
+	{
+		return false;
+	}
+  }
+  
   return true;
+}
+
+Buffer FileManager::GetFile(const std::string& fileKey)
+{
+  map<string,fileObject>::iterator ite = Instance()._fileList.find(fileKey);
+  
+  if (ite == Instance()._fileList.end())
+    throw Exception("File key not defined!", -1);
+
+  fileObject fo = ite->second;
+
+  return File::ReadToEnd(fo.path);
 }

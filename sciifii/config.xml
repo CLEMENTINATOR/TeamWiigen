@@ -12,6 +12,7 @@
 	<file key="es14.dat" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha" />
 	<file key="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
 	<file key="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
+	<file key="priiloader.dat" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha1="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
   </files>
   
   <modes>
@@ -158,7 +159,7 @@
 		<title id="00000001000000fa" revision="65280" onlyUninstallation="true" region="-1" />
 		<title id="00000001000000f9" revision="65280" onlyUninstallation="true" region="-1" />
 	</SystemUpdater>
-	<Preloader option="Preloader" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
+	<Preloader option="Preloader" file="priiloader.dat" />
 	<CorpInstaller option="corp">
 		<modules>
 			<module type="ES" name="es14" file="es14.dat" />

@@ -2,6 +2,18 @@
 
 <sciifii version="2" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
   
+  <files>
+	<file name="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
+	<file name="ehci_module.dat" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" />
+	<file name="sdhc_module.dat" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bV4CHajG0r35PWeJe5avMc/download/sdhc_module.dat.sha" />
+	<file name="dip_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" />
+	<file name="es_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bN2EHkjGWr34OyeJe5afGb/download/es_plugin.dat.sha" />
+	<file name="ffs_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bMUsmsjG0r35PWeJe5avMc/download/ffs_plugin.dat.sha" />
+	<file name="es14.dat" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha" />
+	<file name="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
+	<file name="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
+  </files>
+  
   <modes>
 	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
 	<mode text="Hack your wii ! (Full Mode)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
@@ -25,19 +37,19 @@
 	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
 	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
 		<modules>
-			<module name="fat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" hash="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
-			<module name="ehci" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" hash="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" position="3" />
-			<module name="sdhc" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" hash="http://www.assembla.com/spaces/arasium/documents/bV4CHajG0r35PWeJe5avMc/download/sdhc_module.dat.sha" />
+			<module file="fat_module.dat" />
+			<module file="ehci_module.dat" position="3" />
+			<module file="sdhc_module.dat" />
 		</modules>
 		<plugins>
-			<plugin dest="DIP" url="http://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha="http://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" offset="200" bss="2C000">
+			<plugin dest="DIP" file="dip_plugin.dat" offset="200" bss="2C000">
 				<handle name="DIP_Cmd1" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x01, 0x68, 0x05, 0x46, 0x8A, 0x21" />
 				<handle name="DIP_Cmd2" pattern="0xB5, 0xF0, 0x46, 0x5F, 0x46, 0x56, 0x46, 0x4D, 0x46, 0x44, 0xB4, 0xF0, 0x4B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x05, 0x46, 0x44, 0xB4, 0xF0, 0x4B" />
 			</plugin>
-			<plugin dest="ES" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha="http://www.assembla.com/spaces/arasium/documents/bN2EHkjGWr34OyeJe5afGb/download/es_plugin.dat.sha" offset="200" bss="5000" >
+			<plugin dest="ES" file="es_plugin.dat" offset="200" bss="5000" >
 				<handle name="ES_Cmd" pattern="0xB5, 0x70, 0xB0, 0x88, 0x68, 0x85, 0x1C, 0x01, 0x31, 0x0C, 0x22, 0xC0" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x10, 0xB2, 0x01, 0x31, 0x0C, 0x22, 0xC0" />
 			</plugin>
-			<plugin dest="FFS" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha="http://www.assembla.com/spaces/arasium/documents/bMUsmsjG0r35PWeJe5avMc/download/ffs_plugin.dat.sha" offset="7200" bss="47000">
+			<plugin dest="FFS" file="ffs_plugin.dat" offset="7200" bss="47000">
 				<handle name="FFS_OpenCmd" pattern="0xB5, 0xF0, 0x46, 0x47, 0xB4, 0x80, 0xB0, 0x81, 0x1C, 0x04, 0x1C, 0x05, 0x35" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x1C, 0x04, 0x1C, 0x05, 0x35" />
 				<handle name="FFS_CloseCmd" pattern="0xB5, 0x70, 0x26, 0x00, 0x68, 0x84, 0x6A, 0x23, 0x2B, 0x00, 0xD0, 0x00, 0x1C" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x2B, 0x00, 0xD0, 0x00, 0x1C" />
 				<handle name="FFS_ReadCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x22, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x22, 0x0C, 0x18" />
@@ -149,35 +161,35 @@
 	<Preloader option="Preloader" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
 	<CorpInstaller option="corp">
 		<modules>
-			<module type="es" version="14" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha"/>
-			<module type="dip" version="13" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
-			<module type="dip" version="14" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
+			<module type="ES" name="es14" file="es14.dat" />
+			<module type="DIP" name="dip13" file="dip13.dat" />
+			<module type="DIP" name="dip14" file="dip14.dat" />
 		</modules>
 		<items>
-			<corpItem slot="0000000100000009" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000000b" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000011" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000014" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000015" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000001C" source="000000010000001C" revision="1293" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="000000010000001E" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000021" source="0000000100000021" revision="2834" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000023" source="0000000100000023" revision="3092" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000024" source="0000000100000024" revision="3094" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000025" source="0000000100000025" revision="3612" dipVersion="14" esVersion="0" identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000026" source="0000000100000026" revision="3610" dipVersion="14" esVersion="14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000028" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000029" source="0000000100000029" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000002B" source="000000010000002B" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000002D" source="000000010000002D" revision="3091" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000002E" source="000000010000002E" revision="3093" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000032" source="0000000100000032" revision="4889" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000034" source="0000000100000034" revision="5661" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000035" source="0000000100000035" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000037" source="0000000100000037" revision="5149" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000038" source="0000000100000038" revision="5146" dipVersion="14" esVersion="0" identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
-			<corpItem slot="000000010000003C" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000046" source="000000010000003C" revision="6174" dipVersion="13" esVersion="0" identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000000b" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip14"  identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13"  identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip14"  identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000026" source="0000000100000026" revision="3610" modules="dip14|es14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<corpItem slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
+			<corpItem slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<corpItem slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 		</items>
 	</CorpInstaller>
 	<GXLoader option="GXLoader" />

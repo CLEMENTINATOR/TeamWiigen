@@ -41,13 +41,13 @@ NetworkRequest::NetworkRequest(const std::string& url)
 string NetworkRequest::GetIp(void)
 {
 	static bool initialized = false;
-	
+
 	if(!initialized)
 	{
 		s32 ret  = if_config(hostip, NULL, NULL, true);
 		if (ret < 0)
 			throw Exception("Error initialising network !",ret);
-		
+
 		initialized = true;
 	}
 	return string(hostip);
@@ -172,7 +172,7 @@ s32 NetworkRequest::Read(Buffer& b, u32 len)
 			free(tempBuffer);
 			throw Exception("Error reading http response.", nbRead);
 		}
-		
+
 		b.Append(tempBuffer, nbRead);
 		free(tempBuffer);
 
@@ -243,7 +243,7 @@ Buffer NetworkRequest::GetResponse()
 	Buffer response;
 
 	Read(response, len);
-	
+
 	return response;
 }
 
@@ -252,14 +252,21 @@ Buffer NetworkRequest::GetResponse(const Buffer& sha)
 	Buffer response = GetResponse();
 	if(!response.ValidateSHA1(sha))
 		throw Exception("SHA encryption is not valid.", -1);
-		
+
 	return response;
 }
 
 Buffer NetworkRequest::GetResponse(const std::string& shaUrl)
 {
+    if(shaUrl=="")
+    {
 	NetworkRequest sha(shaUrl);
 	Buffer bsha = sha.GetResponse();
-	
 	return GetResponse(bsha);
+    }
+    else
+    {
+    return GetResponse();
+    }
+
 }

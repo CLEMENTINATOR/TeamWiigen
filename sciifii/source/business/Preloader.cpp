@@ -8,30 +8,25 @@
 #include <sstream>
 #include <iomanip>
 
-#include "../Config.h"
+#include "common/FileManager.h"
 
 using namespace std;
 
-Preloader::Preloader(const string& url, const string& sha)
+Preloader::Preloader(const string& file)
         : bootCid(0),
-		  _url(url),
-		  _sha(sha)
+		  _file(file)
 {}
 
 bool Preloader::Prepare()
 {
-	if(!File::Exists(Config::WorkingDirectory() + "/preloader.dat"))
-	{
-        OnProgress("Downloading priiloader.", 0.2);
-		NetworkRequest req(_url);
-		Buffer response = req.GetResponse(_sha);
-		File &lang = File::Create(Config::WorkingDirectory() + "/preloader.dat");
-		lang.Write(response);
-		lang.Close();
-		delete &lang;
-        OnProgress("Priiloader preparation done!", 1);
-	}
-    return true;
+	OnProgress("Downloading priiloader.", 0.2);
+	
+	if(!FileManager::Download(_file))
+		throw Exception("Error getting files.", -1);
+		
+	OnProgress("Priiloader preparation done!", 1);
+	
+	return true;
 }
 
 Buffer Preloader::GetSysMenuTMD()
@@ -141,7 +136,7 @@ bool Preloader::CheckPreloader()
     sysMenuApp << "wii:/title/00000001/00000002/content/" << setw(8) << setfill('0') << hex << bootCid << ".app";
 
     Buffer copiedPloader = File::ReadToEnd(sysMenuApp.str());
-    Buffer originalPloader = File::ReadToEnd(Config::WorkingDirectory() + "/preloader.dat");
+    Buffer originalPloader = FileManager::GetFile(_file);
 
     if (copiedPloader == originalPloader)
         return true;
@@ -180,7 +175,7 @@ void Preloader::Install()
         File::Delete(sysMenuApp.str());
 
         OnProgress("Creating priiloader.", 0.8);
-        Buffer originalPloader = File::ReadToEnd(Config::WorkingDirectory() + "/preloader.dat");
+        Buffer originalPloader = FileManager::GetFile(_file);
         File &ploader = File::Create(sysMenuApp.str());
         ploader.Write(originalPloader);
         ploader.Close();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="2" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
+<sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
   
   <files>
 	<file key="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />

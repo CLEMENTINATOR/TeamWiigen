@@ -2,6 +2,7 @@
 
 #include "../Config.h"
 #include "common/KoreanKeyPatch.h"
+#include "common/FileManager.h"
 
 #include <iostream>
 #include <sstream>
@@ -20,13 +21,25 @@
 
 using namespace std;
 
+void CiosCorp::AddItem(const ciosDesc& item)
+{
+  _items.push_back(item);
+}
+
+void CiosCorp::AddModule(const std::string& name, const moduleDesc& module)
+{
+  if (_modules.find(name) != _modules.end())
+    throw Exception("The module has already been registered", -1);
+	
+  _modules.insert(pair<string,moduleDesc>(name, module));
+}
+
 bool CiosCorp::Prepare()
 {
 	f32 step = 0;
-	vector<ciosDesc> corp = Config::CorpConfiguration();
-	u32 nbIosToInstall = corp.size();
+	u32 nbIosToInstall = _items.size() + _modules.size();
 
-	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
+	for(vector<ciosDesc>::iterator ite = _items.begin(); ite != _items.end(); ++ite)
 	{
 		//pour ios pas sur nus
 		if(ite->localOnly)
@@ -66,6 +79,14 @@ bool CiosCorp::Prepare()
 		}
 		step += 1;
 	}
+	
+	for(map<string, moduleDesc>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
+	{
+		OnProgress("Downloading " + ite->second.file, step/nbIosToInstall);
+		FileManager::Download(ite->second.file);
+		OnProgress(ite->second.file+ " downloaded", (step + 0.5)/nbIosToInstall);
+		step++;
+	}
 
 	OnProgress("Cioscorp preparation done.", 1);
 
@@ -74,76 +95,80 @@ bool CiosCorp::Prepare()
 
 void CiosCorp::Install()
 {
-	ModulePatch dip13(dip13_dat, dip13_dat_size, "DIP");
-	dip13.ForbiddenModule = "IOSP";
-
-	ModulePatch dip14(dip14_dat, dip14_dat_size, "DIP");
-	dip14.ForbiddenModule = "IOSP";
-
-	ModulePatch es14(es14_dat, es14_dat_size, "ES");
+	map<string, ModulePatch*> moduleList;
 
 	KoreanKeyPatch kkpatch;
 
 	f32 step = 0;
-	vector<ciosDesc> corp = Config::CorpConfiguration();
-	u32 nbIosToInstall = corp.size();
+	u32 nbIosToInstall = _items.size();
 
-	for(vector<ciosDesc>::iterator ite = corp.begin(); ite != corp.end(); ++ite)
+	try
 	{
-		stringstream wadFile;
-		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( ite->sourceId,ite->revision);
-
-		if(!File::Exists(wadFile.str()) && !ite->localOnly)
-			throw Exception("File not found.", -1);
-		else if(!File::Exists(wadFile.str()))
-			continue;
-
-		TitlePatcher ciosPatcher( ite->destId, 0xFFFF);
-        u32 destid= (u32)ite->destId;
-        u32 srcid=(u32)ite->sourceId ;
-		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());
-		ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_New());
-
-		switch(ite->dipVersion)
+		for(vector<ciosDesc>::iterator ite = _items.begin(); ite != _items.end(); ++ite)
 		{
-			case 13:
-				ciosPatcher.AddPatch(&dip13);
-				break;
-			case 14:
-				ciosPatcher.AddPatch(&dip14);
-				break;
+			stringstream wadFile;
+			wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( ite->sourceId,ite->revision);
+
+			if(!File::Exists(wadFile.str()) && !ite->localOnly)
+				throw Exception("File not found.", -1);
+			else if(!File::Exists(wadFile.str()))
+				continue;
+
+			TitlePatcher ciosPatcher( ite->destId, 0xFFFF);
+			u32 destid= (u32)ite->destId;
+			u32 srcid=(u32)ite->sourceId ;
+			ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());
+			ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_New());
+
+			for(vector<string>::iterator mod = ite->modules.begin(); mod != ite->modules.end(); mod++)
+			{
+				if(moduleList.find(*mod) == moduleList.end())
+				{
+					moduleDesc desc = _modules.find(*mod)->second;
+					Buffer bmod = FileManager::GetFile(desc.file);
+					ModulePatch* pmod = new ModulePatch((u8*)bmod.Content(), bmod.Length(), desc.module);
+					moduleList.insert(pair<string, ModulePatch*>(*mod, pmod));
+				}
+					
+				ciosPatcher.AddPatch(moduleList.find(*mod)->second);
+			}
+
+			if(ite->IdentifyPatch)
+				ciosPatcher.AddPatch(SimplePatch::ES_Identify());
+
+			if(ite->NandPatch)
+				ciosPatcher.AddPatch(SimplePatch::FFS_PermsCheck());
+
+			if(ite->KoreanPatch)
+			{
+				ciosPatcher.AddPatch(&kkpatch);
+				ciosPatcher.AddPatch(SimplePatch::KoreanKey_EnablePatch());
+			}
+
+			stringstream progressMessage;
+			progressMessage << "Creating cIOS" << destid << " from IOS" << srcid << "v" << ite->revision;
+			OnProgress(progressMessage.str(), step/nbIosToInstall);
+			ciosPatcher.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
+
+			stringstream installMessage;
+			installMessage << "Installing cIOS" <<destid;
+			OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
+			ciosPatcher.Install();
+
+			step += 1;
 		}
-
-		switch(ite->esVersion)
-		{
-			case 14:
-				ciosPatcher.AddPatch(&es14);
-				break;
-		}
-
-		if(ite->IdentifyPatch)
-			ciosPatcher.AddPatch(SimplePatch::ES_Identify());
-
-		if(ite->NandPatch)
-			ciosPatcher.AddPatch(SimplePatch::FFS_PermsCheck());
-
-		if(ite->KoreanPatch)
-		{
-			ciosPatcher.AddPatch(&kkpatch);
-			ciosPatcher.AddPatch(SimplePatch::KoreanKey_EnablePatch());
-		}
-
-		stringstream progressMessage;
-		progressMessage << "Creating cIOS" << destid << " from IOS" << srcid << "v" << ite->revision;
-		OnProgress(progressMessage.str(), step/nbIosToInstall);
-		ciosPatcher.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
-
-		stringstream installMessage;
-		installMessage << "Installing cIOS" <<destid;
-		OnProgress(installMessage.str(), (step + 0.5)/nbIosToInstall);
-		ciosPatcher.Install();
-
-		step += 1;
+	}
+	catch(Exception &ex)
+	{
+		for(map<string, ModulePatch*>::iterator ite = moduleList.begin(); ite != moduleList.end(); ite++)
+			delete ite->second;
+		throw;
+	}
+	catch(...)
+	{
+		for(map<string, ModulePatch*>::iterator ite = moduleList.begin(); ite != moduleList.end(); ite++)
+			delete ite->second;
+		throw;
 	}
 
 	OnProgress("Cioscorp installed.", 1);

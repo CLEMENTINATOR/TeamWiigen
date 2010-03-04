@@ -53,10 +53,25 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else if(nodeValue == "CorpInstaller")
 	{
 		step = new CiosCorp();
+		
+		TiXmlElement* section = node->FirstChildElement();
+		while (section != NULL)
+		{
+			if (section->Type() != TiXmlElement::COMMENT)
+			{
+				string nodeValue = Xml::CharToStr(section->Value());
+				if(nodeValue == "items")
+					FillCiosCorpItems(step, section);
+				else if(nodeValue == "modules")
+					FillCiosCorpModules(step, section);
+				else
+					throw Exception("Child node of Corp not defined>", -1);
+			}
+		}
 	}
 	else if(nodeValue == "SystemUpdater")
 	{
-		step = new SystemUpdater();
+		return CreateSystemUpdater(node);
 	}
 	else if(nodeValue == "GXLoader")
 	{
@@ -91,7 +106,95 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	u16 iosRevision = Xml::CharToU16(node->Attribute("revision"));
 	u32 ciosRevision = Xml::CharToU16(node->Attribute("ciosRevision"));
 	
-	Installer* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
+	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
+	
+	return step;
+}
+
+void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
+{
+	TiXmlElement* child = xml->FirstChildElement();
+    while (child != NULL)
+    {
+        if (child->Type() != TiXmlElement::COMMENT)
+        {
+            if (string(child->Value()) != "corpItem")
+                throw Exception("CorpItem child node is invalid", -1);
+
+            u64 slot = Xml::CharToU64(child->Attribute("slot"),nr_hex);
+            u64 source = Xml::CharToU64(child->Attribute("source"),nr_hex);
+            u16 revision = Xml::CharToU16(child->Attribute("revision"));
+            vector<string> modules = Config::SplitString(Xml::CharToStr(child->Attribute("modules")), '|');
+            bool identifyPatch = Xml::CharToBool(child->Attribute("identifyPatch"));
+            bool nandPatch = Xml::CharToBool(child->Attribute("nandPatch"));
+            bool kkPatch = Xml::CharToBool(child->Attribute("kkPatch"));
+            bool localOnly = Xml::CharToBool(child->Attribute("localOnly"));
+			
+			((CiosCorp*)corp)->AddItem((ciosDesc){ slot, source, revision, modules, identifyPatch, nandPatch, kkPatch, localOnly });
+        }
+
+        child = child->NextSiblingElement();
+    }
+}
+
+void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
+{
+	TiXmlElement* child = xml->FirstChildElement();
+    while (child != NULL)
+    {
+        if (child->Type() != TiXmlElement::COMMENT)
+        {
+            if (string(child->Value()) != "module")
+                throw Exception("CorpItem module child node is invalid", -1);
+
+            string type = Xml::CharToStr(child->Attribute("type"));
+			string name = Xml::CharToStr(child->Attribute("name"));
+			string file = Xml::CharToStr(child->Attribute("file"));
+			
+			((CiosCorp*)corp)->AddModule(name, (moduleDesc){ type, file });
+        }
+
+        child = child->NextSiblingElement();
+    }
+}
+
+Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
+{
+	SystemUpdater* step = new SystemUpdater();
+	TiXmlElement* child = node->FirstChildElement();
+
+    while(child != NULL)
+    {
+        if (child->Type() != TiXmlElement::COMMENT)
+        {
+            if (string(child->Value()) != "title")
+                throw Exception("UpdateList child node is invalid", -1);
+
+            u64 id = Xml::CharToU64(child->Attribute("id"), nr_hex);
+            u16 revision = Xml::CharToU16(child->Attribute("revision"));
+            bool onlyUninstallation = Xml::CharToBool(child->Attribute("onlyUninstallation"));
+            s8 region = Xml::CharToS32(child->Attribute("region"));
+			u64 slot = Xml::CharToU64(child->Attribute("slot"), 0);
+
+            if (region == -1 || region == (s32)Config::GetRegion())
+            {
+				titleDescriptor descriptor = (titleDescriptor){slot, id, revision};
+				
+				u32 type = id >> 32;
+				//skip some channels
+				if (type != 1 && Title::IsInstalled(id))
+					if (Title::GetInstalledTitleVersion(id) >= revision)
+					{
+						child = child->NextSiblingElement();
+						continue;
+					}
+
+				step->AddTitle(descriptor, onlyUninstallation);
+            }
+        }
+
+        child = child->NextSiblingElement();
+    };
 	
 	return step;
 }

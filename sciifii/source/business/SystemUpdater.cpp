@@ -11,11 +11,19 @@
 
 using namespace std;
 
+void SystemUpdater::AddTitle(const titleDescriptor& descriptor, bool uninstall)
+{
+	_uninstallTitles.push_back(descriptor);
+	
+	if(!uninstall)
+		_updateTitles.push_back(descriptor);
+}
+
 bool SystemUpdater::Prepare()
 {
     f32 step = 0;
 
-    vector<titleDescriptor> titles = Config::UpdateConfiguration();
+    vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;
     u32 nbIosToInstall = titles.size();
 
     for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
@@ -70,7 +78,7 @@ void SystemUpdater::Install()
 {
     f32 step = 0;
 
-    vector<titleDescriptor> titles = Config::UpdateConfiguration();
+    vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;
     u32 nbIosToInstall = titles.size();
 
     for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)

@@ -17,6 +17,9 @@ class InstallerFactory : public Object
 public:
 	static Installer* Create(TiXmlElement* node);
 	static Installer* CreateCios(TiXmlElement* node);
+	static void FillCiosCorpModules(Installer* corp, TiXmlElement* xml);
+	static void FillCiosCorpItems(Installer* corp, TiXmlElement* xml);
+	static Installer* CreateSystemUpdater(TiXmlElement* node);
 };
 
 #endif /* INSTALLERFACTORY_H_ */

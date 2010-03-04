@@ -3,15 +3,15 @@
 <sciifii version="2" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
   
   <files>
-	<file name="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
-	<file name="ehci_module.dat" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" />
-	<file name="sdhc_module.dat" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bV4CHajG0r35PWeJe5avMc/download/sdhc_module.dat.sha" />
-	<file name="dip_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" />
-	<file name="es_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bN2EHkjGWr34OyeJe5afGb/download/es_plugin.dat.sha" />
-	<file name="ffs_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bMUsmsjG0r35PWeJe5avMc/download/ffs_plugin.dat.sha" />
-	<file name="es14.dat" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha" />
-	<file name="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
-	<file name="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
+	<file key="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
+	<file key="ehci_module.dat" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" />
+	<file key="sdhc_module.dat" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bV4CHajG0r35PWeJe5avMc/download/sdhc_module.dat.sha" />
+	<file key="dip_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" />
+	<file key="es_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bN2EHkjGWr34OyeJe5afGb/download/es_plugin.dat.sha" />
+	<file key="ffs_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bMUsmsjG0r35PWeJe5avMc/download/ffs_plugin.dat.sha" />
+	<file key="es14.dat" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha" />
+	<file key="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
+	<file key="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
   </files>
   
   <modes>

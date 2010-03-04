@@ -35,11 +35,6 @@ string Config::WorkingDirectory()
     return Instance()._workingDirectory;
 }
 
-vector<ciosDesc> Config::CorpConfiguration()
-{
-    return Instance()._corp;
-}
-
 Config& Config::Instance()
 {
     static Config c;
@@ -68,13 +63,9 @@ void Config::Initialize()
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            string nodeValue(child->Value());
+            string nodeValue = Xml::CharToStr(child->Value());
 
-            if (nodeValue == "corp")
-                c.CreateCorpList(child);
-            else if (nodeValue == "system")
-                c.CreateUpdateList(child);
-            else if (nodeValue == "options")
+            if (nodeValue == "options")
                 c.CreateOptionList(child);
             else if (nodeValue == "modes")
                 c.CreateModeList(child);
@@ -91,86 +82,6 @@ void Config::Initialize()
     while (child != NULL);
 
     delete &doc;
-}
-
-void Config::CreateCorpList(TiXmlElement* element)
-{
-    TiXmlElement* child = element->FirstChildElement();
-
-    if (child == NULL)
-        return;
-
-    do
-    {
-        if (child->Type() != TiXmlElement::COMMENT)
-        {
-            if (string(child->Value()) != "corpItem")
-                throw Exception("CorpItem child node is invalid", -1);
-
-            u64 slot = Xml::CharToU64(child->Attribute("slot"),nr_hex);
-            u64 source = Xml::CharToU64(child->Attribute("source"),nr_hex);
-            u16 revision = Xml::CharToU16(child->Attribute("revision"));
-            u16 dipVersion = Xml::CharToU16(child->Attribute("dipVersion"));
-            u16 esVersion = Xml::CharToU16(child->Attribute("esVersion"));
-            bool identifyPatch = Xml::CharToBool(child->Attribute("identifyPatch"));
-            bool nandPatch = Xml::CharToBool(child->Attribute("nandPatch"));
-            bool kkPatch = Xml::CharToBool(child->Attribute("kkPatch"));
-            bool localOnly = Xml::CharToBool(child->Attribute("localOnly"));
-
-            _corp.push_back((ciosDesc){slot, source, revision, dipVersion, esVersion, identifyPatch, nandPatch, kkPatch, localOnly});
-        }
-
-        child = child->NextSiblingElement();
-    }
-    while (child != NULL);
-}
-
-void Config::CreateUpdateList(TiXmlElement* element)
-{
-    TiXmlElement* child = element->FirstChildElement();
-
-    if (child == NULL)
-        return;
-
-    do
-    {
-        if (child->Type() != TiXmlElement::COMMENT)
-        {
-            if (string(child->Value()) != "title")
-                throw Exception("UpdateList child node is invalid", -1);
-
-            u64 id = Xml::CharToU64(child->Attribute("id"), nr_hex);
-            u16 revision= Xml::CharToU16(child->Attribute("revision"));
-            bool onlyUninstallation= Xml::CharToBool(child->Attribute("onlyUninstallation"));
-            s8 region = Xml::CharToS32(child->Attribute("region"));
-
-			const char* cslot = child->Attribute("slot");
-			u64 slot = 0;
-			if(cslot)
-				slot = Xml::CharToU64(cslot,nr_hex);
-
-            if (region == -1 || region == _region)
-            {
-				titleDescriptor descriptor = (titleDescriptor){slot, id, revision, onlyUninstallation};
-				u32 type = id >> 32;
-
-				//skip some channels
-				if (type!=1 && Title::IsInstalled(id))
-					if (Title::GetInstalledTitleVersion(id) >= revision)
-					{
-						child = child->NextSiblingElement();
-						continue;
-					}
-
-				_systemTitleList.push_back(descriptor);
-				if(!onlyUninstallation)
-					_updateList.push_back(descriptor);
-            }
-        }
-
-        child = child->NextSiblingElement();
-    }
-    while (child != NULL);
 }
 
 void Config::CreateOptionList(TiXmlElement* element)
@@ -218,7 +129,7 @@ void Config::CreateModeList(TiXmlElement* element)
                 throw Exception("modes child node is invalid", -1);
 
             string text = child->Attribute("text");
-            vector<string> optionList = GetOptionList(child->Attribute("options"));
+            vector<string> optionList = SplitString(Xml::CharToStr(child->Attribute("options")), '|');
             string flag = child->Attribute("flag");
 
             mode* m = new mode();
@@ -253,13 +164,13 @@ void Config::CreateStepList(TiXmlElement* element)
     while (child != NULL);
 }
 
-vector<string> Config::GetOptionList(const std::string& options)
+vector<string> Config::SplitString(const std::string& str, char splitCaracter)
 {
     vector<string> voptions;
-    string modeOptions = options;
+    string modeOptions = str;
     u32 position = 0;
 
-    while ((position = modeOptions.find_first_of("|")) != string::npos)
+    while ((position = modeOptions.find_first_of(splitCaracter)) != string::npos)
     {
         voptions.push_back(modeOptions.substr(0, position));
         modeOptions = modeOptions.erase(0, position + 1);
@@ -288,8 +199,8 @@ void Config::ApplyMode(const mode& m)
         (*ite)->selected = found;
     }
 
-    if (m.flag == "Uninstall")
-        Instance()._uninstall = true;
+    if (m.flag != "")
+        Instance()._flags.push_back(m.flag);
 }
 
 void Config::ValidateOptions()
@@ -303,7 +214,7 @@ void Config::ValidateOptions()
             validated = true;
         else
         {
-            vector<string> voptions = GetOptionList((*step)->Options());
+            vector<string> voptions = SplitString((*step)->Options(), '|');
 
             for (vector<string>::iterator ite = voptions.begin(); ite != voptions.end(); ite++)
             {
@@ -356,10 +267,18 @@ bool Config::UseAdvancedMode()
     return Instance()._useAdvancedSettings;
 }
 
-vector<titleDescriptor> Config::UpdateConfiguration()
+bool Config::IsFlagDefined(const string& flag)
 {
-    if (Instance()._uninstall)
-        return Instance()._systemTitleList;
-    else
-        return Instance()._updateList;
+	for(vector<string>::iterator ite = Instance()._flags.begin(); ite != Instance()._flags.end(); ite++)
+	{
+		if(*ite == flag)
+			return true;
+	}
+	
+	return false;
+}
+
+u32 Config::GetRegion()
+{
+  return Instance()._region;
 }

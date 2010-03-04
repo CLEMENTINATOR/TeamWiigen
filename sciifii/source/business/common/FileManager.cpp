@@ -84,7 +84,12 @@ Buffer FileManager::GetFile(const std::string& fileKey)
   map<string,fileObject>::iterator ite = Instance()._fileList.find(fileKey);
 
   if (ite == Instance()._fileList.end())
-    throw Exception("File key not defined!", -1);
+  {
+    if(!File::Exists(Config::WorkingDirectory() + "/" + fileKey))
+		throw Exception("File key not defined and file ot found in working directory!", -1);
+		
+	return File::ReadToEnd(Config::WorkingDirectory() + "/" + fileKey);
+  }
 
   fileObject fo = ite->second;
 

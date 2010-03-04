@@ -64,9 +64,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "Preloader")
 	{
-		string url = Xml::CharToStr(node->Attribute("url"));
-		string sha = Xml::CharToStr(node->Attribute("sha"));
-		step = new Preloader(url, sha);
+		string file = Xml::CharToStr(node->Attribute("file"));
+		if(file == "")
+			throw Exception("Priiloader file must be provided.", -1);
+			
+		step = new Preloader(file);
 	}
 	else if(nodeValue == "WadBatchInstaller")
 	{

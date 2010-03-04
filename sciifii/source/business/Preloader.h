@@ -9,8 +9,7 @@ class Preloader : public Installer
 {
 private:
     u32 bootCid;
-	std::string _url;
-	std::string _sha;
+	std::string _file;
 	
 	Buffer GetSysMenuTMD();
 	u32 GetBootCid(tmd* t);
@@ -20,7 +19,7 @@ private:
 	bool CheckPreloader();
 	
 public:
-	Preloader(const std::string& url, const std::string& sha);
+	Preloader(const std::string& file);
 	bool Prepare();
 	void Install();
 };

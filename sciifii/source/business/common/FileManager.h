@@ -9,7 +9,6 @@
 
 typedef struct
 {
-	std::string name;
 	std::string url;
 	std::string sha1;
 	std::string path;

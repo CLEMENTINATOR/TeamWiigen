@@ -3,28 +3,29 @@
 
 #include <libutils/Xml.h>
 #include <libutils/com/Buffer.h>
-#include <vector>
 #include <libutils/exception/Exception.h>
+
+#include <map>
+
 typedef struct
 {
 	std::string name;
 	std::string url;
-	std::string sha1url;
-
+	std::string sha1;
+	std::string path;
 } fileObject;
 
-class FileManager : public Object{
-
-
+class FileManager : public Object
+{
 public :
-static void Init(TiXmlElement* config);
-static bool Download(const std::string& fileKey);
-static Buffer GetFile(const std::string& fileKey);
+	static void Init(TiXmlElement* config);
+	static bool Download(const std::string& fileKey);
+	static Buffer GetFile(const std::string& fileKey);
 
 private :
-static FileManager& Instance();
-FileManager();
-std::vector<fileObject> _fileList;
+	static FileManager& Instance();
+	FileManager();
+	std::map<std::string, fileObject> _fileList;
 
 
 

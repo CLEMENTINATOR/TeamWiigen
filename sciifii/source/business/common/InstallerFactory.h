@@ -10,7 +10,9 @@
 
 #include "Installer.h"
 #include <libutils/Object.h>
+#include <libutils/system/SimplePatch.h>
 #include <tinyxml.h>
+#include <vector>
 
 class InstallerFactory : public Object
 {
@@ -20,6 +22,7 @@ public:
 	static void FillCiosCorpModules(Installer* corp, TiXmlElement* xml);
 	static void FillCiosCorpItems(Installer* corp, TiXmlElement* xml);
 	static void FillCiosPlugins(Installer* cios, TiXmlElement* xml);
+	static std::vector<SimplePatch> GetPluginHandles(TiXmlElement* xml);
 	static void FillCiosPatches(Installer* cios, TiXmlElement* xml);
 	static void FillCiosModules(Installer* cios, TiXmlElement* xml);
 	static Installer* CreateSystemUpdater(TiXmlElement* node);

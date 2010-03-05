@@ -15,10 +15,6 @@
 #include <libutils/fs/File.h>
 #include <libutils/fs/Path.h>
 
-#include "../../build/dip13_dat.h"
-#include "../../build/dip14_dat.h"
-#include "../../build/es14_dat.h"
-
 using namespace std;
 
 void CiosCorp::AddItem(const ciosDesc& item)

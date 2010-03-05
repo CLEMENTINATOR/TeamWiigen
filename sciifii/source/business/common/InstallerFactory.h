@@ -19,6 +19,9 @@ public:
 	static Installer* CreateCios(TiXmlElement* node);
 	static void FillCiosCorpModules(Installer* corp, TiXmlElement* xml);
 	static void FillCiosCorpItems(Installer* corp, TiXmlElement* xml);
+	static void FillCiosPlugins(Installer* cios, TiXmlElement* xml);
+	static void FillCiosPatches(Installer* cios, TiXmlElement* xml);
+	static void FillCiosModules(Installer* cios, TiXmlElement* xml);
 	static Installer* CreateSystemUpdater(TiXmlElement* node);
 };
 

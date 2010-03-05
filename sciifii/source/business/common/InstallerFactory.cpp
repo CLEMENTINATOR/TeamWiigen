@@ -53,7 +53,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else if(nodeValue == "CorpInstaller")
 	{
 		step = new CiosCorp();
-		
+
 		TiXmlElement* section = node->FirstChildElement();
 		while (section != NULL)
 		{
@@ -67,6 +67,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 				else
 					throw Exception("Child node of Corp not defined>", -1);
 			}
+			section=section->NextSiblingElement();
 		}
 	}
 	else if(nodeValue == "SystemUpdater")
@@ -82,7 +83,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		string file = Xml::CharToStr(node->Attribute("file"));
 		if(file == "")
 			throw Exception("Priiloader file must be provided.", -1);
-			
+
 		step = new Preloader(file);
 	}
 	else if(nodeValue == "WadBatchInstaller")
@@ -102,13 +103,53 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 {
 	u32 iosSource = Xml::CharToU32(node->Attribute("source"));
 	u32 iosDest = Xml::CharToU32(node->Attribute("slot"));
-	
+
 	u16 iosRevision = Xml::CharToU16(node->Attribute("revision"));
 	u32 ciosRevision = Xml::CharToU16(node->Attribute("ciosRevision"));
-	
+
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
-	
+
+    TiXmlElement* section = node->FirstChildElement();
+		while (section != NULL)
+		{
+			if (section->Type() != TiXmlElement::COMMENT)
+			{
+				string nodeValue = Xml::CharToStr(section->Value());
+				if(nodeValue == "modules")
+				   FillCiosModules(step, section);
+				else if(nodeValue == "plugins")
+					FillCiosPlugins(step, section);
+                else if(nodeValue=="patches")
+                    FillCiosPatches(step, section);
+				else
+					throw Exception("Child node of Cios not defined", -1);
+			}
+            section=section->NextSiblingElement();
+		}
+
 	return step;
+}
+
+
+void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
+{
+
+
+
+}
+
+void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
+{
+
+
+
+}
+
+void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
+{
+
+
+
 }
 
 void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
@@ -129,7 +170,7 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
             bool nandPatch = Xml::CharToBool(child->Attribute("nandPatch"));
             bool kkPatch = Xml::CharToBool(child->Attribute("kkPatch"));
             bool localOnly = Xml::CharToBool(child->Attribute("localOnly"));
-			
+
 			((CiosCorp*)corp)->AddItem((ciosDesc){ slot, source, revision, modules, identifyPatch, nandPatch, kkPatch, localOnly });
         }
 
@@ -150,7 +191,7 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
             string type = Xml::CharToStr(child->Attribute("type"));
 			string name = Xml::CharToStr(child->Attribute("name"));
 			string file = Xml::CharToStr(child->Attribute("file"));
-			
+
 			((CiosCorp*)corp)->AddModule(name, (moduleDesc){ type, file });
         }
 
@@ -179,7 +220,7 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
             if (region == -1 || region == (s32)Config::GetRegion())
             {
 				titleDescriptor descriptor = (titleDescriptor){slot, id, revision};
-				
+
 				u32 type = id >> 32;
 				//skip some channels
 				if (type != 1 && Title::IsInstalled(id))
@@ -195,6 +236,6 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
 
         child = child->NextSiblingElement();
     };
-	
+
 	return step;
 }

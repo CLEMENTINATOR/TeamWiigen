@@ -1,5 +1,6 @@
 #include "Config.h"
 #include "business/common/InstallerFactory.h"
+#include "business/common/FileManager.h"
 #include <libutils/Xml.h>
 #include <libutils/com/NetworkRequest.h>
 #include <libutils/system/Title.h>
@@ -69,6 +70,8 @@ void Config::Initialize()
                 c.CreateOptionList(child);
             else if (nodeValue == "modes")
                 c.CreateModeList(child);
+            else if (nodeValue == "files")
+                 FileManager::Init(child);
             else if (nodeValue == "steps")
                 c.CreateStepList(child);
             else if (nodeValue == "Disclaimer")
@@ -274,7 +277,7 @@ bool Config::IsFlagDefined(const string& flag)
 		if(*ite == flag)
 			return true;
 	}
-	
+
 	return false;
 }
 

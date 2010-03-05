@@ -170,6 +170,9 @@ void CiosCorp::Install()
 			delete ite->second;
 		throw;
 	}
+	
+	for(map<string, ModulePatch*>::iterator ite = moduleList.begin(); ite != moduleList.end(); ite++)
+		delete ite->second;
 
 	OnProgress("Cioscorp installed.", 1);
 }

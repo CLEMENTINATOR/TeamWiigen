@@ -12,12 +12,6 @@
 #include <sstream>
 #include <iostream>
 #include "common/FileManager.h"
-#include "../../build/dip_plugin_dat.h"
-#include "../../build/es_plugin_dat.h"
-#include "../../build/ffs_plugin_dat.h"
-#include "../../build/ehci_module_dat.h"
-#include "../../build/fat_module_dat.h"
-#include "../../build/sdhc_module_dat.h"
 
 using namespace std;
 
@@ -34,7 +28,7 @@ void Cios::AddModule(customModule descriptor)
 	_modules.push_back(descriptor);
 }
 
-void Cios::AddPlugin(PluginDescriptor descriptor)
+void Cios::AddPlugin(pluginDescriptor descriptor)
 {
 	_plugins.push_back(descriptor);
 }
@@ -65,28 +59,9 @@ bool Cios::Prepare()
 		}
 	}
 
-	for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
+	for(vector<pluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 	{
-		string pluginName = Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat";
-
-		if(!File::Exists(pluginName))
-		{
-			if(Config::HasNetwork())
-			{
-				NetworkRequest request(plugin->url);
-				Buffer buf = request.GetResponse(plugin->hash);
-				File& file = File::Create(pluginName);
-				file.Write(buf);
-				file.Close();
-				delete &file;
-			}
-			else
-			{
-				cout << "You arent connected to the network and some wads are missing." << endl
-				     << "Please refer to the readme.";
-				return false;
-			}
-		}
+		FileManager::Download(plugin->file);
 	}
 
 	for(vector<customModule>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
@@ -108,13 +83,10 @@ void Cios::Install()
 
 		for(vector<Patch*>::iterator patch = _patches.begin(); patch != _patches.end(); patch++)
 		{
-		    //TODO : Vérifier cette merde
-			/*Patch* p = new Patch(*patch);*/
 			cios.AddPatch(*patch);
-			/*toDelete.push_back(p);*/
 		}
 
-		for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
+		for(vector<pluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 		{
 			Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
 			PluginPatch plugPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);

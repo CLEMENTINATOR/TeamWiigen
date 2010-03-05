@@ -20,7 +20,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 {
 	Installer* step(NULL);
 
-	string nodeValue(node->Value());
+	string nodeValue = Xml::CharToStr(node->Value());
 
 	if(nodeValue == "TitleDowngrader")
 	{
@@ -110,22 +110,22 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 
     TiXmlElement* section = node->FirstChildElement();
-		while (section != NULL)
+	while (section != NULL)
+	{
+		if (section->Type() != TiXmlElement::COMMENT)
 		{
-			if (section->Type() != TiXmlElement::COMMENT)
-			{
-				string nodeValue = Xml::CharToStr(section->Value());
-				if(nodeValue == "modules")
-				   FillCiosModules(step, section);
-				else if(nodeValue == "plugins")
-					FillCiosPlugins(step, section);
-                else if(nodeValue=="patches")
-                    FillCiosPatches(step, section);
-				else
-					throw Exception("Child node of Cios not defined", -1);
-			}
-            section=section->NextSiblingElement();
+			string nodeValue = Xml::CharToStr(section->Value());
+			if(nodeValue == "modules")
+			   FillCiosModules(step, section);
+			else if(nodeValue == "plugins")
+				FillCiosPlugins(step, section);
+			else if(nodeValue=="patches")
+				FillCiosPatches(step, section);
+			else
+				throw Exception("Child node of Cios not defined", -1);
 		}
+		section=section->NextSiblingElement();
+	}
 
 	return step;
 }
@@ -167,9 +167,43 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
 
 void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 {
+	TiXmlElement* plugin = xml->FirstChildElement();
+	while (plugin != NULL)
+	{
+		if (plugin->Type() != TiXmlElement::COMMENT)
+		{
+			if(Xml::CharToStr(plugin->Value()) != "plugin")
+				throw Exception("There can only be plugin item in plugins", -1);
+				
+			string dest = Xml::CharToStr(plugin->Attribute("dest"));
+			string file = Xml::CharToStr(plugin->Attribute("file"));
+			u32 offset = Xml::CharToU32(plugin->Attribute("offset"), nr_hex);
+			u32 bss = Xml::CharToU32(plugin->Attribute("bss"), nr_hex);
+			vector<SimplePatch> handles = GetPluginHandles(plugin);	
+			((Cios*)cios)->AddPlugin((pluginDescriptor){ dest, file, offset, bss, handles });
+		}
+	}
+}
 
-
-
+vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
+{
+	vector<SimplePatch> patches;
+	
+	TiXmlElement* handle = xml->FirstChildElement();
+	while (handle != NULL)
+	{
+		if (handle->Type() != TiXmlElement::COMMENT)
+		{
+			if(Xml::CharToStr(handle->Value()) != "handle")
+				throw Exception("There can only be handle item in plugin", -1);
+				
+			//create SimplePatches from pattern and value
+			
+			//patches.push_back(...);
+		}
+	}
+	
+	return patches;
 }
 
 void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)

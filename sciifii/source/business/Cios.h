@@ -18,18 +18,17 @@ typedef struct
 typedef struct
 {
 	std::string moduleName;
-	std::string url;
-	std::string hash;
+	std::string file;
 	u32 offset;
 	u32 bss;
 	std::vector<SimplePatch> handles;
-} PluginDescriptor;
+} pluginDescriptor;
 
 class Cios : public Installer
 {
 private:
 	std::vector<customModule> _modules;
-	std::vector<PluginDescriptor> _plugins;
+	std::vector<pluginDescriptor> _plugins;
 	std::vector<Patch*> _patches;
 	u32 _iosId;
 	u16 _iosRevision;
@@ -42,7 +41,7 @@ public:
 	void Install();
 
 	void AddModule(customModule descriptor);
-	void AddPlugin(PluginDescriptor descriptor);
+	void AddPlugin(pluginDescriptor descriptor);
 	void AddPatch(Patch* descriptor);
 };
 #endif

@@ -9,13 +9,11 @@
 
 #include "common/Installer.h"
 
-typedef struct 
+typedef struct
 {
 	std::string name;
-	std::string url;
-	std::string hash;
 	u16 position;
-} ModuleDescriptor;
+} customModule;
 
 typedef struct
 {
@@ -30,21 +28,21 @@ typedef struct
 class Cios : public Installer
 {
 private:
-	std::vector<ModuleDescriptor> _modules;
+	std::vector<customModule> _modules;
 	std::vector<PluginDescriptor> _plugins;
-	std::vector<SimplePatch> _patches;
+	std::vector<Patch*> _patches;
 	u32 _iosId;
 	u16 _iosRevision;
 	u32 _slot;
 	u32 _ciosRevision;
-	
+
 public:
 	Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision);
 	bool Prepare();
 	void Install();
-	
-	void AddModule(ModuleDescriptor descriptor);
+
+	void AddModule(customModule descriptor);
 	void AddPlugin(PluginDescriptor descriptor);
-	void AddPatch(SimplePatch descriptor);
+	void AddPatch(Patch* descriptor);
 };
 #endif

@@ -133,16 +133,36 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 
 void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
 {
-
-
-
+    TiXmlElement* child = xml->FirstChildElement();
+    while (child != NULL)
+    {
+        if (child->Type() != TiXmlElement::COMMENT)
+        {
+            u16 position= Xml::CharToU16(child->Attribute("position"),0);
+            string name=Xml::CharToStr(child->Attribute("file"));
+            ((Cios*)cios)->AddModule((customModule){name,position});
+        }
+        child = child->NextSiblingElement();
+    }
 }
 
 void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
 {
+    TiXmlElement* child = xml->FirstChildElement();
+    while (child != NULL)
+    {
+        if (child->Type() != TiXmlElement::COMMENT)
+        {
+           string nodeValue = Xml::CharToStr(child->Value());
+           if(nodeValue=="prebuild")
+           {
+               string patchName=Xml::CharToStr(child->Attribute("name"));
+               ((Cios*)cios)->AddPatch(SimplePatch::getPatch(patchName));
+           }
 
-
-
+        }
+        child = child->NextSiblingElement();
+    }
 }
 
 void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)

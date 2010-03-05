@@ -11,7 +11,7 @@
 
 #include <sstream>
 #include <iostream>
-
+#include "common/FileManager.h"
 #include "../../build/dip_plugin_dat.h"
 #include "../../build/es_plugin_dat.h"
 #include "../../build/ffs_plugin_dat.h"
@@ -29,7 +29,7 @@ Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision)
   _ciosRevision(ciosRevision)
 {}
 
-void Cios::AddModule(ModuleDescriptor descriptor)
+void Cios::AddModule(customModule descriptor)
 {
 	_modules.push_back(descriptor);
 }
@@ -39,7 +39,7 @@ void Cios::AddPlugin(PluginDescriptor descriptor)
 	_plugins.push_back(descriptor);
 }
 
-void Cios::AddPatch(SimplePatch descriptor)
+void Cios::AddPatch(Patch* descriptor)
 {
 	_patches.push_back(descriptor);
 }
@@ -48,7 +48,7 @@ bool Cios::Prepare()
 {
 	stringstream wadFile;
 	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( 0x100000000ULL + _iosId, _iosRevision);
-		
+
 	if(!File::Exists(wadFile.str()))
 	{
 		if(Config::HasNetwork())
@@ -64,11 +64,11 @@ bool Cios::Prepare()
 			return false;
 		}
 	}
-	
+
 	for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 	{
 		string pluginName = Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat";
-		
+
 		if(!File::Exists(pluginName))
 		{
 			if(Config::HasNetwork())
@@ -88,29 +88,10 @@ bool Cios::Prepare()
 			}
 		}
 	}
-	
-	for(vector<ModuleDescriptor>::iterator module = _modules.begin(); module != _modules.end(); module++)
+
+	for(vector<customModule>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
 	{
-		string moduleName = Config::WorkingDirectory() + "/" + module->name + "_module.dat";
-		
-		if(!File::Exists(moduleName))
-		{
-			if(Config::HasNetwork())
-			{
-				NetworkRequest request(module->url);
-				Buffer buf = request.GetResponse(module->hash);
-				File& file = File::Create(moduleName);
-				file.Write(buf);
-				file.Close();
-				delete &file;
-			}
-			else
-			{
-				cout << "You arent connected to the network and some wads are missing." << endl
-				     << "Please refer to the readme.";
-				return false;
-			}
-		}
+        FileManager::Download(ite->name);
 	}
 
 	return true;
@@ -119,35 +100,36 @@ bool Cios::Prepare()
 void Cios::Install()
 {
 	TitlePatcher cios(0x0000000100000000ULL + _slot, _ciosRevision);
-	
+
 	vector<Patch*> toDelete;
-	
+
 	try
 	{
-	
-		for(vector<SimplePatch>::iterator patch = _patches.begin(); patch != _patches.end(); patch++)
+
+		for(vector<Patch*>::iterator patch = _patches.begin(); patch != _patches.end(); patch++)
 		{
-			Patch* p = new SimplePatch(*patch);
-			cios.AddPatch(p);
-			toDelete.push_back(p);
+		    //TODO : Vérifier cette merde
+			/*Patch* p = new Patch(*patch);*/
+			cios.AddPatch(*patch);
+			/*toDelete.push_back(p);*/
 		}
 
 		for(vector<PluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 		{
 			Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
 			PluginPatch plugPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);
-			
+
 			for(vector<SimplePatch>::iterator handle = plugin->handles.begin(); handle != plugin->handles.end(); handle++)
 				plugPatch.DefineCommandHandle(*handle);
-				
+
 			Patch* p = new PluginPatch(plugPatch);
 			cios.AddPatch(p);
 			toDelete.push_back(p);
 		}
-		
-		for(vector<ModuleDescriptor>::iterator module = _modules.begin(); module != _modules.end(); module++)
+
+        for(vector<customModule>::iterator module = _modules.begin(); module != _modules.end(); module++)
 		{
-			Buffer bmod = File::ReadToEnd(Config::WorkingDirectory() + "/" + module->name + "_module.dat");
+			Buffer bmod =  FileManager::GetFile(module->name);
 			TitleModule tmodule((u8*)bmod.Content() , bmod.Length(), module->position);
 			cios.AddModule(tmodule);
 		}
@@ -171,17 +153,17 @@ void Cios::Install()
 	{
 		for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
 			delete *ite;
-			
+
 		throw;
 	}
 	catch(...)
 	{
 		for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
 			delete *ite;
-			
+
 		throw;
 	}
-	
+
 	for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
 		delete *ite;
 }

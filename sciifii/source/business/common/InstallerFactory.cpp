@@ -105,7 +105,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	u32 iosDest = Xml::CharToU32(node->Attribute("slot"));
 
 	u16 iosRevision = Xml::CharToU16(node->Attribute("revision"));
-	u32 ciosRevision = Xml::CharToU16(node->Attribute("ciosRevision"));
+	u16 ciosRevision = Xml::CharToU16(node->Attribute("ciosRevision"));
 
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 
@@ -133,16 +133,19 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 
 void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
 {
-    TiXmlElement* child = xml->FirstChildElement();
-    while (child != NULL)
+    TiXmlElement* module = xml->FirstChildElement();
+    while (module != NULL)
     {
-        if (child->Type() != TiXmlElement::COMMENT)
+        if (module->Type() != TiXmlElement::COMMENT)
         {
-            u16 position= Xml::CharToU16(child->Attribute("position"),0);
-            string name=Xml::CharToStr(child->Attribute("file"));
-            ((Cios*)cios)->AddModule((customModule){name,position});
+			if(Xml::CharToStr(module->Value()) != "module")
+				throw Exception("There can only be plugin item in plugins", -1);
+				
+			string name = Xml::CharToStr(module->Attribute("file"));
+            u16 position = Xml::CharToU16(module->Attribute("position"),0);
+            ((Cios*)cios)->AddModule((customModule){name, position});
         }
-        child = child->NextSiblingElement();
+        module = module->NextSiblingElement();
     }
 }
 
@@ -189,8 +192,8 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 {
 	vector<SimplePatch> patches;
-    string dest = Xml::CharToStr(xml->Attribute("dest"));
 	TiXmlElement* handle = xml->FirstChildElement();
+	
 	while (handle != NULL)
 	{
 		if (handle->Type() != TiXmlElement::COMMENT)
@@ -200,27 +203,27 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 
             Buffer pattern;
             Buffer value;
-            vector<string>splitPattern=Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
-            vector<string>splitValue=Config::SplitString(Xml::CharToStr(handle->Attribute("value")),',');
+            vector<string> splitPattern = Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
+            vector<string> splitValue = Config::SplitString(Xml::CharToStr(handle->Attribute("value")),',');
 			
-            for(u16 i=0;i<splitPattern.size();i++)
+            for(u16 i = 0; i < splitPattern.size(); i++)
             {
-               vector<string>val=Config::SplitString(splitPattern[i],'x');
+               vector<string> val = Config::SplitString(splitPattern[i], 'x');
                if(val.size() != 2)
                     throw Exception("Value length !=2",-1);
 
-               u8 v= (u8)Xml::CharToU16(val[1].c_str());
+               u8 v = (u8)Xml::CharToU16(val[1].c_str());
                pattern.Append(&v, 1);
             }
 			
-            for(u16 i=0;i<splitValue.size();i++)
+            for(u16 i = 0; i < splitValue.size(); i++)
             {
-               vector<string>val=Config::SplitString(splitValue[i],'x');
+               vector<string> val = Config::SplitString(splitValue[i], 'x');
                u8 v = (u8)Xml::CharToU16(val[1].c_str());
                value.Append(&v, 1);
             }
 			
-			patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),dest));
+			patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length()));
 		}
 		handle = handle->NextSiblingElement();
 	}

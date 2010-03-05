@@ -174,21 +174,22 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 		{
 			if(Xml::CharToStr(plugin->Value()) != "plugin")
 				throw Exception("There can only be plugin item in plugins", -1);
-				
+
 			string dest = Xml::CharToStr(plugin->Attribute("dest"));
 			string file = Xml::CharToStr(plugin->Attribute("file"));
 			u32 offset = Xml::CharToU32(plugin->Attribute("offset"), nr_hex);
 			u32 bss = Xml::CharToU32(plugin->Attribute("bss"), nr_hex);
-			vector<SimplePatch> handles = GetPluginHandles(plugin);	
+			vector<SimplePatch> handles = GetPluginHandles(plugin);
 			((Cios*)cios)->AddPlugin((pluginDescriptor){ dest, file, offset, bss, handles });
 		}
+		 plugin = plugin->NextSiblingElement();
 	}
 }
 
 vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 {
 	vector<SimplePatch> patches;
-	
+    string dest = Xml::CharToStr(xml->Attribute("dest"));
 	TiXmlElement* handle = xml->FirstChildElement();
 	while (handle != NULL)
 	{
@@ -196,13 +197,32 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 		{
 			if(Xml::CharToStr(handle->Value()) != "handle")
 				throw Exception("There can only be handle item in plugin", -1);
-				
-			//create SimplePatches from pattern and value
-			
-			//patches.push_back(...);
+
+            Buffer pattern;
+            Buffer value;
+            vector<string>splitPattern=Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
+            vector<string>splitValue=Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
+            for(u16 i=0;i<splitPattern.size();i++)
+            {
+               vector<string>val=Config::SplitString(splitPattern[i],'x');
+               if(val.size() != 2)
+                    throw Exception("Value length !=2",-1);
+
+               u8 v= (u8)Xml::CharToU16(val[1].c_str());
+               pattern.Append(&v, 1);
+            }
+             for(u16 i=0;i<splitValue.size();i++)
+            {
+               vector<string>val=Config::SplitString(splitValue[i],'x');
+               u8 v = (u8)Xml::CharToU16(val[1].c_str());
+               value.Append(&v, 1);
+            }
+            SimplePatch p=SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),dest);
+			patches.push_back(p);
 		}
+		handle = handle->NextSiblingElement();
 	}
-	
+
 	return patches;
 }
 

@@ -139,7 +139,7 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
         if (module->Type() != TiXmlElement::COMMENT)
         {
 			if(Xml::CharToStr(module->Value()) != "module")
-				throw Exception("There can only be plugin item in plugins", -1);
+				throw Exception("There can only be module item in modules", -1);
 				
 			string name = Xml::CharToStr(module->Attribute("file"));
             u16 position = Xml::CharToU16(module->Attribute("position"),0);

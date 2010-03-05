@@ -72,7 +72,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "SystemUpdater")
 	{
-		return CreateSystemUpdater(node);
+		step = CreateSystemUpdater(node);
 	}
 	else if(nodeValue == "GXLoader")
 	{

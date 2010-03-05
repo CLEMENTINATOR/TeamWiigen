@@ -13,17 +13,17 @@ private:
 	u8* _pattern;
 	u8* _patch;
 	u32 _length;
-	
+
 protected:
 	u32 Patching(TitleEventArgs &processControl) const;
-	
+
 public:
-	
+
 	SimplePatch(const u8* pattern, const u8* patch, const u32 length, const std::string &module = "");
 	SimplePatch(const SimplePatch& patch);
 	~SimplePatch();
 	SimplePatch& operator=(const SimplePatch& patch);
-	
+
 	/* ES Patches */
 	static SimplePatch* ES_HashCheck_Old();
 	static SimplePatch* ES_HashCheck_New();
@@ -36,16 +36,19 @@ public:
 	static SimplePatch* ES_TitleVersionCheck();
 	static SimplePatch* ES_TitleDeleteCheck();
 	static SimplePatch* ES_MEM2Protection();
-	
+
 	/* FFS Patches */
 	static SimplePatch* FFS_PermsCheck();
-	
+
 	/* DIP Patches */
 	static SimplePatch* DIP_UnencryptedLimit();
 	static SimplePatch* DIP_EnableDvdVideo();
-	
+
 	/* Other patches */
 	static SimplePatch* KoreanKey_EnablePatch();
+
+	static SimplePatch* getPatch(const std::string &s);
+
 
 };
 

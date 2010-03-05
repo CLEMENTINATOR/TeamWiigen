@@ -16,7 +16,7 @@ SimplePatch::SimplePatch(const u8* pattern,const u8* patch,const u32 length, con
 
   _pattern = new u8[length];
   memcpy(_pattern, pattern, length);
-	
+
   _patch = new u8[length];
   memcpy(_patch, patch, length);
 }
@@ -37,7 +37,7 @@ SimplePatch::SimplePatch(const SimplePatch& patch)
 SimplePatch& SimplePatch::operator=(const SimplePatch& patch)
 {
   Patch::operator=(patch);
-  
+
   delete[] _pattern;
   _pattern = NULL;
 
@@ -46,12 +46,12 @@ SimplePatch& SimplePatch::operator=(const SimplePatch& patch)
 
   delete[] _patch;
   _patch = NULL;
-	
+
   _patch = new u8[patch._length];
   memcpy(_patch, patch._patch, patch._length);
 
   _length = patch._length;
-  
+
   return *this;
 }
 
@@ -228,4 +228,25 @@ SimplePatch* SimplePatch::KoreanKey_EnablePatch()
   static SimplePatch p(oldCode, newCode, 8);
   return &p;
 }
-	
+
+SimplePatch* SimplePatch::getPatch(const std::string &s)
+{
+if(s=="ES_HashCheck_Old") return ES_HashCheck_Old();
+else if(s=="ES_HashCheck_New") return ES_HashCheck_New();
+else if(s=="ES_Identify") return ES_Identify();
+else if(s=="ES_OpenTitleContent1") return ES_OpenTitleContent1();
+else if(s=="ES_OpenTitleContent2") return ES_OpenTitleContent2();
+else if(s=="ES_ReadContent") return ES_ReadContent();
+else if(s=="ES_CloseContent") return ES_CloseContent();
+else if(s=="ES_SetUIDCheck") return ES_SetUIDCheck();
+else if(s=="ES_TitleVersionCheck") return ES_TitleVersionCheck();
+else if(s=="ES_TitleDeleteCheck") return ES_TitleDeleteCheck();
+else if(s=="ES_MEM2Protection") return ES_MEM2Protection();
+else if(s=="FFS_PermsCheck") return FFS_PermsCheck();
+else if(s=="DIP_UnencryptedLimit") return DIP_UnencryptedLimit();
+else if(s=="DIP_EnableDvdVideo") return DIP_EnableDvdVideo();
+else if(s=="KoreanKey_EnablePatch") return KoreanKey_EnablePatch();
+else throw Exception("Unknown prebuld patch",-1);
+
+return NULL;
+}

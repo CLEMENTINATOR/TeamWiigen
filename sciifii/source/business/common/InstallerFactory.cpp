@@ -201,7 +201,8 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
             Buffer pattern;
             Buffer value;
             vector<string>splitPattern=Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
-            vector<string>splitValue=Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
+            vector<string>splitValue=Config::SplitString(Xml::CharToStr(handle->Attribute("value")),',');
+			
             for(u16 i=0;i<splitPattern.size();i++)
             {
                vector<string>val=Config::SplitString(splitPattern[i],'x');
@@ -211,14 +212,15 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
                u8 v= (u8)Xml::CharToU16(val[1].c_str());
                pattern.Append(&v, 1);
             }
-             for(u16 i=0;i<splitValue.size();i++)
+			
+            for(u16 i=0;i<splitValue.size();i++)
             {
                vector<string>val=Config::SplitString(splitValue[i],'x');
                u8 v = (u8)Xml::CharToU16(val[1].c_str());
                value.Append(&v, 1);
             }
-            SimplePatch p=SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),dest);
-			patches.push_back(p);
+			
+			patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),dest));
 		}
 		handle = handle->NextSiblingElement();
 	}

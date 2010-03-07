@@ -10,7 +10,6 @@
 #include <libutils/com/NetworkRequest.h>
 
 #include <sstream>
-#include <iostream>
 #include "common/FileManager.h"
 
 using namespace std;
@@ -89,20 +88,19 @@ void Cios::Install()
 		for(vector<pluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 		{
 			Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
-			PluginPatch plugPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);
+			PluginPatch* plugPatch = new PluginPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);
 
 			for(vector<SimplePatch>::iterator handle = plugin->handles.begin(); handle != plugin->handles.end(); handle++)
-				plugPatch.DefineCommandHandle(*handle);
+				plugPatch->DefineCommandHandle(*handle);
 
-			Patch* p = new PluginPatch(plugPatch);
-			cios.AddPatch(p);
-			toDelete.push_back(p);
+			cios.AddPatch(plugPatch);
+			toDelete.push_back(plugPatch);
 		}
 
         for(vector<customModule>::iterator module = _modules.begin(); module != _modules.end(); module++)
 		{
-			Buffer bmod =  FileManager::GetFile(module->name);
-			TitleModule tmodule((u8*)bmod.Content() , bmod.Length(), module->position);
+			Buffer bmod = FileManager::GetFile(module->name);
+			TitleModule tmodule(bmod, module->position);
 			cios.AddModule(tmodule);
 		}
 

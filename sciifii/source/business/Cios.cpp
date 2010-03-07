@@ -100,7 +100,7 @@ void Cios::Install()
         for(vector<customModule>::iterator module = _modules.begin(); module != _modules.end(); module++)
 		{
 			Buffer bmod = FileManager::GetFile(module->name);
-			TitleModule tmodule(bmod, module->position);
+			TitleModule tmodule((u8*)bmod.Content(),bmod.Length(), module->position);
 			cios.AddModule(tmodule);
 		}
 

@@ -142,7 +142,7 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
 				throw Exception("There can only be module item in modules", -1);
 				
 			string name = Xml::CharToStr(module->Attribute("file"));
-            u16 position = Xml::CharToU16(module->Attribute("position"),0);
+            s32 position = Xml::CharToS32(module->Attribute("position"), -1);
             ((Cios*)cios)->AddModule((customModule){name, position});
         }
         module = module->NextSiblingElement();

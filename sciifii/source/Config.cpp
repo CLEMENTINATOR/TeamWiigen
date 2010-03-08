@@ -8,6 +8,7 @@
 #include <ogc/conf.h>
 #include <cstdlib>
 #include <libutils/exception/Exception.h>
+#include <libutils/UtilString.h>
 #include <ogc/conf.h>
 
 using namespace std;
@@ -53,7 +54,7 @@ void Config::Initialize()
 
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = root->Attribute("workingDirectory");
-    c._useAdvancedSettings = Xml::CharToBool(root->Attribute("AllowAdvancedMode"));
+    c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"));
 
     TiXmlElement* child = root->FirstChildElement();
 
@@ -64,7 +65,7 @@ void Config::Initialize()
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            string nodeValue = Xml::CharToStr(child->Value());
+            string nodeValue = UtilString::ToStr(child->Value());
 
             if (nodeValue == "options")
                 c.CreateOptionList(child);
@@ -132,7 +133,7 @@ void Config::CreateModeList(TiXmlElement* element)
                 throw Exception("modes child node is invalid", -1);
 
             string text = child->Attribute("text");
-            vector<string> optionList = SplitString(Xml::CharToStr(child->Attribute("options")), '|');
+            vector<string> optionList = UtilString::Split(UtilString::ToStr(child->Attribute("options")), '|');
             string flag = child->Attribute("flag");
 
             mode* m = new mode();
@@ -165,23 +166,6 @@ void Config::CreateStepList(TiXmlElement* element)
         child = child->NextSiblingElement();
     }
     while (child != NULL);
-}
-
-vector<string> Config::SplitString(const std::string& str, char splitCaracter)
-{
-    vector<string> voptions;
-    string modeOptions = str;
-    u32 position = 0;
-
-    while ((position = modeOptions.find_first_of(splitCaracter)) != string::npos)
-    {
-        voptions.push_back(modeOptions.substr(0, position));
-        modeOptions = modeOptions.erase(0, position + 1);
-    }
-
-    voptions.push_back(modeOptions);
-
-    return voptions;
 }
 
 void Config::ApplyMode(const mode& m)
@@ -217,7 +201,7 @@ void Config::ValidateOptions()
             validated = true;
         else
         {
-            vector<string> voptions = SplitString((*step)->Options(), '|');
+            vector<string> voptions = UtilString::Split((*step)->Options(), '|');
 
             for (vector<string>::iterator ite = voptions.begin(); ite != voptions.end(); ite++)
             {

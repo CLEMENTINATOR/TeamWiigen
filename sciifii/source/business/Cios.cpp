@@ -12,6 +12,8 @@
 #include <sstream>
 #include "common/FileManager.h"
 
+#include <iostream>
+
 using namespace std;
 
 Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision)
@@ -100,7 +102,8 @@ void Cios::Install()
         for(vector<customModule>::iterator module = _modules.begin(); module != _modules.end(); module++)
 		{
 			Buffer bmod = FileManager::GetFile(module->name);
-			TitleModule tmodule((u8*)bmod.Content(),bmod.Length(), module->position);
+			cout << module->name << ": " << module->position << endl;
+			TitleModule tmodule(bmod, module->position);
 			cios.AddModule(tmodule);
 		}
 

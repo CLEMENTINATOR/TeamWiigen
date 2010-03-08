@@ -11,6 +11,7 @@
 #include "../Preloader.h"
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
+#include "../Wad.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
@@ -102,8 +103,14 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "FileDownloader")
 	{
-		string file = UtilString::ToStr(node->Attribute("name"));
+		string file = UtilString::ToStr(node->Attribute("file"));
 		step = new FileDownloader(file);
+	}
+	else if(nodeValue == "Wad")
+	{
+		string file = UtilString::ToStr(node->Attribute("file"));
+		WadAction action = (WadAction)UtilString::ToU32(node->Attribute("action"), (u32)wa_Install);
+		step = new Wad(file, action);
 	}
 	else
 		throw Exception("This step doesn't exists", -1);
@@ -226,14 +233,14 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
                if(val.size() != 2)
                     throw Exception("Value length !=2",-1);
 
-               u8 v = (u8)UtilString::ToU16(val[1].c_str(), nr_hex);
+               u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
                pattern.Append(&v, 1);
             }
 			
             for(u16 i = 0; i < splitValue.size(); i++)
             {
                vector<string> val = UtilString::Split(splitValue[i], 'x');
-               u8 v = (u8)UtilString::ToU16(val[1].c_str(), nr_hex);
+               u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
                value.Append(&v, 1);
             }
 			

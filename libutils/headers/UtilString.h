@@ -35,6 +35,7 @@ public:
     static bool ToBool(const char* val, bool defaultval);
 
     static std::string ToStr(const char* value);
+	static std::string ToStr(const char* value, const std::string& defaultVal);
 	
 	static std::vector<std::string> Split(const std::string& str, const char split);
 };

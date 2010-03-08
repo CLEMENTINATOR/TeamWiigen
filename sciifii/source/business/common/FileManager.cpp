@@ -96,7 +96,20 @@ Buffer FileManager::GetFile(const std::string& fileKey)
 	return File::ReadToEnd(Config::WorkingDirectory() + "/" + fileKey);
   }
 
-  fileObject fo = ite->second;
+  return File::ReadToEnd(ite->second.path);
+}
 
-  return File::ReadToEnd(fo.path);
+string FileManager::GetPath(const std::string& fileKey)
+{
+  map<string,fileObject>::iterator ite = Instance()._fileList.find(fileKey);
+
+  if (ite == Instance()._fileList.end())
+  {
+    if(!File::Exists(Config::WorkingDirectory() + "/" + fileKey))
+		throw Exception("File key not defined and file ot found in working directory!", -1);
+		
+	return Config::WorkingDirectory() + "/" + fileKey;
+  }
+
+  return ite->second.path;
 }

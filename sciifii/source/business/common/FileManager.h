@@ -3,7 +3,6 @@
 
 #include <libutils/Xml.h>
 #include <libutils/com/Buffer.h>
-#include <libutils/exception/Exception.h>
 
 #include <map>
 
@@ -25,9 +24,6 @@ private :
 	static FileManager& Instance();
 	FileManager();
 	std::map<std::string, fileObject> _fileList;
-
-
-
 };
 
 

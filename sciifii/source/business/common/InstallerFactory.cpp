@@ -10,6 +10,7 @@
 #include "../WadBatchInstaller.h"
 #include "../Preloader.h"
 #include "../CompositeInstaller.h"
+#include "../FileDownloader.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
@@ -98,6 +99,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		string name = UtilString::ToStr(node->Attribute("name"));
 		step = new CompositeInstaller(name);
 		FillCompositeInstaller(step, node);
+	}
+	else if(nodeValue == "FileDownloader")
+	{
+		string file = UtilString::ToStr(node->Attribute("name"));
+		step = new FileDownloader(file);
 	}
 	else
 		throw Exception("This step doesn't exists", -1);

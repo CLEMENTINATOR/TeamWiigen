@@ -184,7 +184,7 @@ bool Buffer::operator==(const Buffer &b)
    else if(b._length != _length)
 	 return false;
    else
-	   for(u64 i;i<_length;i++)
+	   for(u64 i = 0; i < _length; i++)
 		   if(((u8*)_innerBuffer)[i] != ((u8*)b._innerBuffer)[i])
 			 return false;
    

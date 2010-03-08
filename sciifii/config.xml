@@ -13,8 +13,8 @@
 	<file key="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
 	<file key="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
 	<file key="priiloader.dat" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha1="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
-	<file key="wiiflow.wad" url="https://www.assembla.com/spaces/arasium/documents/ba48p4kRKr35iyeJe5aVNr/download/wiiflow.wad" sha1="https://www.assembla.com/spaces/arasium/documents/aOKLpMkRKr35IieJe5avMc/download/wiiflow.wad.sha" />
-	<file key="wiiflow.dol" url="https://www.assembla.com/spaces/arasium/documents/cLO8vKkRGr34dgeJe5avMc/download/WiiflowR25_249.dol" sha1="https://www.assembla.com/spaces/arasium/documents/dqCD4GkRGr352DeJe5afGb/download/WiiflowR25_249.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+	<file key="wiiflow.wad" url="http://www.assembla.com/spaces/arasium/documents/ba48p4kRKr35iyeJe5aVNr/download/wiiflow.wad" sha1="http://www.assembla.com/spaces/arasium/documents/aOKLpMkRKr35IieJe5avMc/download/wiiflow.wad.sha" />
+	<file key="wiiflow.dol" url="http://www.assembla.com/spaces/arasium/documents/cLO8vKkRGr34dgeJe5avMc/download/WiiflowR25_249.dol" sha1="http://www.assembla.com/spaces/arasium/documents/dqCD4GkRGr352DeJe5afGb/download/WiiflowR25_249.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
   </files>
   
   <modes>

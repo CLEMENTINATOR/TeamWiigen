@@ -13,7 +13,7 @@ string UtilString::ToStr(const char* value)
   return string(value);
 }
 
-string ToStr(const char* value, const string& defaultVal)
+string UtilString::ToStr(const char* value, const string& defaultVal)
 {
   if (!value)
 	return defaultVal;

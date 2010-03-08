@@ -9,6 +9,7 @@
 #include "../LoaderGX.h"
 #include "../WadBatchInstaller.h"
 #include "../Preloader.h"
+#include "../CompositeInstaller.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
@@ -89,8 +90,14 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "WadBatchInstaller")
 	{
-		string folder = node->Attribute("folder");
+		string folder = UtilString::ToStr(node->Attribute("folder"));
 		step = new WadBatchInstaller(folder);
+	}
+	else if(nodeValue == "WadBatchInstaller")
+	{
+		string name = UtilString::ToStr(node->Attribute("name"));
+		step = new CompositeInstaller(name);
+		FillCompositeInstaller(step, node);
 	}
 	else
 		throw Exception("This step doesn't exists", -1);
@@ -318,4 +325,21 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
     };
 
 	return step;
+}
+
+void InstallerFactory::FillCompositeInstaller(Installer* composite, TiXmlElement* node)
+{
+	CompositeInstaller* step = (CompositeInstaller*)composite;
+	
+	TiXmlElement* child = node->FirstChildElement();
+
+    while(child != NULL)
+    {
+        if (child->Type() != TiXmlElement::COMMENT)
+        {
+            step->AddStep(InstallerFactory::Create(child));
+        }
+
+        child = child->NextSiblingElement();
+    };
 }

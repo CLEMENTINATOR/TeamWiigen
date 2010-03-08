@@ -60,7 +60,7 @@ bool FileManager::Download(const std::string& fileKey)
 
   fileObject fo = ite->second;
 
-  if(!File::Exists(fo.path))
+  if(!File::Exists(fo.path) && fo.url != "")
   {
 	try
 	{
@@ -77,6 +77,8 @@ bool FileManager::Download(const std::string& fileKey)
 		return false;
 	}
   }
+  else if(fo.url == "")
+	return false;
 
   return true;
 }

@@ -19,7 +19,8 @@
   
   <modes>
 	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
-	<mode text="Hack your wii ! (Full Mode)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
+	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
+	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
   
@@ -29,7 +30,8 @@
 	<option name="update" text="Update your wii to 4.2" networkRequired="false" />
 	<option name="Preloader" text="Install the preloader" networkRequired="false" />
     <option name="corp" text="Install the corp cioses" networkRequired="false" />
-    <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="true" />
+    <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="false" />
+	<option name="wiiflow" text="Install wiiflow" networkRequired="false" />
   </options>
   
   <steps>
@@ -196,7 +198,7 @@
 		</items>
 	</CorpInstaller>
 	<GXLoader option="GXLoader" />
-	<CompositeInstaller name="Wiiflow">
+	<CompositeInstaller option="wiiflow" name="Wiiflow">
 		<FileDownloader file="wiiflow.dol" />
 		<WadInstaller file="wiiflow.wad" action="Install" />
 	</CompositeInstaller>

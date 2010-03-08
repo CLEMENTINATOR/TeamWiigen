@@ -19,7 +19,7 @@ public :
 	static void Init(TiXmlElement* config);
 	static bool Download(const std::string& fileKey);
 	static Buffer GetFile(const std::string& fileKey);
-
+	static std::string GetPath(const std::string& fileKey);
 private :
 	static FileManager& Instance();
 	FileManager();

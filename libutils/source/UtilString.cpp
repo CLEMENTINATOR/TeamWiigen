@@ -7,9 +7,18 @@ using namespace std;
 
 string UtilString::ToStr(const char* value)
 {
-  if (value)return string(value);
+  if (!value)
+	throw Exception("Cannot parse NULL value to string", -1);
 
-  else return "";
+  return string(value);
+}
+
+string ToStr(const char* value, const string& defaultVal)
+{
+  if (!value)
+	return defaultVal;
+
+  return string(value);
 }
 
 u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)

@@ -95,7 +95,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		string folder = UtilString::ToStr(node->Attribute("folder"));
 		step = new WadBatchInstaller(folder);
 	}
-	else if(nodeValue == "WadBatchInstaller")
+	else if(nodeValue == "CompositeInstaller")
 	{
 		string name = UtilString::ToStr(node->Attribute("name"));
 		step = new CompositeInstaller(name);

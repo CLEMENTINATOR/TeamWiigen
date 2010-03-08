@@ -11,6 +11,7 @@
 #include "../Preloader.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
+#include <libutils/UtilString.h>
 
 #include <string>
 
@@ -20,30 +21,30 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 {
 	Installer* step(NULL);
 
-	string nodeValue = Xml::CharToStr(node->Value());
+	string nodeValue = UtilString::ToStr(node->Value());
 
 	if(nodeValue == "TitleDowngrader")
 	{
-		u64 titleId = Xml::CharToU64(node->Attribute("id"),nr_hex);
-		u16 revision = Xml::CharToU16(node->Attribute("revision"));
+		u64 titleId = UtilString::ToU64(node->Attribute("id"),nr_hex);
+		u16 revision = UtilString::ToU16(node->Attribute("revision"));
 		step = new TitleDowngrader(titleId, revision);
 	}
 	else if(nodeValue == "IOSReloader")
 	{
-		u32 id = Xml::CharToU32(node->Attribute("id"));
-		UserType ut = (UserType)Xml::CharToU16(node->Attribute("user"));
+		u32 id = UtilString::ToU32(node->Attribute("id"));
+		UserType ut = (UserType)UtilString::ToU16(node->Attribute("user"));
 		step = new IosReloader(id, ut);
 	}
 	else if(nodeValue == "TruchaRestorer")
 	{
-		u32 titleId = Xml::CharToU32(node->Attribute("id"));
-		u16 revision = Xml::CharToU16(node->Attribute("revision"));
+		u32 titleId = UtilString::ToU32(node->Attribute("id"));
+		u16 revision = UtilString::ToU16(node->Attribute("revision"));
 		step = new TruchaRestorer(titleId, revision);
 	}
 	else if(nodeValue == "TitleInstaller")
 	{
-		u64 titleId = Xml::CharToU64(node->Attribute("id"), nr_hex);
-		u16 revision = Xml::CharToU16(node->Attribute("revision"), nr_hex);
+		u64 titleId = UtilString::ToU64(node->Attribute("id"), nr_hex);
+		u16 revision = UtilString::ToU16(node->Attribute("revision"), nr_hex);
 		step = new TitleInstaller(titleId, revision);
 	}
 	else if(nodeValue == "CiosInstaller")
@@ -59,7 +60,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		{
 			if (section->Type() != TiXmlElement::COMMENT)
 			{
-				string nodeValue = Xml::CharToStr(section->Value());
+				string nodeValue = UtilString::ToStr(section->Value());
 				if(nodeValue == "items")
 					FillCiosCorpItems(step, section);
 				else if(nodeValue == "modules")
@@ -80,7 +81,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "Preloader")
 	{
-		string file = Xml::CharToStr(node->Attribute("file"));
+		string file = UtilString::ToStr(node->Attribute("file"));
 		if(file == "")
 			throw Exception("Priiloader file must be provided.", -1);
 
@@ -101,11 +102,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
 Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 {
-	u32 iosSource = Xml::CharToU32(node->Attribute("source"));
-	u32 iosDest = Xml::CharToU32(node->Attribute("slot"));
+	u32 iosSource = UtilString::ToU32(node->Attribute("source"));
+	u32 iosDest = UtilString::ToU32(node->Attribute("slot"));
 
-	u16 iosRevision = Xml::CharToU16(node->Attribute("revision"));
-	u16 ciosRevision = Xml::CharToU16(node->Attribute("ciosRevision"));
+	u16 iosRevision = UtilString::ToU16(node->Attribute("revision"));
+	u16 ciosRevision = UtilString::ToU16(node->Attribute("ciosRevision"));
 
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 
@@ -114,7 +115,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	{
 		if (section->Type() != TiXmlElement::COMMENT)
 		{
-			string nodeValue = Xml::CharToStr(section->Value());
+			string nodeValue = UtilString::ToStr(section->Value());
 			if(nodeValue == "modules")
 			   FillCiosModules(step, section);
 			else if(nodeValue == "plugins")
@@ -138,11 +139,11 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
     {
         if (module->Type() != TiXmlElement::COMMENT)
         {
-			if(Xml::CharToStr(module->Value()) != "module")
+			if(UtilString::ToStr(module->Value()) != "module")
 				throw Exception("There can only be module item in modules", -1);
 				
-			string name = Xml::CharToStr(module->Attribute("file"));
-            s32 position = Xml::CharToS32(module->Attribute("position"), -1);
+			string name = UtilString::ToStr(module->Attribute("file"));
+            s32 position = UtilString::ToS32(module->Attribute("position"), -1);
             ((Cios*)cios)->AddModule((customModule){name, position});
         }
         module = module->NextSiblingElement();
@@ -156,10 +157,10 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-           string nodeValue = Xml::CharToStr(child->Value());
+           string nodeValue = UtilString::ToStr(child->Value());
            if(nodeValue=="prebuild")
            {
-               string patchName=Xml::CharToStr(child->Attribute("name"));
+               string patchName=UtilString::ToStr(child->Attribute("name"));
                ((Cios*)cios)->AddPatch(SimplePatch::getPatch(patchName));
            }
 
@@ -175,13 +176,13 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 	{
 		if (plugin->Type() != TiXmlElement::COMMENT)
 		{
-			if(Xml::CharToStr(plugin->Value()) != "plugin")
+			if(UtilString::ToStr(plugin->Value()) != "plugin")
 				throw Exception("There can only be plugin item in plugins", -1);
 
-			string dest = Xml::CharToStr(plugin->Attribute("dest"));
-			string file = Xml::CharToStr(plugin->Attribute("file"));
-			u32 offset = Xml::CharToU32(plugin->Attribute("offset"), nr_hex);
-			u32 bss = Xml::CharToU32(plugin->Attribute("bss"), nr_hex);
+			string dest = UtilString::ToStr(plugin->Attribute("dest"));
+			string file = UtilString::ToStr(plugin->Attribute("file"));
+			u32 offset = UtilString::ToU32(plugin->Attribute("offset"), nr_hex);
+			u32 bss = UtilString::ToU32(plugin->Attribute("bss"), nr_hex);
 			vector<SimplePatch> handles = GetPluginHandles(plugin);
 			((Cios*)cios)->AddPlugin((pluginDescriptor){ dest, file, offset, bss, handles });
 		}
@@ -198,28 +199,28 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 	{
 		if (handle->Type() != TiXmlElement::COMMENT)
 		{
-			if(Xml::CharToStr(handle->Value()) != "handle")
+			if(UtilString::ToStr(handle->Value()) != "handle")
 				throw Exception("There can only be handle item in plugin", -1);
 
             Buffer pattern;
             Buffer value;
-            vector<string> splitPattern = Config::SplitString(Xml::CharToStr(handle->Attribute("pattern")),',');
-            vector<string> splitValue = Config::SplitString(Xml::CharToStr(handle->Attribute("value")),',');
+            vector<string> splitPattern = UtilString::Split(UtilString::ToStr(handle->Attribute("pattern")),',');
+            vector<string> splitValue = UtilString::Split(UtilString::ToStr(handle->Attribute("value")),',');
 			
             for(u16 i = 0; i < splitPattern.size(); i++)
             {
-               vector<string> val = Config::SplitString(splitPattern[i], 'x');
+               vector<string> val = UtilString::Split(splitPattern[i], 'x');
                if(val.size() != 2)
                     throw Exception("Value length !=2",-1);
 
-               u8 v = (u8)Xml::CharToU16(val[1].c_str(), nr_hex);
+               u8 v = (u8)UtilString::ToU16(val[1].c_str(), nr_hex);
                pattern.Append(&v, 1);
             }
 			
             for(u16 i = 0; i < splitValue.size(); i++)
             {
-               vector<string> val = Config::SplitString(splitValue[i], 'x');
-               u8 v = (u8)Xml::CharToU16(val[1].c_str(), nr_hex);
+               vector<string> val = UtilString::Split(splitValue[i], 'x');
+               u8 v = (u8)UtilString::ToU16(val[1].c_str(), nr_hex);
                value.Append(&v, 1);
             }
 			
@@ -241,14 +242,14 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
             if (string(child->Value()) != "corpItem")
                 throw Exception("CorpItem child node is invalid", -1);
 
-            u64 slot = Xml::CharToU64(child->Attribute("slot"),nr_hex);
-            u64 source = Xml::CharToU64(child->Attribute("source"),nr_hex);
-            u16 revision = Xml::CharToU16(child->Attribute("revision"));
-            vector<string> modules = Config::SplitString(Xml::CharToStr(child->Attribute("modules")), '|');
-            bool identifyPatch = Xml::CharToBool(child->Attribute("identifyPatch"));
-            bool nandPatch = Xml::CharToBool(child->Attribute("nandPatch"));
-            bool kkPatch = Xml::CharToBool(child->Attribute("kkPatch"));
-            bool localOnly = Xml::CharToBool(child->Attribute("localOnly"));
+            u64 slot = UtilString::ToU64(child->Attribute("slot"),nr_hex);
+            u64 source = UtilString::ToU64(child->Attribute("source"),nr_hex);
+            u16 revision = UtilString::ToU16(child->Attribute("revision"));
+            vector<string> modules = UtilString::Split(UtilString::ToStr(child->Attribute("modules")), '|');
+            bool identifyPatch = UtilString::ToBool(child->Attribute("identifyPatch"));
+            bool nandPatch = UtilString::ToBool(child->Attribute("nandPatch"));
+            bool kkPatch = UtilString::ToBool(child->Attribute("kkPatch"));
+            bool localOnly = UtilString::ToBool(child->Attribute("localOnly"));
 
 			((CiosCorp*)corp)->AddItem((ciosDesc){ slot, source, revision, modules, identifyPatch, nandPatch, kkPatch, localOnly });
         }
@@ -267,9 +268,9 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
             if (string(child->Value()) != "module")
                 throw Exception("CorpItem module child node is invalid", -1);
 
-            string type = Xml::CharToStr(child->Attribute("type"));
-			string name = Xml::CharToStr(child->Attribute("name"));
-			string file = Xml::CharToStr(child->Attribute("file"));
+            string type = UtilString::ToStr(child->Attribute("type"));
+			string name = UtilString::ToStr(child->Attribute("name"));
+			string file = UtilString::ToStr(child->Attribute("file"));
 
 			((CiosCorp*)corp)->AddModule(name, (moduleDesc){ type, file });
         }
@@ -290,11 +291,11 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
             if (string(child->Value()) != "title")
                 throw Exception("UpdateList child node is invalid", -1);
 
-            u64 id = Xml::CharToU64(child->Attribute("id"), nr_hex);
-            u16 revision = Xml::CharToU16(child->Attribute("revision"));
-            bool onlyUninstallation = Xml::CharToBool(child->Attribute("onlyUninstallation"));
-            s8 region = Xml::CharToS32(child->Attribute("region"));
-			u64 slot = Xml::CharToU64(child->Attribute("slot"), 0);
+            u64 id = UtilString::ToU64(child->Attribute("id"), nr_hex);
+            u16 revision = UtilString::ToU16(child->Attribute("revision"));
+            bool onlyUninstallation = UtilString::ToBool(child->Attribute("onlyUninstallation"));
+            s8 region = UtilString::ToS32(child->Attribute("region"));
+			u64 slot = UtilString::ToU64(child->Attribute("slot"), 0);
 
             if (region == -1 || region == (s32)Config::GetRegion())
             {

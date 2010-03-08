@@ -55,7 +55,6 @@ public:
 	static void ApplyMode(const mode& m);
 	static void ValidateOptions();
 	static u32 GetRegion();
-	static std::vector<std::string> SplitString(const std::string& str, char splitCaracter);
 	
 	static bool IsFlagDefined(const std::string& flag);
 	static std::string WorkingDirectory();

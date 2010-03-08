@@ -2,6 +2,8 @@
 #include <libutils/com/NetworkRequest.h>
 #include "../../Config.h"
 #include <libutils/fs/File.h>
+#include <libutils/UtilString.h>
+
 using namespace std;
 
 
@@ -26,10 +28,10 @@ void FileManager::Init(TiXmlElement* config)
           if (string(child->Value()) != "file")
             throw Exception("Invalid file child node name", -1);
 
-          string key = Xml::CharToStr(child->Attribute("key"));
-          string url = Xml::CharToStr(child->Attribute("url"));
-          string sha1 = Xml::CharToStr(child->Attribute("sha1"));
-          string path = Xml::CharToStr(child->Attribute("path"));
+          string key = UtilString::ToStr(child->Attribute("key"));
+          string url = UtilString::ToStr(child->Attribute("url"));
+          string sha1 = UtilString::ToStr(child->Attribute("sha1"));
+          string path = UtilString::ToStr(child->Attribute("path"));
 
           if (key.length() == 0)
             throw Exception("The file key must be provided", -1);

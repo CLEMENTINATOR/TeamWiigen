@@ -30,9 +30,9 @@ void FileManager::Init(TiXmlElement* config)
             throw Exception("Invalid file child node name", -1);
 
           string key = UtilString::ToStr(child->Attribute("key"));
-          string url = UtilString::ToStr(child->Attribute("url"));
-          string sha1 = UtilString::ToStr(child->Attribute("sha1"));
-          string path = UtilString::ToStr(child->Attribute("path"));
+          string url = UtilString::ToStr(child->Attribute("url"), "");
+          string sha1 = UtilString::ToStr(child->Attribute("sha1"), "");
+          string path = UtilString::ToStr(child->Attribute("path"), "");
 
           if (key.length() == 0)
             throw Exception("The file key must be provided", -1);

@@ -259,7 +259,7 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            if (string(child->Value()) != "corpItem")
+            if (UtilString::ToStr(child->Value()) != "corpItem")
                 throw Exception("CorpItem child node is invalid", -1);
 
             u64 slot = UtilString::ToU64(child->Attribute("slot"),nr_hex);
@@ -285,7 +285,7 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            if (string(child->Value()) != "module")
+            if (UtilString::ToStr(child->Value()) != "module")
                 throw Exception("CorpItem module child node is invalid", -1);
 
             string type = UtilString::ToStr(child->Attribute("type"));
@@ -308,7 +308,7 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            if (string(child->Value()) != "title")
+            if (UtilString::ToStr(child->Value()) != "title")
                 throw Exception("UpdateList child node is invalid", -1);
 
             u64 id = UtilString::ToU64(child->Attribute("id"), nr_hex);

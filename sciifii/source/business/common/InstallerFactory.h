@@ -26,6 +26,7 @@ public:
 	static void FillCiosPatches(Installer* cios, TiXmlElement* xml);
 	static void FillCiosModules(Installer* cios, TiXmlElement* xml);
 	static Installer* CreateSystemUpdater(TiXmlElement* node);
+	static void FillCompositeInstaller(Installer* composite, TiXmlElement* node);
 };
 
 #endif /* INSTALLERFACTORY_H_ */

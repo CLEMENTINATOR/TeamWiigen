@@ -194,6 +194,8 @@
 		</items>
 	</CorpInstaller>
 	<GXLoader option="GXLoader" />
+	<CompositeInstaller>
+	</CompositeInstaller>
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
   

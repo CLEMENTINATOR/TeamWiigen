@@ -200,7 +200,7 @@
 	<GXLoader option="GXLoader" />
 	<CompositeInstaller option="wiiflow" name="Wiiflow">
 		<FileDownloader file="wiiflow.dol" />
-		<WadInstaller file="wiiflow.wad" action="Install" />
+		<Wad file="wiiflow.wad" action="Install" />
 	</CompositeInstaller>
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>

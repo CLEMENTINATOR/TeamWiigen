@@ -115,7 +115,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else
 		throw Exception("This step doesn't exists", -1);
 
-	step->Options(node->Attribute("option"));
+	step->Options(UtilString::ToStr(node->Attribute("option"), ""));
 
 	return step;
 }

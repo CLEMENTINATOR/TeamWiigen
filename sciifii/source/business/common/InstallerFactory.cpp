@@ -212,14 +212,14 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
                if(val.size() != 2)
                     throw Exception("Value length !=2",-1);
 
-               u8 v = (u8)Xml::CharToU16(val[1].c_str());
+               u8 v = (u8)Xml::CharToU16(val[1].c_str(), nr_hex);
                pattern.Append(&v, 1);
             }
 			
             for(u16 i = 0; i < splitValue.size(); i++)
             {
                vector<string> val = Config::SplitString(splitValue[i], 'x');
-               u8 v = (u8)Xml::CharToU16(val[1].c_str());
+               u8 v = (u8)Xml::CharToU16(val[1].c_str(), nr_hex);
                value.Append(&v, 1);
             }
 			

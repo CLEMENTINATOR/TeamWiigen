@@ -4,7 +4,6 @@
 #include <sha1.h>
 #include <malloc.h>
 #include <limits.h>
-#include <iostream>
 
 using namespace std;
 
@@ -24,7 +23,6 @@ void TitlePatcher::AddPatch(const Patch* patch)
 
 void TitlePatcher::AddModule(TitleModule module)
 {
-	cout << "Module added in position: " << module.Position() << endl;
 	_moduleList.push_back(module);
 }
 
@@ -83,7 +81,6 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 	/* Update TMD */
 	if(module.IsPositionRequired())
 	{
-		cout << "Position required."  << endl;
 		tmd_content oldEntry = tmd_data->contents[module.Position()];
 		tmd_data->contents[module.Position()] = tmd_data->contents[tmd_data->num_contents];
 		tmd_data->contents[tmd_data->num_contents] = oldEntry;
@@ -195,7 +192,6 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
   for(list<TitleModule>::iterator ite = _moduleList.begin(); ite != _moduleList.end(); ite++)
   {
 	_tmdDirty = true;
-	cout << "Insert module: " << ite->Position() << endl;
 	InsertModule(*ite, processControl.buffer);
   }
   

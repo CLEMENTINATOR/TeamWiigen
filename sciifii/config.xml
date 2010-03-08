@@ -36,10 +36,10 @@
     <TruchaRestorer option="TBR" id="36" revision="0" />
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
 	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
-	<CiosInstaller option="cIOS" source="38" revision="3867" slot="250" ciosRevision="17" >
+	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
 		<modules>
-			<module file="fat_module.dat" />
 			<module file="ehci_module.dat" position="3" />
+			<module file="fat_module.dat" />
 			<module file="sdhc_module.dat" />
 		</modules>
 		<plugins>

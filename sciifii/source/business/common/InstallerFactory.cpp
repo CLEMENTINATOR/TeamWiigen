@@ -109,7 +109,15 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else if(nodeValue == "Wad")
 	{
 		string file = UtilString::ToStr(node->Attribute("file"));
-		WadAction action = (WadAction)UtilString::ToU32(node->Attribute("action"), (u32)wa_Install);
+		WadAction action = wa_Install;
+		string choice = UtilString::ToStr(node->Attribute("action"));
+		if(choice == "install")
+			action = wa_Install;
+		else if(choice == "uninstall")
+			action = wa_Uninstall;
+		else
+			throw Exception("Can't parse WadAction enum from xml!", -1);
+			
 		step = new Wad(file, action);
 	}
 	else

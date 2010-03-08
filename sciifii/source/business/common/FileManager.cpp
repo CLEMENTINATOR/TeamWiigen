@@ -3,6 +3,7 @@
 #include "../../Config.h"
 #include <libutils/fs/File.h>
 #include <libutils/UtilString.h>
+#include <libutils/exception/Exception.h>
 
 using namespace std;
 

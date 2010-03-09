@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1">
+	<name>Sciifii</name>
+	<coder>TeamWiigen</coder>
+	<version>2.0</version>
+	<release_date>20100222000000</release_date>
+	<short_description>Hack your wii</short_description>
+	<long_description>This app will hack easily your wii.
+	It can be done online or offline. Read the readme.txt file
+	to use the offline installation or if you encounter 
+	some problems with the online mode.</long_description>
+</app>

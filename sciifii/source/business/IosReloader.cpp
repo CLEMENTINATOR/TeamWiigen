@@ -31,6 +31,7 @@ void IosReloader::Install()
 	txt << "Reloading under IOS" << _id;
 	OnProgress(txt.str(), 1);
 	Title::ReloadIOS(_id);
-	if(_identify)
-	  Identification::IdentifyAs(_type);
+	//if(_identify)
+	  //Identification::IdentifyAs(_type);
+	  Identification::IdentifyAs(UserType_SU);
 }

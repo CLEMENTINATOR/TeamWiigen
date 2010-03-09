@@ -41,7 +41,7 @@ bool Cios::Prepare()
 {
 	stringstream wadFile;
 	wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( 0x100000000ULL + _iosId, _iosRevision);
-
+    OnProgress("Downloading base ios.", 0.2);
 	if(!File::Exists(wadFile.str()))
 	{
 		if(Config::HasNetwork())
@@ -57,17 +57,20 @@ bool Cios::Prepare()
 			return false;
 		}
 	}
-
+    OnProgress("Downloading plugins.", 0.5);
 	for(vector<pluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 	{
 		FileManager::Download(plugin->file);
 	}
+
+    OnProgress("Downloading custum modules.", 0.7);
 
 	for(vector<customModule>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
 	{
         FileManager::Download(ite->name);
 	}
 
+    OnProgress("cIOS preparation done !", 1);
 	return true;
 }
 

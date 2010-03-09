@@ -30,7 +30,7 @@ void IosReloader::Install()
 	stringstream txt;
 	txt << "Reloading under IOS" << _id;
 	OnProgress(txt.str(), 1);
-	Title::ReloadIOS(_id);
+	Title::ReloadIOS(249);
 	//if(_identify)
 	  //Identification::IdentifyAs(_type);
 	  Identification::IdentifyAs(UserType_SU);

@@ -5,6 +5,8 @@
 
 #include "common/FileManager.h"
 
+#include <iostream>
+
 using namespace std;
 
 Wad::Wad(const string &file, WadAction action)
@@ -24,11 +26,18 @@ bool Wad::Prepare()
 void Wad::Install()
 {
 	Title t;
-	t.LoadFromWad(FileManager::GetPath(_file));
+	string wadPath = FileManager::GetPath(_file);
+	
+	cout << endl << wadPath << endl;
+	
+	t.LoadFromWad(wadPath);
+	
+	cout << "Loaded!" << endl;
 	
 	switch(_action)
 	{
 		case wa_Install:
+			cout << "Install!" << endl;
 			t.Install();
 			break;
 		case wa_Uninstall:

@@ -3,6 +3,7 @@
 #include "../IOSReloader.h"
 #include "../TruchaRestorer.h"
 #include "../TitleInstaller.h"
+#include "../TitleStep.h"
 #include "../CiosCorp.h"
 #include "../Cios.h"
 #include "../SystemUpdater.h"
@@ -44,11 +45,31 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		u16 revision = UtilString::ToU16(node->Attribute("revision"));
 		step = new TruchaRestorer(titleId, revision);
 	}
-	else if(nodeValue == "TitleInstaller")
+	else if(nodeValue == "Title")
 	{
-		u64 titleId = UtilString::ToU64(node->Attribute("id"), nr_hex);
-		u16 revision = UtilString::ToU16(node->Attribute("revision"), nr_hex);
-		step = new TitleInstaller(titleId, revision);
+		u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
+		u16 revision = UtilString::ToU16(node->Attribute("revision"),0, nr_hex);
+        string file = UtilString::ToStr(node->Attribute("wad"),"");
+        TitleAction action;
+        string choice = UtilString::ToStr(node->Attribute("action"),"Install");
+		if(choice == "Install")
+			action = ti_Install;
+		else if(choice == "Uninstall")
+			action = ti_Uninstall;
+		else if (choice == "Pack")
+		    action = ti_PackAsWad;
+        else
+			throw Exception("Can't parse WadAction enum from xml!", -1);
+
+         if (titleId!=0 && file=="")
+        {
+            step= new TitleStep(titleId,revision,action);
+        }
+         else if (titleId==0 && file!="")
+        {
+            step= new TitleStep(file,action);
+        }
+        else  throw Exception("Title XML error", -1);
 	}
 	else if(nodeValue == "CiosInstaller")
 	{
@@ -117,7 +138,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 			action = wa_Uninstall;
 		else
 			throw Exception("Can't parse WadAction enum from xml!", -1);
-			
+
 		step = new Wad(file, action);
 	}
 	else
@@ -169,7 +190,7 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
         {
 			if(UtilString::ToStr(module->Value()) != "module")
 				throw Exception("There can only be module item in modules", -1);
-				
+
 			string name = UtilString::ToStr(module->Attribute("file"));
             s32 position = UtilString::ToS32(module->Attribute("position"), -1);
             ((Cios*)cios)->AddModule((customModule){name, position});
@@ -222,7 +243,7 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 {
 	vector<SimplePatch> patches;
 	TiXmlElement* handle = xml->FirstChildElement();
-	
+
 	while (handle != NULL)
 	{
 		if (handle->Type() != TiXmlElement::COMMENT)
@@ -234,7 +255,7 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
             Buffer value;
             vector<string> splitPattern = UtilString::Split(UtilString::ToStr(handle->Attribute("pattern")),',');
             vector<string> splitValue = UtilString::Split(UtilString::ToStr(handle->Attribute("value")),',');
-			
+
             for(u16 i = 0; i < splitPattern.size(); i++)
             {
                vector<string> val = UtilString::Split(splitPattern[i], 'x');
@@ -244,14 +265,14 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
                u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
                pattern.Append(&v, 1);
             }
-			
+
             for(u16 i = 0; i < splitValue.size(); i++)
             {
                vector<string> val = UtilString::Split(splitValue[i], 'x');
                u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
                value.Append(&v, 1);
             }
-			
+
 			patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length()));
 		}
 		handle = handle->NextSiblingElement();
@@ -351,7 +372,7 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
 void InstallerFactory::FillCompositeInstaller(Installer* composite, TiXmlElement* node)
 {
 	CompositeInstaller* step = (CompositeInstaller*)composite;
-	
+
 	TiXmlElement* child = node->FirstChildElement();
 
     while(child != NULL)

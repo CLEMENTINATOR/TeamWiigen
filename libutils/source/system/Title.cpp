@@ -451,14 +451,12 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         }
         else
         {
-            free(content);
             free(tmd_data);
             free(btmd);
              throw Exception("Unknown content type !",-1);
         }
         Buffer b=File::ReadToEnd(filename.str());
         AddContent(b,content->cid);
-        free(content);
     }
     free(tmd_data);
     free(btmd);

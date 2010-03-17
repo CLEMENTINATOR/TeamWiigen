@@ -127,20 +127,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		string file = UtilString::ToStr(node->Attribute("file"));
 		step = new FileDownloader(file);
 	}
-	else if(nodeValue == "Wad")
-	{
-		string file = UtilString::ToStr(node->Attribute("file"));
-		WadAction action = wa_Install;
-		string choice = UtilString::ToStr(node->Attribute("action"));
-		if(choice == "Install")
-			action = wa_Install;
-		else if(choice == "Uninstall")
-			action = wa_Uninstall;
-		else
-			throw Exception("Can't parse WadAction enum from xml!", -1);
-
-		step = new Wad(file, action);
-	}
 	else
 		throw Exception("This step doesn't exists", -1);
 

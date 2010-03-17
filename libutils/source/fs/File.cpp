@@ -207,7 +207,7 @@ void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 		throw Exception("File already exists !",-1);
 
     Buffer b=File::ReadToEnd(fileToCopy);
-    File&f=File::Create(fileToCopy);
+    File&f=File::Create(destFile);
     f.Write(b);
     f.Close();
     delete &f;

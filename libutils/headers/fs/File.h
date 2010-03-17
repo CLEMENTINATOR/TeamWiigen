@@ -30,6 +30,8 @@ public:
 	virtual void Close() = 0;
 	u32 Size() const;
 	virtual ~File() = 0;
+	static void Copy(const std::string &fileToCopy,const std::string &fileCopied);
+	static void Move(const std::string &fileToCopy,const std::string &fileCopied);
 };
 
 #endif

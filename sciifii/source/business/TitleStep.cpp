@@ -12,20 +12,21 @@
 
 using namespace std;
 
-TitleStep::TitleStep(u64 titleId, u16 revision, TitleAction a) :_id(titleId),_revision(revision),_action(a),_file("")
+TitleStep::TitleStep(u64 titleId, u16 revision, TitleAction a) :_id(titleId),_revision(revision),_action(a),_file(""),_path("")
 {}
-TitleStep::TitleStep(std::string file, TitleAction a) : _id(0),_revision(0),_action(a),_file(file)
+
+TitleStep::TitleStep(string file,string path,TitleAction a) :_id(0),_revision(0),_action(a),_file(file),_path(path)
 {}
 
 bool TitleStep::Prepare()
 {
   if (_file!="")  /* Si fichier donne en parametre */
-	{
-	  OnProgress("Getting wad file", 0.25);
-	  if (!FileManager::Download(_file))
-		throw Exception("Error downloading " + _file, -1);
-	  _file = FileManager::GetPath(_file);
-	}
+    {
+      OnProgress("Getting wad file", 0.25);
+      if (!FileManager::Download(_file))
+        throw Exception("Error downloading " + _file, -1);
+      _file = FileManager::GetPath(_file);
+    }
   else  /*  Si tid */
     {
       if (_action!=ti_Uninstall)
@@ -50,7 +51,7 @@ bool TitleStep::Prepare()
                   pack << "Saving as " << Path::GetFileName(wad.str());
                   OnProgress(pack.str(), 0.75);
                   ios.PackAsWad(wad.str());
-				  _file = wad.str();
+                  _file = wad.str();
                 }
               else
                 {
@@ -59,43 +60,55 @@ bool TitleStep::Prepare()
                   return false;
                 }
             }
-		}
+        }
     }
-	
-	if(_action == ti_Uninstall)
-		OnProgress("Title uninstallation preparation done!", 1);
-	else if(_action == ti_Install)
-		OnProgress("Title installation preparation done!", 1);
-	else if(_action == ti_PackAsWad)
-		OnProgress("Wad creation preparation done!", 1);
+
+  if (_action == ti_Uninstall)
+    OnProgress("Title uninstallation preparation done!", 1);
+  else if (_action == ti_Install)
+    OnProgress("Title installation preparation done!", 1);
+  else if (_action == ti_PackAsWad)
+    OnProgress("Wad creation preparation done!", 1);
+
+  return true;
 }
 
 void TitleStep::Install()
 {
-  if(action == ti_Uninstall && _id != 0)
-	Title::Uninstall(_id);
-  else if(action == ti_Uninstall && _id == 0)
-  {
-	Title t;
-	t.LoadFromWad(_file);
-	t.Uninstall();
-  }
-  else if(action == ti_Install)
-  {
-	Title t;
-	t.LoadFromWad(_file);
-	t.Install();
-  }
-  else if(action == ti_PackAsWad && _id != 0)
-  {
-	Title t;
-	t.LoadFromWad(_file);
-	//TODO here
-	//t.PackAsWad(...);
-  }
-  else if(action == ti_PackAsWad && _id == 0)
-  {
-	//TODO here
-	//File::Copy(_file, _location);
-  }
+  if (_action == ti_Uninstall && _id != 0)
+    {
+      Title::Uninstall(_id);
+    }
+  else if (_action == ti_Uninstall && _id == 0)
+    {
+      Title t;
+      t.LoadFromWad(_file);
+      t.Uninstall();
+    }
+  else if (_action == ti_Install)
+    {
+      Title t;
+      t.LoadFromWad(_file);
+      t.Install();
+    }
+  else if (_action == ti_PackAsWad )
+    {
+      if (_path!="")
+        {
+          stringstream str;
+          stringstream newFilePath;
+          str<<Config::WorkingDirectory()<<"/";
+          if (_file!="")  str<<_file;
+          else str<<Title::GetWadFormatedName(_id,_revision);
+
+          newFilePath<<_path<<"/";
+          if (_file!="") newFilePath<<_file;
+          else  newFilePath<<Title::GetWadFormatedName(_id,_revision);
+          Buffer b=File::ReadToEnd(str.str());
+          File &f=File::Create(newFilePath.str());
+          f.Write(b);
+          f.Close();
+          delete &f;
+        }
+    }
 }

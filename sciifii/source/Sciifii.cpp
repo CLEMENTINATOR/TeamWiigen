@@ -11,8 +11,6 @@
 
 #include "business/Cios.h"
 #include "business/CiosCorp.h"
-#include "business/TitleDowngrader.h"
-#include "business/TitleInstaller.h"
 #include "business/TruchaRestorer.h"
 #include "business/IosReloader.h"
 #include "business/SystemUpdater.h"

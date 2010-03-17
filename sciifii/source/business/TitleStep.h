@@ -16,10 +16,11 @@ class TitleStep : public Installer
     u16 _revision;
     TitleAction _action;
     std::string _file;
+    std::string _path;
 
   public:
     TitleStep(u64 titleId, u16 revision,TitleAction a);
-    TitleStep(std::string file,TitleAction a);
+    TitleStep(std::string file,std::string path,TitleAction a);
     bool Prepare();
     void Install();
   };

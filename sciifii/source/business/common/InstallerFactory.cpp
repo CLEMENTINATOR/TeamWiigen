@@ -2,7 +2,6 @@
 #include "../TitleDowngrader.h"
 #include "../IOSReloader.h"
 #include "../TruchaRestorer.h"
-#include "../TitleInstaller.h"
 #include "../TitleStep.h"
 #include "../CiosCorp.h"
 #include "../Cios.h"
@@ -41,7 +40,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "TruchaRestorer")
 	{
-		u32 titleId = UtilString::ToU32(node->Attribute("id"));
+		u64 titleId = UtilString::ToU64(node->Attribute("id"));
 		u16 revision = UtilString::ToU16(node->Attribute("revision"));
 		step = new TruchaRestorer(titleId, revision);
 	}
@@ -50,6 +49,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
 		u16 revision = UtilString::ToU16(node->Attribute("revision"),0, nr_hex);
         string file = UtilString::ToStr(node->Attribute("wad"),"");
+        string path = UtilString::ToStr(node->Attribute("path"),"");
         TitleAction action;
         string choice = UtilString::ToStr(node->Attribute("action"),"Install");
 		if(choice == "Install")
@@ -67,7 +67,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
         }
          else if (titleId==0 && file!="")
         {
-            step= new TitleStep(file,action);
+            step= new TitleStep(file,path,action);
         }
         else  throw Exception("Title XML error", -1);
 	}

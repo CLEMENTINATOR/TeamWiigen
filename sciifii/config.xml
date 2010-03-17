@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
-  
+
   <files>
 	<file key="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
 	<file key="ehci_module.dat" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" />
@@ -16,14 +16,15 @@
 	<file key="wiiflow.wad" url="http://www.assembla.com/spaces/arasium/documents/ba48p4kRKr35iyeJe5aVNr/download/wiiflow.wad" sha1="http://www.assembla.com/spaces/arasium/documents/aOKLpMkRKr35IieJe5avMc/download/wiiflow.wad.sha" />
 	<file key="wiiflow.dol" url="http://www.assembla.com/spaces/arasium/documents/cLO8vKkRGr34dgeJe5avMc/download/WiiflowR25_249.dol" sha1="http://www.assembla.com/spaces/arasium/documents/dqCD4GkRGr352DeJe5afGb/download/WiiflowR25_249.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
   </files>
-  
+
   <modes>
 	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
 	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
 	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" flag="" />
+	<mode text="Test HERE ! " options="test" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
-  
+
   <options>
     <option name="TBR" text="Restore Trucha Bug" networkRequired="false" />
     <option name="cIOS" text="Install cios38 rev17" networkRequired="false" />
@@ -32,14 +33,15 @@
     <option name="corp" text="Install the corp cioses" networkRequired="false" />
     <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="false" />
 	<option name="wiiflow" text="Install wiiflow" networkRequired="false" />
+	<option name="test" text="Test  !" networkRequired="false" />
   </options>
-  
+
   <steps>
     <TitleDowngrader option="TBR" id="000000010000000f" revision="257" />
     <IOSReloader option="TBR" id="15" user="0"/>
     <TruchaRestorer option="TBR" id="36" revision="0" />
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
-	<TitleInstaller option="TBR" id="000000010000000f" revision="0" />
+	<Title option="TBR" id="000000010000000f" revision="0" action="Install" />
 	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
 		<modules>
 			<module file="ehci_module.dat" position="3" />
@@ -82,6 +84,13 @@
 		</patches>
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
+
+<CompositeInstaller option="test" name="Test">
+	<Title id="000000010000000f" revision="0" action="Pack">
+	<Title id="000000010000000f" revision="0" action="Pack" path="sd:">
+</CompositeInstaller>
+
+
 	<SystemUpdater option="update">
 		<title id="0000000100000004" revision="65280" onlyUninstallation="false" region="-1" />
 		<title id="0000000100000009" revision="778" onlyUninstallation="false" region="-1" />
@@ -127,11 +136,11 @@
 		<title id="0000000100000002" revision="481" onlyUninstallation="false" region="1" />
 		<title id="0000000100000002" revision="482" onlyUninstallation="false" region="2" />
 		<title id="0000000100000002" revision="486" onlyUninstallation="false" region="4" />
-		
+
 		<title id="0000000100000032" revision="5120" onlyUninstallation="false" region="-1" />
 		<title slot="0000000100000046" id="000000010000003c" revision="6174" onlyUninstallation="false" region="-1" />
 		<title id="000000010000001e" revision="2816" onlyUninstallation="false" region="-1" />
-		
+
 		<!-- other ioses -->
 		<title id="000000010000003c" revision="6400" onlyUninstallation="false" region="-1" /> <!-- Stub 60 -->
 		<title id="0000000100000100" revision="6" onlyUninstallation="false" region="-1" /> <!-- MIOS -->
@@ -152,7 +161,7 @@
 		<title id="000100024841474A" revision="7" onlyUninstallation="false" region="0" /> <!-- news -->
 		<title id="0001000248414745" revision="7" onlyUninstallation="false" region="1" />
 		<title id="0001000248414750" revision="7" onlyUninstallation="false" region="2" />
-		
+
 		<!-- Inxistante -->
 		<!--title id="0001000248414741" revision="0007" onlyUninstallation="false" region="4" /-->
 
@@ -204,9 +213,9 @@
 	</CompositeInstaller>
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>
-  
-  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER. 
-  You may use this software at your own risk. 
+
+  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.
+  You may use this software at your own risk.
   We take no responsibility for damage caused by Sciifii.  </Disclaimer>
-  
+
 </sciifii>

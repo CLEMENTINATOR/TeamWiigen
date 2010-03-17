@@ -85,7 +85,8 @@
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
 
-    <Title option="test" id="000000010000000f" revision="0" action="Pack" path="sd:/ios15.wad">
+    <Title option="test" id="000000010000000f" revision="0" action="Pack" path="sd:/ios15pack.wad">
+    <Title option="test" id="000000010000000f" revision="0" action="Extract" path="sd:/ios15nand.wad">
 
 
 	<SystemUpdater option="update">

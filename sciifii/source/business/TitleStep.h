@@ -6,7 +6,8 @@ typedef enum
 {
   ti_Install,
   ti_Uninstall,
-  ti_PackAsWad
+  ti_PackAsWad,
+  ti_Extract,
 } TitleAction;
 
 class TitleStep : public Installer
@@ -19,8 +20,8 @@ class TitleStep : public Installer
     std::string _path;
 
   public:
-    TitleStep(u64 titleId, u16 revision,TitleAction a);
-    TitleStep(std::string file,std::string path,TitleAction a);
+    TitleStep(u64 titleId, u16 revision, TitleAction a, std::string path = "");
+    TitleStep(std::string file, TitleAction a, std::string path = "");
     bool Prepare();
     void Install();
   };

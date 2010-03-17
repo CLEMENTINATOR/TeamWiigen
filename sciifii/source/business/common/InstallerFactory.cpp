@@ -11,7 +11,6 @@
 #include "../Preloader.h"
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
-#include "../Wad.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
@@ -52,22 +51,25 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
         string path = UtilString::ToStr(node->Attribute("path"),"");
         TitleAction action;
         string choice = UtilString::ToStr(node->Attribute("action"),"Install");
+		
 		if(choice == "Install")
 			action = ti_Install;
 		else if(choice == "Uninstall")
 			action = ti_Uninstall;
 		else if (choice == "Pack")
 		    action = ti_PackAsWad;
+		else if (choice == "Extract")
+		    action = ti_Extract;
         else
 			throw Exception("Can't parse WadAction enum from xml!", -1);
 
          if (titleId!=0 && file=="")
         {
-            step= new TitleStep(titleId,revision,action);
+            step= new TitleStep(titleId, revision, action, path);
         }
          else if (titleId==0 && file!="")
         {
-            step= new TitleStep(file,path,action);
+            step= new TitleStep(file, action, path);
         }
         else  throw Exception("Title XML error", -1);
 	}

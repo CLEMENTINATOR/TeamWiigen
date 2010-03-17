@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii">
+<sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii/">
 
   <files>
 	<file key="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
@@ -85,10 +85,9 @@
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
 
-<CompositeInstaller option="test" name="Test">
-	<Title id="000000010000000f" revision="0" action="Pack">
-	<Title id="000000010000000f" revision="0" action="Pack" path="sd:">
-</CompositeInstaller>
+	<CompositeInstaller option="test" name="Test">
+		<Title id="000000010000000f" revision="0" action="Pack" path="sd:/ios15.wad">
+	</CompositeInstaller>
 
 
 	<SystemUpdater option="update">
@@ -209,7 +208,7 @@
 	<GXLoader option="GXLoader" />
 	<CompositeInstaller option="wiiflow" name="Wiiflow">
 		<FileDownloader file="wiiflow.dol" />
-		<Wad file="wiiflow.wad" action="Install" />
+		<Title wad="wiiflow.wad" action="Install" />
 	</CompositeInstaller>
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
   </steps>

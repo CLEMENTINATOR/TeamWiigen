@@ -181,7 +181,7 @@ Buffer File::ReadToEnd(const string& path)
 
 	Buffer buffer;
 	File &f = File::Open(path, FileMode_Read);
-	
+
 	try
 	{
 		f.Read(buffer, f.Size());
@@ -196,4 +196,24 @@ Buffer File::ReadToEnd(const string& path)
 	}
 
 	return buffer;
+}
+
+void File::Copy(const std::string &fileToCopy,const std::string &destFile)
+{
+	if(!File::Exists(fileToCopy))
+		throw Exception("File to copy doesnt exist",-1);
+
+    if(File::Exists(destFile))
+		throw Exception("File already exists !",-1);
+
+    Buffer b=File::ReadToEnd(fileToCopy);
+    File&f=File::Create(fileToCopy);
+    f.Write(b);
+    f.Close();
+}
+
+void File::Move(const std::string &fileToCopy,const std::string &destFile)
+{
+File::Copy(fileToCopy,destFile);
+File::Delete(fileToCopy);
 }

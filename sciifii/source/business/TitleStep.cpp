@@ -22,16 +22,16 @@ bool TitleStep::Prepare()
 {
   if (_action == ti_PackAsWad && Path::GetFileExtension(_path) != "wad")
 	throw Exception("You must specify a wad file path in order to store the wad", -1);
-	
+
   if (_action == ti_PackAsWad && _file != "")
 	throw Exception("This is impossible to create a wad from an other wad!", -1);
-	
+
   if (_action == ti_Extract && Path::GetFileExtension(_path) != "wad")
 	throw Exception("You must specify a wad file path in order to store the extracted title", -1);
-	
+
   if (_action == ti_Extract && _file != "")
 	throw Exception("This is impossible to extract a title from a wad!", -1);
-	
+
   if (_file!="")  /* Si fichier donne en parametre */
   {
       OnProgress("Getting wad file", 0.25);
@@ -54,10 +54,10 @@ bool TitleStep::Prepare()
 
           stringstream down;
           down << "Downloading title " << hex << setfill('0') << setw(16) << _id << dec;
-          if ( _revision!=0) 
+          if ( _revision!=0)
 			down << " version " << _revision ;
           down << " from NUS.";
-              
+
 		  OnProgress(down.str(), 0.25);
           ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
@@ -106,9 +106,7 @@ void TitleStep::Install()
   }
   else if (_action == ti_PackAsWad )
   {
-    Title t;
-    t.LoadFromWad(_file);
-	t.PackAsWad(_path);
+    if(_path!="")File::Move(_file,_path);
   }
   else if (_action == ti_Extract )
   {

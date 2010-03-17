@@ -210,6 +210,7 @@ void File::Copy(const std::string &fileToCopy,const std::string &destFile)
     File&f=File::Create(fileToCopy);
     f.Write(b);
     f.Close();
+    delete &f;
 }
 
 void File::Move(const std::string &fileToCopy,const std::string &destFile)

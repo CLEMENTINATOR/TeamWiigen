@@ -106,7 +106,7 @@ void TitleStep::Install()
   }
   else if (_action == ti_PackAsWad )
   {
-    if(_path!="")File::Move(_file,_path);
+   File::Move(_file,_path);
   }
   else if (_action == ti_Extract )
   {

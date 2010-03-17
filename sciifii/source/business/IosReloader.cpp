@@ -26,12 +26,10 @@ bool IosReloader::Prepare()
 
 void IosReloader::Install()
 {
-
 	stringstream txt;
 	txt << "Reloading under IOS" << _id;
 	OnProgress(txt.str(), 1);
-	Title::ReloadIOS(249);
+	Title::ReloadIOS(_id);
 	if(_identify)
 	  Identification::IdentifyAs(_type);
-
 }

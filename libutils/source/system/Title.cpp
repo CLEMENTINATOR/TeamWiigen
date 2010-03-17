@@ -403,7 +403,65 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
  */
 void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 {
-	throw Exception("Title::LoadFromNand is not implemented.",-1);
+	stringstream ticketPath;
+	stringstream contentPath;
+	stringstream sharedPath;
+
+	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << ".tik";
+    contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/";
+    sharedPath << "wii:/shared1/";
+
+    Buffer b_tik;
+    b_tik=File::ReadToEnd(ticketPath.str());
+	b_tik.Truncate(0x02A4ULL);
+    Ticket(b_tik);
+
+    u32 tmd_size;
+    u32 ret = ES_GetStoredTMDSize(titleId,&tmd_size);
+    if (ret < 0) throw Exception("Unable to get stored tmd size",ret);
+
+    signed_blob *btmd = (signed_blob *)memalign(32,(tmd_size+31)&(~31));
+    if (btmd == NULL) throw Exception("Not enough memory",-1);
+    memset(btmd,0,tmd_size);
+
+    ret = ES_GetStoredTMD(titleId,btmd,tmd_size);
+    if (ret < 0)
+    {
+        free(btmd);
+        throw Exception("Unable to get stored tmd",-1);
+    }
+
+    Buffer b_tmd((void*)btmd,tmd_size);
+    Tmd(b_tmd);
+
+    tmd *tmd_data  = NULL;
+    tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+
+    for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
+    {
+        tmd_content *content = &tmd_data->contents[cnt];
+        stringstream filename;
+        if(content->type==0x0001)
+        {
+        filename <<contentPath<< hex << setw(8) << setfill('0') << content->cid<<".app";
+        }
+        else if(content->type==0x8001)
+        {
+        filename<<sharedPath<<hex<< setw(8) << setfill('0') << content->cid<<".app";
+        }
+        else
+        {
+            free(content);
+            free(tmd_data);
+            free(btmd);
+             throw Exception("Unknown content type !",-1);
+        }
+        Buffer b=File::ReadToEnd(filename.str());
+        AddContent(b,content->cid);
+        free(content);
+    }
+    free(tmd_data);
+    free(btmd);
 }
 
 /*!
@@ -1060,10 +1118,10 @@ string Title::GetWadFormatedName(u64 tid,u16 rev)
   {
     wadName << hex << setfill('0') << setw(8) << type << setw(0) << "-" << setw(8) << id << setw(0) << dec;
   }
-  
-  if (rev > 0) 
+
+  if (rev > 0)
 	wadName << "v" << rev;
-	
+
   wadName<<".wad";
 
   return wadName.str();

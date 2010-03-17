@@ -85,9 +85,7 @@
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
 
-	<CompositeInstaller option="test" name="Test">
-		<Title id="000000010000000f" revision="0" action="Pack" path="sd:/ios15.wad">
-	</CompositeInstaller>
+    <Title option="test" id="000000010000000f" revision="0" action="Pack" path="sd:/ios15.wad">
 
 
 	<SystemUpdater option="update">

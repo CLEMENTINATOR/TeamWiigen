@@ -35,7 +35,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	{
 		u32 id = UtilString::ToU32(node->Attribute("id"));
 		UserType ut = (UserType)UtilString::ToU16(node->Attribute("user"));
-		step = new IosReloader(id, ut);
+		step = new IosReloader(id);
 	}
 	else if(nodeValue == "TruchaRestorer")
 	{
@@ -51,7 +51,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
         string path = UtilString::ToStr(node->Attribute("path"),"");
         TitleAction action;
         string choice = UtilString::ToStr(node->Attribute("action"),"Install");
-		
+
 		if(choice == "Install")
 			action = ti_Install;
 		else if(choice == "Uninstall")

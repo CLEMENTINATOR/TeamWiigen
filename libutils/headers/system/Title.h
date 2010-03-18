@@ -72,9 +72,13 @@ protected:
 	void AddContent(const Buffer& buffer, u32 id);
 	Buffer GetContent(u32 id);
 
+    void EncryptContent(Buffer& b,tmd_content* tmdInfo);
+	void DecryptContent(Buffer& b,tmd_content* tmdInfo);
+	u8 _titleKey[16];
+	virtual void DecryptTitleKey(Buffer& b_tik);
 public:
 	static void ReloadIOS(u32 ios);
-	
+
 	Title(bool automaticCleaning = true);
 	void LoadFromWad(const std::string& file, const std::string& tempFolder = "sd:/tmp");
 	void LoadFromNand(u64 titleId, const std::string& tempFolder = "sd:/tmp");

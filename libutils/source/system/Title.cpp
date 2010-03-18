@@ -17,7 +17,7 @@
 #include <sha1.h>
 #include <fs/Path.h>
 #include <iomanip>
-
+#include <unistd.h>
 using namespace std;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
@@ -25,6 +25,7 @@ using namespace std;
 void Title::ReloadIOS(u32 ios)
 {
 	Device::EnsureShutdown();
+    usleep(100000);
 	IOS_ReloadIOS(ios);
 }
 

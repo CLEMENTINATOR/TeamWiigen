@@ -89,32 +89,54 @@ bool TitleStep::Prepare()
 
 void TitleStep::Install()
 {
+  stringstream str;
+
   if (_action == ti_Uninstall && _id != 0)
     {
+      str <<  "Uninstalling title "<<hex << setfill('0') << setw(16) << _id << dec;
+      OnProgress(str.str(), 0.25);
       Title::Uninstall(_id);
     }
   else if (_action == ti_Uninstall && _id == 0)
     {
       Title t;
+      str <<  "Loading title from "<<_file;
+      OnProgress(str.str(), 0.25);
       t.LoadFromWad(_file);
+      str <<  "Uninstalling title "<<_file;
+      OnProgress(str.str(), 0.275);
       t.Uninstall();
     }
   else if (_action == ti_Install)
     {
       Title t;
+      if (_id==0)  str <<  "Loading title from "<<_file;
+      else  str <<  "Loading title  "<<_id;
+      OnProgress(str.str(), 0.25);
       t.LoadFromWad(_file);
+      if (_id==0)  str <<  "Installing title "<<_file;
+      else  str <<  "Installing title  "<<_id;
+      OnProgress(str.str(), 0.75);
       t.Install();
     }
   else if (_action == ti_PackAsWad )
     {
       if (!Directory::Exists(Path::GetParentDirectory(_path))) Directory::Create(_path);
+      str <<  "Moving  "<<_file<<" to "<<_path;
+      OnProgress(str.str(), 0.50);
       File::Move(_file,_path);
     }
   else if (_action == ti_Extract )
     {
       Title t;
+      str <<  "Extracting title  "<<_id;
+      OnProgress(str.str(), 0.25);
       t.LoadFromNand(_id);
+
+      str <<  "Packing title  "<<_id;
+      OnProgress(str.str(), 0.75);
       t.PackAsWad(_path);
     }
+  OnProgress("Done", 1);
 }
 

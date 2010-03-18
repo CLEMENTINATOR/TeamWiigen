@@ -22,6 +22,7 @@
 	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
 	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" flag="" />
 	<mode text="Test HERE ! " options="test" flag="" />
+	<mode text="second Test HERE ! " options="test2" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
 
@@ -85,8 +86,8 @@
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
 
-    <Title option="test" id="000000010000000f" revision="0" action="Pack" path="sd:/ios15pack.wad">
-    <Title option="test" id="000000010000000f" revision="0" action="Extract" path="sd:/ios15nand.wad">
+    <Title option="test" id="000000010000000f" revision="0" action="Pack" path="sd:/ios15pack.wad" />
+    <Title option="test2" id="000000010000000f" revision="0" action="Extract" path="sd:/ios15nand.wad" />
 
 
 	<SystemUpdater option="update">

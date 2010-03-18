@@ -65,7 +65,7 @@ FatFile& FatFile::Create(const string &fileName)
 
 	FILE *fd = fopen(fileName.c_str(),"wb");
 	if(!fd)
-		throw Exception("Error creating file!",-1);
+		throw Exception("Error creating file : " + fileName,-1);
 
 	return *(new FatFile(fd, fileName));
 }
@@ -77,18 +77,18 @@ void FatFile::Write(const Buffer& b)
   u32 nbWritten = 0;
   u32 nbToRight = 0;
   u32 nbWrited = 0;
-  
+
   while(totalToRight > 0)
   {
 	if(totalToRight < pageSize)
 		nbToRight = totalToRight;
 	else
 		nbToRight = pageSize;
-	
+
 	nbWrited = fwrite((u8*)b.Content() + nbWritten, 1 , nbToRight , _fd );
 	if(nbWrited == 0)
 		throw Exception((char*)"Error writing file!",-1);
-	
+
 	nbWritten += nbWrited;
 	totalToRight -= nbWrited;
   }
@@ -104,7 +104,7 @@ u32 FatFile::Read(Buffer& b, u32 len)
 		free(tempBuffer);
 		throw Exception((char*)"Error reading file!",nbLus);
 	}
-	
+
 	b.Append(tempBuffer, nbLus);
 	free(tempBuffer);
 	return (u32)nbLus;

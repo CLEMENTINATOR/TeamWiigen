@@ -31,7 +31,7 @@ NandFile& NandFile::Create(const string &fileName)
 	ret = ISFS_CreateFile(fileName.c_str(), 0, ISFS_OPEN_RW, ISFS_OPEN_RW, ISFS_OPEN_RW);
 
 	if(ret < 0)
-		throw Exception("Error creating file!",ret);
+		throw Exception("Error creating file : " + fileName,ret);
 
 	/* Open the file after creation */
 	return NandFile::Open(fileName, ISFS_OPEN_WRITE);
@@ -75,7 +75,7 @@ u32 NandFile::Read(Buffer& b,u32 len)
 {
 	s32 nbLus = 0;
 	s32 restToRead = len;
-	
+
 	//Vidage du buffer temporaire
 	if(_rest.Length() > len)
 	{
@@ -90,7 +90,7 @@ u32 NandFile::Read(Buffer& b,u32 len)
 		restToRead -= _rest.Length();
 		_rest.Clear();
 	}
-	
+
 	//To be 32 aligned (and add more space at the end, in case of non 32 bit request)
 	s32 alignedRead = 32 - (restToRead % 32) + restToRead;
 	u8* tempBuffer = (u8*)memalign(32, alignedRead);
@@ -101,7 +101,7 @@ u32 NandFile::Read(Buffer& b,u32 len)
 		free(tempBuffer);
 		throw Exception("Error reading file!",nbLus);
 	}
-	
+
 	if(ret > restToRead)
 	{
 		b.Append(tempBuffer, restToRead);

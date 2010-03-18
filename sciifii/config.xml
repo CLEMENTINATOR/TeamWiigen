@@ -35,6 +35,7 @@
     <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="false" />
 	<option name="wiiflow" text="Install wiiflow" networkRequired="false" />
 	<option name="test" text="Test  !" networkRequired="false" />
+	<option name="test2" text="Test 2  !" networkRequired="false" />
   </options>
 
   <steps>

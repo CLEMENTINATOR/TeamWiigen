@@ -122,7 +122,7 @@ void TitleStep::Install()
   else if (_action == ti_PackAsWad )
     {
       if (Path::GetParentDirectory(_path) != "")
-		Directory::Create(_path);
+		Directory::Create(Path::GetParentDirectory(_path) );
 
       str <<  "Moving  "<<_file<<" to "<<_path;
       OnProgress(str.str(), 0.50);

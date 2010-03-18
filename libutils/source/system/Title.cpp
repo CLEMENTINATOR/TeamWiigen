@@ -413,12 +413,8 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
     contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/content/";
     sharedPath << "wii:/shared1/";
 
-    Buffer b_tik;
-    b_tik=File::ReadToEnd(ticketPath.str());
-	b_tik.Truncate(0x02A4ULL);
-    Ticket(b_tik);
-
     u32 tmd_size;
+
     u32 ret = ES_GetStoredTMDSize(titleId,&tmd_size);
     if (ret < 0) throw Exception("Unable to get stored tmd size",ret);
 
@@ -433,11 +429,18 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         throw Exception("Unable to get stored tmd",-1);
     }
 
+    tmd *tmd_data  = NULL;
+    tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+    CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
+
     Buffer b_tmd((void*)btmd,tmd_size);
     Tmd(b_tmd);
 
-    tmd *tmd_data  = NULL;
-    tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+    Buffer b_tik;
+    b_tik=File::ReadToEnd(ticketPath.str());
+	b_tik.Truncate(0x02A4ULL);
+    Ticket(b_tik);
+
 
     for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
     {

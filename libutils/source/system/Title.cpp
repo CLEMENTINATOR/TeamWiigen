@@ -463,7 +463,6 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         Buffer b=File::ReadToEnd(filename.str());
         AddContent(b,content->cid);
     }
-    free(tmd_data);
     free(btmd);
 }
 

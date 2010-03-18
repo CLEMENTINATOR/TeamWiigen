@@ -47,7 +47,7 @@ bool TitleStep::Prepare()
           stringstream wad;
           wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
 		  _file = wad.str();
-		  
+
           if (!File::Exists(_file))
             {
               if (Config::HasNetwork())
@@ -111,11 +111,11 @@ void TitleStep::Install()
     {
       Title t;
       if (_id==0)  str <<  "Loading title from "<<_file;
-      else  str <<  "Loading title  "<<_id;
+      else  str <<  "Loading title  "<<hex << setfill('0') << setw(16) << _id << dec;
       OnProgress(str.str(), 0.25);
       t.LoadFromWad(_file);
       if (_id==0)  str <<  "Installing title "<<_file;
-      else  str <<  "Installing title  "<<_id;
+      else  str <<  "Installing title  "<<hex << setfill('0') << setw(16) << _id << dec;
       OnProgress(str.str(), 0.75);
       t.Install();
     }
@@ -123,7 +123,7 @@ void TitleStep::Install()
     {
       if (Path::GetParentDirectory(_path) != "")
 		Directory::Create(_path);
-		
+
       str <<  "Moving  "<<_file<<" to "<<_path;
       OnProgress(str.str(), 0.50);
       File::Move(_file,_path);
@@ -131,11 +131,11 @@ void TitleStep::Install()
   else if (_action == ti_Extract )
     {
       Title t;
-      str <<  "Extracting title  "<<_id;
+      str <<  "Extracting title  "<<hex << setfill('0') << setw(16) << _id << dec;
       OnProgress(str.str(), 0.25);
       t.LoadFromNand(_id);
 
-      str <<  "Packing title  "<<_id;
+      str <<  "Packing title  "<<hex << setfill('0') << setw(16) << _id << dec;
       OnProgress(str.str(), 0.75);
       t.PackAsWad(_path);
     }

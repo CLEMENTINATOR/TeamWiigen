@@ -42,7 +42,7 @@ void Device::Startup()
 			if(tempDevice->interface != NULL)
 				tempDevice->interface->startup();
 		}
-		
+
 		d._started = true;
 	}
 }
@@ -58,14 +58,14 @@ void Device::EnsureShutdown()
 			if(tempDevice->deviceHandles > 0)
 				throw Exception("Can shutdown device. Files are used.", tempDevice->deviceHandles);
 		}
-		
+
 		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
 		{
 			fatDevice *tempDevice = devices + deviceIndex;
 			if(tempDevice->interface != NULL)
 				tempDevice->interface->shutdown();
 		}
-		
+
 		d._started = false;
 	}
 }
@@ -106,7 +106,7 @@ fatDevice& Device::FindDevice(const string &pathName)
 	}
 
 	if(device == NULL)
-		throw Exception("Device not found.",-1);
+		throw Exception("Device not found."+ mountName,-1);
 
 	return *device;
 }

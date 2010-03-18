@@ -448,11 +448,11 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         stringstream filename;
         if(content->type==0x0001)
         {
-        filename <<contentPath<< hex << setw(8) << setfill('0') << content->cid<<".app";
+        filename <<contentPath.str()<< hex << setw(8) << setfill('0') << content->cid<<".app";
         }
         else if(content->type==0x8001)
         {
-        filename<<sharedPath<<hex<< setw(8) << setfill('0') << content->cid<<".app";
+        filename<<sharedPath.str()<<hex<< setw(8) << setfill('0') << content->cid<<".app";
         }
         else
         {

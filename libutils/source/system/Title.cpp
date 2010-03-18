@@ -306,7 +306,7 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 {
 	if(!File::Exists(file))
-		throw Exception("The wad file doesn't exists.", -1);
+		throw Exception("The wad file doesn't exists : "+ file , -1);
 
 	TitleEventArgs processControl;
 
@@ -456,9 +456,8 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         }
         else
         {
-            free(tmd_data);
             free(btmd);
-             throw Exception("Unknown content type !",-1);
+             throw Exception("Unknown content type !" ,-1);
         }
         Buffer b=File::ReadToEnd(filename.str());
         AddContent(b,content->cid);

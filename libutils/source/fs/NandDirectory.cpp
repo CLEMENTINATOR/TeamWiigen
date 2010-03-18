@@ -12,7 +12,7 @@ void NandDirectory::Create(const string &name)
 	s32 ret = ISFS_CreateDir(name.c_str(), 0, ISFS_OPEN_RW, ISFS_OPEN_RW, ISFS_OPEN_RW);
 
 	if(ret < 0)
-		throw Exception("couldn't create directory!",ret);
+		throw Exception("Couldn't create directory : " + name ,ret);
 }
 
 void NandDirectory::Delete(const string &name)
@@ -21,7 +21,7 @@ void NandDirectory::Delete(const string &name)
 	s32 ret = ISFS_Delete(name.c_str());
 
 	if(ret)
-		throw Exception("Error deleting file",ret);
+		throw Exception("Error deleting "+ name,ret);
 }
 
 bool NandDirectory::Exists(const string &name)
@@ -42,7 +42,7 @@ vector<string> NandDirectory::GetFiles(const string &name)
 
 	ret = ISFS_ReadDir(name.c_str(), NULL, &childCount);
 	if(ret)
-		throw Exception("Can't open the directory.", ret);
+		throw Exception("Can't open "+ name, ret);
 
     if(childCount==0) return files;
 
@@ -54,7 +54,7 @@ vector<string> NandDirectory::GetFiles(const string &name)
 	{
 		ret = ISFS_ReadDir(name.c_str(), childBuffer, &childCount);
 		if(ret)
-			throw Exception("Can't read the directory.", ret);
+			throw Exception("Can't read "+ name, ret);
 
 		u32 charPosition = 0;
 		for(u32 entryIndex = 0; entryIndex < childCount; entryIndex++)
@@ -96,7 +96,7 @@ vector<string> NandDirectory::GetDirectories(const string &name)
 
 	ret = ISFS_ReadDir(name.c_str(), NULL, &childCount);
 	if(ret)
-		throw Exception("Can't open the directory.", ret);
+		throw Exception("Can't open "+ name, ret);
 
 
     if(childCount==0) return directories;
@@ -109,7 +109,7 @@ vector<string> NandDirectory::GetDirectories(const string &name)
 	{
 		ret = ISFS_ReadDir(name.c_str(), childBuffer, &childCount);
 		if(ret)
-			throw Exception("Can't read the directory.", ret);
+			throw Exception("Can't read "+ name, ret);
 
 		u32 charPosition = 0;
 		for(u32 entryIndex = 0; entryIndex < childCount; entryIndex++)
@@ -127,7 +127,7 @@ vector<string> NandDirectory::GetDirectories(const string &name)
 				entryName = name + "/" + entryName;
 
 			// Si directory
-if(Exists(entryName))
+        if(Exists(entryName))
                 {
 			  string realName = WII_ROOT_DIRECTORY ":" + entryName;
 			  directories.push_back(realName);

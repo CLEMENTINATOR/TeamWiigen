@@ -56,12 +56,12 @@ void FatFile::Delete(const string &fileName)
 		return;
 
 	if(remove(fileName.c_str()))
-		throw Exception("Error deleting file!",-1);
+		throw Exception("Error deleting "+fileName,-1);
 }
 FatFile& FatFile::Create(const string &fileName)
 {
 	if(FatFile::Exists(fileName))
-		throw Exception("The file to create already exists!",-1);
+		throw Exception("Can't create " +fileName+ " already exists!",-1);
 
 	FILE *fd = fopen(fileName.c_str(),"wb");
 	if(!fd)

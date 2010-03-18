@@ -25,8 +25,9 @@ using namespace std;
 void Title::ReloadIOS(u32 ios)
 {
 	Device::EnsureShutdown();
-    usleep(100000);
+	usleep(50000);
 	IOS_ReloadIOS(ios);
+    usleep(50000);
 }
 
 /*!
@@ -298,6 +299,108 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 }
 
 /*!
+ * \brief Not implemented
+ */
+void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
+{
+    TitleEventArgs processControl;
+    _directory=tempFolder;
+    _dataLen=0;
+    stringstream ticketPath;
+    stringstream contentPath;
+    stringstream sharedPath;
+    ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << ".tik";
+    contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/content/";
+    sharedPath << "wii:/shared1/";
+
+/* Getting TMD from es */
+    u32 tmd_size;
+    u32 ret = ES_GetStoredTMDSize(titleId,&tmd_size);
+    if (ret < 0) throw Exception("Unable to get stored tmd size",ret);
+
+    signed_blob *btmd = (signed_blob *)memalign(32,(tmd_size+31)&(~31));
+    if (btmd == NULL) throw Exception("Not enough memory",-1);
+    memset(btmd,0,tmd_size);
+
+    ret = ES_GetStoredTMD(titleId,btmd,tmd_size);
+    if (ret < 0)
+    {
+        free(btmd);
+        throw Exception("Unable to get stored tmd",-1);
+    }
+
+    tmd *tmd_data  = NULL;
+    tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+    CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder); /* Creating temp docs */
+
+
+    processControl.buffer=File::ReadToEnd(ticketPath.str()); /* cetk */
+	processControl.buffer.Truncate(0x02A4ULL);
+	DecryptTitleKey(processControl.buffer);
+
+	INIT_PROCESS_CONTROL(processControl, NULL);
+    OnTicketLoading(processControl);
+    if(!processControl.skipStep)
+		{
+			Ticket(processControl.buffer);
+			INIT_PROCESS_CONTROL(processControl, NULL);
+			OnTicketLoaded(processControl);
+		}
+
+
+    Buffer b_tmd((void*)btmd,tmd_size); /* tmd  */
+    processControl.buffer = b_tmd;
+    INIT_PROCESS_CONTROL(processControl, NULL);
+    OnTmdLoading(processControl);
+
+    bool skipTmd=processControl.skipStep;
+    b_tmd=processControl.buffer;
+
+    tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+
+    for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
+    {
+        tmd_content *content = &tmd_data->contents[cnt];
+        stringstream filename;
+        if(content->type==0x0001)
+        {
+        filename <<contentPath.str()<< hex << setw(8) << setfill('0') << content->cid<<".app";
+        }
+        else if(content->type==0x8001)
+        {
+        filename<<sharedPath.str()<<hex<< setw(8) << setfill('0') << content->cid<<".app";
+        }
+        else
+        {
+            free(btmd);
+             throw Exception("Unknown content type !" ,-1);
+        }
+
+        /* Content, on encrypte */
+       processControl.buffer=File::ReadToEnd(filename.str());
+       EncryptContent(processControl.buffer,content);
+       u64 len=content->size;
+        _dataLen += len;
+        INIT_PROCESS_CONTROL(processControl, content);
+        OnContentLoading(processControl);
+        if(!processControl.skipStep)
+			{
+                AddContent( processControl.buffer,content->cid);
+ 				INIT_PROCESS_CONTROL(processControl, content);
+				OnContentLoaded(processControl);
+			}
+    }
+
+    if(!skipTmd)
+    {
+        Tmd(b_tmd);
+        processControl.buffer = b_tmd;
+        INIT_PROCESS_CONTROL(processControl, NULL);
+        OnTmdLoaded(processControl);
+    }
+    free(btmd);
+}
+/*!
  * \brief Load a title from a wad file
  * All extracted files will be stored in a temp directory.
  * \param file The full path of the wad
@@ -399,71 +502,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 	{	}
 }
 
-/*!
- * \brief Not implemented
- */
-void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
-{
-    _directory=tempFolder;
-	stringstream ticketPath;
-	stringstream contentPath;
-	stringstream sharedPath;
 
-	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << ".tik";
-    contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/content/";
-    sharedPath << "wii:/shared1/";
-
-    u32 tmd_size;
-
-    u32 ret = ES_GetStoredTMDSize(titleId,&tmd_size);
-    if (ret < 0) throw Exception("Unable to get stored tmd size",ret);
-
-    signed_blob *btmd = (signed_blob *)memalign(32,(tmd_size+31)&(~31));
-    if (btmd == NULL) throw Exception("Not enough memory",-1);
-    memset(btmd,0,tmd_size);
-
-    ret = ES_GetStoredTMD(titleId,btmd,tmd_size);
-    if (ret < 0)
-    {
-        free(btmd);
-        throw Exception("Unable to get stored tmd",-1);
-    }
-
-    tmd *tmd_data  = NULL;
-    tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
-    CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
-
-    Buffer b_tmd((void*)btmd,tmd_size);
-    Tmd(b_tmd);
-
-    Buffer b_tik;
-    b_tik=File::ReadToEnd(ticketPath.str());
-	b_tik.Truncate(0x02A4ULL);
-    Ticket(b_tik);
-
-
-    for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
-    {
-        tmd_content *content = &tmd_data->contents[cnt];
-        stringstream filename;
-        if(content->type==0x0001)
-        {
-        filename <<contentPath.str()<< hex << setw(8) << setfill('0') << content->cid<<".app";
-        }
-        else if(content->type==0x8001)
-        {
-        filename<<sharedPath.str()<<hex<< setw(8) << setfill('0') << content->cid<<".app";
-        }
-        else
-        {
-            free(btmd);
-             throw Exception("Unknown content type !" ,-1);
-        }
-        Buffer b=File::ReadToEnd(filename.str());
-        AddContent(b,content->cid);
-    }
-    free(btmd);
-}
 
 /*!
  * \brief Save the title as a wad file
@@ -1127,4 +1166,83 @@ string Title::GetWadFormatedName(u64 tid,u16 rev)
 
   return wadName.str();
 
+}
+
+void Title::EncryptContent(Buffer& b,tmd_content* tmdInfo)
+{
+  u64 bufferLength = TITLE_ROUND_UP(b.Length(), 64);
+  u8* outbuf = (u8*)memalign(32, bufferLength);
+  if (!outbuf)
+    throw Exception("Not enough memory.", -1);
+
+  /* Set IV key */
+  u8  ivkey[16];
+  memset(ivkey, 0, sizeof(ivkey));
+  memcpy(ivkey, &tmdInfo->index, sizeof(tmdInfo->index));
+
+  /* Set AES key */
+  AES_SetKey(_titleKey);
+
+  /* Decrypt content */
+  AES_Encrypt(ivkey,(u8*) b.Content(), outbuf, bufferLength);
+
+  /* Put the new hash */
+  SHA1((u8*)b.Content(), tmdInfo->size, tmdInfo->hash);
+
+  b.Clear();
+  b.Append(outbuf, bufferLength);
+
+  free(outbuf);
+}
+
+void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
+{
+  u64 bufferLength = b.Length();
+  u8* outbuf = (u8*)memalign(32, bufferLength);
+  if (!outbuf)
+    throw Exception("Not enough memory.", -1);
+
+  /* Set IV key */
+  u8 ivkey[16];
+  memset(ivkey, 0, sizeof(ivkey));
+  memcpy(ivkey, &tmdInfo->index, sizeof(tmdInfo->index));
+
+  /* Set AES key */
+  AES_SetKey(_titleKey);
+
+  /* Decrypt content */
+  AES_Decrypt(ivkey,(u8*) b.Content(), outbuf, bufferLength);
+
+  /* Check content hash */
+  u8 hash[20];
+  SHA1(outbuf, tmdInfo->size, hash);
+  if (memcmp(hash, tmdInfo->hash, sizeof(hash))!=0)
+	  throw Exception("memcmp error", -1);
+
+  b.Clear();
+  b.Append(outbuf, bufferLength);
+  free(outbuf);
+}
+
+void Title::DecryptTitleKey(Buffer& b_tik){
+    u8 commonkey[16] = { 0xeb, 0xe4, 0x2a, 0x22, 0x5e, 0x85, 0x93, 0xe4, 0x48, 0xd9, 0xc5, 0x45, 0x73, 0x81, 0xaa, 0xf7 };
+    tik* p_tik= (tik*) SIGNATURE_PAYLOAD((signed_blob*)b_tik.Content());
+	/* Set IV */
+    u8 iv[16]  ATTRIBUTE_ALIGN(32);
+    memset(iv, 0, sizeof(iv));
+    memcpy(iv, &p_tik->titleid, sizeof(u64));
+
+    /* Set encrypted key */
+    u8 enc[16] ATTRIBUTE_ALIGN(32);
+    memset(enc, 0, sizeof(enc));
+    memcpy(enc, &p_tik->cipher_title_key, sizeof(enc));
+
+    /* Clear output buffer */
+    u8 dec[16] ATTRIBUTE_ALIGN(32);
+    memset(dec, 0, sizeof(dec));
+
+    /* Decrypt title key */
+    AES_SetKey(commonkey);
+    AES_Decrypt(iv, enc, dec, sizeof(enc));
+    memcpy(_titleKey, dec, sizeof(dec)); /* Copy title key */
 }

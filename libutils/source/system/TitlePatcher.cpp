@@ -47,21 +47,21 @@ void TitlePatcher::OnTmdLoading(TitleEventArgs &processControl)
 
 void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 {
-	signed_blob* oldTmd = (signed_blob*)b_tmd.Content();	
+	signed_blob* oldTmd = (signed_blob*)b_tmd.Content();
 	u32 newTmdLen = SIGNED_TMD_SIZE(oldTmd) + sizeof(tmd_content);
 	signed_blob* newTmd = (signed_blob*)malloc(newTmdLen);
 	if(!newTmd)
 		throw Exception("Not enough memory!", -1);
-		
+
 	//copy the old TMD
 	memset(newTmd, 0, newTmdLen);
 	memcpy(newTmd, oldTmd, SIGNED_TMD_SIZE(oldTmd));
-	
+
 	tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD(newTmd);
 	tmd_content* newEntry = &(tmd_data->contents[tmd_data->num_contents]);
-	
+
 	/* Find free CID and index */
-	for (u32 cnt = 0; cnt < tmd_data->num_contents; cnt++) 
+	for (u32 cnt = 0; cnt < tmd_data->num_contents; cnt++)
 	{
 		tmd_content *content = &(tmd_data->contents[cnt]);
 
@@ -73,11 +73,11 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 		if (newEntry->index <= content->index)
 			newEntry->index = content->index + 1;
 	}
-	
+
 	/* Set content info */
 	newEntry->type = 1;
 	newEntry->size = module.Length();
-	
+
 	/* Update TMD */
 	if(module.IsPositionRequired())
 	{
@@ -86,15 +86,15 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 		tmd_data->contents[tmd_data->num_contents] = oldEntry;
 		newEntry = &(tmd_data->contents[module.Position()]);
 	}
-	
+
 	Buffer copyModule(module);
 	EncryptContent(copyModule, newEntry);
 	AddContent(copyModule, newEntry->cid);
-	
+
 	tmd_data->num_contents++;
 	b_tmd.Clear();
 	b_tmd.Append(newTmd, newTmdLen);
-	
+
 	free(newTmd);
 }
 
@@ -107,7 +107,7 @@ void TitlePatcher::OnContentLoading(TitleEventArgs &processControl)
 	  processControl.tmdInfo->type = 1;
       _tmdDirty = true;
 	}
-  
+
   EncryptContent(processControl.buffer,processControl.tmdInfo);
 
   Title::OnContentLoading(processControl);
@@ -115,44 +115,7 @@ void TitlePatcher::OnContentLoading(TitleEventArgs &processControl)
 
 void TitlePatcher::OnTicketLoading(TitleEventArgs &processControl)
 {
-  tik* p_tik= (tik*) SIGNATURE_PAYLOAD((signed_blob*)processControl.buffer.Content());
-  u8 commonkey[16] = { 0xeb, 0xe4, 0x2a, 0x22, 0x5e, 0x85, 0x93, 0xe4, 0x48, 0xd9, 0xc5, 0x45, 0x73, 0x81, 0xaa, 0xf7 };
-
-  /* Set IV */
-  u8 iv[16]  ATTRIBUTE_ALIGN(32);
-  memset(iv, 0, sizeof(iv));
-  memcpy(iv, &p_tik->titleid, sizeof(u64));
-
-  /* Set encrypted key */
-  u8 enc[16] ATTRIBUTE_ALIGN(32);
-  memset(enc, 0, sizeof(enc));
-  memcpy(enc, &p_tik->cipher_title_key, sizeof(enc));
-
-  /* Clear output buffer */
-  u8 dec[16] ATTRIBUTE_ALIGN(32);
-  memset(dec, 0, sizeof(dec));
-
-  /* Decrypt title key */
-  AES_SetKey(commonkey);
-  AES_Decrypt(iv, enc, dec, sizeof(enc));
-
-  /* Copy key */
-  memcpy(_titleKey, dec, sizeof(dec));
-
-  // Modify titleId
-  if (_titleId != 0)
-  {
-	p_tik->titleid = _titleId;
-
-	memset(iv, 0, sizeof(iv));
-	memcpy(iv, &p_tik->titleid,sizeof(u64));
-
-	AES_Encrypt(iv, dec, enc, sizeof(dec));
-
-	memcpy(p_tik->cipher_title_key, enc, sizeof(enc));
-	_tikDirty = true;
-  }
-
+DecryptTitleKey(processControl.buffer);
   Title::OnTicketLoading(processControl);
 }
 
@@ -194,7 +157,7 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
 	_tmdDirty = true;
 	InsertModule(*ite, processControl.buffer);
   }
-  
+
   if (_tmdDirty)
     {
       signed_blob* s_tmd = (signed_blob*)processControl.buffer.Content();
@@ -227,58 +190,24 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
     }
 }
 
-void TitlePatcher::EncryptContent(Buffer& b,tmd_content* tmdInfo)
-{
-  u64 bufferLength = TITLE_ROUND_UP(b.Length(), 64);
-  u8* outbuf = (u8*)memalign(32, bufferLength);
-  if (!outbuf)
-    throw Exception("Not enough memory.", -1);
 
-  /* Set IV key */
-  u8  ivkey[16];
-  memset(ivkey, 0, sizeof(ivkey));
-  memcpy(ivkey, &tmdInfo->index, sizeof(tmdInfo->index));
+void TitlePatcher::DecryptTitleKey(Buffer& b_tik)
+ {
+  Title::DecryptTitleKey(b_tik);
+/* Change title id*/
+  if (_titleId != 0)
+  {
+   tik* p_tik= (tik*) SIGNATURE_PAYLOAD((signed_blob*)b_tik.Content());
+   u8 iv[16]  ATTRIBUTE_ALIGN(32);
+   u8 enc[16] ATTRIBUTE_ALIGN(32);
+   u8 dec[16] ATTRIBUTE_ALIGN(32);
+   memcpy(dec, _titleKey, sizeof(_titleKey));
+	p_tik->titleid = _titleId;
+	memset(iv, 0, sizeof(iv));
+	memcpy(iv, &p_tik->titleid,sizeof(u64));
+	AES_Encrypt(iv, dec, enc, sizeof(dec));
+	memcpy(p_tik->cipher_title_key, enc, sizeof(enc));
+	_tikDirty = true;
+  }
 
-  /* Set AES key */
-  AES_SetKey(_titleKey);
-
-  /* Decrypt content */
-  AES_Encrypt(ivkey,(u8*) b.Content(), outbuf, bufferLength);
-
-  /* Put the new hash */
-  SHA1((u8*)b.Content(), tmdInfo->size, tmdInfo->hash); 
-
-  b.Clear();
-  b.Append(outbuf, bufferLength);
-  
-  free(outbuf);
-}
-
-void TitlePatcher::DecryptContent(Buffer& b,tmd_content* tmdInfo)
-{
-  u64 bufferLength = b.Length();
-  u8* outbuf = (u8*)memalign(32, bufferLength);
-  if (!outbuf)
-    throw Exception("Not enough memory.", -1);
-
-  /* Set IV key */
-  u8 ivkey[16];
-  memset(ivkey, 0, sizeof(ivkey));
-  memcpy(ivkey, &tmdInfo->index, sizeof(tmdInfo->index));
-
-  /* Set AES key */
-  AES_SetKey(_titleKey);
-
-  /* Decrypt content */
-  AES_Decrypt(ivkey,(u8*) b.Content(), outbuf, bufferLength);
-
-  /* Check content hash */
-  u8 hash[20];
-  SHA1(outbuf, tmdInfo->size, hash);
-  if (memcmp(hash, tmdInfo->hash, sizeof(hash))!=0)
-	  throw Exception("memcmp error", -1);
-
-  b.Clear();
-  b.Append(outbuf, bufferLength);
-  free(outbuf);
-}
+ }

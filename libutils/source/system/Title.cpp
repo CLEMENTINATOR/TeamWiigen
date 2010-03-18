@@ -409,7 +409,7 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 	stringstream sharedPath;
 
 	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << ".tik";
-    contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/";
+    contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/content/";
     sharedPath << "wii:/shared1/";
 
     Buffer b_tik;

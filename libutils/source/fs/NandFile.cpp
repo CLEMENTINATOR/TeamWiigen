@@ -26,7 +26,7 @@ NandFile& NandFile::Create(const string &fileName)
 	s32 ret;
 
 	if(NandFile::Exists(fileName))
-		throw Exception("The file to create already exists!",-1);
+		throw Exception("Can't create " + fileName+ " already exists!",-1);
 
 	ret = ISFS_CreateFile(fileName.c_str(), 0, ISFS_OPEN_RW, ISFS_OPEN_RW, ISFS_OPEN_RW);
 
@@ -42,7 +42,7 @@ NandFile& NandFile::Open(const string &fileName, u8 mode)
 
 	ret = IOS_Open(fileName.c_str(), mode);
 	if(ret < 0)
-		throw Exception("Error opening a file!",ret);
+		throw Exception("Error opening "+fileName,ret);
 
 	return (*new NandFile(ret, fileName));
 }
@@ -55,7 +55,7 @@ void NandFile::Delete(const string &fileName)
 
 	ret = ISFS_Delete(fileName.c_str());
 		if (ret < 0)
-			throw Exception("Error deleting file!",ret);
+			throw Exception("Error deleting "+fileName,ret);
 }
 bool NandFile::Exists(const string &fileName)
 {

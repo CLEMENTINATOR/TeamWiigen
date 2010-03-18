@@ -404,6 +404,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
  */
 void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 {
+    _directory=tempFolder;
 	stringstream ticketPath;
 	stringstream contentPath;
 	stringstream sharedPath;

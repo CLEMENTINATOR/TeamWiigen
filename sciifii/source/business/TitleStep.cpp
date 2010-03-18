@@ -46,8 +46,9 @@ bool TitleStep::Prepare()
         {
           stringstream wad;
           wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
-
-          if (!File::Exists(wad.str()))
+		  _file = wad.str();
+		  
+          if (!File::Exists(_file))
             {
               if (Config::HasNetwork())
                 {
@@ -63,10 +64,9 @@ bool TitleStep::Prepare()
                   ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
                   stringstream pack;
-                  pack << "Saving as " << Path::GetFileName(wad.str());
+                  pack << "Saving as " << Path::GetFileName(_file);
                   OnProgress(pack.str(), 0.75);
-                  ios.PackAsWad(wad.str());
-                  _file = wad.str();
+                  ios.PackAsWad(_file);
                 }
               else
                 {

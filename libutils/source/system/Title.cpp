@@ -381,8 +381,7 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         /* Content, on encrypte */
 
        EncryptContent(processControl.buffer,content);
-       u64 len=content->size;
-        _dataLen += len;
+        _dataLen += processControl.buffer.Length();
         INIT_PROCESS_CONTROL(processControl, content);
         OnContentLoading(processControl);
         if(!processControl.skipStep)

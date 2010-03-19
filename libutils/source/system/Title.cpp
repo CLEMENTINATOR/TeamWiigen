@@ -231,12 +231,13 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 	TitleEventArgs processControl;
 
 	CreateTempDirectory(titleId, revision, tempFolder);
-
+    _dataLen=0;
 	try
 	{
 		// Obtain ticket
 		NusServer cetkServer(titleId, "cetk");
 		processControl.buffer = cetkServer.GetResponse();
+        DecryptTitleKey(processControl.buffer);
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketLoading(processControl);
 		if(!processControl.skipStep)
@@ -413,7 +414,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 		throw Exception("The wad file doesn't exists : "+ file , -1);
 
 	TitleEventArgs processControl;
-
+    _dataLen=0;
 	//getting wadBuffer
 	Buffer wadBuffer = File::ReadToEnd(file);
 
@@ -448,6 +449,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 		//Getting Tiket
 		processControl.buffer.Clear();
 		processControl.buffer.Append((char*)header + o_tik, TITLE_ROUND_UP(header->tik_len, 64));
+        DecryptTitleKey(processControl.buffer);
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketLoading(processControl);
 		if(!processControl.skipStep)
@@ -1265,4 +1267,29 @@ sprintf(name, "%.8s",((u8*)buf+index)-8);
 str<<"wii:/shared1/"<<name<<".app";
 
 return File::ReadToEnd(str.str());
+}
+
+void Title::SaveDecryptedContent(const string& dirPath)
+{
+    Buffer b_tmd=Tmd();
+    tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
+
+    if(!Directory::Exists(dirPath)) Directory::Create(dirPath);
+
+	for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++)
+		{
+            string actualDir=_directory;
+
+			tmd_content *tmdContent = &tmdData->contents[cnt];
+            Buffer b_cnt=GetContent(tmdContent->cid);
+
+            _directory=dirPath;
+
+            DecryptContent(b_cnt,tmdContent);
+            AddContent(b_cnt,tmdContent->cid);
+
+            _directory=actualDir;
+
+		}
+
 }

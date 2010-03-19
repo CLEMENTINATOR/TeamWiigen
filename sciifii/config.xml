@@ -22,7 +22,6 @@
 	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
 	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" flag="" />
 	<mode text="Test HERE ! " options="test" flag="" />
-	<mode text="second Test HERE ! " options="test2" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
 
@@ -35,7 +34,6 @@
     <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="false" />
 	<option name="wiiflow" text="Install wiiflow" networkRequired="false" />
 	<option name="test" text="Test  !" networkRequired="false" />
-	<option name="test2" text="Test 2  !" networkRequired="false" />
   </options>
 
   <steps>
@@ -87,8 +85,7 @@
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
 
-    <Title option="test" id="000000010000000f" revision="0" action="Pack" path="sd:/ios15pack.wad" />
-    <Title option="test2" id="000000010000000f" revision="0" action="Extract" path="sd:/ios15nand.wad" />
+    <Title option="test" id="00000001000000f9" revision="0" action="Extract" path="sd:/cios249.wad" />
 
 
 	<SystemUpdater option="update">

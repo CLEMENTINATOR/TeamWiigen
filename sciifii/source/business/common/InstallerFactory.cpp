@@ -67,6 +67,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		    action = ti_PackAsWad;
 		else if (choice == "Extract")
 		    action = ti_Extract;
+        else if (choice=="Decrypt")
+            action = ti_Decrypt;
         else
 			throw Exception("Can't parse WadAction enum from xml!", -1);
 

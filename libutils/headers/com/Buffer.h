@@ -29,6 +29,7 @@ public:
 	void Truncate(const u64 position);
 	bool ValidateSHA1(const Buffer& sha);
 	u64 Checksum();
+	u64 Find(const Buffer&b);
 };
 
 #endif

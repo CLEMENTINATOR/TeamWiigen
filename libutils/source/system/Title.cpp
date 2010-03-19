@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 #include <ogcsys.h>
+#include <iostream>
+#include <cstdio>
 
 #include <exception/Exception.h>
 #include <exception/AbortException.h>
@@ -333,7 +335,6 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
     tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
     CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder); /* Creating temp docs */
 
-
     processControl.buffer=File::ReadToEnd(ticketPath.str()); /* cetk */
 	processControl.buffer.Truncate(0x02A4ULL);
 	DecryptTitleKey(processControl.buffer);
@@ -365,19 +366,20 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
         if(content->type==0x0001)
         {
         filename <<contentPath.str()<< hex << setw(8) << setfill('0') << content->cid<<".app";
+        processControl.buffer=File::ReadToEnd(filename.str());
         }
         else if(content->type==0x8001)
         {
-        filename<<sharedPath.str()<<hex<< setw(8) << setfill('0') << content->cid<<".app";
+        processControl.buffer=GetSharedContent(content);
         }
         else
         {
             free(btmd);
-             throw Exception("Unknown content type !" ,-1);
+            throw Exception("Unknown content type !" ,-1);
         }
 
         /* Content, on encrypte */
-       processControl.buffer=File::ReadToEnd(filename.str());
+
        EncryptContent(processControl.buffer,content);
        u64 len=content->size;
         _dataLen += len;
@@ -1224,7 +1226,8 @@ void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
   free(outbuf);
 }
 
-void Title::DecryptTitleKey(Buffer& b_tik){
+void Title::DecryptTitleKey(Buffer& b_tik)
+{
     u8 commonkey[16] = { 0xeb, 0xe4, 0x2a, 0x22, 0x5e, 0x85, 0x93, 0xe4, 0x48, 0xd9, 0xc5, 0x45, 0x73, 0x81, 0xaa, 0xf7 };
     tik* p_tik= (tik*) SIGNATURE_PAYLOAD((signed_blob*)b_tik.Content());
 	/* Set IV */
@@ -1245,4 +1248,22 @@ void Title::DecryptTitleKey(Buffer& b_tik){
     AES_SetKey(commonkey);
     AES_Decrypt(iv, enc, dec, sizeof(enc));
     memcpy(_titleKey, dec, sizeof(dec)); /* Copy title key */
+}
+
+Buffer Title::GetSharedContent(tmd_content* c)
+{
+Buffer sharedMap=File::ReadToEnd("wii:/shared1/content.map");
+Buffer bsha(c->hash,20);
+
+u64 index=sharedMap.Find(bsha);
+if(index==sharedMap.Length()) throw Exception("Shared content not found in content.map",c->index);
+
+stringstream str;
+char name[9];
+
+u8 * buf=(u8*)sharedMap.Content();
+sprintf(name, "%.8s",((u8*)buf+index)-8);
+str<<"wii:/shared1/"<<name<<".app";
+
+return File::ReadToEnd(str.str());
 }

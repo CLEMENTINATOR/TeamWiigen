@@ -77,6 +77,7 @@ protected:
 	u8 _titleKey[16];
 	virtual void DecryptTitleKey(Buffer& b_tik);
 	Buffer GetSharedContent(tmd_content* c);
+	void SaveDecryptedContent(const std::string& dirPath);
 
 public:
 	static void ReloadIOS(u32 ios);

@@ -76,6 +76,8 @@ protected:
 	void DecryptContent(Buffer& b,tmd_content* tmdInfo);
 	u8 _titleKey[16];
 	virtual void DecryptTitleKey(Buffer& b_tik);
+	Buffer GetSharedContent(tmd_content* c);
+
 public:
 	static void ReloadIOS(u32 ios);
 

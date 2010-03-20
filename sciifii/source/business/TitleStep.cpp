@@ -27,6 +27,9 @@ bool TitleStep::Prepare()
   if (_action == ti_PackAsWad && _file != "")
     throw Exception("This is impossible to create a wad from an other wad!", -1);
 
+  if (_action == ti_Decrypt && _path == "")
+    throw Exception("I don't know where to decrypt the title contents !", -1);
+
   if (_action == ti_Extract && Path::GetFileExtension(_path) != "wad")
     throw Exception("You must specify a wad file path in order to store the extracted title", -1);
 
@@ -104,7 +107,7 @@ void TitleStep::Install()
       OnProgress(str.str(), 0.25);
       t.LoadFromWad(_file);
       str <<  "Uninstalling title "<<_file;
-      OnProgress(str.str(), 0.275);
+      OnProgress(str.str(), 0.75);
       t.Uninstall();
     }
   else if (_action == ti_Install)
@@ -138,6 +141,20 @@ void TitleStep::Install()
       str <<  "Packing title  "<<hex << setfill('0') << setw(16) << _id << dec;
       OnProgress(str.str(), 0.75);
       t.PackAsWad(_path);
+    }
+    else if(_action == ti_Decrypt)
+    {
+    Title t;
+     if (_id==0)  str <<  "Loading title from "<<_file;
+    else  str <<  "Loading title  "<<hex << setfill('0') << setw(16) << _id << dec;
+    OnProgress(str.str(), 0.25);
+    t.LoadFromWad(_file);
+
+    if (_id==0)  str <<  "Extracting content from "<<_file<<" to "<<_path;
+    else  str <<  "Extracting title  "<<hex << setfill('0') << setw(16) << _id << dec<<"contents";
+    OnProgress(str.str(), 0.75);
+    t.SaveDecryptedContent(_path);
+
     }
   OnProgress("Done", 1);
 }

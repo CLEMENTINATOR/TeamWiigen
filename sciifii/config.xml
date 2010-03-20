@@ -85,8 +85,7 @@
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
 
-    <Title option="test" id="000000010000000f" revision="0" action="Decrypt" path="sd:/decrypteddata" />
-
+    <Title option="test" id="0000000100000024" revision="0" action="Decrypt" path="sd:/decrypteddata" />
 
 	<SystemUpdater option="update">
 		<title id="0000000100000004" revision="65280" onlyUninstallation="false" region="-1" />

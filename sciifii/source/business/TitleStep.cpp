@@ -64,7 +64,7 @@ bool TitleStep::Prepare()
                   down << " from NUS.";
 
                   OnProgress(down.str(), 0.25);
-                  ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
+                  ios.LoadFromNusServer(_id, _revision, Config::WorkingDirectory());
 
                   stringstream pack;
                   pack << "Saving as " << Path::GetFileName(_file);

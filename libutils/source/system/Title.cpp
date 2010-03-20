@@ -1276,14 +1276,20 @@ Buffer Title::GetSharedContent(tmd_content* c)
 void Title::SaveDecryptedContent(const string& dirPath)
 {
     Buffer b_tmd=Tmd();
+    Buffer b_cetk=Ticket();
+
+    string actualDir=_directory;
+    _directory=dirPath;
+    Tmd(b_tmd);
+    Ticket(b_cetk);
+    _directory=actualDir;
+
     tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
 
     if(!Directory::Exists(dirPath)) Directory::Create(dirPath);
 
 	for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++)
 		{
-            string actualDir=_directory;
-
 			tmd_content *tmdContent = &tmdData->contents[cnt];
             Buffer b_cnt=GetContent(tmdContent->cid);
 
@@ -1293,7 +1299,6 @@ void Title::SaveDecryptedContent(const string& dirPath)
             AddContent(b_cnt,tmdContent->cid);
 
             _directory=actualDir;
-
 		}
 
 }

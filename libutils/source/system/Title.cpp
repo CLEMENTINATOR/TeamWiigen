@@ -196,7 +196,7 @@ Buffer Title::Crl()
 void Title::AddContent(const Buffer& buffer, u32 id)
 {
 	stringstream fileName;
-	fileName << _directory << "/" << id;
+	fileName << _directory << hex << setw(8) << setfill('0') << id<<dec;
 	File &f = File::Create(fileName.str());
 	f.Write(buffer);
 	f.Close();
@@ -214,7 +214,7 @@ void Title::AddContent(const Buffer& buffer, u32 id)
 Buffer Title::GetContent(u32 id)
 {
 	stringstream fileName;
-	fileName << _directory << "/" << id;
+	fileName << _directory << "/" << hex << setw(8) << setfill('0') << id<<dec;
 	return GetTitleElementFromTemp(fileName.str());
 }
 
@@ -1220,8 +1220,12 @@ void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
   u8 hash[20];
   SHA1(outbuf, tmdInfo->size, hash);
   if (memcmp(hash, tmdInfo->hash, sizeof(hash))!=0)
-	  throw Exception("memcmp error", -1);
-
+  {
+      free(outbuf);
+      stringstream str;
+      str<<"Content "<<hex<<tmdInfo->cid<<dec<<" decryption failed -> hash mismatch";
+	  throw Exception(str.str(), -1);
+  }
   b.Clear();
   b.Append(outbuf, bufferLength);
   free(outbuf);
@@ -1282,6 +1286,8 @@ void Title::SaveDecryptedContent(const string& dirPath)
 
 			tmd_content *tmdContent = &tmdData->contents[cnt];
             Buffer b_cnt=GetContent(tmdContent->cid);
+
+            cout<<endl<<"Decrypting content : "<<hex<<tmdContent->cid;
 
             _directory=dirPath;
 

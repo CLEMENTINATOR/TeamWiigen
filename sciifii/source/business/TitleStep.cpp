@@ -49,7 +49,7 @@ bool TitleStep::Prepare()
         {
           stringstream wad;
           wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);
-		  _file = wad.str();
+          _file = wad.str();
 
           if (!File::Exists(_file))
             {
@@ -106,8 +106,9 @@ void TitleStep::Install()
       str <<  "Loading title from "<<_file;
       OnProgress(str.str(), 0.25);
       t.LoadFromWad(_file);
-      str <<  "Uninstalling title "<<_file;
-      OnProgress(str.str(), 0.75);
+      stringstream str2;
+      str2 <<  "Uninstalling title "<<_file;
+      OnProgress(str2.str(), 0.75);
       t.Uninstall();
     }
   else if (_action == ti_Install)
@@ -117,18 +118,20 @@ void TitleStep::Install()
       else  str <<  "Loading title  "<<hex << setfill('0') << setw(16) << _id << dec;
       OnProgress(str.str(), 0.25);
       t.LoadFromWad(_file);
-      if (_id==0)  str <<  "Installing title "<<_file;
-      else  str <<  "Installing title  "<<hex << setfill('0') << setw(16) << _id << dec;
-      OnProgress(str.str(), 0.75);
+      stringstream str2;
+      if (_id==0)  str2 <<  "Installing title "<<_file;
+      else  str2 <<  "Installing title  "<<hex << setfill('0') << setw(16) << _id << dec;
+      OnProgress(str2.str(), 0.75);
       t.Install();
     }
   else if (_action == ti_PackAsWad )
     {
       if (Path::GetParentDirectory(_path) != "")
-		Directory::Create(Path::GetParentDirectory(_path) );
+        Directory::Create(Path::GetParentDirectory(_path));
 
-      str <<  "Moving  "<<_file<<" to "<<_path;
-      OnProgress(str.str(), 0.50);
+      stringstream str2;
+      str2 <<  "Moving  "<<_file<<" to "<<_path;
+      OnProgress(str2.str(), 0.50);
       File::Move(_file,_path);
     }
   else if (_action == ti_Extract )
@@ -138,22 +141,23 @@ void TitleStep::Install()
       OnProgress(str.str(), 0.25);
       t.LoadFromNand(_id);
 
-      str <<  "Packing title  "<<hex << setfill('0') << setw(16) << _id << dec;
-      OnProgress(str.str(), 0.75);
+      stringstream str2;
+      str2 <<  "Packing title  "<<hex << setfill('0') << setw(16) << _id << dec;
+      OnProgress(str2.str(), 0.75);
       t.PackAsWad(_path);
     }
-    else if(_action == ti_Decrypt)
+  else if (_action == ti_Decrypt)
     {
-    Title t;
-     if (_id==0)  str <<  "Loading title from "<<_file;
-    else  str <<  "Loading title  "<<hex << setfill('0') << setw(16) << _id << dec;
-    OnProgress(str.str(), 0.25);
-    t.LoadFromWad(_file);
-
-    if (_id==0)  str <<  "Extracting content from "<<_file<<" to "<<_path;
-    else  str <<  "Extracting title  "<<hex << setfill('0') << setw(16) << _id << dec<<"contents";
-    OnProgress(str.str(), 0.75);
-    t.SaveDecryptedContent(_path);
+      Title t;
+      if (_id==0)  str <<  "Loading title from "<<_file;
+      else  str <<  "Loading title  "<<hex << setfill('0') << setw(16) << _id << dec;
+      OnProgress(str.str(), 0.25);
+      t.LoadFromWad(_file);
+      stringstream str2;
+      if (_id==0)  str2 <<  "Extracting content from "<<_file<<" to "<<_path;
+      else  str2 <<  "Extracting title "<<hex << setfill('0') << setw(16) << _id << dec<<" contents";
+      OnProgress(str2.str(), 0.75);
+      t.SaveDecryptedContent(_path);
 
     }
   OnProgress("Done", 1);

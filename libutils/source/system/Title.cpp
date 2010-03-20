@@ -1253,20 +1253,20 @@ void Title::DecryptTitleKey(Buffer& b_tik)
 
 Buffer Title::GetSharedContent(tmd_content* c)
 {
-Buffer sharedMap=File::ReadToEnd("wii:/shared1/content.map");
-Buffer bsha(c->hash,20);
+    Buffer sharedMap=File::ReadToEnd("wii:/shared1/content.map");
+    Buffer bsha(c->hash,20);
 
-u64 index=sharedMap.Find(bsha);
-if(index==sharedMap.Length()) throw Exception("Shared content not found in content.map",c->index);
+    u64 index=sharedMap.Find(bsha);
+    if(index==sharedMap.Length()) throw Exception("Shared content not found in content.map",c->index);
 
-stringstream str;
-char name[9];
+    stringstream str;
+    char name[9];
 
-u8 * buf=(u8*)sharedMap.Content();
-sprintf(name, "%.8s",((u8*)buf+index)-8);
-str<<"wii:/shared1/"<<name<<".app";
+    u8 * buf=(u8*)sharedMap.Content();
+    sprintf(name, "%.8s",((u8*)buf+index)-8);
+    str<<"wii:/shared1/"<<name<<".app";
 
-return File::ReadToEnd(str.str());
+    return File::ReadToEnd(str.str());
 }
 
 void Title::SaveDecryptedContent(const string& dirPath)

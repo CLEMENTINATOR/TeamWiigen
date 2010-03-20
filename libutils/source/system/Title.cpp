@@ -1287,8 +1287,6 @@ void Title::SaveDecryptedContent(const string& dirPath)
 			tmd_content *tmdContent = &tmdData->contents[cnt];
             Buffer b_cnt=GetContent(tmdContent->cid);
 
-            cout<<endl<<"Decrypting content : "<<hex<<tmdContent->cid<<dec;
-
             _directory=dirPath;
 
             DecryptContent(b_cnt,tmdContent);

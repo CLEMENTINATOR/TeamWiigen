@@ -196,7 +196,7 @@ Buffer Title::Crl()
 void Title::AddContent(const Buffer& buffer, u32 id)
 {
 	stringstream fileName;
-	fileName << _directory << hex << setw(8) << setfill('0') << id<<dec;
+	fileName << _directory <<  "/" <<hex << setw(8) << setfill('0') << id<<dec;
 	File &f = File::Create(fileName.str());
 	f.Write(buffer);
 	f.Close();

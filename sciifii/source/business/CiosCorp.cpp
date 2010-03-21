@@ -26,7 +26,7 @@ void CiosCorp::AddModule(const std::string& name, const moduleDesc& module)
 {
   if (_modules.find(name) != _modules.end())
     throw Exception("The module has already been registered", -1);
-	
+
   _modules.insert(pair<string,moduleDesc>(name, module));
 }
 
@@ -68,14 +68,13 @@ bool CiosCorp::Prepare()
 			}
 			else
 			{
-				cout << "You arent connected to the network and some wads are missing." << endl
-				     << "Please refer to the readme.";
-				return false;
+                cout << "Network unavailable and wad files missing. Please refer to the readme." << endl;
+                return false;
 			}
 		}
 		step += 1;
 	}
-	
+
 	for(map<string, moduleDesc>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
 	{
 		OnProgress("Downloading " + ite->second.file, step/nbIosToInstall);
@@ -125,7 +124,7 @@ void CiosCorp::Install()
 					ModulePatch* pmod = new ModulePatch((u8*)bmod.Content(), bmod.Length(), desc.module);
 					moduleList.insert(pair<string, ModulePatch*>(*mod, pmod));
 				}
-					
+
 				ciosPatcher.AddPatch(moduleList.find(*mod)->second);
 			}
 
@@ -166,7 +165,7 @@ void CiosCorp::Install()
 			delete ite->second;
 		throw;
 	}
-	
+
 	for(map<string, ModulePatch*>::iterator ite = moduleList.begin(); ite != moduleList.end(); ite++)
 		delete ite->second;
 

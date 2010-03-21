@@ -14,7 +14,7 @@ using namespace std;
 void SystemUpdater::AddTitle(const titleDescriptor& descriptor, bool uninstall)
 {
 	_uninstallTitles.push_back(descriptor);
-	
+
 	if(!uninstall)
 		_updateTitles.push_back(descriptor);
 }
@@ -29,7 +29,7 @@ bool SystemUpdater::Prepare()
     for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
     {
         u32 type = ite->title >> 32;
-		
+
         if (type!=1 && Title::IsInstalled(ite->title))
         {
             if (Title::GetInstalledTitleVersion(ite->title)>=ite->revision)
@@ -38,7 +38,7 @@ bool SystemUpdater::Prepare()
                 continue;
             }
         }
-		
+
 		stringstream wadFile;
 
         wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(ite->title,ite->revision);
@@ -61,8 +61,7 @@ bool SystemUpdater::Prepare()
             }
             else
             {
-                cout << "You arent connected to the network and some wads are missing." << endl
-                << "Please refer to the readme.";
+                cout << "Network unavailable and wad files missing. Please refer to the readme." << endl;
                 return false;
             }
         }

@@ -27,7 +27,11 @@ void WadBatchInstaller::Install()
 	{
 		Title wad;
 		string fileName = Path::GetFileName(*ite);
-
+        if(Path::GetFileExtension(*ite)!="wad")
+        {
+        currentStep++;
+        continue;
+        }
 		OnProgress("Loading " + fileName, currentStep / steps);
 		wad.LoadFromWad(*ite);
 

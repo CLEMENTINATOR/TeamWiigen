@@ -67,7 +67,7 @@ bool Sciifii::Prepare()
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
-		error |= (*ite)->Prepare();
+		error &= (*ite)->Prepare();
 		if(hasDisplayed)
 		{
 			cout << endl;

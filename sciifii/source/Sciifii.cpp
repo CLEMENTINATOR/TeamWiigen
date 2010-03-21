@@ -60,14 +60,14 @@ void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 
 bool Sciifii::Prepare()
 {
-	bool error = false;
+	bool sucess = true;
 
 	cout << "Sciifii is preparing required elements." << endl;
 
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
-		error &= (*ite)->Prepare();
+		sucess &= (*ite)->Prepare();
 		if(hasDisplayed)
 		{
 			cout << endl;
@@ -75,7 +75,7 @@ bool Sciifii::Prepare()
 		}
 	}
 
-	return error;
+	return sucess;
 }
 
 void Sciifii::Execute()

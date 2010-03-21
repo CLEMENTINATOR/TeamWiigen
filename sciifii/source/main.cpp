@@ -88,7 +88,7 @@ int main(int argc, char **argv)
             cout << "Installation done! Press A to reboot the wii.";
         }
         else
-            cout << "An error occured. Press A to reboot the wii.";
+            cout <<endl<< "An error occured. Press A to reboot the wii.";
     }
     catch (Exception &ex)
     {

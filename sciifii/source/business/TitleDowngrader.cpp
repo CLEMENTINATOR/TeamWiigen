@@ -16,7 +16,6 @@ TitleDowngrader::TitleDowngrader(u64 titleId, u16 neededRevision)
 
 bool TitleDowngrader::Prepare()
 {
-	u32 shortId = (u32)_id;
 
 	stringstream newWad;
 	newWad << Config::WorkingDirectory() << "/"<<Title::GetWadFormatedName(_id,0);
@@ -36,7 +35,7 @@ bool TitleDowngrader::Prepare()
 		Title ios;
 
 		stringstream downloadMessage;
-		downloadMessage << "Downloading IOS" << _id << " from NUS.";
+		downloadMessage << "Downloading title " <<hex<< _id << dec<< " from NUS.";
 		OnProgress(downloadMessage.str(), 0);
 		ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
@@ -51,7 +50,7 @@ bool TitleDowngrader::Prepare()
 		Title ios;
 
 		stringstream downloadMessage;
-		downloadMessage << "Downloading IOS" << shortId << "v" << _neededRevision << " from NUS.";
+		downloadMessage << "Downloading title " << hex<< _id << dec<< "v" << _neededRevision << " from NUS.";
 		OnProgress(downloadMessage.str(), 0.5);
 		ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
 

@@ -258,7 +258,7 @@ Buffer NetworkRequest::GetResponse(const Buffer& sha)
 
 Buffer NetworkRequest::GetResponse(const std::string& shaUrl)
 {
-    if(shaUrl=="")
+    if(shaUrl!="")
     {
 	NetworkRequest sha(shaUrl);
 	Buffer bsha = sha.GetResponse();

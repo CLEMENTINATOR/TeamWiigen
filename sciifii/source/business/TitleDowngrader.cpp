@@ -25,9 +25,8 @@ bool TitleDowngrader::Prepare()
 
 	if((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !Config::HasNetwork())
 	{
-		cout << "You arent connected to the network and some wads are missing." << endl
-			 << "Please refer to the readme.";
-		return false;
+            cout << "Network unavailable and wad files missing. Please refer to the readme." << endl;
+			return false;
 	}
 
 	if(!File::Exists(newWad.str()))

@@ -52,8 +52,7 @@ bool Cios::Prepare()
 		}
 		else
 		{
-			cout << "You arent connected to the network and some wads are missing." << endl
-				 << "Please refer to the readme.";
+			cout << "Network unavailable and wad files missing. Please refer to the readme." << endl;
 			return false;
 		}
 	}

@@ -14,13 +14,13 @@ void Disclaimer::Show()
 
   cout << endl << endl;
 
-  cout << "Sciifii v2 made by TeamWiigen" << endl
+  cout << "Sciifii v3 beta made by TeamWiigen" << endl
 	   << Config::DisclaimerText() << endl << endl;
-	   
-	   
+
+
 	s32 region = CONF_GetRegion();
 	cout << "Detected wii region: ";
-	
+
 	switch(region)  //channels
 	{
 		case CONF_REGION_JP:
@@ -38,6 +38,6 @@ void Disclaimer::Show()
 		default:
 			cout << "Unknown!!! Please exit!";
 	}
-	
+
 	cout << endl << endl;
 }

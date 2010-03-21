@@ -50,7 +50,7 @@ void Config::Initialize()
     TiXmlElement* root = doc.RootElement();
 
     if (string(root->Attribute("version")) != SCIIFII_VERSION || string(root->Value()) != "sciifii")
-        throw Exception("Config file version not supprted", -1);
+        throw Exception("Config file version not supported", -1);
 
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = root->Attribute("workingDirectory");
@@ -106,10 +106,7 @@ void Config::CreateOptionList(TiXmlElement* element)
             string text = child->Attribute("text");
 
             option* opt = new option();
-            (*opt) = (option)
-            {
-                name, text
-            };
+            (*opt) = (option){name, text};
             _options.push_back(opt);
         }
 
@@ -137,10 +134,7 @@ void Config::CreateModeList(TiXmlElement* element)
             string flag = child->Attribute("flag");
 
             mode* m = new mode();
-            (*m) = (mode)
-            {
-                optionList, text, flag
-            };
+            (*m) = (mode){optionList, text, flag};
             _modes.push_back(m);
         }
 

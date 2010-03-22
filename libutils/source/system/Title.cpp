@@ -1279,7 +1279,7 @@ void Title::SaveDecryptedContent(const string& dirPath)
 
     Buffer b_tmd=Tmd();
     Buffer b_cetk=Ticket();
-
+    b_cetk.Truncate(0x2a4);
     string actualDir=_directory;
     _directory=dirPath;
     Tmd(b_tmd);

@@ -15,6 +15,7 @@
 	<file key="priiloader.dat" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha1="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
 	<file key="wiiflow.wad" url="http://www.assembla.com/spaces/arasium/documents/ba48p4kRKr35iyeJe5aVNr/download/wiiflow.wad" sha1="http://www.assembla.com/spaces/arasium/documents/aOKLpMkRKr35IieJe5avMc/download/wiiflow.wad.sha" />
 	<file key="wiiflow.dol" url="http://www.assembla.com/spaces/arasium/documents/cLO8vKkRGr34dgeJe5avMc/download/WiiflowR25_249.dol" sha1="http://www.assembla.com/spaces/arasium/documents/dqCD4GkRGr352DeJe5afGb/download/WiiflowR25_249.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+	<file key="hacks.ini" url="http://www.assembla.com/spaces/arasium/documents/alHnnanEyr34RneJe5aVNr/download/hacks.ini" path="sd:/hacks.ini" />
   </files>
 
   <modes>
@@ -84,8 +85,6 @@
 		</patches>
 	</CiosInstaller>
 	<IOSReloader option="" id="249" user="0" />
-
-    <Title option="test" id="0000000100000024" revision="0" action="Decrypt" path="sd:/decrypteddata" />
 
 	<SystemUpdater option="update">
 		<title id="0000000100000004" revision="65280" onlyUninstallation="false" region="-1" />
@@ -168,7 +167,13 @@
 		<title id="00000001000000fa" revision="65280" onlyUninstallation="true" region="-1" />
 		<title id="00000001000000f9" revision="65280" onlyUninstallation="true" region="-1" />
 	</SystemUpdater>
-	<Preloader option="Preloader" file="priiloader.dat" />
+
+    <CompositeInstaller option="Preloader" name="Wiiflow">
+        <Preloader  file="priiloader.dat" />
+        <FileDownloader file="hacks.ini" />
+	</CompositeInstaller>
+
+
 	<CorpInstaller option="corp">
 		<modules>
 			<module type="ES" name="es14" file="es14.dat" />

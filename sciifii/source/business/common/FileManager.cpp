@@ -2,6 +2,8 @@
 #include <libutils/com/NetworkRequest.h>
 #include "../../Config.h"
 #include <libutils/fs/File.h>
+#include <libutils/fs/Path.h>
+#include <libutils/fs/Directory.h>
 #include <libutils/UtilString.h>
 #include <libutils/exception/Exception.h>
 
@@ -67,7 +69,10 @@ bool FileManager::Download(const std::string& fileKey)
 	{
 	  NetworkRequest req(fo.url);
 	  Buffer response = req.GetResponse(fo.sha1);
-
+	  
+	  if(Path::GetParentDirectory(fo.path) != "")
+		Directory::Create(Path::GetParentDirectory(fo.path));
+		
 	  File &file = File::Create(fo.path);
 	  file.Write(response);
 	  file.Close();

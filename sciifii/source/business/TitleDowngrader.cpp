@@ -85,18 +85,13 @@ void TitleDowngrader::Install()
 
   //this will be aborted by the event handler
   try
-    {
-      newTitle.Install();
-    }
+  {
+    newTitle.Install();
+  }
   catch (Exception &ex)
-    {
-      if (ex.GetCode()==-1035) /* Si revision actuelle installée sur la wii >> resion téléchargée*/
-        {
-        /* TODO : que faire ici ? ^^' */
-         return;
-        }
-      else throw;
-    }
+  {
+    throw;
+  }
   OnProgress("Installing the good title.",0.6);
   //this will install the needed revision
   oldTitle.Install();

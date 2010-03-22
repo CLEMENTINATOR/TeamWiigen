@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii/temp/" autoClean="true">
+<sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii/temp/" autoClean="false">
 
   <files>
 	<file key="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
@@ -22,7 +22,6 @@
 	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
 	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
 	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" flag="" />
-	<mode text="Test HERE ! " options="test" flag="" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
 
@@ -34,7 +33,6 @@
     <option name="corp" text="Install the corp cioses" networkRequired="false" />
     <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="false" />
 	<option name="wiiflow" text="Install wiiflow" networkRequired="false" />
-	<option name="test" text="Test  !" networkRequired="false" />
   </options>
 
   <steps>
@@ -168,7 +166,7 @@
 		<title id="00000001000000f9" revision="65280" onlyUninstallation="true" region="-1" />
 	</SystemUpdater>
 
-    <CompositeInstaller option="Preloader" name="Wiiflow">
+    <CompositeInstaller option="Preloader" name="Preloader">
         <Preloader  file="priiloader.dat" />
         <FileDownloader file="hacks.ini" />
 	</CompositeInstaller>

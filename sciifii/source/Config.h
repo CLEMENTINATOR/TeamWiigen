@@ -29,6 +29,7 @@ class Config : public Object
 private:
 	s32 _region;
 	bool _hasNetwork;
+	bool _autoClean;
 
 	bool _uninstall;
 
@@ -41,7 +42,7 @@ private:
 	std::vector<mode*> _modes;
 	std::vector<Installer*> _availableSteps;
 	std::vector<Installer*> _validatedSteps;
-	
+
 	std::vector<std::string> _flags;
 
 	Config();
@@ -55,10 +56,11 @@ public:
 	static void ApplyMode(const mode& m);
 	static void ValidateOptions();
 	static u32 GetRegion();
-	
+
 	static bool IsFlagDefined(const std::string& flag);
 	static std::string WorkingDirectory();
 	static bool HasNetwork();
+	static bool AutoClean();
 	static std::vector<mode*> Modes();
 	static std::vector<option*> Options();
 	static std::vector<Installer*> Steps();

@@ -32,6 +32,11 @@ bool Config::HasNetwork()
     return Instance()._hasNetwork;
 }
 
+bool Config::AutoClean()
+{
+    return Instance()._autoClean;
+}
+
 string Config::WorkingDirectory()
 {
     return Instance()._workingDirectory;
@@ -55,6 +60,7 @@ void Config::Initialize()
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = root->Attribute("workingDirectory");
     c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"));
+    c._autoClean = UtilString::ToBool(root->Attribute("autoClean"),false);
 
     TiXmlElement* child = root->FirstChildElement();
 

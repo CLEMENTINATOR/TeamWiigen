@@ -2,6 +2,7 @@
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/fs/Device.h>
+#include <libutils/fs/Directory.h>
 #include <iostream>
 
 #include <wiiuse/wpad.h>
@@ -101,6 +102,7 @@ int main(int argc, char **argv)
         cout << "Unexpected Exception!" << endl
         << "Press A to reboot the wii and relaunch sciifii.";
     }
+    if(Config::AutoClean()) Directory::Delete(Config::WorkingDirectory(),true);
     WPAD_Init();
     Pause();
     STM_RebootSystem();

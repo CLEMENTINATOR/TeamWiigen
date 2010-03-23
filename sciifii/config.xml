@@ -13,9 +13,13 @@
 	<file key="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
 	<file key="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
 	<file key="priiloader.dat" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha1="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://www.assembla.com/spaces/arasium/documents/alHnnanEyr34RneJe5aVNr/download/hacks.ini" path="sd:/hacks.ini" />
 	<file key="wiiflow.wad" url="http://www.assembla.com/spaces/arasium/documents/ba48p4kRKr35iyeJe5aVNr/download/wiiflow.wad" sha1="http://www.assembla.com/spaces/arasium/documents/aOKLpMkRKr35IieJe5avMc/download/wiiflow.wad.sha" />
 	<file key="wiiflow.dol" url="http://www.assembla.com/spaces/arasium/documents/cLO8vKkRGr34dgeJe5avMc/download/WiiflowR25_249.dol" sha1="http://www.assembla.com/spaces/arasium/documents/dqCD4GkRGr352DeJe5afGb/download/WiiflowR25_249.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
-	<file key="hacks.ini" url="http://www.assembla.com/spaces/arasium/documents/alHnnanEyr34RneJe5aVNr/download/hacks.ini" path="sd:/hacks.ini" />
+	<file key="GXForwarder" url="http://www.techjawa.com/usbloadergx/ULNR.file" path="sd:/sciifii/temp/LoaderGX.wad" />
+	<file key="GXDol" url="http://www.techjawa.com/usbloadergx/boot.dol" path="sd:/apps/usbloader_gx/boot.dol" />
+	<file key="GXmeta" url="http://www.techjawa.com/usbloadergx/meta.file" path="sd:/apps/usbloader_gx/meta.xml" />
+	<file key="GXicon" url="http://www.techjawa.com/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
   </files>
 
   <modes>
@@ -32,7 +36,7 @@
 	<option name="Preloader" text="Install the preloader" networkRequired="false" />
     <option name="corp" text="Install the corp cioses" networkRequired="false" />
     <option name="GXLoader" text="Install the USB LoaderGX" networkRequired="false" />
-	<option name="wiiflow" text="Install wiiflow" networkRequired="false" />
+	<option name="wiiflow" text="Install Wiiflow" networkRequired="false" />
   </options>
 
   <steps>
@@ -205,7 +209,15 @@
 			<corpItem slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 		</items>
 	</CorpInstaller>
-	<GXLoader option="GXLoader" />
+
+	<CompositeInstaller option="GXLoader" name="LoaderGX">
+		<FileDownloader file="GXDol" />
+		<FileDownloader file="GXmeta" />
+		<FileDownloader file="GXicon" />
+		<Title wad="GXForwarder" action="Install" />
+	</CompositeInstaller>
+
+
 	<CompositeInstaller option="wiiflow" name="Wiiflow">
 		<FileDownloader file="wiiflow.dol" />
 		<Title wad="wiiflow.wad" action="Install" />

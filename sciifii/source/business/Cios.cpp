@@ -109,8 +109,9 @@ void Cios::Install()
 
 		stringstream wadFile;
 		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + _iosId, _iosRevision);
-
-		OnProgress("Deleting old IOS249 or stub.", 0.2);
+        stringstream str;
+        str<<"Deleting old IOS"<<_slot<<" or stub";
+		OnProgress(str.str(), 0.2);
 		Title::Uninstall(0x0000000100000000ULL + _slot);
 
 		OnProgress("Load base wad for cios and patch it!", 0.4);

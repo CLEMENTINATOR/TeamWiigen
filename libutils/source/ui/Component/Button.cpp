@@ -44,6 +44,13 @@ void Button::ProcessMessage(Message& message)
 		Control::ProcessMessage(message);
 }
 
+void Button::ChangeImage(const string _image)
+{
+	_currentImage = _image;
+	ImageResource* image = ImageResourceManager::Get(_currentImage);
+	_lblText.SetSize(image->Width(), image->Height());
+}
+
 void Button::DefaultImage(const string& imagePath)
 {
 	if(InvokeRequired())
@@ -54,7 +61,7 @@ void Button::DefaultImage(const string& imagePath)
 	else
 	{
 		if(_currentImage == _defaultImage)
-			_currentImage = imagePath;
+			ChangeImage(imagePath);
 			
 		_defaultImage = imagePath;
 	}
@@ -75,7 +82,7 @@ void Button::OverImage(const string& imagePath)
 	else
 	{
 		if(_currentImage == _overImage)
-			_currentImage = imagePath;
+			ChangeImage(imagePath);
 			
 		_overImage = imagePath;
 	}
@@ -96,7 +103,7 @@ void Button::ClickedImage(const string& imagePath)
 	else
 	{
 		if(_currentImage == _clickedImage)
-			_currentImage = imagePath;
+			ChangeImage(imagePath);
 			
 		_clickedImage = imagePath;
 	}
@@ -117,29 +124,29 @@ void Button::OnClick(UI::Device::PadController &c)
 void Button::OnCursorEnter()
 {
 	if(_overImage.length() > 0)
-		_currentImage = _overImage;
+		ChangeImage(_overImage);
 	Control::OnCursorEnter();
 }
 
 void Button::OnCursorLeave()
 {
-	_currentImage = _defaultImage;
+	ChangeImage(_defaultImage);
 	Control::OnCursorLeave();
 }
 
 void Button::OnCursorButtonDown(Device::PadController &c)
 {
 	if(_clickedImage.length() > 0)
-		_currentImage = _clickedImage;
+		ChangeImage(_clickedImage);
 	Control::OnCursorButtonDown(c);
 }
 
 void Button::OnCursorButtonUp(Device::PadController &c)
 {
 	if(_overImage.length() > 0)
-		_currentImage = _overImage;
+		ChangeImage(_overImage);
 	else
-		_currentImage = _defaultImage;
+		ChangeImage(_defaultImage);
 		
 	Control::OnCursorButtonUp(c);
 }

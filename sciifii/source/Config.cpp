@@ -32,6 +32,14 @@ bool Config::HasNetwork()
     return Instance()._hasNetwork;
 }
 
+u32 Config::RunningIOS()
+{
+    return Instance()._runningIOS;
+}
+void  Config::SetRunningIOS(u32 id)
+{
+    Instance()._runningIOS=id;
+}
 bool Config::AutoClean()
 {
     return Instance()._autoClean;
@@ -61,7 +69,7 @@ void Config::Initialize()
     c._workingDirectory = root->Attribute("workingDirectory");
     c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"));
     c._autoClean = UtilString::ToBool(root->Attribute("autoClean"),false);
-
+    c._runningIOS=IOS_GetVersion();
     TiXmlElement* child = root->FirstChildElement();
 
     if (child == NULL)

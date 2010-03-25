@@ -19,6 +19,7 @@ void Disclaimer::Show()
 
 
 	s32 region = CONF_GetRegion();
+	cout<<"Current running IOS : "<<Config::RunningIOS()<<endl;
 	cout << "Detected wii region: ";
 
 	switch(region)  //channels

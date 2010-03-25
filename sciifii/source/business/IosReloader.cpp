@@ -1,4 +1,5 @@
 #include "IosReloader.h"
+#include "../Config.h"
 
 #include <libutils/fs/Device.h>
 #include <ogc/ios.h>
@@ -28,6 +29,7 @@ void IosReloader::Install()
 {
 	stringstream txt;
 	txt << "Reloading under IOS" << _id;
+	Config::SetRunningIOS(_id);
 	OnProgress(txt.str(), 1);
 	Title::ReloadIOS(_id);
 	if(_identify)

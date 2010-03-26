@@ -3,19 +3,19 @@
 <sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii/temp/" autoClean="false">
 
   <files>
-	<file key="fat_module.dat" url="http://www.assembla.com/spaces/arasium/documents/beq-mijGGr35PWeJe5avMc/download/fat_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bCn-lYjG0r35PWeJe5avMc/download/fat_module.dat.sha" />
-	<file key="ehci_module.dat" url="http://www.assembla.com/spaces/arasium/documents/arizpKjGGr36XveJe5aVNr/download/ehci_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bFIeXkjGWr36XveJe5aVNr/download/ehci_module.dat.sha" />
-	<file key="sdhc_module.dat" url="http://www.assembla.com/spaces/arasium/documents/cUBdiijGGr36XveJe5aVNr/download/sdhc_module.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bV4CHajG0r35PWeJe5avMc/download/sdhc_module.dat.sha" />
-	<file key="dip_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/dTotmCjGur36XveJe5aVNr/download/dip_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bHw6NMjGyr34OyeJe5afGb/download/dip_plugin.dat.sha" />
-	<file key="es_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/aSQKsEjGGr36XveJe5aVNr/download/es_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bN2EHkjGWr34OyeJe5afGb/download/es_plugin.dat.sha" />
-	<file key="ffs_plugin.dat" url="http://www.assembla.com/spaces/arasium/documents/cx0XxujGGr35PWeJe5avMc/download/ffs_plugin.dat" sha1="http://www.assembla.com/spaces/arasium/documents/bMUsmsjG0r35PWeJe5avMc/download/ffs_plugin.dat.sha" />
-	<file key="es14.dat" url="http://www.assembla.com/spaces/arasium/documents/a0WpugjGGr34OyeJe5afGb/download/es14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/aYfj7OjG0r36XveJe5aVNr/download/es14.dat.sha" />
-	<file key="dip13.dat" url="http://www.assembla.com/spaces/arasium/documents/d8xwEqjGyr36XveJe5aVNr/download/dip13.dat" sha1="http://www.assembla.com/spaces/arasium/documents/ah5ghcjGCr36XveJe5aVNr/download/dip13.dat.sha" />
-	<file key="dip14.dat" url="http://www.assembla.com/spaces/arasium/documents/awLt3mjGCr36XveJe5aVNr/download/dip14.dat" sha1="http://www.assembla.com/spaces/arasium/documents/cMTh8IjGSr34OyeJe5afGb/download/dip14.dat.sha" />
-	<file key="priiloader.dat" url="http://www.assembla.com/spaces/arasium/documents/bLywp-jDur36gfeJe5avMc/download/priiloader.dat" sha1="http://www.assembla.com/spaces/arasium/documents/alrkaajEer35epeJe5aVNr/download/priiloader.dat.sha" />
-    <file key="hacks.ini" url="http://www.assembla.com/spaces/arasium/documents/alHnnanEyr34RneJe5aVNr/download/hacks.ini" path="sd:/hacks.ini" />
-	<file key="wiiflow.wad" url="http://www.assembla.com/spaces/arasium/documents/ba48p4kRKr35iyeJe5aVNr/download/wiiflow.wad" sha1="http://www.assembla.com/spaces/arasium/documents/aOKLpMkRKr35IieJe5avMc/download/wiiflow.wad.sha" />
-	<file key="wiiflow.dol" url="http://www.assembla.com/spaces/arasium/documents/cLO8vKkRGr34dgeJe5avMc/download/WiiflowR25_249.dol" sha1="http://www.assembla.com/spaces/arasium/documents/dqCD4GkRGr352DeJe5afGb/download/WiiflowR25_249.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
+	<file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />
+	<file key="sdhc_module.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat.sha" />
+	<file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
+	<file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
+	<file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
+	<file key="es14.dat" url="http://teamwiigen.fr.cr/appfiles/es14.dat" sha1="http://teamwiigen.fr.cr/appfiles/es14.dat.sha" />
+	<file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
+	<file key="dip14.dat" url="http://teamwiigen.fr.cr/appfiles/dip14.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip14.dat.sha" />
+	<file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
+	<file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
+	<file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
 	<file key="GXForwarder" url="http://www.techjawa.com/usbloadergx/ULNR.file" path="sd:/sciifii/temp/LoaderGX.wad" />
 	<file key="GXDol" url="http://www.techjawa.com/usbloadergx/boot.dol" path="sd:/apps/usbloader_gx/boot.dol" />
 	<file key="GXmeta" url="http://www.techjawa.com/usbloadergx/meta.file" path="sd:/apps/usbloader_gx/meta.xml" />

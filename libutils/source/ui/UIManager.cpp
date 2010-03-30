@@ -8,8 +8,6 @@
 #include <ui/Device/PadControllers.hpp>
 #include <ui/Resources/ImageResourceManager.hpp>
 
-#include <font_ttf.h>
-
 using namespace UI;
 using namespace UI::Component;
 using namespace UI::Device;
@@ -29,9 +27,6 @@ UIManager::UIManager()
 	// read wiimote accelerometer and IR data
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
 	WPAD_SetVRes(WPAD_CHAN_ALL, screenwidth, screenheight);
-
-	// Initialize font system
-	InitFreeType((u8*)font_ttf, font_ttf_size);
 }
 
 void UIManager::AddMessage(Message* message)

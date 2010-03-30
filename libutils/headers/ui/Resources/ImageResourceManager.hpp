@@ -17,6 +17,7 @@ namespace UI
 		public:
 			static ImageResource* Get(const std::string& imagePath);
 		private:
+			ImageResourceManager();
 			std::map<std::string, ImageResource*> _resources;
 			static ImageResourceManager& Current();
 		};

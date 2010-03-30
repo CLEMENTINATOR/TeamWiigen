@@ -12,7 +12,8 @@ namespace UI
     class ImageResource : public Object
     {
       public:
-        ImageResource(const std::string& imgPath, const u8 * defaultImage);
+        ImageResource(const std::string& imgPath);
+		ImageResource(const u8 * buffer);
         ~ImageResource();
         u8* Image();
         int Width();

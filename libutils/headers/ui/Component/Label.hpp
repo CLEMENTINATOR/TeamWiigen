@@ -4,6 +4,7 @@
 #include "../Control.hpp"
 #include <string>
 
+#define MAX_FONT_SIZE 100
 namespace UI
 {
 	namespace Component
@@ -16,6 +17,7 @@ namespace UI
 				virtual void ProcessMessage(Message& message);
 				
 				void Text(const std::string& text);
+				void SetFont(const std::string& font);
 				void FontSize(int size);
 				void ForeColor(GXColor c);
 				void Style(u16 s);
@@ -24,6 +26,7 @@ namespace UI
 				
 			protected:
 				std::string txt;
+				std::string _font;
 				int size; //!< Font size
 				GXColor color; //!< Font color
 				int textScrollPos; //!< Current starting index of text string for scrolling

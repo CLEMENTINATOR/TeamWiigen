@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <notFound_png.h>
 #include <fs/Device.h>
+#include <fs/File.h>
 #include <ui/Resources/ThemeManager.hpp>
 
 using namespace UI::Resources;
@@ -14,6 +15,12 @@ ImageResourceManager& ImageResourceManager::Current()
   return manager;
 }
 
+ImageResourceManager::ImageResourceManager()
+{
+	ImageResource* res = new ImageResource(notFound_png);
+	_resources.insert(make_pair(".", res));
+}
+
 ImageResource* ImageResourceManager::Get(const string& imagePath)
 {
   if(imagePath.length() == 0)
@@ -22,6 +29,9 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
   string resourcePath = imagePath;
   if(ThemeManager::IsInitialized())
 	resourcePath = ThemeManager::GetResourcePath("image/" + imagePath);
+
+  if(!File::Exists(resourcePath))
+	return Current()._resources.find(".")->second;
 	
   ImageResource* resource = NULL;
   map<string, ImageResource*>::iterator element = Current()._resources.find(resourcePath);
@@ -29,11 +39,10 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
     return element->second;
   else
   {
-	  //for the moement i will only use precompiled images
 	  try
 	  {
 		Device::Mount(resourcePath);
-		resource = new ImageResource(resourcePath, notFound_png);
+		resource = new ImageResource(resourcePath);
 		Device::UnMount(resourcePath);
 	  }
 	  catch(...)

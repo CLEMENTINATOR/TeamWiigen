@@ -1,15 +1,15 @@
 #include <ui/Component/Label.hpp>
 #include <ui/video.h>
 #include <ui/UIManager.hpp>
+#include <ui/Resources/FontResourceManager.hpp>
 #include <sstream>
 
 using namespace UI::Component;
+using namespace UI::Resources;
 using namespace std;
 
 #define TEXT_SCROLL_DELAY			8
 #define	TEXT_SCROLL_INITIAL_DELAY	6
-
-static int currentSize = 0;
 
 Label::Label(const string& text, int s, GXColor c)
 : txt(text),
@@ -73,6 +73,11 @@ void Label::Text(const string& text)
 	}
 	
 	txt = text;
+}
+
+void Label::SetFont(const std::string& font)
+{
+	_font = font;
 }
 
 void Label::FontSize(int size)
@@ -162,15 +167,15 @@ void Label::Draw()
 	int realSize = size;
 	if(realSize > MAX_FONT_SIZE)
 		realSize = MAX_FONT_SIZE;
+		
 	
-	//definition du freetypegx a utiliser	
-	if(realSize != currentSize)
-	{
-		ChangeFontSize(realSize);
-		if(!fontSystem[realSize])
-			fontSystem[realSize] = new FreeTypeGX(realSize);
-		currentSize = realSize;
-	}
+	FontResource* resource = FontResourceManager::Get(_font);
+	
+	if(!resource->IsInitialized())
+		resource->Initialize();
+	
+	resource->Font()->changeFontSize(realSize);
+
 	
 	//test si le text est trop long pour le label (et donc scroll)
 	u8 nbCharMax = (_width * 2.0) / realSize;
@@ -201,9 +206,9 @@ void Label::Draw()
 				textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
 			}
 		}
-		fontSystem[currentSize]->drawText(this->GetLeft(), this->GetTop(), txt.substr(textScrollPos, nbCharMax), color, style);
+		resource->Font()->drawText(this->GetLeft(), this->GetTop(), txt.substr(textScrollPos, nbCharMax), color, style);
 	}
 	else
-		fontSystem[currentSize]->drawText(this->GetLeft(), this->GetTop(), txt, color, style);
+		resource->Font()->drawText(this->GetLeft(), this->GetTop(), txt, color, style);
 	
 }

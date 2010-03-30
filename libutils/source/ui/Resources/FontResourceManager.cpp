@@ -44,7 +44,7 @@ FontResource* FontResourceManager::Get(const string& fontPath)
 	  }
 	  catch(...)
 	  {
-		return NULL;
+		return Current()._resources.find(".")->second;
 	  }
 	  
 	  Current()._resources.insert(make_pair(resourcePath, resource));

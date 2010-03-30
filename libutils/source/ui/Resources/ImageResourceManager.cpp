@@ -24,7 +24,7 @@ ImageResourceManager::ImageResourceManager()
 ImageResource* ImageResourceManager::Get(const string& imagePath)
 {
   if(imagePath.length() == 0)
-	return NULL;
+	return Current()._resources.find(".")->second;
 	
   string resourcePath = imagePath;
   if(ThemeManager::IsInitialized())

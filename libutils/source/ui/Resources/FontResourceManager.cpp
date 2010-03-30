@@ -23,7 +23,7 @@ FontResourceManager::FontResourceManager()
 FontResource* FontResourceManager::Get(const string& fontPath)
 {
   if(fontPath == "")
-	return NULL;
+	return Current()._resources.find(".")->second;
 	
   string resourcePath = fontPath;
   if(ThemeManager::IsInitialized())

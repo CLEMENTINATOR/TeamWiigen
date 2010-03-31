@@ -573,6 +573,14 @@ uint16_t FreeTypeGX::getWidth(wchar_t const *text) {
 	return this->getWidth((wchar_t *)text);
 }
 
+uint16_t FreeTypeGX::getWidth(const std::string& text) 
+{
+	wchar_t *t = charToWideChar(text.c_str());
+	uint16_t returnValue = this->getWidth(t);
+	free(t);
+	return returnValue;
+}
+
 /**
  * Processes the supplied string and return the height of the string in pixels.
  * 
@@ -594,6 +602,14 @@ uint16_t FreeTypeGX::getHeight(wchar_t *text) {
  */
 uint16_t FreeTypeGX::getHeight(wchar_t const *text) {
 	return this->getHeight((wchar_t *)text);
+}
+
+uint16_t FreeTypeGX::getHeight(const std::string& text) 
+{
+	wchar_t *t = charToWideChar(text.c_str());
+	uint16_t returnValue = this->getHeight(t);
+	free(t);
+	return returnValue;
 }
 
 /**

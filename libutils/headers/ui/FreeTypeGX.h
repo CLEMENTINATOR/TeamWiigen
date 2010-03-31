@@ -278,8 +278,12 @@ class FreeTypeGX {
 
 		uint16_t getWidth(wchar_t *text);
 		uint16_t getWidth(wchar_t const *text);
+		uint16_t getWidth(const std::string& text);
+		
 		uint16_t getHeight(wchar_t *text);
 		uint16_t getHeight(wchar_t const *text);
+		uint16_t getHeight(const std::string& text);
+		
 		ftgxDataOffset getOffset(wchar_t *text);
 		ftgxDataOffset getOffset(wchar_t const *text);
 };

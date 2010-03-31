@@ -32,16 +32,16 @@ namespace UI
 		std::string _fullId;
 		HAlign _hAlign;
 		VAlign _vAlign;
-		int _xoffset;
-		int _yoffset;
-		int _width;
-		int _height;
+		s32 _xoffset;
+		s32 _yoffset;
+		s32 _width;
+		s32 _height;
 		bool _initialized;
 		
 		virtual void Draw();
 		
 		bool InvokeRequired();
-		bool IsInside(int x, int y);
+		bool IsInside(s32 x, s32 y);
 		virtual bool IsInUITree();
 		
 		virtual void SetId(const std::string& newId);
@@ -67,10 +67,10 @@ namespace UI
 		std::string BackgroundImage() const;
 		
 		
-		int GetLeft();
-		int GetTop();
-		int GetWidth();
-		int GetHeight();
+		s32 GetLeft();
+		s32 GetTop();
+		s32 GetWidth();
+		s32 GetHeight();
 		
 		void HorizontalAlignement(HAlign alignement);
 		HAlign HorizontalAlignement() const;
@@ -78,8 +78,8 @@ namespace UI
 		Control* Parent();
 		virtual void ProcessInput(Device::PadController& controller);
 		virtual void ProcessMessage(Message& message);
-		void SetPosition(int x, int y);
-		void SetSize(int w, int h);
+		void SetPosition(s32 x, s32 y);
+		void SetSize(s32 w, s32 h);
 		
 		void VerticalAlignement(VAlign alignement);
 		VAlign VerticalAlignement() const;

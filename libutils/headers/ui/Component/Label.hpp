@@ -12,13 +12,13 @@ namespace UI
 		class Label : public Control
 		{
 			public:
-				Label(const std::string& text, int s = 12, GXColor c = (GXColor){255, 255, 255, 255});
+				Label(const std::string& text, s32 pixelSize = 12, GXColor c = (GXColor){255, 255, 255, 255});
 				
 				virtual void ProcessMessage(Message& message);
 				
 				void Text(const std::string& text);
 				void SetFont(const std::string& font);
-				void FontSize(int size);
+				void FontSize(s32 size);
 				void ForeColor(GXColor c);
 				void Style(u16 s);
 				void SetTextAlignment(HAlign hor, VAlign vert);
@@ -27,13 +27,16 @@ namespace UI
 			protected:
 				std::string txt;
 				std::string _font;
-				int size; //!< Font size
+				s32 size; //!< Font size
 				GXColor color; //!< Font color
-				int textScrollPos; //!< Current starting index of text string for scrolling
+				s32 textScrollPos; //!< Current starting index of text string for scrolling
 				bool scrollToRight;
-				int textScrollInitialDelay; //!< Delay to wait before starting to scroll
-				int textScrollDelay; //!< Scrolling speed
+				s32 textScrollInitialDelay; //!< Delay to wait before starting to scroll
+				s32 textScrollDelay; //!< Scrolling speed
 				u16 style; //!< FreeTypeGX style attributes
+				
+			private:
+				std::string _textToDisplay;
 		};
 	}
 }

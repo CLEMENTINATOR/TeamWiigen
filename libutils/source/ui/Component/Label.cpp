@@ -133,7 +133,7 @@ void Label::SetTextAlignment(HAlign hor, VAlign vert)
 		return;
 	}
 	
-	style &= ~hor & ~vert;
+	style &= ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
 
 	switch(hor)
 	{
@@ -178,8 +178,11 @@ void Label::Draw()
 
 	
 	//test si le text est trop long pour le label (et donc scroll)
-	u8 nbCharMax = (_width * 2.0) / realSize;
+	u8 nbCharMax = (Parent()->GetWidth() * 2.0) / realSize;
 	bool needScroll = nbCharMax < txt.length();
+	
+	
+	_textToDisplay = txt;
 	
 	//recupération du text réelle a afficher
 	if(needScroll)
@@ -206,9 +209,39 @@ void Label::Draw()
 				textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
 			}
 		}
-		resource->Font()->drawText(this->GetLeft(), this->GetTop(), txt.substr(textScrollPos, nbCharMax), color, style);
+		_textToDisplay = txt.substr(textScrollPos, nbCharMax);
 	}
-	else
-		resource->Font()->drawText(this->GetLeft(), this->GetTop(), txt, color, style);
+	
+	//Get the real position
+	s32 alignOffsetX = 0;
+	s32 alignOffsetY = 0;
+	
+	switch(style & 0x7)
+	{
+		case FTGX_JUSTIFY_LEFT:
+			break;
+		case FTGX_JUSTIFY_RIGHT:
+			alignOffsetX = Parent()->GetWidth() - resource->Font()->getWidth(_textToDisplay);
+			break;
+		case FTGX_JUSTIFY_CENTER:
+			alignOffsetX = (Parent()->GetWidth() - resource->Font()->getWidth(_textToDisplay)) / 2;
+			break;
+	}
+	
+	switch(style & 0x70)
+	{
+		case FTGX_ALIGN_TOP:
+			break;
+		case FTGX_ALIGN_BOTTOM:
+			alignOffsetY = Parent()->GetHeight() - resource->Font()->getHeight(_textToDisplay);
+			break;
+		case FTGX_ALIGN_MIDDLE:
+			alignOffsetY = (Parent()->GetHeight() - resource->Font()->getHeight(_textToDisplay)) / 2;
+			break;
+	}
+	
+	u16 displayStyle = style & ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
+	displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
+	resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, _textToDisplay, color, displayStyle);
 	
 }

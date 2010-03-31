@@ -2,6 +2,7 @@
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/fs/Device.h>
+#include <libutils/ui/UIManager.hpp>
 #include <libutils/fs/Directory.h>
 #include <iostream>
 
@@ -12,13 +13,17 @@
 #include "ui/MainMenu.h"
 #include "ui/AdvancedMenu.h"
 #include "ui/Disclaimer.h"
+#include "ui/GraphicDisclaimer.h"
 
 #include <cstdlib>
 #include <unistd.h>
 
 using namespace std;
+using namespace UI;
+using namespace UI::Component;
+using namespace UI::Device;
 
-static void *xfb;
+/*static void *xfb;
 static GXRModeObj *vmode;
 
 int main(int argc, char **argv)
@@ -106,4 +111,15 @@ int main(int argc, char **argv)
     WPAD_Init();
     Pause();
     STM_RebootSystem();
+}*/
+
+
+int main(int argc, char **argv)
+{
+    Config::Initialize();
+    GraphicDisclaimer g;
+    PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
+	UIManager::Run(g);
+
 }
+

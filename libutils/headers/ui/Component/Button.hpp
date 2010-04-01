@@ -39,8 +39,6 @@ namespace UI
 			std::string _overImage;
 			std::string _clickedImage;
 			Label _lblText;
-			
-			void ChangeImage(const std::string _image);
 		};
 	}
 }

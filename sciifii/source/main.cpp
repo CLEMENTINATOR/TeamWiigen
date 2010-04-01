@@ -18,6 +18,9 @@
 #include <cstdlib>
 #include <unistd.h>
 
+#include <libutils/logging/FileLogger.h>
+#include <libutils/logging/Log.h>
+
 using namespace std;
 using namespace UI;
 using namespace UI::Component;
@@ -116,6 +119,8 @@ int main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+	FileLogger logger("sd:/sciifii.log");
+	Log::AddLogProvider(Log_All, &logger);
     Config::Initialize();
     GraphicDisclaimer g;
     PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);

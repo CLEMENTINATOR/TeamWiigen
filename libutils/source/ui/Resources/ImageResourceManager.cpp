@@ -6,6 +6,8 @@
 #include <fs/File.h>
 #include <ui/Resources/ThemeManager.hpp>
 
+#include <logging/Log.h>
+
 using namespace UI::Resources;
 using namespace std;
 
@@ -24,14 +26,20 @@ ImageResourceManager::ImageResourceManager()
 ImageResource* ImageResourceManager::Get(const string& imagePath)
 {
   if(imagePath.length() == 0)
+  {
+	Log::Write(Log_Warning, "ImageResourceManager::Get", imagePath, -1);
 	return Current()._resources.find(".")->second;
+  }
 	
   string resourcePath = imagePath;
   if(ThemeManager::IsInitialized())
 	resourcePath = ThemeManager::GetResourcePath("image/" + imagePath);
 
   if(!File::Exists(resourcePath))
+  {
+	Log::Write(Log_Warning, "ImageResourceManager::Get", imagePath, -1);
 	return Current()._resources.find(".")->second;
+  }
 	
   ImageResource* resource = NULL;
   map<string, ImageResource*>::iterator element = Current()._resources.find(resourcePath);
@@ -47,6 +55,7 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
 	  }
 	  catch(...)
 	  {
+		Log::Write(Log_Warning, "ImageResourceManager::Get", imagePath, -1);
 		return Current()._resources.find(".")->second;
 	  }
 	  

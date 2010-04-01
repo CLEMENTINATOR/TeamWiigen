@@ -47,13 +47,13 @@ void Control::AddChildren(Control* child)
 	  Control* parent = child->_parent;
 	  parent->_childs.erase(child);
 	}
-	  
+
 	_childs.insert(child);
 	stringstream childId;
 	childId << _fullId << "_" << _idGenerator++;
 	child->SetId(childId.str());
 	child->_parent = this;
-	
+
 	if(_initialized  && !child->_initialized)
 		child->InitializeComponents();
   }
@@ -65,8 +65,8 @@ void Control::InitializeComponents()
 	{
 		for(set<Control*>::iterator child = _childs.begin(); child != _childs.end(); child++)
 			if(!(*child)->_initialized)
-				(*child)->InitializeComponents();	
-			
+				(*child)->InitializeComponents();
+
 		_initialized = true;
 	}
 }
@@ -85,7 +85,7 @@ bool Control::IsStateActive(u64 stateMask) const
 {
 	return (_state & stateMask);
 }
-		
+
 void Control::RemoveChildren(Control* child)
 {
   if(InvokeRequired())
@@ -103,7 +103,7 @@ void Control::RemoveChildren(Control* child)
 }
 
 void Control::Draw()
-{		
+{
 	for(set<Control*>::iterator child = _childs.begin(); child != _childs.end(); child++)
 		(*child)->StartDrawing();
 }
@@ -112,13 +112,15 @@ void Control::StartDrawing()
 {
 	if(!Visible())
 		return;
+    if(_backgroundImage!="")
+    {
+        ImageResource* back = ImageResourceManager::Get(_backgroundImage);
+        if(back != NULL)
+            Menu_DrawImg(GetLeft(), GetTop(), back->Width(), back->Height(), back->Image(), 0, 1, 1, 255);
+        else
+            Menu_DrawRectangle(GetLeft(), GetTop(), GetWidth(), GetHeight(), _backgroundColor, 1);
+    }
 
-	ImageResource* back = ImageResourceManager::Get(_backgroundImage);
-	if(back != NULL)
-		Menu_DrawImg(GetLeft(), GetTop(), back->Width(), back->Height(), back->Image(), 0, 1, 1, 255);
-	else
-		Menu_DrawRectangle(GetLeft(), GetTop(), GetWidth(), GetHeight(), _backgroundColor, 1);
-		
 	Draw();
 }
 
@@ -149,7 +151,7 @@ int Control::GetLeft()
 			x = pLeft + pWidth - _width;
 			break;
 	}
-	
+
 	return x + _xoffset;
 }
 
@@ -192,7 +194,7 @@ int Control::GetHeight()
 {
 	return _height;
 }
-		
+
 void Control::HorizontalAlignement(HAlign alignement)
 {
 	if(InvokeRequired())
@@ -203,14 +205,14 @@ void Control::HorizontalAlignement(HAlign alignement)
 		UIManager::AddMessage(m);
 	}
 	else
-		_hAlign = alignement;		
+		_hAlign = alignement;
 }
 
 HAlign Control::HorizontalAlignement() const
 {
 	return _hAlign;
 }
-		
+
 bool Control::InvokeRequired()
 {
 	if(!IsInUITree())
@@ -241,11 +243,11 @@ Control* Control::Parent()
 }
 
 void Control::ProcessMessage(Message& message)
-{	
+{
 	//Si le message n'est pas pour cette branche de composants
 	if(message.GetComponentId().find(_fullId) == string::npos)
 		return;
-		
+
 	//Si le message n'est pas pour moi, il est pour un enfant
 	if(message.GetComponentId() != _fullId)
 	{
@@ -253,11 +255,11 @@ void Control::ProcessMessage(Message& message)
 			(*child)->ProcessMessage(message);
 		return;
 	}
-	
+
 	//Sinon, il est pour moi
 	string tag = message.GetTag();
 	stringstream params(message.GetSerializedParameters());
-	
+
 	if(tag == "AddChildren")
 	{
 		void* child;
@@ -391,7 +393,7 @@ void Control::SetId(const string& newId)
 {
 	_idGenerator = 1;
 	_fullId = newId;
-	
+
 	for(set<Control*>::iterator childIte = _childs.begin(); childIte != _childs.end(); childIte++)
 	{
 		stringstream childId;
@@ -442,7 +444,7 @@ void Control::VerticalAlignement(VAlign alignement)
 		UIManager::AddMessage(m);
 	}
 	else
-		_vAlign = alignement;	
+		_vAlign = alignement;
 }
 
 VAlign Control::VerticalAlignement() const
@@ -454,10 +456,10 @@ Control::~Control()
 {
 	for(set<Control*>::iterator child = _childs.begin(); child != _childs.end(); child++)
 		(*child)->_parent = NULL;
-		
+
 	if(_parent != NULL)
 	  _parent->_childs.erase(this);
-	  
+
 	_parent = NULL;
 }
 
@@ -558,7 +560,7 @@ string Control::BackgroundImage() const
 {
 	return _backgroundImage;
 }
-		
+
 void Control::OnCursorEnter()
 {
 	EventArgs e;

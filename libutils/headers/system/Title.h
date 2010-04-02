@@ -15,19 +15,22 @@
 #define INIT_PROCESS_CONTROL(p, s) p.tmdInfo = s;\
 		p.skipStep = false;\
 		p.abortProcess = false;
+/**
+*\struct ATTRIBUTE_PACKED wad_header
+*\brief Struct representing a wad header
+**/
 
-/* 'WAD header' struct */
 typedef struct {
-	/* Header length */
+	/** Header length */
 	u32 header_len;
 
-	/* WAD type */
+	/** WAD type */
 	char type[2];
 
-	/* Padding data */
+	/** Padding data */
 	u16 padding;
 
-	/* Data length */
+	/** Data length */
 	u32 certs_len, crl_len, tik_len, tmd_len, data_len, footer_len;
 } ATTRIBUTE_PACKED wad_header;
 

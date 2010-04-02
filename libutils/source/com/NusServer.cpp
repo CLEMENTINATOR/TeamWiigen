@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace std;
+
 /**
 *\brief Constructor
 *\param titleId The title id

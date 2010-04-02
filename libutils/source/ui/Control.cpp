@@ -115,11 +115,10 @@ void Control::StartDrawing()
     if(_backgroundImage!="")
     {
         ImageResource* back = ImageResourceManager::Get(_backgroundImage);
-        if(back != NULL)
-            Menu_DrawImg(GetLeft(), GetTop(), back->Width(), back->Height(), back->Image(), 0, 1, 1, 255);
-        else
-            Menu_DrawRectangle(GetLeft(), GetTop(), GetWidth(), GetHeight(), _backgroundColor, 1);
-    }
+        Menu_DrawImg(GetLeft(), GetTop(), back->Width(), back->Height(), back->Image(), 0, 1, 1, 255);
+	}
+    else if(_backgroundColor.a != 0)
+		Menu_DrawRectangle(GetLeft(), GetTop(), GetWidth(), GetHeight(), _backgroundColor, 1);
 
 	Draw();
 }

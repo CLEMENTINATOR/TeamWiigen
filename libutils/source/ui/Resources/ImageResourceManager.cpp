@@ -25,41 +25,30 @@ ImageResourceManager::ImageResourceManager()
 
 ImageResource* ImageResourceManager::Get(const string& imagePath)
 {
-  if(imagePath.length() == 0)
-  {
-	/*Log::Write(Log_Warning, "ImageResourceManager::Get", imagePath, -1);*/
-	return Current()._resources.find(".")->second;
-  }
-
   string resourcePath = imagePath;
   if(ThemeManager::IsInitialized())
 	resourcePath = ThemeManager::GetResourcePath("image/" + imagePath);
 
-  if(!File::Exists(resourcePath))
-  {
-	/*Log::Write(Log_Warning, "ImageResourceManager::Get", imagePath, -1);*/
-	return Current()._resources.find(".")->second;
-  }
-
-  ImageResource* resource = NULL;
   map<string, ImageResource*>::iterator element = Current()._resources.find(resourcePath);
   if(element != Current()._resources.end())
     return element->second;
-  else
+	
+  try
   {
-	  try
-	  {
-		Device::Mount(resourcePath);
-		resource = new ImageResource(resourcePath);
-		Device::UnMount(resourcePath);
-	  }
-	  catch(...)
-	  {
-	/*	Log::Write(Log_Warning, "ImageResourceManager::Get", imagePath, -1);*/
-		return Current()._resources.find(".")->second;
-	  }
-
-	  Current()._resources.insert(make_pair(resourcePath, resource));
-	  return resource;
+	ImageResource* resource = NULL;
+	//si ressource n'existe pas, on met defautla la place
+	if(!File::Exists(resourcePath))
+	  resource = Current()._resources.find(".")->second;
+	else
+	  resource = new ImageResource(resourcePath);
+	  
+	Current()._resources.insert(make_pair(resourcePath, resource));
+	return resource;
+  }
+  catch(...)
+  {
+	ImageResource* resource = Current()._resources.find(".")->second;
+	Current()._resources.insert(make_pair(resourcePath, resource));
+	return resource;
   }
 }

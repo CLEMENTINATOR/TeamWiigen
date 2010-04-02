@@ -4,6 +4,12 @@
 #include <gctypes.h>
 #include "../Object.h"
 
+/*! \class Buffer
+ * \brief This class can store data and will automatically manage pointers in order to avoid memory leaks
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
+
 class Buffer : public Object
 {
 private:

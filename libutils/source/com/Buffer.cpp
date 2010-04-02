@@ -4,6 +4,12 @@
 #include <exception/Exception.h>
 #include <sha1.h>
 
+
+/**
+*\brief  Overloaded Constructor
+*\param content Pointer to the data
+*\param lentgh The data length
+**/
 Buffer::Buffer(const void* content, const u64 length)
         :  _length(length),
         _innerBuffer(NULL),
@@ -22,6 +28,12 @@ Buffer::Buffer(const void* content, const u64 length)
 		_checksum += ((u8*)_innerBuffer)[cindex];
 }
 
+/**
+*\brief  Overloaded Constructor, fill the data with value
+*\param value Avalue
+*\param lentgh The data length
+*\return
+**/
 Buffer::Buffer(const u8 value, const u64 length)
         :  _length(length),
         _innerBuffer(NULL),
@@ -41,6 +53,10 @@ Buffer::Buffer(const u8 value, const u64 length)
 		_checksum += value;
 }
 
+/**
+*\brief  Copy Constructor
+*\param b The buffer
+**/
 Buffer::Buffer(const Buffer& b)
         :  _length(b._length),
         _innerBuffer(NULL),
@@ -57,6 +73,11 @@ Buffer::Buffer(const Buffer& b)
     memcpy(_innerBuffer, b._innerBuffer, _length);
 }
 
+/**
+*\brief  Overloaded = operator
+*\param b A buffer
+*\return A new buffer =  b
+**/
 Buffer& Buffer::operator=(const Buffer& b)
 {
     if (_innerBuffer)
@@ -78,6 +99,9 @@ Buffer& Buffer::operator=(const Buffer& b)
     return *this;
 }
 
+/**
+*\brief Destructor
+*/
 Buffer::~Buffer()
 {
     if (_innerBuffer)
@@ -86,6 +110,11 @@ Buffer::~Buffer()
     _innerBuffer = NULL;
 }
 
+/**
+*\brief  Append data to the buffer
+*\param content Content to add to the buffer
+*\param lentgh The content length
+**/
 void Buffer::Append(const void* content, const u64 length)
 {
     if (length == 0)
@@ -111,12 +140,19 @@ void Buffer::Append(const void* content, const u64 length)
 		_checksum += ((u8*)content)[cindex];
 }
 
+/**
+*\brief  Append the buffer to the current buffer
+*\param b The buffer to add
+**/
 void Buffer::Append(const Buffer& b)
 {
     Append(b.Content(), b.Length());
 
 }
 
+/**
+*\brief  Clear the buffer
+**/
 void Buffer::Clear()
 {
     if (_innerBuffer)
@@ -127,16 +163,28 @@ void Buffer::Clear()
 	_checksum = 0;
 }
 
+/**
+*\brief  Returns the buffer data
+*\return The innerbuffer of the Buffer
+**/
 void* Buffer::Content() const
 {
     return _innerBuffer;
 }
 
+/**
+*\brief  Returns the buffer length
+*\return The length of the Buffer data
+**/
 u64 Buffer::Length() const
 {
     return _length;
 }
 
+/**
+*\brief Truncate the buffer to the position
+*\param position The position to truncate the buffer
+**/
 void Buffer::Truncate(const u64 position)
 {
     if (position >= _length)
@@ -165,11 +213,20 @@ void Buffer::Truncate(const u64 position)
 		_checksum += ((u8*)_innerBuffer)[cindex];
 }
 
+/**
+*\brief  Returns the buffer checkSum
+*\return The checkSum of the Buffer
+**/
 u64 Buffer::Checksum()
 {
     return _checksum;
 }
 
+/**
+*\brief Check the sha of the buffer
+*\param sha The buffer containing sha hash
+*\return true if hash matches with sha hash
+*/
 bool Buffer::ValidateSHA1(const Buffer& sha)
 {
 	u8 hash[20];
@@ -177,6 +234,10 @@ bool Buffer::ValidateSHA1(const Buffer& sha)
 	return memcmp((u8*)hash, (u8*)sha._innerBuffer, 20) == 0;
 }
 
+/**
+*\brief Overloaded == operator
+*\param sha The buffer containing sha hash
+*/
 bool Buffer::operator==(const Buffer &b)
 {
    if(_checksum != b._checksum)
@@ -191,6 +252,11 @@ bool Buffer::operator==(const Buffer &b)
    return true;
 }
 
+/**
+*\brief Find the buffer in the other buffer
+*\param sha The buffer containing sha hash
+*\return The index of the founded buffer, or the length of the buffer
+*/
 u64 Buffer::Find(const Buffer&b)
 {
     u64 index=0;

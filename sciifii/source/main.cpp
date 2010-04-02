@@ -125,6 +125,6 @@ int main(int argc, char **argv)
     GraphicDisclaimer g;
     PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
 	UIManager::Run(g);
-
+	STM_RebootSystem();
 }
 

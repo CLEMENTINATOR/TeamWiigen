@@ -149,8 +149,7 @@ u32 NetworkRequest::GetResponseLength()
 
 /*!
 * \brief Read data from the serv
-* \param buf The buffer where the dta is saved on memory
-* \param len The data length to read
+* \param b The Buffer where you want to store the readed data
 * \return The length read
 *
 */
@@ -188,8 +187,7 @@ s32 NetworkRequest::Read(Buffer& b, u32 len)
 
 /*!
 * \brief Send data to the serv
-* \param buf The data buffer
-* \param len The data length to write
+* \param b The buffer to be writted
 * \return The length writen
 *
 */
@@ -233,9 +231,7 @@ NetworkRequest::~NetworkRequest()
 
 /*!
 * \brief Get the server response
-* \param responseLength
-* \return The length of the contents
-*
+* \return A buffer containing the reponse
 */
 Buffer NetworkRequest::GetResponse()
 {
@@ -247,6 +243,11 @@ Buffer NetworkRequest::GetResponse()
 	return response;
 }
 
+/*!
+* \brief Get the server response and check sha1 hash
+*\param sha The sha buffer
+* \return A buffer containing the reponse
+*/
 Buffer NetworkRequest::GetResponse(const Buffer& sha)
 {
 	Buffer response = GetResponse();
@@ -256,6 +257,11 @@ Buffer NetworkRequest::GetResponse(const Buffer& sha)
 	return response;
 }
 
+/*!
+* \brief Get the server response and check sha1 hash
+*\param shaUrl The sha1 url
+* \return A buffer containing the reponse
+*/
 Buffer NetworkRequest::GetResponse(const std::string& shaUrl)
 {
     if(shaUrl!="")

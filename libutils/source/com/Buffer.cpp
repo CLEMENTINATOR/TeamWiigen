@@ -29,7 +29,7 @@ Buffer::Buffer(const void* content, const u64 length)
 }
 
 /**
-*\brief  Overloaded Constructor, fill the data with value
+*\brief  Overloaded Constructor, fill the data with value ( Like memset)
 *\param value Avalue
 *\param lentgh The data length
 *\return
@@ -111,7 +111,7 @@ Buffer::~Buffer()
 }
 
 /**
-*\brief  Append data to the buffer
+*\brief  Append data to the buffer (the data is copied)
 *\param content Content to add to the buffer
 *\param lentgh The content length
 **/
@@ -141,7 +141,7 @@ void Buffer::Append(const void* content, const u64 length)
 }
 
 /**
-*\brief  Append the buffer to the current buffer
+*\brief  Append the buffer to the current buffer( the buffer content is copied)
 *\param b The buffer to add
 **/
 void Buffer::Append(const Buffer& b)

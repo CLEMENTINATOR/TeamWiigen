@@ -3,7 +3,13 @@
 
 #include "../Object.h"
 #include <string>
-
+/**
+*\class Path
+*\brief A tool Class who allow to play with paths
+*\author Arasium, Teton, Fanta
+*\version 1.0
+*
+*/
 class Path : public Object
 {
 public:

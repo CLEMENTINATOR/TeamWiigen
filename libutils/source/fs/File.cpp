@@ -171,8 +171,7 @@ u32 File::Size() const
 /*!
  * \brief Read into a buffer
  * \param path The fullpath of the file
- * \param len This is used as output. It will contain the file length or 0 if the file doesn't exist
- * \return The address of the buffer
+ * \return The contents of the files, on a Buffer Object
  */
 Buffer File::ReadToEnd(const string& path)
 {
@@ -198,6 +197,11 @@ Buffer File::ReadToEnd(const string& path)
 	return buffer;
 }
 
+/*!
+ * \brief Copy a file
+ * \param fileToCopy The fullpath of the file to copy
+ * \param destFile The fullpath of the destination path
+s */
 void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 {
 	if(!File::Exists(fileToCopy))
@@ -213,6 +217,11 @@ void File::Copy(const std::string &fileToCopy,const std::string &destFile)
     delete &f;
 }
 
+/*!
+ * \brief Cut a file
+ * \param fileToCopy The fullpath of the file to copy
+ * \param destFile The fullpath of the destination path
+s */
 void File::Move(const std::string &fileToCopy,const std::string &destFile)
 {
 File::Copy(fileToCopy,destFile);

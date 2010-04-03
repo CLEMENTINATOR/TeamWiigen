@@ -8,22 +8,30 @@
 #include <fat.h>
 
 #define WII_ROOT_DIRECTORY "wii"
-
-/* 'FAT Device' structure */
+/**
+*\struct fatDevice
+*\brief Reprensents a fatDevice
+*/
 typedef struct {
-	/* Device mount point */
+	/** Device mount point */
 	const std::string mount;
-
-	/* Device name */
+	/** Device name */
 	const std::string name;
 
-	/* Device interface */
+	/** Device interface */
 	const DISC_INTERFACE *interface;
 
-	/* To know how many item still use the device */
+	/** To know how many item still use the device */
 	u32 deviceHandles;
+
 } fatDevice;
 
+/**
+*\class Device
+ * \brief This class manage automatically wii devices
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+**/
 class Device : public Object
 {
 public:
@@ -36,7 +44,7 @@ public:
 private:
 	bool _started;
 	Device();
-	
+
 	static Device& Instance();
 	static void Startup();
 	static fatDevice& FindDevice(const std::string &pathName);

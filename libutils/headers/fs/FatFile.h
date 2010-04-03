@@ -9,6 +9,10 @@
 #include "File.h"
 #include "Device.h"
 
+/**
+*\class FatFile
+*\see File
+*/
 class FatFile : public File
 {
 public:

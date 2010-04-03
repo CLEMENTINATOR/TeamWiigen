@@ -24,13 +24,6 @@ using namespace std;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
 
-void Title::ReloadIOS(u32 ios)
-{
-	Device::EnsureShutdown();
-	usleep(50000);
-	IOS_ReloadIOS(ios);
-    usleep(50000);
-}
 
 /*!
  * \brief Constructor
@@ -45,8 +38,7 @@ Title::Title(bool automaticCleaning)
  * \brief Set the ticket of the title
  * The ticket is saved in a "cetk" file. This file is save under the temporary directory
  * \see CreateTempDirectory
- * \param buffer The ticket content
- * \param len The ticket length
+ * \param buffer The ticket buffer
  */
 void Title::Ticket(const Buffer& buffer)
 {
@@ -61,8 +53,7 @@ void Title::Ticket(const Buffer& buffer)
 /*!
  * \brief Extract a title element.
  * \param path The full path of the title elemnt
- * \param len This is used as output. It will contain the ticket length or 0 if the file doesn't exist
- * \return The address of the buffer. NULL if the file doesn't exists
+ * \return A buffer containing the file Contents, or a null buffer if the path doesnt exists
  */
 Buffer Title::GetTitleElementFromTemp(const string &path)
 {
@@ -77,8 +68,7 @@ Buffer Title::GetTitleElementFromTemp(const string &path)
  * \brief Get the ticket of the title
  * The ticket is load from a "cetk" file. This file is save under the temporary directory
  * \see CreateTempDirectory
- * \param len This is used as output. It will contain the ticket length or 0 if the ticket doesn't exist
- * \return The address of the ticket or NULL if it doesn't exist. It's your responsability to free it.
+ * \return The Ticket buffer
  */
 Buffer Title::Ticket()
 {
@@ -90,8 +80,7 @@ Buffer Title::Ticket()
  * \brief Set the Tmd of the title
  * The Tmd is saved in a "tmd" file. This file is save under the temporary directory
  * \see CreateTempDirectory
- * \param buffer The Tmd content
- * \param len The Tmd length
+ * \param buffer The Tmd buffer
  */
 void Title::Tmd(const Buffer& buffer)
 {
@@ -107,8 +96,7 @@ void Title::Tmd(const Buffer& buffer)
  * \brief Get the Tmd of the title
  * The Tmd is load from a "tmd" file. This file is save under the temporary directory
  * \see CreateTempDirectory
- * \param len This is used as output. It will contain the Tmd length or 0 if the Tmd doesn't exist
- * \return The address of the Tmd or NULL if it doesn't exist. It's your responsability to free it.
+ * \return The Tmd buffer
  */
 Buffer Title::Tmd()
 {
@@ -120,8 +108,7 @@ Buffer Title::Tmd()
  * \brief Set the Certificate of the title
  * The Certificate is saved in a "cert" file. This file is save under the temporary directory
  * \see CreateTempDirectory
- * \param buffer The Certificate content
- * \param len The Certificate length
+ * \param buffer The Certificate buffer
  */
 void Title::Certificate(const Buffer& buffer)
 {
@@ -138,8 +125,7 @@ void Title::Certificate(const Buffer& buffer)
  * The Certificate is load from a "cert" file. This file is save under the temporary directory
  * If the file doesn't exists, it returns the wii Certificate.
  * \see CreateTempDirectory
- * \param len This is used as output. It will contain the Certificate length.
- * \return The address of the Certificate or NULL if it doesn't exist. It's your responsability to free it.
+ * \return The Certificate buffer.
  */
 Buffer Title::Certificate()
 {
@@ -158,8 +144,7 @@ Buffer Title::Certificate()
  * \brief Set the Crl of the title
  * The Crl is saved in a "cert" file. This file is save under the temporary directory
  * \see CreateTempDirectory
- * \param buffer The Crl content
- * \param len The Crl length
+ * \param buffer The Crl buffer
  */
 void Title::Crl(const Buffer& buffer)
 {
@@ -176,8 +161,7 @@ void Title::Crl(const Buffer& buffer)
  * The Crl is load from a "crl" file. This file is save under the temporary directory
  * Generally, this is not used. we found that only in some wads.
  * \see CreateTempDirectory
- * \param len This is used as output. It will contain the Crl length.
- * \return The address of the Crl or NULL if it doesn't exist. It's your responsability to free it.
+ * \return The Crl buffer
  */
 Buffer Title::Crl()
 {
@@ -190,7 +174,6 @@ Buffer Title::Crl()
  * The Content is saved in a contentId file. This file is save under the temporary directory
  * \see CreateTempDirectory
  * \param buffer The Content buffer
- * \param len The Content length
  * \param id The contentId of the Content
  */
 void Title::AddContent(const Buffer& buffer, u32 id)
@@ -208,8 +191,7 @@ void Title::AddContent(const Buffer& buffer, u32 id)
  * The Content is load from a contentId file. This file is save under the temporary directory
  * \see CreateTempDirectory
  * \param id The content id
- * \param len This is used as output. It will contain the Content length.
- * \return The address of theContent or NULL if it doesn't exist. It's your responsability to free it.
+ * \return  The Content buffer
  */
 Buffer Title::GetContent(u32 id)
 {
@@ -302,7 +284,11 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 }
 
 /*!
- * \brief Not implemented
+ * \brief Load a title from the nand
+ * You need to be under an ios that allow ES usage
+ * All extracted files will be stored in a temp directory.
+ * \param titleId The full id of the title (type + number)
+ * \param tempFolder The folder where to store title elements. ("sd:/tmp" by default)
  */
 void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 {
@@ -509,6 +495,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 
 /*!
  * \brief Save the title as a wad file
+ *\param fileName The wad filepath
  */
 void Title::PackAsWad(const string& fileName)
 {
@@ -1146,6 +1133,12 @@ string Title::TempDirectory()
 	return _directory;
 }
 
+/*!
+ * \brief Gets the wad formated ( like NUSD) name
+ * \param tid The id of the title
+ * \param rev The version of the title
+ * \return The wad name
+  */
 string Title::GetWadFormatedName(u64 tid,u16 rev)
 {
   stringstream wadName;
@@ -1171,6 +1164,11 @@ string Title::GetWadFormatedName(u64 tid,u16 rev)
 
 }
 
+/**
+*\brief Encryot content specified by the tmd_content
+*\param b The decrypted content buffer
+*\param tmdInfo The tmd_content associated to the content
+**/
 void Title::EncryptContent(Buffer& b,tmd_content* tmdInfo)
 {
   u64 bufferLength = TITLE_ROUND_UP(b.Length(), 64);
@@ -1198,6 +1196,11 @@ void Title::EncryptContent(Buffer& b,tmd_content* tmdInfo)
   free(outbuf);
 }
 
+/**
+*\brief Decrypt content specified by the tmd_content
+*\param b The encrypted content buffer
+*\param tmdInfo The tmd_content associated to the content
+**/
 void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
 {
   u64 bufferLength = b.Length();
@@ -1231,6 +1234,10 @@ void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
   free(outbuf);
 }
 
+/**
+*\brief Decrypt the title key
+*\param b_tik The cetk Buffer
+*/
 void Title::DecryptTitleKey(Buffer& b_tik)
 {
     u8 commonkey[16] = { 0xeb, 0xe4, 0x2a, 0x22, 0x5e, 0x85, 0x93, 0xe4, 0x48, 0xd9, 0xc5, 0x45, 0x73, 0x81, 0xaa, 0xf7 };
@@ -1255,6 +1262,11 @@ void Title::DecryptTitleKey(Buffer& b_tik)
     memcpy(_titleKey, dec, sizeof(dec)); /* Copy title key */
 }
 
+/**
+*\brief Gets the shared1 content associated to the tmd_content
+*\param c the tmd_content you need to get from shared1
+*\return A buffer containing the shared1 content
+**/
 Buffer Title::GetSharedContent(tmd_content* c)
 {
     Buffer sharedMap=File::ReadToEnd("wii:/shared1/content.map");
@@ -1273,6 +1285,11 @@ Buffer Title::GetSharedContent(tmd_content* c)
     return File::ReadToEnd(str.str());
 }
 
+/**
+*\brief Savethe decrypted title content
+* The title needs to be loaded ( via nus, wad or nand)
+*\param dirPath The dir we'll put the contents in
+*/
 void Title::SaveDecryptedContent(const string& dirPath)
 {
     if(!Directory::Exists(dirPath)) Directory::Create(dirPath);
@@ -1302,4 +1319,16 @@ void Title::SaveDecryptedContent(const string& dirPath)
             _directory=actualDir;
 		}
 
+}
+
+/**
+*\brief Reload IOS(secure fct)
+*\param ios The ios to be reloaded
+*/
+void Title::ReloadIOS(u32 ios)
+{
+	Device::EnsureShutdown();
+	usleep(50000);
+	IOS_ReloadIOS(ios);
+    usleep(50000);
 }

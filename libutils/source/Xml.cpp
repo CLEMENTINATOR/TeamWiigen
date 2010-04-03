@@ -7,7 +7,12 @@
 
 using namespace std;
 
-TiXmlDocument& Xml::Load(const string &file)
+/**
+*\brief Load the xml specified by path
+*\param file The file path
+*\return The TiXmlDocument loaded
+*/
+TiXmlDocument& Xml::Load(const std::string &file)
 {
   Device::Mount(file);
   if (! File::Exists(file))

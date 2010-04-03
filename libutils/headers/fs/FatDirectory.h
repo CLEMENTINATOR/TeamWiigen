@@ -5,7 +5,10 @@
 #include <string>
 #include <vector>
 
-
+/**
+*\class FatDirectory
+*\see Directory
+*/
 class FatDirectory : public Object
 {
 public:

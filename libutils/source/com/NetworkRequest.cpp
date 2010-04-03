@@ -56,7 +56,6 @@ string NetworkRequest::GetIp(void)
 /*!
 * \brief Connect
 * \param hostname The hostname of the server
-*
 */
 void NetworkRequest::Connect(string hostname)
 {
@@ -150,6 +149,7 @@ u32 NetworkRequest::GetResponseLength()
 /*!
 * \brief Read data from the serv
 * \param b The Buffer where you want to store the readed data
+*\param len The len of the readed content
 * \return The length read
 *
 */

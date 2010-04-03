@@ -5,14 +5,26 @@
 #include <ogcsys.h>
 #include "../Object.h"
 #include "../com/Buffer.h"
-
+/**
+*\enum FileMode
+*\brief Represents some file modes access
+**/
 typedef enum
 {
+    /** R */
 	FileMode_Read,
+	/** W */
 	FileMode_Write,
+	/** RW */
 	FileMode_ReadWrite,
 } FileMode;
 
+/**
+ *\class File
+ *\brief Represents a file
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+**/
 class File : public Object
 {
 protected:

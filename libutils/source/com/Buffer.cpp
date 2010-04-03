@@ -8,7 +8,7 @@
 /**
 *\brief  Overloaded Constructor
 *\param content Pointer to the data
-*\param lentgh The data length
+*\param length The data length
 **/
 Buffer::Buffer(const void* content, const u64 length)
         :  _length(length),
@@ -31,7 +31,7 @@ Buffer::Buffer(const void* content, const u64 length)
 /**
 *\brief  Overloaded Constructor, fill the data with value ( Like memset)
 *\param value Avalue
-*\param lentgh The data length
+*\param length The data length
 *\return
 **/
 Buffer::Buffer(const u8 value, const u64 length)
@@ -113,7 +113,7 @@ Buffer::~Buffer()
 /**
 *\brief  Append data to the buffer (the data is copied)
 *\param content Content to add to the buffer
-*\param lentgh The content length
+*\param length The content length
 **/
 void Buffer::Append(const void* content, const u64 length)
 {
@@ -236,7 +236,7 @@ bool Buffer::ValidateSHA1(const Buffer& sha)
 
 /**
 *\brief Overloaded == operator
-*\param sha The buffer containing sha hash
+*\param b The buffer you need to compare with this
 */
 bool Buffer::operator==(const Buffer &b)
 {
@@ -254,7 +254,7 @@ bool Buffer::operator==(const Buffer &b)
 
 /**
 *\brief Find the buffer in the other buffer
-*\param sha The buffer containing sha hash
+*\param b The buffer you need to find in this
 *\return The index of the founded buffer, or the length of the buffer
 */
 u64 Buffer::Find(const Buffer&b)

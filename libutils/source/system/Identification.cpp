@@ -22,7 +22,7 @@ void Identification::IdentifyAs(UserType user)
 		throw Exception("Not implemented.",-1);
 	}
 	else
-		throw Exception("Unkown user. Can't identify as this user.", user);
+		throw Exception("Unknown user. Can't identify as this user.", user);
 }
 
 /*!

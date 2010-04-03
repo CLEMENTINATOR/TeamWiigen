@@ -20,17 +20,26 @@ static fatDevice devices[] = {
 };
 
 #define NB_DEVICES 5
-
+/**
+*\brief Constructor
+*/
 Device::Device()
   : _started(false)
 {}
 
+/**
+*\brief Returns the current static device instance
+*\return The instance of class Device
+*/
 Device& Device::Instance()
 {
 	static Device d;
 	return d;
 }
 
+/**
+*\brief Startup all devices
+*/
 void Device::Startup()
 {
 	Device &d = Instance();
@@ -47,6 +56,9 @@ void Device::Startup()
 	}
 }
 
+/**
+*\brief Shutdown all devices
+*/
 void Device::EnsureShutdown()
 {
 	Device &d = Instance();
@@ -75,7 +87,7 @@ void Device::EnsureShutdown()
  * \param path A file path
  * \return path which can be used for ISFS
  */
-string Device::GetWiiPath(const string &path)
+string Device::GetWiiPath(const std::string &path)
 {
 	string rootPath = Path::GetRootName(path);
 	return path.substr(rootPath.length() + 1);
@@ -86,12 +98,17 @@ string Device::GetWiiPath(const string &path)
  * \param path A file path
  * \return true if the path isn't a nand path,else false
  */
-bool Device::IsFatPath(const string &path)
+bool Device::IsFatPath(const std::string &path)
 {
 	return Path::GetRootName(path) != WII_ROOT_DIRECTORY;
 }
 
-fatDevice& Device::FindDevice(const string &pathName)
+/**
+*\brief Find the device associated to pathName
+*\param pathName A path name
+*\return The fatDevice associated with pathName, or NULL if unexistant
+*/
+fatDevice& Device::FindDevice(const std::string &pathName)
 {
 	string mountName = Path::GetRootName(pathName);
 	fatDevice *device = NULL;
@@ -115,7 +132,7 @@ fatDevice& Device::FindDevice(const string &pathName)
  * \brief Mount the device where the file path is on
  * \param path A file path
  */
-void Device::Mount(const string &path)
+void Device::Mount(const std::string &path)
 {
 	fatDevice& device = FindDevice(path);
 	/* if not already mounted */
@@ -164,7 +181,7 @@ void Device::Mount(fatDevice &device)
  * \brief Unmount where the file path is on
  * \param path A file path
  */
-void Device::UnMount(const string &path)
+void Device::UnMount(const std::string &path)
 {
 	fatDevice& device = FindDevice(path);
 

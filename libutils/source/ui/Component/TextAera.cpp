@@ -161,6 +161,9 @@ void TextAera::EnsureItems()
   
 	while(!txtStream.eof())
 	{
+		if((_textItems.size() + 1) * size > _height)
+			break;
+			
 		txtStream.getline(buffer, nbCharMax + 1);
 		Label* lbl = new Label(buffer, size, color);
 		lbl->SetPosition(0, _textItems.size() * size);

@@ -207,3 +207,16 @@ vector<string> UtilString::Split(const string& str, const char splitCaracter)
 
     return voptions;
 }
+
+std::string UtilString::Replace(const std::string& source, const std::string& pattern, const std::string& value)
+{
+  string temp = source;
+  size_t found;
+  
+  while((found = temp.find_first_of(pattern)) != string::npos)
+  {
+	temp = temp.replace(found, pattern.length(), value);
+  }
+  
+  return temp;
+}

@@ -90,7 +90,7 @@ void Config::Initialize()
             else if (nodeValue == "steps")
                 c.CreateStepList(child);
             else if (nodeValue == "Disclaimer")
-                c._disclaimer = child->FirstChild()->Value();
+                c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
             else
                 throw Exception("Invalid XmlNode.", -1);
         }

@@ -59,6 +59,8 @@ void Label::ProcessMessage(Message& message)
 		params >> h >> v;
 		SetTextAlignment((HAlign)h, (VAlign)v);
 	}
+	else if(tag == "SetFont")
+		SetFont(params.str());
 	else
 		Control::ProcessMessage(message);
 }
@@ -77,6 +79,13 @@ void Label::Text(const string& text)
 
 void Label::SetFont(const std::string& font)
 {
+	if(InvokeRequired())
+	{
+	  Message* m = new Message(_fullId, "SetFont", font);
+	  UIManager::AddMessage(m);
+	  return;
+	}
+	
 	_font = font;
 }
 
@@ -91,7 +100,10 @@ void Label::FontSize(int size)
 		return;
 	}
 	
-	this->size = size;
+	if(size > MAX_FONT_SIZE)
+		this->size = MAX_FONT_SIZE;
+	else	
+		this->size = size;
 }
 
 void Label::ForeColor(GXColor color)
@@ -162,23 +174,17 @@ void Label::SetTextAlignment(HAlign hor, VAlign vert)
 }
 
 void Label::Draw()
-{
-	//majoration de la taille en pt
-	int realSize = size;
-	if(realSize > MAX_FONT_SIZE)
-		realSize = MAX_FONT_SIZE;
-		
-	
+{	
 	FontResource* resource = FontResourceManager::Get(_font);
 	
 	if(!resource->IsInitialized())
 		resource->Initialize();
 	
-	resource->Font()->changeFontSize(realSize);
+	resource->Font()->changeFontSize(size);
 
 	
 	//test si le text est trop long pour le label (et donc scroll)
-	u8 nbCharMax = (Parent()->GetWidth() * 2.0) / realSize;
+	u8 nbCharMax = (Parent()->GetWidth() * 2.0) / size;
 	bool needScroll = nbCharMax < txt.length();
 	
 	

@@ -60,10 +60,10 @@ namespace UI
 		virtual void RemoveChildren(Control* child);
 		void StartDrawing();
 		
-		void BackgroundColor(GXColor color);
+		virtual void BackgroundColor(GXColor color);
 		GXColor BackgroundColor() const;
 		
-		void BackgroundImage(const std::string& image);
+		virtual void BackgroundImage(const std::string& image);
 		std::string BackgroundImage() const;
 		
 		
@@ -72,23 +72,23 @@ namespace UI
 		s32 GetWidth();
 		s32 GetHeight();
 		
-		void HorizontalAlignement(HAlign alignement);
+		virtual void HorizontalAlignement(HAlign alignement);
 		HAlign HorizontalAlignement() const;
 		
-		Control* Parent();
+		virtual Control* Parent();
 		virtual void ProcessInput(Device::PadController& controller);
 		virtual void ProcessMessage(Message& message);
 		void SetPosition(s32 x, s32 y);
 		void SetSize(s32 w, s32 h);
 		
-		void VerticalAlignement(VAlign alignement);
+		virtual void VerticalAlignement(VAlign alignement);
 		VAlign VerticalAlignement() const;
 		
-		bool Visible() const;
+		virtual bool Visible() const;
 		void Visible(bool visibility);
 		
 		bool Enabled() const;
-		void Enabled(bool enabled);
+		virtual void Enabled(bool enabled);
 		
 		virtual ~Control();
 		

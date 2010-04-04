@@ -37,6 +37,8 @@ public:
     static std::string ToStr(const char* value);
 	static std::string ToStr(const char* value, const std::string& defaultVal);
 	
+	static std::string Replace(const std::string& source, const std::string& pattern, const std::string& value);
+	
 	static std::vector<std::string> Split(const std::string& str, const char split);
 };
 

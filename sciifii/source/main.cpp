@@ -21,15 +21,29 @@
 #include <libutils/logging/FileLogger.h>
 #include <libutils/logging/Log.h>
 
+#define USE_ADVANCED_UI
+
 using namespace std;
 using namespace UI;
 using namespace UI::Component;
 using namespace UI::Device;
 
-/*static void *xfb;
+static void *xfb;
 static GXRModeObj *vmode;
 
-int main(int argc, char **argv)
+int mainUI(int argc, char **argv)
+{
+	FileLogger logger("sd:/sciifii.log");
+	Log::AddLogProvider(Log_All, &logger);
+    Config::Initialize();
+    GraphicDisclaimer g;
+    PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
+	UIManager::Run(g);
+	STM_RebootSystem();
+	return 0;
+}
+
+int mainText(int argc, char **argv)
 {
     VIDEO_Init();
 
@@ -110,21 +124,20 @@ int main(int argc, char **argv)
         cout << "Unexpected Exception!" << endl
         << "Press A to reboot the wii and relaunch sciifii.";
     }
-    if(Config::AutoClean()) Directory::Delete(Config::WorkingDirectory(),true);
+	
     WPAD_Init();
     Pause();
     STM_RebootSystem();
-}*/
+	return 0;
+}
 
 
 int main(int argc, char **argv)
 {
-	FileLogger logger("sd:/sciifii.log");
-	Log::AddLogProvider(Log_All, &logger);
-    Config::Initialize();
-    GraphicDisclaimer g;
-    PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
-	UIManager::Run(g);
-	STM_RebootSystem();
+	#ifdef USE_ADVANCED_UI
+	return mainUI(argc, argv);
+	#else
+	return mainText(argc, argv);
+	#endif
 }
 

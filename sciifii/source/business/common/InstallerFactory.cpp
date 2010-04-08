@@ -11,6 +11,7 @@
 #include "../Preloader.h"
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
+#include "../FileSystemTask.h"
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
@@ -101,7 +102,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 				else if(nodeValue == "modules")
 					FillCiosCorpModules(step, section);
 				else
-					throw Exception("Child node of Corp not defined>", -1);
+					throw Exception("Child node of Corp not defined.", -1);
 			}
 			section=section->NextSiblingElement();
 		}
@@ -137,6 +138,33 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	{
 		string file = UtilString::ToStr(node->Attribute("file"));
 		step = new FileDownloader(file);
+	}
+	else if(nodeValue == "FileSystem")
+	{
+		string target = UtilString::ToStr(node->Attribute("target"));
+		string destination = UtilString::ToStr(node->Attribute("destination"), "");
+		string saction = UtilString::ToStr(node->Attribute("action"));
+		string stype = UtilString::ToStr(node->Attribute("type"));
+		bool recursive = UtilString::ToBool(node->Attribute("recursive"), false);
+		
+		FSTType type = FSTType_File;
+		FSTAction action = FSTAction_Move;
+		
+		if(stype == "file")
+			;
+		else if(stype == "folder")
+			type = FSTType_Folder;
+		else
+			throw Exception("Can't parse FSTType from \"" + stype + "\".", -1);
+			
+		if(saction == "move")
+			;
+		else if(saction == "copy")
+			action = FSTAction_Copy;
+		else if(saction == "delete")
+			action = FSTAction_Delete;
+			
+		return new FileSystemTask(target, action, type, destination, recursive);
 	}
 	else
 		throw Exception("This step doesn't exists", -1);

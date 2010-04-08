@@ -161,7 +161,7 @@ void TextAera::EnsureItems()
   
 	while(!txtStream.eof())
 	{
-		if((_textItems.size() + 1) * size > _height)
+		if(((s32)(_textItems.size() + 1) * size) > _height)
 			break;
 			
 		txtStream.getline(buffer, nbCharMax + 1);

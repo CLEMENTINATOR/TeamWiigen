@@ -30,7 +30,6 @@ private:
 	s32 _region;
 	u32 _runningIOS;
 	bool _hasNetwork;
-	bool _autoClean;
 
 	bool _uninstall;
 

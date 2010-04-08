@@ -201,3 +201,41 @@ bool Directory::IsEmpty(const string &name)
 
 	return empty;
 }
+
+void Directory::Copy(const std::string &name, const std::string &dest)
+{
+	string path = Path::CleanPath(name);
+	string cdest = Path::CleanPath(dest);
+	
+	Device::Mount(path);
+
+	if(Exists(path))
+	{
+		if(!Exists(cdest))
+			Create(cdest);
+			
+		vector<string> files = GetFiles(path);
+		vector<string> subDirectories = GetDirectories(path);
+
+		for(vector<string>::iterator file = files.begin(); file != files.end(); file++)
+		{
+			string destination = cdest + "/" + Path::GetFileName(*file);
+			File::Copy(*file, destination);
+		}
+
+		for(vector<string>::iterator dir = subDirectories.begin(); dir != subDirectories.end(); dir++)
+		{
+			string directoryName = dir->erase(0, cdest.size());
+			string destination = cdest + "/" + directoryName;
+			Directory::Copy(*dir, destination);
+		}
+	}
+
+	Device::UnMount(path);
+}
+
+void Directory::Move(const std::string &name, const std::string &dest)
+{
+	Directory::Copy(name, dest);
+	Directory::Delete(name);
+}

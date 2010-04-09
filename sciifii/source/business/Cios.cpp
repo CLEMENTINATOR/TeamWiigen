@@ -90,7 +90,12 @@ void Cios::Install()
 		for(vector<pluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 		{
 			Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
-			PluginPatch* plugPatch = new PluginPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);
+			PluginPatch* plugPatch = NULL;
+			
+			if(!plugin->replaceSection)
+				plugPatch = new PluginPatch(plug, plugin->offset, plugin->bss, plugin->moduleName);
+			else
+				plugPatch = new PluginPatch(plug, plugin->header, plugin->moduleName, plugin->segment);
 
 			for(vector<SimplePatch>::iterator handle = plugin->handles.begin(); handle != plugin->handles.end(); handle++)
 				plugPatch->DefineCommandHandle(*handle);

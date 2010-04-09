@@ -13,7 +13,9 @@ PluginPatch::PluginPatch(const Buffer& plugin, const u32 offset, const u32 bssNe
 	_plugin(plugin),
     _offset(offset),
     _bssNewSize(bssNewSize),
-    _commandHandles()
+    _commandHandles(),
+	_newProgramSection(NULL),
+	_replaceSection(0)
 {}
 
 PluginPatch::PluginPatch(const PluginPatch& patch)
@@ -21,23 +23,52 @@ PluginPatch::PluginPatch(const PluginPatch& patch)
 	_plugin(patch._plugin),
     _offset(patch._offset),
     _bssNewSize(patch._bssNewSize),
-    _commandHandles(patch._commandHandles)
-{}
+    _commandHandles(patch._commandHandles),
+	_newProgramSection(NULL),
+	_replaceSection(patch._replaceSection)
+{
+	if(patch._newProgramSection)
+	{
+		_newProgramSection = new Elf32_Phdr(*(patch._newProgramSection));
+	}
+}
+
+PluginPatch::PluginPatch(const Buffer& plugin, Elf32_Phdr newHeader , const std::string &module, u32 replaceSection)
+: Patch(module),
+  _plugin(plugin),
+  _offset(0),
+  _bssNewSize(0),
+  _commandHandles(),
+  _newProgramSection(NULL),
+  _replaceSection(replaceSection)
+{
+	_newProgramSection = new Elf32_Phdr(newHeader);
+}
 
 PluginPatch& PluginPatch::operator=(const PluginPatch& patch)
 {
   Patch::operator=(patch);
   
+  if(_newProgramSection)
+	delete _newProgramSection;
+	
   _plugin = patch._plugin;
   _offset = patch._offset;
   _bssNewSize = patch._bssNewSize;
   _commandHandles = patch._commandHandles;
+  _replaceSection = patch._replaceSection;
+  
+  if(patch._newProgramSection)
+	_newProgramSection = new Elf32_Phdr(*(patch._newProgramSection));
   
   return *this;
 }
 
 PluginPatch::~PluginPatch()
-{}
+{
+	if(_newProgramSection)
+		delete _newProgramSection;
+}
 
 void PluginPatch::DefineCommandHandle(SimplePatch handle)
 {
@@ -217,6 +248,65 @@ void PluginPatch::Plug(u32 segmentIndex, u32 bssSegmentIndex, u8* source, u8* de
 	}
 }
 
+void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
+{
+	Elf32_Ehdr* inHeader = (Elf32_Ehdr*)source;
+	Elf32_Ehdr* outHeader = (Elf32_Ehdr*)dest;
+
+	Elf32_Off outPos = 0;
+
+	//copy of elf header
+	memcpy(dest, source, inHeader->e_ehsize);
+	outPos += inHeader->e_ehsize;
+
+	//copy of pht
+	memcpy(dest + outPos, source + inHeader->e_phoff, inHeader->e_phnum * inHeader->e_phentsize);
+	outHeader->e_phoff = outPos;
+	outPos += inHeader->e_phnum * inHeader->e_phentsize;
+	
+	//create a new header
+	if(segmentIndex == 0)
+	{
+		memcpy(dest + outPos, _newProgramSection, sizeof(Elf32_Phdr));
+		inHeader->e_phnum = inHeader->e_phnum +1;
+		outPos += sizeof(Elf32_Phdr);
+	}
+
+	//copy of each sections, except the pht again
+	for(Elf32_Half phIndex = 0; phIndex < inHeader->e_phnum; phIndex++)
+	{
+		Elf32_Phdr* pHeader = (Elf32_Phdr*)(dest + outHeader->e_phoff + phIndex * outHeader->e_phentsize);
+
+		if(pHeader->p_type == PT_PHDR)
+		{
+			pHeader->p_offset = outHeader->e_phoff;
+			continue;
+		}
+		//if the header is redifined as PT_LOAD
+		else if(pHeader->p_type == PT_LOAD && pHeader->p_offset == inHeader->e_phoff)
+		{
+			pHeader->p_offset = outHeader->e_phoff;
+			continue;
+		}
+		else if(phIndex == segmentIndex)
+		{
+			*pHeader = *_newProgramSection;
+			pHeader->p_offset = outPos;
+			pHeader->p_filesz = _plugin.Length();
+			pHeader->p_memsz = pHeader->p_filesz;
+			
+			memcpy(dest + outPos, _plugin.Content(), pHeader->p_filesz);
+		}
+		else
+		{
+			memcpy(dest + outPos, source + pHeader->p_offset, pHeader->p_filesz);
+			pHeader->p_offset = outPos;
+		}
+
+		outPos += pHeader->p_filesz;
+	}
+}
+
 u32 PluginPatch::Patching(TitleEventArgs &processControl) const
 {
   //apply cmd handles
@@ -237,13 +327,21 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const
   }
 
   u32 modulesToSkip = FindIOSVersionIndex(processControl.buffer);
-  u32 plugedSegment = FindPlugedSegment(sourceElf, modulesToSkip);
   u32 bssSegment = FindBssSegment(sourceElf, modulesToSkip);
+  u32 plugedSegment = _replaceSection;
+  u64 newElfLength = GetElfSize(sourceElf);
   
-  //the fillSize is the space between the end of segment and the plugin
-  u32 fillSize = _offset - FindSegmentSize(sourceElf, plugedSegment);
-  u64 newElfLength = GetElfSize(sourceElf) + fillSize + _plugin.Length();
-
+  if(!_newProgramSection)
+	plugedSegment = FindPlugedSegment(sourceElf, modulesToSkip);
+	
+  //if replace section = 0 (newHeader is also != NULL), we create a new section
+  if(_replaceSection == 0)
+	newElfLength += sizeof(Elf32_Phdr);
+  else
+	newElfLength += (_offset - FindSegmentSize(sourceElf, plugedSegment));
+	
+  newElfLength += _plugin.Length();
+	
   if(arm)
 	  arm->size = newElfLength;
 
@@ -257,7 +355,11 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const
   {
 	if(arm)
 		memcpy(destElf, arm, armLength);
-	Plug(plugedSegment, bssSegment, sourceElf, destElf + armLength);
+	
+	if(!_newProgramSection)
+	  Plug(plugedSegment, bssSegment, sourceElf, destElf + armLength);
+	else
+	  Plug(bssSegment, sourceElf, destElf + armLength);
   }
   catch(Exception &ex)
   {

@@ -11,6 +11,7 @@
 #include "Installer.h"
 #include <libutils/Object.h>
 #include <libutils/system/SimplePatch.h>
+#include <libutils/elf_abi.h>
 #include <tinyxml.h>
 #include <vector>
 
@@ -23,6 +24,7 @@ public:
 	static void FillCiosCorpItems(Installer* corp, TiXmlElement* xml);
 	static void FillCiosPlugins(Installer* cios, TiXmlElement* xml);
 	static std::vector<SimplePatch> GetPluginHandles(TiXmlElement* xml);
+	static bool GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header);
 	static void FillCiosPatches(Installer* cios, TiXmlElement* xml);
 	static void FillCiosModules(Installer* cios, TiXmlElement* xml);
 	static Installer* CreateSystemUpdater(TiXmlElement* node);

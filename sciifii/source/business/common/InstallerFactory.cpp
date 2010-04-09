@@ -282,10 +282,15 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 
 			string dest = UtilString::ToStr(plugin->Attribute("dest"));
 			string file = UtilString::ToStr(plugin->Attribute("file"));
-			u32 offset = UtilString::ToU32(plugin->Attribute("offset"), nr_hex);
-			u32 bss = UtilString::ToU32(plugin->Attribute("bss"), nr_hex);
+			u32 offset = UtilString::ToU32(plugin->Attribute("offset"),0, nr_hex);
+			u32 bss = UtilString::ToU32(plugin->Attribute("bss"),0, nr_hex);
+			u32 segment = UtilString::ToU32(plugin->Attribute("segment"),0);
 			vector<SimplePatch> handles = GetPluginHandles(plugin);
-			((Cios*)cios)->AddPlugin((pluginDescriptor){ dest, file, offset, bss, handles });
+			
+			//get headers
+			Elf32_Phdr header;
+			bool hasHeader = GetPluginHeader(plugin, header);
+			((Cios*)cios)->AddPlugin((pluginDescriptor){ dest, file, offset, bss, handles, hasHeader, segment, header });
 		}
 		 plugin = plugin->NextSiblingElement();
 	}
@@ -300,37 +305,61 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 	{
 		if (handle->Type() != TiXmlElement::COMMENT)
 		{
-			if(UtilString::ToStr(handle->Value()) != "handle")
-				throw Exception("There can only be handle item in plugin", -1);
+			if(UtilString::ToStr(handle->Value()) == "handle")
+			{
+				Buffer pattern;
+				Buffer value;
+				vector<string> splitPattern = UtilString::Split(UtilString::ToStr(handle->Attribute("pattern")),',');
+				vector<string> splitValue = UtilString::Split(UtilString::ToStr(handle->Attribute("value")),',');
 
-            Buffer pattern;
-            Buffer value;
-            vector<string> splitPattern = UtilString::Split(UtilString::ToStr(handle->Attribute("pattern")),',');
-            vector<string> splitValue = UtilString::Split(UtilString::ToStr(handle->Attribute("value")),',');
+				for(u16 i = 0; i < splitPattern.size(); i++)
+				{
+				   vector<string> val = UtilString::Split(splitPattern[i], 'x');
+				   if(val.size() != 2)
+						throw Exception("Value length !=2",-1);
 
-            for(u16 i = 0; i < splitPattern.size(); i++)
-            {
-               vector<string> val = UtilString::Split(splitPattern[i], 'x');
-               if(val.size() != 2)
-                    throw Exception("Value length !=2",-1);
+				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+				   pattern.Append(&v, 1);
+				}
 
-               u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-               pattern.Append(&v, 1);
-            }
+				for(u16 i = 0; i < splitValue.size(); i++)
+				{
+				   vector<string> val = UtilString::Split(splitValue[i], 'x');
+				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+				   value.Append(&v, 1);
+				}
 
-            for(u16 i = 0; i < splitValue.size(); i++)
-            {
-               vector<string> val = UtilString::Split(splitValue[i], 'x');
-               u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-               value.Append(&v, 1);
-            }
-
-			patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length()));
+				patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length()));
+			}
 		}
 		handle = handle->NextSiblingElement();
 	}
 
 	return patches;
+}
+
+bool InstallerFactory::GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header)
+{
+	TiXmlElement* handle = xml->FirstChildElement();
+
+	while (handle != NULL)
+	{
+		if (handle->Type() != TiXmlElement::COMMENT)
+		{
+			if(UtilString::ToStr(handle->Value()) == "header")
+			{
+				header.p_type = UtilString::ToU32(handle->Attribute("type"));
+				header.p_vaddr = UtilString::ToU32(handle->Attribute("vaddr"), nr_hex); 
+				header.p_paddr = UtilString::ToU32(handle->Attribute("paddr"), nr_hex);
+				header.p_flags = UtilString::ToU32(handle->Attribute("flag"), nr_hex);
+				header.p_align = UtilString::ToU32(handle->Attribute("align"));
+				return true;
+			}
+		}
+		handle = handle->NextSiblingElement();
+	}
+	
+	return false;
 }
 
 void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)

@@ -20,6 +20,7 @@
 	<file key="GXDol" url="http://www.techjawa.com/usbloadergx/boot.dol" path="sd:/apps/usbloader_gx/boot.dol" />
 	<file key="GXmeta" url="http://www.techjawa.com/usbloadergx/meta.file" path="sd:/apps/usbloader_gx/meta.xml" />
 	<file key="GXicon" url="http://www.techjawa.com/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+	<file key="cmios_plugin.dat" url="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat" sha1="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat.sha" />
   </files>
 
   <modes>
@@ -46,6 +47,7 @@
     <TruchaRestorer option="TBR" id="36" revision="0" />
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
 	<Title option="TBR" id="000000010000000f" revision="0" action="Install" />
+	
 	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
 		<modules>
 			<module file="ehci_module.dat" position="3" />
@@ -87,6 +89,7 @@
 			<prebuild name="DIP_EnableDvdVideo" />
 		</patches>
 	</CiosInstaller>
+
 	<IOSReloader option="" id="249" user="0" />
 
 	<SystemUpdater option="update">
@@ -176,7 +179,6 @@
         <FileDownloader file="hacks.ini" />
 	</CompositeInstaller>
 
-
 	<CorpInstaller option="corp">
 		<modules>
 			<module type="ES" name="es14" file="es14.dat" />
@@ -211,6 +213,18 @@
 		</items>
 	</CorpInstaller>
 
+	<CiosInstaller option="corp" source="5" revision="10" slot="5" ciosRevision="10" >
+		<plugins>
+			<plugin dest="IOS" file="cmios_plugin.dat" segment="7">
+				<header type="1" vaddr="0x01000000" paddr="0x01000000" flag="0x00F00005" align="1" />
+				<handle name="cmios_handle" pattern="0x81, 0x30, 0x02, 0x00, 0x81, 0x32" value="0x81, 0x00, 0x00, 0x00, 0x81, 0x32" />
+			</plugin>
+		</plugins>
+		<patches>
+			<SimplePatch pattern="0x81, 0x30, 0x02, 0x00, 0x81, 0x32" value="0x81, 0x00, 0x00, 0x00, 0x81, 0x32" />
+		</patches>
+	</CiosInstaller>
+	
 	<CompositeInstaller option="GXLoader" name="LoaderGX">
 		<FileDownloader file="GXDol" />
 		<FileDownloader file="GXmeta" />

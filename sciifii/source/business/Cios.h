@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <libutils/system/SimplePatch.h>
+#include <libutils/elf_abi.h>
 
 #include "common/Installer.h"
 
@@ -22,6 +23,9 @@ typedef struct
 	u32 offset;
 	u32 bss;
 	std::vector<SimplePatch> handles;
+	bool replaceSection;
+	u32 segment;
+	Elf32_Phdr header;
 } pluginDescriptor;
 
 class Cios : public Installer

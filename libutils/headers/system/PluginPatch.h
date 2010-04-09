@@ -8,6 +8,7 @@
 #include "../events/TitleEventArgs.h"
 #include "Patch.h"
 #include "SimplePatch.h"
+#include "../elf_abi.h"
 
 /* ARM binary header structure */
 typedef struct {
@@ -24,6 +25,8 @@ private:
 	u32 _offset;
 	u32 _bssNewSize;
 	std::vector<SimplePatch> _commandHandles;
+	Elf32_Phdr* _newProgramSection;
+	u32 _replaceSection;
 
 	bool IsElf(u8* buffer) const;
 	u32 FindIOSVersionIndex(const Buffer& b) const;
@@ -32,6 +35,7 @@ private:
 	u32 FindSegmentSize(u8* elf, u32 segmentIndex) const;
 	u64 GetElfSize(const u8* elf) const;
 	void Plug(u32 segmentIndex, u32 bssSegmentIndex, u8* source, u8* dest) const;
+	void Plug(u32 segmentIndex, u8* source, u8* dest) const;
 	
 protected:
 	u32 Patching(TitleEventArgs &processControl) const;
@@ -39,6 +43,7 @@ protected:
 public:
 	
 	PluginPatch(const Buffer& plugin, const u32 offset, const u32 bssNewSize, const std::string &module);
+	PluginPatch(const Buffer& plugin, Elf32_Phdr newHeader , const std::string &module, u32 replaceSection = 0);
 	PluginPatch(const PluginPatch& patch);
 	~PluginPatch();
 	PluginPatch& operator=(const PluginPatch& patch);

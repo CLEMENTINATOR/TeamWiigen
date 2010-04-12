@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="3" MenuMessage="Choose an option : " AllowAdvancedMode="true" workingDirectory="sd:/sciifii/temp/">
+<sciifii version="3" MenuMessage="Choose an option : ">
 
   <files>
 	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
@@ -24,9 +24,9 @@
   </files>
 
   <modes>
-	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" flag="" />
-	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" flag="" />
-	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" flag="" />
+	<mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" />
+	<mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" />
+	<mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" />
 	<mode text="Unhack your wii" options="TBR|cIOS|update" flag="Uninstall" />
   </modes>
 
@@ -44,7 +44,16 @@
   <steps>
     <TitleDowngrader option="TBR" id="000000010000000f" revision="257" />
     <IOSReloader option="TBR" id="15" user="0"/>
-    <TruchaRestorer option="TBR" id="36" revision="0" />
+	
+	<CiosInstaller option="TBR" source="36" revision="0" slot="36" ciosRevision="65535">
+		<patches>
+			<prebuild name="ES_HashCheck_Old" />
+			<prebuild name="ES_HashCheck_New" />
+			<prebuild name="ES_Identify" />
+			<prebuild name="FFS_PermsCheck" />
+		</patches>
+	</CiosRevision>
+	
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
 	<Title option="TBR" id="000000010000000f" revision="0" action="Install" />
 	
@@ -237,13 +246,14 @@
 		<FileDownloader file="wiiflow.dol" />
 		<Title wad="wiiflow.wad" action="Install" />
 	</CompositeInstaller>
+
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
 	
 	<FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" />
   </steps>
 
-  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.
-  You may use this software at your own risk.
-  We take no responsibility for damage caused by Sciifii.  </Disclaimer>
+  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.\n
+  You may use this software at your own risk.\n
+  We take no responsibility for damage caused by Sciifii.\n  </Disclaimer>
 
 </sciifii>

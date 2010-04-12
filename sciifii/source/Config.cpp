@@ -62,8 +62,8 @@ void Config::Initialize()
         throw Exception("Config file version not supported", -1);
 
     c._menuMessage = root->Attribute("MenuMessage");
-    c._workingDirectory = root->Attribute("workingDirectory");
-    c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"));
+    c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");;
+    c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"), true);
     c._runningIOS=IOS_GetVersion();
     TiXmlElement* child = root->FirstChildElement();
 
@@ -140,7 +140,7 @@ void Config::CreateModeList(TiXmlElement* element)
 
             string text = child->Attribute("text");
             vector<string> optionList = UtilString::Split(UtilString::ToStr(child->Attribute("options")), '|');
-            string flag = child->Attribute("flag");
+            string flag = UtilString::ToStr(child->Attribute("flag"), "");
 
             mode* m = new mode();
             (*m) = (mode){optionList, text, flag};

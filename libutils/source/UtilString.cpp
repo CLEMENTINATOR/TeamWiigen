@@ -213,7 +213,7 @@ std::string UtilString::Replace(const std::string& source, const std::string& pa
   string temp = source;
   size_t found;
   
-  while((found = temp.find_first_of(pattern)) != string::npos)
+  while((found = temp.find(pattern)) != string::npos)
   {
 	temp = temp.replace(found, pattern.length(), value);
   }

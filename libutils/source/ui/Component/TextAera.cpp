@@ -172,6 +172,8 @@ void TextAera::EnsureItems()
 	}
 	
 	delete[] buffer;
+	
+	_invalidated = false;
   }
   catch(...)
   {

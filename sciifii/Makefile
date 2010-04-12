@@ -3,6 +3,8 @@
 #---------------------------------------------------------------------------------
 .SUFFIXES:
 #---------------------------------------------------------------------------------
+SystemName=$(shell uname)
+
 ifeq ($(strip $(DEVKITPPC)),)
 $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>devkitPPC")
 endif
@@ -116,8 +118,12 @@ run:
 #---------------------------------------------------------------------------------
 prepare:
 	@make -C ../libutils
+ifeq ($(SystemName),Darwin)
+	@rsync -q --exclude='_svn/' --exclude='.svn/'  ../libutils/headers include/libutils
+else
 	-@robocopy ../libutils/headers include/libutils //MIR //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
+endif
 	@cp ../libutils/libutils.a lib
 
 

@@ -120,7 +120,7 @@ prepare:
 	@make -C ../libutils
 	@echo $(SystemName)
 ifeq ($(SystemName),Darwin)
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libutils/headers include/libutils
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libutils/headers/ include/libutils
 else
 	-@robocopy ../libutils/headers include/libutils //MIR //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log

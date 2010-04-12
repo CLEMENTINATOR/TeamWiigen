@@ -33,8 +33,8 @@ static GXRModeObj *vmode;
 
 int mainUI(int argc, char **argv)
 {
-	FileLogger logger("sd:/sciifii.log");
-	Log::AddLogProvider(Log_All, &logger);
+	//FileLogger logger("sd:/sciifii.log");
+	//Log::AddLogProvider(Log_All, &logger);
     Config::Initialize();
     GraphicDisclaimer g;
     PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);

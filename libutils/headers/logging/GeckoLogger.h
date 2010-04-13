@@ -11,7 +11,7 @@ private:
 	void Write(const std::string& line);
 	bool initialised;
 public:
-	GeckoLogger(const std::string& filePath);
+	GeckoLogger();
 	~GeckoLogger();
 	void WriteError(const std::string& source, const std::string& message, s32 errorCode);
 	void WriteWarning(const std::string& source, const std::string& message, s32 warningCode);

@@ -52,7 +52,7 @@
 			<prebuild name="ES_Identify" />
 			<prebuild name="FFS_PermsCheck" />
 		</patches>
-	</CiosRevision>
+	</CiosInstaller>
 	
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
 	<Title option="TBR" id="000000010000000f" revision="0" action="Install" />

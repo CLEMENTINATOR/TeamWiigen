@@ -45,12 +45,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 			step = new IosReloader(id, ut);
 		}
 	}
-	else if(nodeValue == "TruchaRestorer")
-	{
-		u64 titleId = UtilString::ToU64(node->Attribute("id"));
-		u16 revision = UtilString::ToU16(node->Attribute("revision"));
-		step = new TruchaRestorer(titleId, revision);
-	}
 	else if(nodeValue == "Title")
 	{
 		u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
@@ -146,24 +140,24 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		string saction = UtilString::ToStr(node->Attribute("action"));
 		string stype = UtilString::ToStr(node->Attribute("type"));
 		bool recursive = UtilString::ToBool(node->Attribute("recursive"), false);
-		
+
 		FSTType type = FSTType_File;
 		FSTAction action = FSTAction_Move;
-		
+
 		if(stype == "file")
 			;
 		else if(stype == "folder")
 			type = FSTType_Folder;
 		else
 			throw Exception("Can't parse FSTType from \"" + stype + "\".", -1);
-			
+
 		if(saction == "move")
 			;
 		else if(saction == "copy")
 			action = FSTAction_Copy;
 		else if(saction == "delete")
 			action = FSTAction_Delete;
-			
+
 		return new FileSystemTask(target, action, type, destination, recursive);
 	}
 	else
@@ -286,7 +280,7 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 			u32 bss = UtilString::ToU32(plugin->Attribute("bss"),0, nr_hex);
 			u32 segment = UtilString::ToU32(plugin->Attribute("segment"),0);
 			vector<SimplePatch> handles = GetPluginHandles(plugin);
-			
+
 			//get headers
 			Elf32_Phdr header;
 			bool hasHeader = GetPluginHeader(plugin, header);
@@ -349,7 +343,7 @@ bool InstallerFactory::GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header)
 			if(UtilString::ToStr(handle->Value()) == "header")
 			{
 				header.p_type = UtilString::ToU32(handle->Attribute("type"));
-				header.p_vaddr = UtilString::ToU32(handle->Attribute("vaddr"), nr_hex); 
+				header.p_vaddr = UtilString::ToU32(handle->Attribute("vaddr"), nr_hex);
 				header.p_paddr = UtilString::ToU32(handle->Attribute("paddr"), nr_hex);
 				header.p_flags = UtilString::ToU32(handle->Attribute("flag"), nr_hex);
 				header.p_align = UtilString::ToU32(handle->Attribute("align"));
@@ -358,7 +352,7 @@ bool InstallerFactory::GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header)
 		}
 		handle = handle->NextSiblingElement();
 	}
-	
+
 	return false;
 }
 

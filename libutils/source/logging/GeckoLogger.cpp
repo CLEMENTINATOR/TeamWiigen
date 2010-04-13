@@ -3,8 +3,10 @@
 #include <sstream>
 
 using namespace std;
-
-GeckoLogger::GeckoLogger(const std::string& filePath)
+/**
+*\brief Constructor
+*/
+GeckoLogger::GeckoLogger()
 {
 	u32 geckoattached = usb_isgeckoalive(EXI_CHANNEL_1);
 	if (geckoattached)
@@ -15,7 +17,9 @@ GeckoLogger::GeckoLogger(const std::string& filePath)
 	}
 	initialised= false;
 }
-
+/**
+*\brief Destructor
+*/
 GeckoLogger::~GeckoLogger()
 {
 }

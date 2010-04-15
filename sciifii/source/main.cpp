@@ -21,7 +21,7 @@
 #include <libutils/logging/FileLogger.h>
 #include <libutils/logging/Log.h>
 
-#define USE_ADVANCED_UI
+//#define USE_ADVANCED_UI
 
 using namespace std;
 using namespace UI;

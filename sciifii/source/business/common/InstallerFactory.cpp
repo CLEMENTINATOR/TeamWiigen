@@ -1,7 +1,6 @@
 #include "InstallerFactory.h"
 #include "../TitleDowngrader.h"
 #include "../IOSReloader.h"
-#include "../TruchaRestorer.h"
 #include "../TitleStep.h"
 #include "../CiosCorp.h"
 #include "../Cios.h"
@@ -15,6 +14,7 @@
 #include <libutils/exception/Exception.h>
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
+#include <libutils/system/Title.h>
 
 #include <string>
 

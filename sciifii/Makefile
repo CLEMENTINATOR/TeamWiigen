@@ -118,7 +118,6 @@ run:
 #---------------------------------------------------------------------------------
 prepare:
 	@make -C ../libutils
-	@echo $(SystemName)
 ifeq ($(SystemName),Darwin)
 	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libutils/headers/ include/libutils
 else

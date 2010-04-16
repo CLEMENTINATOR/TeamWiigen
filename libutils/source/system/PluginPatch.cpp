@@ -334,8 +334,8 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const
   if(!_newProgramSection)
 	plugedSegment = FindPlugedSegment(sourceElf, modulesToSkip);
 	
-  //if replace section = 0 (newHeader is also != NULL), we create a new section
-  if(_replaceSection == 0)
+  //if replace section = 0 and newHeader  != NULL, we create a new section
+  if(_newProgramSection && _replaceSection == 0)
 	newElfLength += sizeof(Elf32_Phdr);
   else
 	newElfLength += (_offset - FindSegmentSize(sourceElf, plugedSegment));
@@ -346,13 +346,12 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const
 	  arm->size = newElfLength;
 
   u8* destElf = (u8*)malloc(TITLE_ROUND_UP(newElfLength + armLength, 64));
-  memset(destElf, 0 , TITLE_ROUND_UP(newElfLength + armLength, 64));
-  
   if(!destElf)
     throw Exception("Not enough memory!", -1);
 	
   try
   {
+	memset(destElf, 0 , TITLE_ROUND_UP(newElfLength + armLength, 64));
 	if(arm)
 		memcpy(destElf, arm, armLength);
 	

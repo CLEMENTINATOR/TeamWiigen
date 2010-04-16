@@ -102,39 +102,39 @@
 	<IOSReloader option="" id="249" user="0" />
 
 	<SystemUpdater option="update">
-		<title id="0000000100000004" revision="65280" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000009" revision="778" onlyUninstallation="false" region="-1" />
-		<title id="000000010000000a" revision="768" onlyUninstallation="false" region="-1" />
-		<title id="000000010000000b" revision="256" onlyUninstallation="false" region="-1" />
-		<title id="000000010000000c" revision="269" onlyUninstallation="false" region="-1" />
-		<title id="000000010000000d" revision="273" onlyUninstallation="false" region="-1" />
-		<title id="000000010000000e" revision="520" onlyUninstallation="false" region="-1" />
-		<title id="000000010000000f" revision="523" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000010" revision="512" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000011" revision="775" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000014" revision="256" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000015" revision="782" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000016" revision="1037" onlyUninstallation="false" region="-1" />
-		<title id="000000010000001c" revision="1550" onlyUninstallation="false" region="-1" />
-		<title id="000000010000001f" revision="3349" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000021" revision="3091" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000022" revision="3348" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000023" revision="3349" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000024" revision="3351" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000025" revision="3869" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000026" revision="3867" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000029" revision="3348" onlyUninstallation="false" region="-1" />
-		<title id="000000010000002B" revision="3348" onlyUninstallation="false" region="-1" />
-		<title id="000000010000002D" revision="3348" onlyUninstallation="false" region="-1" />
-		<title id="000000010000002E" revision="3350" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000033" revision="4864" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000034" revision="5888" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000035" revision="5406" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000037" revision="5406" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000038" revision="5405" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000039" revision="5661" onlyUninstallation="false" region="-1" />
-		<title id="000000010000003d" revision="5405" onlyUninstallation="false" region="-1" />
-		<title id="0000000100000046" revision="6687" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000004" revision="65280" onlyUninstallation="false" />
+		<title id="0000000100000009" revision="778" onlyUninstallation="false" />
+		<title id="000000010000000a" revision="768" onlyUninstallation="false" />
+		<title id="000000010000000b" revision="256" onlyUninstallation="false" />
+		<title id="000000010000000c" revision="269" onlyUninstallation="false" />
+		<title id="000000010000000d" revision="273" onlyUninstallation="false" />
+		<title id="000000010000000e" revision="520" onlyUninstallation="false" />
+		<title id="000000010000000f" revision="523" onlyUninstallation="false" />
+		<title id="0000000100000010" revision="512" onlyUninstallation="false" />
+		<title id="0000000100000011" revision="775" onlyUninstallation="false" />
+		<title id="0000000100000014" revision="256" onlyUninstallation="false" />
+		<title id="0000000100000015" revision="782" onlyUninstallation="false" />
+		<title id="0000000100000016" revision="1037" onlyUninstallation="false" />
+		<title id="000000010000001c" revision="1550" onlyUninstallation="false" />
+		<title id="000000010000001f" revision="3349" onlyUninstallation="false" />
+		<title id="0000000100000021" revision="3091" onlyUninstallation="false" />
+		<title id="0000000100000022" revision="3348" onlyUninstallation="false" />
+		<title id="0000000100000023" revision="3349" onlyUninstallation="false" />
+		<title id="0000000100000024" revision="3351" onlyUninstallation="false" />
+		<title id="0000000100000025" revision="3869" onlyUninstallation="false" />
+		<title id="0000000100000026" revision="3867" onlyUninstallation="false" />
+		<title id="0000000100000029" revision="3348" onlyUninstallation="false" />
+		<title id="000000010000002B" revision="3348" onlyUninstallation="false" />
+		<title id="000000010000002D" revision="3348" onlyUninstallation="false" />
+		<title id="000000010000002E" revision="3350" onlyUninstallation="false" />
+		<title id="0000000100000033" revision="4864" onlyUninstallation="false" />
+		<title id="0000000100000034" revision="5888" onlyUninstallation="false" />
+		<title id="0000000100000035" revision="5406" onlyUninstallation="false" />
+		<title id="0000000100000037" revision="5406" onlyUninstallation="false" />
+		<title id="0000000100000038" revision="5405" onlyUninstallation="false" />
+		<title id="0000000100000039" revision="5661" onlyUninstallation="false" />
+		<title id="000000010000003d" revision="5405" onlyUninstallation="false" />
+		<title id="0000000100000046" revision="6687" onlyUninstallation="false" />
 		<!-- SysMenu-->
 		<!-- Region:
 			  JAP: 0
@@ -147,18 +147,18 @@
 		<title id="0000000100000002" revision="482" onlyUninstallation="false" region="2" />
 		<title id="0000000100000002" revision="486" onlyUninstallation="false" region="4" />
 
-		<title id="0000000100000032" revision="5120" onlyUninstallation="false" region="-1" />
-		<title slot="0000000100000046" id="000000010000003c" revision="6174" onlyUninstallation="false" region="-1" />
-		<title id="000000010000001e" revision="2816" onlyUninstallation="false" region="-1" />
+		<title id="0000000100000032" revision="5120" onlyUninstallation="false" />
+		<title slot="0000000100000046" id="000000010000003c" revision="6174" onlyUninstallation="false" />
+		<title id="000000010000001e" revision="2816" onlyUninstallation="false" />
 
 		<!-- other ioses -->
-		<title id="000000010000003c" revision="6400" onlyUninstallation="false" region="-1" /> <!-- Stub 60 -->
-		<title id="0000000100000100" revision="6" onlyUninstallation="false" region="-1" /> <!-- MIOS -->
-		<title id="0000000100000101" revision="10" onlyUninstallation="false" region="-1" /> <!-- BC -->
+		<title id="000000010000003c" revision="6400" onlyUninstallation="false" /> <!-- Stub 60 -->
+		<title id="0000000100000100" revision="6" onlyUninstallation="false" /> <!-- MIOS -->
+		<title id="0000000100000101" revision="10" onlyUninstallation="false" /> <!-- BC -->
 
 		<!-- Channels -->
-		<title id="0001000248414141" revision="2" onlyUninstallation="false" region="-1" /> <!-- Photo -->
-		<title id="0001000248414341" revision="6" onlyUninstallation="false" region="-1" /> <!-- Mii channel-->
+		<title id="0001000248414141" revision="2" onlyUninstallation="false" /> <!-- Photo -->
+		<title id="0001000248414341" revision="6" onlyUninstallation="false" /> <!-- Mii channel-->
 		<title id="0001000248414241" revision="18" onlyUninstallation="false" region="0" /> <!-- Shop channel -->
 		<title id="0001000248414241" revision="18" onlyUninstallation="false" region="1" />
 		<title id="0001000248414241" revision="18" onlyUninstallation="false" region="2" />
@@ -176,11 +176,11 @@
 		<!--title id="0001000248414741" revision="0007" onlyUninstallation="false" region="4" /-->
 
 		<!-- Stubs -->
-		<title id="00000001000000fe" revision="260" onlyUninstallation="true" region="-1" />
-		<title id="00000001000000de" revision="65280" onlyUninstallation="true" region="-1" />
-		<title id="00000001000000df" revision="65280" onlyUninstallation="true" region="-1" />
-		<title id="00000001000000fa" revision="65280" onlyUninstallation="true" region="-1" />
-		<title id="00000001000000f9" revision="65280" onlyUninstallation="true" region="-1" />
+		<title id="00000001000000fe" revision="260" onlyUninstallation="true" />
+		<title id="00000001000000de" revision="65280" onlyUninstallation="true" />
+		<title id="00000001000000df" revision="65280" onlyUninstallation="true" />
+		<title id="00000001000000fa" revision="65280" onlyUninstallation="true" />
+		<title id="00000001000000f9" revision="65280" onlyUninstallation="true" />
 	</SystemUpdater>
 
     <CompositeInstaller option="Preloader" name="Preloader">
@@ -249,7 +249,7 @@
 
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
 	
-	<FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" />
+	<FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>
 
   <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.\n

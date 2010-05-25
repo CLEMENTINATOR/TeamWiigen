@@ -32,15 +32,6 @@ bool Config::HasNetwork()
     return Instance()._hasNetwork;
 }
 
-u32 Config::RunningIOS()
-{
-    return Instance()._runningIOS;
-}
-void  Config::SetRunningIOS(u32 id)
-{
-    Instance()._runningIOS=id;
-}
-
 string Config::WorkingDirectory()
 {
     return Instance()._workingDirectory;
@@ -64,7 +55,6 @@ void Config::Initialize()
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");;
     c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"), true);
-    c._runningIOS=IOS_GetVersion();
     TiXmlElement* child = root->FirstChildElement();
 
     if (child == NULL)

@@ -84,7 +84,8 @@ protected:
 
 public:
 	static void ReloadIOS(u32 ios);
-    	void SaveDecryptedContent(const std::string& dirPath);
+	static u32 GetRunningIOS();
+    void SaveDecryptedContent(const std::string& dirPath);
 	Title(bool automaticCleaning = true);
 	void LoadFromWad(const std::string& file, const std::string& tempFolder = "sd:/tmp");
 	void LoadFromNand(u64 titleId, const std::string& tempFolder = "sd:/tmp");

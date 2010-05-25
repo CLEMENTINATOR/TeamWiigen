@@ -28,7 +28,6 @@ class Config : public Object
 {
 private:
 	s32 _region;
-	u32 _runningIOS;
 	bool _hasNetwork;
 
 	bool _uninstall;
@@ -56,14 +55,11 @@ public:
 	static void ApplyMode(const mode& m);
 	static void ValidateOptions();
 	static u32 GetRegion();
-	static void SetRunningIOS(u32 id);
-
 
 	static bool IsFlagDefined(const std::string& flag);
 	static std::string WorkingDirectory();
 	static bool HasNetwork();
 	static bool AutoClean();
-	static u32 RunningIOS();
 	static std::vector<mode*> Modes();
 	static std::vector<option*> Options();
 	static std::vector<Installer*> Steps();

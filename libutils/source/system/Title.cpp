@@ -24,6 +24,7 @@ using namespace std;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
 
+static u32 _runningIos = 0;
 
 /*!
  * \brief Constructor
@@ -1327,8 +1328,22 @@ void Title::SaveDecryptedContent(const string& dirPath)
 */
 void Title::ReloadIOS(u32 ios)
 {
-	Device::EnsureShutdown();
-	usleep(50000);
-	IOS_ReloadIOS(ios);
-    usleep(50000);
+	s32 ret = 0;
+	if(GetRunningIOS() != ios)
+	{
+		Device::EnsureShutdown();
+		usleep(50000);
+		if((ret = IOS_ReloadIOS(ios)) < 0)
+			throw Exception("Can't reload ios" + ios, ret);
+		usleep(50000);
+		_runningIos = ios;
+	}
+}
+
+u32 Title::GetRunningIOS()
+{
+	if(_runningIos == 0)
+		_runningIos = IOS_GetVersion();
+	
+	return _runningIos;
 }

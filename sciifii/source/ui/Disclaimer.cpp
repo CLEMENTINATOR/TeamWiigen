@@ -1,3 +1,4 @@
+#include <libutils/system/Title.h>
 #include "Disclaimer.h"
 #include "../Config.h"
 #include <iostream>
@@ -19,7 +20,7 @@ void Disclaimer::Show()
 
 
 	s32 region = CONF_GetRegion();
-	cout<<"Current running IOS : "<<Config::RunningIOS()<<endl;
+	cout<< "Current running IOS : " << Title::GetRunningIOS() << endl;
 	cout << "Detected wii region: ";
 
 	switch(region)  //channels

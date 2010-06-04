@@ -55,7 +55,7 @@
 	</CiosInstaller>
 	
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
-	<Title option="TBR" id="000000010000000f" revision="0" action="Install" />
+	<Title option="TBR" id="000000010000000f" revision="0" action="install" />
 	
 	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
 		<modules>
@@ -195,30 +195,30 @@
 			<module type="DIP" name="dip14" file="dip14.dat" />
 		</modules>
 		<items>
-			<corpItem slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000000b" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip14"  identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13"  identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip14"  identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000026" source="0000000100000026" revision="3610" modules="dip14|es14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<corpItem slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
-			<corpItem slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<corpItem slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000000b" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip14"  identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13"  identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip14"  identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000026" source="0000000100000026" revision="3610" modules="dip14|es14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
+			<item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 		</items>
 	</CorpInstaller>
 
@@ -238,13 +238,13 @@
 		<FileDownloader file="GXDol" />
 		<FileDownloader file="GXmeta" />
 		<FileDownloader file="GXicon" />
-		<Title wad="GXForwarder" action="Install" />
+		<Title wad="GXForwarder" action="install" />
 	</CompositeInstaller>
 
 
 	<CompositeInstaller option="wiiflow" name="Wiiflow">
 		<FileDownloader file="wiiflow.dol" />
-		<Title wad="wiiflow.wad" action="Install" />
+		<Title wad="wiiflow.wad" action="install" />
 	</CompositeInstaller>
 
 	<WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />

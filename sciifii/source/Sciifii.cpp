@@ -78,7 +78,7 @@ void Sciifii::Execute()
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
-		(*ite)->Install();
+		//(*ite)->Install();
 		if(hasDisplayed)
 		{
 			cout << endl;

@@ -2,14 +2,13 @@
 #define _GECKO_LOGGER_H_
 
 #include "../Object.h"
-#include "../fs/File.h"
 #include "ILogProvider.h"
 
 class GeckoLogger : public Object, public ILogProvider
 {
 private:
 	void Write(const std::string& line);
-	bool initialised;
+	static void Initialize();
 public:
 	GeckoLogger();
 	~GeckoLogger();

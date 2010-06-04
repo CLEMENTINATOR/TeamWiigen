@@ -38,7 +38,7 @@ void Log::Write(LogStatus status, const std::string& source, const std::string& 
 	for(map<LogStatus, vector<ILogProvider*>*>::iterator ite = Current()._logs.begin(); ite != Current()._logs.end(); ite++)
 	{
 		if((ite->first & status) > 0)
-			for(vector<ILogProvider*>::iterator lite = ite->second->begin(); lite != ite->second->end(); ite++)
+			for(vector<ILogProvider*>::iterator lite = ite->second->begin(); lite != ite->second->end(); lite++)
 			{
 				if((ite->first & Log_Error) == Log_Error)
 					(*lite)->WriteError(source, message, code);

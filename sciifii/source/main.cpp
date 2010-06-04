@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <unistd.h>
 
-#include <libutils/logging/FileLogger.h>
+#include <libutils/logging/GeckoLogger.h>
 #include <libutils/logging/Log.h>
 
 //#define USE_ADVANCED_UI
@@ -33,8 +33,6 @@ static GXRModeObj *vmode;
 
 int mainUI(int argc, char **argv)
 {
-	//FileLogger logger("sd:/sciifii.log");
-	//Log::AddLogProvider(Log_All, &logger);
     Config::Initialize();
     GraphicDisclaimer g;
     PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
@@ -67,8 +65,7 @@ int mainText(int argc, char **argv)
     VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);
 
     WPAD_Init();
-
-
+	
     try
     {
         Config::Initialize();
@@ -134,6 +131,8 @@ int mainText(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+	//GeckoLogger logger;
+	//Log::AddLogProvider(Log_All, &logger);
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

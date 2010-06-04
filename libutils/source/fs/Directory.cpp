@@ -202,10 +202,16 @@ bool Directory::IsEmpty(const string &name)
 	return empty;
 }
 
-void Directory::Copy(const std::string &name, const std::string &dest)
+void Directory::Copy(const string &name, const string &dest, bool recursive)
 {
 	string path = Path::CleanPath(name);
-	string cdest = Path::CleanPath(dest);
+	string cdest = "";
+	
+	//create the directory?
+	if(name.c_str()[name.size() - 1] == '/' && recursive)
+		cdest = Path::CleanPath(dest + "/" + Path::GetDirectoryName(name));
+	else
+		cdest = Path::CleanPath(dest);
 	
 	Device::Mount(path);
 
@@ -223,19 +229,22 @@ void Directory::Copy(const std::string &name, const std::string &dest)
 			File::Copy(*file, destination);
 		}
 
-		for(vector<string>::iterator dir = subDirectories.begin(); dir != subDirectories.end(); dir++)
+		if(recursive)
 		{
-			string directoryName = dir->erase(0, cdest.size());
-			string destination = cdest + "/" + directoryName;
-			Directory::Copy(*dir, destination);
+			for(vector<string>::iterator dir = subDirectories.begin(); dir != subDirectories.end(); dir++)
+			{
+				string directoryName = Path::GetDirectoryName(*dir);
+				string destination = cdest + "/" + directoryName;
+				Directory::Copy(*dir, destination);
+			}
 		}
 	}
 
 	Device::UnMount(path);
 }
 
-void Directory::Move(const std::string &name, const std::string &dest)
+void Directory::Move(const string &name, const string &dest)
 {
-	Directory::Copy(name, dest);
-	Directory::Delete(name);
+	Directory::Copy(name, dest, true);
+	Directory::Delete(name, true);
 }

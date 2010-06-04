@@ -11,8 +11,6 @@
 #include <libutils/UtilString.h>
 #include <ogc/conf.h>
 
-#include <libutils/logging/Log.h>
-
 using namespace std;
 
 Config::Config()

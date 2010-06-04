@@ -222,7 +222,7 @@
 		</items>
 	</CorpInstaller>
 
-	<CiosInstaller option="corp" source="5" revision="10" slot="5" ciosRevision="10" >
+	<CiosInstaller option="corp" source="257" revision="10" slot="257" ciosRevision="10" >
 		<plugins>
 			<plugin dest="IOS" file="cmios_plugin.dat" segment="7">
 				<header type="1" vaddr="0x01000000" paddr="0x01000000" flag="0x00F00005" align="1" />

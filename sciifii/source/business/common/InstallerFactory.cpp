@@ -52,17 +52,17 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
         string file = UtilString::ToStr(node->Attribute("wad"),"");
         string path = UtilString::ToStr(node->Attribute("path"),"");
         TitleAction action;
-        string choice = UtilString::ToStr(node->Attribute("action"),"Install");
+        string choice = UtilString::ToStr(node->Attribute("action"),"install");
 
-		if(choice == "Install")
+		if(choice == "install")
 			action = ti_Install;
-		else if(choice == "Uninstall")
+		else if(choice == "uninstall")
 			action = ti_Uninstall;
-		else if (choice == "Pack")
+		else if (choice == "pack")
 		    action = ti_PackAsWad;
-		else if (choice == "Extract")
+		else if (choice == "extract")
 		    action = ti_Extract;
-        else if (choice=="Decrypt")
+        else if (choice=="decrypt")
             action = ti_Decrypt;
         else
 			throw Exception("Can't parse WadAction enum from xml!", -1);
@@ -158,7 +158,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		else if(saction == "delete")
 			action = FSTAction_Delete;
 
-		return new FileSystemTask(target, action, type, destination, recursive);
+		step = new FileSystemTask(target, action, type, destination, recursive);
 	}
 	else
 		throw Exception("This step doesn't exists", -1);
@@ -179,7 +179,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 
     TiXmlElement* section = node->FirstChildElement();
-	while (section != NULL)
+	while (section != NULL)	
 	{
 		if (section->Type() != TiXmlElement::COMMENT)
 		{
@@ -363,7 +363,7 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            if (UtilString::ToStr(child->Value()) != "corpItem")
+            if (UtilString::ToStr(child->Value()) != "item")
                 throw Exception("CorpItem child node is invalid", -1);
 
             u64 slot = UtilString::ToU64(child->Attribute("slot"),nr_hex);

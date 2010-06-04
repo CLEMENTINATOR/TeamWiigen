@@ -17,6 +17,7 @@ public:
 	static std::string GetRootName(const std::string &path);
 	static std::string GetParentDirectory(const std::string &path);
 	static std::string GetFileName(const std::string &path);
+	static std::string GetDirectoryName(const std::string &path);
 	static std::string GetFileNameWithoutExtension(const std::string &path);
 	static std::string GetFileExtension(const std::string &path);
 	static std::string CleanPath(const std::string &path);

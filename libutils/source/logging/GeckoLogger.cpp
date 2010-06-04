@@ -1,6 +1,7 @@
-#include <logging/FileLogger.h>
+#include <gccore.h>
 #include <logging/GeckoLogger.h>
 #include <sstream>
+#include <exception/Exception.h>
 
 using namespace std;
 /**
@@ -8,14 +9,22 @@ using namespace std;
 */
 GeckoLogger::GeckoLogger()
 {
-	u32 geckoattached = usb_isgeckoalive(EXI_CHANNEL_1);
-	if (geckoattached)
+	GeckoLogger::Initialize();
+}
+
+void GeckoLogger::Initialize()
+{
+	static bool initialised = false;
+	if(!initialised)
 	{
-		usb_flush(EXI_CHANNEL_1);
-		initialised= true;
-		return;
+		if(usb_isgeckoalive(EXI_CHANNEL_1))
+		{
+			usb_flush(EXI_CHANNEL_1);
+			initialised= true;
+		}
+		else
+			throw Exception("Pb with gecko!", -1);
 	}
-	initialised= false;
 }
 /**
 *\brief Destructor
@@ -47,6 +56,6 @@ void GeckoLogger::WriteInfo(const std::string& source, const std::string& messag
 
 void GeckoLogger::Write( const std::string& text )
 {
-	if (!(initialised))return;
-	usb_sendbuffer_safe( 1, text.c_str(), text.size() );
+	string sendText(text + "\n");
+	usb_sendbuffer_safe( 1, sendText.c_str(), sendText.size() + 1 );
 }

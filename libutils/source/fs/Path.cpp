@@ -77,6 +77,24 @@ string Path::GetFileName(const string &path)
 	return path.substr(slashPosition + 1, string::npos);
 }
 
+string Path::GetDirectoryName(const string &path)
+{
+	u32 slashPosition = path.find_last_of('/');
+
+	if(slashPosition == string::npos)
+		return "";
+
+	// On retire le dernier slash si besoin
+	string workingRepresentation = path;
+	if(slashPosition == path.length() - 1)
+		workingRepresentation.erase(path.size() - 1);
+		
+	if(GetRootName(workingRepresentation) + ":" == workingRepresentation)
+		return "";
+		
+	return workingRepresentation.substr(slashPosition + 1, string::npos);
+}
+
 /*!
  * \brief Get the file name without extension of the given path
  * \param path A file path

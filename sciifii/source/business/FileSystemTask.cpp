@@ -35,7 +35,7 @@ void FileSystemTask::Install()
 		if(_type == FSTType_File)
 			File::Copy(_target, _destination);
 		else
-			Directory::Copy(_target, _destination);
+			Directory::Copy(_target, _destination, _recursive);
 	}
 	else if(_action == FSTAction_Move)
 	{

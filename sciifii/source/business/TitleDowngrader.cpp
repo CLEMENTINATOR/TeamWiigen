@@ -35,7 +35,7 @@ bool TitleDowngrader::Prepare()
       Title ios;
 
       stringstream downloadMessage;
-      downloadMessage << "Downloading title " <<hex<< _id << dec<< " from NUS.";
+      downloadMessage << "Downloading title " <<hex<<setfill('0') << setw(16) << _id << dec<< " from NUS.";
       OnProgress(downloadMessage.str(), 0);
       ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
@@ -50,7 +50,7 @@ bool TitleDowngrader::Prepare()
       Title ios;
 
       stringstream downloadMessage;
-      downloadMessage << "Downloading title " << hex<< _id << dec<< "v" << _neededRevision << " from NUS.";
+      downloadMessage << "Downloading title " << hex<<setfill('0') << setw(16)<< _id << dec<< "v" << _neededRevision << " from NUS.";
       OnProgress(downloadMessage.str(), 0.5);
       ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
 

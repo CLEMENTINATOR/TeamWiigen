@@ -36,6 +36,7 @@
 	<option name="update" text="Update your wii to 4.2" />
 	<option name="Preloader" text="Install the preloader" />
     <option name="corp" text="Install the corp cioses" />
+    <option name="cmios" text="Install the cmios" />
     <option name="GXLoader" text="Install the USB LoaderGX" />
 	<option name="wiiflow" text="Install Wiiflow" />
 	<option name="clean" text="Clean temp files on exit" />
@@ -222,7 +223,7 @@
 		</items>
 	</CorpInstaller>
 
-	<CiosInstaller option="corp" source="257" revision="10" slot="257" ciosRevision="10" >
+	<CiosInstaller option="cmios" source="257" revision="10" slot="257" ciosRevision="10" >
 		<plugins>
 			<plugin dest="IOS" file="cmios_plugin.dat" segment="7">
 				<header type="1" vaddr="0x01000000" paddr="0x01000000" flag="0x00F00005" align="1" />

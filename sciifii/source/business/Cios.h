@@ -12,7 +12,7 @@
 
 typedef struct
 {
-	std::string name;
+	std::string file;
 	s32 position;
 } customModule;
 

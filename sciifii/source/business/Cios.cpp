@@ -66,7 +66,7 @@ bool Cios::Prepare()
 
 	for(vector<customModule>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
 	{
-        FileManager::Download(ite->name);
+        FileManager::Download(ite->file);
 	}
 
     OnProgress("cIOS preparation done !", 1);
@@ -89,7 +89,7 @@ void Cios::Install()
 
 		for(vector<pluginDescriptor>::iterator plugin = _plugins.begin(); plugin != _plugins.end(); plugin++)
 		{
-			Buffer plug = File::ReadToEnd(Config::WorkingDirectory() + "/" + plugin->moduleName + "_plugin.dat");
+			Buffer plug = FileManager::GetFile(plugin->file);
 			PluginPatch* plugPatch = NULL;
 			
 			if(!plugin->replaceSection)
@@ -106,7 +106,7 @@ void Cios::Install()
 
         for(vector<customModule>::iterator module = _modules.begin(); module != _modules.end(); module++)
 		{
-			Buffer bmod = FileManager::GetFile(module->name);
+			Buffer bmod = FileManager::GetFile(module->file);
 			TitleModule tmodule(bmod, module->position);
 			cios.AddModule(tmodule);
 		}

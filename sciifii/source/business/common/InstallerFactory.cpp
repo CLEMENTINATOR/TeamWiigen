@@ -210,9 +210,9 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
 			if(UtilString::ToStr(module->Value()) != "module")
 				throw Exception("There can only be module item in modules", -1);
 
-			string name = UtilString::ToStr(module->Attribute("file"));
+			string file = UtilString::ToStr(module->Attribute("file"));
             s32 position = UtilString::ToS32(module->Attribute("position"), -1);
-            ((Cios*)cios)->AddModule((customModule){name, position});
+            ((Cios*)cios)->AddModule((customModule){file, position});
         }
         module = module->NextSiblingElement();
     }

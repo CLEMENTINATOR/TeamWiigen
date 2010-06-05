@@ -16,10 +16,10 @@
     <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
 	<file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
 	<file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
-	<file key="GXForwarder" url="http://www.techjawa.com/usbloadergx/ULNR.file" path="sd:/sciifii/temp/LoaderGX.wad" />
-	<file key="GXDol" url="http://www.techjawa.com/usbloadergx/boot.dol" path="sd:/apps/usbloader_gx/boot.dol" />
-	<file key="GXmeta" url="http://www.techjawa.com/usbloadergx/meta.file" path="sd:/apps/usbloader_gx/meta.xml" />
-	<file key="GXicon" url="http://www.techjawa.com/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+	<file key="GXForwarder" url="http://teamwiigen.fr.cr/appfiles/r937.wad" path="sd:/sciifii/temp/LoaderGX.wad" />
+	<file key="GXDol" url="http://teamwiigen.fr.cr/appfiles/r937.dol" path="sd:/apps/usbloader_gx/boot.dol" />
+	<file key="GXmeta" url="http://teamwiigen.fr.cr/appfiles/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+	<file key="GXicon" url="http://teamwiigen.fr.cr/appfiles/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
 	<file key="cmios_plugin.dat" url="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat" sha1="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat.sha" />
   </files>
 

@@ -45,7 +45,7 @@ bool TitleStep::Prepare()
     }
   else  /*  Si tid */
     {
-      if (_action!=ti_Uninstall)
+      if (_action!=ti_Uninstall&& action!=ti_Extract)
         {
           stringstream wad;
           wad << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,_revision);

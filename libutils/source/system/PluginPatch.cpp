@@ -285,6 +285,12 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 		//if the header is redifined as PT_LOAD
 		else if(pHeader->p_type == PT_LOAD && pHeader->p_offset == inHeader->e_phoff)
 		{
+			//if new segment, we add 20 to the header table size
+			if(segmentIndex == 0)
+			{
+				pHeader->p_filesz = pHeader->p_filesz + 20;
+				pHeader->p_memsz = pHeader->p_filesz;
+			}
 			pHeader->p_offset = outHeader->e_phoff;
 			continue;
 		}
@@ -358,7 +364,7 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const
 	if(!_newProgramSection)
 	  Plug(plugedSegment, bssSegment, sourceElf, destElf + armLength);
 	else
-	  Plug(bssSegment, sourceElf, destElf + armLength);
+	  Plug(plugedSegment, sourceElf, destElf + armLength);
   }
   catch(Exception &ex)
   {

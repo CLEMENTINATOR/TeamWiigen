@@ -225,7 +225,7 @@
 
 	<CiosInstaller option="cmios" source="257" revision="8" slot="257" ciosRevision="8" >
 		<plugins>
-			<plugin dest="IOS" file="cmios_plugin.dat" segment="7">
+			<plugin dest="IOS" file="cmios_plugin.dat">
 				<header type="1" vaddr="0x01000000" paddr="0x01000000" flag="0x00F00005" align="1" />
 				<handle name="cmios_handle" pattern="0x81, 0x30, 0x02, 0x00, 0x81, 0x32" value="0x81, 0x00, 0x00, 0x00, 0x81, 0x32" />
 			</plugin>
@@ -234,8 +234,6 @@
 			<SimplePatch pattern="0x23, 0x80, 0x03, 0x9b, 0x43, 0x1a" value="0x23, 0x80, 0x03, 0x9b, 0x43, 0x9a" />
 		</patches>
 	</CiosInstaller>
-	<Title option="cmios" id="0000000100000101"  action="extract" />
-
 	
 	<CompositeInstaller option="GXLoader" name="LoaderGX">
 		<FileDownloader file="GXDol" />

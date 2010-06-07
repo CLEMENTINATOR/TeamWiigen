@@ -234,6 +234,8 @@
 			<SimplePatch pattern="0x23, 0x80, 0x03, 0x9b, 0x43, 0x1a" value="0x23, 0x80, 0x03, 0x9b, 0x43, 0x9a" />
 		</patches>
 	</CiosInstaller>
+	<Title option="cmios" id="0000000100000101"  action="extract" />
+
 	
 	<CompositeInstaller option="GXLoader" name="LoaderGX">
 		<FileDownloader file="GXDol" />

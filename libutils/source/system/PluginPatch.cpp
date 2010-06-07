@@ -43,6 +43,8 @@ PluginPatch::PluginPatch(const Buffer& plugin, Elf32_Phdr newHeader , const std:
   _replaceSection(replaceSection)
 {
 	_newProgramSection = new Elf32_Phdr(newHeader);
+	_newProgramSection->p_filesz = _plugin.Length();
+	_newProgramSection->p_memsz =_newProgramSection->p_filesz;
 }
 
 PluginPatch& PluginPatch::operator=(const PluginPatch& patch)
@@ -253,7 +255,6 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 	Elf32_Ehdr* inHeader = (Elf32_Ehdr*)source;
 	Elf32_Ehdr* outHeader = (Elf32_Ehdr*)dest;
 	Elf32_Off outPos = 0;
-	bool newSegment = (segmentIndex == 0);
 
 	//copy of elf header
 	memcpy(dest, source, inHeader->e_ehsize);
@@ -265,13 +266,11 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 	outPos += inHeader->e_phnum * inHeader->e_phentsize;
 	
 	//create a new header
-	if(newSegment)
+	if(segmentIndex == 0)
 	{
 		memcpy(dest + outPos, _newProgramSection, sizeof(Elf32_Phdr));
 		outHeader->e_phnum = inHeader->e_phnum +1;
 		outPos += sizeof(Elf32_Phdr);
-		//set the segmentIndex to the created section
-		segmentIndex = outHeader->e_phnum - 1;
 	}
 
 	//copy of each sections, except the pht again
@@ -288,7 +287,7 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 		else if(pHeader->p_type == PT_LOAD && pHeader->p_offset == inHeader->e_phoff)
 		{
 			//if new segment, we add 20 to the header table size
-			if(newSegment)
+			if(segmentIndex == 0)
 			{
 				pHeader->p_filesz = pHeader->p_filesz + 0x20;
 				pHeader->p_memsz = pHeader->p_filesz;

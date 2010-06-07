@@ -10,7 +10,7 @@ using namespace std;
 /**
 *\brief Constructor
 *\param titleId The title id
-*\param fileName The file you want to download ( ex : tmd,cetk,000000c ect..)
+*\param fileName The file you want to download ( ex : tmd,cetk,0000000c ect..)
 **/
 NusServer::NusServer(u64 titleId, const string &fileName)
   : NetworkRequest()

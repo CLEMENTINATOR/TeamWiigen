@@ -2,7 +2,10 @@
 #include <sstream>
 
 using namespace std;
-
+/**
+ *\brief Constructor,Open the file when you want to log data
+ * \param filePath The log file path
+ */
 FileLogger::FileLogger(const std::string& filePath)
 {
 	if(File::Exists(filePath))
@@ -10,13 +13,18 @@ FileLogger::FileLogger(const std::string& filePath)
 		
 	_logFile = &(File::Create(filePath));
 }
-
+/**
+ *\brief Destructor, Close the log file handle
+ */
 FileLogger::~FileLogger()
 {
 	_logFile->Close();
 	delete _logFile;
 }
-
+/**
+ * \brief Write a string to the log file
+ * \param line The string you want to write in
+ */
 void FileLogger::Write(const std::string& line)
 {
 	string endLine = "\n";

@@ -1339,7 +1339,10 @@ void Title::ReloadIOS(u32 ios)
 		_runningIos = ios;
 	}
 }
-
+/**
+ *\brief get the actual running ios
+ *\return The ios number
+ */
 u32 Title::GetRunningIOS()
 {
 	if(_runningIos == 0)

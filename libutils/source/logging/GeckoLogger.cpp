@@ -11,7 +11,9 @@ GeckoLogger::GeckoLogger()
 {
 	GeckoLogger::Initialize();
 }
-
+/**
+ * \brief Initialise a gecko log
+ */
 void GeckoLogger::Initialize()
 {
 	static bool initialised = false;
@@ -53,7 +55,10 @@ void GeckoLogger::WriteInfo(const std::string& source, const std::string& messag
 	formatedMessage << "Info " << infoCode << " (" << source << "): " << message;
 	Write(formatedMessage.str());
 }
-
+/**
+ *\brief Write a text to gecko output
+ *\param text The text to write
+ */
 void GeckoLogger::Write( const std::string& text )
 {
 	string sendText(text + "\n");

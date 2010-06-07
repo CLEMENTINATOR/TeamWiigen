@@ -268,8 +268,10 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 	if(segmentIndex == 0)
 	{
 		memcpy(dest + outPos, _newProgramSection, sizeof(Elf32_Phdr));
-		inHeader->e_phnum = inHeader->e_phnum +1;
+		outHeader->e_phnum = inHeader->e_phnum +1;
 		outPos += sizeof(Elf32_Phdr);
+		//set the segmentIndex to the created section
+		segmentIndex = outHeader->e_phnum - 1;
 	}
 
 	//copy of each sections, except the pht again

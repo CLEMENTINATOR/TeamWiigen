@@ -290,7 +290,7 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 			//if new segment, we add 20 to the header table size
 			if(newSegment)
 			{
-				pHeader->p_filesz = pHeader->p_filesz + 20;
+				pHeader->p_filesz = pHeader->p_filesz + 0x20;
 				pHeader->p_memsz = pHeader->p_filesz;
 			}
 			pHeader->p_offset = outHeader->e_phoff;

@@ -5,13 +5,13 @@
 
 enum VPadButtons
 {
-	vpb_Up,
-	vpb_Down,
-	vpb_Left,
-	vpb_Right,
-	vpb_Ok,
-	vpb_Cancel,
-	vpb_Exit,
+	vpb_Up = 1,
+	vpb_Down = 2,
+	vpb_Left = 4,
+	vpb_Right = 8,
+	vpb_Ok = 16,
+	vpb_Cancel = 32,
+	vpb_Exit = 64,
 };
 
 enum VPadChan

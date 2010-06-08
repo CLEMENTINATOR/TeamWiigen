@@ -4,7 +4,7 @@
 #include "../Config.h"
 #include <iostream>
 #include <iomanip>
-#include <wiiuse/wpad.h>
+#include "VirtualPad.h"
 
 using namespace std;
 
@@ -58,21 +58,21 @@ MainMenuResult MainMenu::Show()
     {
         Display();
         u32 command = GetCommand();
-        if (command & WPAD_BUTTON_DOWN)
+        if (command & vpb_Down)
         {
             cursorPosition++;
             if (cursorPosition >= nbItems)
                 cursorPosition = nbItems - 1;
         }
-        else if (command & WPAD_BUTTON_UP)
+        else if (command & vpb_Up)
         {
             cursorPosition--;
             if (cursorPosition >= nbItems)
                 cursorPosition = 0;
         }
-        else if (command & WPAD_BUTTON_A)
+        else if (command & vpb_Ok)
 			return ManageConfig(cursorPosition);
-        else if (command & WPAD_BUTTON_B)
+        else if (command & vpb_Cancel)
             cursorPosition = nbItems - 1;
     }
 }

@@ -65,6 +65,7 @@ int mainText(int argc, char **argv)
     VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);
 
     WPAD_Init();
+	PAD_Init();
 	
     try
     {

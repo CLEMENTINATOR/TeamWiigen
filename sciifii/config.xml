@@ -9,9 +9,8 @@
 	<file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
 	<file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
 	<file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
-	<file key="es14.dat" url="http://teamwiigen.fr.cr/appfiles/es14.dat" sha1="http://teamwiigen.fr.cr/appfiles/es14.dat.sha" />
+	<file key="es14.dat" url="http://teamwiigen.fr.cr/appfiles/es17.dat" sha1="http://teamwiigen.fr.cr/appfiles/es17.dat.sha" />
 	<file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
-	<file key="dip14.dat" url="http://teamwiigen.fr.cr/appfiles/dip14.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip14.dat.sha" />
 	<file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
 	<file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
     <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
@@ -192,34 +191,33 @@
 
 	<CorpInstaller option="corp">
 		<modules>
-			<module type="ES" name="es14" file="es14.dat" />
+			<module type="ES" name="es17" file="es17.dat" />
 			<module type="DIP" name="dip13" file="dip13.dat" />
-			<module type="DIP" name="dip14" file="dip14.dat" />
-			<module type="DIP" name="dip14" file="dip17.dat" />
+			<module type="DIP" name="dip17" file="dip17.dat" />
 		</modules>
 		<items>
 			<item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 			<item slot="000000010000000b" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
 			<item slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
 			<item slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-			<item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip14"  identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip17"  identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
 			<item slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13"  identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
-			<item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip14"  identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000026" source="0000000100000026" revision="3610" modules="dip14|es14" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
+			<item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip17"  identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000026" source="0000000100000026" revision="3610" modules="dip17|es17" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
 			<item slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
 			<item slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 			<item slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-			<item slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip14"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
+			<item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
+			<item slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
 			<item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 			<item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
 		</items>

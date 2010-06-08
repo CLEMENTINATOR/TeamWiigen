@@ -12,6 +12,7 @@
 	<file key="es14.dat" url="http://teamwiigen.fr.cr/appfiles/es14.dat" sha1="http://teamwiigen.fr.cr/appfiles/es14.dat.sha" />
 	<file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
 	<file key="dip14.dat" url="http://teamwiigen.fr.cr/appfiles/dip14.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip14.dat.sha" />
+	<file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
 	<file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
     <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
 	<file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
@@ -194,6 +195,7 @@
 			<module type="ES" name="es14" file="es14.dat" />
 			<module type="DIP" name="dip13" file="dip13.dat" />
 			<module type="DIP" name="dip14" file="dip14.dat" />
+			<module type="DIP" name="dip14" file="dip17.dat" />
 		</modules>
 		<items>
 			<item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />

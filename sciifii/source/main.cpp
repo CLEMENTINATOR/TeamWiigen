@@ -68,10 +68,12 @@ int mainText(int argc, char **argv)
 
     WPAD_Init();
 	PAD_Init();
-	
+	/*FileLogger l("sd:/log");
+	Log::AddLogProvider(Log_Info,&l);
+	Log::WriteLog(Log_Info,"lolwut",0);*/
     try
     {
-    	/*Log::WriteLog(Log_Info,"test",0);*/
+
         Config::Initialize();
     }
     catch (Exception &ex)
@@ -82,6 +84,8 @@ int mainText(int argc, char **argv)
         Pause();
         return 0;
     }
+
+
 
     MainMenu menu;
     MainMenuResult result = menu.Show();
@@ -125,18 +129,15 @@ int mainText(int argc, char **argv)
         cout << "Unexpected Exception!" << endl
         << "Press A to reboot the wii and relaunch sciifii.";
     }
-	
+    /*Log::WriteLog(Log_Info,"lolwut2",1);*/
     WPAD_Init();
     Pause();
-    //STM_RebootSystem();
 	return 0;
 }
 
 
 int main(int argc, char **argv)
 {
-/*FileLogger l("sd:/log.test");
-Log::AddLogProvider(Log_Info,&l);*/
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

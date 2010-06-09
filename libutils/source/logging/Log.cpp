@@ -10,6 +10,7 @@ Log::Log()
 	_logs.insert(make_pair(Log_Error, new vector<ILogProvider*>()));
 	_logs.insert(make_pair(Log_Warning, new vector<ILogProvider*>()));
 	_logs.insert(make_pair(Log_Info, new vector<ILogProvider*>()));
+	_hasLog = false;
 }
 /**
  *\brief Destructor
@@ -44,6 +45,8 @@ void Log::AddLogProvider(LogStatus status, ILogProvider* logger)
 	
 	if((status & Log_Info) == Log_Info)
 		Current()._logs.find(Log_Info)->second->push_back(logger);
+		
+	_hasLog = true;
 }
 /**
  *\brief Write to logs
@@ -54,6 +57,9 @@ void Log::AddLogProvider(LogStatus status, ILogProvider* logger)
  */
 void Log::Write(LogStatus status, const std::string& source, const std::string& message, s32 code)
 {
+	if(!_hasLog)
+		return;
+		
 	for(map<LogStatus, vector<ILogProvider*>*>::iterator ite = Current()._logs.begin(); ite != Current()._logs.end(); ite++)
 	{
 		if((ite->first & status) > 0)

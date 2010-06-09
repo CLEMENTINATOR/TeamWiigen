@@ -6,27 +6,46 @@ using namespace std;
  *\brief Constructor,Open the file when you want to log data
  * \param filePath The log file path
  */
-FileLogger::FileLogger(const std::string& filePath)
+FileLogger::FileLogger(const std::string& filePath):_filePath(filePath)
 {
 	if(File::Exists(filePath))
 		File::Delete(filePath);
-		
+		paused=false;
 	_logFile = &(File::Create(filePath));
+
+	FileLogger::Pause();
 }
 /**
  *\brief Destructor, Close the log file handle
  */
 FileLogger::~FileLogger()
 {
+	if(!paused)
+		{
+		_logFile->Close();
+		delete _logFile;
+		}
+}
+void FileLogger::Start()
+{
+		_logFile = &(File::Open(_filePath,FileMode_Write));
+		ILogProvider::Start();
+}
+void FileLogger::Pause()
+{
+	if(paused) return;
 	_logFile->Close();
 	delete _logFile;
+	ILogProvider::Pause();
 }
+
 /**
  * \brief Write a string to the log file
  * \param line The string you want to write in
  */
 void FileLogger::Write(const std::string& line)
 {
+	if(paused) FileLogger::Start();
 	string endLine = "\n";
 	
 	Buffer message(line.c_str(), line.length());

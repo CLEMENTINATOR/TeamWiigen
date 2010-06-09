@@ -6,8 +6,6 @@
 #include <fs/File.h>
 #include <ui/Resources/ThemeManager.hpp>
 
-#include <logging/Log.h>
-
 using namespace UI::Resources;
 using namespace std;
 

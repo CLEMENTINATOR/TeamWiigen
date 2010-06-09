@@ -29,6 +29,7 @@ private:
 	std::map<LogStatus, std::vector<ILogProvider*>*> _logs;
 	
 public:
+	static void Pause();
 	static void AddLogProvider(LogStatus status, ILogProvider* logger);
 	static void Write(LogStatus status, const std::string& message, s32 code,int line,const char* file);
 };

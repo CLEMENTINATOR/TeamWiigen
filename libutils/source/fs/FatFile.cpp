@@ -35,7 +35,7 @@ FatFile& FatFile::Open(const string &fileName, const string &mode)
 
 	FILE *fd = fopen(fileName.c_str(),mode.c_str());
 	if(!fd)
-		throw Exception("Error opening file!",-1);
+		throw Exception("Error opening file : " + fileName,-1);
 
 	return *(new FatFile(fd, fileName));
 }

@@ -11,9 +11,7 @@ FileLogger::FileLogger(const std::string& filePath):_filePath(filePath)
 	if(File::Exists(filePath))
 		File::Delete(filePath);
 		paused=false;
-	_logFile = &(File::Create(filePath));
-
-	FileLogger::Pause();
+	Pause();
 }
 /**
  *\brief Destructor, Close the log file handle
@@ -28,15 +26,16 @@ FileLogger::~FileLogger()
 }
 void FileLogger::Start()
 {
+	if(!File::Exists(_filePath)) _logFile = &(File::Create(_filePath));
 		_logFile = &(File::Open(_filePath,FileMode_Write));
-		ILogProvider::Start();
+		paused=false;
 }
 void FileLogger::Pause()
 {
 	if(paused) return;
 	_logFile->Close();
 	delete _logFile;
-	ILogProvider::Pause();
+	paused=true;
 }
 
 /**
@@ -45,7 +44,7 @@ void FileLogger::Pause()
  */
 void FileLogger::Write(const std::string& line)
 {
-	if(paused) FileLogger::Start();
+	if(paused) Start();
 	string endLine = "\n";
 	
 	Buffer message(line.c_str(), line.length());

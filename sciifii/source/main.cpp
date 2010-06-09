@@ -19,6 +19,8 @@
 #include <unistd.h>
 
 #include <libutils/logging/GeckoLogger.h>
+#include <libutils/logging/FileLogger.h>
+
 #include <libutils/logging/Log.h>
 
 //#define USE_ADVANCED_UI
@@ -69,6 +71,7 @@ int mainText(int argc, char **argv)
 	
     try
     {
+    	/*Log::WriteLog(Log_Info,"test",0);*/
         Config::Initialize();
     }
     catch (Exception &ex)
@@ -77,21 +80,21 @@ int mainText(int argc, char **argv)
         << ex.GetMessage() << "\x1b[37m" << endl
         << "Press A to reboot the wii and relaunch sciifii.";
         Pause();
-        STM_RebootSystem();
+        return 0;
     }
 
     MainMenu menu;
     MainMenuResult result = menu.Show();
 
     if (result == mmResult_Exit)
-        STM_RebootSystem();
+       return 0;
 
     if (result == mmResult_Advanced)
     {
         AdvancedMenu aMenu;
         AdvancedMenuResult aresult = aMenu.Show();
         if (aresult == amResult_Exit)
-            STM_RebootSystem();
+           return 0;
     }
 
     Config::ValidateOptions();
@@ -125,15 +128,15 @@ int mainText(int argc, char **argv)
 	
     WPAD_Init();
     Pause();
-    STM_RebootSystem();
+    //STM_RebootSystem();
 	return 0;
 }
 
 
 int main(int argc, char **argv)
 {
-	//GeckoLogger logger;
-	//Log::AddLogProvider(Log_All, &logger);
+/*FileLogger l("sd:/log.test");
+Log::AddLogProvider(Log_Info,&l);*/
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

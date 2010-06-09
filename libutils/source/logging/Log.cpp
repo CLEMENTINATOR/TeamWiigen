@@ -55,7 +55,7 @@ void Log::AddLogProvider(LogStatus status, ILogProvider* logger)
  *\param message The message to write
  *\param code The message code(could be an error code etc ..)
  */
-void Log::Write(LogStatus status, const std::string& source, const std::string& message, s32 code)
+void Log::Write(LogStatus status, const std::string& message, s32 code,int line,const char* file)
 {
 	if(!Current()._hasLog)
 		return;
@@ -66,13 +66,14 @@ void Log::Write(LogStatus status, const std::string& source, const std::string& 
 			for(vector<ILogProvider*>::iterator lite = ite->second->begin(); lite != ite->second->end(); lite++)
 			{
 				if((ite->first & Log_Error) == Log_Error)
-					(*lite)->WriteError(source, message, code);
+					(*lite)->WriteError( message, code,line,file);
 					
 				if((ite->first & Log_Warning) == Log_Warning)
-					(*lite)->WriteWarning(source, message, code);
+					(*lite)->WriteWarning( message, code,line,file);
 				
 				if((ite->first & Log_Info) == Log_Info)
-					(*lite)->WriteInfo(source, message, code);
+					(*lite)->WriteInfo( message, code,line,file);
 			}
 	}
 }
+

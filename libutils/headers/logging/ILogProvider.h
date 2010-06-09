@@ -8,9 +8,9 @@ class ILogProvider
 {
 public:
 	virtual ~ILogProvider() = 0;
-	virtual void WriteError(const std::string& source, const std::string& message, s32 errorCode) = 0;
-	virtual void WriteWarning(const std::string& source, const std::string& message, s32 warningCode) = 0;
-	virtual void WriteInfo(const std::string& source, const std::string& message, s32 infoCode) = 0;
+	virtual void WriteError( const std::string& message, s32 errorCode,int line,const char* file) = 0;
+	virtual void WriteWarning( const std::string& message, s32 warningCode,int line,const char* file) = 0;
+	virtual void WriteInfo( const std::string& message, s32 infoCode,int line,const char* file) = 0;
 };
 
 #endif

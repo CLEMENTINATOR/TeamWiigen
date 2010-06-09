@@ -35,24 +35,24 @@ GeckoLogger::~GeckoLogger()
 {
 }
 
-void GeckoLogger::WriteError(const std::string& source, const std::string& message, s32 errorCode)
+void GeckoLogger::WriteError( const std::string& message, s32 errorCode,int line,const char* file)
 {
 	stringstream formatedMessage;
-	formatedMessage << "Error " << errorCode << " (" << source << "): " << message;
+	formatedMessage << "Error " << errorCode << " (" << file << " line : "<<line <<"): " << message;
 	Write(formatedMessage.str());
 }
 
-void GeckoLogger::WriteWarning(const std::string& source, const std::string& message, s32 warningCode)
+void GeckoLogger::WriteWarning( const std::string& message, s32 warningCode,int line,const char* file)
 {
 	stringstream formatedMessage;
-	formatedMessage << "Warning " << warningCode << " (" << source << "): " << message;
+	formatedMessage << "Warning "<< " (" << file << " line : "<<line <<"): " << message;
 	Write(formatedMessage.str());
 }
 
-void GeckoLogger::WriteInfo(const std::string& source, const std::string& message, s32 infoCode)
+void GeckoLogger::WriteInfo( const std::string& message, s32 infoCode,int line,const char* file)
 {
     stringstream formatedMessage;
-	formatedMessage << "Info " << infoCode << " (" << source << "): " << message;
+	formatedMessage << "Info " << " (" << file << " line : "<<line <<"): " << message;
 	Write(formatedMessage.str());
 }
 /**

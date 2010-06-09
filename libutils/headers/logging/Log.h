@@ -15,6 +15,7 @@ typedef enum
 	Log_Warning = 2,
 	Log_Info = 4,
 } LogStatus;
+#define WriteLog(status,message,code) Write(status,message,code, __LINE__ , __FILE__ )
 
 class Log : public Object
 {
@@ -29,7 +30,6 @@ private:
 	
 public:
 	static void AddLogProvider(LogStatus status, ILogProvider* logger);
-	static void Write(LogStatus status, const std::string& source, const std::string& message, s32 code); 
+	static void Write(LogStatus status, const std::string& message, s32 code,int line,const char* file);
 };
-
 #endif

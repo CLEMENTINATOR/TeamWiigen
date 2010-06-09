@@ -32,3 +32,15 @@ u32 VPAD_ButtonsDown(u32 chan)
 	
 	return buttonsDown;
 }
+
+void VPAD_Init()
+{
+	WPAD_Init();
+	PAD_Init();
+}
+
+void VPAD_Shutdown()
+{
+	//PAD_Shutdown();
+	WPAD_Shutdown();
+}

@@ -24,6 +24,8 @@ enum VPadChan
 
 void VPAD_ScanPads();
 u32 VPAD_ButtonsDown(u32 chan);
+void VPAD_Init();
+void VPAD_Shutdown();
 
 
 #endif

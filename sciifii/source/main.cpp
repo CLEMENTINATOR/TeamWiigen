@@ -6,7 +6,6 @@
 #include <libutils/fs/Directory.h>
 #include <iostream>
 
-#include <wiiuse/wpad.h>
 #include "Tools.h"
 #include "Sciifii.h"
 #include "Config.h"
@@ -14,6 +13,7 @@
 #include "ui/AdvancedMenu.h"
 #include "ui/Disclaimer.h"
 #include "ui/GraphicDisclaimer.h"
+#include "ui/VirtualPad.h"
 
 #include <cstdlib>
 #include <unistd.h>
@@ -66,14 +66,12 @@ int mainText(int argc, char **argv)
     CON_InitEx(vmode, x, y, w, h);
     VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);
 
-    WPAD_Init();
-	PAD_Init();
+    VPAD_Init();
 	/*FileLogger l("sd:/log");
 	Log::AddLogProvider(Log_Info,&l);
 	Log::WriteLog(Log_Info,"lolwut",0);*/
     try
     {
-
         Config::Initialize();
     }
     catch (Exception &ex)
@@ -104,12 +102,11 @@ int mainText(int argc, char **argv)
     Config::ValidateOptions();
 
     Disclaimer::Show();
-    WPAD_Shutdown();
+    VPAD_Shutdown();
 
     try
     {
         Sciifii sci;
-        WPAD_Shutdown();
         if (sci.Prepare())
         {
             sci.Execute();
@@ -130,7 +127,7 @@ int mainText(int argc, char **argv)
         << "Press A to reboot the wii and relaunch sciifii.";
     }
     /*Log::WriteLog(Log_Info,"lolwut2",1);*/
-    WPAD_Init();
+    VPAD_Init();
     Pause();
 	return 0;
 }

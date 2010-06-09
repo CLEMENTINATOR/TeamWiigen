@@ -10,7 +10,7 @@ class FileLogger : public Object, public ILogProvider
 private:
 	File* _logFile;
 	std::string _filePath;
-	
+	bool paused;
 	void Write(const std::string& line);
 public:
 	FileLogger(const std::string& filePath);

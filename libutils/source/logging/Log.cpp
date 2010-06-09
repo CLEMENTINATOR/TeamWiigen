@@ -20,6 +20,24 @@ Log::~Log()
 	for(map<LogStatus, vector<ILogProvider*>*>::iterator ite = _logs.begin(); ite != _logs.end(); ite++)
 		delete ite->second;
 }
+
+
+
+void Log::Pause()
+{
+
+	if(!Current()._hasLog)
+		return;
+	for(map<LogStatus, vector<ILogProvider*>*>::iterator ite = Current()._logs.begin(); ite != Current()._logs.end(); ite++)
+	{
+			for(vector<ILogProvider*>::iterator lite = ite->second->begin(); lite != ite->second->end(); lite++)
+			{
+				(*lite)->Pause();
+			}
+	}
+
+}
+
 /**
  * \brief Return the current log system
  * \return The log system

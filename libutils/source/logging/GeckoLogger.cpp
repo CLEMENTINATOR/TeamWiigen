@@ -11,6 +11,7 @@ GeckoLogger::GeckoLogger()
 {
 	GeckoLogger::Initialize();
 }
+
 /**
  * \brief Initialise a gecko log
  */
@@ -61,6 +62,7 @@ void GeckoLogger::WriteInfo( const std::string& message, s32 infoCode,int line,c
  */
 void GeckoLogger::Write( const std::string& text )
 {
+	if(paused) Start();
 	string sendText(text + "\n");
 	usb_sendbuffer_safe( 1, sendText.c_str(), sendText.size() + 1 );
 }

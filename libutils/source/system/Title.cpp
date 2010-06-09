@@ -6,7 +6,7 @@
 #include <ogcsys.h>
 #include <iostream>
 #include <cstdio>
-
+#include <logging/Log.h>
 #include <exception/Exception.h>
 #include <exception/AbortException.h>
 #include <fs/Directory.h>
@@ -1331,6 +1331,7 @@ void Title::ReloadIOS(u32 ios)
 	s32 ret = 0;
 	if(GetRunningIOS() != ios)
 	{
+		Log::Pause();
 		Device::EnsureShutdown();
 		usleep(50000);
 		if((ret = IOS_ReloadIOS(ios)) < 0)

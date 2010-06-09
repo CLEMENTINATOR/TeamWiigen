@@ -10,8 +10,8 @@ FileLogger::FileLogger(const std::string& filePath):_filePath(filePath)
 {
 	if(File::Exists(filePath))
 		File::Delete(filePath);
-		paused=false;
-	Pause();
+		paused=true;
+
 }
 /**
  *\brief Destructor, Close the log file handle
@@ -26,6 +26,8 @@ FileLogger::~FileLogger()
 }
 void FileLogger::Start()
 {
+	if(! paused)return;
+
 	if(!File::Exists(_filePath)) _logFile = &(File::Create(_filePath));
 		_logFile = &(File::Open(_filePath,FileMode_Write));
 		paused=false;

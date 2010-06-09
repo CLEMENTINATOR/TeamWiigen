@@ -13,16 +13,14 @@ typedef enum
 {
 	Log_Error = 1,
 	Log_Warning = 2,
-	Log_ErrorAndWarning = 3,
 	Log_Info = 4,
-	Log_InfoAndError = 5,
-	Log_InfoAndWarning = 6,
-	Log_All = 7,
 } LogStatus;
 
 class Log : public Object
 {
 private:
+	bool _hasLog;
+	
 	Log();
 	~Log();
 	static Log& Current();

@@ -46,7 +46,7 @@ void Log::AddLogProvider(LogStatus status, ILogProvider* logger)
 	if((status & Log_Info) == Log_Info)
 		Current()._logs.find(Log_Info)->second->push_back(logger);
 		
-	_hasLog = true;
+	Current()._hasLog = true;
 }
 /**
  *\brief Write to logs
@@ -57,7 +57,7 @@ void Log::AddLogProvider(LogStatus status, ILogProvider* logger)
  */
 void Log::Write(LogStatus status, const std::string& source, const std::string& message, s32 code)
 {
-	if(!_hasLog)
+	if(!Current()._hasLog)
 		return;
 		
 	for(map<LogStatus, vector<ILogProvider*>*>::iterator ite = Current()._logs.begin(); ite != Current()._logs.end(); ite++)

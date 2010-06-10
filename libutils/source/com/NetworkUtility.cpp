@@ -40,9 +40,11 @@ string NetworkUtility::GetIp(void)
 		if (ret < 0)
 			throw Exception("Error initialising network !",ret);
 
+    Current()._hostIp = string(hostip);
 		initialized = true;
 	}
-	return string(hostip);
+  
+	return Current()._hostIp;
 }
 
 

@@ -93,7 +93,17 @@ u32 HttpRequest::GetResponseLength()
 	char buf[1024], request[256];
 
 	s32 ret;
-
+  
+  stringstream fullPath;
+  fullPath << _path;
+  
+  if(!_params.empty())
+  {
+    fullPath << "?";
+    for(map<string, string>::iterator ite = _params.begin(); ite != _params.end(); ++ite )
+      fullPath << NetworkUtility::URLEncode(ite->first) << "=" << NetworkUtility::URLEncode(ite->second);
+  }
+  
 	/* Generate HTTP request */
 	sprintf(request, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", _path.c_str(),_hostName.c_str());
 
@@ -245,15 +255,17 @@ Buffer HttpRequest::GetResponse(const Buffer& sha)
 */
 Buffer HttpRequest::GetResponse(const std::string& shaUrl)
 {
-    if(shaUrl!="")
-    {
-	HttpRequest sha(shaUrl);
-	Buffer bsha = sha.GetResponse();
-	return GetResponse(bsha);
-    }
-    else
-    {
-    return GetResponse();
-    }
+  if(shaUrl != "")
+  {
+    HttpRequest sha(shaUrl);
+    Buffer bsha = sha.GetResponse();
+    return GetResponse(bsha);
+  }
+  
+  return GetResponse();
+}
 
+void HttpRequest::AddParameter(const string& key, const string& value)
+{
+  _params[key] = value;
 }

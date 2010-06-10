@@ -15,10 +15,10 @@ public:
 	NetworkUtility();
 	virtual ~NetworkUtility();
 	static std::string GetIp(void);
-	NetworkUtility &Current();
-	std::string URLEncode(std::string s);
+	static NetworkUtility &Current();
+	static std::string URLEncode(std::string s);
 private :
-
+  std::string _hostIp;
 };
 
 #endif /* NETWORKUTILITY_H_ */

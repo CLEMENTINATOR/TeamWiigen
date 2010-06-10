@@ -88,51 +88,55 @@ void Config::Initialize()
 
     delete &doc;
 }
+
 void Config::CreateLogs(TiXmlElement* element)
 {
-	TiXmlElement* child = element->FirstChildElement();
+  TiXmlElement* child = element->FirstChildElement();
 
-	    while (child != NULL)
-	       {
-	           if (child->Type() != TiXmlElement::COMMENT)
-	           {
-	               if (string(child->Value()) != "log")
-	                   throw Exception("options child node is invalid", -1);
+  while (child != NULL)
+  {
+    if (child->Type() != TiXmlElement::COMMENT)
+    {
+      if (string(child->Value()) != "log")
+        throw Exception("options child node is invalid", -1);
 
-	               string type = UtilString::ToStr(child->Attribute("type"));
-	               string cat = UtilString::ToStr(child->Attribute("category"),"all");
-	               string path =UtilString::ToStr(child->Attribute("path"),"");
+      string type = UtilString::ToStr(child->Attribute("type"));
+      string cat = UtilString::ToStr(child->Attribute("category"),"all");
+      string path =UtilString::ToStr(child->Attribute("path"),"");
 
-	               LogType t;
-	               if(cat=="error")t=Lgt_Error;
-	               else if (cat=="warning")t=Lgt_Warning;
-	               else if (cat=="info")t=Lgt_Info;
-	               else if (cat=="all") t=Lgt_All;
-	               else throw Exception("Invalid log category : "+cat, -1);
+      LogType t;
+      if(cat=="error")
+        t = Lgt_Error;
+      else if (cat == "warning")
+        t = Lgt_Warning;
+      else if (cat == "info")
+        t = Lgt_Info;
+      else if (cat == "all") 
+        t = Lgt_All;
+      else 
+        throw Exception("Invalid log category : "+cat, -1);
 
-	               if(type=="file")
-	               {
-	            	   if(path=="" )throw Exception("File logger needs a file path !", -1);
-	            	   else
-	            	   {
-	            		   FileLogger l(path);
-	            		   Log::AddLogProvider(t,&l);
-	            	   }
-	               }
-	               else if (type=="gecko")
-	               {
-	            	   GeckoLogger g;
-	            	   Log::AddLogProvider(t,&g);
-	               }
-	               else throw Exception("Invalid log type : "+type,-1);
-	           }
+      if(type=="file")
+      {
+        if(path=="" )
+          throw Exception("File logger needs a file path !", -1);
 
-	           child = child->NextSiblingElement();
-	       }
-
-
-
+          FileLogger* l = new FileLogger(path);
+          Log::AddLogProvider(t,l);
+      }
+      else if (type=="gecko")
+      {
+        GeckoLogger* g = new GeckoLogger();
+        Log::AddLogProvider(t,g);
+      }
+      else 
+        throw Exception("Invalid log type : " + type, -1);
+    }
+    
+    child = child->NextSiblingElement();
+  }
 }
+
 void Config::CreateOptionList(TiXmlElement* element)
 {
     TiXmlElement* child = element->FirstChildElement();

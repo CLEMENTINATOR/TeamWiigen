@@ -61,7 +61,7 @@ bool Sciifii::Prepare()
 	bool sucess = true;
 
 	cout << "Sciifii is preparing required elements." << endl;
-	 Log::WriteLog(Log_Info,"Sciifii is preparing required elements.");
+
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
@@ -79,7 +79,7 @@ bool Sciifii::Prepare()
 void Sciifii::Execute()
 {
 	cout << "Please wait until sciifii finish the installation." << endl;
-	 Log::WriteLog(Log_Info,"Please wait until sciifii finish the installation.");
+
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{

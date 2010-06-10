@@ -17,7 +17,7 @@
 
 #include <cstdlib>
 #include <unistd.h>
-
+#include <sstream>
 #include <libutils/logging/GeckoLogger.h>
 #include <libutils/logging/FileLogger.h>
 
@@ -76,12 +76,13 @@ int mainText(int argc, char **argv)
     {
         cout << endl << "\x1b[33m" << "Exception " << ex.GetCode() << endl
         << ex.GetMessage() << "\x1b[37m" << endl
-        << "Press A to reboot the wii and relaunch sciifii.";
+        << "Press A to exit and relaunch sciifii.";
+        stringstream str;
+        str<<"Exception "<<ex.GetMessage()<<" "<<ex.GetCode()<<" in : "<<Sciifii::LastStepMessage();
+        Log::WriteLog(Log_Error,str.str());
         Pause();
         return 0;
     }
-
-
 
     MainMenu menu;
     MainMenuResult result = menu.Show();
@@ -108,21 +109,30 @@ int mainText(int argc, char **argv)
         if (sci.Prepare())
         {
             sci.Execute();
-            cout << "Installation done! Press A to reboot the wii.";
+            cout << "Installation done! Press A to exit.";
         }
         else
-            cout <<endl<< "An error occured. Press A to reboot the wii.";
+        {
+        	Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
+            cout <<endl<< "An error occured. Press A to exit.";
+        }
     }
     catch (Exception &ex)
     {
         cout << endl << "\x1b[33m" << "Exception " << ex.GetCode() << endl
         << ex.GetMessage() << "\x1b[37m" << endl
-        << "Press A to reboot the wii and relaunch sciifii.";
+        << "Press A to exit and relaunch sciifii.";
+
+        stringstream str;
+        str<<"Exception "<<ex.GetMessage()<<" "<<ex.GetCode()<<" in : "<<Sciifii::LastStepMessage();
+        Log::WriteLog(Log_Error,str.str());
     }
     catch (...)
     {
         cout << "Unexpected Exception!" << endl
-        << "Press A to reboot the wii and relaunch sciifii.";
+        << "Press A to exit and relaunch sciifii.";
+
+        Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
     }
 
     VPAD_Init();

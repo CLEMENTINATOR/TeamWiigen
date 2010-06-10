@@ -9,7 +9,10 @@
 #include "Config.h"
 
 #include <libutils/fs/Directory.h>
+#include <libutils/logging/GeckoLogger.h>
+#include <libutils/logging/FileLogger.h>
 
+#include <libutils/logging/Log.h>
 using namespace fastdelegate;
 using namespace std;
 
@@ -43,6 +46,8 @@ void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 	// send the message
 	stringstream message;
 	message << (u32)(args->percent * 100) << "%:\t" << args->message;
+	if(args->percent==1)	Log::WriteLog(Log_Info,message.str());
+
 	cout << message.str() << flush;
 	Sciifii::LastStepMessage() = message.str();
 
@@ -56,7 +61,7 @@ bool Sciifii::Prepare()
 	bool sucess = true;
 
 	cout << "Sciifii is preparing required elements." << endl;
-
+	 Log::WriteLog(Log_Info,"Sciifii is preparing required elements.");
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
@@ -74,7 +79,7 @@ bool Sciifii::Prepare()
 void Sciifii::Execute()
 {
 	cout << "Please wait until sciifii finish the installation." << endl;
-
+	 Log::WriteLog(Log_Info,"Please wait until sciifii finish the installation.");
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{

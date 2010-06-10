@@ -67,9 +67,7 @@ int mainText(int argc, char **argv)
     VIDEO_ClearFrameBuffer(vmode, xfb, COLOR_BLACK);
 
     VPAD_Init();
-	/*FileLogger l("sd:/log");
-	Log::AddLogProvider(Log_Info,&l);
-	Log::WriteLog(Log_Info,"lolwut",0);*/
+
     try
     {
         Config::Initialize();
@@ -126,7 +124,7 @@ int mainText(int argc, char **argv)
         cout << "Unexpected Exception!" << endl
         << "Press A to reboot the wii and relaunch sciifii.";
     }
-    /*Log::WriteLog(Log_Info,"lolwut2",1);*/
+
     VPAD_Init();
     Pause();
 	return 0;
@@ -135,6 +133,7 @@ int mainText(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
+	//création des log ici
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

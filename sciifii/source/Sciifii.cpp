@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <fastdelegate.h>
 
 #include <libutils/fs/Device.h>
@@ -31,20 +32,19 @@ Sciifii::~Sciifii()
 
 void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 {
-	//return to the begin of the line
-	cout << "\r";
-
 	//erase the line
 	s32 cols, rows;
 	CON_GetMetrics(&cols, &rows);
+	cout << "\r";
 	for(rows = 1; rows < cols; rows++)
 		cout << " ";
-
 	cout << "\r";
 
-	cout << (u32)(args->percent * 100) << "%:\t" << args->message;
-
-	cout << flush;
+	// send the message
+	stringstream message;
+	message << (u32)(args->percent * 100) << "%:\t" << args->message;
+	cout << message.str() << flush;
+	Sciifii::LastStepMessage() = message.str();
 
 	hasDisplayed = true;
 
@@ -85,4 +85,10 @@ void Sciifii::Execute()
 			hasDisplayed = false;
 		}
 	}
+}
+
+string& Sciifii::LastStepMessage()
+{
+	static string _lastStepMessage = "";
+	return _lastStepMessage;
 }

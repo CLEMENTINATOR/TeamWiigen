@@ -8,6 +8,9 @@
 #include <ogc/conf.h>
 #include <cstdlib>
 #include <libutils/exception/Exception.h>
+#include <libutils/logging/Log.h>
+#include <libutils/logging/FileLogger.h>
+#include <libutils/logging/GeckoLogger.h>
 #include <libutils/UtilString.h>
 #include <ogc/conf.h>
 
@@ -68,6 +71,8 @@ void Config::Initialize()
 
             if (nodeValue == "options")
                 c.CreateOptionList(child);
+            else if(nodeValue=="logs")
+            	c.CreateLogs(child);
             else if (nodeValue == "modes")
                 c.CreateModeList(child);
             else if (nodeValue == "files")
@@ -86,7 +91,52 @@ void Config::Initialize()
 
     delete &doc;
 }
+void Config::CreateLogs(TiXmlElement* element)
+{
+	TiXmlElement* child = element->FirstChildElement();
+	    if (child == NULL)
+	        return;
+	    do
+	       {
+	           if (child->Type() != TiXmlElement::COMMENT)
+	           {
+	               if (string(child->Value()) != "log")
+	                   throw Exception("options child node is invalid", -1);
 
+	               string type = UtilString::ToStr(child->Attribute("type"));
+	               string cat = UtilString::ToStr(child->Attribute("category"),"all");
+	               string path =UtilString::ToStr(child->Attribute("path"),"");
+
+	               LogType t;
+	               if(cat=="error")t=Lgt_Error;
+	               else if (cat=="warning")t=Lgt_Warning;
+	               else if (cat=="info")t=Lgt_Info;
+	               else if (cat=="all") t=Lgt_All;
+	               else throw Exception("Invalid log category : "+cat, -1);
+
+	               if(type=="file")
+	               {
+	            	   if(path=="" )throw Exception("File logger needs a file path !", -1);
+	            	   else
+	            	   {
+	            		   FileLogger l(path);
+	            		   Log::AddLogProvider(t,&l);
+	            	   }
+	               }
+	               else if (type=="gecko")
+	               {
+	            	   GeckoLogger g;
+	            	   Log::AddLogProvider(t,&g);
+	               }
+	               else throw Exception("Invalid log type : "+type,-1);
+	           }
+
+	           child = child->NextSiblingElement();
+	       }
+	       while (child != NULL);
+
+
+}
 void Config::CreateOptionList(TiXmlElement* element)
 {
     TiXmlElement* child = element->FirstChildElement();

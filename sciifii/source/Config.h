@@ -46,7 +46,7 @@ private:
 
 	Config();
 	static Config& Instance();
-
+	 void CreateLogs(TiXmlElement* element);
 	void CreateOptionList(TiXmlElement* element);
 	void CreateModeList(TiXmlElement* element);
 	void CreateStepList(TiXmlElement* element);

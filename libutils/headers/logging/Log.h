@@ -16,13 +16,15 @@ typedef enum
 	Log_Info = 4,
 } LogStatus;
 
-#define WriteLog(status,message,code) Write(status,message,code, __LINE__ , __FILE__ )
+#define WriteLog(status,message) Write(status,message, __LINE__ , __FILE__ )
 
 class Log : public Object
 {
 private:
 	bool _hasLog;
-	
+	bool _isInit;
+  std::string _appName;
+  std::string _appVersion;
 	Log();
 	~Log();
 	static Log& Current();
@@ -30,8 +32,9 @@ private:
 	std::map<LogStatus, std::vector<ILogProvider*>*> _logs;
 	
 public:
-	static void Pause();
 	static void AddLogProvider(LogType type, ILogProvider* logger);
-	static void Write(LogStatus status, const std::string& message, s32 code,int line,const char* file);
+  static void Init(std::string appName, std::string appVersion);
+  static void Pause();
+	static void Write(LogStatus status, const std::string& message,int line,const char* file);
 };
 #endif

@@ -60,10 +60,7 @@ void Config::Initialize()
     c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"), true);
     TiXmlElement* child = root->FirstChildElement();
 
-    if (child == NULL)
-        return;
-
-    do
+    while (child != NULL)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
@@ -87,16 +84,15 @@ void Config::Initialize()
 
         child = child->NextSiblingElement();
     }
-    while (child != NULL);
+
 
     delete &doc;
 }
 void Config::CreateLogs(TiXmlElement* element)
 {
 	TiXmlElement* child = element->FirstChildElement();
-	    if (child == NULL)
-	        return;
-	    do
+
+	    while (child != NULL)
 	       {
 	           if (child->Type() != TiXmlElement::COMMENT)
 	           {
@@ -133,7 +129,7 @@ void Config::CreateLogs(TiXmlElement* element)
 
 	           child = child->NextSiblingElement();
 	       }
-	       while (child != NULL);
+
 
 
 }
@@ -141,10 +137,7 @@ void Config::CreateOptionList(TiXmlElement* element)
 {
     TiXmlElement* child = element->FirstChildElement();
 
-    if (child == NULL)
-        return;
-
-    do
+    while (child != NULL)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
@@ -161,17 +154,14 @@ void Config::CreateOptionList(TiXmlElement* element)
 
         child = child->NextSiblingElement();
     }
-    while (child != NULL);
+
 }
 
 void Config::CreateModeList(TiXmlElement* element)
 {
     TiXmlElement* child = element->FirstChildElement();
 
-    if (child == NULL)
-        return;
-
-    do
+    while (child != NULL)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
@@ -189,17 +179,14 @@ void Config::CreateModeList(TiXmlElement* element)
 
         child = child->NextSiblingElement();
     }
-    while (child != NULL);
 }
 
 void Config::CreateStepList(TiXmlElement* element)
 {
     TiXmlElement* child = element->FirstChildElement();
 
-    if (child == NULL)
-        return;
 
-    do
+    while (child != NULL)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
@@ -208,7 +195,7 @@ void Config::CreateStepList(TiXmlElement* element)
 
         child = child->NextSiblingElement();
     }
-    while (child != NULL);
+
 }
 
 void Config::ApplyMode(const mode& m)

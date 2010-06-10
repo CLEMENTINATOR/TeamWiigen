@@ -99,9 +99,15 @@ u32 HttpRequest::GetResponseLength()
   
   if(!_params.empty())
   {
+    bool isFirstParam = true;
     fullPath << "?";
     for(map<string, string>::iterator ite = _params.begin(); ite != _params.end(); ++ite )
+    {
+      if(!isFirstParam)
+        fullPath << "&";
       fullPath << NetworkUtility::URLEncode(ite->first) << "=" << NetworkUtility::URLEncode(ite->second);
+      isFirstParam = false;
+    }
   }
   
 	/* Generate HTTP request */

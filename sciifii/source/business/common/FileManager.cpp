@@ -1,5 +1,5 @@
 #include "FileManager.h"
-#include <libutils/com/NetworkRequest.h>
+#include <libutils/com/HttpRequest.h>
 #include "../../Config.h"
 #include <libutils/fs/File.h>
 #include <libutils/fs/Path.h>
@@ -67,7 +67,7 @@ bool FileManager::Download(const std::string& fileKey)
   {
 	try
 	{
-	  NetworkRequest req(fo.url);
+		HttpRequest req(fo.url);
 	  Buffer response = req.GetResponse(fo.sha1);
 	  
 	  if(Path::GetParentDirectory(fo.path) != "")

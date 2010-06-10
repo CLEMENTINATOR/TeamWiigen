@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include <libutils/com/NetworkRequest.h>
+#include <libutils/com/HttpRequest.h>
 #include <libutils/exception/Exception.h>
 #include <libutils/system/TitlePatcher.h>
 #include <libutils/system/SimplePatch.h>

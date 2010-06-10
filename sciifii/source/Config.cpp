@@ -2,7 +2,7 @@
 #include "business/common/InstallerFactory.h"
 #include "business/common/FileManager.h"
 #include <libutils/Xml.h>
-#include <libutils/com/NetworkRequest.h>
+#include <libutils/com/NetworkUtility.h>
 #include <libutils/system/Title.h>
 #include <libutils/fs/File.h>
 #include <ogc/conf.h>
@@ -23,7 +23,7 @@ Config::Config()
     try
     {
         _region = CONF_GetRegion();
-        NetworkRequest::GetIp();
+        NetworkUtility::GetIp();
         _hasNetwork = true;
     }
     catch (...)

@@ -16,13 +16,12 @@
  */
 
 
-class NetworkRequest : public Object
+class HttpRequest : public Object
 {
 public:
-	NetworkRequest();
-	NetworkRequest(const std::string& url);
-	~NetworkRequest();
-	static std::string GetIp(void);
+	HttpRequest();
+	HttpRequest(const std::string& url);
+	~HttpRequest();
 	Buffer GetResponse();
 	Buffer GetResponse(const Buffer& sha);
 	Buffer GetResponse(const std::string& shaUrl);

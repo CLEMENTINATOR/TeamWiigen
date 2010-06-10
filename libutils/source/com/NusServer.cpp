@@ -13,7 +13,7 @@ using namespace std;
 *\param fileName The file you want to download ( ex : tmd,cetk,0000000c ect..)
 **/
 NusServer::NusServer(u64 titleId, const string &fileName)
-  : NetworkRequest()
+  : HttpRequest()
 {
 	stringstream netpath;
 

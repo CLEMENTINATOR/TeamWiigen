@@ -7,7 +7,7 @@
 #include <libutils/system/TitlePatcher.h>
 #include <libutils/system/PluginPatch.h>
 #include <libutils/exception/Exception.h>
-#include <libutils/com/NetworkRequest.h>
+#include <libutils/com/HttpRequest.h>
 
 #include <sstream>
 #include "common/FileManager.h"

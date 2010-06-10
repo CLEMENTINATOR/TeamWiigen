@@ -3,22 +3,22 @@
 #include <cstdio>
 #include <malloc.h>
 #include <exception/Exception.h>
-#include <com/NetworkRequest.h>
+#include <com/HttpRequest.h>
+#include <com/NetworkUtility.h>
 
 #define BLOCK_SIZE		8192
 #define NETWORK_PORT 80
 
-static char hostip[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 using namespace std;
 /*!
 * \brief Constructor
 *
 */
-NetworkRequest::NetworkRequest()
+HttpRequest::HttpRequest()
 {
 	sockfd=-1;
-	NetworkRequest::GetIp();
+	NetworkUtility::GetIp();
 }
 
 /*!
@@ -26,38 +26,19 @@ NetworkRequest::NetworkRequest()
 * \param url the full url for the request
 *
 */
-NetworkRequest::NetworkRequest(const std::string& url)
+HttpRequest::HttpRequest(const std::string& url)
 {
 	sockfd=-1;
-	NetworkRequest::GetIp();
+	NetworkUtility::GetIp();
 	SetRequest(url);
 }
 
-/*!
-* \brief Gets the wii IP
-* \return the ip on a string array
-*
-*/
-string NetworkRequest::GetIp(void)
-{
-	static bool initialized = false;
-
-	if(!initialized)
-	{
-		s32 ret  = if_config(hostip, NULL, NULL, true);
-		if (ret < 0)
-			throw Exception("Error initialising network !",ret);
-
-		initialized = true;
-	}
-	return string(hostip);
-}
 
 /*!
 * \brief Connect
 * \param hostname The hostname of the server
 */
-void NetworkRequest::Connect(string hostname)
+void HttpRequest::Connect(string hostname)
 {
 	struct hostent *he;
 	struct sockaddr_in sa;
@@ -92,7 +73,7 @@ void NetworkRequest::Connect(string hostname)
 * \brief Set an new http request
 * \param url the server url (needs to begin by "http://www.)
 */
-void NetworkRequest::SetRequest(const string& url)
+void HttpRequest::SetRequest(const string& url)
 {
 	_url = url;
 	_hostName = _url.substr(7,_url.find_first_of('/',7) - 7);
@@ -104,7 +85,7 @@ void NetworkRequest::SetRequest(const string& url)
 * \return The length of the contents
 *
 */
-u32 NetworkRequest::GetResponseLength()
+u32 HttpRequest::GetResponseLength()
 {
 	if(_path.length() == 0 || _hostName.length() == 0)
 		throw Exception("The request isn't properly initialised.", -1);
@@ -153,7 +134,7 @@ u32 NetworkRequest::GetResponseLength()
 * \return The length read
 *
 */
-s32 NetworkRequest::Read(Buffer& b, u32 len)
+s32 HttpRequest::Read(Buffer& b, u32 len)
 {
 	u32 totalRead = 0;
 	while(totalRead < len)
@@ -191,7 +172,7 @@ s32 NetworkRequest::Read(Buffer& b, u32 len)
 * \return The length writen
 *
 */
-s32 NetworkRequest::Write(Buffer& b)
+s32 HttpRequest::Write(Buffer& b)
 {
 	u32 totalWritten = 0;
 
@@ -220,7 +201,7 @@ s32 NetworkRequest::Write(Buffer& b)
 /*!
 * \brief Destructor
 */
-NetworkRequest::~NetworkRequest()
+HttpRequest::~HttpRequest()
 {
 	if (sockfd >= 0)
 	{
@@ -233,7 +214,7 @@ NetworkRequest::~NetworkRequest()
 * \brief Get the server response
 * \return A buffer containing the reponse
 */
-Buffer NetworkRequest::GetResponse()
+Buffer HttpRequest::GetResponse()
 {
 	u32 len = GetResponseLength();
 	Buffer response;
@@ -248,7 +229,7 @@ Buffer NetworkRequest::GetResponse()
 *\param sha The sha buffer
 * \return A buffer containing the reponse
 */
-Buffer NetworkRequest::GetResponse(const Buffer& sha)
+Buffer HttpRequest::GetResponse(const Buffer& sha)
 {
 	Buffer response = GetResponse();
 	if(!response.ValidateSHA1(sha))
@@ -262,11 +243,11 @@ Buffer NetworkRequest::GetResponse(const Buffer& sha)
 *\param shaUrl The sha1 url
 * \return A buffer containing the reponse
 */
-Buffer NetworkRequest::GetResponse(const std::string& shaUrl)
+Buffer HttpRequest::GetResponse(const std::string& shaUrl)
 {
     if(shaUrl!="")
     {
-	NetworkRequest sha(shaUrl);
+	HttpRequest sha(shaUrl);
 	Buffer bsha = sha.GetResponse();
 	return GetResponse(bsha);
     }

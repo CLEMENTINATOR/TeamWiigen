@@ -2,7 +2,7 @@
 
 #include <libutils/fs/File.h>
 #include <libutils/exception/Exception.h>
-#include <libutils/com/NetworkRequest.h>
+#include <libutils/com/HttpRequest.h>
 #include <malloc.h>
 #include <string.h>
 #include <sstream>

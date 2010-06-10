@@ -156,6 +156,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
 		step = new CompositeInstaller(name);
 		FillCompositeInstaller(step, node);
+
+		Log::WriteLog(Log_Info,"End of CompositeStep");
 	}
 	else if(nodeValue == "FileDownloader")
 	{

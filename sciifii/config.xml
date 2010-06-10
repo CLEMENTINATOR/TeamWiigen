@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <sciifii version="3" MenuMessage="Choose an option : ">
-
+<logs>
+<log type="file" path="sd:/sciifii.log" />
+</logs>
   <files>
 	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
 	<file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />

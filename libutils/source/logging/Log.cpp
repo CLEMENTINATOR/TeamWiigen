@@ -53,15 +53,16 @@ Log& Log::Current()
  *\param logger The Log provider ( Could be FileLogger or GekkoLogger)
  *\see LogStatus
  */
-void Log::AddLogProvider(LogStatus status, ILogProvider* logger)
+void Log::AddLogProvider(LogType type, ILogProvider* logger)
 {
-	if((status & Log_Error) == Log_Error)
+	u8 status = (u8)type;
+	if(status & (u8)Log_Error)
 		Current()._logs.find(Log_Error)->second->push_back(logger);
 		
-	if((status & Log_Warning) == Log_Warning)
+	if(status & (u8)Log_Warning)
 		Current()._logs.find(Log_Warning)->second->push_back(logger);
 	
-	if((status & Log_Info) == Log_Info)
+	if(status & (u8)Log_Info)
 		Current()._logs.find(Log_Info)->second->push_back(logger);
 		
 	Current()._hasLog = true;

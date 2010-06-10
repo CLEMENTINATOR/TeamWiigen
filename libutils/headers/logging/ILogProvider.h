@@ -4,6 +4,14 @@
 #include <string>
 #include <gctypes.h>
 
+typedef enum
+{
+	Lgt_Error = 1,
+	Lgt_Warning = 2,
+	Lgt_Info = 4,
+	Lgt_All = 7,
+} LogType;
+
 class ILogProvider
 {
 public:
@@ -13,7 +21,6 @@ public:
 	virtual void WriteInfo( const std::string& message, s32 infoCode,int line,const char* file) = 0;
 	virtual void Start()=0;
 	virtual void Pause()=0;
-
 };
 
 #endif

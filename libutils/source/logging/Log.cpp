@@ -6,11 +6,14 @@ using namespace std;
  * Initialize log system
  */
 Log::Log()
+: _hasLog(false),
+  _isInit(false),
+  _appName(""),
+  _appVersion("")
 {
 	_logs.insert(make_pair(Log_Error, new vector<ILogProvider*>()));
 	_logs.insert(make_pair(Log_Warning, new vector<ILogProvider*>()));
 	_logs.insert(make_pair(Log_Info, new vector<ILogProvider*>()));
-	_hasLog = false;
 }
 /**
  *\brief Destructor
@@ -74,9 +77,9 @@ void Log::AddLogProvider(LogType type, ILogProvider* logger)
  *\param message The message to write
  *\param code The message code(could be an error code etc ..)
  */
-void Log::Write(LogStatus status, const std::string& message, s32 code,int line,const char* file)
+void Log::Write(LogStatus status, const std::string& message,int line,const char* file)
 {
-	if(!Current()._hasLog)
+	if(!Current()._hasLog || !Current()._isInit)
 		return;
 		
 	for(map<LogStatus, vector<ILogProvider*>*>::iterator ite = Current()._logs.begin(); ite != Current()._logs.end(); ite++)
@@ -85,14 +88,20 @@ void Log::Write(LogStatus status, const std::string& message, s32 code,int line,
 			for(vector<ILogProvider*>::iterator lite = ite->second->begin(); lite != ite->second->end(); lite++)
 			{
 				if((ite->first & Log_Error) == Log_Error)
-					(*lite)->WriteError( message, code,line,file);
+					(*lite)->WriteError(message, line, file, Current()._appName, Current()._appVersion);
 					
 				if((ite->first & Log_Warning) == Log_Warning)
-					(*lite)->WriteWarning( message, code,line,file);
+					(*lite)->WriteWarning(message, line, file, Current()._appName, Current()._appVersion);
 				
 				if((ite->first & Log_Info) == Log_Info)
-					(*lite)->WriteInfo( message, code,line,file);
+					(*lite)->WriteInfo(message, line, file, Current()._appName, Current()._appVersion);
 			}
 	}
 }
 
+void Log::Init(std::string appName, std::string appVersion)
+{
+  Current()._appName = appName;
+  Current()._appVersion = appVersion;
+  Current()._isInit = true;
+}

@@ -55,23 +55,23 @@ void FileLogger::Write(const std::string& line)
 	_logFile->Write(message);
 }
 
-void FileLogger::WriteError( const std::string& message, s32 errorCode,int line,const char* file)
+void FileLogger::WriteError( const std::string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
 	stringstream formatedMessage;
-	formatedMessage << "Error " << errorCode << " (" << file << " line : "<<line <<"): " << message;
+	formatedMessage << "Error " << " (" << file << " line : "<<line <<"): " << message;
 	Write(formatedMessage.str());
 }
 
-void FileLogger::WriteWarning( const std::string& message, s32 warningCode,int line,const char* file)
+void FileLogger::WriteWarning( const std::string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
 	stringstream formatedMessage;
-	formatedMessage << "Warning " << warningCode<< " (" << file << " line : "<<line <<"): " << message;
+	formatedMessage << "Warning " << " (" << file << " line : "<<line <<"): " << message;
 	Write(formatedMessage.str());
 }
 
-void FileLogger::WriteInfo( const std::string& message, s32 infoCode,int line,const char* file)
+void FileLogger::WriteInfo( const std::string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
 	stringstream formatedMessage;
-	formatedMessage << "Info " << infoCode << " (" << file << " line : "<<line <<"): " << message;
+	formatedMessage << "Info " << " (" << file << " line : "<<line <<"): " << message;
 	Write(formatedMessage.str());
 }

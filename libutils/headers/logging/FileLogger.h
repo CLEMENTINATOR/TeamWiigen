@@ -15,9 +15,9 @@ private:
 public:
 	FileLogger(const std::string& filePath);
 	~FileLogger();
-	void WriteError( const std::string& message, s32 errorCode,int line,const char* file);
-	void WriteWarning( const std::string& message, s32 warningCode,int line,const char* file);
-	void WriteInfo( const std::string& message, s32 infoCode,int line,const char* file);
+	void WriteError( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
+	void WriteWarning( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
+	void WriteInfo( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void Start();
 	void Pause();
 };

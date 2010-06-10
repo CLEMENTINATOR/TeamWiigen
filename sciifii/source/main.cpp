@@ -133,7 +133,7 @@ int mainText(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	//création des log ici
+	Log::Init("sciifii", SCIIFII_VERSION);
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

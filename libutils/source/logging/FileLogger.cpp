@@ -29,7 +29,7 @@ void FileLogger::Start()
 	if(! paused)return;
 
 	if(!File::Exists(_filePath)) _logFile = &(File::Create(_filePath));
-		_logFile = &(File::Open(_filePath,FileMode_Write));
+	else _logFile = &(File::Open(_filePath,FileMode_Write));
 		paused=false;
 }
 void FileLogger::Pause()

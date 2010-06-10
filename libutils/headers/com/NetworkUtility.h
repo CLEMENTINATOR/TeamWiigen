@@ -16,7 +16,7 @@ public:
 	virtual ~NetworkUtility();
 	static std::string GetIp(void);
 	NetworkUtility &Current();
-
+	std::string URLEncode(std::string s);
 private :
 
 };

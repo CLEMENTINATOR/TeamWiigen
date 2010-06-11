@@ -21,7 +21,6 @@ typedef struct
 {
 	std::vector<std::string> options;
 	std::string text;
-	std::string flag;
 } mode;
 
 class Config : public Object
@@ -42,8 +41,6 @@ private:
 	std::vector<Installer*> _availableSteps;
 	std::vector<Installer*> _validatedSteps;
 
-	std::vector<std::string> _flags;
-
 	Config();
 	static Config& Instance();
 	 void CreateLogs(TiXmlElement* element);
@@ -56,7 +53,6 @@ public:
 	static void ValidateOptions();
 	static u32 GetRegion();
 
-	static bool IsFlagDefined(const std::string& flag);
 	static std::string WorkingDirectory();
 	static bool HasNetwork();
 	static bool AutoClean();

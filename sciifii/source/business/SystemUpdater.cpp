@@ -11,11 +11,8 @@
 
 using namespace std;
 
-void SystemUpdater::AddTitle(const titleDescriptor& descriptor, bool uninstall)
+void SystemUpdater::AddTitle(const titleDescriptor& descriptor)
 {
-	_uninstallTitles.push_back(descriptor);
-
-	if(!uninstall)
 		_updateTitles.push_back(descriptor);
 }
 
@@ -23,10 +20,9 @@ bool SystemUpdater::Prepare()
 {
     f32 step = 0;
 
-    vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;
-    u32 nbIosToInstall = titles.size();
+    u32 nbIosToInstall = _updateTitles.size();
 
-    for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
+    for (vector<titleDescriptor>::iterator ite = _updateTitles.begin(); ite != _updateTitles.end(); ++ite)
     {
         u32 type = ite->title >> 32;
 
@@ -77,10 +73,9 @@ void SystemUpdater::Install()
 {
     f32 step = 0;
 
-    vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;
-    u32 nbIosToInstall = titles.size();
+    u32 nbIosToInstall = _updateTitles.size();
 
-    for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
+    for (vector<titleDescriptor>::iterator ite = _updateTitles.begin(); ite != _updateTitles.end(); ++ite)
     {
 
         stringstream wadFile;
@@ -107,13 +102,12 @@ void SystemUpdater::Install()
 }
 void SystemUpdater::SendToLog()
 {
-Log::WriteLog(Log_Info,"SystemUpdater()");
-vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;
-for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
-    {
-stringstream s;
-s<<"SystemUpdaterItem("<<hex<<ite->slot<<","<<ite->title<<","<<dec<<ite->revision<<","<<ite->onlyOnUninstall<<")";
-Log::WriteLog(Log_Info,s.str());
-    }
-Log::WriteLog(Log_Info,"End of SystemUpdater()");
+  Log::WriteLog(Log_Info,"SystemUpdater()");
+  for (vector<titleDescriptor>::iterator ite = _updateTitles.begin(); ite != _updateTitles.end(); ++ite)
+  {
+    stringstream s;
+    s<<"SystemUpdaterItem("<<hex<<ite->slot<<","<<ite->title<<","<<dec<<ite->revision<<","<<ite->onlyOnUninstall<<")";
+    Log::WriteLog(Log_Info,s.str());
+  }
+  Log::WriteLog(Log_Info,"End of SystemUpdater()");
 }

@@ -174,10 +174,9 @@ void Config::CreateModeList(TiXmlElement* element)
 
             string text = child->Attribute("text");
             vector<string> optionList = UtilString::Split(UtilString::ToStr(child->Attribute("options")), '|');
-            string flag = UtilString::ToStr(child->Attribute("flag"), "");
 
             mode* m = new mode();
-            (*m) = (mode){optionList, text, flag};
+            (*m) = (mode){optionList, text};
             _modes.push_back(m);
         }
 
@@ -219,9 +218,6 @@ void Config::ApplyMode(const mode& m)
 
         (*ite)->selected = found;
     }
-
-    if (m.flag != "")
-        Instance()._flags.push_back(m.flag);
 }
 
 void Config::ValidateOptions()
@@ -289,17 +285,6 @@ string Config::DisclaimerText()
 bool Config::UseAdvancedMode()
 {
     return Instance()._useAdvancedSettings;
-}
-
-bool Config::IsFlagDefined(const string& flag)
-{
-	for(vector<string>::iterator ite = Instance()._flags.begin(); ite != Instance()._flags.end(); ite++)
-	{
-		if(*ite == flag)
-			return true;
-	}
-
-	return false;
 }
 
 u32 Config::GetRegion()

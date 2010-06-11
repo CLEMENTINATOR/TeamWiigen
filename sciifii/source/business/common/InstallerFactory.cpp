@@ -428,9 +428,8 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
 
             u64 id = UtilString::ToU64(child->Attribute("id"), nr_hex);
             u16 revision = UtilString::ToU16(child->Attribute("revision"));
-            bool onlyUninstallation = UtilString::ToBool(child->Attribute("onlyUninstallation"));
             s8 region = UtilString::ToS32(child->Attribute("region"), -1);
-			u64 slot = UtilString::ToU64(child->Attribute("slot"), 0);
+            u64 slot = UtilString::ToU64(child->Attribute("slot"), 0);
 
             if (region == -1 || region == (s32)Config::GetRegion())
             {
@@ -445,7 +444,7 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
 						continue;
 					}
 
-				step->AddTitle(descriptor, onlyUninstallation);
+				step->AddTitle(descriptor);
             }
         }
 

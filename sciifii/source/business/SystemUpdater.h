@@ -21,10 +21,9 @@ public:
 	bool Prepare();
 	void Install();
 	void SendToLog();
-	void AddTitle(const titleDescriptor& descriptor, bool uninstall);
+	void AddTitle(const titleDescriptor& descriptor);
 	
 private:
 	std::vector<titleDescriptor> _updateTitles;
-	std::vector<titleDescriptor> _uninstallTitles;
 };
 #endif

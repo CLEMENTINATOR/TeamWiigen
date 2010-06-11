@@ -87,13 +87,13 @@ string NetworkUtility::URLEncode(string s)
 	stringstream sbuf;
 	int len = s.length();
     for (int i = 0; i < len; i++) {
-      char ch = s[i];
+      int ch = s[i];
       if ('A' <= ch && ch <= 'Z') {		// 'A'..'Z'
-        sbuf<<ch;
+        sbuf<<(char)ch;
       } else if ('a' <= ch && ch <= 'z') {	// 'a'..'z'
-    	  sbuf<<ch;
+    	  sbuf<<(char)ch;
       } else if ('0' <= ch && ch <= '9') {	// '0'..'9'
-    	  sbuf<<ch;
+    	  sbuf<<(char)ch;
       } else if (ch == ' ') {			// space
     	  sbuf<<'+';
       } else if (ch == '-' || ch == '_'		// unreserved
@@ -101,7 +101,7 @@ string NetworkUtility::URLEncode(string s)
           || ch == '~' || ch == '*'
           || ch == '\'' || ch == '('
           || ch == ')') {
-    	  sbuf<<ch;
+    	  sbuf<<(char)ch;
       } else if (ch <= 0x007f) {		// other ASCII
     	  sbuf<<hex[ch];
       } else if (ch <= 0x07FF) {		// non-ASCII <= 0x7FF

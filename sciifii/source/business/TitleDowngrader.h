@@ -17,7 +17,7 @@ public:
 	TitleDowngrader(u64 titleId, u16 neededRevision);
 	bool Prepare();
 	void Install();
-	void SendToLogs();
+	void SendToLog();
 };
 
 #endif

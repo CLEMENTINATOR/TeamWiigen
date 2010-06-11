@@ -54,9 +54,7 @@ void FileManager::Init(TiXmlElement* config)
           fm._fileList.insert(pair<string,fileObject>(key, fo));
 
 
-          stringstream str;
-          str<<"File("<<key<<","<<url<<","<<sha1<<","<<path<<")";
-          Log::WriteLog(Log_Info,str.str());
+
         }
       child = child->NextSiblingElement();
     }
@@ -71,6 +69,10 @@ bool FileManager::Download(const std::string& fileKey)
     throw Exception("File key not defined", -1);
 
   fileObject fo = ite->second;
+
+  stringstream str;
+  str<<"File("<<fileKey<<","<<fo.url<<","<<fo.sha1<<","<<fo.path<<")";
+  Log::WriteLog(Log_Info,str.str());
 
   if(!File::Exists(fo.path) && fo.url != "")
   {

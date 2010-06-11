@@ -87,7 +87,7 @@ string NetworkUtility::URLEncode(string s)
 	stringstream sbuf;
 	int len = s.length();
     for (int i = 0; i < len; i++) {
-      int ch = s[i];
+      char ch = s[i];
       if ('A' <= ch && ch <= 'Z') {		// 'A'..'Z'
         sbuf<<ch;
       } else if ('a' <= ch && ch <= 'z') {	// 'a'..'z'

@@ -15,8 +15,8 @@ public:
 	void WriteError( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void WriteWarning( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void WriteInfo(const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
-	void Start(){}
-	void Pause(){}
+	void Start();
+	void Pause();
 };
 
 #endif

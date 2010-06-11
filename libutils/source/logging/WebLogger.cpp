@@ -11,57 +11,67 @@
 #include <string>
 #include <vector>
 using namespace std;
-WebLogger::WebLogger(std::string url) {
-_url=url;
-}
 
-WebLogger::~WebLogger() {
+WebLogger::WebLogger(const string& url,const string& msgKey, const string& lineKey, const string& fileKey, const string& appKey, const string& versionKey) 
+: _url(url),
+  _msgKey(msgKey),
+  _lineKey(lineKey),
+  _fileKey(fileKey), 
+  _appKey(appKey),
+  _versionKey(versionKey)
+{}
 
+WebLogger::~WebLogger() {}
 
-}
-
-void WebLogger::WriteError( const std::string& message,int line,const char* file, const string& appName, const string& appVersion)
+void WebLogger::WriteError( const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
-	stringstream formatedMessage;
-	formatedMessage << "type=error,message="<<message<<",line="<<line<<",file"<<file<<",appName="<<appName<<",appVersion="<<appVersion;
-	Write(formatedMessage.str());
+	Write("NFO", message, line, file, appName, appVersion);
 }
 
-void WebLogger::WriteWarning( const std::string& message,int line,const char* file, const string& appName, const string& appVersion)
+void WebLogger::WriteWarning( const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
-	stringstream formatedMessage;
-	formatedMessage << "type=warning,message="<<message<<",line="<<line<<",file"<<file<<",appName="<<appName<<",appVersion="<<appVersion;
-	Write(formatedMessage.str());
+	Write("NFO", message, line, file, appName, appVersion);
 }
 
-void WebLogger::WriteInfo( const std::string& message,int line,const char* file, const string& appName, const string& appVersion)
+void WebLogger::WriteInfo( const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
-    stringstream formatedMessage;
-	formatedMessage << "type=info,message="<<message<<",line="<<line<<",file"<<file<<",appName="<<appName<<",appVersion="<<appVersion;
-	Write(formatedMessage.str());
+	Write("NFO", message, line, file, appName, appVersion);
 }
 /**
  *\brief Write a text to web output
  *\param text The text to write
  */
-void WebLogger::Write( const std::string& text )
+void WebLogger::Write(const string& type, const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
-	try{
-	HttpRequest r(_url);
-	std::vector<std::string> v;
-	v=UtilString::Split(text,',');
-	for(u32 i=0;i<v.size();i++)
-	{
-		std::vector<std::string> v1=UtilString::Split(v[i],'=');
-		r.AddParameter(v1[0],v1[1]);
-	}
-	r.GetResponse();
+	try
+  {
+    HttpRequest r(_url);
+    
+    r.AddParameter("type", type);
+    
+    if(_msgKey != "")
+      r.AddParameter(_msgKey, message);
+    
+    stringstream str_line;
+    str_line << line;
+    if(_lineKey != "")
+      r.AddParameter(_lineKey, str_line.str());
+
+    if(_fileKey != "")
+      r.AddParameter(_fileKey, file);
+
+    if(_appKey != "")
+      r.AddParameter(_appKey, appName);   
+      
+    if(_versionKey != "")
+      r.AddParameter(_versionKey, appVersion);   
+      
+    r.GetResponse();
 	}
 	catch(...)
-	{
-
-	}
-
-
+	{	}
 }
 
+void WebLogger::Start() {}
+
+void WebLogger::Pause() {}

@@ -18,9 +18,8 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <sstream>
-#include <libutils/logging/GeckoLogger.h>
-#include <libutils/logging/FileLogger.h>
 
+#include <libutils/logging/WebLogger.h>
 #include <libutils/logging/Log.h>
 
 //#define USE_ADVANCED_UI
@@ -144,6 +143,8 @@ int mainText(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	Log::Init("sciifii", SCIIFII_VERSION);
+  WebLogger sciifiiLog("http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx", "message", "line", "file", "application", "version");
+  Log::AddLogProvider(Lgt_All, &sciifiiLog);
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

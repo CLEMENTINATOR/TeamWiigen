@@ -13,6 +13,7 @@
 #include <libutils/logging/GeckoLogger.h>
 #include <libutils/UtilString.h>
 #include <ogc/conf.h>
+#include <libutils/logging/WebLogger.h>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ Config::Config()
     {
         _region = CONF_GetRegion();
         NetworkUtility::GetIp();
+        WebLogger sciifiiLog("http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx", "message", "line", "file", "application", "version");
+        Log::AddLogProvider(Lgt_All, &sciifiiLog);
         _hasNetwork = true;
     }
     catch (...)

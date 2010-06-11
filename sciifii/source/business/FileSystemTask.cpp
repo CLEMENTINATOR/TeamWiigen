@@ -3,6 +3,10 @@
 #include <libutils/fs/File.h>
 #include <libutils/fs/Directory.h>
 #include <libutils/exception/Exception.h>
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
 
 FileSystemTask::FileSystemTask(const std::string &target, FSTAction action, FSTType type, const std::string& destination, bool recursive)
 : _target(target),
@@ -51,4 +55,10 @@ void FileSystemTask::Install()
 		else
 			Directory::Delete(_target, _recursive);
 	}
+}
+void FileSystemTask::SendToLog()
+{
+	stringstream str;
+	str<<"FileSystemTask("<<_target<<","<<_destination<<","<<_action<<","<<_type<<","<<_recursive<<")";
+	Log::WriteLog(Log_Info,str.str());
 }

@@ -20,6 +20,7 @@ class SystemUpdater : public Installer
 public:
 	bool Prepare();
 	void Install();
+	void SendToLogs();
 	void AddTitle(const titleDescriptor& descriptor, bool uninstall);
 	
 private:

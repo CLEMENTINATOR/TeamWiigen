@@ -4,6 +4,7 @@
 #include <libutils/fs/Device.h>
 #include <libutils/ui/UIManager.hpp>
 #include <libutils/fs/Directory.h>
+#include <libutils/system/Title.h>
 #include <iostream>
 
 #include "Tools.h"
@@ -133,7 +134,7 @@ int mainText(int argc, char **argv)
 
         Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
     }
-
+    Title::ReloadIOS(36);
     VPAD_Init();
     Pause();
 	return 0;

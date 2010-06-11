@@ -43,7 +43,7 @@ public:
 	Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision);
 	bool Prepare();
 	void Install();
-
+	void SendToLog();
 	void AddModule(customModule descriptor);
 	void AddPlugin(pluginDescriptor descriptor);
 	void AddPatch(Patch* descriptor);

@@ -18,6 +18,8 @@ public:
 	IosReloader(u32 ios);
 	IosReloader(u32 ios, UserType type);
 	bool Prepare();
+	void SendToLog();
+
 	void Install();
 };
 

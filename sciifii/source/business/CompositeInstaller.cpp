@@ -51,3 +51,12 @@ void CompositeInstaller::Install()
 	
 	OnProgress(_name + " installation done!", 1);
 }
+void CompositeInstaller::SendToLog()
+{
+	Log::WriteLog(Log_Info,"CompositeInstaller("+_name+")");
+	for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
+	{
+		(*ite)->SendToLog();
+	}
+	Log::WriteLog(Log_Info,"End of CompositeInstaller("+_name+")");
+}

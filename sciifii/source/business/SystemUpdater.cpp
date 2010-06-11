@@ -105,3 +105,15 @@ void SystemUpdater::Install()
 
     OnProgress("System updated.", 1);
 }
+void SystemUpdater::SendToLogs()
+{
+Log::WriteLog(Log_Info,"SystemUpdater()");
+vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;
+for (vector<titleDescriptor>::iterator ite = titles.begin(); ite != titles.end(); ++ite)
+    {
+stringstream s;
+s<<"SystemUpdaterItem("<<hex<<ite->slot<<","<<ite->title<<","<<dec<<ite->revision<<","<<ite->onlyOnUninstall<<")";
+Log::WriteLog(Log_Info,s.str());
+    }
+Log::WriteLog(Log_Info,"End of SystemUpdater()");
+}

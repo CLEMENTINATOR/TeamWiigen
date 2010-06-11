@@ -254,7 +254,10 @@ void Config::ValidateOptions()
         }
 
         if (validated)
+        {
             Instance()._validatedSteps.push_back(*step);
+            (*step)->SendToLog();
+        }
     }
 }
 

@@ -145,3 +145,10 @@ void Cios::Install()
 	for(vector<Patch*>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
 		delete *ite;
 }
+
+void Cios::SendToLog()
+{
+stringstream str;
+str<<"Cios("<<_iosId<<","<<_iosRevision<<","<<_slot<<","<<_ciosRevision;
+Log::WriteLog(Log_Info,str.str());
+}

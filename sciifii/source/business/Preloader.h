@@ -17,7 +17,7 @@ private:
 	void CopySysMenu();
 	void RestoreSysMenu();
 	bool CheckPreloader();
-	
+	void SendtoLog();
 public:
 	Preloader(const std::string& file);
 	bool Prepare();

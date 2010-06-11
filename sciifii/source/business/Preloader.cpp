@@ -201,3 +201,12 @@ void Preloader::Install()
         throw;
     }
 }
+
+void Preloader::SendtoLog()
+{
+	stringstream txt;
+		txt <<"Preloader("<<_file+","<<bootCid<<")";
+	Log::WriteLog(Log_Info,txt.str());
+
+}
+

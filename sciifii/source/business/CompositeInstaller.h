@@ -15,6 +15,7 @@ private:
 	
 public:
 	CompositeInstaller(const std::string& name);
+	void SendToLog();
 	void AddStep(Installer* step);
 	bool Prepare();
 	void Install();

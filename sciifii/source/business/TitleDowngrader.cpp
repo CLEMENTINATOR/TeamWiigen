@@ -125,3 +125,11 @@ void TitleDowngrader::SkipStep(Object* sender, TitleEventArgs *args)
   OnProgress("Skipping ticket installation.", 0.8);
   args->skipStep = true;
 }
+
+void TitleDowngrader::SendToLogs()
+{
+	stringstream str;
+	str<<"TitleDowngrader("<<hex<<_id<<dec<<","<<_neededRevision<<")";
+	Log::WriteLog(Log_Info,str.str());
+}
+

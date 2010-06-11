@@ -13,6 +13,7 @@ public:
 	FileDownloader(const std::string &file);
 	bool Prepare();
 	void Install();
+	void SendToLog();
 };
 
 #endif

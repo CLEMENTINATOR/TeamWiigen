@@ -25,6 +25,7 @@ class TitleStep : public Installer
     TitleStep(std::string file, TitleAction a, std::string path = "");
     bool Prepare();
     void Install();
+    void SendtoLog();
   };
 
 #endif

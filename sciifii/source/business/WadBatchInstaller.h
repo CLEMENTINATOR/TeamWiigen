@@ -13,6 +13,7 @@ public:
 	WadBatchInstaller(const std::string &folder);
 	bool Prepare();
 	void Install();
+	void SendToLogs();
 };
 
 #endif

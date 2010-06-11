@@ -34,3 +34,9 @@ void IosReloader::Install()
 	if(_identify)
 	  Identification::IdentifyAs(_type);
 }
+void IosReloader::SendToLog()
+{
+	stringstream txt;
+		txt << "IOSReloader("<<_id<<" )";
+	Log::WriteLog(Log_Info,txt.str());
+}

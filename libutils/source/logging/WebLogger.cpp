@@ -46,6 +46,7 @@ void WebLogger::WriteInfo( const std::string& message,int line,const char* file,
  */
 void WebLogger::Write( const std::string& text )
 {
+	try{
 	HttpRequest r(_url);
 	std::vector<std::string> v;
 	v=UtilString::Split(text,',');
@@ -55,6 +56,12 @@ void WebLogger::Write( const std::string& text )
 		r.AddParameter(v1[0],v1[1]);
 	}
 	r.GetResponse();
+	}
+	catch(...)
+	{
+
+	}
+
 
 }
 

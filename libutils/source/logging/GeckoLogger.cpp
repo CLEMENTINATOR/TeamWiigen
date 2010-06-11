@@ -65,3 +65,7 @@ void GeckoLogger::Write( const std::string& text )
 	string sendText(text + "\n");
 	usb_sendbuffer_safe( 1, sendText.c_str(), sendText.size() + 1 );
 }
+
+void GeckoLogger::Start() {}
+
+void GeckoLogger::Pause() {}

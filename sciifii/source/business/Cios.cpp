@@ -149,6 +149,6 @@ void Cios::Install()
 void Cios::SendToLog()
 {
 stringstream str;
-str<<"Cios("<<_iosId<<","<<_iosRevision<<","<<_slot<<","<<_ciosRevision;
+str<<"Cios("<<_iosId<<","<<_iosRevision<<","<<_slot<<","<<_ciosRevision<<")";
 Log::WriteLog(Log_Info,str.str());
 }

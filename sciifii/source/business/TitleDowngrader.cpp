@@ -126,7 +126,7 @@ void TitleDowngrader::SkipStep(Object* sender, TitleEventArgs *args)
   args->skipStep = true;
 }
 
-void TitleDowngrader::SendToLogs()
+void TitleDowngrader::SendToLog()
 {
 	stringstream str;
 	str<<"TitleDowngrader("<<hex<<_id<<dec<<","<<_neededRevision<<")";

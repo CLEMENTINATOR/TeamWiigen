@@ -105,7 +105,7 @@ void SystemUpdater::Install()
 
     OnProgress("System updated.", 1);
 }
-void SystemUpdater::SendToLogs()
+void SystemUpdater::SendToLog()
 {
 Log::WriteLog(Log_Info,"SystemUpdater()");
 vector<titleDescriptor> titles = Config::IsFlagDefined("Uninstall") ? _uninstallTitles : _updateTitles;

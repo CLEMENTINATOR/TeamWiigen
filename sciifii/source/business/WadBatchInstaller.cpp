@@ -41,3 +41,9 @@ void WadBatchInstaller::Install()
 		currentStep++;
 	}
 }
+
+void WadBatchInstaller::SendToLogs()
+{
+Log::WriteLog(Log_Info,"WadBatchInstaller("+_wadFolder+")");
+}
+

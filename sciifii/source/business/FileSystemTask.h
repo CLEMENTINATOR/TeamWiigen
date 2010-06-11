@@ -29,6 +29,7 @@ public:
 	FileSystemTask(const std::string &target, FSTAction action, FSTType type, const std::string& destination = "", bool recursive = true);
 	bool Prepare();
 	void Install();
+	void SendToLog();
 };
 
 #endif

@@ -163,3 +163,10 @@ void TitleStep::Install()
   OnProgress("Done", 1);
 }
 
+void  TitleStep::SendtoLog()
+{
+	stringstream str;
+		str<<"TitleStep("<<hex<<_id<<dec<<","<<_revision<<","<<_action<<","<<_file<<","<<_path<<")";
+		Log::WriteLog(Log_Info,str.str());
+
+}

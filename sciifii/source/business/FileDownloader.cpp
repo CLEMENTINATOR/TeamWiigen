@@ -22,3 +22,8 @@ bool FileDownloader::Prepare()
 void FileDownloader::Install()
 {
 }
+
+void FileDownloader::SendToLog()
+{
+	Log::WriteLog(Log_Info,"FileDownloader("+_file+")");
+}

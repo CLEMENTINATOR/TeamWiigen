@@ -13,6 +13,8 @@
 #include <libutils/system/SimplePatch.h>
 #include <libutils/elf_abi.h>
 #include <tinyxml.h>
+#include <libutils/logging/Log.h>
+
 #include <vector>
 
 class InstallerFactory : public Object

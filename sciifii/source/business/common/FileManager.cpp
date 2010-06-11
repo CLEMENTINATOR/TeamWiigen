@@ -6,6 +6,10 @@
 #include <libutils/fs/Directory.h>
 #include <libutils/UtilString.h>
 #include <libutils/exception/Exception.h>
+#include <sstream>
+#include <libutils/logging/Log.h>
+#include <libutils/logging/ILogProvider.h>
+
 
 using namespace std;
 
@@ -48,6 +52,11 @@ void FileManager::Init(TiXmlElement* config)
           fileObject fo = (fileObject){url, sha1, path};
 
           fm._fileList.insert(pair<string,fileObject>(key, fo));
+
+
+          stringstream str;
+          str<<"File("<<key<<","<<url<<","<<sha1<<","<<path<<")";
+          Log::WriteLog(Log_Info,str.str());
         }
       child = child->NextSiblingElement();
     }

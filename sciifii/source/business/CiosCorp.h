@@ -36,6 +36,7 @@ private:
 public:
 	bool Prepare();
 	void Install();
+	void SendToLog();
 	void AddModule(const std::string& name, const moduleDesc& module);
 	void AddItem(const ciosDesc& item);
 };

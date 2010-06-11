@@ -171,3 +171,15 @@ void CiosCorp::Install()
 
 	OnProgress("Cioscorp installed.", 1);
 }
+void CiosCorp::SendToLog()
+{
+	for(vector<ciosDesc>::iterator ite = _items.begin(); ite != _items.end(); ++ite)
+			{
+			stringstream str;
+			str<<"CiosCorpItem("<<hex<<ite->destId<<","<<ite->sourceId<<dec<<","<<ite->revision<<","<<ite->IdentifyPatch<<","<<ite->NandPatch<<","<<ite->KoreanPatch<<ite->localOnly;
+			for(u32 i=0;i<ite->modules.size();i++) str<<","<<ite->modules[i];
+			str<<")";
+			Log::WriteLog(Log_Info,str.str());
+			}
+}
+

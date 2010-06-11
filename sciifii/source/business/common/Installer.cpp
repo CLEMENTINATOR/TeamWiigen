@@ -17,7 +17,9 @@ void Installer::OnWarning(const std::string& message, f32 value)
 	arg.percent = value;
 	Warning(this, &arg);
 }
-
+void Installer::SendToLog()
+{
+}
 Installer::~Installer()
 {}
 

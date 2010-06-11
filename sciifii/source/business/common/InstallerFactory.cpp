@@ -14,9 +14,7 @@
 #include <libutils/Xml.h>
 #include <libutils/UtilString.h>
 #include <libutils/system/Title.h>
-#include <libutils/logging/Log.h>
 #include <string>
-#include <sstream>
 
 using namespace std;
 
@@ -30,9 +28,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	{
 		u64 titleId = UtilString::ToU64(node->Attribute("id"),nr_hex);
 		u16 revision = UtilString::ToU16(node->Attribute("revision"));
-		stringstream str;
-		str<<"new TitleDowngrader("<<titleId<<","<<revision<<")";
-		Log::WriteLog(Log_Info,str.str());
+
+
 		step = new TitleDowngrader(titleId, revision);
 	}
 	else if(nodeValue == "IOSReloader")
@@ -40,9 +37,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		u32 id = UtilString::ToU32(node->Attribute("id"));
 		s32 userId = UtilString::ToS32(node->Attribute("user"), -1);
 
-		stringstream str;
-		str<<"new IOSReloader("<<id<<","<<userId<<")";
-		Log::WriteLog(Log_Info,str.str());
 
 		if(userId == -1)
 			step = new IosReloader(id);
@@ -80,17 +74,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
          if (titleId!=0 && file=="")
          {
-        	 stringstream str;
-        	 str<<"new TitleStep("<<titleId<<","<<revision<<","<<action<<","<<path<<")";
-        	 Log::WriteLog(Log_Info,str.str());
 
              step= new TitleStep(titleId, revision, action, path);
         }
          else if (titleId==0 && file!="")
         {
-        	 stringstream str;
-        	 str<<"new TitleStep("<<file<<","<<action<<","<<path<<")";
-        	 Log::WriteLog(Log_Info,str.str());
 
             step= new TitleStep(file, action, path);
         }
@@ -130,9 +118,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		if(file == "")
 			throw Exception("Priiloader file must be provided.", -1);
 
-		stringstream str;
-		str<<"new Preloader("<<file<<")";
-		Log::WriteLog(Log_Info,str.str());
 
 		step = new Preloader(file);
 	}
@@ -140,19 +125,12 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	{
 		string folder = UtilString::ToStr(node->Attribute("folder"));
 
-		stringstream str;
-		str<<"new WadBatchInstaller("<<folder<<")";
-		Log::WriteLog(Log_Info,str.str());
-
 		step = new WadBatchInstaller(folder);
 	}
 	else if(nodeValue == "CompositeInstaller")
 	{
 		string name = UtilString::ToStr(node->Attribute("name"));
 
-		stringstream str;
-		str<<"new CompositeInstaller("<<name<<")";
-		Log::WriteLog(Log_Info,str.str());
 
 		step = new CompositeInstaller(name);
 		FillCompositeInstaller(step, node);
@@ -162,10 +140,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else if(nodeValue == "FileDownloader")
 	{
 		string file = UtilString::ToStr(node->Attribute("file"));
-
-		stringstream str;
-		str<<"new FileDownloader("<<file<<")";
-		Log::WriteLog(Log_Info,str.str());
 
 		step = new FileDownloader(file);
 	}
@@ -194,10 +168,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		else if(saction == "delete")
 			action = FSTAction_Delete;
 
-		stringstream str;
-		str<<"new FileSystem("<<target<<","<<action<<","<<type<<","<<destination<<","<<recursive<<")";
-		Log::WriteLog(Log_Info,str.str());
-
 		step = new FileSystemTask(target, action, type, destination, recursive);
 	}
 	else
@@ -215,10 +185,6 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 
 	u16 iosRevision = UtilString::ToU16(node->Attribute("revision"));
 	u16 ciosRevision = UtilString::ToU16(node->Attribute("ciosRevision"));
-
-	stringstream str;
-	str<<"new Cios("<<iosSource<<","<<iosRevision<<","<<iosDest<<","<<ciosRevision<<")";
-	Log::WriteLog(Log_Info,str.str());
 
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 
@@ -256,9 +222,7 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
 
 			string file = UtilString::ToStr(module->Attribute("file"));
             s32 position = UtilString::ToS32(module->Attribute("position"), -1);
-            stringstream str;
-            str<<"AddModule("<<file<<","<<position<<")";
-            Log::WriteLog(Log_Info,str.str());
+
             ((Cios*)cios)->AddModule((customModule){file, position});
         }
         module = module->NextSiblingElement();
@@ -276,10 +240,6 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
            if(nodeValue=="prebuild")
            {
                string patchName=UtilString::ToStr(child->Attribute("name"));
-
-               stringstream str;
-               str<<"AddPatch("<<patchName<<")";
-               Log::WriteLog(Log_Info,str.str());
 
                ((Cios*)cios)->AddPatch(SimplePatch::getPatch(patchName));
            }
@@ -428,10 +388,6 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
             bool kkPatch = UtilString::ToBool(child->Attribute("kkPatch"));
             bool localOnly = UtilString::ToBool(child->Attribute("localOnly"));
 
-            stringstream str;
-            str<<"AddItem("<<slot<<","<<source<<","<<revision<<","<<modulesfull<<","<<identifyPatch<<","<<nandPatch<<","<<kkPatch<<","<<localOnly<<")";
-            Log::WriteLog(Log_Info,str.str());
-
 			((CiosCorp*)corp)->AddItem((ciosDesc){ slot, source, revision, modules, identifyPatch, nandPatch, kkPatch, localOnly });
         }
 
@@ -453,10 +409,6 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
 			string name = UtilString::ToStr(child->Attribute("name"));
 			string file = UtilString::ToStr(child->Attribute("file"));
 
-            stringstream str;
-            str<<"AddModule("<<name<<","<<type<<","<<file<<")";
-            Log::WriteLog(Log_Info,str.str());
-
 			((CiosCorp*)corp)->AddModule(name, (moduleDesc){ type, file });
         }
 
@@ -466,10 +418,6 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
 
 Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
 {
-	stringstream str;
-	str<<"SystemUpdater()";
-	Log::WriteLog(Log_Info,str.str());
-
 	SystemUpdater* step = new SystemUpdater();
 	TiXmlElement* child = node->FirstChildElement();
 
@@ -498,10 +446,6 @@ Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
 						child = child->NextSiblingElement();
 						continue;
 					}
-
-				stringstream s;
-				s<<"AddTitle("<<slot<<","<<id<<","<<revision<<","<<onlyUninstallation<<")";
-				Log::WriteLog(Log_Info,s.str());
 
 				step->AddTitle(descriptor, onlyUninstallation);
             }

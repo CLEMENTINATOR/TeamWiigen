@@ -111,7 +111,7 @@ u32 HttpRequest::GetResponseLength()
   }
   
 	/* Generate HTTP request */
-	sprintf(request, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", _path.c_str(),_hostName.c_str());
+	sprintf(request, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", fullPath.str().c_str(),_hostName.c_str());
 
 	/* Connect to server */
 	Connect(_hostName);

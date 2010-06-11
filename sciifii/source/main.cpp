@@ -114,7 +114,7 @@ int mainText(int argc, char **argv)
         else
         {
         	Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
-            cout <<endl<< "An error occured. Press A to exit.";
+        	throw Exception("An error occured during prepare.",-1);
         }
     }
     catch (Exception &ex)

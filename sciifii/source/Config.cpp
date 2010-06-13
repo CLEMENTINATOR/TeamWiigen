@@ -25,8 +25,6 @@ Config::Config()
     {
         _region = CONF_GetRegion();
         NetworkUtility::GetIp();
-        WebLogger sciifiiLog("http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx", "message", "line", "file", "application", "version");
-        Log::AddLogProvider(Lgt_All, &sciifiiLog);
         _hasNetwork = true;
     }
     catch (...)
@@ -114,9 +112,9 @@ void Config::CreateLogs(TiXmlElement* element)
         t = Lgt_Warning;
       else if (cat == "info")
         t = Lgt_Info;
-      else if (cat == "all") 
+      else if (cat == "all")
         t = Lgt_All;
-      else 
+      else
         throw Exception("Invalid log category : "+cat, -1);
 
       if(type=="file")
@@ -132,10 +130,10 @@ void Config::CreateLogs(TiXmlElement* element)
         GeckoLogger* g = new GeckoLogger();
         Log::AddLogProvider(t,g);
       }
-      else 
+      else
         throw Exception("Invalid log type : " + type, -1);
     }
-    
+
     child = child->NextSiblingElement();
   }
 }

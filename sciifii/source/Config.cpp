@@ -50,6 +50,11 @@ Config& Config::Instance()
 void Config::Initialize()
 {
     Config& c = Instance();
+    if(Config::HasNetwork())
+    {
+    WebLogger *sciifiiLog=new WebLogger("http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx", "message", "line", "file", "application", "version");
+    Log::AddLogProvider(Lgt_All, sciifiiLog);
+    }
     TiXmlDocument& doc = Xml::Load("sd:/sciifii/config.xml");
     TiXmlElement* root = doc.RootElement();
 

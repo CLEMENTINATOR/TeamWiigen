@@ -131,7 +131,6 @@ int mainText(int argc, char **argv)
 
         Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
     }
-    Title::ReloadIOS(36);
     VPAD_Init();
     Pause();
 	return 0;

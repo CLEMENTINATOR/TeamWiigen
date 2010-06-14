@@ -9,9 +9,8 @@
 #include <com/NetworkUtility.h>
 #include <exception/Exception.h>
 #include <network.h>
-static char hostip[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-using namespace std;
 
+using namespace std;
 
 NetworkUtility::NetworkUtility() {
 
@@ -25,6 +24,14 @@ NetworkUtility &NetworkUtility::Current()
 	static NetworkUtility n;
 	return n;
 }
+
+bool& NetworkUtility::Initialized()
+{
+static bool initialized=false;
+return initialized;
+}
+
+
 /*!
 * \brief Gets the wii IP
 * \return the ip on a string array
@@ -32,11 +39,10 @@ NetworkUtility &NetworkUtility::Current()
 */
 string NetworkUtility::GetIp(void)
 {
-	static bool initialized = false;
-
-	if(!initialized)
+	if(!Initialized())
 	{
-		initialized = true;
+		char hostip[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		Initialized() = true;
 		s32 ret  = if_config(hostip, NULL, NULL, true);
 		if (ret < 0)
 			throw Exception("Error initialising network !",ret);
@@ -47,7 +53,10 @@ string NetworkUtility::GetIp(void)
 	return Current()._hostIp;
 }
 
-
+void  NetworkUtility::Deinit(void)
+{
+	Initialized() = false;
+}
 string NetworkUtility::URLEncode(string s)
 {
 	string hex[] = {

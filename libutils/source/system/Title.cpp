@@ -1336,7 +1336,9 @@ void Title::ReloadIOS(u32 ios)
 		NetworkUtility::Deinit();
 		Log::Pause();
 		Device::EnsureShutdown();
-		if((ret = IOS_ReloadIOS(ios)) < 0)
+		usleep(500000);
+		ret = IOS_ReloadIOS(ios);
+		if(ret<0)
 			throw Exception("Can't reload ios" + ios, ret);
 		usleep(500000);
 		_runningIos = ios;

@@ -71,6 +71,7 @@ string NetworkUtility::GetIp(void)
 void  NetworkUtility::Deinit(void)
 {
 	Initialized() = false;
+	 net_deinit();
 }
 /*!
 * \brief UrlEncoding

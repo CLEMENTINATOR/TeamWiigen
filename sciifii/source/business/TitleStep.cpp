@@ -160,7 +160,16 @@ void TitleStep::Install()
       t.SaveDecryptedContent(_path);
 
     }
-  OnProgress("Done", 1);
+  if (_action == ti_Uninstall)
+      OnProgress("Title uninstallation done!", 1);
+    else if (_action == ti_Install)
+      OnProgress("Title installation  done!", 1);
+    else if (_action == ti_PackAsWad)
+      OnProgress("Wad creation done!", 1);
+    else if (_action == ti_Decrypt)
+    	OnProgress("Title decrypted!", 1);
+    else if (_action == ti_Extract)
+    	OnProgress("Title extracted!", 1);
 }
 
 void  TitleStep::SendtoLog()

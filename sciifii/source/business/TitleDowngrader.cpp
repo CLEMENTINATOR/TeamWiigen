@@ -71,7 +71,7 @@ void TitleDowngrader::Install()
 
   stringstream newFile;
   newFile<< Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(_id,0);
-
+  OnProgress("Loading titles", 0.1);
   Title newTitle;
   newTitle.TmdInstalledEvent += MakeDelegate(this, &TitleDowngrader::DowngradeTmd);
 

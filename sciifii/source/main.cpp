@@ -96,9 +96,7 @@ int mainText(int argc, char **argv)
         if (aresult == amResult_Exit)
            return 0;
     }
-
     Config::ValidateOptions();
-
     Disclaimer::Show();
     VPAD_Shutdown();
 

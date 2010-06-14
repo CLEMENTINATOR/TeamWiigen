@@ -109,7 +109,7 @@ void Config::CreateLogs(TiXmlElement* element)
       string type = UtilString::ToStr(child->Attribute("type"));
       string cat = UtilString::ToStr(child->Attribute("category"),"all");
       string path =UtilString::ToStr(child->Attribute("path"),"");
-
+      string url =UtilString::ToStr(child->Attribute("url"),"");
       LogType t;
       if(cat=="error")
         t = Lgt_Error;
@@ -134,6 +134,13 @@ void Config::CreateLogs(TiXmlElement* element)
       {
         GeckoLogger* g = new GeckoLogger();
         Log::AddLogProvider(t,g);
+      }
+      else if (type=="web")
+      {
+    	  if(url=="")
+    		  throw Exception("Weblogger needs an url for logging  !", -1);
+    	  WebLogger *sciifiiLog=new WebLogger(url, "message", "line", "file", "application", "version");
+    	  Log::AddLogProvider(t, sciifiiLog);
       }
       else
         throw Exception("Invalid log type : " + type, -1);

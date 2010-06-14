@@ -13,9 +13,10 @@ FileDownloader::FileDownloader(const string &file)
 
 bool FileDownloader::Prepare()
 {
+	OnProgress("Downloading "+_file, 0.1);
 	if(!FileManager::Download(_file))
 		throw Exception("Error downloading " + _file, -1);
-		
+	OnProgress("Done",1);
 	return true;
 }
 

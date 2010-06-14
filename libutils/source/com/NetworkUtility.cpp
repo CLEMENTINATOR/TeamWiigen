@@ -36,12 +36,12 @@ string NetworkUtility::GetIp(void)
 
 	if(!initialized)
 	{
+		initialized = true;
 		s32 ret  = if_config(hostip, NULL, NULL, true);
 		if (ret < 0)
 			throw Exception("Error initialising network !",ret);
 
-    Current()._hostIp = string(hostip);
-		initialized = true;
+		Current()._hostIp = string(hostip);
 	}
   
 	return Current()._hostIp;

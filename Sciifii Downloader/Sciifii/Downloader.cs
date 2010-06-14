@@ -21,7 +21,7 @@ namespace Sciifii
         {
             this.steps = steps;
             this.worker = worker;
-            this.folder = folder + "\\sciifii";
+            this.folder = folder;
             this.config = config;
         }
 

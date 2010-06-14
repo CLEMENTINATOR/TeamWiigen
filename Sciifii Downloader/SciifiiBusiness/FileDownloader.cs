@@ -80,7 +80,7 @@ namespace SciifiiBusiness
                 device = device.Substring(0, device.IndexOf('/') - 1);
             }
 
-            string realDirectory = folder + "\\" + device + "\\" + sdDirectory;
+            string realDirectory = folder + "\\"  + sdDirectory;
             realDirectory = realDirectory.Replace("/", "\\");
 
             while (realDirectory.Contains("\\\\"))

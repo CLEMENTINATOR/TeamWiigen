@@ -14,12 +14,14 @@
 #include <fs/Path.h>
 #include <fs/Device.h>
 #include <com/NusServer.h>
+#include <com/NetworkUtility.h>
 #include <system/Certificate.h>
 #include <rijndael.h>
 #include <sha1.h>
 #include <fs/Path.h>
 #include <iomanip>
 #include <unistd.h>
+
 using namespace std;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
@@ -1331,6 +1333,7 @@ void Title::ReloadIOS(u32 ios)
 	s32 ret = 0;
 	if(GetRunningIOS() != ios)
 	{
+		NetworkUtility::Deinit();
 		Log::Pause();
 		Device::EnsureShutdown();
 		if((ret = IOS_ReloadIOS(ios)) < 0)

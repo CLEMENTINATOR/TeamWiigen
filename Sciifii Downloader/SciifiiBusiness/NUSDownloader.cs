@@ -85,8 +85,8 @@ namespace SciifiiBusiness
 
         public void Download(string folder)
         {
-            string file = folder + "\\sd\\sciifii\\temp\\" + wadFile;
-            if (!Directory.Exists(folder + "\\sd\\sciifii\\temp\\")) Directory.CreateDirectory(folder + "\\sd\\sciifii\\temp\\");
+            string file = folder +  wadFile;
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
             if (File.Exists(file))
                 return;
 

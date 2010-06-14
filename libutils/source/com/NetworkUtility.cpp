@@ -11,20 +11,33 @@
 #include <network.h>
 
 using namespace std;
-
+/**
+ *\brief Constructor
+ */
 NetworkUtility::NetworkUtility() {
 
 }
 
+/**
+ *\brief Destructor
+ */
 NetworkUtility::~NetworkUtility() {
 
 }
+/**
+ *\brief Return the current NetworkUtility
+ *\return The current NetworkUtility
+ */
 NetworkUtility &NetworkUtility::Current()
 {
 	static NetworkUtility n;
 	return n;
 }
 
+/**
+ *\brief Return if the NetworkUtility has been initialized
+ *\return The current NetworkUtility
+ */
 bool& NetworkUtility::Initialized()
 {
 static bool initialized=false;
@@ -35,7 +48,6 @@ return initialized;
 /*!
 * \brief Gets the wii IP
 * \return the ip on a string array
-*
 */
 string NetworkUtility::GetIp(void)
 {
@@ -53,10 +65,18 @@ string NetworkUtility::GetIp(void)
 	return Current()._hostIp;
 }
 
+/*!
+* \brief Deinit networking
+*/
 void  NetworkUtility::Deinit(void)
 {
 	Initialized() = false;
 }
+/*!
+* \brief UrlEncoding
+* \param s The string to urlencode
+* \return the urlencoded
+*/
 string NetworkUtility::URLEncode(string s)
 {
 	string hex[] = {

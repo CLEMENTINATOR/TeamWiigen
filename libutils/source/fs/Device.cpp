@@ -14,7 +14,7 @@ static fatDevice devices[] = {
 	{ WII_ROOT_DIRECTORY,	"Wii file system",		NULL,		0 },
 	{ "sd",		"Wii SD Slot",			&__io_wiisd, 0 },
 	{ "usb",	"USB Mass Storage Device",	&__io_usbstorage, 0 },
-	{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_usb2storage, 0 },
+	/*{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_usb2storage, 0 },*/
 	{ "gca",	"SD Gecko (Slot A)",		&__io_gcsda, 0 },
 	{ "gcb",	"SD Gecko (Slot B)",		&__io_gcsdb, 0 },
 };

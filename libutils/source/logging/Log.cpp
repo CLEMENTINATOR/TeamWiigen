@@ -25,7 +25,9 @@ Log::~Log()
 }
 
 
-
+/**
+ *\brief Pause all the logging subsystems
+ */
 void Log::Pause()
 {
 
@@ -98,7 +100,11 @@ void Log::Write(LogStatus status, const std::string& message,int line,const char
 			}
 	}
 }
-
+/**
+ *\brief Init logging subsystems
+ * \param appName The name of the application
+ * \param appVersion The version of the application
+ */
 void Log::Init(std::string appName, std::string appVersion)
 {
   Current()._appName = appName;

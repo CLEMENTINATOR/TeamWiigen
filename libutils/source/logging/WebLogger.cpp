@@ -11,7 +11,9 @@
 #include <string>
 #include <vector>
 using namespace std;
-
+/**
+ * \brief Constructor
+ */
 WebLogger::WebLogger(const string& url,const string& msgKey, const string& lineKey, const string& fileKey, const string& appKey, const string& versionKey) 
 : _url(url),
   _msgKey(msgKey),
@@ -21,6 +23,9 @@ WebLogger::WebLogger(const string& url,const string& msgKey, const string& lineK
   _versionKey(versionKey)
 {}
 
+/**
+ * \brief Destructor
+ */
 WebLogger::~WebLogger() {}
 
 void WebLogger::WriteError( const string& message,int line,const char* file, const string& appName, const string& appVersion)
@@ -39,7 +44,6 @@ void WebLogger::WriteInfo( const string& message,int line,const char* file, cons
 }
 /**
  *\brief Write a text to web output
- *\param text The text to write
  */
 void WebLogger::Write(const string& type, const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {

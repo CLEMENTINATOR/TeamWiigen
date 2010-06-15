@@ -5,7 +5,7 @@
 #include <ogcsys.h>
 #include <string>
 #include <vector>
-
+#include "../Config.h"
 typedef enum
 {
 	amResult_Continue = 0,
@@ -17,6 +17,7 @@ class AdvancedMenu : public MenuBase
 {
 private:
 	std::vector<std::string> actions;
+	std::vector<option*> opt;
 	u32 menuMaxLength;
 	
 	u32 selectIndex;

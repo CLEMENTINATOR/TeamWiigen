@@ -163,9 +163,10 @@ void Config::CreateOptionList(TiXmlElement* element)
 
             string name = child->Attribute("name");
             string text = child->Attribute("text");
+			bool hidden=UtilString::ToBool(child->Attribute("hidden"),false);
 
             option* opt = new option();
-            (*opt) = (option){name, text};
+            (*opt) = (option){name, text,false,hidden};
             _options.push_back(opt);
         }
 

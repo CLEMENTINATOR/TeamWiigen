@@ -15,6 +15,7 @@ typedef struct
 	std::string name;
 	std::string text;
 	bool selected;
+	bool hidden;
 } option;
 
 typedef struct

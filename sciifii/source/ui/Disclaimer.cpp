@@ -15,7 +15,7 @@ void Disclaimer::Show()
 
   cout << endl << endl;
 
-  cout << "Sciifii v3 beta made by TeamWiigen" << endl
+  cout << "Sciifii v3 made by TeamWiigen" << endl
 	   << Config::DisclaimerText() << endl << endl;
 
 

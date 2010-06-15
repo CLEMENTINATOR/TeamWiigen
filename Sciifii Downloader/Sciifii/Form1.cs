@@ -19,9 +19,13 @@ namespace Sciifii
         bool job = false;
         string directory;
 
+        List<String> hiddenOptions;
+
         public Form1()
         {
             InitializeComponent();
+            hiddenOptions = new List<string>();
+
             checkedListBox1.DisplayMember = "text";
 
             using (Stream config = File.Open("config.xml", FileMode.Open, FileAccess.Read))
@@ -47,13 +51,17 @@ namespace Sciifii
 
             blockList = true;
 
+            hiddenOptions.Clear();
             List<string> options = comboBox1.SelectedValue as List<string>;
 
             checkedListBox1.Items.Clear();
             if (options != null)
                 foreach (Option option in datas.Options)
+                    if (option.Hidden && options.Contains(option.Name))
+                        hiddenOptions.Add(option.Name);
+                    else
                     checkedListBox1.Items.Add(option, options.Contains(option.Name));
-
+            
             blockList = false;
         }
 
@@ -63,6 +71,7 @@ namespace Sciifii
                 return;
 
             blockList = true;
+            hiddenOptions.Clear();
             comboBox1.SelectedIndex = 0;
             blockList = false;
         }
@@ -96,6 +105,8 @@ namespace Sciifii
             foreach (Option option in checkedListBox1.CheckedItems)
                 options.Add(option.Name);
 
+            options.AddRange(hiddenOptions);
+
             foreach (Step s in datas.Steps)
             {
                 foreach (string sopt in s.Options)
@@ -116,16 +127,13 @@ namespace Sciifii
                      button1.Text = "Cancel";
                  }));
             job = true;
-            Downloader d = new Downloader((IEnumerable<Step>)e.Argument, directory, datas, (BackgroundWorker)sender);
+            Downloader d = new Downloader(e, directory, datas, (BackgroundWorker)sender);
             d.ExecuteDownload();
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value = 0;
-
-            if (e.Cancelled || e.Error != null)
-                Directory.Delete(directory + "\\sciifii", true);
 
             if (e.Error != null)
                 MessageBox.Show(this, "An error occured;\n" + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -30,12 +30,12 @@ WebLogger::~WebLogger() {}
 
 void WebLogger::WriteError( const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
-	Write("NFO", message, line, file, appName, appVersion);
+	Write("ERR", message, line, file, appName, appVersion);
 }
 
 void WebLogger::WriteWarning( const string& message,int line,const char* file, const string& appName, const string& appVersion)
 {
-	Write("NFO", message, line, file, appName, appVersion);
+	Write("WAR", message, line, file, appName, appVersion);
 }
 
 void WebLogger::WriteInfo( const string& message,int line,const char* file, const string& appName, const string& appVersion)

@@ -46,9 +46,9 @@ void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 	// send the message
 	stringstream message;
 	message << (u32)(args->percent * 100) << "%:\t" << args->message;
+	cout << message.str() << flush;
 	if(args->percent==1)	Log::WriteLog(Log_Info,message.str());
 
-	cout << message.str() << flush;
 	Sciifii::LastStepMessage() = message.str();
 
 	hasDisplayed = true;

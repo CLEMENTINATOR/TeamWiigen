@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SciifiiDTO;
+using System.ComponentModel;
 
 namespace SciifiiBusiness
 {
-    public delegate void TaskDelegate(Step step, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps);
+    public delegate void TaskDelegate(Step step, string folder, SciifiiConfiguration config, BackgroundWorker worker, DoWorkEventArgs workerArgs, int stepIndex, int nbSteps);
 
     public class Task
     {
@@ -14,9 +15,9 @@ namespace SciifiiBusiness
 
         internal Step Step { get; set; }
 
-        public void Prepare(string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        public void Prepare(string folder, SciifiiConfiguration config, BackgroundWorker worker, DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
-            job(Step, folder, config, worker, stepIndex, nbSteps);
+            job(Step, folder, config, worker, workerArgs, stepIndex, nbSteps);
         }
     }
 }

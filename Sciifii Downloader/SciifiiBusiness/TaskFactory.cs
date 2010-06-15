@@ -12,7 +12,24 @@ namespace SciifiiBusiness
 {
     public class TaskFactory
     {
-        internal static void PrepareCorp(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        private static string GetRealPath(string folder, string path)
+        {
+            string sdDirectory = path.Substring(path.IndexOf('/'));
+            string device = path.Substring(0, path.IndexOf('/') - 1);
+            
+
+            string realDirectory = folder + "\\" + sdDirectory;
+            realDirectory = realDirectory.Replace("/", "\\");
+
+            while (realDirectory.Contains("\\\\"))
+            {
+                realDirectory = realDirectory.Replace("\\\\", "\\");
+            }
+
+            return realDirectory;
+        }
+
+        internal static void PrepareCorp(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CiosCorp step = s as CiosCorp;
             double progressStep = 1.0 / (1 + step.Items.Count + step.Modules.Count);
@@ -22,6 +39,8 @@ namespace SciifiiBusiness
 
             foreach (CorpModule m in step.Modules)
             {
+                if (worker.CancellationPending)
+                    break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == m.File).First();
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
@@ -30,11 +49,13 @@ namespace SciifiiBusiness
 
             foreach (CorpItem i in step.Items)
             {
-                NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, folder);
+                if (worker.CancellationPending)
+                    break;
+                NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
             }
         }
 
-        internal static void PrepareCiosInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareCiosInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CiosInstaller step = s as CiosInstaller;
             double progressStep = 1.0 / (1 + step.Modules.Count + step.Plugins.Count);
@@ -42,13 +63,15 @@ namespace SciifiiBusiness
             double progress = (double)stepIndex / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
-            NUSDownloader.DownloadWad(0x100000000UL + step.Source, 0, folder);
+            NUSDownloader.DownloadWad(0x100000000UL + step.Source, 0, GetRealPath(folder, config.workingDirectory));
 
             progress += progressStep / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
             foreach (CiosModule module in step.Modules)
             {
+                if (worker.CancellationPending)
+                    break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == module.File).First();
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
@@ -57,6 +80,8 @@ namespace SciifiiBusiness
 
             foreach (Plugin plug in step.Plugins)
             {
+                if (worker.CancellationPending)
+                    break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == plug.File).First();
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
@@ -64,11 +89,11 @@ namespace SciifiiBusiness
             }
         }
 
-        internal static void PrepareTitleInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareTitleInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             TitleInstaller step = s as TitleInstaller;
             if (!String.IsNullOrEmpty(step.TitleId))
-                NUSDownloader.DownloadWad(UInt64.Parse(step.TitleId, System.Globalization.NumberStyles.HexNumber), step.TitleRevision, folder);
+                NUSDownloader.DownloadWad(UInt64.Parse(step.TitleId, System.Globalization.NumberStyles.HexNumber), step.TitleRevision, GetRealPath(folder, config.workingDirectory));
             else
             {
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.Wad).First();
@@ -79,25 +104,25 @@ namespace SciifiiBusiness
             worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareTitleDowngrader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareTitleDowngrader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             TitleDowngrader step = s as TitleDowngrader;
 
             double progress = (double)stepIndex / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
-            NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), 0, folder);
+            NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), 0, GetRealPath(folder, config.workingDirectory));
 
             progress += 0.5 / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
-            NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), step.Revision, folder);
+            NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), step.Revision, GetRealPath(folder, config.workingDirectory));
 
             progress += 0.5 / nbSteps;
             worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareSystemUpdate(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareSystemUpdate(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             SystemUpdater step = s as SystemUpdater;
             List<Title> titleToInstall = step.Titles.Where(t => t.Region == Regions.ALL || t.Region == config.SelectedRegion).ToList();
@@ -108,13 +133,15 @@ namespace SciifiiBusiness
 
             foreach (Title t in titleToInstall)
             {
-                NUSDownloader.DownloadWad(UInt64.Parse(t.TitleId, System.Globalization.NumberStyles.HexNumber), t.TitleRevision, folder);
+                if (worker.CancellationPending)
+                    break;
+                NUSDownloader.DownloadWad(UInt64.Parse(t.TitleId, System.Globalization.NumberStyles.HexNumber), t.TitleRevision, GetRealPath(folder, config.workingDirectory));
                 progress += progressStep / nbSteps;
                 worker.ReportProgress((int)(100 * progress));
             }
         }
 
-        internal static void PrepareFileDownloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareFileDownloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             SciifiiDTO.FileDownloader step = s as SciifiiDTO.FileDownloader;
 
@@ -124,24 +151,29 @@ namespace SciifiiBusiness
             worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareEmptyTask(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareEmptyTask(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             double progress = (double)(stepIndex + 1) / nbSteps;
             worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareComposite(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, int stepIndex, int nbSteps)
+        internal static void PrepareComposite(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CompositeInstaller step = s as CompositeInstaller;
             foreach (Step innerStep in step.Steps)
             {
+                if (worker.CancellationPending)
+                    break;
                 Task t = CreateTask(innerStep);
 
                 if (innerStep is CompositeInstaller)
-                    t.Prepare(folder, config, worker, stepIndex, nbSteps);
+                    t.Prepare(folder, config, worker, workerArgs, stepIndex, nbSteps);
                 else
-                    t.Prepare(folder, config, worker, stepIndex++, nbSteps);
+                    t.Prepare(folder, config, worker, workerArgs, stepIndex++, nbSteps);
             }
+
+            if (worker.CancellationPending)
+                workerArgs.Cancel = true;
         }
 
         public static Task CreateTask(Step step)

@@ -85,7 +85,7 @@ namespace SciifiiBusiness
 
         public void Download(string folder)
         {
-            string file = folder +  wadFile;
+            string file = folder + "\\" + wadFile;
             if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
             if (File.Exists(file))
                 return;

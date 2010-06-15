@@ -12,14 +12,14 @@ namespace Sciifii
 {
     class Downloader
     {
-        IEnumerable<Step> steps;
+        DoWorkEventArgs workerArgs;
         SciifiiConfiguration config;
         BackgroundWorker worker;
         string folder;
 
-        public Downloader(IEnumerable<Step> steps, string folder, SciifiiConfiguration config, BackgroundWorker worker)
+        public Downloader(DoWorkEventArgs workerArgs, string folder, SciifiiConfiguration config, BackgroundWorker worker)
         {
-            this.steps = steps;
+            this.workerArgs = workerArgs;
             this.worker = worker;
             this.folder = folder;
             this.config = config;
@@ -30,10 +30,10 @@ namespace Sciifii
             Directory.CreateDirectory(folder);
             CompositeInstaller container = new CompositeInstaller();
             
-            foreach (Step s in steps)
+            foreach (Step s in (IEnumerable<Step>)workerArgs.Argument)
                 container.Steps.Add(s);
 
-            TaskFactory.CreateTask(container).Prepare(folder, config, worker, 0, container.StepsFullCount);
+            TaskFactory.CreateTask(container).Prepare(folder, config, worker, workerArgs, 0, container.StepsFullCount);
         }
     }
 }

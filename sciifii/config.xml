@@ -38,7 +38,8 @@
     <option name="TBR" text="Restore Trucha Bug" />
     <option name="cIOS" text="Install cios38 rev17" />
     <option name="update" text="Update your wii to 4.2" />
-    <option name="Preloader" text="Install the preloader" />
+    <option name="uninstall" text="Remove the cioses (install ios stubs)" />
+    <option name="Preloader" text="Install the priiloader" />
     <option name="corp" text="Install the corp cioses" />
     <option name="cmios" text="Install the cmios" />
     <option name="GXLoader" text="Install the USB LoaderGX" />

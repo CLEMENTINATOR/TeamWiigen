@@ -11,75 +11,34 @@
 using namespace std;
 
 static fatDevice devices[] = {
-	{ WII_ROOT_DIRECTORY,	"Wii file system",		NULL,		0 },
-	{ "sd",		"Wii SD Slot",			&__io_wiisd, 0 },
-	{ "usb",	"USB Mass Storage Device",	&__io_usbstorage, 0 },
-	/*{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_usb2storage, 0 },*/
-	{ "gca",	"SD Gecko (Slot A)",		&__io_gcsda, 0 },
-	{ "gcb",	"SD Gecko (Slot B)",		&__io_gcsdb, 0 },
+	{ WII_ROOT_DIRECTORY,	"Wii file system", NULL, 0, false},
+	{ "sd", "Wii SD Slot", &__io_wiisd, 0, false },
+	{ "usb", "USB Mass Storage Device",	&__io_usbstorage, 0, false},
+	{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_usb2storage, 0, false},
+	{ "gca",	"SD Gecko (Slot A)",		&__io_gcsda, 0, false},
+	{ "gcb",	"SD Gecko (Slot B)",		&__io_gcsdb, 0, false},
 };
 
-#define NB_DEVICES 5
-/**
-*\brief Constructor
-*/
-Device::Device()
-  : _started(false)
-{}
-
-/**
-*\brief Returns the current static device instance
-*\return The instance of class Device
-*/
-Device& Device::Instance()
-{
-	static Device d;
-	return d;
-}
-
-/**
-*\brief Startup all devices
-*/
-void Device::Startup()
-{
-	Device &d = Instance();
-	if(!d._started)
-	{
-		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
-		{
-			fatDevice *tempDevice = devices + deviceIndex;
-			if(tempDevice->interface != NULL)
-				tempDevice->interface->startup();
-		}
-
-		d._started = true;
-	}
-}
+#define NB_DEVICES 6
 
 /**
 *\brief Shutdown all devices
 */
 void Device::EnsureShutdown()
 {
-	Device &d = Instance();
-	if(d._started)
-	{
-		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
-		{
-			fatDevice *tempDevice = devices + deviceIndex;
-			if(tempDevice->deviceHandles > 0)
-				throw Exception("Can shutdown device. Files are used.", tempDevice->deviceHandles);
-		}
+  for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+  {
+    fatDevice *tempDevice = devices + deviceIndex;
+    if(tempDevice->deviceHandles > 0)
+      throw Exception("Can shutdown device. Files are used.", tempDevice->deviceHandles);
+  }
 
-		for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
-		{
-			fatDevice *tempDevice = devices + deviceIndex;
-			if(tempDevice->interface != NULL)
-				tempDevice->interface->shutdown();
-		}
-
-		d._started = false;
-	}
+  for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+  {
+    fatDevice *tempDevice = devices + deviceIndex;
+    if(tempDevice->interface != NULL && tempDevice->started)
+      tempDevice->interface->shutdown();
+  }
 }
 
 /*!
@@ -169,7 +128,11 @@ void Device::Mount()
 void Device::Mount(fatDevice &device)
 {
 	/* Initialize interface */
-	Startup();
+  if(!device.started)
+  {
+    device.interface->startup();
+    device.started = true;
+  }
 
 	/* Mount device */
 	s32 ret = fatMountSimple(device.mount.c_str(), device.interface);

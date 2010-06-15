@@ -105,7 +105,7 @@
       </patches>
     </CiosInstaller>
 
-    <IOSReloader option="" id="249" user="0" />
+    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|Wiiflow|batch|clean" id="249" user="0" />
 
     <SystemUpdater option="update">
       <title id="0000000100000004" revision="65280" />

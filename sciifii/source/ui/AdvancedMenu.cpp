@@ -18,6 +18,7 @@ AdvancedMenu::AdvancedMenu()
 	{
 		if((*ite)->text.size() > menuMaxLength)
 		  menuMaxLength = (*ite)->text.size();
+		if((*ite)->hidden==false) opt.push_back(*ite);
 	}
 }
 
@@ -30,8 +31,8 @@ void AdvancedMenu::Display()
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
 
-	vector<option*> options = Config::Options();
-	for(vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
+
+	for(vector<option*>::iterator ite = opt.begin(); ite != opt.end(); ite++)
 	{
 		string choice = (*ite)->selected ? "Yes" : "No";
 		string color = (*ite)->selected ? green : red;
@@ -77,8 +78,8 @@ AdvancedMenuResult AdvancedMenu::Show()
 			if((cursorPosition == nbItems - 2) && (command & vpb_Ok))
 				return amResult_Continue;
 
-			option* opt = Config::Options()[cursorPosition];
-			opt->selected = !opt->selected;
+			option* opti = opt[cursorPosition];
+			opti->selected = !opti->selected;
 		}
         else if (command & vpb_Cancel)
             cursorPosition = nbItems - 1;

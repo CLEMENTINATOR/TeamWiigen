@@ -23,6 +23,9 @@ typedef struct {
 
 	/** To know how many item still use the device */
 	u32 deviceHandles;
+  
+  /** To know if the interface has already been started */
+  bool started;
 
 } fatDevice;
 
@@ -41,12 +44,8 @@ public:
 	static void UnMount(const std::string &path);
 	static bool IsFatPath(const std::string &path);
 	static std::string GetWiiPath(const std::string &path);
+  
 private:
-	bool _started;
-	Device();
-
-	static Device& Instance();
-	static void Startup();
 	static fatDevice& FindDevice(const std::string &pathName);
 	static void Mount(fatDevice &device);
 	static void Mount();

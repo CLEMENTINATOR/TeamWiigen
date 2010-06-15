@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[LOG_TYPE] (
+    [LTY_ID]    INT           IDENTITY (1, 1) NOT NULL,
+    [LTY_CODE]  NVARCHAR (3)  NOT NULL,
+    [LTY_VALUE] NVARCHAR (10) NOT NULL
+);
+

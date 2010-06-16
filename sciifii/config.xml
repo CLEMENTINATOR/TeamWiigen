@@ -50,7 +50,6 @@
     <option name="cmios" text="Install the cmios" />
     <option name="GXLoader" text="Install the USB LoaderGX" />
     <option name="wiiflow" text="Install Wiiflow" />
-    <option name="batch" text="install wads in sd:/sciifii/batch" />
     <option name="clean" text="Clean temp files on exit" />
   </options>
 
@@ -277,8 +276,6 @@
       <FileDownloader file="wiiflow.dol" />
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
-
-    <WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
     
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>

@@ -39,9 +39,7 @@ namespace Sciifii
 
             checkedListBox1.Items.Clear();
             foreach (Option option in datas.Options)
-                if (option.Hidden)
-                    hiddenOptions.Add(option.Name);
-                else
+                if (!option.Hidden)
                     checkedListBox1.Items.Add(option, false);
 
             ddlRegion.DataSource = Enum.GetNames(typeof(Regions)).Where(x => x != "ALL").OrderBy(x => x).ToList();
@@ -61,7 +59,10 @@ namespace Sciifii
             if (options != null)
                 foreach (Option option in datas.Options)
                     if (option.Hidden)
+                    {
+                      if(options.Contains(option.Name))
                         hiddenOptions.Add(option.Name);
+                    }
                     else
                         checkedListBox1.Items.Add(option, options.Contains(option.Name));
 

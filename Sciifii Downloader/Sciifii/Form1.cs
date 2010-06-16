@@ -39,7 +39,10 @@ namespace Sciifii
 
             checkedListBox1.Items.Clear();
             foreach (Option option in datas.Options)
-                checkedListBox1.Items.Add(option, false);
+                if (option.Hidden)
+                    hiddenOptions.Add(option.Name);
+                else
+                    checkedListBox1.Items.Add(option, false);
 
             ddlRegion.DataSource = Enum.GetNames(typeof(Regions)).Where(x => x != "ALL").OrderBy(x => x).ToList();
         }
@@ -57,11 +60,11 @@ namespace Sciifii
             checkedListBox1.Items.Clear();
             if (options != null)
                 foreach (Option option in datas.Options)
-                    if (option.Hidden && options.Contains(option.Name))
+                    if (option.Hidden)
                         hiddenOptions.Add(option.Name);
                     else
-                    checkedListBox1.Items.Add(option, options.Contains(option.Name));
-            
+                        checkedListBox1.Items.Add(option, options.Contains(option.Name));
+
             blockList = false;
         }
 
@@ -149,5 +152,6 @@ namespace Sciifii
         {
             progressBar1.Value = e.ProgressPercentage;
         }
+
     }
 }

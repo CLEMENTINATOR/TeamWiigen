@@ -44,6 +44,7 @@
     <option name="cmios" text="Install the cmios" />
     <option name="GXLoader" text="Install the USB LoaderGX" />
     <option name="wiiflow" text="Install Wiiflow" />
+    <option name="batch" text="install wads in sd:/sciifii/batch" />
     <option name="clean" text="Clean temp files on exit" />
   </options>
 
@@ -63,7 +64,7 @@
     <IOSReloader option="TBR|cIOS" id="36" user="0" />
     <Title option="TBR" id="000000010000000f" revision="0" action="install" />
 	
-   <CiosInstaller option="cIOS" source="37" revision="3869" slot="249" ciosRevision="19" >
+    <CiosInstaller option="cIOS" source="37" revision="3869" slot="249" ciosRevision="19" >
       <modules>
         <module file="mload_module_19.dat" />
         <module file="ehci_module_19.dat" position="3" />
@@ -80,8 +81,7 @@
       </patches>
     </CiosInstaller>
     
-    <Title option="cIOS" id="00000001000000f9"  action="extract" path="sd:/wad.wad" />
-    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|Wiiflow|batch|clean" id="249" user="0" />
+    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
 
     <SystemUpdater option="update">
       <title id="0000000100000004" revision="65280" />

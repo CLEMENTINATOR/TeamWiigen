@@ -42,7 +42,7 @@
 
   <options>
     <option name="TBR" text="Restore Trucha Bug" />
-    <option name="cIOS" text="Install cios249 rev19 (base 37)" />
+    <option name="cIOS" text="Install cios249 rev 17 and cios250 rev19 (base 37)" />
     <option name="update" text="Update your wii to 4.2" />
     <option name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
     <option name="Preloader" text="Install the priiloader" />

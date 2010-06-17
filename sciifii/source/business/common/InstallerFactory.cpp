@@ -5,7 +5,7 @@
 #include "../CiosCorp.h"
 #include "../Cios.h"
 #include "../SystemUpdater.h"
-#include "../WadBatchInstaller.h"
+#include "../WadBatch.h"
 #include "../Preloader.h"
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
@@ -68,7 +68,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
         else if (choice=="decrypt")
             action = ti_Decrypt;
         else
-			throw Exception("Can't parse WadAction enum from xml!", -1);
+			throw Exception("Can't parse TitleAction enum from xml!", -1);
 
 
 
@@ -121,11 +121,19 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
 		step = new Preloader(file);
 	}
-	else if(nodeValue == "WadBatchInstaller")
+	else if(nodeValue == "WadBatch")
 	{
 		string folder = UtilString::ToStr(node->Attribute("folder"));
+		string saction = UtilString::ToStr(node->Attribute("action"),"install");
+        TitleAction action;
+        if(saction == "install")
+			action = ti_Install;
+		else if(saction == "uninstall")
+			action = ti_Uninstall;
+        else
+			throw Exception("Can't parse WadBatchAction enum from xml!", -1);
 
-		step = new WadBatchInstaller(folder);
+		step = new WadBatch(folder,action);
 	}
 	else if(nodeValue == "CompositeInstaller")
 	{
@@ -187,7 +195,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 
     TiXmlElement* section = node->FirstChildElement();
-	while (section != NULL)	
+	while (section != NULL)
 	{
 		if (section->Type() != TiXmlElement::COMMENT)
 		{

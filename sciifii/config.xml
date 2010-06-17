@@ -7,12 +7,6 @@
   </logs>
   
   <files>
-	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
-    <file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />
-    <file key="sdhc_module.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat.sha" />
-    <file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
-    <file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
-    <file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
     <file key="fat_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_19.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module_19.dat.sha" />
     <file key="ehci_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat.sha" />
     <file key="sdhc_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat.sha" />
@@ -35,14 +29,15 @@
 
   <modes>
     <mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" />
-    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" />
-    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" />
-    <mode text="Unhack your wii" options="TBR|cIOS|update|uninstall" />
+    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS249|cIOS250|Preloader|GXLoader" />
+    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS249|cIOS250|Preloader|wiiflow" />
+    <mode text="Unhack your wii" options="TBR|cIOS249|update|uninstall" />
   </modes>
 
   <options>
     <option name="TBR" text="Restore Trucha Bug" />
-    <option name="cIOS" text="Install cios249 rev 17 and cios250 rev19 (base 37)" />
+    <option name="cIOS249" text="Install cios249 rev 19 (base 38)" />
+    <option name="cIOS250" text="Install cios250 rev 19 (base 37)" />
     <option name="update" text="Update your wii to 4.2" />
     <option name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
     <option name="Preloader" text="Install the priiloader" />
@@ -66,34 +61,22 @@
       </patches>
     </CiosInstaller>
 	
-    <IOSReloader option="TBR|cIOS" id="36" user="0" />
+    <IOSReloader option="TBR|cIOS249|cIOS250" id="36" user="0" />
+    
     <Title option="TBR" id="000000010000000f" revision="0" action="install" />
 	
-	<CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
+    <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="19" >
       <modules>
-        <module file="ehci_module.dat" position="3" />
-        <module file="fat_module.dat" />
-        <module file="sdhc_module.dat" />
+        <module file="mload_module_19.dat" />
+        <module file="ehci_module_19.dat" position="3" />
+        <module file="fat_module_19.dat" />
+        <module file="sdhc_module_19.dat" />
+        <module file="dip_plugin_19.dat" />
+        <module file="ffs_plugin_19.dat" />
       </modules>
-      <plugins>
-        <plugin dest="DIP" file="dip_plugin.dat" offset="200" bss="2C000">
-          <handle name="DIP_Cmd1" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x01, 0x68, 0x05, 0x46, 0x8A, 0x21" />
-          <handle name="DIP_Cmd2" pattern="0xB5, 0xF0, 0x46, 0x5F, 0x46, 0x56, 0x46, 0x4D, 0x46, 0x44, 0xB4, 0xF0, 0x4B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x05, 0x46, 0x44, 0xB4, 0xF0, 0x4B" />
-        </plugin>
-        <plugin dest="ES" file="es_plugin.dat" offset="200" bss="5000" >
-          <handle name="ES_Cmd" pattern="0xB5, 0x70, 0xB0, 0x88, 0x68, 0x85, 0x1C, 0x01, 0x31, 0x0C, 0x22, 0xC0" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x10, 0xB2, 0x01, 0x31, 0x0C, 0x22, 0xC0" />
-        </plugin>
-        <plugin dest="FFS" file="ffs_plugin.dat" offset="7200" bss="47000">
-          <handle name="FFS_OpenCmd" pattern="0xB5, 0xF0, 0x46, 0x47, 0xB4, 0x80, 0xB0, 0x81, 0x1C, 0x04, 0x1C, 0x05, 0x35" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x1C, 0x04, 0x1C, 0x05, 0x35" />
-          <handle name="FFS_CloseCmd" pattern="0xB5, 0x70, 0x26, 0x00, 0x68, 0x84, 0x6A, 0x23, 0x2B, 0x00, 0xD0, 0x00, 0x1C" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x2B, 0x00, 0xD0, 0x00, 0x1C" />
-          <handle name="FFS_ReadCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x22, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x22, 0x0C, 0x18" />
-          <handle name="FFS_WriteCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x21, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x21, 0x0C, 0x18" />
-          <handle name="FFS_SeekCmd" pattern="0xB5, 0x10, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x81, 0x6A, 0x08, 0x28, 0x00, 0xD1" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x6A, 0x08, 0x28, 0x00, 0xD1" />
-          <handle name="FFS_IoctlCmd" pattern="0xB5, 0xF0, 0xB0, 0x9C, 0x24, 0x00, 0x1C, 0x05, 0x35, 0x0C, 0x68, 0x81, 0x26" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x35, 0x0C, 0x68, 0x81, 0x26" />
-          <handle name="FFS_IoctlvCmd" pattern="0xB5, 0xF0, 0xB0, 0x81, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x85, 0x68, 0xC3, 0x2B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x68, 0x85, 0x68, 0xC3, 0x2B" />
-        </plugin>
-      </plugins>
+	  
       <patches>
+        <SimplePatch module="IOSP" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" />
         <prebuild name="ES_HashCheck_Old" />
         <prebuild name="ES_HashCheck_New" />
         <prebuild name="ES_Identify" />
@@ -110,7 +93,7 @@
         <prebuild name="DIP_EnableDvdVideo" />
       </patches>
     </CiosInstaller>
-	
+    
     <CiosInstaller option="cIOS" source="37" revision="3869" slot="250" ciosRevision="19" >
       <modules>
         <module file="mload_module_19.dat" />
@@ -123,12 +106,9 @@
 	  
       <patches>
         <SimplePatch module="IOSP" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" />
-        <SimplePatch  module="DIP" pattern="0xD1, 0x0F, 0x20, 0x01, 0xF0" value="0xD1, 0x0F, 0x20, 0x00, 0xF0" />
-        <SimplePatch module="DIP" pattern="0x14, 0x20, 0x01, 0xF0" value="0x14, 0x20, 0x00, 0xF0" />
+        <prebuild name="DIP_EnableDvdVideo" />
       </patches>
     </CiosInstaller>
-    
-
     
     <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
 

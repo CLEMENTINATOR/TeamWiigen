@@ -34,7 +34,7 @@
   </files>
 
   <modes>
-    <mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" />
+    <mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS249|cIOS250|Preloader" />
     <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS249|cIOS250|Preloader|GXLoader" />
     <mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS249|cIOS250|Preloader|wiiflow" />
     <mode text="Unhack your wii" options="TBR|cIOS249|update|uninstall" />

@@ -94,7 +94,7 @@
       </patches>
     </CiosInstaller>
     
-    <CiosInstaller option="cIOS" source="37" revision="3869" slot="250" ciosRevision="19" >
+    <CiosInstaller option="cIOS250" source="37" revision="3869" slot="250" ciosRevision="19" >
       <modules>
         <module file="mload_module_19.dat" />
         <module file="ehci_module_19.dat" position="3" />

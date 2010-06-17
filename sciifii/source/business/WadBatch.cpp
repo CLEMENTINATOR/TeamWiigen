@@ -1,4 +1,4 @@
-#include "WadBatchInstaller.h"
+#include "WadBatch.h"
 
 #include <vector>
 #include <libutils/system/Title.h>
@@ -8,16 +8,16 @@
 
 using namespace std;
 
-WadBatchInstaller::WadBatchInstaller(const string& folder)
-: _wadFolder(folder)
+WadBatch::WadBatch(const string& folder,TitleAction action)
+: _wadFolder(folder),a(action)
 {}
 
-bool WadBatchInstaller::Prepare()
+bool WadBatch::Prepare()
 {
 	return true;
 }
 
-void WadBatchInstaller::Install()
+void WadBatch::Install()
 {
 	vector<string> files = Directory::GetFiles(_wadFolder);
 	u32 steps = files.size();
@@ -34,16 +34,23 @@ void WadBatchInstaller::Install()
         }
 		OnProgress("Loading " + fileName, currentStep / steps);
 		wad.LoadFromWad(*ite);
-
+    if(a==ti_Install)
+    {
 		OnProgress("Install " + fileName, (currentStep + 0.5) / steps);
 		wad.Install();
+    }
+    else if (a==ti_Uninstall)
+    {
+        OnProgress("Uninstall " + fileName, (currentStep + 0.5) / steps);
+		wad.Uninstall();
+    }
 
 		currentStep++;
 	}
 }
 
-void WadBatchInstaller::SendToLog()
+void WadBatch::SendToLog()
 {
-Log::WriteLog(Log_Info,"WadBatchInstaller("+_wadFolder+")");
+Log::WriteLog(Log_Info,"WadBatch("+_wadFolder+")");
 }
 

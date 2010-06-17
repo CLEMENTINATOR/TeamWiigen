@@ -5,14 +5,20 @@
   <logs>
     <log type="file" path="sd:/sciifii.log" />
   </logs>
-
+  
   <files>
-    <file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
+	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
     <file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />
     <file key="sdhc_module.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat.sha" />
     <file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
     <file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
     <file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
+    <file key="fat_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_19.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module_19.dat.sha" />
+    <file key="ehci_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat.sha" />
+    <file key="sdhc_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat.sha" />
+    <file key="dip_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat.sha" />
+    <file key="ffs_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat.sha" />
+    <file key="mload_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat.sha" />
     <file key="es17.dat" url="http://teamwiigen.fr.cr/appfiles/es17.dat" sha1="http://teamwiigen.fr.cr/appfiles/es17.dat.sha" />
     <file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
     <file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
@@ -29,14 +35,15 @@
 
   <modes>
     <mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS|Preloader" />
-    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS|Preloader|GXLoader" />
-    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS|Preloader|wiiflow" />
-    <mode text="Unhack your wii" options="TBR|cIOS|update|uninstall" />
+    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS249|cIOS250|Preloader|GXLoader" />
+    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS249|cIOS250|Preloader|wiiflow" />
+    <mode text="Unhack your wii" options="TBR|cIOS249|update|uninstall" />
   </modes>
 
   <options>
     <option name="TBR" text="Restore Trucha Bug" />
-    <option name="cIOS" text="Install cios38 rev17" />
+    <option name="cIOS249" text="Install cios249 rev 19 (base 38)" />
+    <option name="cIOS250" text="Install cios250 rev 19 (base 37)" />
     <option name="update" text="Update your wii to 4.2" />
     <option name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
     <option name="Preloader" text="Install the priiloader" />
@@ -50,7 +57,7 @@
   <steps>
     <TitleDowngrader option="TBR" id="000000010000000f" revision="257" />
     <IOSReloader option="TBR" id="15" user="0"/>
-
+	
     <CiosInstaller option="TBR" source="36" revision="0" slot="36" ciosRevision="65535">
       <patches>
         <prebuild name="ES_HashCheck_Old" />
@@ -59,11 +66,12 @@
         <prebuild name="FFS_PermsCheck" />
       </patches>
     </CiosInstaller>
-
-    <IOSReloader option="TBR|cIOS" id="36" user="0" />
+	
+    <IOSReloader option="TBR|cIOS249|cIOS250" id="36" user="0" />
+    
     <Title option="TBR" id="000000010000000f" revision="0" action="install" />
-
-    <CiosInstaller option="cIOS" source="38" revision="3867" slot="249" ciosRevision="17" >
+	
+   <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" >
       <modules>
         <module file="ehci_module.dat" position="3" />
         <module file="fat_module.dat" />
@@ -104,8 +112,25 @@
         <prebuild name="DIP_EnableDvdVideo" />
       </patches>
     </CiosInstaller>
-
-    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|Wiiflow|batch|clean" id="249" user="0" />
+	
+    
+    <CiosInstaller option="cIOS250" source="37" revision="3869" slot="250" ciosRevision="19" >
+      <modules>
+        <module file="mload_module_19.dat" />
+        <module file="ehci_module_19.dat" position="3" />
+        <module file="fat_module_19.dat" />
+        <module file="sdhc_module_19.dat" />
+        <module file="dip_plugin_19.dat" />
+        <module file="ffs_plugin_19.dat" />
+      </modules>
+	  
+      <patches>
+        <SimplePatch module="IOSP" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" />
+        <prebuild name="DIP_EnableDvdVideo" />
+      </patches>
+    </CiosInstaller>
+    
+    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
 
     <SystemUpdater option="update">
       <title id="0000000100000004" revision="65280" />
@@ -158,35 +183,27 @@
       <title id="000000010000001e" revision="2816" />
 
       <!-- other ioses -->
-      <title id="000000010000003c" revision="6400" />
-      <!-- Stub 60 -->
-      <title id="0000000100000100" revision="6" />
-      <!-- MIOS -->
-      <title id="0000000100000101" revision="10" />
-      <!-- BC -->
+      <title id="000000010000003c" revision="6400" /> <!-- Stub 60 -->
+      <title id="0000000100000100" revision="6" /> <!-- MIOS -->
+      <title id="0000000100000101" revision="10" /> <!-- BC -->
 
       <!-- Channels -->
-      <title id="0001000248414141" revision="2" />
-      <!-- Photo -->
-      <title id="0001000248414341" revision="6" />
-      <!-- Mii channel-->
-      <title id="0001000248414241" revision="18" region="0" />
-      <!-- Shop channel -->
+      <title id="0001000248414141" revision="2" /> <!-- Photo -->
+      <title id="0001000248414341" revision="6" /> <!-- Mii channel-->
+      <title id="0001000248414241" revision="18" region="0" /> <!-- Shop channel -->
       <title id="0001000248414241" revision="18" region="1" />
       <title id="0001000248414241" revision="18" region="2" />
       <title id="000100024841424B" revision="18" region="4" />
-      <title id="000100024841464A" revision="7" region="0" />
-      <!-- weather -->
+      <title id="000100024841464A" revision="7" region="0" /> <!-- weather -->
       <title id="0001000248414645" revision="7" region="1" />
       <title id="0001000248414650" revision="7" region="2" />
-      <title id="000100024841474A" revision="7" region="0" />
-      <!-- news -->
+      <title id="000100024841474A" revision="7" region="0" /> <!-- news -->
       <title id="0001000248414745" revision="7" region="1" />
-      <title id="0001000248414750" revision="7" region="2" />
+      <title id="0001000248414750" revision="7" region="2" />      
     </SystemUpdater>
-
+    
     <IOSReloader option="uninstall" id="36" />
-
+    
     <SystemUpdater option="uninstall">
       <!-- Stubs -->
       <title id="00000001000000fe" revision="260" />
@@ -195,7 +212,7 @@
       <title id="00000001000000fa" revision="65280" />
       <title id="00000001000000f9" revision="65280" />
     </SystemUpdater>
-
+    
     <CompositeInstaller option="Preloader" name="Preloader">
       <Preloader  file="priiloader.dat" />
       <FileDownloader file="hacks.ini" />
@@ -246,7 +263,7 @@
         <SimplePatch pattern="0x23, 0x80, 0x03, 0x9b, 0x43, 0x1a" value="0x23, 0x80, 0x03, 0x9b, 0x43, 0x9a" />
       </patches>
     </CiosInstaller>
-
+    
     <CompositeInstaller option="GXLoader" name="LoaderGX">
       <FileDownloader file="GXDol" />
       <FileDownloader file="GXmeta" />
@@ -259,16 +276,12 @@
       <FileDownloader file="wiiflow.dol" />
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
-
-    <WadBatchInstaller option="batch" folder="sd:/sciifii/batch" />
-
+    
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>
 
-  <Disclaimer>
-    This software comes with NO WARRANTY WHATSOEVER.\n
-    You may use this software at your own risk.\n
-    We take no responsibility for damage caused by Sciifii.\n
-  </Disclaimer>
+  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.\n
+  You may use this software at your own risk.\n
+  We take no responsibility for damage caused by Sciifii.\n  </Disclaimer>
 
 </sciifii>

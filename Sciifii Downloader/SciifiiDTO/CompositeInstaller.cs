@@ -20,6 +20,7 @@ namespace SciifiiDTO
         [XmlElement(ElementName = "WadBatchInstaller", Type = typeof(WadBatchInstaller))]
         [XmlElement(ElementName = "TitleDowngrader", Type = typeof(TitleDowngrader))]
         [XmlElement(ElementName = "IOSReloader", Type = typeof(IOSReloader))]
+        [XmlElement(ElementName = "Preloader", Type = typeof(Preloader))]
         public List<Step> Steps { get; set; }
 
         [XmlAttribute(AttributeName = "name")]

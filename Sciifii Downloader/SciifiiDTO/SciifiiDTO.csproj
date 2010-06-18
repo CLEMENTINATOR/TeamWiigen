@@ -67,6 +67,7 @@
     <Compile Include="Cios\PluginHeader.cs" />
     <Compile Include="Cios\PreBuildPatch.cs" />
     <Compile Include="Cios\SimplePatch.cs" />
+    <Compile Include="Preloader.cs" />
     <Compile Include="CompositeInstaller.cs" />
     <Compile Include="FileDownloader.cs" />
     <Compile Include="FileSystemTask.cs" />

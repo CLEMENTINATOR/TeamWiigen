@@ -74,7 +74,7 @@ namespace Sciifii
                     fileName = openFileDialog1.FileName;
                 else
                 {
-                    MessageBox.Show("config.xml is expect application will close now", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("config.xml is expected, application will close now", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }
@@ -82,7 +82,7 @@ namespace Sciifii
             using (Stream config = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 datas = (SciifiiConfiguration)new XmlSerializer(typeof(SciifiiConfiguration)).Deserialize(config);
 
-            m_UpTextBox(tbStatus, "Config.xml load with success.");
+            m_UpTextBox(tbStatus, "Config.xml succesfully downgraded.");
 
             List<Mode> modes = new List<Mode>();
             modes.Add(new Mode { Text = "Advanced mode", OptionsString = "", Flag = "" });

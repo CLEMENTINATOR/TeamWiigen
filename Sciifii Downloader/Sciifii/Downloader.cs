@@ -32,8 +32,9 @@ namespace Sciifii
             
             foreach (Step s in (IEnumerable<Step>)workerArgs.Argument)
                 container.Steps.Add(s);
-
-            TaskFactory.CreateTask(container).Prepare(folder, config, worker, workerArgs, 0, container.StepsFullCount);
+            
+            TaskFactory taskFact = new TaskFactory();
+            taskFact.CreateTask(container).Prepare(folder, config, worker, workerArgs, 0, container.StepsFullCount);
         }
     }
 }

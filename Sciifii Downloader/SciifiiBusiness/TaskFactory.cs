@@ -51,9 +51,12 @@ namespace SciifiiBusiness
             {
                 if (worker.CancellationPending)
                     break;
-                progress += progressStep / nbSteps;
-                NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
-                worker.ReportProgress((int)(100 * progress), "IOS "+i.Source+ " v"+i.TitleRevision+" downloaded");
+                if (!i.LocalOnly)
+                {
+                    progress += progressStep / nbSteps;
+                    NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
+                    worker.ReportProgress((int)(100 * progress), "IOS " + i.Source + " v" + i.TitleRevision + " downloaded");
+                }
             }
         }
 
@@ -188,6 +191,16 @@ namespace SciifiiBusiness
                 workerArgs.Cancel = true;
         }
 
+        internal static void PreparePreloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        {
+            Preloader step = s as Preloader;
+            ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.File).First();
+            FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+            double progress = (double)(stepIndex + 1) / nbSteps;
+            worker.ReportProgress((int)(100 * progress), file.Key + " downloaded");
+
+        }
+
         public static Task CreateTask(Step step)
         {
             if (step is CiosCorp)
@@ -204,6 +217,8 @@ namespace SciifiiBusiness
                 return new Task { Step = step, job = PrepareFileDownloader };
             else if (step is CompositeInstaller)
                 return new Task { Step = step, job = PrepareComposite };
+            else if (step is Preloader)
+                return new Task { Step = step, job = PreparePreloader };
             else
                 return new Task { Step = step, job = PrepareEmptyTask };
         }

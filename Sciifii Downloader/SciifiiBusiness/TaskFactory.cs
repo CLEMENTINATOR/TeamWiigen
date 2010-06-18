@@ -68,7 +68,7 @@ namespace SciifiiBusiness
             double progress = (double)stepIndex / nbSteps;
             worker.ReportProgress((int)(100 * progress),"CiosInstaller download started");
 
-            NUSDownloader.DownloadWad(0x100000000UL + step.Source, 0, GetRealPath(folder, config.workingDirectory));
+            NUSDownloader.DownloadWad(0x100000000UL + step.Source, (ushort)step.SourceRevision, GetRealPath(folder, config.workingDirectory));
 
             progress += progressStep / nbSteps;
             worker.ReportProgress((int)(100 * progress),"Base "+step.Source+" ios downloaded");

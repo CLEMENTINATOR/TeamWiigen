@@ -742,6 +742,8 @@ void Title::Uninstall(u64 titleId)
 	tikview *viewData = NULL;
 	u32 viewCnt;
 	s32 ret;
+	
+	if(!Title::IsInstalled(titleId)) return;
 
 	if((titleId & 0x100000000ULL) > 0ULL)
 	{

@@ -165,12 +165,12 @@ namespace Sciifii
         protected void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             pbStatus.Value = e.ProgressPercentage;
-            m_UpTextBox(tbStatus, "");
+           if(e.UserState!=null) m_UpTextBox(tbStatus,  (string)e.UserState);
         }
 
         protected void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            m_UpTextBox(tbStatus, "Download finish");
+            m_UpTextBox(tbStatus, "Download finished");
             pbStatus.Value = 0;
             
             if (e.Error != null)

@@ -80,6 +80,7 @@
             this.tbStatus.Location = new System.Drawing.Point(424, 36);
             this.tbStatus.Multiline = true;
             this.tbStatus.Name = "tbStatus";
+            this.tbStatus.ReadOnly = true;
             this.tbStatus.Size = new System.Drawing.Size(200, 244);
             this.tbStatus.TabIndex = 10;
             // 

@@ -82,7 +82,7 @@ namespace Sciifii
             using (Stream config = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 datas = (SciifiiConfiguration)new XmlSerializer(typeof(SciifiiConfiguration)).Deserialize(config);
 
-            m_UpTextBox(tbStatus, "Config.xml succesfully downgraded.");
+            m_UpTextBox(tbStatus, "Config.xml succesfully loaded.");
 
             List<Mode> modes = new List<Mode>();
             modes.Add(new Mode { Text = "Advanced mode", OptionsString = "", Flag = "" });

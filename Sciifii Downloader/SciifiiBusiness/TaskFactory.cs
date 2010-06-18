@@ -44,14 +44,16 @@ namespace SciifiiBusiness
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == m.File).First();
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
-                worker.ReportProgress((int)(100 * progress),"Downloading "+file.Key);
+                worker.ReportProgress((int)(100 * progress),file.Key+" downloaded");
             }
 
             foreach (CorpItem i in step.Items)
             {
                 if (worker.CancellationPending)
                     break;
+                progress += progressStep / nbSteps;
                 NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
+                worker.ReportProgress((int)(100 * progress), "IOS "+i.Source+ " v"+i.TitleRevision+" downloaded");
             }
         }
 

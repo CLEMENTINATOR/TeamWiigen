@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace SciifiiDTO.Corp
 {
     [Serializable]
-    [XmlType("corpItem")]
+    [XmlType("item")]
     public class CorpItem
     {
         [XmlAttribute(AttributeName = "slot")]

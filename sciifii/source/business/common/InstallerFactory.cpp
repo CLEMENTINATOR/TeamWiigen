@@ -51,11 +51,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else if(nodeValue == "Title")
 	{
 		u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
-		u16 revision = UtilString::ToU16(node->Attribute("revision"),0, nr_hex);
-        string file = UtilString::ToStr(node->Attribute("wad"),"");
-        string path = UtilString::ToStr(node->Attribute("path"),"");
-        TitleAction action;
-        string choice = UtilString::ToStr(node->Attribute("action"),"install");
+		u16 revision = UtilString::ToU16(node->Attribute("revision"),0);
+    string file = UtilString::ToStr(node->Attribute("wad"),"");
+    string path = UtilString::ToStr(node->Attribute("path"),"");
+    TitleAction action;
+    string choice = UtilString::ToStr(node->Attribute("action"),"install");
 
 		if(choice == "install")
 			action = ti_Install;

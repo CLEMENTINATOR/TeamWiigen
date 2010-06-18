@@ -202,16 +202,14 @@
       <title id="0001000248414750" revision="7" region="2" />      
     </SystemUpdater>
     
-    <IOSReloader option="uninstall" id="36" />
-    
-    <SystemUpdater option="uninstall">
-      <!-- Stubs -->
-      <title id="00000001000000fe" revision="260" />
-      <title id="00000001000000de" revision="65280" />
-      <title id="00000001000000df" revision="65280" />
-      <title id="00000001000000fa" revision="65280" />
-      <title id="00000001000000f9" revision="65280" />
-    </SystemUpdater>
+    <CompositeInstaller option="uninstall" name="Uninstall cioses">
+      <Title id="00000001000000fe" revision="260" action="install" />
+      <Title id="00000001000000de" revision="65280" action="install" />
+      <Title id="00000001000000df" revision="65280" action="install" />
+      <Title id="00000001000000fa" revision="65280" action="install" />
+      <IOSReloader id="36" />
+      <Title id="00000001000000f9" revision="65280" action="install" />
+    </CompositeInstaller>
     
     <CompositeInstaller option="Preloader" name="Preloader">
       <Preloader  file="priiloader.dat" />

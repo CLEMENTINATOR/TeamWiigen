@@ -12,7 +12,7 @@ namespace SciifiiBusiness
 {
     public class TaskFactory
     {
-        private static string GetRealPath(string folder, string path)
+        private string GetRealPath(string folder, string path)
         {
             string sdDirectory = path.Substring(path.IndexOf('/'));
             string device = path.Substring(0, path.IndexOf('/') - 1);
@@ -29,58 +29,56 @@ namespace SciifiiBusiness
             return realDirectory;
         }
 
-        internal static void PrepareCorp(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareCorp(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CiosCorp step = s as CiosCorp;
             double progressStep = 1.0 / (1 + step.Items.Count + step.Modules.Count);
-
             double progress = (double)stepIndex / nbSteps;
-            worker.ReportProgress((int)(100 * progress),"CiosCorp download started");
+            worker.ReportProgress((int)(100 * progress));
 
             foreach (CorpModule m in step.Modules)
             {
                 if (worker.CancellationPending)
                     break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == m.File).First();
+                message(file.Key);
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
-                worker.ReportProgress((int)(100 * progress),file.Key+" downloaded");
+                worker.ReportProgress((int)(100 * progress));
             }
 
             foreach (CorpItem i in step.Items)
             {
                 if (worker.CancellationPending)
                     break;
-                if (!i.LocalOnly)
-                {
-                    progress += progressStep / nbSteps;
-                    NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
-                    worker.ReportProgress((int)(100 * progress), "IOS " + i.Source + " v" + i.TitleRevision + " downloaded");
-                }
+                message(i.ModulesString + " rev" + i.TitleRevision);
+                NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
             }
         }
 
-        internal static void PrepareCiosInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareCiosInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CiosInstaller step = s as CiosInstaller;
             double progressStep = 1.0 / (1 + step.Modules.Count + step.Plugins.Count);
 
             double progress = (double)stepIndex / nbSteps;
-            worker.ReportProgress((int)(100 * progress),"CiosInstaller download started");
+            worker.ReportProgress((int)(100 * progress));
 
-            NUSDownloader.DownloadWad(0x100000000UL + step.Source, (ushort)step.SourceRevision, GetRealPath(folder, config.workingDirectory));
+            message(step.OptionsString + " rev" + step.SourceRevision);
+            NUSDownloader.DownloadWad(0x100000000UL + step.Source, 0, GetRealPath(folder, config.workingDirectory));
 
             progress += progressStep / nbSteps;
-            worker.ReportProgress((int)(100 * progress),"Base "+step.Source+" ios downloaded");
+            worker.ReportProgress((int)(100 * progress));
 
             foreach (CiosModule module in step.Modules)
             {
                 if (worker.CancellationPending)
                     break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == module.File).First();
+                message(file.Key);
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
-                worker.ReportProgress((int)(100 * progress),file.Key+" downloaded");
+                worker.ReportProgress((int)(100 * progress));
             }
 
             foreach (Plugin plug in step.Plugins)
@@ -88,91 +86,90 @@ namespace SciifiiBusiness
                 if (worker.CancellationPending)
                     break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == plug.File).First();
+                message(file.Key);
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
                 progress += progressStep / nbSteps;
-                worker.ReportProgress((int)(100 * progress),file.Key + " downloaded");
+                worker.ReportProgress((int)(100 * progress));
             }
         }
 
-        internal static void PrepareTitleInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareTitleInstaller(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             TitleInstaller step = s as TitleInstaller;
-            string str;
             if (!String.IsNullOrEmpty(step.TitleId))
             {
+                message(step.OptionsString + " rev" + step.TitleRevision);
                 NUSDownloader.DownloadWad(UInt64.Parse(step.TitleId, System.Globalization.NumberStyles.HexNumber), step.TitleRevision, GetRealPath(folder, config.workingDirectory));
-                 str="Title "+step.TitleId;
-                if(step.TitleRevision!=0) str+=" v"+step.TitleRevision;
-                str+=" downloaded";
             }
             else
             {
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.Wad).First();
+                message(file.Key);
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
-                str=file.Key + " downloaded";
             }
 
             double progress = (double)(stepIndex + 1) / nbSteps;
-            worker.ReportProgress((int)(100 * progress),str);
+            worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareTitleDowngrader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareTitleDowngrader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             TitleDowngrader step = s as TitleDowngrader;
 
             double progress = (double)stepIndex / nbSteps;
-            worker.ReportProgress((int)(100 * progress),"TitleDowngraded download started");
+            worker.ReportProgress((int)(100 * progress));
 
+            message(step.OptionsString + " rev" + step.Revision);
             NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), 0, GetRealPath(folder, config.workingDirectory));
 
             progress += 0.5 / nbSteps;
-            worker.ReportProgress((int)(100 * progress), "IOS " + step.Id + " downloaded");
+            worker.ReportProgress((int)(100 * progress));
 
+            message(step.OptionsString + " rev" + step.Revision);
             NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), step.Revision, GetRealPath(folder, config.workingDirectory));
 
             progress += 0.5 / nbSteps;
-            worker.ReportProgress((int)(100 * progress), "IOS " + step.Id +" v"+step.Revision+ " downloaded");
+            worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareSystemUpdate(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareSystemUpdate(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             SystemUpdater step = s as SystemUpdater;
             List<Title> titleToInstall = step.Titles.Where(t => t.Region == Regions.ALL || t.Region == config.SelectedRegion).ToList();
             double progressStep = 1.0 / titleToInstall.Count;
 
             double progress = (double)stepIndex / nbSteps;
-            worker.ReportProgress((int)(100 * progress),"SystemUpdate download started !");
+            worker.ReportProgress((int)(100 * progress));
 
             foreach (Title t in titleToInstall)
             {
                 if (worker.CancellationPending)
                     break;
+                message(t.TitleId + " rev" + t.TitleRevision);
                 NUSDownloader.DownloadWad(UInt64.Parse(t.TitleId, System.Globalization.NumberStyles.HexNumber), t.TitleRevision, GetRealPath(folder, config.workingDirectory));
                 progress += progressStep / nbSteps;
-                string str = "Title " + t.TitleId;
-                if (t.TitleRevision != 0) str += " v" + t.TitleRevision;
-                str += " downloaded";
-                worker.ReportProgress((int)(100 * progress),str);
+                worker.ReportProgress((int)(100 * progress));
             }
         }
 
-        internal static void PrepareFileDownloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareFileDownloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             SciifiiDTO.FileDownloader step = s as SciifiiDTO.FileDownloader;
 
             ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.FileKey).First();
+            message(file.Key);
             FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
             double progress = (double)(stepIndex + 1) / nbSteps;
-            worker.ReportProgress((int)(100 * progress),file.Key+" downloaded");
+            worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareEmptyTask(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareEmptyTask(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             double progress = (double)(stepIndex + 1) / nbSteps;
             worker.ReportProgress((int)(100 * progress));
         }
 
-        internal static void PrepareComposite(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        internal void PrepareComposite(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CompositeInstaller step = s as CompositeInstaller;
             foreach (Step innerStep in step.Steps)
@@ -191,17 +188,7 @@ namespace SciifiiBusiness
                 workerArgs.Cancel = true;
         }
 
-        internal static void PreparePreloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
-        {
-            Preloader step = s as Preloader;
-            ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.File).First();
-            FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
-            double progress = (double)(stepIndex + 1) / nbSteps;
-            worker.ReportProgress((int)(100 * progress), file.Key + " downloaded");
-
-        }
-
-        public static Task CreateTask(Step step)
+        public Task CreateTask(Step step)
         {
             if (step is CiosCorp)
                 return new Task { Step = step, job = PrepareCorp };
@@ -217,10 +204,17 @@ namespace SciifiiBusiness
                 return new Task { Step = step, job = PrepareFileDownloader };
             else if (step is CompositeInstaller)
                 return new Task { Step = step, job = PrepareComposite };
-            else if (step is Preloader)
-                return new Task { Step = step, job = PreparePreloader };
             else
                 return new Task { Step = step, job = PrepareEmptyTask };
         }
+
+        public MessageEventHandler message;
+
+        private void Log(string msg)
+        {
+            message(msg);
+        }
     }
+
+    public delegate void MessageEventHandler(String message);
 }

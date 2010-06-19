@@ -42,6 +42,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btnDownload = new System.Windows.Forms.Button();
             this.ddlRegion = new System.Windows.Forms.ComboBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.sciifiiModeBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -56,7 +57,7 @@
             this.lbMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.lbMode.DataSource = this.sciifiiModeBindingSource;
-            this.lbMode.DisplayMember = "Text";
+            this.lbMode.DisplayMember = "text";
             this.lbMode.FormattingEnabled = true;
             this.lbMode.Location = new System.Drawing.Point(6, 27);
             this.lbMode.Name = "lbMode";
@@ -80,8 +81,9 @@
             this.tbStatus.Location = new System.Drawing.Point(424, 36);
             this.tbStatus.Multiline = true;
             this.tbStatus.Name = "tbStatus";
+            this.tbStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbStatus.Size = new System.Drawing.Size(448, 244);
             this.tbStatus.ReadOnly = true;
-            this.tbStatus.Size = new System.Drawing.Size(200, 244);
             this.tbStatus.TabIndex = 10;
             // 
             // groupBox1
@@ -117,7 +119,7 @@
             this.pbStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 290);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(636, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(884, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -129,9 +131,8 @@
             // 
             // pbStatus
             // 
-            this.pbStatus.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.pbStatus.Name = "pbStatus";
-            this.pbStatus.Size = new System.Drawing.Size(525, 16);
+            this.pbStatus.Size = new System.Drawing.Size(650, 16);
             // 
             // backgroundWorker1
             // 
@@ -144,7 +145,7 @@
             // btnDownload
             // 
             this.btnDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDownload.Location = new System.Drawing.Point(549, 7);
+            this.btnDownload.Location = new System.Drawing.Point(797, 7);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(75, 23);
             this.btnDownload.TabIndex = 3;
@@ -165,14 +166,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 312);
+            this.ClientSize = new System.Drawing.Size(884, 312);
             this.Controls.Add(this.ddlRegion);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tbStatus);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(652, 330);
+            this.MinimumSize = new System.Drawing.Size(900, 350);
             this.Name = "MainForm";
             this.Text = "Sciifii downloader";
             ((System.ComponentModel.ISupportInitialize)(this.sciifiiModeBindingSource)).EndInit();
@@ -198,5 +199,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.ComboBox ddlRegion;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

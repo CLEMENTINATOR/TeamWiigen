@@ -15,7 +15,7 @@ namespace Sciifii
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Use old new
+            //Use new form
             Application.Run(new MainForm());
             //Use old form
             //Application.Run(new Form1());

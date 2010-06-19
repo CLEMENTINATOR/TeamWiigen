@@ -63,7 +63,7 @@ namespace Sciifii
         private void Display_Message(string message)
         {
             m_step.Stop();
-            ModifTextBox(tbStatus, message + " download in " + m_step.ElapsedMilliseconds + " ms");
+            ModifTextBox(tbStatus, message + " downloaded in " + m_step.ElapsedMilliseconds + " ms");
             m_step.Reset();
             m_step.Start();
         }

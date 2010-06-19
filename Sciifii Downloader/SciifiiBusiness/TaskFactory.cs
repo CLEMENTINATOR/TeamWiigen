@@ -41,8 +41,9 @@ namespace SciifiiBusiness
                 if (worker.CancellationPending)
                     break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == m.File).First();
-                message(file.Key);
+               
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+                message(file.Key);
                 progress += progressStep / nbSteps;
                 worker.ReportProgress((int)(100 * progress));
             }
@@ -51,8 +52,11 @@ namespace SciifiiBusiness
             {
                 if (worker.CancellationPending)
                     break;
-                message(i.ModulesString + " rev" + i.TitleRevision);
-                NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
+                if (!i.LocalOnly)
+                {
+                    NUSDownloader.DownloadWad(UInt64.Parse(i.Source, System.Globalization.NumberStyles.HexNumber), i.TitleRevision, GetRealPath(folder, config.workingDirectory));
+                    message("Title " + i.Source + " rev" + i.TitleRevision);
+                }
             }
         }
 
@@ -64,8 +68,8 @@ namespace SciifiiBusiness
             double progress = (double)stepIndex / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
-            message(step.OptionsString + " rev" + step.SourceRevision);
             NUSDownloader.DownloadWad(0x100000000UL + step.Source, 0, GetRealPath(folder, config.workingDirectory));
+            message("IOS" + step.Source + " rev" + step.SourceRevision);
 
             progress += progressStep / nbSteps;
             worker.ReportProgress((int)(100 * progress));
@@ -75,8 +79,10 @@ namespace SciifiiBusiness
                 if (worker.CancellationPending)
                     break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == module.File).First();
-                message(file.Key);
+               
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+                message(file.Key);
+
                 progress += progressStep / nbSteps;
                 worker.ReportProgress((int)(100 * progress));
             }
@@ -86,8 +92,10 @@ namespace SciifiiBusiness
                 if (worker.CancellationPending)
                     break;
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == plug.File).First();
-                message(file.Key);
+               
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+                message(file.Key);
+
                 progress += progressStep / nbSteps;
                 worker.ReportProgress((int)(100 * progress));
             }
@@ -98,14 +106,17 @@ namespace SciifiiBusiness
             TitleInstaller step = s as TitleInstaller;
             if (!String.IsNullOrEmpty(step.TitleId))
             {
-                message(step.OptionsString + " rev" + step.TitleRevision);
+               
                 NUSDownloader.DownloadWad(UInt64.Parse(step.TitleId, System.Globalization.NumberStyles.HexNumber), step.TitleRevision, GetRealPath(folder, config.workingDirectory));
+                if (step.TitleRevision != 0) message("IOS" + step.TitleId + " rev" + step.TitleRevision);
+                else message("IOS" + step.TitleId);
+            
             }
             else
             {
                 ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.Wad).First();
-                message(file.Key);
                 FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+                message(file.Key);
             }
 
             double progress = (double)(stepIndex + 1) / nbSteps;
@@ -119,14 +130,15 @@ namespace SciifiiBusiness
             double progress = (double)stepIndex / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
-            message(step.OptionsString + " rev" + step.Revision);
+            
             NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), 0, GetRealPath(folder, config.workingDirectory));
+            message("Title " + step.Id);
 
             progress += 0.5 / nbSteps;
             worker.ReportProgress((int)(100 * progress));
 
-            message(step.OptionsString + " rev" + step.Revision);
             NUSDownloader.DownloadWad(UInt64.Parse(step.Id, NumberStyles.HexNumber), step.Revision, GetRealPath(folder, config.workingDirectory));
+            message("Title " + step.Id + " rev" + step.Revision);
 
             progress += 0.5 / nbSteps;
             worker.ReportProgress((int)(100 * progress));
@@ -145,8 +157,9 @@ namespace SciifiiBusiness
             {
                 if (worker.CancellationPending)
                     break;
-                message(t.TitleId + " rev" + t.TitleRevision);
+                
                 NUSDownloader.DownloadWad(UInt64.Parse(t.TitleId, System.Globalization.NumberStyles.HexNumber), t.TitleRevision, GetRealPath(folder, config.workingDirectory));
+                message("Title " + t.TitleId + " rev" + t.TitleRevision);
                 progress += progressStep / nbSteps;
                 worker.ReportProgress((int)(100 * progress));
             }
@@ -157,8 +170,10 @@ namespace SciifiiBusiness
             SciifiiDTO.FileDownloader step = s as SciifiiDTO.FileDownloader;
 
             ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.FileKey).First();
-            message(file.Key);
+            
             FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+            message(file.Key);
+
             double progress = (double)(stepIndex + 1) / nbSteps;
             worker.ReportProgress((int)(100 * progress));
         }

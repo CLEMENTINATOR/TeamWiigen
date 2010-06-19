@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using SciifiiDTO;
 using System.Xml.Serialization;
+using SciifiiBusiness;
+using System.Diagnostics;
 
 namespace Sciifii
 {
@@ -20,6 +22,10 @@ namespace Sciifii
         private bool job = false;
         private string directory;
         private List<String> hiddenOptions;
+        private TaskFactory m_taskFact;
+
+        private Stopwatch m_total = new Stopwatch();
+        private Stopwatch m_step = new Stopwatch();
 
         private void StopJob()
         {
@@ -29,7 +35,10 @@ namespace Sciifii
 
         private void StartJob()
         {
-            m_UpTextBox(tbStatus, "Download started");
+            m_UpTextBox(tbStatus, "--------------------------------------------");
+            m_UpTextBox(tbStatus, "Start of process, it could take some time...");
+            m_total.Start();
+            m_step.Start();
             List<string> options = new List<string>();
             List<Step> steps = new List<Step>();
 
@@ -50,6 +59,50 @@ namespace Sciifii
 
             backgroundWorker1.RunWorkerAsync(steps.ToArray());
         }
+
+        private void Display_Message(string message)
+        {
+            m_step.Stop();
+            ModifTextBox(tbStatus, message + " download in " + m_step.ElapsedMilliseconds + " ms");
+            m_step.Reset();
+            m_step.Start();
+        }
+
+        private void UploadToSd()
+        {
+            if (MessageBox.Show("The treatment is finished, move files to SD card?",
+                                "Success",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question) == DialogResult.Yes)
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    String sdRoot = folderBrowserDialog1.SelectedPath;//Path.GetPathRoot(folderBrowserDialog1.SelectedPath);
+                    if(!sdRoot.EndsWith("\\"))
+                        sdRoot += "\\";
+                    try
+                    {
+                        foreach (FileInfo toMove in new DirectoryInfo(directory).GetFiles("*", SearchOption.AllDirectories))
+                        {
+                            string dir = sdRoot + toMove.DirectoryName.Replace(directory, "");
+                            if (!Directory.Exists(dir))
+                                Directory.CreateDirectory(dir);
+                            toMove.CopyTo(Path.Combine(dir, toMove.Name));
+                        }
+                        
+                        MessageBox.Show("Files moved with success",
+                                        "Success",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error on moving files to SD card directory\r\n" + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                    }
+                }
+        }
         #endregion
 
         #region public
@@ -57,6 +110,11 @@ namespace Sciifii
         {
             InitializeComponent();
 
+            m_taskFact = new TaskFactory();
+            //Register downloader message event
+            if (m_taskFact.message == null)
+                m_taskFact.message += new MessageEventHandler(Display_Message);
+            
             //Register delegate to update textbox with thread
             m_UpTextBox = new UpdateTextBoxDelegate(this.UpdateTextBox);
 
@@ -81,8 +139,8 @@ namespace Sciifii
 
             using (Stream config = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 datas = (SciifiiConfiguration)new XmlSerializer(typeof(SciifiiConfiguration)).Deserialize(config);
-
-            m_UpTextBox(tbStatus, "Config.xml succesfully loaded.");
+                                     
+            UpdateTextBox(tbStatus, "Config.xml load with success.");
 
             List<Mode> modes = new List<Mode>();
             modes.Add(new Mode { Text = "Advanced mode", OptionsString = "", Flag = "" });
@@ -158,29 +216,41 @@ namespace Sciifii
                 btnDownload.Text = "Cancel";
             }));
             job = true;
-            Downloader d = new Downloader(e, directory, datas, (BackgroundWorker)sender);
-            d.ExecuteDownload();
+            
+            Directory.CreateDirectory(directory);
+            CompositeInstaller container = new CompositeInstaller();
+
+            foreach (Step s in (IEnumerable<Step>)e.Argument)
+                container.Steps.Add(s);
+
+            m_taskFact.CreateTask(container).Prepare(directory, datas, (BackgroundWorker)sender, e, 0, container.StepsFullCount);
         }
 
         protected void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             pbStatus.Value = e.ProgressPercentage;
-           if(e.UserState!=null) m_UpTextBox(tbStatus,  (string)e.UserState);
         }
 
         protected void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            m_UpTextBox(tbStatus, "Download finished");
+            m_total.Stop();
+            UpdateTextBox(tbStatus, "--------------------------------------------");
+            UpdateTextBox(tbStatus, "Download finish, total time: " + (m_total.ElapsedMilliseconds / 1000) + " s");
+            UpdateTextBox(tbStatus, "--------------------------------------------");
+
             pbStatus.Value = 0;
             
             if (e.Error != null)
-               m_UpTextBox(tbStatus, "An error occured;\n" + e.Error.Message);
+                UpdateTextBox(tbStatus, "An error occured;\n" + e.Error.Message);
 
             this.Invoke(new MethodInvoker(delegate()
             {
                 btnDownload.Text = "Download";
             }));
             job = false;
+
+            if (e.Error == null)
+                UploadToSd();
         }
         #endregion
 

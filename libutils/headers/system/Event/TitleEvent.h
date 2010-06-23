@@ -1,10 +1,12 @@
 #ifndef _TITLE_EVENT_H_
 #define _TITLE_EVENT_H_
 
-#include "../Object.h"
+#include "../../Object.h"
 #include "TitleEventArgs.h"
 #include <fastdelegate.h>
 #include <list>
+
+namespace Libwiisys { namespace System { namespace Event {
 
 class TitleEvent : public Object
 {
@@ -16,5 +18,7 @@ public:
 private:
 	std::list<DelegateType> listenerList;  // pointer to object
 };
+
+}}}
 
 #endif

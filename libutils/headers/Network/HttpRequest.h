@@ -5,8 +5,10 @@
 #include <ogcsys.h>
 #include <string>
 #include "../Object.h"
-#include "Buffer.h"
+#include "../Buffer.h"
 #include <sstream>
+
+namespace Libwiisys { namespace Network {
 
 /*! \class NetworkRequest
  * \brief This class allow the use of HTTP (GET) request
@@ -16,8 +18,6 @@
  * The NetworkRequest class allow the user to use HTTP request (GET)
  * and to download the results.
  */
-
-
 class HttpRequest : public Object
 {
 public:
@@ -42,5 +42,7 @@ private:
 	s32 Write(Buffer &b);
 	u32 GetResponseLength();
 };
+
+}}
 
 #endif

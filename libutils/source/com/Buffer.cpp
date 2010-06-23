@@ -1,9 +1,10 @@
 #include <malloc.h>
 #include <cstring>
-#include <com/buffer.h>
+#include <buffer.h>
 #include <exception/Exception.h>
 #include <sha1.h>
 
+using namespace Libwiisys;
 
 /**
 *\brief  Overloaded Constructor

@@ -1,4 +1,6 @@
-#include <events/TitleEvent.h>
+#include <System/Event/TitleEvent.h>
+
+using namespace Libwiisys::System::Event;
 
 void TitleEvent::operator()(Object* sender, TitleEventArgs* args)
 {

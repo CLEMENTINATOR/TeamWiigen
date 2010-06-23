@@ -6,6 +6,7 @@
 #include <sstream>
 
 using namespace std;
+using namespace Libwiisys::Serialization;
 
 /**
 *\brief Load the xml specified by path

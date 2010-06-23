@@ -1,4 +1,6 @@
-#include <events/Event.h>
+#include <Event.h>
+
+using namespace Libwiisys;
 
 void Event::operator()(Object* sender, EventArgs* args)
 {

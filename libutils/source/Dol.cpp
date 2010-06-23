@@ -8,12 +8,13 @@
 #include <string.h>
 
 using namespace std;
+using namespace Libwiisys::Shell;
 
 /**
  * \brief Execute the dol file
  *
  * \param path The full path of the dol file
- * \param physicalAddres The memory adress where to store temp datas
+ * \param physicalAddres The memory address where to store temporary data
  */
 void Dol::Execute(const string &path, void* physicalAddress)
 {
@@ -28,7 +29,7 @@ void Dol::Execute(const string &path, void* physicalAddress)
 /**
  * \brief Execute the dol file
  *
- * \param physicalAddress The memory adress where the dol file will be stored
+ * \param physicalAddress The memory address where the dol file will be stored
  * \param content A buffer that contain the Dol representation
  * \param contentLength The length of the dol buffer
  */

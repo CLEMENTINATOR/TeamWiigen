@@ -6,8 +6,9 @@
 #include "Object.h"
 #include "com/Buffer.h"
 
-typedef void (*entrypoint) (void);
 extern "C" { void __exception_closeall(); }
+
+namespace Libwiisys { namespace Shell {
 
 /*! \class Elf
  * \brief This class allow the loading/launching of Elf files.
@@ -18,7 +19,6 @@ extern "C" { void __exception_closeall(); }
  * file path, or using a buffer.
  * The Elf representation is stored in memory at a specified address.
  */
-
 class Elf : public Object
 {
 public :
@@ -31,4 +31,6 @@ private :
 	u32 exeEntryPoint;
 	bool Validate();
 };
+
+}}
 #endif

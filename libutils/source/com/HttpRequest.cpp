@@ -3,14 +3,16 @@
 #include <cstdio>
 #include <malloc.h>
 #include <exception/Exception.h>
-#include <com/HttpRequest.h>
-#include <com/NetworkUtility.h>
+#include <Network/HttpRequest.h>
+#include <Network/NetworkUtility.h>
 
 #define BLOCK_SIZE		8192
 #define NETWORK_PORT 80
 
 
 using namespace std;
+using Libwiisys::Network;
+
 /*!
 * \brief Constructor
 *

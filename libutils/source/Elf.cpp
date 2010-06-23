@@ -8,6 +8,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+using namespace Libwiisys::Shell;
+
 /**
  * \brief Load the file to a temp buffer
  *

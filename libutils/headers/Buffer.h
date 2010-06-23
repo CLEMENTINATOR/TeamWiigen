@@ -4,6 +4,8 @@
 #include <gctypes.h>
 #include "../Object.h"
 
+namespace Libwiisys {
+
 /*! \class Buffer
  * \brief This class can store data and will automatically manage pointers in order to avoid memory leaks
  * \author Arasium, Teton, Fanta
@@ -37,5 +39,7 @@ public:
 	u64 Checksum();
 	u64 Find(const Buffer&b);
 };
+
+}
 
 #endif

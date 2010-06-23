@@ -1,6 +1,7 @@
-#include <exception/Exception.h>
+#include <Exception.h>
 
 using namespace std;
+using namespace Libwiisys;
 
 /*!
 * \brief Constructor

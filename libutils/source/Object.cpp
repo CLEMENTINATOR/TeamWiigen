@@ -1,5 +1,7 @@
 #include <Object.h>
 
+using namespace Libwiisys;
+
 /** \mainpage libutils
  *
  * \section sec_intro Introduction
@@ -10,10 +12,11 @@
  * This library was developed by team Wiigen ( Arasium,Teton & Fanta )
  *
  * \section sec_installation_source Installation (Source Code)
- *
- *  Help yourself to install it muahahha !
- *  TODO
  */
 
+
+/**
+ * \brief abstract destructor implemetation.
+ */
 Object::~Object()
 {}

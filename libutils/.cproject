@@ -26,10 +26,10 @@
 <option id="org.eclipse.cdt.build.core.settings.holder.incpaths.660773598" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;C:\devkitPro\libogc\include\&quot;"/>
 <listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.2\include\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.2\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.2\powerpc-eabi\&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/libutils/headers}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include\&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\powerpc-eabi\&quot;"/>
 </option>
 <inputType id="org.eclipse.cdt.build.core.settings.holder.inType.813419279" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 </tool>
@@ -37,10 +37,10 @@
 <option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1319194003" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;C:\devkitPro\libogc\include\&quot;"/>
 <listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.2\include\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.2\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.2\powerpc-eabi\&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/libutils/headers}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include\&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\powerpc-eabi\&quot;"/>
 </option>
 <inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1896867347" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 </tool>
@@ -48,10 +48,10 @@
 <option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1366878479" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;C:\devkitPro\libogc\include\&quot;"/>
 <listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.2\include\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.2\&quot;"/>
-<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.2\powerpc-eabi\&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/libutils/headers}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include\&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\powerpc-eabi\&quot;"/>
 </option>
 <inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1802999174" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 </tool>

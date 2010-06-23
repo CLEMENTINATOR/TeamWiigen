@@ -4,7 +4,13 @@
 #include <exception/Exception.h>
 
 using namespace std;
+using Libwiisys::String;
 
+/*!
+ * \brief Convert a const char* to is string representation.
+ * \param value The string to convert.
+ * \throw Exception if the input parameter is null
+ */
 string UtilString::ToStr(const char* value)
 {
   if (!value)
@@ -13,6 +19,12 @@ string UtilString::ToStr(const char* value)
   return string(value);
 }
 
+/*!
+ * \brief Convert a const char* to is string representation.
+ * \param value The string to convert.
+ * \param defaultVal Value used if value parameter is NULL
+ * \return The parsed value of defaultVal if the input is NULL
+ */
 string UtilString::ToStr(const char* value, const string& defaultVal)
 {
   if (!value)
@@ -21,6 +33,13 @@ string UtilString::ToStr(const char* value, const string& defaultVal)
   return string(value);
 }
 
+/*!
+ * \brief Convert a const char* to is u64 representation.
+ * \param value The string to convert.
+ * \param defaultVal Value used if value parameter is NULL
+ * \param rep Is used to know how to parse the string. The default value is nr_normal
+ * \return The parsed value of defaultVal if the input is NULL
+ */
 u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)
 {
   if (val == NULL) 
@@ -36,6 +55,12 @@ u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)
   return returnValue;
 }
 
+/*!
+ * \brief Convert a const char* to is u64 representation.
+ * \param value The string to convert.
+ * \param rep Is used to know how to parse the string. The default value is nr_normal
+ * \throw Exception if the input parameter is null
+ */
 u64 UtilString::ToU64(const char* val, NumberRepresentation rep)
 {
   if (val==NULL)

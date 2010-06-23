@@ -3,7 +3,9 @@
 
 #include <ogcsys.h>
 #include "EventArgs.h"
-#include "../com/Buffer.h"
+#include "../../Buffer.h"
+
+namespace Libwiisys { namespace System { namespace Event {
 
 class TitleEventArgs : public EventArgs
 {
@@ -13,5 +15,7 @@ public:
 	bool skipStep;
 	bool abortProcess;
 };
+
+}}}
 
 #endif

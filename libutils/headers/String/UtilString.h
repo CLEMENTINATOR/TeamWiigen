@@ -7,12 +7,14 @@
 #include <gctypes.h>
 #include "Object.h"
 
-typedef enum
-{
-  nr_normal,
-  nr_hex,
-} NumberRepresentation;
+namespace Libwiisys { namespace String {
 
+/*!
+ * \class UtilString
+ * \brief Used to parse different types
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
 class UtilString : public Object
 {
 public:
@@ -41,5 +43,7 @@ public:
 	
 	static std::vector<std::string> Split(const std::string& str, const char split);
 };
+
+}}
 
 #endif

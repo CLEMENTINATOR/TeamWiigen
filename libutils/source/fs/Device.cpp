@@ -1,14 +1,15 @@
 /* SD and gecko headers */
 #include <sdcard/gcsd.h>
 #include <sdcard/wiisd_io.h>
-#include <fs/usbstorage.h>
-#include <exception/Exception.h>
-#include <fs/Directory.h>
+#include <IO/usbstorage.h>
+#include <Exception.h>
+#include <IO/Directory.h>
 
-#include <fs/Device.h>
-#include <fs/Path.h>
+#include <IO/Device.h>
+#include <IO/Path.h>
 
 using namespace std;
+using namespace Libwiisys::IO;
 
 static fatDevice devices[] = {
 	{ WII_ROOT_DIRECTORY,	"Wii file system", NULL, 0, false},

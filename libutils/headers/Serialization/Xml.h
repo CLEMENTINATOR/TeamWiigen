@@ -3,6 +3,9 @@
 
 #include <string>
 #include <tinyxml.h>
+
+namespace Libwiisys { namespace Serialization {
+
 /**
 *\class Xml
 *\brief Loads XML Files (tinyxml needed !)
@@ -14,5 +17,7 @@ class Xml
   public:
     static TiXmlDocument& Load(const std::string &file);
   };
+
+}}
 
 #endif

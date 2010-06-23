@@ -3,10 +3,14 @@
 
 #include "Exception.h"
 
+namespace Libwiisys {
+
 class AbortException : public Exception
 {
 public:
 	AbortException();
 };
+
+}
 
 #endif

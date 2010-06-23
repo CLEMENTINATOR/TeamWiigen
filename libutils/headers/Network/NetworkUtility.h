@@ -1,14 +1,9 @@
-/*
- * NetworkUtility.h
- *
- *  Created on: 10 juin 2010
- *      Author: Clement
- */
-
 #ifndef NETWORKUTILITY_H_
 #define NETWORKUTILITY_H_
+
 #include <string>
 
+namespace Libwiisys { namespace Network {
 
 class NetworkUtility {
 public:
@@ -23,5 +18,7 @@ private :
 	static bool& Initialized();
 
 };
+
+}}
 
 #endif /* NETWORKUTILITY_H_ */

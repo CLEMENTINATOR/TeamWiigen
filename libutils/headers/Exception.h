@@ -3,7 +3,9 @@
 
 #include <string>
 #include <ogcsys.h>
-#include "../Object.h"
+#include "Object.h"
+
+namespace Libwiisys {
 
 /*! \class Exception
  * \brief Simple exception class
@@ -12,7 +14,6 @@
  *
  * The Exception class allow the user to create & catch "custom" Exceptions
  */
-
 class Exception : public Object
 {
 public:
@@ -23,5 +24,7 @@ private:
 	std::string _message;
 	s32 _errorCode;
 };
+
+}
 
 #endif

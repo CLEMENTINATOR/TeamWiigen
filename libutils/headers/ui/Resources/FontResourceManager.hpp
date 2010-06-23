@@ -12,7 +12,7 @@ namespace UI
 {
 	namespace Resources
 	{
-		class FontResourceManager : public Object
+		class FontResourceManager : public Libwiisys::Object
 		{
 		public:
 			static FontResource* Get(const std::string& fontPath);

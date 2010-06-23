@@ -1,4 +1,4 @@
-#include <AbortException.h>
+#include <exception/AbortException.h>
 
 using namespace Libwiisys;
 

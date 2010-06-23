@@ -12,7 +12,7 @@ namespace UI
 {
 	namespace Resources
 	{
-		class ImageResourceManager : public Object
+		class ImageResourceManager : public Libwiisys::Object
 		{
 		public:
 			static ImageResource* Get(const std::string& imagePath);

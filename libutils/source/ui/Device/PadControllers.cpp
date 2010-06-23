@@ -4,6 +4,7 @@
 
 using namespace UI::Device;
 using namespace UI::Resources;
+using namespace Libwiisys;
 
 PadController::PadController() : enabled(false), padImage("")
 {}

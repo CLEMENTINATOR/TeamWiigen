@@ -2,7 +2,7 @@
 #define _UI_RESOURCE_FONTRESOURCE_HPP_
 
 #include "../../Object.h"
-#include "../../com/Buffer.h"
+#include "../../Buffer.h"
 #include "../FreeTypeGX.h"
 #include <ogcsys.h>
 #include <string>
@@ -11,7 +11,7 @@ namespace UI
 {
   namespace Resources
   {
-    class FontResource : public Object
+    class FontResource : public Libwiisys::Object
     {
       public:
         FontResource(const std::string& fontPath);
@@ -25,7 +25,7 @@ namespace UI
 		
       protected:
 		FreeTypeGX* _font;
-        Buffer _resource;
+        Libwiisys::Buffer _resource;
     };
   }
 }

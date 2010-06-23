@@ -9,20 +9,27 @@
 #include <logging/Log.h>
 #include <exception/Exception.h>
 #include <exception/AbortException.h>
-#include <fs/Directory.h>
-#include <fs/File.h>
-#include <fs/Path.h>
-#include <fs/Device.h>
-#include <com/NusServer.h>
-#include <com/NetworkUtility.h>
+#include <IO/Directory.h>
+#include <IO/File.h>
+#include <IO/Path.h>
+#include <IO/Device.h>
+#include <Network/NusServer.h>
+#include <Network/NetworkUtility.h>
 #include <system/Certificate.h>
 #include <rijndael.h>
 #include <sha1.h>
-#include <fs/Path.h>
+#include <IO/Path.h>
 #include <iomanip>
 #include <unistd.h>
 
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Network;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::System;
+using namespace Libwiisys::System::Event;
+using namespace Libwiisys::System::Security;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
 
@@ -742,7 +749,7 @@ void Title::Uninstall(u64 titleId)
 	tikview *viewData = NULL;
 	u32 viewCnt;
 	s32 ret;
-	
+
 	if(!Title::IsInstalled(titleId)) return;
 
 	if((titleId & 0x100000000ULL) > 0ULL)
@@ -1354,6 +1361,6 @@ u32 Title::GetRunningIOS()
 {
 	if(_runningIos == 0)
 		_runningIos = IOS_GetVersion();
-	
+
 	return _runningIos;
 }

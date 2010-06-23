@@ -22,7 +22,7 @@ namespace UI
 			u8 triggerR;
 		} PADData;
 		
-		class PadController : public Object
+		class PadController : public Libwiisys::Object
 		{		
 		private:
 			bool enabled;

@@ -7,7 +7,8 @@
 #include "Message.hpp"
 #include "Device/PadControllers.hpp"
 #include "../Object.h"
-#include "../events/Event.h"
+#include "../Event.h"
+#include "../EventArgs.h"
 #include "Events/CursorEvent.h"
 
 namespace UI
@@ -26,7 +27,7 @@ namespace UI
 		HAlign_Center
 	} HAlign;
 	
-	class Control : public Object
+	class Control : public Libwiisys::Object
 	{		
 	protected:	
 		std::string _fullId;
@@ -92,8 +93,8 @@ namespace UI
 		
 		virtual ~Control();
 		
-		Event CursorEnter;
-		Event CursorLeave;
+		Libwiisys::Event CursorEnter;
+		Libwiisys::Event CursorLeave;
 		Events::CursorEvent CursorMove;
 		Events::CursorEvent Click;
 		Events::CursorEvent CursorButtonDown;

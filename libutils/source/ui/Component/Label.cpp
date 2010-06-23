@@ -7,7 +7,7 @@
 using namespace UI::Component;
 using namespace UI::Resources;
 using namespace std;
-
+using namespace Libwiisys;
 #define TEXT_SCROLL_DELAY			8
 #define	TEXT_SCROLL_INITIAL_DELAY	6
 

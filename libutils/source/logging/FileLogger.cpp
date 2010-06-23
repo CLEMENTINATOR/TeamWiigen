@@ -2,6 +2,8 @@
 #include <sstream>
 
 using namespace std;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Logging;
 /**
  *\brief Constructor,Open the file when you want to log data
  * \param filePath The log file path

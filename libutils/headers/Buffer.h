@@ -2,7 +2,7 @@
 #define _BUFFER_H_
 
 #include <gctypes.h>
-#include "../Object.h"
+#include "Object.h"
 
 namespace Libwiisys {
 

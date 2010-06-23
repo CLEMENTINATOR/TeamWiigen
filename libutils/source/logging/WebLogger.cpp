@@ -6,11 +6,13 @@
  */
 
 #include <logging/WebLogger.h>
-#include <com/NetworkUtility.h>
-#include <com/HttpRequest.h>
+#include <Network/NetworkUtility.h>
+#include <Network/HttpRequest.h>
 #include <string>
 #include <vector>
 using namespace std;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Network;
 /**
  * \brief Constructor
  */

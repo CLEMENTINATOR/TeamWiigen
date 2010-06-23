@@ -4,7 +4,7 @@
 #include <string>
 #include <ogcsys.h>
 #include "../Object.h"
-#include "../com/Buffer.h"
+#include "../Buffer.h"
 namespace Libwiisys {
 	namespace IO{
 /**

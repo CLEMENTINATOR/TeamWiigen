@@ -1,11 +1,13 @@
 #include <ui/Resources/FontResource.hpp>
 
-#include <fs/File.h>
+#include <IO/File.h>
 
 #include <malloc.h>
 
 using namespace UI::Resources;
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::IO;
 
 FontResource::FontResource(const string& fontPath)
   : _font(NULL)

@@ -2,11 +2,11 @@
 #define _CERTIFICATE_H_
 
 #include "../Object.h"
-#include "../com/Buffer.h"
+#include "../Buffer.h"
 #include <ogcsys.h>
 
 #define CERTIFICATE_LEN	0x280
-namespace Libwiisys { namespace System { 
+namespace Libwiisys { namespace System {
 /*! \class Certificate
  * \brief This class handles the use of Wii Certificate.
  * \author Arasium, Teton, Fanta

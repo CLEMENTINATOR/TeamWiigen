@@ -13,7 +13,7 @@ extern FreeTypeGX *fontSystem[];
 
 namespace UI
 {
-	class UIManager : public Object
+	class UIManager : public Libwiisys::Object
 	{
 	public:
 		static void AddMessage(Message* message);

@@ -7,7 +7,7 @@
 
 namespace UI
 {
-	class Message : public Object
+	class Message : public Libwiisys::Object
 	{
 	public:
 		Message(std::string componentId, std::string tag, std::string parameters);

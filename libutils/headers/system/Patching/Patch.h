@@ -7,7 +7,7 @@
 #include "../Object.h"
 #include "../com/Buffer.h"
 #include "../events/TitleEventArgs.h"
-
+namespace Libwiisys { namespace System { namespace Patching {
 class Patch : public Object
 {
 private:	
@@ -28,5 +28,7 @@ public:
 	Patch& operator=(const Patch& patch);
 	u32 ApplyPatch(TitleEventArgs &processControl) const;
 };
-
+}
+}
+}
 #endif

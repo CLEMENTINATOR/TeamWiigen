@@ -2,7 +2,7 @@
 #define _TITLE_MODULE_H_
 
 #include "../com/Buffer.h"
-
+namespace Libwiisys { namespace System { namespace Patching {
 class TitleModule : public Buffer
 {
 private:
@@ -15,5 +15,7 @@ public:
 	bool IsPositionRequired() const;
 	u32 Position() const;
 };
-
+}
+}
+}
 #endif

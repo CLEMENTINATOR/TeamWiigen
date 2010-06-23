@@ -3,7 +3,8 @@
 
 #include <string>
 #include <gctypes.h>
-
+namespace Libwiisys {
+	namespace Logging{
 typedef enum
 {
 	Lgt_Error = 1,
@@ -22,5 +23,6 @@ public:
 	virtual void Start()=0;
 	virtual void Pause()=0;
 };
-
+}
+}
 #endif

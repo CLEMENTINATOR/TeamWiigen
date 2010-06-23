@@ -6,7 +6,7 @@
 #include "../com/Buffer.h"
 #include "../events/TitleEventArgs.h"
 #include "Patch.h"
-
+namespace Libwiisys { namespace System { namespace Patching {
 class ModulePatch : public Patch
 {
 private:
@@ -23,5 +23,7 @@ public:
 	~ModulePatch();
 	ModulePatch& operator=(const ModulePatch& patch);
 };
-
+}
+}
+}
 #endif

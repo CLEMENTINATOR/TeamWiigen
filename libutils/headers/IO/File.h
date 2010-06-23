@@ -5,6 +5,8 @@
 #include <ogcsys.h>
 #include "../Object.h"
 #include "../com/Buffer.h"
+namespace Libwiisys {
+	namespace IO{
 /**
 *\enum FileMode
 *\brief Represents some file modes access
@@ -45,5 +47,5 @@ public:
 	static void Copy(const std::string &fileToCopy,const std::string &fileCopied);
 	static void Move(const std::string &fileToCopy,const std::string &fileCopied);
 };
-
+}}
 #endif

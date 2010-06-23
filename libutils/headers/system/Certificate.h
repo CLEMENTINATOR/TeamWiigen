@@ -6,7 +6,7 @@
 #include <ogcsys.h>
 
 #define CERTIFICATE_LEN	0x280
-
+namespace Libwiisys { namespace System { 
 /*! \class Certificate
  * \brief This class handles the use of Wii Certificate.
  * \author Arasium, Teton, Fanta
@@ -28,5 +28,6 @@ private:
 	static Certificate& Current();
 	Certificate();
 };
-
+}
+}
 #endif

@@ -19,7 +19,7 @@
 *\struct ATTRIBUTE_PACKED wad_header
 *\brief Struct representing a wad header
 **/
-
+namespace Libwiisys { namespace System {
 typedef struct {
 	/** Header length */
 	u32 header_len;
@@ -131,5 +131,6 @@ private:
 	Buffer GetTitleElementFromTemp(const std::string &path);
 	static void UninstallUsingISFS(u64 titleId);
 };
-
+}
+}
 #endif

@@ -3,7 +3,8 @@
 
 #include "../Object.h"
 #include "ILogProvider.h"
-
+namespace Libwiisys {
+	namespace Logging{
 class GeckoLogger : public Object, public ILogProvider
 {
 private:
@@ -18,7 +19,8 @@ public:
 	void Start();
 	void Pause();
 };
-
+}
+}
 #endif
 
 

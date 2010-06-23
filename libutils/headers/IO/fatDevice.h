@@ -1,10 +1,12 @@
 #ifndef FATDEVICE_H_
 #define FATDEVICE_H_
-
+namespace Libwiisys {
+	namespace IO{
 /**
 *\struct fatDevice
 *\brief Reprensents a fatDevice
 */
+
 typedef struct {
 	/** Device mount point */
 	const std::string mount;
@@ -21,5 +23,6 @@ typedef struct {
   bool started;
 
 } fatDevice;
-
+}
+}
 #endif /* FATDEVICE_H_ */

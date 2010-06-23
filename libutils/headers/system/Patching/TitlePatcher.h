@@ -5,7 +5,7 @@
 #include "TitleModule.h"
 #include "Patch.h"
 #include <map>
-
+namespace Libwiisys { namespace System { namespace Patching {
 class TitlePatcher : public Title
 {
 private:
@@ -30,4 +30,7 @@ public:
 	void AddPatch(const Patch* patch);
 	void AddModule(TitleModule module);
 };
+}
+}
+}
 #endif

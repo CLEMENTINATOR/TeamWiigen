@@ -9,7 +9,7 @@ namespace UI
 {
 	namespace Resources
 	{
-		class ThemeManager : public Object
+		class ThemeManager : public Libwiisys::Object
 		{
 		private:
 			std::string _currentTheme;

@@ -7,6 +7,7 @@
 #include <ui/Resources/ImageResourceManager.hpp>
 
 using namespace UI;
+using namespace Libwiisys;
 using namespace UI::Resources;
 using namespace UI::Events;
 using namespace UI::Device;

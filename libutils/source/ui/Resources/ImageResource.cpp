@@ -6,6 +6,8 @@
 
 using namespace UI::Resources;
 using namespace std;
+using namespace Libwiisys;
+
 
 ImageResource::ImageResource(const string& imgPath)
 {

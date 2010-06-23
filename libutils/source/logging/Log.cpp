@@ -1,5 +1,5 @@
 #include <logging/Log.h>
-
+using namespace Libwiisys::Logging;
 using namespace std;
 /**
  * \brief Constructor

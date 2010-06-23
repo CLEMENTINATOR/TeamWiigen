@@ -1,12 +1,15 @@
 #include <ui/Resources/FontResourceManager.hpp>
 
 #include <ui/Resources/ThemeManager.hpp>
-#include <fs/File.h>
+#include <IO/File.h>
 
 #include <font_ttf.h>
 
 using namespace UI::Resources;
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::IO;
+
 
 FontResourceManager& FontResourceManager::Current()
 {

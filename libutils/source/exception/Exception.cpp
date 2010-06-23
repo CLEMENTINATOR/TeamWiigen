@@ -1,4 +1,4 @@
-#include <Exception.h>
+#include <exception/Exception.h>
 
 using namespace std;
 using namespace Libwiisys;

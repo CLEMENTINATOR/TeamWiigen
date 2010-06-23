@@ -10,7 +10,7 @@ namespace UI
 {
 	namespace Events
 	{
-		class CursorEvent : public Object
+		class CursorEvent : public Libwiisys::Object
 		{
 		public:
 			typedef fastdelegate::FastDelegate2<Object*,CursorEventArgs*> DelegateType;

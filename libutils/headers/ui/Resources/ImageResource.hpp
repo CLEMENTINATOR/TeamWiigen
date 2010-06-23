@@ -9,7 +9,7 @@ namespace UI
 {
   namespace Resources
   {
-    class ImageResource : public Object
+    class ImageResource : public Libwiisys::Object
     {
       public:
         ImageResource(const std::string& imgPath);

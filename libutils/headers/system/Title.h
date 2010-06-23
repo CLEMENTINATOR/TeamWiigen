@@ -5,8 +5,9 @@
 #include <string>
 #include <vector>
 #include "../Object.h"
-#include "../events/TitleEvent.h"
-#include "../events/TitleEventArgs.h"
+#include "event/TitleEvent.h"
+#include "event/TitleEventArgs.h"
+#include "security/Identification.h"
 
 #define TITLE_BLOCK_SIZE 1000
 
@@ -50,19 +51,19 @@ inline bool IS_IOS(u64 title) { return (title & 0x100000000ULL) > 0; }
 class Title : public Object
 {
 protected:
-	virtual void OnTicketInstalling(TitleEventArgs &processControl);
-	virtual void OnTicketInstalled(TitleEventArgs &processControl);
-	virtual void OnTmdInstalling(TitleEventArgs &processControl);
-	virtual void OnTmdInstalled(TitleEventArgs &processControl);
-	virtual void OnContentInstalling(TitleEventArgs &processControl);
-	virtual void OnContentInstalled(TitleEventArgs &processControl);
+	virtual void OnTicketInstalling(Event::TitleEventArgs &processControl);
+	virtual void OnTicketInstalled(Event::TitleEventArgs &processControl);
+	virtual void OnTmdInstalling(Event::TitleEventArgs &processControl);
+	virtual void OnTmdInstalled(Event::TitleEventArgs &processControl);
+	virtual void OnContentInstalling(Event::TitleEventArgs &processControl);
+	virtual void OnContentInstalled(Event::TitleEventArgs &processControl);
 
-	virtual void OnTicketLoading(TitleEventArgs &processControl);
-	virtual void OnTicketLoaded(TitleEventArgs &processControl);
-	virtual void OnTmdLoading(TitleEventArgs &processControl);
-	virtual void OnTmdLoaded(TitleEventArgs &processControl);
-	virtual void OnContentLoading(TitleEventArgs &processControl);
-	virtual void OnContentLoaded(TitleEventArgs &processControl);
+	virtual void OnTicketLoading(Event::TitleEventArgs &processControl);
+	virtual void OnTicketLoaded(Event::TitleEventArgs &processControl);
+	virtual void OnTmdLoading(Event::TitleEventArgs &processControl);
+	virtual void OnTmdLoaded(Event::TitleEventArgs &processControl);
+	virtual void OnContentLoading(Event::TitleEventArgs &processControl);
+	virtual void OnContentLoaded(Event::TitleEventArgs &processControl);
 
 	void Ticket(const Buffer& buffer);
 	Buffer Ticket();
@@ -105,18 +106,18 @@ public:
 	~Title();
 
 	//Events
-	TitleEvent TicketInstallingEvent;
-	TitleEvent TicketInstalledEvent;
-	TitleEvent TmdInstallingEvent;
-	TitleEvent TmdInstalledEvent;
-	TitleEvent ContentInstallingEvent;
-	TitleEvent ContentInstalledEvent;
-	TitleEvent TicketLoadingEvent;
-	TitleEvent TicketLoadedEvent;
-	TitleEvent TmdLoadingEvent;
-	TitleEvent TmdLoadedEvent;
-	TitleEvent ContentLoadingEvent;
-	TitleEvent ContentLoadedEvent;
+	Event::TitleEvent TicketInstallingEvent;
+	Event::TitleEvent TicketInstalledEvent;
+	Event::TitleEvent TmdInstallingEvent;
+	Event::TitleEvent TmdInstalledEvent;
+	Event::TitleEvent ContentInstallingEvent;
+	Event::TitleEvent ContentInstalledEvent;
+	Event::TitleEvent TicketLoadingEvent;
+	Event::TitleEvent TicketLoadedEvent;
+	Event::TitleEvent TmdLoadingEvent;
+	Event::TitleEvent TmdLoadedEvent;
+	Event::TitleEvent ContentLoadingEvent;
+	Event::TitleEvent ContentLoadedEvent;
 private:
 	u32 _tikLen;
 	u32 _tmdLen;

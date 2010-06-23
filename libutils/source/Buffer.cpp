@@ -6,6 +6,7 @@
 
 using namespace Libwiisys;
 
+
 /**
 *\brief  Overloaded Constructor
 *\param content Pointer to the data

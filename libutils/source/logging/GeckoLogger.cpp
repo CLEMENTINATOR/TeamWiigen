@@ -2,7 +2,7 @@
 #include <logging/GeckoLogger.h>
 #include <sstream>
 #include <exception/Exception.h>
-
+using namespace Libwiisys::Logging;
 using namespace std;
 /**
 *\brief Constructor

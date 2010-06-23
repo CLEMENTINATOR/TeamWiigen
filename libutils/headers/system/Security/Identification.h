@@ -2,7 +2,7 @@
 #define _IDENTIFICATION_H_
 
 #include <gccore.h>
-#include "../Object.h"
+#include "../../Object.h"
 namespace Libwiisys { namespace System { namespace Security {
 /*! \class Identification
  * \brief This class allow identification to get privileges or rights access

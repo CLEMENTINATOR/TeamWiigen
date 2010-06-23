@@ -1,10 +1,12 @@
 #include <ui/Resources/ThemeManager.hpp>
 #include <exception/Exception.h>
-#include <fs/Directory.h>
-#include <fs/Path.h>
+#include <IO/Directory.h>
+#include <IO/Path.h>
 
 using namespace UI::Resources;
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::IO;
 
 ThemeManager& ThemeManager::Current()
 {

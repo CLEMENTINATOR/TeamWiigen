@@ -2,12 +2,14 @@
 
 #include <stdlib.h>
 #include <notFound_png.h>
-#include <fs/Device.h>
-#include <fs/File.h>
+#include <IO/Device.h>
+#include <IO/File.h>
 #include <ui/Resources/ThemeManager.hpp>
 
 using namespace UI::Resources;
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::IO;
 
 ImageResourceManager& ImageResourceManager::Current()
 {

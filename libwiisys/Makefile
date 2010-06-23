@@ -17,8 +17,10 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/com source/events source/exception source/fs source/system source/threading \
-				source/ui source/ui/Component source/ui/Device source/ui/Resources source/ui/Events source/logging
+SOURCES		:=	source source/events source/exceptions source/logging \
+				source/Serialization source/Shell source/String \
+				source/System source/System/Event source/System/Patching \
+				source/System/Security source/Threading
 DATA		:=	data  
 INCLUDES	:=	include headers
 

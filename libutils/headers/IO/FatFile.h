@@ -9,6 +9,8 @@
 #include "File.h"
 #include "Device.h"
 
+namespace Libwiisys {
+	namespace IO{
 /**
 *\class FatFile
 *\see File
@@ -28,5 +30,5 @@ private:
 	FILE *_fd;
 	FatFile(FILE *fd, const std::string &fileName);
 };
-
+}}
 #endif

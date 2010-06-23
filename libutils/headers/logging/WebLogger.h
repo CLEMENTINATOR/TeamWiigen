@@ -3,7 +3,8 @@
 
 #include <string>
 #include "ILogProvider.h"
-
+namespace Libwiisys {
+	namespace Logging{
 class WebLogger : public ILogProvider 
 {
 public:
@@ -23,5 +24,6 @@ private :
   std::string _appKey; 
   std::string _versionKey;
 };
-
+}
+}
 #endif /* WEBLOGGER_H_ */

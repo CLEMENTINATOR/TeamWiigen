@@ -4,7 +4,8 @@
 #include "../Object.h"
 #include <string>
 #include <vector>
-
+namespace Libwiisys {
+	namespace IO{
 /**
 *\class FatDirectory
 *\see Directory
@@ -18,5 +19,6 @@ public:
 	static std::vector<std::string> GetFiles(const std::string & path);
 	static std::vector<std::string> GetDirectories(const std::string & path);
 };
-
+}
+}
 #endif

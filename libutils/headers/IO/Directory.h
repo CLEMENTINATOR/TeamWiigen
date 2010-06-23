@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+namespace Libwiisys {
+	namespace IO{
 class Directory : public Object
 {
 public:
@@ -19,5 +21,6 @@ public:
 private:
 	static std::string CleanPath(const std::string &path);
 };
-
+}
+}
 #endif

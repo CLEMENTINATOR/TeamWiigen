@@ -3,6 +3,8 @@
 
 #include "../Object.h"
 #include <string>
+namespace Libwiisys {
+	namespace IO{
 /**
 *\class Path
 *\brief A tool Class who allow to play with paths
@@ -10,6 +12,7 @@
 *\version 1.0
 *
 */
+
 class Path : public Object
 {
 public:
@@ -22,5 +25,6 @@ public:
 	static std::string GetFileExtension(const std::string &path);
 	static std::string CleanPath(const std::string &path);
 };
-
+}
+}
 #endif

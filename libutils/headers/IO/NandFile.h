@@ -6,7 +6,8 @@
 #include <ogcsys.h>
 
 #include "File.h"
-
+namespace Libwiisys {
+	namespace IO{
 class NandFile : public File
 {
 public:
@@ -23,5 +24,7 @@ private:
 	NandFile(s32 fd, const std::string &fileName);
 	Buffer _rest;
 };
+}
+}
 
 #endif

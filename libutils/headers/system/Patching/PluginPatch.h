@@ -9,7 +9,7 @@
 #include "Patch.h"
 #include "SimplePatch.h"
 #include "../elf_abi.h"
-
+namespace Libwiisys { namespace System { namespace Patching {
 /* ARM binary header structure */
 typedef struct {
 	u32 headerSize;
@@ -49,5 +49,6 @@ public:
 	PluginPatch& operator=(const PluginPatch& patch);
 	void DefineCommandHandle(SimplePatch handle);
 };
-
+}
+}
 #endif

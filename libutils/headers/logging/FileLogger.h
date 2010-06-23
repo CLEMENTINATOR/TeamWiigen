@@ -4,7 +4,8 @@
 #include "../Object.h"
 #include "../fs/File.h"
 #include "ILogProvider.h"
-
+namespace Libwiisys {
+	namespace Logging{
 class FileLogger : public Object, public ILogProvider
 {
 private:
@@ -21,6 +22,7 @@ public:
 	void Start();
 	void Pause();
 };
-
+}
+}
 #endif
 

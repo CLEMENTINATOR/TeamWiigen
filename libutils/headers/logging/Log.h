@@ -8,7 +8,8 @@
 
 #include "../Object.h"
 #include "ILogProvider.h"
-
+namespace Libwiisys {
+	namespace Logging{
 typedef enum
 {
 	Log_Error = 1,
@@ -37,4 +38,6 @@ public:
   static void Pause();
 	static void Write(LogStatus status, const std::string& message,int line,const char* file);
 };
+}
+}
 #endif

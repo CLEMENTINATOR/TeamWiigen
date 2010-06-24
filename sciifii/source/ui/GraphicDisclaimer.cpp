@@ -1,11 +1,9 @@
-#ifdef ANEPACOMPILER
-
 #include "GraphicDisclaimer.h"
 #include "../Config.h"
 
-using namespace UI;
-using namespace UI::Component;
-using namespace UI::Events;
+using namespace Libwiisys;
+using namespace Libwui::Component;
+using namespace Libwui::Events;
 using namespace std;
 using namespace fastdelegate;
 
@@ -51,5 +49,3 @@ void GraphicDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
   Visible(false);
 }
-
-#endif

@@ -117,13 +117,18 @@ run:
 	
 #---------------------------------------------------------------------------------
 prepare:
-	@make -C ../libwiisys
+	@make -C ../libwui prepare
+	@make -C ../libwui
+	
 ifeq ($(SystemName),Darwin)
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/libwiisys
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
 else
 	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
+	-@robocopy ../libwui/headers include/ //E //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
 endif
+	@cp ../libwui/libwui.a lib
 	@cp ../libwiisys/libwiisys.a lib
 
 

@@ -1,11 +1,12 @@
 #include <libwiisys.h>
+#include <libwui.h>
 
-class GraphicDisclaimer : public UI::Component::Form
-  {
+class GraphicDisclaimer : public Libwui::Component::Form
+{
   private:
-    UI::Component::Button btnContinue;
-    UI::Component::Button btnExit;
-    UI::Component::Label textDisclaimer;
+	Libwui::Component::Button btnContinue;
+	Libwui::Component::Button btnExit;
+	Libwui::Component::Label textDisclaimer;
 
 
   public:
@@ -13,5 +14,5 @@ class GraphicDisclaimer : public UI::Component::Form
 
   protected:
     void InitializeComponents();
-    void Exit(Object* sender, UI::Events::CursorEventArgs* args);
-  };
+    void Exit(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+};

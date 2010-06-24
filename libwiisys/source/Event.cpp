@@ -1,4 +1,4 @@
-#include <Event.h>
+#include <libwiisys.h>
 
 using namespace Libwiisys;
 

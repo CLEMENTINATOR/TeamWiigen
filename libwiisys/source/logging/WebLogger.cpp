@@ -1,15 +1,7 @@
-/*
- * WebLogger.cpp
- *
- *  Created on: 10 juin 2010
- *      Author: Clement
- */
-
-#include <logging/WebLogger.h>
-#include <Network/NetworkUtility.h>
-#include <Network/HttpRequest.h>
+#include <libwiisys.h>
 #include <string>
 #include <vector>
+
 using namespace std;
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Network;

@@ -1,8 +1,9 @@
 #include <gccore.h>
-#include <logging/GeckoLogger.h>
 #include <sstream>
-#include <exception/Exception.h>
+#include <libwiisys.h>
+
 using namespace Libwiisys::Logging;
+using namespace Libwiisys::Exceptions;
 using namespace std;
 /**
 *\brief Constructor

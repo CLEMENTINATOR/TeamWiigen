@@ -1,4 +1,4 @@
-#include <logging/FileLogger.h>
+#include <libwiisys.h>
 #include <sstream>
 
 using namespace std;

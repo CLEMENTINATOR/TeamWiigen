@@ -1,4 +1,6 @@
-#include <system/TitleModule.h>
+#include <libwiisys.h>
+
+using namespace Libwiisys::System::Patching;
 
 TitleModule::TitleModule(const u8* buffer, const u64 length, const s32 requiredPosition)
 : Buffer(buffer, length),

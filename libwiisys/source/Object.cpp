@@ -1,4 +1,4 @@
-#include <Object.h>
+#include <libwiisys.h>
 
 using namespace Libwiisys;
 

@@ -1,9 +1,10 @@
-#include <system/Patch.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
 #include <stdlib.h>
 #include <string.h>
 
 using namespace std;
+using namespace Libwiisys::System::Patching;
+using namespace Libwiisys::System::Event;
 
 Patch::Patch(const std::string &module)
     : AllowedModule(module),

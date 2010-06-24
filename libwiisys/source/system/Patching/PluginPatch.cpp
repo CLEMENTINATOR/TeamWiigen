@@ -1,12 +1,11 @@
-#include <system/PluginPatch.h>
-#include <system/Title.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <elf_abi.h>
-
 using namespace std;
+using namespace Libwiisys::System::Patching;
+using namespace Libwiisys::System::Event;
+using namespace Libwiisys::Exceptions;
 
 PluginPatch::PluginPatch(const Buffer& plugin, const u32 offset, const u32 bssNewSize, const std::string &module)
     : Patch(module),

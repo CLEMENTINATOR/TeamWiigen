@@ -1,6 +1,8 @@
 #ifndef _RIJNDAEL_H_
 #define _RIJNDAEL_H_
 
+#include <gctypes.h>
+
 #ifdef __cplusplus
 extern "C" 
 {

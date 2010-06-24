@@ -1,9 +1,11 @@
-#include <system/SimplePatch.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
 #include <stdlib.h>
 #include <string.h>
 
 using namespace std;
+using namespace Libwiisys::System::Patching;
+using namespace Libwiisys::System::Event;
+using namespace Libwiisys::Exceptions;
 
 SimplePatch::SimplePatch(const u8* pattern,const u8* patch,const u32 length, const std::string &module)
     : Patch(module),

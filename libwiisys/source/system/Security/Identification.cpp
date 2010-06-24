@@ -4,8 +4,10 @@
 #include <fake_su_tmd_dat.h>
 #include <fake_su_ticket_dat.h>
 
-#include <system/Identification.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
+
+using namespace Libwiisys::System::Security;
+using namespace Libwiisys::Exceptions;
 
 /*!
  * \brief Identify module

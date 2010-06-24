@@ -603,7 +603,7 @@ RECURSIVE = YES
 # excluded from the INPUT source files. This way you can easily exclude a 
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
-EXCLUDE = headers\sha1.h headers\elf_abi.h headers\rijndael.h source\rijndael.c source\sha1.c headers\dol_header.h 
+EXCLUDE = headers\Libwiisys\sha1.h headers\Libwiisys\Shell\elf_abi.h headers\Libwiisys\rijndael.h source\rijndael.c source\sha1.c headers\Libwiisys\Shell\dol_header.h 
 
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or 
 # directories that are symbolic links (a Unix filesystem feature) are excluded 

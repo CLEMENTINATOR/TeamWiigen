@@ -1,6 +1,6 @@
-#include <ui/Resources/FontResource.hpp>
+#include <libwui.h>
 
-#include <IO/File.h>
+#include <libwiisys.h>
 
 #include <malloc.h>
 

@@ -1,8 +1,6 @@
-#include <ui/Resources/FontResourceManager.hpp>
+#include <libwui.h>
 
-#include <ui/Resources/ThemeManager.hpp>
-#include <IO/File.h>
-
+#include <libwiisys.h>
 #include <font_ttf.h>
 
 using namespace UI::Resources;

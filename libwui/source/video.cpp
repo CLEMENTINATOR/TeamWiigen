@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <wiiuse/wpad.h>
 
-#include <ui/Device/PadControllers.hpp>
+#include <libwui.h>
 
 using namespace UI::Device;
 

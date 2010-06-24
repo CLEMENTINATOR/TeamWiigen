@@ -20,8 +20,8 @@
  * along with FreeTypeGX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ui/FreeTypeGX.h>
-#include <exception/Exception.h>
+#include <libwui.h>
+#include <libwiisys.h>
 #include <string>
 #include <map>
 

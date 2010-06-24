@@ -3,7 +3,7 @@
 
 #include "common/Installer.h"
 #include <ogcsys.h>
-#include <libutils/com/Buffer.h>
+#include <libwiisys.h>
 
 class Preloader : public Installer
 {
@@ -11,7 +11,7 @@ private:
     u32 bootCid;
 	std::string _file;
 	
-	Buffer GetSysMenuTMD();
+	Libwiisys::Buffer GetSysMenuTMD();
 	u32 GetBootCid(tmd* t);
 	void CopyTicket();
 	void CopySysMenu();

@@ -3,7 +3,7 @@
 
 #include <gctypes.h>
 #include <string>
-#include <libutils/Object.h>
+#include <libwiisys.h>
 #include <vector>
 #include <tinyxml.h>
 #include "business/common/Installer.h"
@@ -24,7 +24,7 @@ typedef struct
 	std::string text;
 } mode;
 
-class Config : public Object
+class Config : public Libwiisys::Object
 {
 private:
 	s32 _region;

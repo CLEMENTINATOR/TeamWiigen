@@ -3,13 +3,13 @@
 
 #include <string>
 #include <gctypes.h>
-#include <libutils/Object.h>
+#include <libwiisys/Object.h>
 #include <sstream>
-#include <libutils/logging/Log.h>
-#include <libutils/logging/ILogProvider.h>
+#include <libwiisys/logging/Log.h>
+#include <libwiisys/logging/ILogProvider.h>
 #include "ProgressEvent.h"
 
-class Installer : public Object
+class Installer : public Libwiisys::Object
 {
 private:
 	std::string _options;

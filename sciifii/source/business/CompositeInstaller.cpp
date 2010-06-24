@@ -5,6 +5,11 @@
 using namespace std;
 using namespace fastdelegate;
 
+using namespace Libwiisys::Logging;
+
+using namespace Libwiisys::Exceptions;
+
+
 CompositeInstaller::CompositeInstaller(const string& name)
 :  Installer(),
    _name(name)

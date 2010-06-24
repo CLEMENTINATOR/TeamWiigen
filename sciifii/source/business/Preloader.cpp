@@ -1,8 +1,6 @@
 #include "Preloader.h"
 
-#include <libutils/fs/File.h>
-#include <libutils/exception/Exception.h>
-#include <libutils/com/HttpRequest.h>
+#include <libwiisys.h>
 #include <malloc.h>
 #include <string.h>
 #include <sstream>
@@ -11,7 +9,10 @@
 #include "common/FileManager.h"
 
 using namespace std;
-
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
+using namespace Libwiisys;
 Preloader::Preloader(const string& file)
         : bootCid(0),
 		  _file(file)

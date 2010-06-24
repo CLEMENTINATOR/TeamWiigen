@@ -2,7 +2,7 @@
 
 #include <string.h>
 #include "../../../build/kkey_dat.h"
-
+using namespace Libwiisys::System::Event;
 u32 KoreanKeyPatch::Patching(TitleEventArgs &processControl) const
 {
 	u32 match_count = 0;

@@ -1,17 +1,21 @@
 #include "TitleStep.h"
 #include "common/FileManager.h"
-#include <libutils/system/Title.h>
-#include <libutils/exception/Exception.h>
+
 #include <sstream>
-#include <libutils/fs/File.h>
-#include <libutils/fs/Path.h>
-#include <libutils/fs/Directory.h>
-#include <libutils/system/Title.h>
+#include <libwiisys.h>
 #include "../Config.h"
 #include <iostream>
 #include <iomanip>
 
 using namespace std;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::System;
+using namespace Libwiisys::System::Patching;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::System::Event;
+using namespace Libwiisys;
+
 
 TitleStep::TitleStep(u64 titleId, u16 revision, TitleAction a, string path) :_id(titleId),_revision(revision),_action(a),_file(""),_path(path)
 {}

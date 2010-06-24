@@ -1,18 +1,22 @@
 #include "Cios.h"
 #include "../Config.h"
 
-#include <libutils/fs/File.h>
-#include <libutils/fs/Path.h>
-#include <libutils/system/Title.h>
-#include <libutils/system/TitlePatcher.h>
-#include <libutils/system/PluginPatch.h>
-#include <libutils/exception/Exception.h>
-#include <libutils/com/HttpRequest.h>
+#include <libwiisys.h>
 
 #include <sstream>
 #include "common/FileManager.h"
 
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::Network;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Serialization;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::System;
+using namespace Libwiisys::System::Patching;
+
 
 Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision)
 : Installer(),

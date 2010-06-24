@@ -3,7 +3,7 @@
 
 #include <string>
 #include <fastdelegate.h>
-#include <libutils/Object.h>
+#include <libwiisys.h>
 #include <vector>
 #include <map>
 

@@ -1,9 +1,9 @@
-#include <libutils/system/Title.h>
+#include <libwiisys.h>
 #include "Disclaimer.h"
 #include "../Config.h"
 #include <iostream>
 #include <ogc/conf.h>
-
+using namespace Libwiisys::System;
 using namespace std;
 
 void Disclaimer::Show()

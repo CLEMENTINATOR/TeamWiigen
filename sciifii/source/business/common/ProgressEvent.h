@@ -1,12 +1,14 @@
 #ifndef PROGRESSEVENT_H_
 #define PROGRESSEVENT_H_
 
-#include <libutils/Object.h>
+#include <libwiisys.h>
+
+
 #include "ProgressEventArgs.h"
 #include <fastdelegate.h>
 #include <list>
 
-class ProgressEvent : public Object
+class ProgressEvent : public Libwiisys::Object
 {
 public:
 	typedef fastdelegate::FastDelegate2<Object*,ProgressEventArgs*> DelegateType;

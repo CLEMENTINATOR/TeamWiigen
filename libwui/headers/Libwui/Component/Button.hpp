@@ -4,18 +4,19 @@
 #include <string>
 #include "../Control.hpp"
 #include "Label.hpp"
-namespace UI
+
+namespace Libwui
 {
 	namespace Component
 	{
-		class Button : public UI::Control
+		class Button : public Libwui::Control
 		{			
 		protected:			
-			void OnClick(UI::Device::PadController &c);
+			void OnClick(Libwui::Device::PadController &c);
 			void OnCursorEnter();
 			void OnCursorLeave();
-			void OnCursorButtonDown(UI::Device::PadController &c);
-			void OnCursorButtonUp(UI::Device::PadController &c);			
+			void OnCursorButtonDown(Libwui::Device::PadController &c);
+			void OnCursorButtonUp(Libwui::Device::PadController &c);
 		public:
 			Button();
 			void InitializeComponents();

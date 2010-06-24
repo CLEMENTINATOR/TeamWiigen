@@ -1,13 +1,9 @@
-#include <ui/Component/Image.hpp>
-#include <ui/Resources/ImageResource.hpp>
-#include <ui/Resources/ImageResourceManager.hpp>
-#include <ui/UIManager.hpp>
-#include <ui/video.h>
+#include <libwui.h>
 #include <sstream>
 
 using namespace std;
-using namespace UI::Component;
-using namespace UI::Resources;
+using namespace Libwui::Component;
+using namespace Libwui::Resources;
 
 Image::Image()
 : _mode(ResizeMode_FitToFill)

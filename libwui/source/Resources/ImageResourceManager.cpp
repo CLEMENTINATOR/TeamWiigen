@@ -1,12 +1,10 @@
-#include <ui/Resources/ImageResourceManager.hpp>
-
 #include <stdlib.h>
+#include <gctypes.h>
 #include <notFound_png.h>
-#include <IO/Device.h>
-#include <IO/File.h>
-#include <ui/Resources/ThemeManager.hpp>
+#include <libwiisys.h>
+#include <libwui.h>
 
-using namespace UI::Resources;
+using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::IO;

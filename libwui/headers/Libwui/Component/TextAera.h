@@ -4,7 +4,7 @@
 #include "../Control.hpp"
 #include "Label.hpp"
 
-namespace UI
+namespace Libwui
 {
   namespace Component
   {

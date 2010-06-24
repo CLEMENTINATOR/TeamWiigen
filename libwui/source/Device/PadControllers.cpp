@@ -1,10 +1,9 @@
-#include <ui/Device/PadControllers.hpp>
-#include <exception/Exception.h>
-#include <ui/Resources/ImageResourceManager.hpp>
+#include <libwiisys.h>
+#include <libwui.h>
 
-using namespace UI::Device;
-using namespace UI::Resources;
-using namespace Libwiisys;
+using namespace Libwui::Device;
+using namespace Libwui::Resources;
+using namespace Libwiisys::Exceptions;
 
 PadController::PadController() : enabled(false), padImage("")
 {}

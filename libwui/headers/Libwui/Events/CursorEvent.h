@@ -7,7 +7,7 @@
 #include <list>
 #include <fastdelegate.h>
 
-namespace UI
+namespace Libwui
 {
 	namespace Events
 	{

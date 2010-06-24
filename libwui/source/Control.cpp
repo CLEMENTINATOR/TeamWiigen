@@ -2,11 +2,11 @@
 
 #include <libwui.h>
 
-using namespace UI;
 using namespace Libwiisys;
-using namespace UI::Resources;
-using namespace UI::Events;
-using namespace UI::Device;
+using namespace Libwui;
+using namespace Libwui::Resources;
+using namespace Libwui::Events;
+using namespace Libwui::Device;
 using namespace std;
 
 Control::Control()

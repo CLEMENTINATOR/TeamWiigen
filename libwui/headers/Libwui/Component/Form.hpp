@@ -4,11 +4,11 @@
 #include "../Control.hpp"
 #include "../Message.hpp"
 
-namespace UI
+namespace Libwui
 {
 	namespace Component
 	{
-		class Form : public UI::Control
+		class Form : public Libwui::Control
 		{			
 		protected:
 			bool IsInUITree();			

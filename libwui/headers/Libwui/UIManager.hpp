@@ -12,21 +12,21 @@
 
 extern FreeTypeGX *fontSystem[];
 
-namespace UI
+namespace Libwui
 {
 	class UIManager : public Libwiisys::Object
 	{
 	public:
 		static void AddMessage(Message* message);
 		static bool IsUiThread();
-		static void Run(UI::Component::Form& main);
+		static void Run(Libwui::Component::Form& main);
 		~UIManager();
 	private:
 		std::queue<Message*> _messageQueue;
 		mutex_t _messageQueueMutex;
 		lwp_t _uiThread;
 		bool _uiThreadDefined;
-		UI::Component::Form* _rootElement;
+		Libwui::Component::Form* _rootElement;
 
 		UIManager();
 		void Update();

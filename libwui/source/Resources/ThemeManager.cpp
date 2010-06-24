@@ -1,11 +1,9 @@
-#include <ui/Resources/ThemeManager.hpp>
-#include <exception/Exception.h>
-#include <IO/Directory.h>
-#include <IO/Path.h>
+#include <libwiisys.h>
+#include <libwui.h>
 
-using namespace UI::Resources;
+using namespace Libwui::Resources;
 using namespace std;
-using namespace Libwiisys;
+using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 
 ThemeManager& ThemeManager::Current()

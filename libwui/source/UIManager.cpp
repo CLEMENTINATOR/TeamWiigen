@@ -3,10 +3,10 @@
 #include <wiiuse/wpad.h>
 
 
-using namespace UI;
-using namespace UI::Component;
-using namespace UI::Device;
-using namespace UI::Resources;
+using namespace Libwui;
+using namespace Libwui::Component;
+using namespace Libwui::Device;
+using namespace Libwui::Resources;
 
 UIManager::UIManager()
 : _uiThread(-1),

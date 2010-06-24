@@ -4,7 +4,7 @@
 
 #include <malloc.h>
 
-using namespace UI::Resources;
+using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::IO;

@@ -7,7 +7,7 @@
 #include <ogcsys.h>
 #include <string>
 
-namespace UI
+namespace Libwui
 {
   namespace Resources
   {

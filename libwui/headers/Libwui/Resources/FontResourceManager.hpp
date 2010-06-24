@@ -9,7 +9,7 @@
 
 #include "FontResource.hpp"
 
-namespace UI
+namespace Libwui
 {
 	namespace Resources
 	{

@@ -1,4 +1,4 @@
-#include <ui/Events/CursorEventArgs.h>
+#include <libwui.h>
 
 using namespace UI::Events;
 using namespace UI::Device;

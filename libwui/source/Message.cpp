@@ -1,4 +1,4 @@
-#include <ui/Message.hpp>
+#include <libwui.h>
 
 using namespace UI;
 using namespace std;

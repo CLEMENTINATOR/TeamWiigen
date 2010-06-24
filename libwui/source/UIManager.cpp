@@ -1,12 +1,7 @@
-#include <ui/UIManager.hpp>
+#include <libwui.h>
 
 #include <wiiuse/wpad.h>
 
-#include <ui/video.h>
-#include <ui/audio.h>
-
-#include <ui/Device/PadControllers.hpp>
-#include <ui/Resources/ImageResourceManager.hpp>
 
 using namespace UI;
 using namespace UI::Component;

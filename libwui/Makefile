@@ -122,7 +122,7 @@ else
 	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
 endif
-	@cp ../libwiisys/libwiisys.a libwiisys.a
+	@cp ../libwiisys/libwiisys.a lib
 	
 
 

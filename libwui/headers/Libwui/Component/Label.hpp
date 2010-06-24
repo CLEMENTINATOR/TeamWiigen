@@ -5,7 +5,8 @@
 #include <string>
 
 #define MAX_FONT_SIZE 100
-namespace UI
+
+namespace Libwui
 {
 	namespace Component
 	{		

@@ -5,7 +5,7 @@
 #include <wiiuse/wpad.h>
 #include <string>
 
-namespace UI
+namespace Libwui
 {
 	namespace Device
 	{

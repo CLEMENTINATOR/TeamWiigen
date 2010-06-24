@@ -1,12 +1,12 @@
-#include <ui/Resources/ImageResource.hpp>
-#include <exception/Exception.h>
+#include <libwiisys.h>
+#include <libwui.h>
 
 #include <pngu.h>
 #include <malloc.h>
 
-using namespace UI::Resources;
+using namespace Libwui::Resources;
 using namespace std;
-using namespace Libwiisys;
+using namespace Libwiisys::Exceptions;
 
 
 ImageResource::ImageResource(const string& imgPath)

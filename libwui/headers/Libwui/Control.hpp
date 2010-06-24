@@ -10,7 +10,7 @@
 
 #include "Events/CursorEvent.h"
 
-namespace UI
+namespace Libwui
 {
 	typedef enum
 	{

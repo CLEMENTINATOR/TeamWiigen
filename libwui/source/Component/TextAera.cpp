@@ -1,12 +1,10 @@
-#include <ui/Component/TextAera.h>
-#include <ui/UIManager.hpp>
-#include <ui/video.h>
+#include <libwui.h>
 
 #include <sstream>
 
 using namespace std;
-using namespace UI;
-using namespace UI::Component;
+using namespace Libwui;
+using namespace Libwui::Component;
 
 TextAera::TextAera(const string& text, int s, GXColor c)
 : txt(text),

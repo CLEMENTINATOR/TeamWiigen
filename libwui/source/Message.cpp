@@ -1,6 +1,6 @@
 #include <libwui.h>
 
-using namespace UI;
+using namespace Libwui;
 using namespace std;
 
 Message::Message(string componentId, string tag, string parameters)

@@ -1,6 +1,6 @@
 #include <libwui.h>
 
-using namespace UI::Events;
+using namespace Libwui::Events;
 
 void CursorEvent::operator()(Object* sender, CursorEventArgs* args)
 {

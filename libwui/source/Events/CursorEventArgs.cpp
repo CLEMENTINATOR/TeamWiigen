@@ -1,7 +1,7 @@
 #include <libwui.h>
 
-using namespace UI::Events;
-using namespace UI::Device;
+using namespace Libwui::Events;
+using namespace Libwui::Device;
 
 CursorEventArgs::CursorEventArgs(PadController& controller) : pad(&controller)
 {}

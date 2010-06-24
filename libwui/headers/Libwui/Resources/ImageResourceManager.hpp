@@ -9,7 +9,7 @@
 
 #include "ImageResource.hpp"
 
-namespace UI
+namespace Libwui
 {
 	namespace Resources
 	{

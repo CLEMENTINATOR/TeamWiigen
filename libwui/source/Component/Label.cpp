@@ -1,13 +1,11 @@
-#include <ui/Component/Label.hpp>
-#include <ui/video.h>
-#include <ui/UIManager.hpp>
-#include <ui/Resources/FontResourceManager.hpp>
+#include <libwui.h>
 #include <sstream>
 
-using namespace UI::Component;
-using namespace UI::Resources;
+using namespace Libwui::Component;
+using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys;
+
 #define TEXT_SCROLL_DELAY			8
 #define	TEXT_SCROLL_INITIAL_DELAY	6
 

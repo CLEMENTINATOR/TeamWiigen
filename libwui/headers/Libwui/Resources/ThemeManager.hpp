@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace UI
+namespace Libwui
 {
 	namespace Resources
 	{

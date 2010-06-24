@@ -1,13 +1,9 @@
-#include <ui/Component/Form.hpp>
-
 #include <iostream>
+#include <libwui.h>
 
-#include <ui/UIManager.hpp>
-#include <ui/video.h>
-
-using namespace UI;
-using namespace UI::Component;
-using namespace UI::Device;
+using namespace Libwui;
+using namespace Libwui::Component;
+using namespace Libwui::Device;
 using namespace std;
 
 Form::Form()

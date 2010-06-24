@@ -16,7 +16,7 @@
 
 #include <libwui.h>
 
-using namespace UI::Device;
+using namespace Libwui::Device;
 
 #define DEFAULT_FIFO_SIZE 256 * 1024
 static unsigned int *xfb[2] = { NULL, NULL }; // Double buffered

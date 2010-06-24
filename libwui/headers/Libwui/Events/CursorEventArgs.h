@@ -5,17 +5,17 @@
 
 #include "../Device/PadControllers.hpp"
 
-namespace UI
+namespace Libwui
 {
 	namespace Events
 	{
 		class CursorEventArgs : public Libwiisys::EventArgs
 		{
 		private:
-			UI::Device::PadController *pad;
+			Libwui::Device::PadController *pad;
 		public:
-			CursorEventArgs(UI::Device::PadController& controller);
-			UI::Device::PadController& Controller();
+			CursorEventArgs(Libwui::Device::PadController& controller);
+			Libwui::Device::PadController& Controller();
 		};
 	}
 }

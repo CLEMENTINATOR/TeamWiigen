@@ -1,16 +1,9 @@
-#include <ui/Component/Button.hpp>
-
 #include <sstream>
+#include <libwui.h>
 
-#include <ui/video.h>
-#include <ui/UIManager.hpp>
-#include <ui/Message.hpp>
-#include <ui/Resources/ImageResourceManager.hpp>
-#include <ui/Resources/ImageResource.hpp>
-
-using namespace UI;
-using namespace UI::Component;
-using namespace UI::Resources;
+using namespace Libwui;
+using namespace Libwui::Component;
+using namespace Libwui::Resources;
 using namespace std;
 
 Button::Button() : _lblText("", 12, (GXColor){0,0,0,255})
@@ -108,7 +101,7 @@ string Button::ClickedImage() const
 }
 
 
-void Button::OnClick(UI::Device::PadController &c)
+void Button::OnClick(Libwui::Device::PadController &c)
 {
 	if(Enabled())
 		Control::OnClick(c);

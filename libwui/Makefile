@@ -42,13 +42,13 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= 
+LIBS	:= -lwiisys
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:=	
+LIBDIRS	:=	$(CURDIR)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
@@ -114,8 +114,16 @@ clean:
 	@rm -fr $(BUILD) $(OUTPUT).a
 
 #---------------------------------------------------------------------------------
-run:
-	wiiload $(TARGET).dol
+prepare:
+	@make -C ../libwiisys
+ifeq ($(SystemName),Darwin)
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/libwiisys
+else
+	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
+	@rm rbcp.log
+endif
+	@cp ../libwiisys/libwiisys.a libwiisys.a
+	
 
 
 #---------------------------------------------------------------------------------

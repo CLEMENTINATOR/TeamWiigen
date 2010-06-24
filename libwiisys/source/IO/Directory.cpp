@@ -1,13 +1,8 @@
-#include <fs/Device.h>
-#include <fs/FatDirectory.h>
-#include <fs/NandDirectory.h>
-#include <fs/Directory.h>
-#include <exception/Exception.h>
-#include <fs/File.h>
-#include <fs/Path.h>
+#include <libwiisys.h>
 
 using namespace std;
-
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Exceptions;
 /*!
  * \brief Check if the directory exists
  * \param name The fullpath of the directory

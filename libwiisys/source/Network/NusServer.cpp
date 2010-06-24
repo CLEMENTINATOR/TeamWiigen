@@ -1,4 +1,4 @@
-#include <Network/NusServer.h>
+#include <libwiisys.h>
 
 #include <iomanip>
 #include <string>
@@ -7,6 +7,8 @@
 
 using namespace std;
 using namespace Libwiisys::Network;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys;
 
 /**
 *\brief Constructor

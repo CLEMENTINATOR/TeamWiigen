@@ -1,9 +1,8 @@
 #include <malloc.h>
+#include <libwiisys.h>
 
-#include <exception/Exception.h>
-#include <fs/NandDirectory.h>
-#include <fs/Device.h>
-
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
 using namespace std;
 
 void NandDirectory::Create(const string &name)

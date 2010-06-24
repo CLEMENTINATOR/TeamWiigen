@@ -1,9 +1,12 @@
 #include <malloc.h>
-#include <exception/Exception.h>
-#include <fs/FatFile.h>
+
 #include <sys/stat.h>
 
+#include <libwiisys.h>
+
 using namespace std;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Exceptions;
 
 FatFile::FatFile(FILE *fd, const string &fileName)
 {

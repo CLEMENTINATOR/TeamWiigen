@@ -1,9 +1,9 @@
-#include <Exception/Exception.h>
-#include <fs/NandFile.h>
-#include <fs/Device.h>
-
 #include <malloc.h>
 
+#include <libwiisys.h>
+
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
 using namespace std;
 
 NandFile::NandFile(s32 fd, const string &fileName)

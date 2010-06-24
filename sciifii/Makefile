@@ -121,7 +121,7 @@ prepare:
 ifeq ($(SystemName),Darwin)
 	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/libwiisys
 else
-	-@robocopy ../libwiisys/headers include/libwiisys //MIR //XD _svn //XD .svn >> rbcp.log
+	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
 endif
 	@cp ../libwiisys/libwiisys.a lib

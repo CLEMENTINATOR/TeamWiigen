@@ -1,10 +1,9 @@
 #include <sstream>
-
-#include <UtilString.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
 
 using namespace std;
-using Libwiisys::String;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
 
 /*!
  * \brief Convert a const char* to is string representation.

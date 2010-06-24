@@ -1,11 +1,11 @@
 #ifndef LIBUTILS_H_
 #define LIBUTILS_H_
 
+#ifdef __cplusplus
+
 #include "Libwiisys/Buffer.h"
 #include "Libwiisys/Event.h"
 #include "Libwiisys/EventArgs.h"
-#include "Libwiisys/rijndael.h"
-#include "Libwiisys/sha1.h"
 #include "Libwiisys/Exceptions/AbortException.h"
 #include "Libwiisys/Exceptions/Exception.h"
 #include "Libwiisys/IO/Device.h"
@@ -50,5 +50,10 @@
 #include "Libwiisys/system/Security/UserType.h"
 #include "Libwiisys/system/Security/Certificate.h"
 #include "Libwiisys/threading/Thread.h"
+
+#endif
+
+#include "Libwiisys/rijndael.h"
+#include "Libwiisys/sha1.h"
 
 #endif /* LIBUTILS_H_ */

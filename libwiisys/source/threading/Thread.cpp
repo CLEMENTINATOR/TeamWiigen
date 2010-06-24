@@ -1,7 +1,9 @@
-#include <threading/Thread.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
+
 using namespace Libwiisys;
+using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Threading;
+
 Thread::Thread(ThreadStart start)
 {
 	_start = start;

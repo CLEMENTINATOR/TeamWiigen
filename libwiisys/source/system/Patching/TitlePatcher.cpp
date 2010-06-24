@@ -1,11 +1,11 @@
-#include <system/TitlePatcher.h>
-#include <exception/Exception.h>
-#include <rijndael.h>
-#include <sha1.h>
+#include <libwiisys.h>
 #include <malloc.h>
 #include <limits.h>
 
 using namespace std;
+using namespace Libwiisys::System::Patching;
+using namespace Libwiisys::System::Event;
+using namespace Libwiisys::Exceptions;
 
 TitlePatcher::TitlePatcher(u64 titleId, s32 revision)
     : _patchList(),

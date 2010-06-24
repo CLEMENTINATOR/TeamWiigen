@@ -1,7 +1,4 @@
-#include <Elf.h>
-#include <fs/File.h>
-#include <exception/Exception.h>
-#include <elf_abi.h>
+#include <libwiisys.h>
 #include <gccore.h>
 #include <ogc/machine/asm.h>
 #include <ogc/machine/processor.h>
@@ -9,7 +6,8 @@
 #include <stdlib.h>
 
 using namespace Libwiisys::Shell;
-
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Exceptions;
 /**
  * \brief Load the file to a temp buffer
  *

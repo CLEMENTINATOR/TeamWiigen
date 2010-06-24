@@ -1,12 +1,10 @@
-#include <Xml.h>
-#include <fs/File.h>
-
-#include <exception/Exception.h>
-#include <fs/Device.h>
+#include <libwiisys.h>
 #include <sstream>
 
 using namespace std;
 using namespace Libwiisys::Serialization;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Exceptions;
 
 /**
 *\brief Load the xml specified by path

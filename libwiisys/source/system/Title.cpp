@@ -1,26 +1,12 @@
-#include <system/Title.h>
-
 #include <malloc.h>
 #include <string>
 #include <sstream>
 #include <ogcsys.h>
 #include <iostream>
 #include <cstdio>
-#include <logging/Log.h>
-#include <exception/Exception.h>
-#include <exception/AbortException.h>
-#include <IO/Directory.h>
-#include <IO/File.h>
-#include <IO/Path.h>
-#include <IO/Device.h>
-#include <Network/NusServer.h>
-#include <Network/NetworkUtility.h>
-#include <system/Certificate.h>
-#include <rijndael.h>
-#include <sha1.h>
-#include <IO/Path.h>
 #include <iomanip>
 #include <unistd.h>
+#include <libwiisys.h>
 
 using namespace std;
 using namespace Libwiisys;
@@ -30,6 +16,7 @@ using namespace Libwiisys::IO;
 using namespace Libwiisys::System;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys::System::Security;
+using namespace Libwiisys::Exceptions;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
 

@@ -1,5 +1,5 @@
-#include <exception/AbortException.h>
+#include <libwiisys.h>
 
-using namespace Libwiisys;
+using namespace Libwiisys::Exceptions;
 
  AbortException::AbortException() : Exception("Process aborted.", -1) {}

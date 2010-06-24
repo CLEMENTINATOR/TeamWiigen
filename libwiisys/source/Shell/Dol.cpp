@@ -1,6 +1,4 @@
-#include <Dol.h>
-#include <fs/File.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
 
 #include <gccore.h>
 #include <ogc/machine/asm.h>
@@ -9,6 +7,8 @@
 
 using namespace std;
 using namespace Libwiisys::Shell;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
 
 /**
  * \brief Execute the dol file

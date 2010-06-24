@@ -1,11 +1,9 @@
-#include <system/Certificate.h>
-#include <exception/Exception.h>
-#include <IO/File.h>
+#include <libwiisys.h>
 #include <stdlib.h>
 
 #include "../../build/certs_dat.h"
 
-using namespace Libwiisys::System;
+using namespace Libwiisys::System::Security;
 /*!
  * \brief Constructor
  * Loads the wii certs in memory

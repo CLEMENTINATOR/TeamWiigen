@@ -20,7 +20,7 @@ BUILD		:=	build
 SOURCES		:=	source source/exceptions source/logging \
 				source/Serialization source/Shell source/String source/threading \
 				source/system source/system/Event source/system/Patching \
-				source/system/Security
+				source/system/Security source/IO source/Network
 DATA		:=	data  
 INCLUDES	:=	include headers
 

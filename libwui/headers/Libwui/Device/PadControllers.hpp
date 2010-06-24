@@ -1,7 +1,7 @@
 #ifndef _UI_DEVICE_PADCONTROLLERS_
 #define _UI_DEVICE_PADCONTROLLERS_
 
-#include "../../Object.h"
+#include <libwiisys.h>
 #include <wiiuse/wpad.h>
 #include <string>
 

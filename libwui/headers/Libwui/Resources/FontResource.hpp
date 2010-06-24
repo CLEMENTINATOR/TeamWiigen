@@ -1,8 +1,8 @@
 #ifndef _UI_RESOURCE_FONTRESOURCE_HPP_
 #define _UI_RESOURCE_FONTRESOURCE_HPP_
 
-#include "../../Object.h"
-#include "../../Buffer.h"
+#include <libwiisys.h>
+
 #include "../FreeTypeGX.h"
 #include <ogcsys.h>
 #include <string>

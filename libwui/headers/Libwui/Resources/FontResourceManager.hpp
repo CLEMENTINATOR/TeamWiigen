@@ -5,7 +5,8 @@
 #include <string>
 #include <ogcsys.h>
 
-#include "../../Object.h"
+#include <libwiisys.h>
+
 #include "FontResource.hpp"
 
 namespace UI

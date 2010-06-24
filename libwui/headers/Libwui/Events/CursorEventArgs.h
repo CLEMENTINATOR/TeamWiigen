@@ -1,7 +1,8 @@
 #ifndef _UI_EVENTS_CURSOREVENTARGS_H_
 #define _UI_EVENTS_CURSOREVENTARGS_H_
 
-#include "../../EventArgs.h"
+#include <libwiisys.h>
+
 #include "../Device/PadControllers.hpp"
 
 namespace UI

@@ -1,7 +1,8 @@
 #ifndef _UI_RESOURCE_IMAGERESOURCE_HPP_
 #define _UI_RESOURCE_IMAGERESOURCE_HPP_
 
-#include "../../Object.h"
+#include <libwiisys.h>
+
 #include <ogcsys.h>
 #include <string>
 

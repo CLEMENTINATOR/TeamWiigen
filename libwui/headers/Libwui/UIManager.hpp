@@ -5,7 +5,8 @@
 #include <gctypes.h>
 #include "FreeTypeGX.h"
 
-#include "../Object.h"
+#include <libwiisys.h>
+
 #include "Message.hpp"
 #include "Component/Form.hpp"
 

@@ -1,7 +1,8 @@
 #ifndef _UI_MESSAGE_
 #define _UI_MESSAGE_
 
-#include "../Libwiisys/Object.h"
+#include <libwiisys.h>
+
 #include <string>
 #include <queue>
 

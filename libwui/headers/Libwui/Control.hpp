@@ -6,9 +6,8 @@
 
 #include "Message.hpp"
 #include "Device/PadControllers.hpp"
-#include "../Object.h"
-#include "../Event.h"
-#include "../EventArgs.h"
+#include <libwiisys.h>
+
 #include "Events/CursorEvent.h"
 
 namespace UI

@@ -1,12 +1,13 @@
 #include <dirent.h>
 #include <fat.h>
 #include <sys/stat.h>
-#include <exception/Exception.h>
-#include <fs/FatDirectory.h>
 #include <stdio.h>
 #include <string.h>
+#include <libwiisys.h>
 
 using namespace std;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Exceptions;
 
 bool FatDirectory::Exists(const string &name)
 {

@@ -1,11 +1,12 @@
-#include <fs/Device.h>
-#include <fs/FatFile.h>
-#include <fs/NandFile.h>
-#include <fs/File.h>
-#include <exception/Exception.h>
-#include <fs/Path.h>
-
+#include <libwiisys.h>
 #include <malloc.h>
+
+using namespace std;
+using namespace Libwiisys::IO;
+using namespace Libwiisys;
+using namespace Libwiisys::Exceptions;
+
+
 
 using namespace std;
 

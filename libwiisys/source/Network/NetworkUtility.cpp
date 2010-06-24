@@ -6,12 +6,13 @@
  */
 #include <sstream>
 
-#include <Network/NetworkUtility.h>
-#include <exception/Exception.h>
+#include <libwiisys.h>
 #include <network.h>
 
 using namespace std;
 using namespace Libwiisys::Network;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys;
 
 /**
  *\brief Constructor

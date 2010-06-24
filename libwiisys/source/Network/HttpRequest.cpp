@@ -2,16 +2,19 @@
 #include <cstring>
 #include <cstdio>
 #include <malloc.h>
-#include <exception/Exception.h>
-#include <Network/HttpRequest.h>
-#include <Network/NetworkUtility.h>
+#include <libwiisys.h>
+
+
+
 
 #define BLOCK_SIZE		8192
 #define NETWORK_PORT 80
 
 
 using namespace std;
-using Libwiisys::Network;
+using namespace Libwiisys::Network;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys;
 
 /*!
 * \brief Constructor

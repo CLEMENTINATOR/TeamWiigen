@@ -1,8 +1,10 @@
-#include <fs/Path.h>
 #include <ogcsys.h>
 
-using namespace std;
+#include <libwiisys.h>
 
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
+using namespace std;
 /*!
  * \brief Get the root of the path
  * \param path A file/directory path

@@ -1,10 +1,13 @@
 #include "FileDownloader.h"
 
-#include <libutils/exception/Exception.h>
+#include <libwiisys.h>
 
 #include "common/FileManager.h"
 
 using namespace std;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Exceptions;
+
 
 FileDownloader::FileDownloader(const string &file)
 : Installer(),

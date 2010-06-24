@@ -3,13 +3,13 @@
 
 #include <string>
 #include <vector>
-#include <libutils/Object.h>
+#include <libwiisys.h>
 #include "business/common/Installer.h"
 
-class Sciifii : public Object
+class Sciifii : public Libwiisys::Object
 {
 private:
-	void DisplayProgress(Object* sender, ProgressEventArgs* args);
+	void DisplayProgress(Libwiisys::Object* sender, ProgressEventArgs* args);
 
 	bool hasDisplayed;
 public:

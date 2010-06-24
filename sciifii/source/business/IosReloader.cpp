@@ -1,11 +1,15 @@
 #include "IosReloader.h"
 #include "../Config.h"
 
-#include <libutils/fs/Device.h>
+#include <libwiisys.h>
 #include <ogc/ios.h>
 #include <sstream>
-#include <libutils/system/Title.h>
+
 using namespace std;
+using namespace Libwiisys::System;
+using namespace Libwiisys::System::Security;
+
+using namespace Libwiisys::Logging;
 
 IosReloader::IosReloader(u32 ios)
 : Installer(),

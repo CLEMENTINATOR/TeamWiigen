@@ -2,19 +2,17 @@
 #include <sstream>
 #include <fastdelegate.h>
 
-#include <libutils/fs/Device.h>
-#include <libutils/system/Identification.h>
-
+#include <libwiisys.h>
 #include "Sciifii.h"
 #include "Config.h"
 
-#include <libutils/fs/Directory.h>
-#include <libutils/logging/GeckoLogger.h>
-#include <libutils/logging/FileLogger.h>
 
-#include <libutils/logging/Log.h>
+
 using namespace fastdelegate;
 using namespace std;
+using namespace Libwiisys;
+using namespace Libwiisys::Logging;
+
 
 #define TITLE_IOS(x) (0x0000000100000000ULL + x)
 

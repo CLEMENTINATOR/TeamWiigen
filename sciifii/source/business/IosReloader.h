@@ -3,7 +3,7 @@
 
 #include <string>
 #include <gctypes.h>
-#include <libutils/system/Identification.h>
+#include <libwiisys.h>
 
 #include "common/Installer.h"
 

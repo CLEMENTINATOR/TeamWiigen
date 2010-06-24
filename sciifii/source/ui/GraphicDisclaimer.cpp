@@ -1,3 +1,5 @@
+#ifdef ANEPACOMPILER
+
 #include "GraphicDisclaimer.h"
 #include "../Config.h"
 
@@ -49,3 +51,5 @@ void GraphicDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
   Visible(false);
 }
+
+#endif

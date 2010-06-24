@@ -10,14 +10,19 @@
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
 #include "../FileSystemTask.h"
-#include <libutils/exception/Exception.h>
-#include <libutils/Xml.h>
-#include <libutils/UtilString.h>
-#include <libutils/system/Title.h>
+#include <libwiisys.h>
 #include <string>
 
 using namespace std;
-
+using namespace Libwiisys;
+using namespace Libwiisys::Network;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Serialization;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::System;
+using namespace Libwiisys::System::Patching;
 Installer* InstallerFactory::Create(TiXmlElement* node)
 {
 	Installer* step(NULL);

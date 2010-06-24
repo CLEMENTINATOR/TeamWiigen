@@ -1,22 +1,26 @@
 #include "Config.h"
 #include "business/common/InstallerFactory.h"
 #include "business/common/FileManager.h"
-#include <libutils/Xml.h>
-#include <libutils/com/NetworkUtility.h>
-#include <libutils/system/Title.h>
-#include <libutils/fs/File.h>
+#include <libwiisys.h>
+
+
 #include <ogc/conf.h>
 #include <cstdlib>
-#include <libutils/exception/Exception.h>
-#include <libutils/logging/Log.h>
-#include <libutils/logging/FileLogger.h>
-#include <libutils/logging/GeckoLogger.h>
-#include <libutils/UtilString.h>
+
+#include <libwiisys/logging/Log.h>
+#include <libwiisys/logging/FileLogger.h>
+#include <libwiisys/logging/GeckoLogger.h>
+
 #include <ogc/conf.h>
-#include <libutils/logging/WebLogger.h>
+#include <libwiisys/logging/WebLogger.h>
 
 using namespace std;
-
+using namespace Libwiisys;
+using namespace Libwiisys::Network;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Serialization;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
 Config::Config()
         : _hasNetwork(false),
         _uninstall(false)

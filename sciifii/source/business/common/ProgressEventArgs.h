@@ -3,10 +3,12 @@
 
 #include <string>
 #include <gctypes.h>
+#include <libwiisys.h>
 
-#include <libutils/events/EventArgs.h>
 
-class ProgressEventArgs : public EventArgs
+
+
+class ProgressEventArgs : public Libwiisys::EventArgs
 {
 public:
 	std::string message;

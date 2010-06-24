@@ -2,15 +2,16 @@
 #include <iostream>
 #include <iomanip>
 
-#include <libutils/exception/Exception.h>
-#include <libutils/fs/File.h>
-#include <libutils/fs/Path.h>
-#include <libutils/system/TitlePatcher.h>
+#include <libwiisys.h>
 
 #include "SystemUpdater.h"
 
 using namespace std;
-
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::System;
+using namespace Libwiisys::System::Patching;
+using namespace Libwiisys::IO;
 void SystemUpdater::AddTitle(const titleDescriptor& descriptor)
 {
 		_updateTitles.push_back(descriptor);

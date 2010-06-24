@@ -1,18 +1,21 @@
 #include "FileManager.h"
-#include <libutils/com/HttpRequest.h>
+
 #include "../../Config.h"
-#include <libutils/fs/File.h>
-#include <libutils/fs/Path.h>
-#include <libutils/fs/Directory.h>
-#include <libutils/UtilString.h>
-#include <libutils/exception/Exception.h>
+
 #include <sstream>
-#include <libutils/logging/Log.h>
-#include <libutils/logging/ILogProvider.h>
+
+#include <libwiisys.h>
 
 
 using namespace std;
 
+using namespace Libwiisys;
+using namespace Libwiisys::Network;
+using namespace Libwiisys::Logging;
+using namespace Libwiisys::Serialization;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
 
 FileManager& FileManager::Instance()
 {

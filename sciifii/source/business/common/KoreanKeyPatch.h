@@ -2,13 +2,12 @@
 #define _KOREAN_PATCH_H_
 
 #include <ogcsys.h>
-#include <libutils/events/TitleEventArgs.h>
-#include <libutils/system/Patch.h>
+#include <libwiisys.h>
 
-class KoreanKeyPatch : public Patch
+class KoreanKeyPatch : public Libwiisys::System::Patching::Patch
 {
 protected:
-	u32 Patching(TitleEventArgs &processControl) const;
+	u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const;
 };
 
 #endif

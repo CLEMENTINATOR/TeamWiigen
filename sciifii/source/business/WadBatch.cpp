@@ -1,12 +1,13 @@
 #include "WadBatch.h"
 
 #include <vector>
-#include <libutils/system/Title.h>
-#include <libutils/fs/File.h>
-#include <libutils/fs/Directory.h>
-#include <libutils/fs/Path.h>
+#include <libwiisys.h>
 
 using namespace std;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::System;
+using namespace Libwiisys::Logging;
+
 
 WadBatch::WadBatch(const string& folder,TitleAction action)
 : _wadFolder(folder),a(action)

@@ -1,10 +1,6 @@
 #include <ogcsys.h>
-#include <libutils/exception/Exception.h>
-#include <libutils/Xml.h>
-#include <libutils/fs/Device.h>
-#include <libutils/ui/UIManager.hpp>
-#include <libutils/fs/Directory.h>
-#include <libutils/system/Title.h>
+#include <libwiisys.h>
+
 #include <iostream>
 
 #include "Tools.h"
@@ -13,25 +9,29 @@
 #include "ui/MainMenu.h"
 #include "ui/AdvancedMenu.h"
 #include "ui/Disclaimer.h"
-#include "ui/GraphicDisclaimer.h"
 #include "ui/VirtualPad.h"
 
 #include <cstdlib>
 #include <unistd.h>
 #include <sstream>
 
-#include <libutils/logging/Log.h>
 
 //#define USE_ADVANCED_UI
 
 using namespace std;
-using namespace UI;
-using namespace UI::Component;
-using namespace UI::Device;
+
 
 static void *xfb;
 static GXRModeObj *vmode;
 
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::Logging;
+
+
+#ifdef USE_ADVANCED_UI
+using namespace UI;
+using namespace UI::Component;
+using namespace UI::Device;
 int mainUI(int argc, char **argv)
 {
     Config::Initialize();
@@ -41,6 +41,7 @@ int mainUI(int argc, char **argv)
 	STM_RebootSystem();
 	return 0;
 }
+#endif
 
 int mainText(int argc, char **argv)
 {

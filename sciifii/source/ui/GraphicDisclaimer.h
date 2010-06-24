@@ -1,6 +1,4 @@
-#include <libutils/ui/Component/Form.hpp>
-#include <libutils/ui/Component/Button.hpp>
-
+#include <libwiisys.h>
 
 class GraphicDisclaimer : public UI::Component::Form
   {

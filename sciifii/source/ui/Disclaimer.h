@@ -1,9 +1,9 @@
 #ifndef DISCLAIMER_H_
 #define DISCLAIMER_H_
 
-#include <libutils/Object.h>
+#include <libwiisys.h>
 
-class Disclaimer : public Object
+class Disclaimer : public Libwiisys::Object
 {
 public:
 	static void Show();

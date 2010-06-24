@@ -9,15 +9,12 @@
 #define INSTALLERFACTORY_H_
 
 #include "Installer.h"
-#include <libutils/Object.h>
-#include <libutils/system/SimplePatch.h>
-#include <libutils/elf_abi.h>
-#include <tinyxml.h>
-#include <libutils/logging/Log.h>
+#include <libwiisys.h>
+
 
 #include <vector>
 
-class InstallerFactory : public Object
+class InstallerFactory : public Libwiisys::Object
 {
 public:
 	static Installer* Create(TiXmlElement* node);
@@ -25,7 +22,7 @@ public:
 	static void FillCiosCorpModules(Installer* corp, TiXmlElement* xml);
 	static void FillCiosCorpItems(Installer* corp, TiXmlElement* xml);
 	static void FillCiosPlugins(Installer* cios, TiXmlElement* xml);
-	static std::vector<SimplePatch> GetPluginHandles(TiXmlElement* xml);
+	static std::vector<Libwiisys::System::Patching::SimplePatch> GetPluginHandles(TiXmlElement* xml);
 	static bool GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header);
 	static void FillCiosPatches(Installer* cios, TiXmlElement* xml);
 	static void FillCiosModules(Installer* cios, TiXmlElement* xml);

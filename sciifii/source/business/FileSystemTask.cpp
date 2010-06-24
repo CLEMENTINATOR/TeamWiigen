@@ -1,12 +1,15 @@
 #include "FileSystemTask.h"
 
-#include <libutils/fs/File.h>
-#include <libutils/fs/Directory.h>
-#include <libutils/exception/Exception.h>
+#include <libwiisys.h>
 #include <iostream>
 #include <sstream>
 #include <string>
+
 using namespace std;
+using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Logging;
+
 
 FileSystemTask::FileSystemTask(const std::string &target, FSTAction action, FSTType type, const std::string& destination, bool recursive)
 : _target(target),

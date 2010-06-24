@@ -40,7 +40,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -ltinyxml -lutils -lpngu -lpng -lz -lasnd -lwiiuse -lbte -logc -lm -lfat -lfreetype -lmetaphrasis
+LIBS	:= -ltinyxml -lwiisys -lpngu -lpng -lz -lasnd -lwiiuse -lbte -logc -lm -lfat -lfreetype -lmetaphrasis
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -117,14 +117,14 @@ run:
 	
 #---------------------------------------------------------------------------------
 prepare:
-	@make -C ../libutils
+	@make -C ../libwiisys
 ifeq ($(SystemName),Darwin)
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libutils/headers/ include/libutils
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/libwiisys
 else
-	-@robocopy ../libutils/headers include/libutils //MIR //XD _svn //XD .svn >> rbcp.log
+	-@robocopy ../libwiisys/headers include/libwiisys //MIR //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
 endif
-	@cp ../libutils/libutils.a lib
+	@cp ../libwiisys/libwiisys.a lib
 
 
 #---------------------------------------------------------------------------------

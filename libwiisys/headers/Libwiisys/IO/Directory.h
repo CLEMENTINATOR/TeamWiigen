@@ -6,7 +6,12 @@
 #include <vector>
 
 namespace Libwiisys {  namespace IO{
-
+/**
+ *\class Directory
+ *\brief Represents a directory
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+**/
 class Directory : public Object
 {
 public:

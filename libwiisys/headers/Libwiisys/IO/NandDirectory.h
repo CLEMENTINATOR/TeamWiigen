@@ -6,6 +6,10 @@
 #include <vector>
 namespace Libwiisys {
 	namespace IO{
+	/**
+	*\class NandDirectory
+	*\see Directory
+	*/
 class NandDirectory : public Object
 {
 public:

@@ -197,6 +197,13 @@ bool Directory::IsEmpty(const string &name)
 	return empty;
 }
 
+/*!
+ * \brief Copy the directory a an other enplacement(same as ctrl-c / ctrl-v)
+ * \param name The name of the directory
+ * \param dest the copy destination
+ * \param recursive If true , it'll copy all the subdirectories in dest too
+ * \return true if the directory is empty, false if it isn't
+ */
 void Directory::Copy(const string &name, const string &dest, bool recursive)
 {
 	string path = Path::CleanPath(name);
@@ -237,7 +244,11 @@ void Directory::Copy(const string &name, const string &dest, bool recursive)
 
 	Device::UnMount(path);
 }
-
+/*!
+ * \brief Cut a directory and paste it in destination (ctrl-x / ctrl-v)
+ * \param name The name of the directory
+ * \param dest The name of the destination directory
+ */
 void Directory::Move(const string &name, const string &dest)
 {
 	Directory::Copy(name, dest, true);

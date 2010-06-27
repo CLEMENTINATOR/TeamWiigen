@@ -19,7 +19,7 @@ static fatDevice devices[] = {
 #define NB_DEVICES 6
 
 /**
-*\brief Shutdown all devices
+*\brief Check if there is no files left open and then shutdown all devices
 */
 void Device::EnsureShutdown()
 {

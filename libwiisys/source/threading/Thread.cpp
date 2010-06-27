@@ -3,12 +3,17 @@
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Threading;
-
+/**
+ *\brief Constructor
+ */
 Thread::Thread(ThreadStart start)
 {
 	_start = start;
 }
-
+/*
+ * \brief Start the thread
+ * \param params the parameterswhich are given to the thread
+ */
 void Thread::Start(Object* params)
 {
    _params = params; //record the parameters
@@ -16,7 +21,9 @@ void Thread::Start(Object* params)
    if(code < 0)
      throw Exception("Error creating thread.", code);
 }
-
+/**
+ *\brief Run the thread
+ */
 void Thread::Run()
 {
    _start(_params);

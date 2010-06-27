@@ -8,6 +8,10 @@
 #include "File.h"
 namespace Libwiisys {
 	namespace IO{
+	/**
+	*\class NandFile
+	*\see File
+	*/
 class NandFile : public File
 {
 public:

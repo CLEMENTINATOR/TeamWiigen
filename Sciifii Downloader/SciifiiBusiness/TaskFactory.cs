@@ -167,9 +167,19 @@ namespace SciifiiBusiness
 
         internal void PrepareFileDownloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
-            SciifiiDTO.FileDownloader step = s as SciifiiDTO.FileDownloader;
+            String fileName = "";
+            try //Try first cast with FileDownloader if throw cast with Preloader
+            {
+                SciifiiDTO.FileDownloader step = s as SciifiiDTO.FileDownloader;
+                fileName = step.FileKey;
+            }
+            catch
+            {
+                SciifiiDTO.Preloader step = s as SciifiiDTO.Preloader;
+                fileName = step.File;
+            }
 
-            ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.FileKey).First();
+            ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == fileName).First();
             
             FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
             message(file.Key);
@@ -215,7 +225,7 @@ namespace SciifiiBusiness
                 return new Task { Step = step, job = PrepareTitleDowngrader };
             else if (step is SystemUpdater)
                 return new Task { Step = step, job = PrepareSystemUpdate };
-            else if (step is SciifiiDTO.FileDownloader)
+            else if (step is SciifiiDTO.FileDownloader || step is SciifiiDTO.Preloader) //Same process just different cast
                 return new Task { Step = step, job = PrepareFileDownloader };
             else if (step is CompositeInstaller)
                 return new Task { Step = step, job = PrepareComposite };

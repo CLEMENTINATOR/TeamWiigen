@@ -42,7 +42,7 @@ string UtilString::ToStr(const char* value, const string& defaultVal)
  */
 u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)
 {
-  if (val == NULL) 
+  if (val == NULL)
     return defaultval;
 
   stringstream str(val);
@@ -66,7 +66,7 @@ u64 UtilString::ToU64(const char* val, NumberRepresentation rep)
 {
   if (val==NULL)
     throw Exception("Cannot parse NULL value to u64", -1);
-	
+
   stringstream str(val);
   u64 returnValue;
 
@@ -173,9 +173,9 @@ u16 UtilString::ToU16(const char* val, NumberRepresentation rep)
  */
 u8 UtilString::ToU8(const char* val, u8 defaultval, NumberRepresentation rep)
 {
-  if (val==NULL) 
+  if (val==NULL)
     return defaultval;
-	
+
   stringstream str(val);
   u16 returnValue;
 
@@ -183,7 +183,7 @@ u8 UtilString::ToU8(const char* val, u8 defaultval, NumberRepresentation rep)
     str >> hex;
 
   str >> returnValue;
-  
+
   return (u8)returnValue;
 }
 
@@ -199,7 +199,7 @@ u8 UtilString::ToU8(const char* val, NumberRepresentation rep)
 {
   if (val==NULL)
     throw Exception("Cannot parse NULL value to u8", -1);
-	
+
   stringstream str(val);
   u16 returnValue;
 
@@ -262,9 +262,9 @@ bool UtilString::ToBool(const char* val)
 {
   if (val==NULL)
     throw Exception("Cannot parse NULL value to bool", -1);
-	
+
   string value(val);
-  
+
   if (value == "true")
     return true;
   else if (value == "false")
@@ -324,11 +324,25 @@ std::string UtilString::Replace(const std::string& source, const std::string& pa
 {
   string temp = source;
   size_t found;
-  
+
   while((found = temp.find(pattern)) != string::npos)
   {
 	temp = temp.replace(found, pattern.length(), value);
   }
-  
+
   return temp;
+}
+
+std::wstring UtilString::StrToWstr(const std::string& str)
+{
+	wstring wstr;
+	wstr.assign(str.begin(), str.end());
+	return wstr;
+}
+
+std::string UtilString::WstrToStr(const std::wstring& wstr)
+{
+	string str;
+	str.assign(wstr.begin(), wstr.end());
+	return str;
 }

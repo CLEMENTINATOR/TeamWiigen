@@ -6,10 +6,6 @@
 #include "Tools.h"
 #include "Sciifii.h"
 #include "Config.h"
-#include "ui/MainMenu.h"
-#include "ui/AdvancedMenu.h"
-#include "ui/Disclaimer.h"
-#include "ui/VirtualPad.h"
 
 #include <cstdlib>
 #include <unistd.h>
@@ -19,29 +15,38 @@
 //#define USE_ADVANCED_UI
 
 using namespace std;
-
-
-static void *xfb;
-static GXRModeObj *vmode;
-
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Logging;
 
 
 #ifdef USE_ADVANCED_UI
-using namespace UI;
-using namespace UI::Component;
-using namespace UI::Device;
+
+#include <libwui.h>
+#include "ui/GraphicDisclaimer.h"
+
+using namespace Libwui;
+using namespace Libwui::Component;
+using namespace Libwui::Device;
+
 int mainUI(int argc, char **argv)
 {
-    Config::Initialize();
-    GraphicDisclaimer g;
-    PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
+  Config::Initialize();
+  GraphicDisclaimer g;
+  PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
 	UIManager::Run(g);
 	STM_RebootSystem();
 	return 0;
 }
-#endif
+
+#else
+
+#include "ui/MainMenu.h"
+#include "ui/AdvancedMenu.h"
+#include "ui/Disclaimer.h"
+#include "ui/VirtualPad.h"
+
+static void *xfb;
+static GXRModeObj *vmode;
 
 int mainText(int argc, char **argv)
 {
@@ -137,6 +142,7 @@ int mainText(int argc, char **argv)
 	return 0;
 }
 
+#endif
 
 int main(int argc, char **argv)
 {

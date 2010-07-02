@@ -40,16 +40,16 @@ void Identification::Identify(const u8 *certs, u32 certs_size, const u8 *idtmd, 
 	{
 		switch(ret)
 		{
-			case ES_EINVAL:
-				throw Exception("Error! ES_Identify Data invalid!", ret);
-			case ES_EALIGN:
-				throw Exception("Error! ES_Identify Data not aligned!", ret);
-			case ES_ENOTINIT:
-				throw Exception("Error! ES_Identify ES not initialized!", ret);
-			case ES_ENOMEM:
-				throw Exception("Error! ES_Identify No memory!", ret);
-			default:
-				throw Exception("Error! ES_Identify", ret);
+		case ES_EINVAL:
+			throw Exception("Error! ES_Identify Data invalid!", ret);
+		case ES_EALIGN:
+			throw Exception("Error! ES_Identify Data not aligned!", ret);
+		case ES_ENOTINIT:
+			throw Exception("Error! ES_Identify ES not initialized!", ret);
+		case ES_ENOMEM:
+			throw Exception("Error! ES_Identify No memory!", ret);
+		default:
+			throw Exception("Error! ES_Identify", ret);
 		}
 	}
 }

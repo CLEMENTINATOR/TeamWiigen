@@ -7,7 +7,7 @@ class TitleModule : public Buffer
 {
 private:
 	s32 _position;
-	
+
 public:
 	TitleModule(const Buffer& buffer, const s32 requiredPosition = -1);
 	TitleModule(const u8* buffer, const u64 length, const s32 requiredPosition = -1);

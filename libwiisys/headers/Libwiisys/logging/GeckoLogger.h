@@ -4,7 +4,13 @@
 #include "../Object.h"
 #include "ILogProvider.h"
 namespace Libwiisys {
-	namespace Logging{
+namespace Logging{
+
+/**
+ * @class Gecko logger class
+ * @version 1.0
+ * @author Teton,Arasium,fanta
+ */
 class GeckoLogger : public Object, public ILogProvider
 {
 private:
@@ -12,7 +18,7 @@ private:
 	static void Initialize();
 public:
 	GeckoLogger();
-	~GeckoLogger();
+	virtual ~GeckoLogger();
 	void WriteError( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void WriteWarning( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void WriteInfo(const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);

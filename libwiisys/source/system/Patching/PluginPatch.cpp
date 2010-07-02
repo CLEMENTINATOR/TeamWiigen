@@ -8,23 +8,23 @@ using namespace Libwiisys::System::Event;
 using namespace Libwiisys::Exceptions;
 
 PluginPatch::PluginPatch(const Buffer& plugin, const u32 offset, const u32 bssNewSize, const std::string &module)
-    : Patch(module),
-	_plugin(plugin),
-    _offset(offset),
-    _bssNewSize(bssNewSize),
-    _commandHandles(),
-	_newProgramSection(NULL),
-	_replaceSection(0)
+: Patch(module),
+  _plugin(plugin),
+  _offset(offset),
+  _bssNewSize(bssNewSize),
+  _commandHandles(),
+  _newProgramSection(NULL),
+  _replaceSection(0)
 {}
 
 PluginPatch::PluginPatch(const PluginPatch& patch)
-    : Patch(patch),
-	_plugin(patch._plugin),
-    _offset(patch._offset),
-    _bssNewSize(patch._bssNewSize),
-    _commandHandles(patch._commandHandles),
-	_newProgramSection(NULL),
-	_replaceSection(patch._replaceSection)
+: Patch(patch),
+  _plugin(patch._plugin),
+  _offset(patch._offset),
+  _bssNewSize(patch._bssNewSize),
+  _commandHandles(patch._commandHandles),
+  _newProgramSection(NULL),
+  _replaceSection(patch._replaceSection)
 {
 	if(patch._newProgramSection)
 	{
@@ -48,21 +48,21 @@ PluginPatch::PluginPatch(const Buffer& plugin, Elf32_Phdr newHeader , const std:
 
 PluginPatch& PluginPatch::operator=(const PluginPatch& patch)
 {
-  Patch::operator=(patch);
-  
-  if(_newProgramSection)
-	delete _newProgramSection;
-	
-  _plugin = patch._plugin;
-  _offset = patch._offset;
-  _bssNewSize = patch._bssNewSize;
-  _commandHandles = patch._commandHandles;
-  _replaceSection = patch._replaceSection;
-  
-  if(patch._newProgramSection)
-	_newProgramSection = new Elf32_Phdr(*(patch._newProgramSection));
-  
-  return *this;
+	Patch::operator=(patch);
+
+	if(_newProgramSection)
+		delete _newProgramSection;
+
+	_plugin = patch._plugin;
+	_offset = patch._offset;
+	_bssNewSize = patch._bssNewSize;
+	_commandHandles = patch._commandHandles;
+	_replaceSection = patch._replaceSection;
+
+	if(patch._newProgramSection)
+		_newProgramSection = new Elf32_Phdr(*(patch._newProgramSection));
+
+	return *this;
 }
 
 PluginPatch::~PluginPatch()
@@ -80,9 +80,9 @@ bool PluginPatch::IsElf(u8* buffer) const
 {
 	Elf32_Ehdr* header = (Elf32_Ehdr*)buffer;
 	if (header->e_ident[0] == ELFMAG0
-		&& header->e_ident[1] == ELFMAG1
-		&& header->e_ident[2] == ELFMAG2
-		&& header->e_ident[3] == ELFMAG3)
+			&& header->e_ident[1] == ELFMAG1
+			&& header->e_ident[2] == ELFMAG2
+			&& header->e_ident[3] == ELFMAG3)
 		return true;
 
 	return false;
@@ -90,24 +90,24 @@ bool PluginPatch::IsElf(u8* buffer) const
 
 u32 PluginPatch::FindIOSVersionIndex(const Buffer& b) const
 {
-  string str = "$IOSVersion:";
-  char* buf = (char*)b.Content();
-  u32 skipedModules = 0;
-  
-  for (u64 cnt = 0; cnt < (b.Length() - str.size()); cnt++)
-      /* Module string found */
-      if (strncmp(str.c_str(), buf + cnt, str.length()) == 0)
-	  {
-	    cnt += str.length();
-		while(buf[cnt] == ' ')
-		  cnt++;
-		if (strncmp(AllowedModule.c_str(), buf + cnt, AllowedModule.length()) == 0)
-          return skipedModules;
-		else
-		  skipedModules++;
-	  }
+	string str = "$IOSVersion:";
+	char* buf = (char*)b.Content();
+	u32 skipedModules = 0;
 
-  throw Exception("IOS Module not found.", skipedModules);
+	for (u64 cnt = 0; cnt < (b.Length() - str.size()); cnt++)
+		/* Module string found */
+		if (strncmp(str.c_str(), buf + cnt, str.length()) == 0)
+		{
+			cnt += str.length();
+			while(buf[cnt] == ' ')
+				cnt++;
+			if (strncmp(AllowedModule.c_str(), buf + cnt, AllowedModule.length()) == 0)
+				return skipedModules;
+			else
+				skipedModules++;
+		}
+
+	throw Exception("IOS Module not found.", skipedModules);
 }
 
 u32 PluginPatch::FindPlugedSegment(u8* elf, u32 moduleToSkip) const
@@ -117,7 +117,7 @@ u32 PluginPatch::FindPlugedSegment(u8* elf, u32 moduleToSkip) const
 	bool found = false;
 	u32 segmentIndex = 0;
 	u32 skipedModules = 0;
-	
+
 	for(u32 phIndex = 0; phIndex < header->e_phnum; phIndex++)
 	{
 		Elf32_Phdr* ph = (Elf32_Phdr*)(elf + header->e_phoff + phIndex * header->e_phentsize);
@@ -135,13 +135,13 @@ u32 PluginPatch::FindPlugedSegment(u8* elf, u32 moduleToSkip) const
 				}
 			}
 			else if(skipedModules > moduleToSkip)
-			  break;
+				break;
 		}
 	}
-	
+
 	if(!found)
 		throw Exception("No segment found!" , -1);
-		
+
 	return segmentIndex;
 }
 
@@ -149,7 +149,7 @@ u32 PluginPatch::FindBssSegment(u8* elf, u32 moduleToSkip) const
 {
 	Elf32_Ehdr* header = (Elf32_Ehdr*)elf;
 	u32 skipedModules = 0;
-	
+
 	for(u32 phIndex = 0; phIndex < header->e_phnum; phIndex++)
 	{
 		Elf32_Phdr* ph = (Elf32_Phdr*)(elf + header->e_phoff + phIndex * header->e_phentsize);
@@ -162,7 +162,7 @@ u32 PluginPatch::FindBssSegment(u8* elf, u32 moduleToSkip) const
 			skipedModules++;			
 		}
 	}
-	
+
 	throw Exception("No bss segment found!" , -1);
 }
 
@@ -178,7 +178,7 @@ u64 PluginPatch::GetElfSize(const u8* elf) const
 {
 	Elf32_Ehdr* header = (Elf32_Ehdr*)elf;
 	u64 elfSize = header->e_ehsize;
-	
+
 	//we don' add the PHdr table size because the section is referenced
 	//in the PHeaders (type = PT_PHDR)
 	for(u32 phIndex = 0; phIndex < header->e_phnum; phIndex++)
@@ -186,10 +186,10 @@ u64 PluginPatch::GetElfSize(const u8* elf) const
 		Elf32_Phdr* ph = (Elf32_Phdr*)(elf + header->e_phoff + phIndex * header->e_phentsize);
 		//we ignore the PT_LOAD associated to the PHT
 		if(ph->p_type == PT_LOAD &&  ph->p_offset == header->e_phoff)
-		  continue;
+			continue;
 		elfSize += ph->p_filesz;
 	}
-	
+
 	return elfSize;
 }
 
@@ -264,7 +264,7 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 	memcpy(dest + outPos, source + inHeader->e_phoff, inHeader->e_phnum * inHeader->e_phentsize);
 	outHeader->e_phoff = outPos;
 	outPos += inHeader->e_phnum * inHeader->e_phentsize;
-	
+
 	//create a new header
 	if(newSegment)
 	{
@@ -301,7 +301,7 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 			pHeader->p_offset = outPos;
 			pHeader->p_filesz = _plugin.Length();
 			pHeader->p_memsz = pHeader->p_filesz;
-			
+
 			memcpy(dest + outPos, _plugin.Content(), pHeader->p_filesz);
 		}
 		else
@@ -316,72 +316,72 @@ void PluginPatch::Plug(u32 segmentIndex, u8* source, u8* dest) const
 
 u32 PluginPatch::Patching(TitleEventArgs &processControl) const
 {
-  //apply cmd handles
-  for(vector<SimplePatch>::const_iterator ite = _commandHandles.begin(); ite != _commandHandles.end(); ite++)
+	//apply cmd handles
+	for(vector<SimplePatch>::const_iterator ite = _commandHandles.begin(); ite != _commandHandles.end(); ite++)
 		ite->ApplyPatch(processControl);
 
-  u8* sourceElf = (u8*)processControl.buffer.Content();
-  ArmHeader* arm = NULL;
-  u32 armLength = 0;
-  
-  if(!IsElf(sourceElf))
-  {
-	  arm = (ArmHeader*)sourceElf;
-	  armLength = arm->headerSize + arm->offset;
-	  sourceElf = sourceElf + armLength;
-	  if(arm->headerSize != sizeof(ArmHeader) || !IsElf(sourceElf))
-		  throw Exception("The module isn't arm nor elf", -1);
-  }
+	u8* sourceElf = (u8*)processControl.buffer.Content();
+	ArmHeader* arm = NULL;
+	u32 armLength = 0;
 
-  u32 modulesToSkip = FindIOSVersionIndex(processControl.buffer);
-  u32 bssSegment = FindBssSegment(sourceElf, modulesToSkip);
-  u32 plugedSegment = _replaceSection;
-  u64 newElfLength = GetElfSize(sourceElf);
-  
-  if(!_newProgramSection)
-	plugedSegment = FindPlugedSegment(sourceElf, modulesToSkip);
-	
-  //if replace section = 0 and newHeader  != NULL, we create a new section
-  if(_newProgramSection && _replaceSection == 0)
-	newElfLength += sizeof(Elf32_Phdr);
-  else
-	newElfLength += (_offset - FindSegmentSize(sourceElf, plugedSegment));
-	
-  newElfLength += _plugin.Length();
-	
-  if(arm)
-	  arm->size = newElfLength;
+	if(!IsElf(sourceElf))
+	{
+		arm = (ArmHeader*)sourceElf;
+		armLength = arm->headerSize + arm->offset;
+		sourceElf = sourceElf + armLength;
+		if(arm->headerSize != sizeof(ArmHeader) || !IsElf(sourceElf))
+			throw Exception("The module isn't arm nor elf", -1);
+	}
 
-  u8* destElf = (u8*)malloc(TITLE_ROUND_UP(newElfLength + armLength, 64));
-  if(!destElf)
-    throw Exception("Not enough memory!", -1);
-	
-  try
-  {
-	memset(destElf, 0 , TITLE_ROUND_UP(newElfLength + armLength, 64));
-	if(arm)
-		memcpy(destElf, arm, armLength);
-	
+	u32 modulesToSkip = FindIOSVersionIndex(processControl.buffer);
+	u32 bssSegment = FindBssSegment(sourceElf, modulesToSkip);
+	u32 plugedSegment = _replaceSection;
+	u64 newElfLength = GetElfSize(sourceElf);
+
 	if(!_newProgramSection)
-	  Plug(plugedSegment, bssSegment, sourceElf, destElf + armLength);
+		plugedSegment = FindPlugedSegment(sourceElf, modulesToSkip);
+
+	//if replace section = 0 and newHeader  != NULL, we create a new section
+	if(_newProgramSection && _replaceSection == 0)
+		newElfLength += sizeof(Elf32_Phdr);
 	else
-	  Plug(plugedSegment, sourceElf, destElf + armLength);
-  }
-  catch(Exception &ex)
-  {
+		newElfLength += (_offset - FindSegmentSize(sourceElf, plugedSegment));
+
+	newElfLength += _plugin.Length();
+
+	if(arm)
+		arm->size = newElfLength;
+
+	u8* destElf = (u8*)malloc(TITLE_ROUND_UP(newElfLength + armLength, 64));
+	if(!destElf)
+		throw Exception("Not enough memory!", -1);
+
+	try
+	{
+		memset(destElf, 0 , TITLE_ROUND_UP(newElfLength + armLength, 64));
+		if(arm)
+			memcpy(destElf, arm, armLength);
+
+		if(!_newProgramSection)
+			Plug(plugedSegment, bssSegment, sourceElf, destElf + armLength);
+		else
+			Plug(plugedSegment, sourceElf, destElf + armLength);
+	}
+	catch(Exception &ex)
+	{
+		free(destElf);
+		throw;
+	}
+	catch(...)
+	{
+		free(destElf);
+		throw;
+	}
+
+	processControl.buffer.Clear();
+	processControl.buffer.Append(destElf, TITLE_ROUND_UP(newElfLength + armLength, 64));
+	processControl.tmdInfo->size = TITLE_ROUND_UP(newElfLength + armLength, 64);
 	free(destElf);
-	throw;
-  }
-  catch(...)
-  {
-	free(destElf);
-	throw;
-  }
-  
-  processControl.buffer.Clear();
-  processControl.buffer.Append(destElf, TITLE_ROUND_UP(newElfLength + armLength, 64));
-  processControl.tmdInfo->size = TITLE_ROUND_UP(newElfLength + armLength, 64);
-  free(destElf);
-  
-  return 1;
+
+	return 1;
 }

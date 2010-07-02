@@ -9,12 +9,11 @@
 
 namespace Libwiisys { namespace Network {
 
-/*! \class NusServer
+/**
+ * \class NusServer
  * \brief This class allow the download on NUS servers
  * \author Arasium, Teton, Fanta
  * \version 1.0
- *
- * The NetworkRequest class allow user to download title on NUS servers
  */
 class NusServer : public HttpRequest
 {

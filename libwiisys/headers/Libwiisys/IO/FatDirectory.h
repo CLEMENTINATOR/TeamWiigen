@@ -5,11 +5,13 @@
 #include <string>
 #include <vector>
 namespace Libwiisys {
-	namespace IO{
+namespace IO{
 /**
-*\class FatDirectory
-*\see Directory
-*/
+ *\class FatDirectory
+ *\see Directory
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
 class FatDirectory : public Object
 {
 public:

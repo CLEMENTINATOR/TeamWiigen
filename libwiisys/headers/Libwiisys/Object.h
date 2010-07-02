@@ -5,7 +5,8 @@
 
 namespace Libwiisys {
 
-/*! \class Object
+/**
+ * \class Object
  * \brief This is the base class of all classes of libwiisys.
  * \author Arasium, Teton, Fanta
  * \version 1.0

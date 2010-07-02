@@ -11,14 +11,11 @@ extern "C" { void __exception_closeall(); }
 
 namespace Libwiisys { namespace Shell {
 
-/*! \class Dol
+/**
+ * \class Dol
  * \brief This class allow the loading/launching of Dol files.
  * \author Arasium, Teton, Fanta
  * \version 1.0
- *
- * The Dol class allow the user to execute a Dol file. The Dol can be specified using the Dol
- * file path, or using a buffer.
- * The Dol representation is stored in memory at the specified address.
  */
 class Dol : public Object
 {

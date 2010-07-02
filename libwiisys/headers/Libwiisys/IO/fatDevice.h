@@ -5,9 +5,9 @@
 namespace Libwiisys {  namespace IO{
 
 /**
-*\struct fatDevice
-*\brief Reprensents a fatDevice
-*/
+ *\struct fatDevice
+ *\brief Reprensents a fatDevice
+ */
 
 typedef struct {
 	/** Device mount point */
@@ -21,8 +21,8 @@ typedef struct {
 	/** To know how many item still use the device */
 	u32 deviceHandles;
 
-  /** To know if the interface has already been started */
-  bool started;
+	/** To know if the interface has already been started */
+	bool started;
 
 } fatDevice;
 

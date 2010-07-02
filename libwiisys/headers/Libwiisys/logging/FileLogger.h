@@ -6,8 +6,13 @@
 #include "ILogProvider.h"
 
 namespace Libwiisys {
-	namespace Logging{
+namespace Logging{
 
+/**
+ * @class File logger class
+ * @version 1.0
+ * @author Teton,Arasium,fanta
+ */
 class FileLogger : public Object, public ILogProvider
 {
 private:
@@ -17,7 +22,7 @@ private:
 	void Write(const std::string& line);
 public:
 	FileLogger(const std::string& filePath);
-	~FileLogger();
+	virtual ~FileLogger();
 	void WriteError( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void WriteWarning( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 	void WriteInfo( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);

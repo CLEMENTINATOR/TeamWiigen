@@ -5,6 +5,11 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 using namespace std;
 
+/**
+ *\brief Create the given directory
+ *\param name The absolute path of the directory
+ *\see void Directory::Create(const string &name)
+ */
 void NandDirectory::Create(const string &name)
 {
 	/* Create directory */
@@ -14,6 +19,11 @@ void NandDirectory::Create(const string &name)
 		throw Exception("Couldn't create directory : " + name ,ret);
 }
 
+/**
+ * \brief Delete the given directory
+ *  \param name The absolute path of the directory
+ *  \see void Directory::Delete(const string &name)
+ */
 void NandDirectory::Delete(const string &name)
 {
 	/* Delete directory */
@@ -22,7 +32,12 @@ void NandDirectory::Delete(const string &name)
 	if(ret)
 		throw Exception("Error deleting "+ name,ret);
 }
-
+/**
+ * \brief Check if the directory exists
+ *  \param name The absolute path of the directory
+ * \return true if directory exists, else false
+ * \see void Directory::Exists(const string &name)
+ */
 bool NandDirectory::Exists(const string &name)
 {
 	u32  nb_files;
@@ -33,6 +48,12 @@ bool NandDirectory::Exists(const string &name)
 	return true;
 }
 
+/*!
+ * \brief Get all the files of the directory
+ * \param name The full path of the directory
+ * \return An array of string containing the name of the files in the directory
+ * \see vector<string> Directory::GetFiles(const string &name)
+ */
 vector<string> NandDirectory::GetFiles(const string &name)
 {
 	u32 childCount, ret;
@@ -43,7 +64,7 @@ vector<string> NandDirectory::GetFiles(const string &name)
 	if(ret)
 		throw Exception("Can't open "+ name, ret);
 
-    if(childCount==0) return files;
+	if(childCount==0) return files;
 
 	childBuffer = (char*)memalign(32, (ISFS_MAXPATH + 1) * childCount);
 	if(!childBuffer)
@@ -61,7 +82,7 @@ vector<string> NandDirectory::GetFiles(const string &name)
 			string entryName(childBuffer + charPosition);
 			// on va jusqu'a la fin du nom
 			while(*(childBuffer + charPosition) != '\0')
-			  charPosition++;
+				charPosition++;
 			charPosition++;
 
 
@@ -71,11 +92,11 @@ vector<string> NandDirectory::GetFiles(const string &name)
 				entryName = name + "/" + entryName;
 
 			// Si pas directory, alors forcement file
-                if(!Exists(entryName))
-                {
-			  string realName = WII_ROOT_DIRECTORY ":" + entryName;
-			  files.push_back(realName);
-                }
+			if(!Exists(entryName))
+			{
+				string realName = WII_ROOT_DIRECTORY ":" + entryName;
+				files.push_back(realName);
+			}
 		}
 
 		free(childBuffer);
@@ -87,6 +108,13 @@ vector<string> NandDirectory::GetFiles(const string &name)
 		throw;
 	}
 }
+
+/*!
+ * \brief Get all the sub-directories of the directory
+ * \param name The full path of the directory
+ * \return An array(vector) of string containing the name of the sub-directories in the directory
+ * \see vector<string> Directory::GetDirectories(const string & path)
+ */
 vector<string> NandDirectory::GetDirectories(const string &name)
 {
 	u32 childCount, ret;
@@ -98,7 +126,7 @@ vector<string> NandDirectory::GetDirectories(const string &name)
 		throw Exception("Can't open "+ name, ret);
 
 
-    if(childCount==0) return directories;
+	if(childCount==0) return directories;
 
 	childBuffer = (char*)memalign(32, (ISFS_MAXPATH + 1) * childCount);
 	if(!childBuffer)
@@ -116,7 +144,7 @@ vector<string> NandDirectory::GetDirectories(const string &name)
 			string entryName(childBuffer + charPosition);
 			// on va jusqu'a la fin du nom
 			while(*(childBuffer + charPosition) != '\0')
-			  charPosition++;
+				charPosition++;
 			charPosition++;
 
 
@@ -126,11 +154,11 @@ vector<string> NandDirectory::GetDirectories(const string &name)
 				entryName = name + "/" + entryName;
 
 			// Si directory
-        if(Exists(entryName))
-                {
-			  string realName = WII_ROOT_DIRECTORY ":" + entryName;
-			  directories.push_back(realName);
-                }
+			if(Exists(entryName))
+			{
+				string realName = WII_ROOT_DIRECTORY ":" + entryName;
+				directories.push_back(realName);
+			}
 		}
 
 		free(childBuffer);

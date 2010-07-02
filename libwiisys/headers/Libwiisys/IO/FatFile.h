@@ -10,11 +10,13 @@
 #include "Device.h"
 
 namespace Libwiisys {
-	namespace IO{
+namespace IO{
 /**
-*\class FatFile
-*\see File
-*/
+ *\class FatFile
+ *\see File
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
 class FatFile : public File
 {
 public:
@@ -25,7 +27,7 @@ public:
 	void Write(const Buffer& b);
 	u32 Read(Buffer& b,u32 len);
 	void Close();
-	~FatFile();
+	virtual ~FatFile();
 private:
 	FILE *_fd;
 	FatFile(FILE *fd, const std::string &fileName);

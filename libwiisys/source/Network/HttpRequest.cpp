@@ -4,12 +4,8 @@
 #include <malloc.h>
 #include <libwiisys.h>
 
-
-
-
 #define BLOCK_SIZE		8192
 #define NETWORK_PORT 80
-
 
 using namespace std;
 using namespace Libwiisys::Network;
@@ -17,9 +13,9 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys;
 
 /*!
-* \brief Constructor
-*
-*/
+ * \brief Constructor
+ *
+ */
 HttpRequest::HttpRequest()
 {
 	sockfd=-1;
@@ -27,10 +23,10 @@ HttpRequest::HttpRequest()
 }
 
 /*!
-* \brief Overloaded constructor
-* \param url the full url for the request
-*
-*/
+ * \brief Overloaded constructor
+ * \param url the full url for the request
+ *
+ */
 HttpRequest::HttpRequest(const std::string& url)
 {
 	sockfd=-1;
@@ -40,9 +36,9 @@ HttpRequest::HttpRequest(const std::string& url)
 
 
 /*!
-* \brief Connect
-* \param hostname The hostname of the server
-*/
+ * \brief Connect
+ * \param hostname The hostname of the server
+ */
 void HttpRequest::Connect(string hostname)
 {
 	struct hostent *he;
@@ -75,9 +71,9 @@ void HttpRequest::Connect(string hostname)
 }
 
 /*!
-* \brief Set an new http request
-* \param url the server url (needs to begin by "http://www.)
-*/
+ * \brief Set an new http request
+ * \param url the server url (needs to begin by "http://www.)
+ */
 void HttpRequest::SetRequest(const string& url)
 {
 	_url = url;
@@ -86,10 +82,10 @@ void HttpRequest::SetRequest(const string& url)
 }
 
 /*!
-* \brief Get the length of the network response
-* \return The length of the contents
-*
-*/
+ * \brief Get the length of the network response
+ * \return The length of the contents
+ *
+ */
 u32 HttpRequest::GetResponseLength()
 {
 	if(_path.length() == 0 || _hostName.length() == 0)
@@ -98,23 +94,23 @@ u32 HttpRequest::GetResponseLength()
 	char buf[1024], request[256];
 
 	s32 ret;
-  
-  stringstream fullPath;
-  fullPath << _path;
-  
-  if(!_params.empty())
-  {
-    bool isFirstParam = true;
-    fullPath << "?";
-    for(map<string, string>::iterator ite = _params.begin(); ite != _params.end(); ++ite )
-    {
-      if(!isFirstParam)
-        fullPath << "&";
-      fullPath << NetworkUtility::URLEncode(ite->first) << "=" << NetworkUtility::URLEncode(ite->second);
-      isFirstParam = false;
-    }
-  }
-  
+
+	stringstream fullPath;
+	fullPath << _path;
+
+	if(!_params.empty())
+	{
+		bool isFirstParam = true;
+		fullPath << "?";
+		for(map<string, string>::iterator ite = _params.begin(); ite != _params.end(); ++ite )
+		{
+			if(!isFirstParam)
+				fullPath << "&";
+			fullPath << NetworkUtility::URLEncode(ite->first) << "=" << NetworkUtility::URLEncode(ite->second);
+			isFirstParam = false;
+		}
+	}
+
 	/* Generate HTTP request */
 	sprintf(request, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", fullPath.str().c_str(),_hostName.c_str());
 
@@ -149,12 +145,12 @@ u32 HttpRequest::GetResponseLength()
 }
 
 /*!
-* \brief Read data from the serv
-* \param b The Buffer where you want to store the readed data
-*\param len The len of the readed content
-* \return The length read
-*
-*/
+ * \brief Read data from the serv
+ * \param b The Buffer where you want to store the readed data
+ *\param len The len of the readed content
+ * \return The length read
+ *
+ */
 s32 HttpRequest::Read(Buffer& b, u32 len)
 {
 	u32 totalRead = 0;
@@ -188,11 +184,11 @@ s32 HttpRequest::Read(Buffer& b, u32 len)
 }
 
 /*!
-* \brief Send data to the serv
-* \param b The buffer to be writted
-* \return The length writen
-*
-*/
+ * \brief Send data to the serv
+ * \param b The buffer to be writted
+ * \return The length writen
+ *
+ */
 s32 HttpRequest::Write(Buffer& b)
 {
 	u32 totalWritten = 0;
@@ -220,8 +216,8 @@ s32 HttpRequest::Write(Buffer& b)
 }
 
 /*!
-* \brief Destructor
-*/
+ * \brief Destructor
+ */
 HttpRequest::~HttpRequest()
 {
 	if (sockfd >= 0)
@@ -232,9 +228,9 @@ HttpRequest::~HttpRequest()
 }
 
 /*!
-* \brief Get the server response
-* \return A buffer containing the reponse
-*/
+ * \brief Get the server response
+ * \return A buffer containing the reponse
+ */
 Buffer HttpRequest::GetResponse()
 {
 	u32 len = GetResponseLength();
@@ -246,10 +242,10 @@ Buffer HttpRequest::GetResponse()
 }
 
 /*!
-* \brief Get the server response and check sha1 hash
-*\param sha The sha buffer
-* \return A buffer containing the reponse
-*/
+ * \brief Get the server response and check sha1 hash
+ *\param sha The sha buffer
+ * \return A buffer containing the reponse
+ */
 Buffer HttpRequest::GetResponse(const Buffer& sha)
 {
 	Buffer response = GetResponse();
@@ -260,23 +256,23 @@ Buffer HttpRequest::GetResponse(const Buffer& sha)
 }
 
 /*!
-* \brief Get the server response and check sha1 hash
-*\param shaUrl The sha1 url
-* \return A buffer containing the reponse
-*/
+ * \brief Get the server response and check sha1 hash
+ *\param shaUrl The sha1 url
+ * \return A buffer containing the reponse
+ */
 Buffer HttpRequest::GetResponse(const std::string& shaUrl)
 {
-  if(shaUrl != "")
-  {
-    HttpRequest sha(shaUrl);
-    Buffer bsha = sha.GetResponse();
-    return GetResponse(bsha);
-  }
-  
-  return GetResponse();
+	if(shaUrl != "")
+	{
+		HttpRequest sha(shaUrl);
+		Buffer bsha = sha.GetResponse();
+		return GetResponse(bsha);
+	}
+
+	return GetResponse();
 }
 
 void HttpRequest::AddParameter(const string& key, const string& value)
 {
-  _params[key] = value;
+	_params[key] = value;
 }

@@ -19,12 +19,11 @@
 
 namespace Libwiisys { namespace System {
 
-/*! \class Title
+/**
+ * \class Title
  * \brief This class allow all the Title utilisation.
  * \author Arasium, Teton, Fanta
  * \version 1.0
- *
- * The Title class allow the user to install/unistall/load from Nus serv or a WAD file.
  */
 
 inline u32 TITLE_ID(u64 title) { return (u32)title; }
@@ -59,7 +58,7 @@ protected:
 	void AddContent(const Buffer& buffer, u32 id);
 	Buffer GetContent(u32 id);
 
-    void EncryptContent(Buffer& b,tmd_content* tmdInfo);
+	void EncryptContent(Buffer& b,tmd_content* tmdInfo);
 	void DecryptContent(Buffer& b,tmd_content* tmdInfo);
 	u8 _titleKey[16];
 	virtual void DecryptTitleKey(Buffer& b_tik);
@@ -69,7 +68,7 @@ protected:
 public:
 	static void ReloadIOS(u32 ios);
 	static u32 GetRunningIOS();
-    void SaveDecryptedContent(const std::string& dirPath);
+	void SaveDecryptedContent(const std::string& dirPath);
 	Title(bool automaticCleaning = true);
 	void LoadFromWad(const std::string& file, const std::string& tempFolder = "sd:/tmp");
 	void LoadFromNand(u64 titleId, const std::string& tempFolder = "sd:/tmp");
@@ -86,7 +85,7 @@ public:
 	void Clean();
 	void CreateTempDirectory(u64 titleId, u16 revision, const std::string& tempDirectory);
 	std::string TempDirectory();
-	~Title();
+	virtual ~Title();
 
 	//Events
 	Event::TitleEvent TicketInstallingEvent;

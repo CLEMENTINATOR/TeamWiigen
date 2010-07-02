@@ -13,15 +13,15 @@ class ModulePatch : public Patch
 private:
 	u8* _patch;
 	u32 _length;
-	
+
 protected:
 	u32 Patching(System::Event::TitleEventArgs &processControl) const;
-	
+
 public:
-	
+
 	ModulePatch(const u8* patch, const u32 length, const std::string &module = "");
 	ModulePatch(const ModulePatch& patch);
-	~ModulePatch();
+	virtual ~ModulePatch();
 	ModulePatch& operator=(const ModulePatch& patch);
 };
 }

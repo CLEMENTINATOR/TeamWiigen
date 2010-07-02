@@ -10,13 +10,11 @@
 
 namespace Libwiisys { namespace Network {
 
-/*! \class NetworkRequest
+/**
+ * \class HttpRequest
  * \brief This class allow the use of HTTP (GET) request
  * \author Arasium, Teton, Fanta
  * \version 1.0
- *
- * The NetworkRequest class allow the user to use HTTP request (GET)
- * and to download the results.
  */
 class HttpRequest : public Object
 {
@@ -28,15 +26,15 @@ public:
 	Buffer GetResponse(const Buffer& sha);
 	Buffer GetResponse(const std::string& shaUrl);
 	void SetRequest(const std::string& url);
-  void AddParameter(const std::string& key, const std::string& value);
-  
+	void AddParameter(const std::string& key, const std::string& value);
+
 private:
 	s32 sockfd;
 	std::string _url;
 	std::string _hostName;
 	std::string _path;
-  std::map<std::string, std::string> _params;
-  
+	std::map<std::string, std::string> _params;
+
 	void Connect(std::string hostname);
 	s32 Read(Buffer& b, u32 len);
 	s32 Write(Buffer &b);

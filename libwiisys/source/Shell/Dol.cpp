@@ -50,19 +50,19 @@ void Dol::Execute(void* physicalAddress, void *content, u64 contentLength)
  * \param physicalAddress The temp adress where to store the dol
  */
 Dol::Dol(const std::string &path, void* physicalAddress)
-  : content(physicalAddress)
+: content(physicalAddress)
 {
-    File &dolFile = File::Open(path, FileMode_Read);
-	
-    if(dolFile.Read(content,dolFile.Size()) != dolFile.Size())
-    {
-    	dolFile.Close();
-    	delete &dolFile;
-		throw Exception("Error reading the dol file.", -1);
-    }
+	File &dolFile = File::Open(path, FileMode_Read);
 
-    dolFile.Close();
-    delete &dolFile;
+	if(dolFile.Read(content,dolFile.Size()) != dolFile.Size())
+	{
+		dolFile.Close();
+		delete &dolFile;
+		throw Exception("Error reading the dol file.", -1);
+	}
+
+	dolFile.Close();
+	delete &dolFile;
 }
 
 /**

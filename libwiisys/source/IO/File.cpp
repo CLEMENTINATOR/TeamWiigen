@@ -6,8 +6,6 @@ using namespace Libwiisys::IO;
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
 
-
-
 using namespace std;
 
 /*!
@@ -101,7 +99,7 @@ File& File::Open(const string &fileName, FileMode mode)
  * \param fileName The fullpath of the file
  * \return The new file (opened)
  */
- File& File::Create(const string &fileName)
+File& File::Create(const string &fileName)
 {
 	string path = Path::CleanPath(fileName);
 
@@ -125,7 +123,7 @@ File& File::Open(const string &fileName, FileMode mode)
  * \brief Delete a file
  * \param fileName The fullpath of the file
  */
- void File::Delete(const string &fileName)
+void File::Delete(const string &fileName)
 {
 	string path = Path::CleanPath(fileName);
 
@@ -202,29 +200,29 @@ Buffer File::ReadToEnd(const string& path)
  * \brief Copy a file
  * \param fileToCopy The fullpath of the file to copy
  * \param destFile The fullpath of the destination path
-s */
+ */
 void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 {
 	if(!File::Exists(fileToCopy))
 		throw Exception("File to copy doesnt exist : " + fileToCopy,-1);
 
-    if(File::Exists(destFile))
+	if(File::Exists(destFile))
 		throw Exception("File already exists : " + destFile,-1);
 
-    Buffer b=File::ReadToEnd(fileToCopy);
-    File&f=File::Create(destFile);
-    f.Write(b);
-    f.Close();
-    delete &f;
+	Buffer b=File::ReadToEnd(fileToCopy);
+	File&f=File::Create(destFile);
+	f.Write(b);
+	f.Close();
+	delete &f;
 }
 
 /*!
  * \brief Cut a file
  * \param fileToCopy The fullpath of the file to copy
  * \param destFile The fullpath of the destination path
-s */
+ */
 void File::Move(const std::string &fileToCopy,const std::string &destFile)
 {
-File::Copy(fileToCopy,destFile);
-File::Delete(fileToCopy);
+	File::Copy(fileToCopy,destFile);
+	File::Delete(fileToCopy);
 }

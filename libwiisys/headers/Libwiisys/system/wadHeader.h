@@ -2,7 +2,10 @@
 #define WADHEADER_H_
 
 namespace Libwiisys { namespace System {
-
+/**
+ * @struct wad_header
+ * @brief Represents a wadheader
+ */
 typedef struct {
 	/** Header length */
 	u32 header_len;

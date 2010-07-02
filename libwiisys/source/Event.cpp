@@ -10,11 +10,11 @@ void Event::operator()(Object* sender, EventArgs* args)
 }
 
 void Event::operator+= (DelegateType listener)
-{
+		{
 	listenerList.push_back(listener);
-}
+		}
 
 void Event::operator-= (DelegateType listener)
-{
+		{
 	listenerList.remove(listener);
-}
+		}

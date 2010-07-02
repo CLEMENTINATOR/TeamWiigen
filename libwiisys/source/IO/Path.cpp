@@ -73,12 +73,17 @@ string Path::GetFileName(const string &path)
 
 	//Si pas de / ou directory
 	if(slashPosition == string::npos
-	|| slashPosition == path.length() - 1)
+			|| slashPosition == path.length() - 1)
 		return "";
 
 	return path.substr(slashPosition + 1, string::npos);
 }
 
+/*!
+ * \brief Get the directory name of the given path
+ * \param path A file path
+ * \return the directory name
+ */
 string Path::GetDirectoryName(const string &path)
 {
 	u32 slashPosition = path.find_last_of('/');
@@ -90,10 +95,10 @@ string Path::GetDirectoryName(const string &path)
 	string workingRepresentation = path;
 	if(slashPosition == path.length() - 1)
 		workingRepresentation.erase(path.size() - 1);
-		
+
 	if(GetRootName(workingRepresentation) + ":" == workingRepresentation)
 		return "";
-		
+
 	return workingRepresentation.substr(slashPosition + 1, string::npos);
 }
 
@@ -101,7 +106,7 @@ string Path::GetDirectoryName(const string &path)
  * \brief Get the file name without extension of the given path
  * \param path A file path
  * \return the file name without this extension
- * \see GetFileName
+ * \see string Path::GetFileName(const string &path)
  */
 string Path::GetFileNameWithoutExtension(const string &path)
 {
@@ -132,11 +137,12 @@ string Path::GetFileExtension(const string &path)
 
 	//Si pas de / ou directory
 	if(pointPosition == string::npos
-	|| pointPosition == path.length() - 1)
+			|| pointPosition == path.length() - 1)
 		return "";
 
 	return fileName.substr(pointPosition + 1, string::npos);
 }
+
 /*!
  * \brief Cleans the given path
  * \param path A file path
@@ -150,6 +156,5 @@ string Path::CleanPath(const string &path)
 	{
 		work.replace(pos, 2, "/",1);
 	}
-
 	return work;
 }

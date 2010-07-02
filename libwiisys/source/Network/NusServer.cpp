@@ -11,12 +11,12 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys;
 
 /**
-*\brief Constructor
-*\param titleId The title id
-*\param fileName The file you want to download ( ex : tmd,cetk,0000000c ect..)
-**/
+ *\brief Constructor
+ *\param titleId The title id
+ *\param fileName The file you want to download ( ex : tmd,cetk,0000000c ect..)
+ **/
 NusServer::NusServer(u64 titleId, const string &fileName)
-  : HttpRequest()
+: HttpRequest()
 {
 	stringstream netpath;
 

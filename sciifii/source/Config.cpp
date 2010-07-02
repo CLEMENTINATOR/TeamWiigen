@@ -54,11 +54,13 @@ Config& Config::Instance()
 void Config::Initialize()
 {
     Config& c = Instance();
+    
     if(Config::HasNetwork())
     {
-    WebLogger *sciifiiLog=new WebLogger("http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx", "message", "line", "file", "application", "version");
-    Log::AddLogProvider(Lgt_All, sciifiiLog);
+      WebLogger *sciifiiLog=new WebLogger("http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx", "message", "line", "file", "application", "version");
+      Log::AddLogProvider(Lgt_All, sciifiiLog);
     }
+    
     TiXmlDocument& doc = Xml::Load("sd:/sciifii/config.xml");
     TiXmlElement* root = doc.RootElement();
 
@@ -68,6 +70,7 @@ void Config::Initialize()
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");;
     c._useAdvancedSettings = UtilString::ToBool(root->Attribute("AllowAdvancedMode"), true);
+    
     TiXmlElement* child = root->FirstChildElement();
 
     while (child != NULL)
@@ -167,11 +170,22 @@ void Config::CreateOptionList(TiXmlElement* element)
 
             string name = child->Attribute("name");
             string text = child->Attribute("text");
-			bool hidden=UtilString::ToBool(child->Attribute("hidden"),false);
-
-            option* opt = new option();
-            (*opt) = (option){name, text,false,hidden};
-            _options.push_back(opt);
+            bool hidden = UtilString::ToBool(child->Attribute("hidden"),false);
+            vector<string> regions = UtilString::Split(UtilString::ToStr(child->Attribute("regions"), "-1"), ',');
+            
+            for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
+            {
+              s8 region;
+              stringstream sregion(*ite);
+              sregion >> region;
+              if(region == -1 || (u32)region == GetRegion())
+              {
+                option* opt = new option();
+                (*opt) = (option){name, text,false,hidden};
+              _options.push_back(opt);
+                break;
+              }
+            }
         }
 
         child = child->NextSiblingElement();
@@ -192,10 +206,21 @@ void Config::CreateModeList(TiXmlElement* element)
 
             string text = child->Attribute("text");
             vector<string> optionList = UtilString::Split(UtilString::ToStr(child->Attribute("options")), '|');
-
-            mode* m = new mode();
-            (*m) = (mode){optionList, text};
-            _modes.push_back(m);
+            vector<string> regions = UtilString::Split(UtilString::ToStr(child->Attribute("regions"), "-1"), ',');
+            
+            for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
+            {
+              s8 region;
+              stringstream sregion(*ite);
+              sregion >> region;
+              if(region == -1 || (u32)region == GetRegion())
+              {
+                mode* m = new mode();
+                (*m) = (mode){optionList, text};
+                _modes.push_back(m);
+                break;
+              }
+            }
         }
 
         child = child->NextSiblingElement();
@@ -211,7 +236,20 @@ void Config::CreateStepList(TiXmlElement* element)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-            _availableSteps.push_back(InstallerFactory::Create(child));
+          Installer* step = InstallerFactory::Create(child);
+          bool addToList = false;
+          
+          for(vector<s8>::iterator ite = step->Region().begin(); ite != step->Region().end(); ite++)
+            if(*ite == -1 || (u32)(*ite) == GetRegion())
+            {
+              addToList = true;
+              break;
+            }
+          
+          if(addToList)
+            _availableSteps.push_back(step);
+          else
+            delete step;
         }
 
         child = child->NextSiblingElement();

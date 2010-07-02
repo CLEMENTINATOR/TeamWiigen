@@ -185,7 +185,9 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		throw Exception("This step doesn't exists", -1);
 
 	step->Options(UtilString::ToStr(node->Attribute("option"), ""));
-	step->Region((s8)UtilString::ToS32(node->Attribute("region"), -1));
+	step->Region(UtilString::ToStr(node->Attribute("regions"), "-1"));
+  step->IgnoredExceptions(UtilString::ToStr(node->Attribute("exceptions"), ""));
+  
 	return step;
 }
 

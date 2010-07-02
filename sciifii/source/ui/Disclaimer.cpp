@@ -15,8 +15,8 @@ void Disclaimer::Show()
 
   cout << endl << endl;
 
-  cout << "Sciifii v3 made by TeamWiigen" << endl
-	   << Config::DisclaimerText() << endl << endl;
+  cout << "Sciifii v" SCIIFII_VERSION "." SCIIFII_MINOR_VERSION " made by TeamWiigen" << endl
+       << Config::DisclaimerText() << endl << endl;
 
 
 	s32 region = CONF_GetRegion();

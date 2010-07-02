@@ -1,6 +1,7 @@
 #ifndef _COMMON_INSTALLER_H_
 #define _COMMON_INSTALLER_H_
 
+#include <vector>
 #include <string>
 #include <gctypes.h>
 #include <libwiisys/Object.h>
@@ -13,7 +14,8 @@ class Installer : public Libwiisys::Object
 {
 private:
 	std::string _options;
-	s8 _region;
+	std::vector<s8> _regions;
+  std::vector<s32> _ignoredExceptions;
 
 protected:
 	virtual void OnProgress(const std::string& message, f32 value);
@@ -21,8 +23,12 @@ protected:
 public:
 	std::string Options();
 	void Options(const std::string& options);
-	s8 Region();
-	void Region(s8 r);
+  
+	std::vector<s8>& Region();
+	void Region(std::string regions);
+  
+  std::vector<s32>& IgnoredExceptions();
+  void IgnoredExceptions(const std::string& exceptionsList);
 
 	virtual void SendToLog();
 

@@ -12,6 +12,7 @@ using namespace fastdelegate;
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::Logging;
+using namespace Libwiisys::Exceptions;
 
 
 #define TITLE_IOS(x) (0x0000000100000000ULL + x)
@@ -81,7 +82,29 @@ void Sciifii::Execute()
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
-		(*ite)->Install();
+    try
+    {
+      (*ite)->Install();
+    }
+    catch(Exception& ex)
+    {
+      bool ignore = false;
+      for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
+        if(*itex == ex.GetCode())
+        {
+          ignore = true;
+          break;
+        }
+        
+      if(!ignore)
+        throw;
+      else
+      {
+        cout << endl << "\x1b[33mError " << ex.GetCode() << " ignored!\x1b[37m";
+        hasDisplayed = true;
+      }
+    }
+    
 		if(hasDisplayed)
 		{
 			cout << endl;

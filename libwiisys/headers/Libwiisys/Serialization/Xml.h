@@ -7,16 +7,16 @@
 namespace Libwiisys { namespace Serialization {
 
 /**
-*\class Xml
-*\brief Loads XML Files (tinyxml needed !)
-*\author Arasium,Teton,Fanta
-*\version 1.0
-*/
+ *\class Xml
+ *\brief Loads XML Files (tinyxml needed !)
+ *\author Arasium,Teton,Fanta
+ *\version 1.0
+ */
 class Xml
-  {
-  public:
-    static TiXmlDocument& Load(const std::string &file);
-  };
+{
+public:
+	static TiXmlDocument& Load(const std::string &file);
+};
 
 }}
 

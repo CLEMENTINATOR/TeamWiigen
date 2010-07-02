@@ -15,19 +15,19 @@ using namespace Libwiisys::Exceptions;
  * \param physicalAddress The temp adress where to store the elf
  */
 Elf::Elf(const std::string &path, void* physicalAddress)
-  : content(physicalAddress)
+: content(physicalAddress)
 {
-    File &elfFile = File::Open(path, FileMode_Read);
+	File &elfFile = File::Open(path, FileMode_Read);
 
-    if(elfFile.Read(content,elfFile.Size()) != elfFile.Size())
-    {
-    	elfFile.Close();
-    	delete &elfFile;
+	if(elfFile.Read(content,elfFile.Size()) != elfFile.Size())
+	{
+		elfFile.Close();
+		delete &elfFile;
 		throw Exception("Error reading the dol file.", -1);
-    }
+	}
 
-    elfFile.Close();
-    delete &elfFile;
+	elfFile.Close();
+	delete &elfFile;
 }
 
 /**
@@ -56,20 +56,20 @@ void Elf::Execute(const std::string &path, void* physicalAddress)
  */
 bool Elf::Validate ()
 {
-        Elf32_Ehdr *ehdr; /* Elf header structure pointer */
+	Elf32_Ehdr *ehdr; /* Elf header structure pointer */
 
-        ehdr = (Elf32_Ehdr *) content.Content();
+	ehdr = (Elf32_Ehdr *) content.Content();
 
-        if (!IS_ELF (*ehdr))
-                return false;
+	if (!IS_ELF (*ehdr))
+		return false;
 
-        if (ehdr->e_type != ET_EXEC)
-                return false;
+	if (ehdr->e_type != ET_EXEC)
+		return false;
 
-        if (ehdr->e_machine != EM_PPC)
-                return false;
+	if (ehdr->e_machine != EM_PPC)
+		return false;
 
-        return true;
+	return true;
 }
 
 /**
@@ -95,8 +95,8 @@ void Elf::LoadElf()
 			memset ((void*) sectionTable->sh_addr, 0, sectionTable->sh_size);
 		else
 		{
-				u8 *image = (u8*)elfHeader + sectionTable->sh_offset;
-				memcpy ((void*)sectionTable->sh_addr, (void*)image, sectionTable->sh_size);
+			u8 *image = (u8*)elfHeader + sectionTable->sh_offset;
+			memcpy ((void*)sectionTable->sh_addr, (void*)image, sectionTable->sh_size);
 		}
 		DCFlushRangeNoSync ((void*)sectionTable->sh_addr, sectionTable->sh_size);
 	}

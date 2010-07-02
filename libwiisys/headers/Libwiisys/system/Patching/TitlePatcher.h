@@ -21,7 +21,7 @@ private:
 
 	u64 _titleId;
 	s32 _revision;
-    virtual void DecryptTitleKey(Buffer& b_tik);
+	virtual void DecryptTitleKey(Buffer& b_tik);
 	void InsertModule(TitleModule& module, Buffer& b_tmd);
 public:
 	TitlePatcher(u64 titleId = 0, s32 revision = -1);

@@ -5,6 +5,12 @@
 
 namespace Libwiisys { namespace Network {
 
+/**
+ * \author Teton, Arasium, Fanta
+ * \version 1.0
+ * \class NetworkUtility
+ * @brief A class to manage networking
+ */
 class NetworkUtility {
 public:
 	NetworkUtility();
@@ -14,7 +20,7 @@ public:
 	static std::string URLEncode(std::string s);
 	static void Deinit();
 private :
-  std::string _hostIp;
+	std::string _hostIp;
 	static bool& Initialized();
 
 };

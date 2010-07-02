@@ -16,15 +16,15 @@ private:
 
 protected:
 	virtual u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const = 0;
-	
+
 public:	
 	std::string AllowedModule;
 	std::string ForbiddenModule;
-	
+
 	Patch(const std::string &module = "");
 	Patch(const Patch& patch);
-	~Patch();
-	
+	virtual ~Patch();
+
 	Patch& operator=(const Patch& patch);
 	u32 ApplyPatch(Libwiisys::System::Event::TitleEventArgs &processControl) const;
 };

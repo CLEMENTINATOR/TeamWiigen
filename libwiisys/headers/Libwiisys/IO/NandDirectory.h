@@ -5,11 +5,14 @@
 #include <string>
 #include <vector>
 namespace Libwiisys {
-	namespace IO{
-	/**
-	*\class NandDirectory
-	*\see Directory
-	*/
+namespace IO{
+
+/**
+ * \class NandDirectory
+ * \see Directory
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
 class NandDirectory : public Object
 {
 public:

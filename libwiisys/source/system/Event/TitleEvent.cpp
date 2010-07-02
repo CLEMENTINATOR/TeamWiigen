@@ -10,11 +10,11 @@ void TitleEvent::operator()(Object* sender, TitleEventArgs* args)
 }
 
 void TitleEvent::operator+= (DelegateType listener)
-{
+		{
 	listenerList.push_back(listener);
-}
+		}
 
 void TitleEvent::operator-= (DelegateType listener)
-{
+		{
 	listenerList.remove(listener);
-}
+		}

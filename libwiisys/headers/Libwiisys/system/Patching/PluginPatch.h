@@ -10,7 +10,10 @@
 #include "SimplePatch.h"
 #include "../../Shell/elf_abi.h"
 namespace Libwiisys { namespace System { namespace Patching {
-/* ARM binary header structure */
+/**
+ * @struct ArmHeader
+ * @brief ARM binary header structure
+ */
 typedef struct {
 	u32 headerSize;
 	u32 offset;
@@ -36,16 +39,16 @@ private:
 	u64 GetElfSize(const u8* elf) const;
 	void Plug(u32 segmentIndex, u32 bssSegmentIndex, u8* source, u8* dest) const;
 	void Plug(u32 segmentIndex, u8* source, u8* dest) const;
-	
+
 protected:
 	u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const;
-	
+
 public:
-	
+
 	PluginPatch(const Buffer& plugin, const u32 offset, const u32 bssNewSize, const std::string &module);
 	PluginPatch(const Buffer& plugin, Elf32_Phdr newHeader , const std::string &module, u32 replaceSection = 0);
 	PluginPatch(const PluginPatch& patch);
-	~PluginPatch();
+	virtual ~PluginPatch();
 	PluginPatch& operator=(const PluginPatch& patch);
 	void DefineCommandHandle(SimplePatch handle);
 };

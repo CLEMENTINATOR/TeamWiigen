@@ -8,34 +8,34 @@ using namespace std;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::Exceptions;
 static fatDevice devices[] = {
-	{ WII_ROOT_DIRECTORY,	"Wii file system", NULL, 0, false},
-	{ "sd", "Wii SD Slot", &__io_wiisd, 0, false },
-	{ "usb", "USB Mass Storage Device",	&__io_usbstorage, 0, false},
-	{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_usb2storage, 0, false},
-	{ "gca",	"SD Gecko (Slot A)",		&__io_gcsda, 0, false},
-	{ "gcb",	"SD Gecko (Slot B)",		&__io_gcsdb, 0, false},
+		{ WII_ROOT_DIRECTORY,	"Wii file system", NULL, 0, false},
+		{ "sd", "Wii SD Slot", &__io_wiisd, 0, false },
+		{ "usb", "USB Mass Storage Device",	&__io_usbstorage, 0, false},
+		{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_usb2storage, 0, false},
+		{ "gca",	"SD Gecko (Slot A)",		&__io_gcsda, 0, false},
+		{ "gcb",	"SD Gecko (Slot B)",		&__io_gcsdb, 0, false},
 };
 
 #define NB_DEVICES 6
 
 /**
-*\brief Check if there is no files left open and then shutdown all devices
-*/
+ *\brief Check if there is no files left open and then shutdown all devices
+ */
 void Device::EnsureShutdown()
 {
-  for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
-  {
-    fatDevice *tempDevice = devices + deviceIndex;
-    if(tempDevice->deviceHandles > 0)
-      throw Exception("Can shutdown device. Files are used.", tempDevice->deviceHandles);
-  }
+	for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+	{
+		fatDevice *tempDevice = devices + deviceIndex;
+		if(tempDevice->deviceHandles > 0)
+			throw Exception("Can shutdown device. Files are used.", tempDevice->deviceHandles);
+	}
 
-  for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
-  {
-    fatDevice *tempDevice = devices + deviceIndex;
-    if(tempDevice->interface != NULL && tempDevice->started)
-      tempDevice->interface->shutdown();
-  }
+	for(u16 deviceIndex =0; deviceIndex < NB_DEVICES; deviceIndex++)
+	{
+		fatDevice *tempDevice = devices + deviceIndex;
+		if(tempDevice->interface != NULL && tempDevice->started)
+			tempDevice->interface->shutdown();
+	}
 }
 
 /*!
@@ -60,10 +60,10 @@ bool Device::IsFatPath(const std::string &path)
 }
 
 /**
-*\brief Find the device associated to pathName
-*\param pathName A path name
-*\return The fatDevice associated with pathName, or NULL if unexistant
-*/
+ *\brief Find the device associated to pathName
+ *\param pathName A path name
+ *\return The fatDevice associated with pathName, or NULL if unexistant
+ */
 fatDevice& Device::FindDevice(const std::string &pathName)
 {
 	string mountName = Path::GetRootName(pathName);
@@ -125,11 +125,11 @@ void Device::Mount()
 void Device::Mount(fatDevice &device)
 {
 	/* Initialize interface */
-  if(!device.started)
-  {
-    device.interface->startup();
-    device.started = true;
-  }
+	if(!device.started)
+	{
+		device.interface->startup();
+		device.started = true;
+	}
 
 	/* Mount device */
 	s32 ret = fatMountSimple(device.mount.c_str(), device.interface);
@@ -146,7 +146,7 @@ void Device::UnMount(const std::string &path)
 	fatDevice& device = FindDevice(path);
 
 	if(device.deviceHandles == 0)
-			return;
+		return;
 
 	device.deviceHandles--;
 

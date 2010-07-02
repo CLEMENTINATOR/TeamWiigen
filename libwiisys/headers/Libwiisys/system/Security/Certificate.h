@@ -7,13 +7,11 @@
 
 #define CERTIFICATE_LEN	0x280
 namespace Libwiisys { namespace System { namespace Security {
-/*! \class Certificate
+/**
+ * \class Certificate
  * \brief This class handles the use of Wii Certificate.
  * \author Arasium, Teton, Fanta
  * \version 1.0
- *
- * The Certificate class allow the user to get easily the Wii Certificate length & contents.
-
  */
 
 class Certificate : public Object

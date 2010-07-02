@@ -7,11 +7,14 @@
 
 #include "File.h"
 namespace Libwiisys {
-	namespace IO{
-	/**
-	*\class NandFile
-	*\see File
-	*/
+namespace IO{
+
+/**
+ *\class NandFile
+ *\see File
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
 class NandFile : public File
 {
 public:
@@ -22,7 +25,7 @@ public:
 	void Write(const Buffer& b);
 	u32 Read(Buffer& b,u32 len);
 	void Close();
-	~NandFile();
+	virtual ~NandFile();
 private:
 	s32 _fd;
 	NandFile(s32 fd, const std::string &fileName);

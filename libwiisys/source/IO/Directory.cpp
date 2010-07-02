@@ -3,6 +3,7 @@
 using namespace std;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::Exceptions;
+
 /*!
  * \brief Check if the directory exists
  * \param name The fullpath of the directory
@@ -57,8 +58,8 @@ void Directory::Create(const string &name)
 
 /*!
  * \brief Delete a directory
- * \param name The fullpath of the directory
- * \param recursive If true, it'll delete all the subdirecories/files of the directory
+ * \param name The full path of the directory
+ * \param recursive If true, it'll delete all the sub-directories/files of the directory
  */
 void Directory::Delete(const string &name, bool recursive)
 {
@@ -91,7 +92,7 @@ void Directory::Delete(const string &name, bool recursive)
 
 /*!
  * \brief Get all the files of the directory
- * \param name The fullpath of the directory
+ * \param name The full path of the directory
  * \return An array of string containing the name of the files in the directory
  */
 vector<string> Directory::GetFiles(const string &name)
@@ -121,8 +122,8 @@ vector<string> Directory::GetFiles(const string &name)
 
 /*!
  * \brief Get all the sub-directories of the directory
- * \param name The fullpath of the directory
- * \return An array of string containing the name of the sub-directories in the directory
+ * \param name The full path of the directory
+ * \return An array(vector) of string containing the name of the sub-directories in the directory
  */
 vector<string> Directory::GetDirectories(const string &name)
 {
@@ -133,7 +134,7 @@ vector<string> Directory::GetDirectories(const string &name)
 	if(!Exists(path))
 	{
 		Device::UnMount(path);
-        throw Exception(path + " doesn't exists.",-1);
+		throw Exception(path + " doesn't exists.",-1);
 	}
 
 	string cleanedPath = CleanPath(path);
@@ -149,16 +150,16 @@ vector<string> Directory::GetDirectories(const string &name)
 }
 
 /*!
- * \brief "Cleans" the path
+ * \brief "Cleans" the path( Change all the // into /)
  * \param name The filePath who needs to be cleaned
  * \return The new cleaned file path
  */
 string Directory::CleanPath(const string &path)
 {
-    if(path== (WII_ROOT_DIRECTORY ":/"))
-    	return path;
+	if(path== (WII_ROOT_DIRECTORY ":/"))
+		return path;
 
-    string outs = Path::CleanPath(path);
+	string outs = Path::CleanPath(path);
 	bool needSlash = Device::IsFatPath(outs);
 
 	if(!needSlash && outs[outs.length() -1] == '/')
@@ -176,13 +177,13 @@ string Directory::CleanPath(const string &path)
  */
 bool Directory::IsEmpty(const string &name)
 {
-    string path = Path::CleanPath(name);
+	string path = Path::CleanPath(name);
 	Device::Mount(path);
 
 	if(!Exists(path))
 	{
 		Device::UnMount(path);
-        throw Exception(path + " doesn't exists.",-1);
+		throw Exception(path + " doesn't exists.",-1);
 	}
 
 	bool empty = true;
@@ -202,26 +203,25 @@ bool Directory::IsEmpty(const string &name)
  * \param name The name of the directory
  * \param dest the copy destination
  * \param recursive If true , it'll copy all the subdirectories in dest too
- * \return true if the directory is empty, false if it isn't
  */
 void Directory::Copy(const string &name, const string &dest, bool recursive)
 {
 	string path = Path::CleanPath(name);
 	string cdest = "";
-	
+
 	//create the directory?
 	if(name.c_str()[name.size() - 1] == '/' && recursive)
 		cdest = Path::CleanPath(dest + "/" + Path::GetDirectoryName(name));
 	else
 		cdest = Path::CleanPath(dest);
-	
+
 	Device::Mount(path);
 
 	if(Exists(path))
 	{
 		if(!Exists(cdest))
 			Create(cdest);
-			
+
 		vector<string> files = GetFiles(path);
 		vector<string> subDirectories = GetDirectories(path);
 

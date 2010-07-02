@@ -4,14 +4,15 @@
 #include "../Object.h"
 #include <string>
 namespace Libwiisys {
-	namespace IO{
+namespace IO{
+
 /**
-*\class Path
-*\brief A tool Class who allow to play with paths
-*\author Arasium, Teton, Fanta
-*\version 1.0
-*
-*/
+ *\class Path
+ *\brief A tool Class who allow to play with paths
+ *\author Arasium, Teton, Fanta
+ *\version 1.0
+ *
+ */
 
 class Path : public Object
 {

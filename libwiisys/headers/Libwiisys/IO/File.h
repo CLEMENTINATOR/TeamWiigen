@@ -14,7 +14,7 @@ namespace Libwiisys { namespace IO {
  *\brief Represents a file
  * \author Arasium, Teton, Fanta
  * \version 1.0
-**/
+ **/
 class File : public Object
 {
 protected:

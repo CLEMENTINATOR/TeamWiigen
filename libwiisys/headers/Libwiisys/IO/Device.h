@@ -12,11 +12,11 @@
 namespace Libwiisys { namespace IO {
 
 /**
-*\class Device
+ * \class Device
  * \brief This class manage automatically wii devices
  * \author Arasium, Teton, Fanta
  * \version 1.0
-**/
+ **/
 class Device : public Object
 {
 public:
@@ -26,7 +26,7 @@ public:
 	static void UnMount(const std::string &path);
 	static bool IsFatPath(const std::string &path);
 	static std::string GetWiiPath(const std::string &path);
-  
+
 private:
 	static fatDevice& FindDevice(const std::string &pathName);
 	static void Mount(fatDevice &device);

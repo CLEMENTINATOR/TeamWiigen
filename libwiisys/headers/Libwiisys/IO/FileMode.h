@@ -4,18 +4,18 @@
 namespace Libwiisys {	namespace IO {
 
 /**
-*\enum FileMode
-*\brief Represents some file modes access
-**/
+ *\enum FileMode
+ *\brief Represents some file modes access
+ **/
 typedef enum
-{
-    /** R */
+		{
+	/** R */
 	FileMode_Read,
 	/** W */
 	FileMode_Write,
 	/** RW */
 	FileMode_ReadWrite,
-} FileMode;
+		} FileMode;
 
 }}
 

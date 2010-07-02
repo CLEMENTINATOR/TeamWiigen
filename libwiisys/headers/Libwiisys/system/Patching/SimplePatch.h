@@ -20,7 +20,7 @@ public:
 
 	SimplePatch(const u8* pattern, const u8* patch, const u32 length, const std::string &module = "");
 	SimplePatch(const SimplePatch& patch);
-	~SimplePatch();
+	virtual ~SimplePatch();
 	SimplePatch& operator=(const SimplePatch& patch);
 
 	/* ES Patches */

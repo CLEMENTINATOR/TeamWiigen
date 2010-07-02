@@ -5,6 +5,12 @@
 
 namespace Libwiisys { namespace Exceptions {
 
+/*!
+ * \class AbortException
+ * \brief AbortException class
+ * \author Arasium, Teton, Fanta
+ * \version 1.0
+ */
 class AbortException : public Exception
 {
 public:

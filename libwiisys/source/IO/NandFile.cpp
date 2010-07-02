@@ -1,11 +1,16 @@
 #include <malloc.h>
-
 #include <libwiisys.h>
 
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 using namespace std;
 
+/**
+ * @brief Private constructor
+ * @param fd the file descriptor
+ * @param fileName the file name
+ * @return An instance of NandFile
+ */
 NandFile::NandFile(s32 fd, const string &fileName)
 {
 	_fd = fd;
@@ -21,6 +26,12 @@ NandFile::NandFile(s32 fd, const string &fileName)
 	free(status);
 }
 
+/**
+ * @brief Create a NandFile
+ * @param fileName The file name of the file you want to create
+ * @return A reference on the new NandFile
+ * @see File& File::Create(const string &fileName)
+ */
 NandFile& NandFile::Create(const string &fileName)
 {
 	s32 ret;
@@ -36,6 +47,14 @@ NandFile& NandFile::Create(const string &fileName)
 	/* Open the file after creation */
 	return NandFile::Open(fileName, ISFS_OPEN_WRITE);
 }
+
+/**
+ * @brief Open the NandFile
+ * @param fileName the NandFile you want to open
+ * @param mode Could be ISFS_OPEN_WRITE etc
+ * @return A reference on the opened NandFile
+ * @see File& File::Open(const string &fileName, FileMode mode)
+ */
 NandFile& NandFile::Open(const string &fileName, u8 mode)
 {
 	s32 ret;
@@ -46,6 +65,12 @@ NandFile& NandFile::Open(const string &fileName, u8 mode)
 
 	return (*new NandFile(ret, fileName));
 }
+
+/**
+ * \brief Delete a file
+ * \param fileName The fullpath of the file
+ * \see void File::Delete(const string &fileName)
+ */
 void NandFile::Delete(const string &fileName)
 {
 	s32 ret;
@@ -54,9 +79,16 @@ void NandFile::Delete(const string &fileName)
 		return;
 
 	ret = ISFS_Delete(fileName.c_str());
-		if (ret < 0)
-			throw Exception("Error deleting "+fileName,ret);
+	if (ret < 0)
+		throw Exception("Error deleting "+fileName,ret);
 }
+
+/*!
+ * \brief Check if the file exists
+ * \param fileName The fullpath of the file
+ * \return true if the file exists, else false if it doesn't
+ * \see bool File::Exists(const string &fileName)
+ */
 bool NandFile::Exists(const string &fileName)
 {
 	u32 ownerId;
@@ -65,12 +97,23 @@ bool NandFile::Exists(const string &fileName)
 	return ISFS_GetAttr(fileName.c_str(), &ownerId, &groupId, &attributes, &ownerperm, &groupperm, &otherperm) == 0;
 }
 
+/**
+ * @brief Write a buffer to the file
+ * @param b the buffer to write
+ * @see Buffer
+ */
 void NandFile::Write(const Buffer& b)
 {
 	if(IOS_Write(_fd, b.Content(), b.Length()) != (s32)b.Length())
 		throw Exception("Error writing file!",-1);
 }
 
+/**
+ * @brief Reads a file
+ * @param b The buffer where the read data will be stocked on
+ * @param len the length you want to read
+ * @return the number of read chars
+ */
 u32 NandFile::Read(Buffer& b,u32 len)
 {
 	s32 nbLus = 0;
@@ -118,6 +161,9 @@ u32 NandFile::Read(Buffer& b,u32 len)
 	return nbLus;
 }
 
+/**
+ * @brief Close the NandFile
+ */
 void NandFile::Close()
 {
 	if(_fd)
@@ -128,6 +174,9 @@ void NandFile::Close()
 	File::Close();
 }
 
+/**
+ * @brief Destructor
+ */
 NandFile::~NandFile()
 {
 	Close();

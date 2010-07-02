@@ -6,8 +6,13 @@
 #include "LogType.h"
 
 namespace Libwiisys {
-	namespace Logging{
+namespace Logging{
 
+/**
+ * @interface ILogProvider
+ * @version 1.0
+ * @author Arasium,Teton,fanta
+ */
 class ILogProvider
 {
 public:

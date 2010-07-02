@@ -13,6 +13,7 @@ class Installer : public Libwiisys::Object
 {
 private:
 	std::string _options;
+	s8 _region;
 
 protected:
 	virtual void OnProgress(const std::string& message, f32 value);
@@ -20,6 +21,9 @@ protected:
 public:
 	std::string Options();
 	void Options(const std::string& options);
+	s8 Region();
+	void Region(s8 r);
+
 	virtual void SendToLog();
 
 	virtual bool Prepare() = 0;

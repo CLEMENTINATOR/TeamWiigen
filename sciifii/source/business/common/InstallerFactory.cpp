@@ -173,7 +173,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 			throw Exception("Can't parse FSTType from \"" + stype + "\".", -1);
 
 		if(saction == "move")
-			;
+			action = FSTAction_Move;
 		else if(saction == "copy")
 			action = FSTAction_Copy;
 		else if(saction == "delete")
@@ -185,7 +185,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		throw Exception("This step doesn't exists", -1);
 
 	step->Options(UtilString::ToStr(node->Attribute("option"), ""));
-
+	step->Region((s8)UtilString::ToS32(node->Attribute("region"), -1));
 	return step;
 }
 

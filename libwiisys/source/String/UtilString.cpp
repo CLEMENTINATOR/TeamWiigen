@@ -320,7 +320,7 @@ vector<string> UtilString::Split(const string& str, const char splitCaracter)
  *\param value The value which will remplace the pattern
  *\return The remplaced string
  */
-std::string UtilString::Replace(const std::string& source, const std::string& pattern, const std::string& value)
+string UtilString::Replace(const string& source, const string& pattern, const string& value)
 {
   string temp = source;
   size_t found;
@@ -333,14 +333,14 @@ std::string UtilString::Replace(const std::string& source, const std::string& pa
   return temp;
 }
 
-std::wstring UtilString::StrToWstr(const std::string& str)
+wstring UtilString::StrToWstr(const string& str)
 {
 	wstring wstr;
 	wstr.assign(str.begin(), str.end());
 	return wstr;
 }
 
-std::string UtilString::WstrToStr(const std::wstring& wstr)
+string UtilString::WstrToStr(const wstring& wstr)
 {
 	string str;
 	str.assign(wstr.begin(), wstr.end());

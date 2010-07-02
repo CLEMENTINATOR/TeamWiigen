@@ -9,6 +9,7 @@
 #include "business/common/Installer.h"
 
 #define SCIIFII_VERSION "3"
+#define SCIIFII_MINOR_VERSION "1"
 
 typedef struct
 {

@@ -2,6 +2,12 @@
 
 <sciifii version="3" MenuMessage="Choose an option : ">
 
+  <!-- Region:
+    JAP: 0
+    EUR: 2
+    KK: 4
+    US: 1
+  -->
   <logs>
     <log type="file" path="sd:/sciifii.log" />
   </logs>
@@ -41,6 +47,7 @@
   </modes>
 
   <options>
+    <option name="IOS41" text="Install trucha IOS41" regions="0,1,2" />
     <option name="TBR" text="Restore Trucha Bug" />
     <option name="cIOS249" text="Install cios249 rev 17" />
     <option name="cIOS250" text="Install cios250 rev 19 (base 37)" />
@@ -55,7 +62,12 @@
   </options>
 
   <steps>
-    <TitleDowngrader option="TBR" id="000000010000000f" revision="257" />
+    <Title option="IOS41" id="0000000100000029" revision="2835" action="install" exceptions="-1035" />
+    <IOSReloader option="IOS41" id="41" />
+    
+    <TitleDowngrader option="TBR" id="000000010000000f" revision="257" regions="0,1,2" exceptions="-1035" />
+    <Title option="TBR" id="00000001000000f" revision="257" action="install" regions="4" />
+    
     <IOSReloader option="TBR" id="15" user="0"/>
 	
     <CiosInstaller option="TBR" source="36" revision="0" slot="36" ciosRevision="65535">
@@ -166,13 +178,8 @@
       <title id="0000000100000039" revision="5661" />
       <title id="000000010000003d" revision="5405" />
       <title id="0000000100000046" revision="6687" />
+      
       <!-- SysMenu-->
-      <!-- Region:
-          JAP: 0
-          EUR: 2
-          KK: 4
-          US: 1
-       -->
       <title id="0000000100000002" revision="480" region="0" />
       <title id="0000000100000002" revision="481" region="1" />
       <title id="0000000100000002" revision="482" region="2" />

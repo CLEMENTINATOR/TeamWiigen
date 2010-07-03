@@ -14,7 +14,7 @@ class Installer : public Libwiisys::Object
 {
 private:
 	std::string _options;
-	std::vector<s8> _regions;
+	std::vector<u32> _regions;
   std::vector<s32> _ignoredExceptions;
 
 protected:
@@ -24,7 +24,7 @@ public:
 	std::string Options();
 	void Options(const std::string& options);
   
-	std::vector<s8>& Region();
+	std::vector<u32>& Region();
 	void Region(std::string regions);
   
   std::vector<s32>& IgnoredExceptions();

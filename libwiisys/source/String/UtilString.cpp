@@ -296,7 +296,7 @@ bool UtilString::ToBool(const char* val,bool defaultval)
  *\param splitCaracter The caracted used to split the string
  * \return a vector with the splited strings
  */
-vector<string> UtilString::Split(const string& str, const char splitCaracter)
+vector<string> UtilString::Split(const string& str, const char splitCaracter, bool removeEmpty)
 {
 	vector<string> voptions;
 	string modeOptions = str;
@@ -304,11 +304,14 @@ vector<string> UtilString::Split(const string& str, const char splitCaracter)
 
 	while ((position = modeOptions.find_first_of(splitCaracter)) != string::npos)
 	{
-		voptions.push_back(modeOptions.substr(0, position));
+		string item = modeOptions.substr(0, position);
+		if(removeEmpty && item != "")
+			voptions.push_back(item);
 		modeOptions = modeOptions.erase(0, position + 1);
 	}
 
-	voptions.push_back(modeOptions);
+	if(removeEmpty && modeOptions != "")
+		voptions.push_back(modeOptions);
 
 	return voptions;
 }

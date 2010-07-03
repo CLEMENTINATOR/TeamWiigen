@@ -83,7 +83,6 @@ u64 UtilString::ToU64(const char* val, NumberRepresentation rep)
  * \param defaultval Value used if val parameter is NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return the converted value or defaultval if val==NULL
-
  */
 u32 UtilString::ToU32(const char* val, u32 defaultval, NumberRepresentation rep)
 {

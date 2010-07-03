@@ -35,7 +35,7 @@ void Installer::Options(const string &o)
 	_options = o;
 }
 
-vector<s8>& Installer::Region()
+vector<u32>& Installer::Region()
 {
 	return _regions;
 }
@@ -43,15 +43,10 @@ vector<s8>& Installer::Region()
 void Installer::Region(string r)
 {
 	_regions.clear();
-  vector<string> regions = UtilString::Split(r, ',');
+  vector<string> regions = UtilString::Split(r, ',', true);
   
   for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
-  {
-    stringstream str(*ite);
-    s32 region;
-    str >> region;
-    _regions.push_back(region);
-  }
+    _regions.push_back(UtilString::ToU32(ite->c_str()));
 }
 
 vector<s32>& Installer::IgnoredExceptions()

@@ -171,20 +171,24 @@ void Config::CreateOptionList(TiXmlElement* element)
             string name = child->Attribute("name");
             string text = child->Attribute("text");
             bool hidden = UtilString::ToBool(child->Attribute("hidden"),false);
-            vector<string> regions = UtilString::Split(UtilString::ToStr(child->Attribute("regions"), "-1"), ',');
+            vector<string> regions = UtilString::Split(UtilString::ToStr(child->Attribute("regions"), ""), ',', true);
             
-            for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
+            bool valid = regions.size() == 0;
+
+			for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
+			{
+			  if(UtilString::ToU32(ite->c_str()) == GetRegion())
+			  {
+				valid = true;
+				break;
+			  }
+			}
+
+            if(valid)
             {
-              s8 region;
-              stringstream sregion(*ite);
-              sregion >> region;
-              if(region == -1 || (u32)region == GetRegion())
-              {
-                option* opt = new option();
-                (*opt) = (option){name, text,false,hidden};
-              _options.push_back(opt);
-                break;
-              }
+            	option* opt = new option();
+				(*opt) = (option){name, text,false,hidden};
+				_options.push_back(opt);
             }
         }
 
@@ -206,20 +210,27 @@ void Config::CreateModeList(TiXmlElement* element)
 
             string text = child->Attribute("text");
             vector<string> optionList = UtilString::Split(UtilString::ToStr(child->Attribute("options")), '|');
-            vector<string> regions = UtilString::Split(UtilString::ToStr(child->Attribute("regions"), "-1"), ',');
+            vector<string> regions = UtilString::Split(UtilString::ToStr(child->Attribute("regions"), ""), ',', true);
+
+            bool valid = regions.size() == 0;
+
+			for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
+			{
+			  s8 region;
+			  stringstream sregion(*ite);
+			  sregion >> region;
+			  if(region == -1 || (u32)region == GetRegion())
+			  {
+				valid = true;
+				break;
+			  }
+			}
             
-            for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
+            if(valid)
             {
-              s8 region;
-              stringstream sregion(*ite);
-              sregion >> region;
-              if(region == -1 || (u32)region == GetRegion())
-              {
-                mode* m = new mode();
-                (*m) = (mode){optionList, text};
-                _modes.push_back(m);
-                break;
-              }
+            	mode* m = new mode();
+				(*m) = (mode){optionList, text};
+				_modes.push_back(m);
             }
         }
 
@@ -237,10 +248,10 @@ void Config::CreateStepList(TiXmlElement* element)
         if (child->Type() != TiXmlElement::COMMENT)
         {
           Installer* step = InstallerFactory::Create(child);
-          bool addToList = false;
+          bool addToList = step->Region().size() == 0;
           
-          for(vector<s8>::iterator ite = step->Region().begin(); ite != step->Region().end(); ite++)
-            if(*ite == -1 || (u32)(*ite) == GetRegion())
+          for(vector<u32>::iterator ite = step->Region().begin(); ite != step->Region().end(); ite++)
+            if(*ite == GetRegion())
             {
               addToList = true;
               break;

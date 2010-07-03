@@ -7,7 +7,7 @@ namespace Libwiisys {
 namespace Logging{
 
 /**
- * @class class WebLogger
+ * @class WebLogger
  * @version 1.0
  * @author Teton,Arasium,Fanta
  */

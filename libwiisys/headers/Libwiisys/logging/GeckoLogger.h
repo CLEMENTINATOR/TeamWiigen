@@ -7,7 +7,7 @@ namespace Libwiisys {
 namespace Logging{
 
 /**
- * @class Gecko logger class
+ * @class GeckoLogger
  * @version 1.0
  * @author Teton,Arasium,fanta
  */

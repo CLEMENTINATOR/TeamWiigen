@@ -9,7 +9,7 @@ namespace Libwiisys {
 namespace Logging{
 
 /**
- * @class File logger class
+ * @class FileLogger
  * @version 1.0
  * @author Teton,Arasium,fanta
  */

@@ -36,7 +36,7 @@ string UtilString::ToStr(const char* value, const string& defaultVal)
 /*!
  * \brief Convert a const char* to is u64 representation.
  * \param val The string to convert.
- * \param defaultVal Value used if val parameter is NULL
+ * \param defaultval Value used if val parameter is NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return The parsed value of defaultVal if the input is NULL
  */
@@ -77,10 +77,10 @@ u64 UtilString::ToU64(const char* val, NumberRepresentation rep)
 	return returnValue;
 }
 
-/*!
+/**
  * \brief Convert a const char* to is u32 representation.
  * \param val The string to convert.
- * \param defaultVal Value used if val parameter is NULL
+ * \param defaultval Value used if val parameter is NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return the converted value or defaultval if val==NULL
 

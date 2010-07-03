@@ -12,7 +12,6 @@ using namespace Libwiisys::IO;
 
 /**
  * \brief Execute the dol file
- *
  * \param path The full path of the dol file
  * \param physicalAddres The memory address where to store temporary data
  */
@@ -28,7 +27,6 @@ void Dol::Execute(const string &path, void* physicalAddress)
 
 /**
  * \brief Execute the dol file
- *
  * \param physicalAddress The memory address where the dol file will be stored
  * \param content A buffer that contain the Dol representation
  * \param contentLength The length of the dol buffer
@@ -45,7 +43,6 @@ void Dol::Execute(void* physicalAddress, void *content, u64 contentLength)
 
 /**
  * \brief Load the file to a temp buffer
- *
  * \param path The full path of the dol file
  * \param physicalAddress The temp adress where to store the dol
  */
@@ -67,7 +64,6 @@ Dol::Dol(const std::string &path, void* physicalAddress)
 
 /**
  * \brief Load a dol to a temp buffer
- *
  * \param content The dol representation
  * \param physicalAddress The temp buffer adress
  * \param contentLength The length of the dol

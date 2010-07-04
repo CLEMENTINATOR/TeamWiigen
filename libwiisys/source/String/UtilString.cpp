@@ -305,12 +305,12 @@ vector<string> UtilString::Split(const string& str, const char splitCaracter, bo
 	while ((position = modeOptions.find_first_of(splitCaracter)) != string::npos)
 	{
 		string item = modeOptions.substr(0, position);
-		if(removeEmpty && item != "")
+		if(!removeEmpty || item != "")
 			voptions.push_back(item);
 		modeOptions = modeOptions.erase(0, position + 1);
 	}
 
-	if(removeEmpty && modeOptions != "")
+	if(!removeEmpty || modeOptions != "")
 		voptions.push_back(modeOptions);
 
 	return voptions;

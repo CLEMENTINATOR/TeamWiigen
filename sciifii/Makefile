@@ -46,7 +46,7 @@ LIBS	:= -lwui -lwiisys -ltinyxml -lasnd -lwiiuse -lbte -logc -lm -lpngu -lpng -l
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:=	$(CURDIR)
+LIBDIRS	:=	$(CURDIR) $(PORTLIBS)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional

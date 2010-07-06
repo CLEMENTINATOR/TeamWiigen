@@ -7,6 +7,11 @@
 #include "Patch.h"
 #include "TitleModule.h"
 
+/*! \namespace Libwiisys::System::Patching
+ * \brief Tools to create cioses
+ *
+ * Here are all the tools used to play with ios modules
+ */
 namespace Libwiisys { namespace System { namespace Patching {
 
 class TitlePatcher : public Title

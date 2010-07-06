@@ -9,6 +9,12 @@
 
 #define WII_ROOT_DIRECTORY "wii"
 
+/*! \namespace Libwiisys::IO
+ * \brief File System elements
+ *
+ * Actually, this only contains fs items.
+ */
+
 namespace Libwiisys { namespace IO {
 
 /**

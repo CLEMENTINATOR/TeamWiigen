@@ -9,6 +9,12 @@
 
 extern "C" { void __exception_closeall(); }
 
+/*! \namespace Libwiisys::Shell
+ * \brief Executables and commands
+ *
+ * This namespace aim to provide a set of tools used to run
+ * executables.
+ */
 namespace Libwiisys { namespace Shell {
 
 /**

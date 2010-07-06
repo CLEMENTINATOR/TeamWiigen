@@ -7,9 +7,11 @@
 namespace Libwiisys {
 
 /*! \class Buffer
- * \brief This class can store data and will automatically manage pointers in order to avoid memory leaks
+ * \brief Use this to avoid memory leaks
  * \author Arasium, Teton, Fanta
  * \version 1.0
+ *
+ * This class can store data and will automatically manage pointers.
  */
 
 class Buffer : public Object

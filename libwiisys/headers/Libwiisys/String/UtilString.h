@@ -7,6 +7,9 @@
 #include <gctypes.h>
 #include "../Object.h"
 
+/*! \namespace Libwiisys::String
+ * \brief Formating tools
+ */
 namespace Libwiisys { namespace String {
 
 /*!

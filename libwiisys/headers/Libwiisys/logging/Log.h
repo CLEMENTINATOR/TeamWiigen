@@ -12,6 +12,14 @@
 
 #define WriteLog(status,message) Write(status,message, __LINE__ , __FILE__ )
 
+/*! \namespace Libwiisys::Logging
+ * \brief Logging system
+ *
+ * The log system is made with a Log class and a provider.
+ * You only need to implement the ILogProvider to create a new log
+ * format.
+ */
+
 namespace Libwiisys {
 namespace Logging{
 

@@ -8,6 +8,13 @@
 
 namespace Libwiisys {
 
+/*! \class Event
+ * \brief This is the base class of all events
+ *
+ * You can use it with fastdelegate.
+ * Code is like this:
+ * myObject.MyEvent += MakeDelegate(myListenerClass, ListenerClassType.myListenerMethod);
+ */
 class Event : public Object
 {
 public:

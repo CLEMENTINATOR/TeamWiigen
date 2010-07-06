@@ -1,6 +1,23 @@
 #ifndef LIBUTILS_H_
 #define LIBUTILS_H_
 
+/** \mainpage Libwiisys
+ *
+ * \section sec_intro Introduction
+ *
+ * libwiisys is a wii utils library for an more easy Wii system homebrew developement. <br>
+ * This library is written in C++, for all of the advantages it gives. <br>
+ * This library was developed by team Wiigen ( Arasium,Teton & Fanta )
+ *
+ * \section sec_installation_source Installation (Source Code)
+ */
+
+/** \namespace Libwiisys
+ *
+ * \brief Contains all base objects.
+ *
+ * These objects are used over all our codes and generally are c files or base classes.
+ */
 #ifdef __cplusplus
 
 #include "Libwiisys/Buffer.h"

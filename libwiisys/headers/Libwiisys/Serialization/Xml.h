@@ -4,6 +4,11 @@
 #include <string>
 #include <tinyxml.h>
 
+/*! \namespace Libwiisys::Serialization
+ * \brief Serialization tool
+ *
+ * Only Xml tools actually.
+ */
 namespace Libwiisys { namespace Serialization {
 
 /**

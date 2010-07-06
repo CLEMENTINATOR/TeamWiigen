@@ -5,8 +5,12 @@
 #include "../Object.h"
 #include <ogcsys.h>
 
+/*! \namespace Libwiisys::Threading
+ * \brief Object oriented Thread system
+ */
 namespace Libwiisys {
 namespace Threading{
+
 class Thread : public Object
 {
 public:

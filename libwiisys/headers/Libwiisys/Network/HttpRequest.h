@@ -8,6 +8,12 @@
 #include "../Buffer.h"
 #include <sstream>
 
+/*! \namespace Libwiisys::Network
+ * \brief Http and Web utilities
+ *
+ * This contains tools to manipulate Http request and
+ * tools to download items from NUS.
+ */
 namespace Libwiisys { namespace Network {
 
 /**

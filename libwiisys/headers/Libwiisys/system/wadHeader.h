@@ -3,8 +3,8 @@
 
 namespace Libwiisys { namespace System {
 /**
- * @struct wad_header
- * @brief Represents a wadheader
+ * \struct wad_header
+ * \brief Represents a wadheader
  */
 typedef struct {
 	/** Header length */
@@ -18,7 +18,7 @@ typedef struct {
 
 	/** Data length */
 	u32 certs_len, crl_len, tik_len, tmd_len, data_len, footer_len;
-} ATTRIBUTE_PACKED wad_header;
+} __attribute__((packed)) wad_header;
 
 }}
 

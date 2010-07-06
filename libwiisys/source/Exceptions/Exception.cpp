@@ -8,7 +8,7 @@ using namespace Libwiisys::Exceptions;
  * \param message The message text of your exception
  * \param errorCode The error code associated to the exception
  */
-Exception::Exception(string message, s32 errorCode)
+Exception::Exception(const string& message, s32 errorCode)
 {
 	_message = message;
 	_errorCode = errorCode;

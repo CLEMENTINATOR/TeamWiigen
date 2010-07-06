@@ -6,9 +6,11 @@ using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
 
 /**
- *\brief  Overloaded Constructor
- *\param content Pointer to the data
- *\param length The data length
+ * \brief  Overloaded Constructor
+ * \param content Pointer to the data
+ * \param length The data length
+ *
+ * It will initialize the buffer with the data provided.
  **/
 Buffer::Buffer(const void* content, const u64 length)
 :  _length(length),
@@ -29,10 +31,12 @@ Buffer::Buffer(const void* content, const u64 length)
 }
 
 /**
- *\brief  Overloaded Constructor, fill the data with value ( Like memset)
- *\param value Avalue
- *\param length The data length
- *\return
+ * \brief  Overloaded Constructor, fill the buffer with value
+ * \param value A simple value
+ * \param length The data length
+ *
+ * The buffer will be filled with value. The total size of the buffer is length.
+ * This is like memset.
  **/
 Buffer::Buffer(const u8 value, const u64 length)
 :  _length(length),
@@ -54,8 +58,8 @@ Buffer::Buffer(const u8 value, const u64 length)
 }
 
 /**
- *\brief  Copy Constructor
- *\param b The buffer
+ * \brief  Copy Constructor
+ * \param b The buffer
  **/
 Buffer::Buffer(const Buffer& b)
 :  _length(b._length),
@@ -74,9 +78,12 @@ Buffer::Buffer(const Buffer& b)
 }
 
 /**
- *\brief  Overloaded = operator
- *\param b A buffer
- *\return A new buffer =  b
+ * \brief  Overloaded = operator
+ * \param b A buffer
+ * \return A totally new buffer.
+ *
+ * Be carrefull, the datas in the buffer will be duplicated.
+ * Ie, a modification of b won't affect the second buffer.
  **/
 Buffer& Buffer::operator=(const Buffer& b)
 {
@@ -100,7 +107,9 @@ Buffer& Buffer::operator=(const Buffer& b)
 }
 
 /**
- *\brief Destructor
+ * \brief Destructor
+ *
+ * This will also free the inner datas
  */
 Buffer::~Buffer()
 {
@@ -111,9 +120,9 @@ Buffer::~Buffer()
 }
 
 /**
- *\brief  Append data to the buffer (the data is copied)
- *\param content Content to add to the buffer
- *\param length The content length
+ * \brief  Append data to the buffer (the data is copied)
+ * \param content Content to add to the buffer
+ * \param length The content length
  **/
 void Buffer::Append(const void* content, const u64 length)
 {
@@ -141,8 +150,8 @@ void Buffer::Append(const void* content, const u64 length)
 }
 
 /**
- *\brief  Append the buffer to the current buffer( the buffer content is copied)
- *\param b The buffer to add
+ * \brief  Append the buffer to the current buffer( the buffer content is copied)
+ * \param b The buffer to add
  **/
 void Buffer::Append(const Buffer& b)
 {

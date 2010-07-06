@@ -17,6 +17,10 @@
 		p.skipStep = false;\
 		p.abortProcess = false;
 
+/*! \namespace Libwiisys::System
+ * \brief Provides base items to manipulate the NAND
+ */
+
 namespace Libwiisys { namespace System {
 
 /**

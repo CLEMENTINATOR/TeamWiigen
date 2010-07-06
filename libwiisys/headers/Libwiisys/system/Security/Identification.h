@@ -5,6 +5,9 @@
 #include "../../Object.h"
 #include "UserType.h"
 
+/*! \namespace Libwiisys::System::Security
+ * \brief Manage security of NAND
+ */
 namespace Libwiisys { namespace System { namespace Security {
 
 

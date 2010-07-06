@@ -3,6 +3,8 @@
 using namespace Libwiisys::Exceptions;
 
 /**
- *\brief Constructor, exception with default message, this doesn't abort the process if not handled in try-catch
+ *\brief Default Constructor
+ *
+ * This will create the base Exception with a default error code and message.
  */
 AbortException::AbortException() : Exception("Process aborted.", -1) {}

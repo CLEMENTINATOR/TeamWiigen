@@ -7,9 +7,13 @@ namespace Libwiisys { namespace Exceptions {
 
 /*!
  * \class AbortException
- * \brief AbortException class
+ * \brief Used to stop a process
  * \author Arasium, Teton, Fanta
  * \version 1.0
+ *
+ * Actually, this exceptions is only used during Title installation.
+ * If an AbortException is thrown, the installation will stop, but the
+ * program will continue.
  */
 class AbortException : public Exception
 {

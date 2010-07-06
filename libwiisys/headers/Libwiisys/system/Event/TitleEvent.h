@@ -6,6 +6,9 @@
 #include <fastdelegate.h>
 #include <list>
 
+/*! \namespace Libwiisys::System::Event
+ * \brief Events used in the Libwiisys::System namespace
+ */
 namespace Libwiisys { namespace System { namespace Event {
 
 class TitleEvent : public Object

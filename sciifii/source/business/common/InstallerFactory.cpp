@@ -476,12 +476,27 @@ void InstallerFactory::FillCompositeInstaller(Installer* composite, TiXmlElement
 	TiXmlElement* child = node->FirstChildElement();
 
     while(child != NULL)
-    {
-        if (child->Type() != TiXmlElement::COMMENT)
+    {          
+      if (child->Type() != TiXmlElement::COMMENT)
+      {
+        Installer* innerstep = InstallerFactory::Create(child);
+        bool addToList = innerstep->Region().size() == 0;
+        
+        for(vector<u32>::iterator ite = innerstep->Region().begin(); ite != innerstep->Region().end(); ite++)
         {
-            step->AddStep(InstallerFactory::Create(child));
+          if(*ite == Config::GetRegion())
+          {
+            addToList = true;
+            break;
+          }
         }
+        
+        if(addToList)
+          step->AddStep(innerstep);
+        else
+          delete innerstep;
+      }
 
-        child = child->NextSiblingElement();
+      child = child->NextSiblingElement();
     };
 }

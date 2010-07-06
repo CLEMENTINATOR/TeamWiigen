@@ -146,7 +146,7 @@ int mainText(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    Log::Init("sciifii", SCIIFII_VERSION);
+  Log::Init("sciifii", SCIIFII_VERSION);
 	#ifdef USE_ADVANCED_UI
 	return mainUI(argc, argv);
 	#else

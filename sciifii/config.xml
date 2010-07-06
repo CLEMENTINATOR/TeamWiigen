@@ -144,7 +144,7 @@
     
     <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
 
-    <CompositeInstaller option="uninstall" name="Update Ioses">
+    <CompositeInstaller option="update" name="Update Ioses">
       <Title id="0000000100000001" revision="4" action="install" />
       <Title id="0000000100000004" revision="65280" action="install" />
       <Title id="0000000100000009" revision="1034" action="install" />

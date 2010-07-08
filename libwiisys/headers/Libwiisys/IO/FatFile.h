@@ -12,10 +12,11 @@
 namespace Libwiisys {
 namespace IO{
 /**
- *\class FatFile
- *\see File
+ * \class FatFile
+ * \see File
  * \author Arasium, Teton, Fanta
  * \version 1.0
+ * \brief Handle fat file (none-isfs) use
  */
 class FatFile : public File
 {

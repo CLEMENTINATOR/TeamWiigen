@@ -12,6 +12,7 @@ namespace IO{
  * \see Directory
  * \author Arasium, Teton, Fanta
  * \version 1.0
+ * \brief This class handle ISFS-Directory use
  */
 class NandDirectory : public Object
 {

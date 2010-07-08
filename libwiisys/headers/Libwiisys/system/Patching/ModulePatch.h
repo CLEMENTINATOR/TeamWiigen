@@ -8,6 +8,12 @@
 #include "Patch.h"
 namespace Libwiisys { namespace System { namespace Patching {
 
+/**
+ * \class ModulePatch
+ * \brief Handles module patching
+ * \author Arasium,Teton,Fanta
+ * \version 1.0
+ */
 class ModulePatch : public Patch
 {
 private:

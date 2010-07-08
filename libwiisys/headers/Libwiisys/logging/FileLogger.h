@@ -12,6 +12,7 @@ namespace Logging{
  * @class FileLogger
  * @version 1.0
  * @author Teton,Arasium,fanta
+ * @brief This class handle logging into a file
  */
 class FileLogger : public Object, public ILogProvider
 {

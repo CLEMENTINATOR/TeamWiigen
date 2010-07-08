@@ -3,6 +3,13 @@
 
 #include "../../Buffer.h"
 namespace Libwiisys { namespace System { namespace Patching {
+
+/**
+ * \class TitleModule
+ * \brief Class used to patch title modules
+ * \author Arasium,Teton,Fanta
+ * \version 1.0
+ */
 class TitleModule : public Buffer
 {
 private:

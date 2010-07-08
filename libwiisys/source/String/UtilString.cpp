@@ -7,7 +7,7 @@ using namespace Libwiisys::Exceptions;
 
 /*!
  * \brief Convert a const char* to is string representation.
- * \param value The string to convert.
+ * \param value The const char* to convert.
  * \throw Exception if the input parameter is null
  * \return the converted value
  */
@@ -21,7 +21,7 @@ string UtilString::ToStr(const char* value)
 
 /*!
  * \brief Convert a const char* to is string representation.
- * \param value The string to convert.
+ * \param value The const char* to convert.
  * \param defaultVal Value used if value parameter is NULL
  * \return The parsed value or defaultVal if the input is NULL
  */
@@ -35,7 +35,7 @@ string UtilString::ToStr(const char* value, const string& defaultVal)
 
 /*!
  * \brief Convert a const char* to is u64 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param defaultval Value used if val parameter is NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return The parsed value of defaultVal if the input is NULL
@@ -57,7 +57,7 @@ u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u64 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \throw Exception if the input parameter is null
  * \return the converted value
@@ -79,7 +79,7 @@ u64 UtilString::ToU64(const char* val, NumberRepresentation rep)
 
 /**
  * \brief Convert a const char* to is u32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param defaultval Value used if val parameter is NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return the converted value or defaultval if val==NULL
@@ -100,7 +100,7 @@ u32 UtilString::ToU32(const char* val, u32 defaultval, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \throw Exception if the input parameter is null
  *\return The converted value
@@ -121,7 +121,7 @@ u32 UtilString::ToU32(const char* val, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u16 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param defaultval The default value if val is NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return The converted value or default val
@@ -142,7 +142,7 @@ u16 UtilString::ToU16(const char* val, u16 defaultval, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \throw Exception if the input parameter is null
  * \return The converted value
@@ -164,7 +164,7 @@ u16 UtilString::ToU16(const char* val, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u8 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param defaultval The defaultvalue is value == NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return The converted value or default val
@@ -188,7 +188,7 @@ u8 UtilString::ToU8(const char* val, u8 defaultval, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u8 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \throw Exception if the input parameter is null
  * \return The converted value
@@ -211,7 +211,7 @@ u8 UtilString::ToU8(const char* val, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is s32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \throw Exception if the input parameter is null
  * \return The converted value
@@ -233,7 +233,7 @@ s32 UtilString::ToS32(const char* val, NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param defaultval the default value if val==NULL
  * \param rep Is used to know how to parse the string. The default value is nr_normal
  * \return The converted value or default val
@@ -253,7 +253,7 @@ s32 UtilString::ToS32(const char* val,  s32 defaultval,NumberRepresentation rep)
 
 /*!
  * \brief Convert a const char* to is u32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \throw Exception if the input parameter is null
  * \return The converted value
  */
@@ -274,7 +274,7 @@ bool UtilString::ToBool(const char* val)
 
 /*!
  * \brief Convert a const char* to is u32 representation.
- * \param val The string to convert.
+ * \param val The const char* to convert.
  * \param defaultval the default val if val==NULL
  * \return The converted value or default val
  *
@@ -291,9 +291,9 @@ bool UtilString::ToBool(const char* val,bool defaultval)
 		throw Exception("Error parsing bool value", -1);
 }
 /**
- *\brief Split a string with the given splitcaracter in a vector or string
- *\param str The string to split
- *\param splitCaracter The caracted used to split the string
+ * \brief Split a string with the given splitcaracter in a vector or string
+ * \param str The string to split
+ * \param splitCaracter The caracted used to split the string
  * \return a vector with the splited strings
  */
 vector<string> UtilString::Split(const string& str, const char splitCaracter, bool removeEmpty)
@@ -335,6 +335,11 @@ string UtilString::Replace(const string& source, const string& pattern, const st
 	return temp;
 }
 
+/**
+ * \brief Convert a string to its wstring representation.
+ * \param val The string to convert.
+ * \return The converted value
+ */
 wstring UtilString::StrToWstr(const string& str)
 {
 	wstring wstr;
@@ -342,6 +347,11 @@ wstring UtilString::StrToWstr(const string& str)
 	return wstr;
 }
 
+/**
+ * \brief Convert a wstring to its string representation.
+ * \param val The wstring to convert.
+ * \return The converted value 
+ */
 string UtilString::WstrToStr(const wstring& wstr)
 {
 	string str;

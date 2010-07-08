@@ -7,10 +7,11 @@
 namespace Libwiisys {
 namespace IO{
 /**
- *\class FatDirectory
- *\see Directory
+ * \class FatDirectory
+ * \see Directory
  * \author Arasium, Teton, Fanta
  * \version 1.0
+ * \brief Handle fat directory (none-isfs) use
  */
 class FatDirectory : public Object
 {

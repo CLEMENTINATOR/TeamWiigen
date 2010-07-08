@@ -10,6 +10,7 @@ Thread::Thread(ThreadStart start)
 {
 	_start = start;
 }
+
 /*
  * \brief Start the thread
  * \param params the parameters which are given to the thread
@@ -22,14 +23,17 @@ void Thread::Start(Object* params)
 		throw Exception("Error creating thread.", code);
 }
 /**
- *\brief Run the thread
+ * \brief Run the thread
  */
 void Thread::Run()
 {
 	_start(_params);
 }
 
-/*static */
+/**
+ * \brief Get the entry point and run the thread
+ * \param pthis a pointer on this thread
+ */
 void * Thread::EntryPoint(void * pthis)
 {
 	Thread * pt = (Thread*)pthis;

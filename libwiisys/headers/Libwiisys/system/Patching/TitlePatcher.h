@@ -7,13 +7,22 @@
 #include "Patch.h"
 #include "TitleModule.h"
 
-/*! \namespace Libwiisys::System::Patching
- * \brief Tools to create cioses
+/** \namespace Libwiisys::System::Patching
+ * \brief Tools to patch ioses
  *
  * Here are all the tools used to play with ios modules
  */
 namespace Libwiisys { namespace System { namespace Patching {
 
+/**
+ * \class TitlePatcher
+ * \brief Class used to patch Title
+ * \author Teton,Arasium,Fanta
+ * \version 1.0
+ * 
+ * This class is the class where you can install ios ( or Title) 
+ * and patch them providing patches(Simple patch/plugin patch/Module patch)
+ */
 class TitlePatcher : public Title
 {
 private:

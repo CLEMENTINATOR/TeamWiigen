@@ -5,7 +5,10 @@
 #include <string>
 
 namespace Libwiisys {
-
+/**
+ * \class EventArgs
+ * \brief Events args handled in Event use
+ */
 class EventArgs : public Object
 {
 };

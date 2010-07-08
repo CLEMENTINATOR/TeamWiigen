@@ -21,8 +21,15 @@ typedef struct {
 	u32 resevered;
 } ArmHeader;
 
+/**
+ * \class PluginPatch
+ * \brief Handles plugin patching
+ * \author Arasium,Teton,Fanta
+ * \version 1.0
+ */
 class PluginPatch : public Patch
 {
+	
 private:	
 	Buffer _plugin;
 	u32 _offset;

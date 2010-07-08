@@ -10,6 +10,7 @@ namespace Logging{
  * @class GeckoLogger
  * @version 1.0
  * @author Teton,Arasium,fanta
+ * @brief This class handle the logging on a USB gecko
  */
 class GeckoLogger : public Object, public ILogProvider
 {

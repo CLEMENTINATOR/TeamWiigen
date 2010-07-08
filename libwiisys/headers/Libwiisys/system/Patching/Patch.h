@@ -8,8 +8,18 @@
 #include "../../Buffer.h"
 #include "../Event/TitleEventArgs.h"
 namespace Libwiisys { namespace System { namespace Patching {
+
+/**
+ * \class Patch
+ * \brief Handles patching
+ * \author Arasium,Teton,Fanta
+ * \version 1.0
+ * 
+ * Handles patching(inherited by all patch classes)
+ */
 class Patch : public Object
 {
+
 private:	
 	bool IsModule(const Buffer& b, const std::string &module) const;
 	bool CanPatch(const Buffer& b) const;

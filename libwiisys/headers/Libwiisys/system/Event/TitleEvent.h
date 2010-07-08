@@ -10,7 +10,10 @@
  * \brief Events used in the Libwiisys::System namespace
  */
 namespace Libwiisys { namespace System { namespace Event {
-
+/**
+ * \class TitleEvent
+ * \brief Events used in Title Installation
+ */
 class TitleEvent : public Object
 {
 public:

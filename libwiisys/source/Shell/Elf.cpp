@@ -12,7 +12,7 @@ using namespace Libwiisys::Exceptions;
  * \brief Load the file to a temp buffer
  *
  * \param path The full path of the elf file
- * \param physicalAddress The temp adress where to store the elf
+ * \param physicalAddress The temp adress where to store the elf data
  */
 Elf::Elf(const std::string &path, void* physicalAddress)
 : content(physicalAddress)
@@ -34,7 +34,7 @@ Elf::Elf(const std::string &path, void* physicalAddress)
  * \brief Execute the elf file
  *
  * \param path The full path of the elf file
- * \param physicalAddress The memory adress where to store temp datas
+ * \param physicalAddress The memory adress where to store the elf data
  */
 void Elf::Execute(const std::string &path, void* physicalAddress)
 {

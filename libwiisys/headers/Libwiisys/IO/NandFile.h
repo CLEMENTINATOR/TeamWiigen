@@ -10,10 +10,11 @@ namespace Libwiisys {
 namespace IO{
 
 /**
- *\class NandFile
- *\see File
+ * \class NandFile
+ * \see File
  * \author Arasium, Teton, Fanta
  * \version 1.0
+ * \brief This class handle ISFS-File use
  */
 class NandFile : public File
 {

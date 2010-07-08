@@ -30,8 +30,13 @@ namespace Libwiisys { namespace System {
  * \version 1.0
  */
 
+/** Return the title id*/
 inline u32 TITLE_ID(u64 title) { return (u32)title; }
+
+/** return the title type (1=ios etc)*/
 inline u32 TITLE_TYPE(u64 title) { return title >> 32; }
+
+/** Return true if the title is an ios*/
 inline bool IS_IOS(u64 title) { return (title & 0x100000000ULL) > 0; }
 
 class Title : public Object

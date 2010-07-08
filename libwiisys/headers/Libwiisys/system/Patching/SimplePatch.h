@@ -6,8 +6,18 @@
 #include "Patch.h"
 
 namespace Libwiisys { namespace System { namespace Patching {
+
+/**
+ * \class SimplePatch
+ * \brief Handles simple patching
+ * \author Arasium,Teton,Fanta
+ * \version 1.0
+ * This class can use already existing patch or create some
+ */
+
 class SimplePatch : public Patch
 {
+
 private:
 	u8* _pattern;
 	u8* _patch;

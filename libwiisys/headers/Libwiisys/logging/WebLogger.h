@@ -10,6 +10,10 @@ namespace Logging{
  * @class WebLogger
  * @version 1.0
  * @author Teton,Arasium,Fanta
+ * @brief Handle logging over the network
+ * 
+ * This class can log data using get method into your website, you just have to read the key and the parameters form your website 
+ * and do whatever you like to do
  */
 class WebLogger : public ILogProvider 
 {

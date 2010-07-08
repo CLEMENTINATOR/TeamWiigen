@@ -4,6 +4,7 @@
 #include "../../build/certs_dat.h"
 
 using namespace Libwiisys::System::Security;
+
 /*!
  * \brief Constructor
  * Loads the wii certs in memory

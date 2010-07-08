@@ -12,6 +12,7 @@ namespace Logging{
  * @interface ILogProvider
  * @version 1.0
  * @author Arasium,Teton,fanta
+ * @brief Interface reimplemented by logs
  */
 class ILogProvider
 {

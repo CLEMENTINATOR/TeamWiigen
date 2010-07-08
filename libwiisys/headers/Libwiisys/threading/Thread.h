@@ -10,10 +10,16 @@
  */
 namespace Libwiisys {
 namespace Threading{
-
+/**
+ * \class Thread
+ * \brief Manage and create thread easily
+ * 
+ * This class is used for multithreading in your programs
+ */
 class Thread : public Object
 {
 public:
+	/** Simple typedef for a more readable code :)*/ 
 	typedef fastdelegate::FastDelegate1<Object *> ThreadStart;
 	Thread(ThreadStart start);
 	void Start(Object* params = NULL);

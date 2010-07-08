@@ -488,11 +488,9 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 	{	}
 }
 
-
-
-/*!
+/**
  * \brief Save the title as a wad file
- *\param fileName The wad filepath
+ * \param fileName The wad filepath
  */
 void Title::PackAsWad(const string& fileName)
 {
@@ -1164,9 +1162,9 @@ string Title::GetWadFormatedName(u64 tid,u16 rev)
 }
 
 /**
- *\brief Encryot content specified by the tmd_content
- *\param b The decrypted content buffer
- *\param tmdInfo The tmd_content associated to the content
+ * \brief Encryot content specified by the tmd_content
+ * \param b The decrypted content buffer
+ * \param tmdInfo The tmd_content associated to the content
  **/
 void Title::EncryptContent(Buffer& b,tmd_content* tmdInfo)
 {
@@ -1196,9 +1194,9 @@ void Title::EncryptContent(Buffer& b,tmd_content* tmdInfo)
 }
 
 /**
- *\brief Decrypt content specified by the tmd_content
- *\param b The encrypted content buffer
- *\param tmdInfo The tmd_content associated to the content
+ * \brief Decrypt content specified by the tmd_content
+ * \param b The encrypted content buffer
+ * \param tmdInfo The tmd_content associated to the content
  **/
 void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
 {
@@ -1234,8 +1232,8 @@ void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
 }
 
 /**
- *\brief Decrypt the title key
- *\param b_tik The cetk Buffer
+ * \brief Decrypt the title key
+ * \param b_tik The cetk Buffer
  */
 void Title::DecryptTitleKey(Buffer& b_tik)
 {
@@ -1262,9 +1260,9 @@ void Title::DecryptTitleKey(Buffer& b_tik)
 }
 
 /**
- *\brief Gets the shared1 content associated to the tmd_content
- *\param c the tmd_content you need to get from shared1
- *\return A buffer containing the shared1 content
+ * \brief Gets the shared1 content associated to the tmd_content
+ * \param c the tmd_content you need to get from shared1
+ * \return A buffer containing the shared1 content
  **/
 Buffer Title::GetSharedContent(tmd_content* c)
 {
@@ -1285,9 +1283,9 @@ Buffer Title::GetSharedContent(tmd_content* c)
 }
 
 /**
- *\brief Savethe decrypted title content
+ * \brief Savethe decrypted title content
  * The title needs to be loaded ( via nus, wad or nand)
- *\param dirPath The dir we'll put the contents in
+ * \param dirPath The dir we'll put the contents in
  */
 void Title::SaveDecryptedContent(const string& dirPath)
 {
@@ -1321,8 +1319,8 @@ void Title::SaveDecryptedContent(const string& dirPath)
 }
 
 /**
- *\brief Reload IOS(secure fct)
- *\param ios The ios to be reloaded
+ * \brief Reload IOS(secure fct)
+ * \param ios The ios to be reloaded
  */
 void Title::ReloadIOS(u32 ios)
 {
@@ -1341,8 +1339,8 @@ void Title::ReloadIOS(u32 ios)
 	}
 }
 /**
- *\brief get the actual running ios
- *\return The ios number
+ * \brief get the actual running ios
+ * \return The ios number
  */
 u32 Title::GetRunningIOS()
 {

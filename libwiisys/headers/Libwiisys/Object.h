@@ -3,6 +3,13 @@
 
 #include <malloc.h>
 
+/** \namespace Libwiisys
+ *
+ * \brief Contains all base objects.
+ *
+ * These objects are used over all our codes and generally are c files or base classes.
+ */
+
 namespace Libwiisys {
 
 /**

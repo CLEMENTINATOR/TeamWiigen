@@ -22,114 +22,62 @@ using namespace Libwiisys::Exceptions;
 
 static u32 _runningIos = 0;
 
-/*!
- * \brief Constructor
- * \param automaticCleaning If true, temporary files will be automatically cleaned (true by default)
- */
-Title::Title(bool automaticCleaning)
-: _dataLen(0),
-  automaticClean(automaticCleaning)
-{}
+Title::Title(bool automaticCleaning) :
+	_dataLen(0), automaticClean(automaticCleaning) {
+}
 
-/*!
- * \brief Set the ticket of the title
- * The ticket is saved in a "cetk" file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \param buffer The ticket buffer
- */
-void Title::Ticket(const Buffer& buffer)
-{
+void Title::Ticket(const Buffer& buffer) {
 	string fileName = _directory + "/cetk";
-	if(File::Exists(fileName)) File::Delete(fileName);
+	if (File::Exists(fileName))
+		File::Delete(fileName);
 	File &f = File::Create(fileName);
 	f.Write(buffer);
 	f.Close();
 	delete &f;
 }
 
-/*!
- * \brief Extract a title element.
- * \param path The full path of the title elemnt
- * \return A buffer containing the file Contents, or a null buffer if the path doesnt exists
- */
-Buffer Title::GetTitleElementFromTemp(const string &path)
-{
+Buffer Title::GetTitleElementFromTemp(const string &path) {
 	Buffer b;
-	if(!File::Exists(path))
+	if (!File::Exists(path))
 		return b;
 
 	return File::ReadToEnd(path);
 }
 
-/*!
- * \brief Get the ticket of the title
- * The ticket is load from a "cetk" file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \return The Ticket buffer
- */
-Buffer Title::Ticket()
-{
+Buffer Title::Ticket() {
 	string fileName = _directory + "/cetk";
 	return GetTitleElementFromTemp(fileName);
 }
 
-/*!
- * \brief Set the Tmd of the title
- * The Tmd is saved in a "tmd" file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \param buffer The Tmd buffer
- */
-void Title::Tmd(const Buffer& buffer)
-{
+void Title::Tmd(const Buffer& buffer) {
 	string fileName = _directory + "/tmd";
-	if(File::Exists(fileName)) File::Delete(fileName);
+	if (File::Exists(fileName))
+		File::Delete(fileName);
 	File &f = File::Create(fileName);
 	f.Write(buffer);
 	f.Close();
 	delete &f;
 }
 
-/*!
- * \brief Get the Tmd of the title
- * The Tmd is load from a "tmd" file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \return The Tmd buffer
- */
-Buffer Title::Tmd()
-{
+Buffer Title::Tmd() {
 	string fileName = _directory + "/tmd";
 	return GetTitleElementFromTemp(fileName);
 }
 
-/*!
- * \brief Set the Certificate of the title
- * The Certificate is saved in a "cert" file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \param buffer The Certificate buffer
- */
-void Title::Certificate(const Buffer& buffer)
-{
+void Title::Certificate(const Buffer& buffer) {
 	string fileName = _directory + "/cert";
-	if(File::Exists(fileName)) File::Delete(fileName);
+	if (File::Exists(fileName))
+		File::Delete(fileName);
 	File &f = File::Create(fileName);
 	f.Write(buffer);
 	f.Close();
 	delete &f;
 }
 
-/*!
- * \brief Get the Certificate of the title
- * The Certificate is load from a "cert" file. This file is save under the temporary directory
- * If the file doesn't exists, it returns the wii Certificate.
- * \see CreateTempDirectory
- * \return The Certificate buffer.
- */
-Buffer Title::Certificate()
-{
+Buffer Title::Certificate() {
 	string fileName = _directory + "/cert";
 
-	if(!File::Exists(fileName))
-	{
+	if (!File::Exists(fileName)) {
 		Buffer b(Certificate::GetContent(), Certificate::GetLength());
 		return b;
 	}
@@ -137,101 +85,63 @@ Buffer Title::Certificate()
 	return GetTitleElementFromTemp(fileName);
 }
 
-/*!
- * \brief Set the Crl of the title
- * The Crl is saved in a "cert" file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \param buffer The Crl buffer
- */
-void Title::Crl(const Buffer& buffer)
-{
+void Title::Crl(const Buffer& buffer) {
 	string fileName = _directory + "/crl";
-	if(File::Exists(fileName)) File::Delete(fileName);
+	if (File::Exists(fileName))
+		File::Delete(fileName);
 	File &f = File::Create(fileName);
 	f.Write(buffer);
 	f.Close();
 	delete &f;
 }
 
-/*!
- * \brief Get the Crl of the title
- * The Crl is load from a "crl" file. This file is save under the temporary directory
- * Generally, this is not used. we found that only in some wads.
- * \see CreateTempDirectory
- * \return The Crl buffer
- */
-Buffer Title::Crl()
-{
+Buffer Title::Crl() {
 	string fileName = _directory + "/crl";
 	return GetTitleElementFromTemp(fileName);
 }
 
-/*!
- * \brief Set a Content of the title
- * The Content is saved in a contentId file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \param buffer The Content buffer
- * \param id The contentId of the Content
- */
-void Title::AddContent(const Buffer& buffer, u32 id)
-{
+void Title::AddContent(const Buffer& buffer, u32 id) {
 	stringstream fileName;
-	fileName << _directory <<  "/" <<hex << setw(8) << setfill('0') << id<<dec;
+	fileName << _directory << "/" << hex << setw(8) << setfill('0') << id
+			<< dec;
 	File &f = File::Create(fileName.str());
 	f.Write(buffer);
 	f.Close();
 	delete &f;
 }
 
-/*!
- * \brief Get a Content of the title
- * The Content is load from a contentId file. This file is save under the temporary directory
- * \see CreateTempDirectory
- * \param id The content id
- * \return  The Content buffer
- */
-Buffer Title::GetContent(u32 id)
-{
+Buffer Title::GetContent(u32 id) {
 	stringstream fileName;
-	fileName << _directory << "/" << hex << setw(8) << setfill('0') << id<<dec;
+	fileName << _directory << "/" << hex << setw(8) << setfill('0') << id
+			<< dec;
 	return GetTitleElementFromTemp(fileName.str());
 }
 
-/*!
- * \brief Load a title from the nus server
- * You need to be under an ios that allow network connections.
- * All downloaded files will be stored in a temp directory.
- * \param titleId The full id of the title (type + number)
- * \param revision The version of the title. 0 if you want the newest.
- * \param tempFolder The folder where to store title elements. ("sd:/tmp" by default)
- */
-void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& tempFolder)
-{
+void Title::LoadFromNusServer(u64 titleId, u16 revision,
+		const std::string& tempFolder) {
 	TitleEventArgs processControl;
 
 	CreateTempDirectory(titleId, revision, tempFolder);
-	_dataLen=0;
-	try
-	{
+	_dataLen = 0;
+	try {
 		// Obtain ticket
 		NusServer cetkServer(titleId, "cetk");
 		processControl.buffer = cetkServer.GetResponse();
 		DecryptTitleKey(processControl.buffer);
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketLoading(processControl);
-		if(!processControl.skipStep)
-		{
+		if (!processControl.skipStep) {
 			Ticket(processControl.buffer);
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTicketLoaded(processControl);
 		}
 
-
 		//obtain TMD
 		stringstream tmdName;
-		if(revision!=0) tmdName << "tmd." << revision;
-		else tmdName<<"tmd";
-
+		if (revision != 0)
+			tmdName << "tmd." << revision;
+		else
+			tmdName << "tmd";
 
 		NusServer tmdServer(titleId, tmdName.str());
 		processControl.buffer = tmdServer.GetResponse();
@@ -240,12 +150,11 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 
 		bool skipTmd = processControl.skipStep;
 		Buffer b_tmd = processControl.buffer;
-		tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
-
+		tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD(
+				(signed_blob*) b_tmd.Content());
 
 		//Get contents
-		for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
-		{
+		for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++) {
 			tmd_content *content = &tmd_data->contents[cnt];
 
 			//Construct content fileName
@@ -260,124 +169,109 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision, const std::string& temp
 			INIT_PROCESS_CONTROL(processControl, content);
 
 			OnContentLoading(processControl);
-			if(!processControl.skipStep)
-			{
+			if (!processControl.skipStep) {
 				AddContent(processControl.buffer, content->cid);
 				INIT_PROCESS_CONTROL(processControl, content);
 				OnContentLoaded(processControl);
 			}
 		}
 
-		if(!skipTmd)
-		{
+		if (!skipTmd) {
 			Tmd(b_tmd);
 			processControl.buffer = b_tmd;
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTmdLoaded(processControl);
 		}
+	} catch (AbortException &ex) {
 	}
-	catch(AbortException &ex)
-	{}
 }
 
-/*!
- * \brief Load a title from the nand
- * You need to be under an ios that allow ES usage
- * All extracted files will be stored in a temp directory.
- * \param titleId The full id of the title (type + number)
- * \param tempFolder The folder where to store title elements. ("sd:/tmp" by default)
- */
-void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
-{
+void Title::LoadFromNand(u64 titleId, const std::string& tempFolder) {
 	TitleEventArgs processControl;
-	_directory=tempFolder;
-	_dataLen=0;
+	_directory = tempFolder;
+	_dataLen = 0;
 	stringstream ticketPath;
 	stringstream contentPath;
 	stringstream sharedPath;
-	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << ".tik";
-	contentPath << "wii:/title/" << setw(8) << setfill('0') << hex << TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << "/content/";
+	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex
+			<< TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(
+			titleId) << setw(0) << ".tik";
+	contentPath << "wii:/title/" << setw(8) << setfill('0') << hex
+			<< TITLE_TYPE(titleId) << setw(0) << "/" << setw(8) << TITLE_ID(
+			titleId) << setw(0) << "/content/";
 	sharedPath << "wii:/shared1/";
 
 	/* Getting TMD from es */
 	u32 tmd_size;
-	u32 ret = ES_GetStoredTMDSize(titleId,&tmd_size);
-	if (ret < 0) throw Exception("Unable to get stored tmd size",ret);
-
-	signed_blob *btmd = (signed_blob *)memalign(32,(tmd_size+31)&(~31));
-	if (btmd == NULL) throw Exception("Not enough memory",-1);
-	memset(btmd,0,tmd_size);
-
-	ret = ES_GetStoredTMD(titleId,btmd,tmd_size);
+	u32 ret = ES_GetStoredTMDSize(titleId, &tmd_size);
 	if (ret < 0)
-	{
+		throw Exception("Unable to get stored tmd size", ret);
+
+	signed_blob *btmd = (signed_blob *) memalign(32, (tmd_size + 31) & (~31));
+	if (btmd == NULL)
+		throw Exception("Not enough memory", -1);
+	memset(btmd, 0, tmd_size);
+
+	ret = ES_GetStoredTMD(titleId, btmd, tmd_size);
+	if (ret < 0) {
 		free(btmd);
-		throw Exception("Unable to get stored tmd",-1);
+		throw Exception("Unable to get stored tmd", -1);
 	}
 
-	tmd *tmd_data  = NULL;
-	tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+	tmd *tmd_data = NULL;
+	tmd_data = (tmd *) SIGNATURE_PAYLOAD(btmd);
 	CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder); /* Creating temp docs */
 
-	processControl.buffer=File::ReadToEnd(ticketPath.str()); /* cetk */
+	processControl.buffer = File::ReadToEnd(ticketPath.str()); /* cetk */
 	processControl.buffer.Truncate(0x02A4ULL);
 	DecryptTitleKey(processControl.buffer);
 
 	INIT_PROCESS_CONTROL(processControl, NULL);
 	OnTicketLoading(processControl);
-	if(!processControl.skipStep)
-	{
+	if (!processControl.skipStep) {
 		Ticket(processControl.buffer);
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketLoaded(processControl);
 	}
 
-
-	Buffer b_tmd((void*)btmd,tmd_size); /* tmd  */
+	Buffer b_tmd((void*) btmd, tmd_size); /* tmd  */
 	processControl.buffer = b_tmd;
 	INIT_PROCESS_CONTROL(processControl, NULL);
 	OnTmdLoading(processControl);
 
-	bool skipTmd=processControl.skipStep;
-	b_tmd=processControl.buffer;
+	bool skipTmd = processControl.skipStep;
+	b_tmd = processControl.buffer;
 
-	tmd_data=(tmd *)SIGNATURE_PAYLOAD(btmd);
+	tmd_data = (tmd *) SIGNATURE_PAYLOAD(btmd);
 
-	for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
-	{
+	for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++) {
 		tmd_content *content = &tmd_data->contents[cnt];
 		stringstream filename;
-		if(content->type==0x0001)
-		{
-			filename <<contentPath.str()<< hex << setw(8) << setfill('0') << content->cid<<".app";
-			processControl.buffer=File::ReadToEnd(filename.str());
-		}
-		else if(content->type==0x8001)
-		{
-			processControl.buffer=GetSharedContent(content);
-		}
-		else
-		{
+		if (content->type == 0x0001) {
+			filename << contentPath.str() << hex << setw(8) << setfill('0')
+					<< content->cid << ".app";
+			processControl.buffer = File::ReadToEnd(filename.str());
+		} else if (content->type == 0x8001) {
+			processControl.buffer = GetSharedContent(content);
+		} else {
 			free(btmd);
-			throw Exception("Unknown content type !" ,-1);
+			throw Exception("Unknown content type !", -1);
 		}
 
 		/* Content, on encrypte */
 
-		EncryptContent(processControl.buffer,content);
+		EncryptContent(processControl.buffer, content);
 		_dataLen += processControl.buffer.Length();
 		INIT_PROCESS_CONTROL(processControl, content);
 		OnContentLoading(processControl);
-		if(!processControl.skipStep)
-		{
-			AddContent( processControl.buffer,content->cid);
+		if (!processControl.skipStep) {
+			AddContent(processControl.buffer, content->cid);
 			INIT_PROCESS_CONTROL(processControl, content);
 			OnContentLoaded(processControl);
 		}
 	}
 
-	if(!skipTmd)
-	{
+	if (!skipTmd) {
 		Tmd(b_tmd);
 		processControl.buffer = b_tmd;
 		INIT_PROCESS_CONTROL(processControl, NULL);
@@ -385,25 +279,18 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 	}
 	free(btmd);
 }
-/*!
- * \brief Load a title from a wad file
- * All extracted files will be stored in a temp directory.
- * \param file The full path of the wad
- * \param tempFolder The folder where to store title elements. ("sd:/tmp" by default)
- */
-void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
-{
-	if(!File::Exists(file))
-		throw Exception("The wad file doesn't exists : "+ file , -1);
+
+void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) {
+	if (!File::Exists(file))
+		throw Exception("The wad file doesn't exists : " + file, -1);
 
 	TitleEventArgs processControl;
-	_dataLen=0;
+	_dataLen = 0;
 	//getting wadBuffer
 	Buffer wadBuffer = File::ReadToEnd(file);
 
-	try
-	{
-		wad_header *header =  (wad_header*)wadBuffer.Content();
+	try {
+		wad_header *header = (wad_header*) wadBuffer.Content();
 
 		//getting offsets
 		u32 o_cert = TITLE_ROUND_UP(header->header_len, 64);
@@ -413,30 +300,32 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 		u32 o_ctnt = o_tmd + TITLE_ROUND_UP(header->tmd_len, 64);
 
 		//create temp directory
-		Buffer p_tmd((char*)header + o_tmd, TITLE_ROUND_UP(header->tmd_len, 64));
-		tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
-		CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
+		Buffer p_tmd((char*) header + o_tmd,
+				TITLE_ROUND_UP(header->tmd_len, 64));
+		tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD(
+				(signed_blob*) p_tmd.Content());
+		CreateTempDirectory(tmd_data->title_id, tmd_data->title_version,
+				tempFolder);
 
 		// register certs and crl
 		{
-			Buffer b_cert((char*)header + o_cert, header->certs_len);
+			Buffer b_cert((char*) header + o_cert, header->certs_len);
 			Certificate(b_cert);
 		}
 
-		if(header->crl_len != 0)
-		{
-			Buffer b_crl((char*)header + o_crl, header->crl_len);
+		if (header->crl_len != 0) {
+			Buffer b_crl((char*) header + o_crl, header->crl_len);
 			Crl(b_crl);
 		}
 
 		//Getting Tiket
 		processControl.buffer.Clear();
-		processControl.buffer.Append((char*)header + o_tik, TITLE_ROUND_UP(header->tik_len, 64));
+		processControl.buffer.Append((char*) header + o_tik,
+				TITLE_ROUND_UP(header->tik_len, 64));
 		DecryptTitleKey(processControl.buffer);
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketLoading(processControl);
-		if(!processControl.skipStep)
-		{
+		if (!processControl.skipStep) {
 			Ticket(processControl.buffer);
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTicketLoaded(processControl);
@@ -451,49 +340,41 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
 
 		//we've reloaded the p_tmd
 		//so we reload the tmd_data
-		tmd_data = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)p_tmd.Content());
+		tmd_data = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) p_tmd.Content());
 
 		//getting contents
-		void* p_content = (char*)header + o_ctnt;
-		for (u32 contentIndex = 0; contentIndex < tmd_data->num_contents; contentIndex++)
-		{
+		void* p_content = (char*) header + o_ctnt;
+		for (u32 contentIndex = 0; contentIndex < tmd_data->num_contents; contentIndex++) {
 			tmd_content &content = tmd_data->contents[contentIndex];
 			u64 wadContentSize = content.size;
 
 			processControl.buffer.Clear();
-			processControl.buffer.Append(p_content, TITLE_ROUND_UP(content.size, 64));
+			processControl.buffer.Append(p_content,
+					TITLE_ROUND_UP(content.size, 64));
 			_dataLen += TITLE_ROUND_UP(content.size, 64);
 
 			INIT_PROCESS_CONTROL(processControl, &content);
 			OnContentLoading(processControl);
-			if(!processControl.skipStep)
-			{
+			if (!processControl.skipStep) {
 				AddContent(processControl.buffer, content.cid);
 				INIT_PROCESS_CONTROL(processControl, &content);
 				OnContentLoaded(processControl);
 			}
 
-			p_content = (u8*)p_content + TITLE_ROUND_UP(wadContentSize, 64);
+			p_content = (u8*) p_content + TITLE_ROUND_UP(wadContentSize, 64);
 		}
 
-		if(!skipTmd)
-		{
+		if (!skipTmd) {
 			Tmd(p_tmd);
 			processControl.buffer = p_tmd;
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTmdLoaded(processControl);
 		}
+	} catch (AbortException &ex) {
 	}
-	catch(AbortException &ex)
-	{	}
 }
 
-/**
- * \brief Save the title as a wad file
- * \param fileName The wad filepath
- */
-void Title::PackAsWad(const string& fileName)
-{
+void Title::PackAsWad(const string& fileName) {
 	Buffer b_tmd = Tmd();
 	Buffer b_cert = Certificate();
 	Buffer b_tik = Ticket();
@@ -511,7 +392,7 @@ void Title::PackAsWad(const string& fileName)
 	header.tik_len = 0x02A4;
 
 	/* calulating the tmd and data_len */
-	tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
+	tmd* tmdData = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) b_tmd.Content());
 	header.tmd_len = 484 + tmdData->num_contents * 36;
 	b_tmd.Truncate(header.tmd_len);
 
@@ -522,28 +403,24 @@ void Title::PackAsWad(const string& fileName)
 	Buffer wadHeader(&header, sizeof(wad_header));
 
 	/* filling the buffers to be 0x40 aligned */
-	if(wadHeader.Length() % 64 != 0)
-	{
+	if (wadHeader.Length() % 64 != 0) {
 		Buffer headerPadding(pad, 64 - wadHeader.Length() % 64);
 		wadHeader.Append(headerPadding);
 	}
 
-	if(b_tmd.Length() % 64 != 0)
-	{
+	if (b_tmd.Length() % 64 != 0) {
 		Buffer tmdPadding(pad, 64 - b_tmd.Length() % 64);
 		b_tmd.Append(tmdPadding);
 	}
 
-	if(b_cert.Length() % 64 != 0)
-	{
+	if (b_cert.Length() % 64 != 0) {
 		Buffer certPadding(pad, 64 - b_cert.Length() % 64);
 		b_cert.Append(certPadding);
 	}
 
 	//truncate to be sure that the ticket has the good length (due to nus)
 	b_tik.Truncate(0x02A4ULL);
-	if(b_tik.Length() % 64 != 0)
-	{
+	if (b_tik.Length() % 64 != 0) {
 		Buffer tikPadding(pad, 64 - b_tik.Length() % 64);
 		b_tik.Append(tikPadding);
 	}
@@ -551,21 +428,18 @@ void Title::PackAsWad(const string& fileName)
 	Directory::Create(Path::GetParentDirectory(fileName));
 	File& wad = File::Create(fileName);
 
-	try
-	{
+	try {
 		wad.Write(wadHeader);
 		wad.Write(b_cert);
 		wad.Write(b_tik);
 		wad.Write(b_tmd);
 
-		tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
-		for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++)
-		{
+		tmdData = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) b_tmd.Content());
+		for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++) {
 			tmd_content *tmdContent = &tmdData->contents[cnt];
 			Buffer b_content = GetContent(tmdContent->cid);
 
-			if(b_content.Length() % 64 != 0)
-			{
+			if (b_content.Length() % 64 != 0) {
 				Buffer contentPadding(pad, 64 - b_content.Length() % 64);
 				b_content.Append(contentPadding);
 			}
@@ -574,65 +448,52 @@ void Title::PackAsWad(const string& fileName)
 
 		wad.Close();
 		delete &wad;
-	}
-	catch(Exception& ex)
-	{
+	} catch (Exception& ex) {
 		wad.Close();
 		delete &wad;
 		throw;
-	}
-	catch(...)
-	{
+	} catch (...) {
 		wad.Close();
 		delete &wad;
 		throw;
 	}
 }
 
-/*!
- * \brief Clean all downloaded/extracted files.
- */
-void Title::Clean()
-{
+void Title::Clean() {
 	// if already cleaned, we skip this
-	if(_directory == "" || !Directory::Exists(_directory))
+	if (_directory == "" || !Directory::Exists(_directory))
 		return;
 
 	Directory::Delete(_directory, true);
 	string titleDir = Path::GetParentDirectory(_directory);
-	if(Directory::IsEmpty(titleDir))
-	{
+	if (Directory::IsEmpty(titleDir)) {
 		Directory::Delete(titleDir);
 		string tempDirectory = Path::GetParentDirectory(titleDir);
-		if(canDeleteRootTempDirectory && Directory::IsEmpty(tempDirectory))
+		if (canDeleteRootTempDirectory && Directory::IsEmpty(tempDirectory))
 			Directory::Delete(tempDirectory);
 	}
 }
 
-/*!
- * \brief Install the title
- * You need to be under an ios with sufficient privileges.
- * The title need to be loaded (from nus, wad or everything else).
- */
-void Title::Install()
-{
+void Title::Install() {
 	s32 ret;
 	TitleEventArgs processControl;
 
 	Buffer certificate = Certificate();
 	Buffer crl = Crl();
 
-	try
-	{
+	try {
 		/* Install ticket */
 		processControl.buffer = Ticket();
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketInstalling(processControl);
-		if(!processControl.skipStep)
-		{
-			u32 ticketLen = SIGNED_TIK_SIZE((signed_blob*) processControl.buffer.Content());
-			ret = ES_AddTicket((signed_blob*)processControl.buffer.Content(), ticketLen, (signed_blob*)certificate.Content(), certificate.Length(), (signed_blob*)crl.Content(), crl.Length());
-			if(ret < 0)
+		if (!processControl.skipStep) {
+			u32 ticketLen = SIGNED_TIK_SIZE(
+					(signed_blob*) processControl.buffer.Content());
+			ret = ES_AddTicket((signed_blob*) processControl.buffer.Content(),
+					ticketLen, (signed_blob*) certificate.Content(),
+					certificate.Length(), (signed_blob*) crl.Content(),
+					crl.Length());
+			if (ret < 0)
 				throw Exception("Error installing ticket.", ret);
 
 			INIT_PROCESS_CONTROL(processControl, NULL);
@@ -643,11 +504,14 @@ void Title::Install()
 		processControl.buffer = Tmd();
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTmdInstalling(processControl);
-		if(!processControl.skipStep)
-		{
-			u32 tmdLen = SIGNED_TMD_SIZE((signed_blob*)processControl.buffer.Content());
-			ret = ES_AddTitleStart((signed_blob*)processControl.buffer.Content(), tmdLen, (signed_blob*)certificate.Content(), certificate.Length(), (signed_blob*)crl.Content(), crl.Length());
-			if(ret < 0)
+		if (!processControl.skipStep) {
+			u32 tmdLen = SIGNED_TMD_SIZE(
+					(signed_blob*) processControl.buffer.Content());
+			ret = ES_AddTitleStart(
+					(signed_blob*) processControl.buffer.Content(), tmdLen,
+					(signed_blob*) certificate.Content(), certificate.Length(),
+					(signed_blob*) crl.Content(), crl.Length());
+			if (ret < 0)
 				throw Exception("Error starting title installation.", ret);
 
 			INIT_PROCESS_CONTROL(processControl, NULL);
@@ -655,27 +519,27 @@ void Title::Install()
 		}
 
 		Buffer tmdBuffer = processControl.buffer;
-		tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)tmdBuffer.Content());
+		tmd* tmdData = (tmd *) SIGNATURE_PAYLOAD(
+				(signed_blob*) tmdBuffer.Content());
 
 		//Install contents
-		for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++)
-		{
+		for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++) {
 			tmd_content *tmdContent = &tmdData->contents[cnt];
 			u32 cfd = 0;
 			processControl.buffer = GetContent(tmdContent->cid);
 			//Start content installation
 			INIT_PROCESS_CONTROL(processControl, tmdContent);
 			OnContentInstalling(processControl);
-			if(!processControl.skipStep)
-			{
+			if (!processControl.skipStep) {
 				cfd = ES_AddContentStart(tmdData->title_id, tmdContent->cid);
 				if (cfd < 0)
 					throw Exception("Error adding content start.", ret);
 
 				//writing content datas
-				ret = ES_AddContentData(cfd, (u8*)processControl.buffer.Content(), processControl.buffer.Length());
-				if (ret < 0)
-				{
+				ret = ES_AddContentData(cfd,
+						(u8*) processControl.buffer.Content(),
+						processControl.buffer.Length());
+				if (ret < 0) {
 					//if an error occures, we ensure to close the content
 					//and notify the system of the error
 					ES_AddContentFinish(cfd);
@@ -695,18 +559,13 @@ void Title::Install()
 		ret = ES_AddTitleFinish();
 		if (ret < 0)
 			throw Exception("Error finising title installation", ret);
-	}
-	catch(AbortException &abort)
-	{	}
-	catch(Exception &ex)
-	{
+	} catch (AbortException &abort) {
+	} catch (Exception &ex) {
 		//Cancel install
 		ES_AddTitleCancel();
 
 		throw;
-	}
-	catch(...)
-	{
+	} catch (...) {
 		//Cancel install
 		ES_AddTitleCancel();
 
@@ -714,69 +573,57 @@ void Title::Install()
 	}
 }
 
-/*!
- * \brief Uninstall the loaded title
- */
-void Title::Uninstall()
-{
+void Title::Uninstall() {
 	Buffer tmdBuffer = Tmd();
 
-	tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)tmdBuffer.Content());
+	tmd* tmdData =
+			(tmd *) SIGNATURE_PAYLOAD((signed_blob*) tmdBuffer.Content());
 	Title::Uninstall(tmdData->title_id);
 }
 
-/*!
- * \brief Uninstall a specific title
- * \param titleId The id of the title to uninstall
- */
-void Title::Uninstall(u64 titleId)
-{
+void Title::Uninstall(u64 titleId) {
 	tikview *viewData = NULL;
 	u32 viewCnt;
 	s32 ret;
 
-	if(!Title::IsInstalled(titleId)) return;
+	if (!Title::IsInstalled(titleId))
+		return;
 
-	if((titleId & 0x100000000ULL) > 0ULL)
-	{
+	if ((titleId & 0x100000000ULL) > 0ULL) {
 		Title::UninstallUsingISFS(titleId);
 		return;
 	}
 
 	ret = ES_GetNumTicketViews(titleId, &viewCnt);
-	if(ret < 0)
+	if (ret < 0)
 		throw Exception("Error getting view count.", ret);
 
-	viewData = (tikview *)memalign(32, sizeof(tikview) * viewCnt);
-	if(!viewData)
+	viewData = (tikview *) memalign(32, sizeof(tikview) * viewCnt);
+	if (!viewData)
 		throw Exception("Not enough memory.", -1);
 
-	try
-	{
+	try {
 		ret = ES_GetTicketViews(titleId, viewData, viewCnt);
-		if(ret < 0)
+		if (ret < 0)
 			throw Exception("Error getting ticket views.", ret);
 
 		/* Delete all tickets */
-		for (u32 tickViewIndex = 0; tickViewIndex < viewCnt; tickViewIndex++)
-		{
+		for (u32 tickViewIndex = 0; tickViewIndex < viewCnt; tickViewIndex++) {
 			ret = ES_DeleteTicket(&viewData[tickViewIndex]);
-			if(ret < 0)
+			if (ret < 0)
 				throw Exception("Error deleting title tickets.", ret);
 		}
 
 		// Delete title content
 		ret = ES_DeleteTitleContent(titleId);
-		if(ret < 0)
+		if (ret < 0)
 			throw Exception("Error deleting title contents.", ret);
 
 		//delete title
 		ret = ES_DeleteTitle(titleId);
-		if(ret < 0)
+		if (ret < 0)
 			throw Exception("Error deleting title.", ret);
-	}
-	catch(...)
-	{
+	} catch (...) {
 		free(viewData);
 		throw;
 	}
@@ -784,82 +631,61 @@ void Title::Uninstall(u64 titleId)
 	free(viewData);
 }
 
-/*!
- * \brief Uninstall a specific title deleting folder instead of using ES functions
- * \param titleId The id of the title to uninstall
- */
-void Title::UninstallUsingISFS(u64 titleId)
-{
+void Title::UninstallUsingISFS(u64 titleId) {
 	u32 titleType = titleId >> 32;
-	u32 id = (u32)titleId;
+	u32 id = (u32) titleId;
 
 	stringstream ticketPath;
-	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id << setw(0) << ".tik";
+	ticketPath << "wii:/ticket/" << setw(8) << setfill('0') << hex << titleType
+			<< setw(0) << "/" << setw(8) << id << setw(0) << ".tik";
 
 	stringstream titlePath;
-	titlePath << "wii:/title/" << setw(8) << setfill('0') << hex << titleType << setw(0) << "/" << setw(8) << id;
-
+	titlePath << "wii:/title/" << setw(8) << setfill('0') << hex << titleType
+			<< setw(0) << "/" << setw(8) << id;
 
 	File::Delete(ticketPath.str());
 	Directory::Delete(titlePath.str(), true);
 }
 
-/*!
- * \brief Get the list of all installed IOS
- * \return A list of IOS number
- */
-vector<u8> Title::GetInstalledIos()
-{
-	vector<u8> ioses;
+vector<u8> Title::GetInstalledIos() {
+	vector < u8 > ioses;
 	u32 nbTitle;
 	u64 *titlesBuffer = NULL;
 	s32 ret;
 	//Get stored IOS versions.
 	ret = ES_GetNumTitles(&nbTitle);
-	if(ret < 0)
+	if (ret < 0)
 		throw Exception("Error getting the number of installed titles.", ret);
 
-	titlesBuffer = (u64*)memalign(32, sizeof(u64) * nbTitle);
-	if(!titlesBuffer)
+	titlesBuffer = (u64*) memalign(32, sizeof(u64) * nbTitle);
+	if (!titlesBuffer)
 		throw Exception("Not enough memory.", -1);
 
-	try
-	{
+	try {
 		ret = ES_GetTitles(titlesBuffer, nbTitle);
-		if(ret < 0)
+		if (ret < 0)
 			throw Exception("Error getting title list from nand.", ret);
 
-
 		//filtering ios from other titles
-		for(u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++)
-		{
-			u32 type = *(u32*)(titlesBuffer + titleIndex);
-			u32 number = (u32)titlesBuffer[titleIndex];
+		for (u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++) {
+			u32 type = *(u32*) (titlesBuffer + titleIndex);
+			u32 number = (u32) titlesBuffer[titleIndex];
 
 			//If IOS
-			if(type == 1 && 2 < number && number < 0x100)
-				ioses.push_back((u8)number);
+			if (type == 1 && 2 < number && number < 0x100)
+				ioses.push_back((u8) number);
 		}
 		free(titlesBuffer);
 		titlesBuffer = NULL;
-	}
-	catch(...)
-	{
-		if(titlesBuffer)
+	} catch (...) {
+		if (titlesBuffer)
 			free(titlesBuffer);
 		throw;
 	}
 	return ioses;
 }
 
-/*!
- * \brief Check if a title is installed
- * It doesn't care of the title version
- * \param titleId The title to check
- * \return true if the title is installed
- */
-bool Title::IsInstalled(u64 titleId)
-{
+bool Title::IsInstalled(u64 titleId) {
 	u32 nbTitle;
 	u64 *titlesBuffer = NULL;
 	s32 ret;
@@ -867,33 +693,29 @@ bool Title::IsInstalled(u64 titleId)
 
 	//Get stored IOS versions.
 	ret = ES_GetNumTitles(&nbTitle);
-	if(ret < 0)
+	if (ret < 0)
 		throw Exception("Error getting the number of installed titles.", ret);
 
-	titlesBuffer = (u64*)memalign(32, sizeof(u64) * nbTitle);
-	if(!titlesBuffer)
+	titlesBuffer = (u64*) memalign(32, sizeof(u64) * nbTitle);
+	if (!titlesBuffer)
 		throw Exception("Not enough memory.", -1);
 
-	try
-	{
+	try {
 		ret = ES_GetTitles(titlesBuffer, nbTitle);
-		if(ret < 0)
+		if (ret < 0)
 			throw Exception("Error getting title list from nand.", ret);
 
 		//filtering ios from other titles
-		for(u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++)
-			if(*(titlesBuffer + titleIndex) == titleId)
-			{
+		for (u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++)
+			if (*(titlesBuffer + titleIndex) == titleId) {
 				installed = true;
 				break;
 			}
 
 		free(titlesBuffer);
 		titlesBuffer = NULL;
-	}
-	catch(...)
-	{
-		if(titlesBuffer)
+	} catch (...) {
+		if (titlesBuffer)
 			free(titlesBuffer);
 		throw;
 	}
@@ -901,13 +723,7 @@ bool Title::IsInstalled(u64 titleId)
 	return installed;
 }
 
-/*!
- * \brief Get the version of an installed title
- * \param titleId The id of the title to get the installed version
- * \return The title version
- */
-u16 Title::GetInstalledTitleVersion(u64 titleId)
-{
+u16 Title::GetInstalledTitleVersion(u64 titleId) {
 	u32 tmdLength;
 	s32 ret;
 	signed_blob* tmdBuffer = NULL;
@@ -919,289 +735,160 @@ u16 Title::GetInstalledTitleVersion(u64 titleId)
 		throw Exception("Error getting TMD length", ret);
 
 	/* Allocate memory */
-	tmdBuffer = (signed_blob*)memalign(32, TITLE_ROUND_UP(tmdLength, 32));
-	if(!tmdBuffer)
+	tmdBuffer = (signed_blob*) memalign(32, TITLE_ROUND_UP(tmdLength, 32));
+	if (!tmdBuffer)
 		throw Exception("Not enough memory.", -1);
 
 	/* Read TMD */
 	ret = ES_GetStoredTMD(titleId, tmdBuffer, tmdLength);
-	if(ret < 0)
-	{
+	if (ret < 0) {
 		free(tmdBuffer);
 		throw Exception("Error getting stored tmd.", ret);
 	}
 
-
-	titleVersion = ((tmd *)SIGNATURE_PAYLOAD(tmdBuffer))->title_version;
+	titleVersion = ((tmd *) SIGNATURE_PAYLOAD(tmdBuffer))->title_version;
 	free(tmdBuffer);
 
 	return titleVersion;
 }
 
-/*!
- * \brief Create all temporary folder
- * The folder will be tempDirectory/titleId/revision
- * \param titleId The id of the title to store
- * \param revision The version of the title to store
- * \param tempDirectory Location where to put files/directories
- */
-void Title::CreateTempDirectory(u64 titleId, u16 revision, const std::string& tempDirectory)
-{
-	if(Path::GetRoot(tempDirectory) == tempDirectory || Directory::Exists(tempDirectory))
+void Title::CreateTempDirectory(u64 titleId, u16 revision,
+		const std::string& tempDirectory) {
+	if (Path::GetRoot(tempDirectory) == tempDirectory || Directory::Exists(
+			tempDirectory))
 		canDeleteRootTempDirectory = false;
 	else
 		canDeleteRootTempDirectory = true;
 
 	stringstream str;
-	str << tempDirectory << "/" << hex << setw(8) << setfill('0') << TITLE_TYPE(titleId);
-	str << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0) << setfill(' ') << dec;
-	if(revision>0)
+	str << tempDirectory << "/" << hex << setw(8) << setfill('0')
+			<< TITLE_TYPE(titleId);
+	str << setw(0) << "/" << setw(8) << TITLE_ID(titleId) << setw(0)
+			<< setfill(' ') << dec;
+	if (revision > 0)
 		str << "v" << revision;
 
 	_directory = str.str();
-	_directory=Path::CleanPath(_directory);
+	_directory = Path::CleanPath(_directory);
 
 	Directory::Create(_directory);
 }
 
-/*!
- * \brief Throw the TicketInstalling event
- * \param processControl The argument of the event
- */
-void Title::OnTicketInstalling(TitleEventArgs &processControl)
-{
+void Title::OnTicketInstalling(TitleEventArgs &processControl) {
 	TicketInstallingEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TicketInstalled event
- * \param processControl The argument of the event
- */
-void Title::OnTicketInstalled(TitleEventArgs &processControl)
-{
+void Title::OnTicketInstalled(TitleEventArgs &processControl) {
 	TicketInstalledEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TmdInstalling event
- * \param processControl The argument of the event
- */
-void Title::OnTmdInstalling(TitleEventArgs &processControl)
-{
+void Title::OnTmdInstalling(TitleEventArgs &processControl) {
 	TmdInstallingEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TmdInstalled event
- * \param processControl The argument of the event
- */
-void Title::OnTmdInstalled(TitleEventArgs &processControl)
-{
+void Title::OnTmdInstalled(TitleEventArgs &processControl) {
 	TmdInstalledEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the ContentInstalling event
- * \param processControl The argument of the event
- */
-void Title::OnContentInstalling(TitleEventArgs &processControl)
-{
+void Title::OnContentInstalling(TitleEventArgs &processControl) {
 	ContentInstallingEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the ContentInstalled event
- * \param processControl The argument of the event
- */
-void Title::OnContentInstalled(TitleEventArgs &processControl)
-{
+void Title::OnContentInstalled(TitleEventArgs &processControl) {
 	ContentInstalledEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TicketLoading event
- * \param processControl The argument of the event
- */
-void Title::OnTicketLoading(TitleEventArgs &processControl)
-{
+void Title::OnTicketLoading(TitleEventArgs &processControl) {
 	TicketLoadingEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TicketLoaded event
- * \param processControl The argument of the event
- */
-void Title::OnTicketLoaded(TitleEventArgs &processControl)
-{
+void Title::OnTicketLoaded(TitleEventArgs &processControl) {
 	TicketLoadedEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TmdLoading event
- * \param processControl The argument of the event
- */
-void Title::OnTmdLoading(TitleEventArgs &processControl)
-{
+void Title::OnTmdLoading(TitleEventArgs &processControl) {
 	TmdLoadingEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the TmdLoaded event
- * \param processControl The argument of the event
- */
-void Title::OnTmdLoaded(TitleEventArgs &processControl)
-{
+void Title::OnTmdLoaded(TitleEventArgs &processControl) {
 	TmdLoadedEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the ContentLoading event
- * \param processControl The argument of the event
- */
-void Title::OnContentLoading(TitleEventArgs &processControl)
-{
+void Title::OnContentLoading(TitleEventArgs &processControl) {
 	ContentLoadingEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Throw the ContentLoaded event
- * \param processControl The argument of the event
- */
-void Title::OnContentLoaded(TitleEventArgs &processControl)
-{
+void Title::OnContentLoaded(TitleEventArgs &processControl) {
 	ContentLoadedEvent(this, &processControl);
-	if(processControl.abortProcess)
+	if (processControl.abortProcess)
 		throw AbortException();
 }
 
-/*!
- * \brief Check if the currently loaded title is installed
- * \return True if the title is installed
- */
-bool Title::IsInstalled()
-{
+bool Title::IsInstalled() {
 	Buffer tmdBuffer = Tmd();
 
-	tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)tmdBuffer.Content());
+	tmd* tmdData =
+			(tmd *) SIGNATURE_PAYLOAD((signed_blob*) tmdBuffer.Content());
 	return Title::IsInstalled(tmdData->title_id);
 }
 
-/*!
- * \brief Destructor
- * If the title was constructed automaticCleaning to true,
- * temp folder will be deleted
- * \see Title
- */
-Title::~Title()
-{
-	if(automaticClean)
+Title::~Title() {
+	if (automaticClean)
 		Clean();
 }
 
-/*!
- * \brief Get the full temp directory associated to the title
- * The temp directory is build with a base temp directory + the titleId and the revision
- * \return the full temp directory
- */
-string Title::TempDirectory()
-{
+string Title::TempDirectory() {
 	return _directory;
 }
 
-/*!
- * \brief Gets the wad formated ( like NUSD) name
- * \param tid The id of the title
- * \param rev The version of the title
- * \return The wad name
- */
-string Title::GetWadFormatedName(u64 tid,u16 rev)
-{
+string Title::GetWadFormatedName(u64 tid, u16 rev) {
 	stringstream wadName;
-	u32 type= tid >> 32;
-	u32 id = (u32)tid;
-	if (type==1) // If IOS
+	u32 type = tid >> 32;
+	u32 id = (u32) tid;
+	if (type == 1) // If IOS
 	{
-		wadName << "IOS" <<id;
-		if(rev > 0)
+		wadName << "IOS" << id;
+		if (rev > 0)
 			wadName << "-64-";
-	}
-	else
-	{
-		wadName << hex << setfill('0') << setw(8) << type << setw(0) << "-" << setw(8) << id << setw(0) << dec;
+	} else {
+		wadName << hex << setfill('0') << setw(8) << type << setw(0) << "-"
+				<< setw(8) << id << setw(0) << dec;
 	}
 
 	if (rev > 0)
 		wadName << "v" << rev;
 
-	wadName<<".wad";
+	wadName << ".wad";
 
 	return wadName.str();
 
 }
 
-/**
- * \brief Encryot content specified by the tmd_content
- * \param b The decrypted content buffer
- * \param tmdInfo The tmd_content associated to the content
- **/
-void Title::EncryptContent(Buffer& b,tmd_content* tmdInfo)
-{
+void Title::EncryptContent(Buffer& b, tmd_content* tmdInfo) {
 	u64 bufferLength = TITLE_ROUND_UP(b.Length(), 64);
-	u8* outbuf = (u8*)memalign(32, bufferLength);
-	if (!outbuf)
-		throw Exception("Not enough memory.", -1);
-
-	/* Set IV key */
-	u8  ivkey[16];
-	memset(ivkey, 0, sizeof(ivkey));
-	memcpy(ivkey, &tmdInfo->index, sizeof(tmdInfo->index));
-
-	/* Set AES key */
-	AES_SetKey(_titleKey);
-
-	/* Decrypt content */
-	AES_Encrypt(ivkey,(u8*) b.Content(), outbuf, bufferLength);
-
-	/* Put the new hash */
-	SHA1((u8*)b.Content(), tmdInfo->size, tmdInfo->hash);
-
-	b.Clear();
-	b.Append(outbuf, bufferLength);
-
-	free(outbuf);
-}
-
-/**
- * \brief Decrypt content specified by the tmd_content
- * \param b The encrypted content buffer
- * \param tmdInfo The tmd_content associated to the content
- **/
-void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
-{
-	u64 bufferLength = b.Length();
-	u8* outbuf = (u8*)memalign(32, bufferLength);
+	u8* outbuf = (u8*) memalign(32, bufferLength);
 	if (!outbuf)
 		throw Exception("Not enough memory.", -1);
 
@@ -1214,16 +901,42 @@ void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
 	AES_SetKey(_titleKey);
 
 	/* Decrypt content */
-	AES_Decrypt(ivkey,(u8*) b.Content(), outbuf, bufferLength);
+	AES_Encrypt(ivkey, (u8*) b.Content(), outbuf, bufferLength);
+
+	/* Put the new hash */
+	SHA1((u8*) b.Content(), tmdInfo->size, tmdInfo->hash);
+
+	b.Clear();
+	b.Append(outbuf, bufferLength);
+
+	free(outbuf);
+}
+
+void Title::DecryptContent(Buffer& b, tmd_content* tmdInfo) {
+	u64 bufferLength = b.Length();
+	u8* outbuf = (u8*) memalign(32, bufferLength);
+	if (!outbuf)
+		throw Exception("Not enough memory.", -1);
+
+	/* Set IV key */
+	u8 ivkey[16];
+	memset(ivkey, 0, sizeof(ivkey));
+	memcpy(ivkey, &tmdInfo->index, sizeof(tmdInfo->index));
+
+	/* Set AES key */
+	AES_SetKey(_titleKey);
+
+	/* Decrypt content */
+	AES_Decrypt(ivkey, (u8*) b.Content(), outbuf, bufferLength);
 
 	/* Check content hash */
 	u8 hash[20];
 	SHA1(outbuf, tmdInfo->size, hash);
-	if (memcmp(hash, tmdInfo->hash, sizeof(hash))!=0)
-	{
+	if (memcmp(hash, tmdInfo->hash, sizeof(hash)) != 0) {
 		free(outbuf);
 		stringstream str;
-		str<<"Content "<<hex<<tmdInfo->cid<<dec<<" decryption failed -> hash mismatch";
+		str << "Content " << hex << tmdInfo->cid << dec
+				<< " decryption failed -> hash mismatch";
 		throw Exception(str.str(), -1);
 	}
 	b.Clear();
@@ -1231,16 +944,12 @@ void Title::DecryptContent(Buffer& b,tmd_content* tmdInfo)
 	free(outbuf);
 }
 
-/**
- * \brief Decrypt the title key
- * \param b_tik The cetk Buffer
- */
-void Title::DecryptTitleKey(Buffer& b_tik)
-{
-	u8 commonkey[16] = { 0xeb, 0xe4, 0x2a, 0x22, 0x5e, 0x85, 0x93, 0xe4, 0x48, 0xd9, 0xc5, 0x45, 0x73, 0x81, 0xaa, 0xf7 };
-	tik* p_tik= (tik*) SIGNATURE_PAYLOAD((signed_blob*)b_tik.Content());
+void Title::DecryptTitleKey(Buffer& b_tik) {
+	u8 commonkey[16] = { 0xeb, 0xe4, 0x2a, 0x22, 0x5e, 0x85, 0x93, 0xe4, 0x48,
+			0xd9, 0xc5, 0x45, 0x73, 0x81, 0xaa, 0xf7 };
+	tik* p_tik = (tik*) SIGNATURE_PAYLOAD((signed_blob*) b_tik.Content());
 	/* Set IV */
-	u8 iv[16]  ATTRIBUTE_ALIGN(32);
+	u8 iv[16] ATTRIBUTE_ALIGN(32);
 	memset(iv, 0, sizeof(iv));
 	memcpy(iv, &p_tik->titleid, sizeof(u64));
 
@@ -1259,92 +968,70 @@ void Title::DecryptTitleKey(Buffer& b_tik)
 	memcpy(_titleKey, dec, sizeof(dec)); /* Copy title key */
 }
 
-/**
- * \brief Gets the shared1 content associated to the tmd_content
- * \param c the tmd_content you need to get from shared1
- * \return A buffer containing the shared1 content
- **/
-Buffer Title::GetSharedContent(tmd_content* c)
-{
-	Buffer sharedMap=File::ReadToEnd("wii:/shared1/content.map");
-	Buffer bsha(c->hash,20);
+Buffer Title::GetSharedContent(tmd_content* c) {
+	Buffer sharedMap = File::ReadToEnd("wii:/shared1/content.map");
+	Buffer bsha(c->hash, 20);
 
-	u64 index=sharedMap.Find(bsha);
-	if(index==sharedMap.Length()) throw Exception("Shared content not found in content.map",c->index);
+	u64 index = sharedMap.Find(bsha);
+	if (index == sharedMap.Length())
+		throw Exception("Shared content not found in content.map", c->index);
 
 	stringstream str;
 	char name[9];
 
-	u8 * buf=(u8*)sharedMap.Content();
-	sprintf(name, "%.8s",((u8*)buf+index)-8);
-	str<<"wii:/shared1/"<<name<<".app";
+	u8 * buf = (u8*) sharedMap.Content();
+	sprintf(name, "%.8s", ((u8*) buf + index) - 8);
+	str << "wii:/shared1/" << name << ".app";
 
 	return File::ReadToEnd(str.str());
 }
 
-/**
- * \brief Savethe decrypted title content
- * The title needs to be loaded ( via nus, wad or nand)
- * \param dirPath The dir we'll put the contents in
- */
-void Title::SaveDecryptedContent(const string& dirPath)
-{
-	if(!Directory::Exists(dirPath)) Directory::Create(dirPath);
+void Title::SaveDecryptedContent(const string& dirPath) {
+	if (!Directory::Exists(dirPath))
+		Directory::Create(dirPath);
 
-	Buffer b_tmd=Tmd();
-	Buffer b_cetk=Ticket();
+	Buffer b_tmd = Tmd();
+	Buffer b_cetk = Ticket();
 	b_cetk.Truncate(0x2a4);
-	string actualDir=_directory;
-	_directory=dirPath;
+	string actualDir = _directory;
+	_directory = dirPath;
 	Tmd(b_tmd);
 	Ticket(b_cetk);
-	_directory=actualDir;
+	_directory = actualDir;
 
-	tmd* tmdData = (tmd *)SIGNATURE_PAYLOAD((signed_blob*)b_tmd.Content());
+	tmd* tmdData = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) b_tmd.Content());
 
-
-	for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++)
-	{
+	for (u32 cnt = 0; cnt < tmdData->num_contents; cnt++) {
 		tmd_content *tmdContent = &tmdData->contents[cnt];
-		Buffer b_cnt=GetContent(tmdContent->cid);
+		Buffer b_cnt = GetContent(tmdContent->cid);
 
-		_directory=dirPath;
+		_directory = dirPath;
 
-		DecryptContent(b_cnt,tmdContent);
-		AddContent(b_cnt,tmdContent->cid);
+		DecryptContent(b_cnt, tmdContent);
+		AddContent(b_cnt, tmdContent->cid);
 
-		_directory=actualDir;
+		_directory = actualDir;
 	}
 
 }
 
-/**
- * \brief Reload IOS(secure fct)
- * \param ios The ios to be reloaded
- */
-void Title::ReloadIOS(u32 ios)
-{
+void Title::ReloadIOS(u32 ios) {
 	s32 ret = 0;
-	if(GetRunningIOS() != ios)
-	{
+	if (GetRunningIOS() != ios) {
 		NetworkUtility::Deinit();
 		Log::Pause();
 		Device::EnsureShutdown();
 		usleep(500000);
 		ret = IOS_ReloadIOS(ios);
-		if(ret<0)
+		if (ret < 0)
 			throw Exception("Can't reload ios" + ios, ret);
 		usleep(500000);
 		_runningIos = ios;
 	}
 }
-/**
- * \brief get the actual running ios
- * \return The ios number
- */
-u32 Title::GetRunningIOS()
-{
-	if(_runningIos == 0)
+
+u32 Title::GetRunningIOS() {
+	if (_runningIos == 0)
 		_runningIos = IOS_GetVersion();
 
 	return _runningIos;

@@ -5,62 +5,107 @@
 #include <string>
 #include "Patch.h"
 
-namespace Libwiisys { namespace System { namespace Patching {
+namespace Libwiisys {namespace System {namespace Patching {
 
-/**
- * \class SimplePatch
- * \brief Handles simple patching
- * \author Arasium,Teton,Fanta
- * \version 1.0
- * This class can use already existing patch or create some
- */
+			/**
+			 * \class SimplePatch
+			 * \brief Handles simple patching
+			 * \author Arasium,Teton,Fanta
+			 * \version 1.0
+			 * This class can use already existing patch or create some
+			 */
 
-class SimplePatch : public Patch
-{
+			class SimplePatch : public Patch
+			{
 
-private:
-	u8* _pattern;
-	u8* _patch;
-	u32 _length;
+			private:
+				u8* _pattern;
+				u8* _patch;
+				u32 _length;
 
-protected:
-	u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const;
+			protected:
+				u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const;
 
-public:
+			public:
 
-	SimplePatch(const u8* pattern, const u8* patch, const u32 length, const std::string &module = "");
-	SimplePatch(const SimplePatch& patch);
-	virtual ~SimplePatch();
-	SimplePatch& operator=(const SimplePatch& patch);
+				/**
+				 * @brief Constructor
+				 * @param pattern The pattern to patch
+				 * @param patch The patch
+				 * @param length The patch lentgh
+				 * @param module The module name to patch ( default = "" ( none))
+				 */
+				SimplePatch(const u8* pattern, const u8* patch, const u32 length, const std::string &module = "");
 
-	/* ES Patches */
-	static SimplePatch* ES_HashCheck_Old();
-	static SimplePatch* ES_HashCheck_New();
-	static SimplePatch* ES_Identify();
-	static SimplePatch* ES_OpenTitleContent1();
-	static SimplePatch* ES_OpenTitleContent2();
-	static SimplePatch* ES_ReadContent();
-	static SimplePatch* ES_CloseContent();
-	static SimplePatch* ES_SetUIDCheck();
-	static SimplePatch* ES_TitleVersionCheck();
-	static SimplePatch* ES_TitleDeleteCheck();
-	static SimplePatch* ES_MEM2Protection();
+				/**
+				 * @brief Copy Constructor
+				 * @param patch The patch to copy
+				 * @return The copied patch
+				 */
+				SimplePatch(const SimplePatch& patch);
+				virtual ~SimplePatch();
 
-	/* FFS Patches */
-	static SimplePatch* FFS_PermsCheck();
+				/**
+				 * @brief Overloaded = operator
+				 * @param patch The patch to copy
+				 * @return The copied Patch
+				 */
+				SimplePatch& operator=(const SimplePatch& patch);
 
-	/* DIP Patches */
-	static SimplePatch* DIP_UnencryptedLimit();
-	static SimplePatch* DIP_EnableDvdVideo();
+				/* ES Patches */
+				/** Prebuild patch */
+				static SimplePatch* ES_HashCheck_Old();
 
-	/* Other patches */
-	static SimplePatch* KoreanKey_EnablePatch();
+				/** Prebuild patch */
+				static SimplePatch* ES_HashCheck_New();
 
-	static SimplePatch* getPatch(const std::string &s);
+				/** Prebuild patch */
+				static SimplePatch* ES_Identify();
 
+				/** Prebuild patch */
+				static SimplePatch* ES_OpenTitleContent1();
 
-};
-}
-}
+				/** Prebuild patch */
+				static SimplePatch* ES_OpenTitleContent2();
+
+				/** Prebuild patch */
+				static SimplePatch* ES_ReadContent();
+
+				/** Prebuild patch */
+				static SimplePatch* ES_CloseContent();
+
+				/** Prebuild patch */
+				static SimplePatch* ES_SetUIDCheck();
+
+				/** Prebuild patch */
+				static SimplePatch* ES_TitleVersionCheck();
+
+				/** Prebuild patch */
+				static SimplePatch* ES_TitleDeleteCheck();
+
+				/** Prebuild patch */
+				static SimplePatch* ES_MEM2Protection();
+
+				/* FFS Patches */
+				/** Prebuild patch */
+				static SimplePatch* FFS_PermsCheck();
+
+				/* DIP Patches */
+				/** Prebuild patch */
+				static SimplePatch* DIP_UnencryptedLimit();
+
+				/** Prebuild patch */
+				static SimplePatch* DIP_EnableDvdVideo();
+
+				/* Other patches */
+				/** Prebuild patch */
+				static SimplePatch* KoreanKey_EnablePatch();
+
+				/** Prebuild patch */
+				static SimplePatch* getPatch(const std::string &s);
+
+			};
+		}
+	}
 }
 #endif

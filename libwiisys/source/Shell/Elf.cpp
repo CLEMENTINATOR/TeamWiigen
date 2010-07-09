@@ -8,19 +8,12 @@
 using namespace Libwiisys::Shell;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::Exceptions;
-/**
- * \brief Load the file to a temp buffer
- *
- * \param path The full path of the elf file
- * \param physicalAddress The temp adress where to store the elf data
- */
-Elf::Elf(const std::string &path, void* physicalAddress)
-: content(physicalAddress)
-{
+
+Elf::Elf(const std::string &path, void* physicalAddress) :
+	content(physicalAddress) {
 	File &elfFile = File::Open(path, FileMode_Read);
 
-	if(elfFile.Read(content,elfFile.Size()) != elfFile.Size())
-	{
+	if (elfFile.Read(content, elfFile.Size()) != elfFile.Size()) {
 		elfFile.Close();
 		delete &elfFile;
 		throw Exception("Error reading the dol file.", -1);
@@ -30,14 +23,7 @@ Elf::Elf(const std::string &path, void* physicalAddress)
 	delete &elfFile;
 }
 
-/**
- * \brief Execute the elf file
- *
- * \param path The full path of the elf file
- * \param physicalAddress The memory adress where to store the elf data
- */
-void Elf::Execute(const std::string &path, void* physicalAddress)
-{
+void Elf::Execute(const std::string &path, void* physicalAddress) {
 	Elf e(path, physicalAddress);
 	if (!e.Validate())
 		throw Exception("Not a valid elf file !", -1);
@@ -49,13 +35,7 @@ void Elf::Execute(const std::string &path, void* physicalAddress)
 	throw Exception("Error launching Elf file", -1);
 }
 
-/**
- * \brief Validate the elf file
- *
- * \return true is it a valid elf file, else false
- */
-bool Elf::Validate ()
-{
+bool Elf::Validate() {
 	Elf32_Ehdr *ehdr; /* Elf header structure pointer */
 
 	ehdr = (Elf32_Ehdr *) content.Content();
@@ -72,60 +52,44 @@ bool Elf::Validate ()
 	return true;
 }
 
-/**
- * \brief Load the elf to its execution memory adress
- */
-void Elf::LoadElf()
-{
+void Elf::LoadElf() {
 	Elf32_Ehdr *elfHeader = (Elf32_Ehdr *) content.Content();
-	u32 sectionHeaderSize = sizeof (Elf32_Shdr);
+	u32 sectionHeaderSize = sizeof(Elf32_Shdr);
 	/* Load each appropriate section */
-	for (int sectionIndex = 0; sectionIndex < elfHeader->e_shnum; ++sectionIndex)
-	{
-		Elf32_Shdr *sectionTable = (Elf32_Shdr *) ((char*)elfHeader + elfHeader->e_shoff + sectionIndex * sectionHeaderSize);
+	for (int sectionIndex = 0; sectionIndex < elfHeader->e_shnum; ++sectionIndex) {
+		Elf32_Shdr *sectionTable = (Elf32_Shdr *) ((char*) elfHeader
+				+ elfHeader->e_shoff + sectionIndex * sectionHeaderSize);
 
-		if (!(sectionTable->sh_flags & SHF_ALLOC) || sectionTable->sh_addr == 0 || sectionTable->sh_size == 0)
+		if (!(sectionTable->sh_flags & SHF_ALLOC) || sectionTable->sh_addr == 0
+				|| sectionTable->sh_size == 0)
 			continue;
 
 		sectionTable->sh_addr &= 0x3FFFFFFF;
 		sectionTable->sh_addr |= 0x80000000;
 
-
 		if (sectionTable->sh_type == SHT_NOBITS)
-			memset ((void*) sectionTable->sh_addr, 0, sectionTable->sh_size);
-		else
-		{
-			u8 *image = (u8*)elfHeader + sectionTable->sh_offset;
-			memcpy ((void*)sectionTable->sh_addr, (void*)image, sectionTable->sh_size);
+			memset((void*) sectionTable->sh_addr, 0, sectionTable->sh_size);
+		else {
+			u8 *image = (u8*) elfHeader + sectionTable->sh_offset;
+			memcpy((void*) sectionTable->sh_addr, (void*) image,
+					sectionTable->sh_size);
 		}
-		DCFlushRangeNoSync ((void*)sectionTable->sh_addr, sectionTable->sh_size);
+		DCFlushRangeNoSync((void*) sectionTable->sh_addr, sectionTable->sh_size);
 	}
 
 	exeEntryPoint = (elfHeader->e_entry & 0x3FFFFFFF) | 0x80000000;
 }
 
-/**
- * \brief Jump to the executable entry point
- */
-void Elf::Run()
-{
+void Elf::Run() {
 
 	void (*ep)() = (void(*)())exeEntryPoint;
 	// code from geckoloader
 	u32 level;
-	__IOS_ShutdownSubsystems ();
-	_CPU_ISR_Disable (level);
-	__exception_closeall ();
+	__IOS_ShutdownSubsystems();
+	_CPU_ISR_Disable(level);
+	__exception_closeall();
 	ep();
-	_CPU_ISR_Restore (level);
-
-
-
-
-
-
-
+	_CPU_ISR_Restore(level);
 
 }
-
 

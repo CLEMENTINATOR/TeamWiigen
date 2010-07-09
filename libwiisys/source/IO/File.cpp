@@ -8,11 +8,7 @@ using namespace Libwiisys::Exceptions;
 
 using namespace std;
 
-/*!
- * \brief Check if the file exists
- * \param fileName The fullpath of the file
- * \return true if the file exists, else false if it doesn't
- */
+
 bool File::Exists(const string &fileName)
 {
 	string path = Path::CleanPath(fileName);
@@ -31,13 +27,7 @@ bool File::Exists(const string &fileName)
 	return exists;
 }
 
-/*!
- * \brief Open a file
- * \param fileName The fullpath of the file
- * \param mode Opening FileMode(R,W,RW)
- * \see FileMode
- * \return The opened file
- */
+
 File& File::Open(const string &fileName, FileMode mode)
 {
 	string path = Path::CleanPath(fileName);
@@ -94,11 +84,7 @@ File& File::Open(const string &fileName, FileMode mode)
 	}
 }
 
-/*!
- * \brief Create a new file
- * \param fileName The fullpath of the file
- * \return The new file (opened)
- */
+
 File& File::Create(const string &fileName)
 {
 	string path = Path::CleanPath(fileName);
@@ -119,10 +105,7 @@ File& File::Create(const string &fileName)
 	}
 }
 
-/*!
- * \brief Delete a file
- * \param fileName The fullpath of the file
- */
+
 void File::Delete(const string &fileName)
 {
 	string path = Path::CleanPath(fileName);
@@ -145,33 +128,21 @@ void File::Delete(const string &fileName)
 	Device::UnMount(path);
 }
 
-/*!
- * \brief Close the opened file
- */
-void File::Close()
-{
+
+void File::Close() {
 	Device::UnMount(this->_fileName);
 }
 
-/*!
- * \brief Destructor
- */
+
 File::~File() {}
 
-/*!
- * \brief Get file length
- * \return The file length
- */
+
 u32 File::Size() const
 {
 	return _fileLength;
 }
 
-/*!
- * \brief Read into a buffer
- * \param path The fullpath of the file
- * \return The contents of the files, on a Buffer Object
- */
+
 Buffer File::ReadToEnd(const string& path)
 {
 	if(!File::Exists(path))
@@ -196,11 +167,7 @@ Buffer File::ReadToEnd(const string& path)
 	return buffer;
 }
 
-/*!
- * \brief Copy a file
- * \param fileToCopy The fullpath of the file to copy
- * \param destFile The fullpath of the destination path
- */
+
 void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 {
 	if(!File::Exists(fileToCopy))
@@ -216,11 +183,7 @@ void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 	delete &f;
 }
 
-/*!
- * \brief Cut a file
- * \param fileToCopy The fullpath of the file to copy
- * \param destFile The fullpath of the destination path
- */
+
 void File::Move(const std::string &fileToCopy,const std::string &destFile)
 {
 	File::Copy(fileToCopy,destFile);

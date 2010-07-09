@@ -2,10 +2,6 @@
 
 using namespace Libwiisys::Logging;
 
-/**
- * @brief Destructor
- */
-ILogProvider::~ILogProvider()
-{}
-
+ILogProvider::~ILogProvider() {
+}
 

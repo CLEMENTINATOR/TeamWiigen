@@ -7,37 +7,30 @@ using namespace Libwiisys::System::Patching;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys::Exceptions;
 
-TitlePatcher::TitlePatcher(u64 titleId, s32 revision)
-: _patchList(),
-  _moduleList(),
-  _tmdDirty(false),
-  _tikDirty(false),
-  _titleId(titleId),
-  _revision(revision)
-{}
+TitlePatcher::TitlePatcher(u64 titleId, s32 revision) :
+	_patchList(), _moduleList(), _tmdDirty(false), _tikDirty(false), _titleId(
+			titleId), _revision(revision) {
+}
 
-void TitlePatcher::AddPatch(const Patch* patch)
-{
+void TitlePatcher::AddPatch(const Patch* patch) {
 	_patchList.push_back(patch);
 }
 
-void TitlePatcher::AddModule(TitleModule module)
-{
+void TitlePatcher::AddModule(TitleModule module) {
 	_moduleList.push_back(module);
 }
 
-void TitlePatcher::OnTmdLoading(TitleEventArgs &processControl)
-{
-	if (_revision > -1)
-	{
-		tmd *p_tmd = (tmd*)SIGNATURE_PAYLOAD((signed_blob*)processControl.buffer.Content());
+void TitlePatcher::OnTmdLoading(TitleEventArgs &processControl) {
+	if (_revision > -1) {
+		tmd *p_tmd = (tmd*) SIGNATURE_PAYLOAD(
+				(signed_blob*) processControl.buffer.Content());
 		p_tmd->title_version = _revision;
 		_tmdDirty = true;
 	}
 
-	if (_titleId != 0)
-	{
-		tmd *p_tmd = (tmd*)SIGNATURE_PAYLOAD((signed_blob*)processControl.buffer.Content());
+	if (_titleId != 0) {
+		tmd *p_tmd = (tmd*) SIGNATURE_PAYLOAD(
+				(signed_blob*) processControl.buffer.Content());
 		p_tmd->title_id = _titleId;
 		_tmdDirty = true;
 	}
@@ -45,24 +38,22 @@ void TitlePatcher::OnTmdLoading(TitleEventArgs &processControl)
 	Title::OnTmdLoading(processControl);
 }
 
-void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
-{
-	signed_blob* oldTmd = (signed_blob*)b_tmd.Content();
+void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd) {
+	signed_blob* oldTmd = (signed_blob*) b_tmd.Content();
 	u32 newTmdLen = SIGNED_TMD_SIZE(oldTmd) + sizeof(tmd_content);
-	signed_blob* newTmd = (signed_blob*)malloc(newTmdLen);
-	if(!newTmd)
+	signed_blob* newTmd = (signed_blob*) malloc(newTmdLen);
+	if (!newTmd)
 		throw Exception("Not enough memory!", -1);
 
 	//copy the old TMD
 	memset(newTmd, 0, newTmdLen);
 	memcpy(newTmd, oldTmd, SIGNED_TMD_SIZE(oldTmd));
 
-	tmd* tmd_data = (tmd *)SIGNATURE_PAYLOAD(newTmd);
+	tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD(newTmd);
 	tmd_content* newEntry = &(tmd_data->contents[tmd_data->num_contents]);
 
 	/* Find free CID and index */
-	for (u32 cnt = 0; cnt < tmd_data->num_contents; cnt++)
-	{
+	for (u32 cnt = 0; cnt < tmd_data->num_contents; cnt++) {
 		tmd_content *content = &(tmd_data->contents[cnt]);
 
 		/* Compare CID */
@@ -79,10 +70,10 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 	newEntry->size = module.Length();
 
 	/* Update TMD */
-	if(module.IsPositionRequired())
-	{
+	if (module.IsPositionRequired()) {
 		tmd_content oldEntry = tmd_data->contents[module.Position()];
-		tmd_data->contents[module.Position()] = tmd_data->contents[tmd_data->num_contents];
+		tmd_data->contents[module.Position()]
+				= tmd_data->contents[tmd_data->num_contents];
 		tmd_data->contents[tmd_data->num_contents] = oldEntry;
 		newEntry = &(tmd_data->contents[module.Position()]);
 	}
@@ -98,49 +89,43 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 	free(newTmd);
 }
 
-void TitlePatcher::OnContentLoading(TitleEventArgs &processControl)
-{
-	DecryptContent(processControl.buffer,processControl.tmdInfo);
-	for (list<const Patch*>::const_iterator ite = _patchList.begin(); ite != _patchList.end(); ite++)
-		if ((*ite)->ApplyPatch(processControl) > 0)
-		{
+void TitlePatcher::OnContentLoading(TitleEventArgs &processControl) {
+	DecryptContent(processControl.buffer, processControl.tmdInfo);
+	for (list<const Patch*>::const_iterator ite = _patchList.begin(); ite
+			!= _patchList.end(); ite++)
+		if ((*ite)->ApplyPatch(processControl) > 0) {
 			processControl.tmdInfo->type = 1;
 			_tmdDirty = true;
 		}
 
-	EncryptContent(processControl.buffer,processControl.tmdInfo);
+	EncryptContent(processControl.buffer, processControl.tmdInfo);
 
 	Title::OnContentLoading(processControl);
 }
 
-void TitlePatcher::OnTicketLoading(TitleEventArgs &processControl)
-{
+void TitlePatcher::OnTicketLoading(TitleEventArgs &processControl) {
 	DecryptTitleKey(processControl.buffer);
 	Title::OnTicketLoading(processControl);
 }
 
-void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl)
-{
-	if (_tikDirty)
-	{
-		signed_blob* s_tik = (signed_blob*)processControl.buffer.Content();
+void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl) {
+	if (_tikDirty) {
+		signed_blob* s_tik = (signed_blob*) processControl.buffer.Content();
 
 		/* Zero signature */
-		memset((u8*)s_tik + 4, 0, SIGNATURE_SIZE(s_tik) - 4);
+		memset((u8*) s_tik + 4, 0, SIGNATURE_SIZE(s_tik) - 4);
 
 		/* TIK data */
-		tik *p_tik = (tik *)SIGNATURE_PAYLOAD(s_tik);
+		tik *p_tik = (tik *) SIGNATURE_PAYLOAD(s_tik);
 
-		for (u16 fill=0; fill< USHRT_MAX; fill++)
-		{
+		for (u16 fill = 0; fill < USHRT_MAX; fill++) {
 			sha1 hash;
 
 			p_tik->padding = fill;
 
-			SHA1((u8 *)p_tik, sizeof(tik), hash);
+			SHA1((u8 *) p_tik, sizeof(tik), hash);
 
-			if (!hash[0])
-			{
+			if (!hash[0]) {
 				Title::OnTicketInstalling(processControl);
 				return;
 			}
@@ -150,37 +135,33 @@ void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl)
 	}
 }
 
-void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
-{
-	for(list<TitleModule>::iterator ite = _moduleList.begin(); ite != _moduleList.end(); ite++)
-	{
+void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl) {
+	for (list<TitleModule>::iterator ite = _moduleList.begin(); ite
+			!= _moduleList.end(); ite++) {
 		_tmdDirty = true;
 		InsertModule(*ite, processControl.buffer);
 	}
 
-	if (_tmdDirty)
-	{
-		signed_blob* s_tmd = (signed_blob*)processControl.buffer.Content();
+	if (_tmdDirty) {
+		signed_blob* s_tmd = (signed_blob*) processControl.buffer.Content();
 
 		/* Zero signature */
-		memset((u8*)s_tmd + 4, 0, SIGNATURE_SIZE(s_tmd) - 4);
+		memset((u8*) s_tmd + 4, 0, SIGNATURE_SIZE(s_tmd) - 4);
 
 		/* TMD data */
-		tmd *tmd_data = (tmd *)SIGNATURE_PAYLOAD(s_tmd);
+		tmd *tmd_data = (tmd *) SIGNATURE_PAYLOAD(s_tmd);
 
-		for (u16 fill = 0; fill < USHRT_MAX; fill++)
-		{
+		for (u16 fill = 0; fill < USHRT_MAX; fill++) {
 			sha1 hash;
 
 			/* Modify TMD fill field */
 			tmd_data->fill3 = fill;
 
 			/* Calculate hash */
-			SHA1((u8 *)tmd_data, TMD_SIZE(tmd_data), hash);
+			SHA1((u8 *) tmd_data, TMD_SIZE(tmd_data), hash);
 
 			/* Found valid hash */
-			if (!hash[0])
-			{
+			if (!hash[0]) {
 				Title::OnTmdInstalling(processControl);
 				return;
 			}
@@ -190,21 +171,18 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
 	}
 }
 
-
-void TitlePatcher::DecryptTitleKey(Buffer& b_tik)
-{
+void TitlePatcher::DecryptTitleKey(Buffer& b_tik) {
 	Title::DecryptTitleKey(b_tik);
 	/* Change title id*/
-	if (_titleId != 0)
-	{
-		tik* p_tik= (tik*) SIGNATURE_PAYLOAD((signed_blob*)b_tik.Content());
-		u8 iv[16]  ATTRIBUTE_ALIGN(32);
+	if (_titleId != 0) {
+		tik* p_tik = (tik*) SIGNATURE_PAYLOAD((signed_blob*) b_tik.Content());
+		u8 iv[16] ATTRIBUTE_ALIGN(32);
 		u8 enc[16] ATTRIBUTE_ALIGN(32);
 		u8 dec[16] ATTRIBUTE_ALIGN(32);
 		memcpy(dec, _titleKey, sizeof(_titleKey));
 		p_tik->titleid = _titleId;
 		memset(iv, 0, sizeof(iv));
-		memcpy(iv, &p_tik->titleid,sizeof(u64));
+		memcpy(iv, &p_tik->titleid, sizeof(u64));
 		AES_Encrypt(iv, dec, enc, sizeof(dec));
 		memcpy(p_tik->cipher_title_key, enc, sizeof(enc));
 		_tikDirty = true;

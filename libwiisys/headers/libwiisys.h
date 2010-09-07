@@ -12,8 +12,8 @@
  * \section sec_tools Needed tools/Libraries
  * To use liiwiisys, you need to have : <br>
  *  <a href="http://sourceforge.net/projects/devkitpro/"> Devkitpro </a> <br>
- *  <a href="http://sourceforge.net/projects/tinyxml/"> Tinyxml </a> <br>
  *
+ * For the ported libraries, download them from <a href="http://www.teamwiigen.fr.cr">our site</a>
  *
  *
  *

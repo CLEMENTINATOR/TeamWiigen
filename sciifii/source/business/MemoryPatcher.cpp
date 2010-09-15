@@ -21,7 +21,7 @@ bool MemoryPatcher::Prepare()
 	return true;
 }
 
-void MemoryPatcher::AddPatch(MemoryPatch& patch)
+void MemoryPatcher::AddPatch(MemoryPatch patch)
 {
 	_patchList.push_back(patch);
 }
@@ -37,18 +37,19 @@ void MemoryPatcher::Install()
 	for(vector<MemoryPatch>::iterator ite = _patchList.begin(); ite != _patchList.end(); ite++)
 	{
 		u8 *ptr = (u8 *)IOS_MEM_ADDRESS;
-		while ((u32)ptr < (IOS_MEM_ENDADDRESS - (u32)(ite->pattern->Length())))
+		while ((u32)ptr < (IOS_MEM_ENDADDRESS - (u32)(ite->pattern.Length())))
 		{
-			if (!memcmp(ptr, ite->pattern->Content(), ite->pattern->Length()))
+			if (!memcmp(ptr, ite->pattern.Content(), ite->pattern.Length()))
 			{
-				memcpy(ptr, ite->patch->Content(), ite->patch->Length());
-				DCFlushRange(TITLE_ROUND_DOWN(ptr, 32), TITLE_ROUND_UP(ite->patch->Length(), 32) + 32);
+				memcpy(ptr, ite->patch.Content(), ite->patch.Length());
+				DCFlushRange(TITLE_ROUND_DOWN(ptr, 32), TITLE_ROUND_UP(ite->patch.Length(), 32) + 32);
 			}
 			ptr++;
 		}
 	}
 
 	MEM2_PROT = mem2Status;
+	OnProgress("Running IOS patched.", 1);
 }
 
 void MemoryPatcher::SendToLog()

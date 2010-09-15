@@ -9,6 +9,7 @@
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
 #include "../FileSystemTask.h"
+#include "../MemoryPatcher.h"
 #include "../../Config.h"
 #include <libwiisys.h>
 #include <string>
@@ -58,10 +59,10 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	{
 		u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
 		u16 revision = UtilString::ToU16(node->Attribute("revision"),0);
-    string file = UtilString::ToStr(node->Attribute("wad"),"");
-    string path = UtilString::ToStr(node->Attribute("path"),"");
-    TitleAction action;
-    string choice = UtilString::ToStr(node->Attribute("action"),"install");
+		string file = UtilString::ToStr(node->Attribute("wad"),"");
+		string path = UtilString::ToStr(node->Attribute("path"),"");
+		TitleAction action;
+		string choice = UtilString::ToStr(node->Attribute("action"),"install");
 
 		if(choice == "install")
 			action = ti_Install;
@@ -71,29 +72,19 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		    action = ti_PackAsWad;
 		else if (choice == "extract")
 		    action = ti_Extract;
-        else if (choice=="decrypt")
+        else if (choice == "decrypt")
             action = ti_Decrypt;
         else
 			throw Exception("Can't parse TitleAction enum from xml!", -1);
 
-
-
          if (titleId!=0 && file=="")
-         {
-
              step= new TitleStep(titleId, revision, action, path);
-        }
          else if (titleId==0 && file!="")
-        {
-
             step= new TitleStep(file, action, path);
-        }
-        else  throw Exception("Title XML error", -1);
+         else  throw Exception("Title XML error", -1);
 	}
 	else if(nodeValue == "CiosInstaller")
-	{
 		step = CreateCios(node);
-	}
 	else if(nodeValue == "CorpInstaller")
 	{
 		step = new CiosCorp();
@@ -116,7 +107,45 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	}
 	else if(nodeValue == "MemoryPatcher")
 	{
-		step = NULL;
+		step = new MemoryPatcher();
+
+		TiXmlElement* patch = node->FirstChildElement();
+		while (patch != NULL)
+		{
+			if (patch->Type() != TiXmlElement::COMMENT)
+			{
+				string nodeValue = UtilString::ToStr(patch->Value());
+				if(nodeValue == "items")
+				{
+					Buffer pattern;
+					Buffer value;
+					vector<string> splitPattern = UtilString::Split(UtilString::ToStr(patch->Attribute("pattern")),',');
+					vector<string> splitValue = UtilString::Split(UtilString::ToStr(patch->Attribute("value")),',');
+
+					for(u16 i = 0; i < splitPattern.size(); i++)
+					{
+					   vector<string> val = UtilString::Split(splitPattern[i], 'x');
+					   if(val.size() != 2)
+							throw Exception("Value length !=2",-1);
+
+					   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+					   pattern.Append(&v, 1);
+					}
+
+					for(u16 i = 0; i < splitValue.size(); i++)
+					{
+					   vector<string> val = UtilString::Split(splitValue[i], 'x');
+					   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+					   value.Append(&v, 1);
+					}
+
+					((MemoryPatcher*)step)->AddPatch(((MemoryPatch){pattern, value}));
+				}
+				else
+					throw Exception("Child node of MemoryPatcher not defined.", -1);
+			}
+			patch = patch->NextSiblingElement();
+		}
 	}
 	else if(nodeValue == "Preloader")
 	{

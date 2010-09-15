@@ -15,7 +15,7 @@ void Disclaimer::Show()
 
   cout << endl << endl;
 
-  cout << "Sciifii v" SCIIFII_VERSION "." SCIIFII_MINOR_VERSION " made by TeamWiigen" << endl
+  cout << "Sciifii v" SCIIFII_VERSION " made by TeamWiigen" << endl
        << Config::DisclaimerText() << endl << endl;
 
 

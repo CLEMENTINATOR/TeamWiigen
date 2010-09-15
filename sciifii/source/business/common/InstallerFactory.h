@@ -26,7 +26,6 @@ public:
 	static bool GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header);
 	static void FillCiosPatches(Installer* cios, TiXmlElement* xml);
 	static void FillCiosModules(Installer* cios, TiXmlElement* xml);
-	static Installer* CreateSystemUpdater(TiXmlElement* node);
 	static void FillCompositeInstaller(Installer* composite, TiXmlElement* node);
 };
 

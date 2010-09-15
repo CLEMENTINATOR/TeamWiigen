@@ -115,7 +115,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 			if (patch->Type() != TiXmlElement::COMMENT)
 			{
 				string nodeValue = UtilString::ToStr(patch->Value());
-				if(nodeValue == "items")
+				if(nodeValue == "patch")
 				{
 					Buffer pattern;
 					Buffer value;

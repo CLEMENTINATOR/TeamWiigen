@@ -48,11 +48,10 @@
   </modes>
 
   <options>
-    <option name="IOS41" text="Install trucha IOS41" regions="0,1,2" />
     <option name="TBR" text="Restore Trucha Bug" />
     <option name="cIOS249" text="Install cios249 rev 17" />
     <option name="cIOS250" text="Install cios250 rev 19 (base 37)" />
-    <option name="update" text="Update your wii to 4.2" />
+    <option name="update" text="Update your wii to 4.3" />
     <option name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
     <option name="Preloader" text="Install the priiloader" />
     <option name="corp" text="Install the corp cioses" />
@@ -63,11 +62,11 @@
   </options>  
 
   <steps>
-    <Title option="IOS41" id="0000000100000029" revision="2835" action="install" exceptions="-1035" regions="0,1,2" />
-    <IOSReloader option="IOS41" id="41" user="0" regions="0,1,2" />
-    
-    <Title option="TBR" id="00000001000000f" revision="257" action="install" exceptions="-1035" regions="4" />
-    <IOSReloader option="TBR" id="15" user="0" regions="4" />
+    <MemoryPatcher option="TBR">
+			<patches>
+				<patch pattern="" value="" />
+			</patches>
+		</MemoryPatcher>
 	
     <CiosInstaller option="TBR" source="36" revision="0" slot="36" ciosRevision="65535">
       <patches>
@@ -79,9 +78,6 @@
     </CiosInstaller>
 	
     <IOSReloader option="TBR|cIOS249|cIOS250" id="36" user="0" />
-    
-    <Title option="TBR" id="000000010000000f" action="uninstall" regions="4" />
-    <Title option="TBR" id="0000000100000029" action="uninstall" regions="0,1,2" />
     
    <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" >
       <modules>
@@ -145,117 +141,97 @@
     <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
 
     <CompositeInstaller option="update" name="Update Ioses">
+		
+			<!-- classic ioses -->
       <Title id="0000000100000001" revision="4" action="install" />
-      <Title id="0000000100000004" revision="65280" action="install" />
-      <Title id="0000000100000009" revision="1034" action="install" />
-      <Title id="000000010000000A" revision="768" action="install" regions="0,1,2" />
-      <Title id="000000010000000B" revision="256" action="install" regions="0,1,2" />
-      <Title id="000000010000000C" revision="525" action="install" regions="0,1,2" />
-      <Title id="000000010000000D" revision="1031" action="install" regions="0,1,2" />
-      <Title id="000000010000000E" revision="1031" action="install" regions="0,1,2" />
-      <Title id="000000010000000F" revision="1031" action="install" regions="0,1,2" />
-      <Title id="0000000100000010" revision="512" action="install" />
-      <Title id="0000000100000011" revision="1031" action="install" regions="0,1,2" />
-      <Title id="0000000100000015" revision="1038" action="install" />
-      <Title id="0000000100000016" revision="1293" action="install" regions="0,1,2" />
-      <Title id="0000000100000035" revision="5662" action="install" />
-      <Title id="000000010000001C" revision="1806" action="install" regions="0,1,2" />
-      <Title id="000000010000001F" revision="3607" action="install" regions="0,1,2" />
-      <Title id="0000000100000021" revision="3607" action="install" regions="0,1,2" />
-      <Title id="0000000100000022" revision="3607" action="install" regions="0,1,2" />
-      <Title id="0000000100000023" revision="3607" action="install" regions="0,1,2" />
-      <Title id="0000000100000024" revision="3607" action="install" />
-      <Title id="0000000100000025" revision="5662" action="install" />
-      <Title id="0000000100000026" revision="4123" action="install" regions="0,1,2" />      
-      <Title id="0000000100000028" revision="3072" action="install" regions="4" />
-      <Title id="0000000100000029" revision="3606" action="install" regions="4" />
-      <Title id="000000010000002B" revision="3606" action="install" regions="4" />
-      <Title id="000000010000002D" revision="3606" action="install" regions="4" />
-      <Title id="000000010000002E" revision="3606" action="install" regions="4" />
-      <Title id="0000000100000030" revision="4123" action="install" regions="4" />
-      <Title id="0000000100000033" revision="4864" action="install" />
-      <Title id="0000000100000037" revision="5662" action="install" />
-      <Title id="0000000100000038" revision="5661" action="install" />
-      <Title id="0000000100000039" revision="5918" action="install" />
-      <Title id="000000010000003A" revision="6175" action="install" />
-      <Title id="000000010000003D" revision="5661" action="install" />
-      <Title id="0000000100000050" revision="6943" action="install" />
-      <Title id="0000000100000100" revision="6" action="install" />
-      <Title id="0000000100000101" revision="10" action="install" />
+			<Title id="0000000100000004" revision="65280" action="install" />
+			<Title id="000000010000000A" revision="768" action="install" />
+			<Title id="000000010000000C" revision="526" action="install" />
+			<Title id="000000010000000D" revision="1032" action="install" />
+			<Title id="000000010000000E" revision="1032" action="install" />
+			<Title id="000000010000000F" revision="1032" action="install" />
+			<Title id="0000000100000010" revision="512" action="install" />
+			<Title id="0000000100000011" revision="1032" action="install" />
+			<Title id="0000000100000015" revision="1039" action="install" />
+			<Title id="0000000100000016" revision="1294" action="install" />
+			<Title id="000000010000001C" revision="1807" action="install" />
+			<Title id="000000010000001F" revision="3608" action="install" />
+			<Title id="0000000100000021" revision="3608" action="install" />
+			<Title id="0000000100000022" revision="3608" action="install" />
+			<Title id="0000000100000023" revision="3608" action="install" />
+			<Title id="0000000100000024" revision="3608" action="install" />
+			<Title id="0000000100000025" revision="5663" action="install" />
+			<Title id="0000000100000026" revision="4124" action="install" />
+			<Title id="0000000100000029" revision="3607" action="install" />
+			<Title id="000000010000002B" revision="3607" action="install" />
+			<Title id="000000010000002D" revision="3607" action="install" />
+			<Title id="000000010000002E" revision="3607" action="install" />
+			<Title id="0000000100000030" revision="4124" action="install" />
+			<Title id="0000000100000033" revision="4864" action="install" />
+			<Title id="0000000100000035" revision="5663" action="install" />
+			<Title id="0000000100000037" revision="5663" action="install" />
+			<Title id="0000000100000038" revision="5662" action="install" />
+			<Title id="0000000100000039" revision="5919" action="install" />
+			<Title id="000000010000003A" revision="6176" action="install" />
+			<Title id="000000010000003D" revision="5662" action="install" />
+			<Title id="0000000100000050" revision="6944" action="install" />
+			<Title id="00000001000000DE" revision="65280" action="install" />
+			<Title id="00000001000000DF" revision="65280" action="install" />
+			<Title id="00000001000000F9" revision="65280" action="install" />
+			<Title id="00000001000000FA" revision="65280" action="install" />
+			<Title id="00000001000000FE" revision="65280" action="install" />
+			<Title id="0000000100000100" revision="6" action="install" />
+			<Title id="0000000100000101" revision="10" action="install" />
       
       <!-- System Menu -->
-      <Title id="0000000100000002" revision="512" action="install" regions="0" />
-      <Title id="0000000100000002" revision="513" action="install" regions="1" />
+			<Title id="0000000100000002" revision="512" action="install" regions="0" />
+			<Title id="0000000100000002" revision="513" action="install" regions="1" />
       <Title id="0000000100000002" revision="514" action="install" regions="2" />
-      <Title id="0000000100000002" revision="518" action="install" regions="4" />
+			<Title id="0000000100000002" revision="518" action="install" regions="4" />
       <CiosInstaller source="60" revision="0" slot="80" />
       
       <!-- Old sysMenus stubs -->
-      <Title id="0000000100000014" revision="256" action="install" regions="0,1,2" />
-      <Title id="000000010000001E" revision="2816" action="install" regions="0,1,2" />
-      <Title id="0000000100000032" revision="5120" action="install" regions="0,1,2" />
-      <Title id="0000000100000034" revision="5888" action="install" regions="4" />
-      <Title id="000000010000003C" revision="6400" action="install" />
-      <Title id="0000000100000046" revision="6912" action="install" />
+			<Title id="0000000100000009" revision="1034" action="install" />
+			<Title id="000000010000000B" revision="256" action="install" />
+			<Title id="0000000100000014" revision="256" action="install" />
+			<Title id="000000010000001E" revision="2816" action="install" />
+			<Title id="0000000100000028" revision="3072" action="install" />
+			<Title id="0000000100000032" revision="5120" action="install" />
+			<Title id="0000000100000034" revision="5888" action="install" />
+			<Title id="000000010000003C" revision="6400" action="install" />
+			<Title id="0000000100000046" revision="6912" action="install" />
       
       <!-- Channels -->
       <Title id="0001000248414141" revision="2" action="install" regions="0,1,2" />
-      <Title id="0001000248414241" revision="19" action="install" regions="0,1,2" />
-      <Title id="000100024841424B" revision="19" action="install" regions="4" />
-      <Title id="0001000248414341" revision="6" action="install" regions="0,1,2" />
-      <Title id="000100024841464A" revision="7" action="install" regions="0" />
-      <Title id="0001000248414645" revision="7" action="install" regions="1" />
-      <Title id="0001000248414650" revision="7" action="install" regions="2" />
-      <Title id="000100024841474A" revision="7" action="install" regions="0" />
-      <Title id="0001000248414745" revision="7" action="install" regions="1" />
-      <Title id="0001000248414750" revision="7" action="install" regions="2" />
-      <Title id="0001000248415941" revision="3" action="install" regions="0,1,2" />
-      <Title id="000100024841594B" revision="3" action="install" regions="4" />
-      <Title id="0001000848414B4A" revision="3" action="install" regions="0" />
-      <Title id="0001000848414B45" revision="3" action="install" regions="1" />
-      <Title id="0001000848414B50" revision="3" action="install" regions="2" />
-      <Title id="0001000848414B4B" revision="3" action="install" regions="4" />
-      <Title id="0001000848414C4A" revision="2" action="install" regions="0" />
-      <Title id="0001000848414C45" revision="2" action="install" regions="1" />
-      <Title id="0001000848414C50" revision="2" action="install" regions="2" />
-      <Title id="0001000848414C4B" revision="2" action="install" regions="4" />
-      <Title id="000100084843434A" revision="2" action="install" regions="0" />
+			<Title id="0001000248414241" revision="20" action="install" regions="0,1,2" />
+			<Title id="000100024841424B" revision="20" action="install" regions="4" />
+			<Title id="0001000248414341" revision="6" action="install" regions="0,1,2" />
+			<Title id="0001000248414645" revision="7" action="install" regions="1" />
+			<Title id="000100024841464A" revision="7" action="install" regions="0" />
+			<Title id="0001000248414650" revision="7" action="install" regions="2" />
+			<Title id="0001000248414745" revision="7" action="install" regions="1" />
+			<Title id="000100024841474A" revision="7" action="install" regions="0" />
+			<Title id="0001000248414750" revision="7" action="install" regions="2" />
+			<Title id="0001000248415941" revision="3" action="install" regions="0,1,2" />
+			<Title id="000100024841594B" revision="3" action="install" regions="4" />
+			<Title id="0001000848414B45" revision="3" action="install" regions="1" />
+			<Title id="0001000848414B4A" revision="3" action="install" regions="0" />
+			<Title id="0001000848414B4B" revision="3" action="install" regions="4" />
+			<Title id="0001000848414B50" revision="3" action="install" regions="2" />
+			<Title id="0001000848414C45" revision="2" action="install" regions="1" />
+			<Title id="0001000848414C4A" revision="2" action="install" regions="0" />
+			<Title id="0001000848414C4B" revision="2" action="install" regions="4" />
+			<Title id="0001000848414C50" revision="2" action="install" regions="2" />
+			<Title id="000100084843434A" revision="2" action="install" regions="0" />
     </CompositeInstaller>
     
-    <CompositeInstaller option="uninstall" name="Clean Ioses">
+    <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
       <Title id="00000001000000FE" revision="65280" action="install" />
       <Title id="00000001000000DE" revision="65280" action="install" />
       <Title id="00000001000000DF" revision="65280" action="install" />
       <Title id="00000001000000FA" revision="65280" action="install" />
       <IOSReloader id="36" />
       <Title id="00000001000000F9" revision="65280" action="install" />
-      
-      <!-- remove ioses of an other region -->
-      
-      <Title id="000000010000000A" revision="768" action="uninstall" regions="4" />
-      <Title id="000000010000000B" revision="256" action="uninstall" regions="4" />
-      <Title id="000000010000000C" revision="525" action="uninstall" regions="4" />
-      <Title id="000000010000000D" revision="1031" action="uninstall" regions="4" />
-      <Title id="000000010000000E" revision="1031" action="uninstall" regions="4" />
-      <Title id="000000010000000F" revision="1031" action="uninstall" regions="4" />
-      <Title id="0000000100000011" revision="1031" action="uninstall" regions="4" />
-      <Title id="0000000100000014" revision="256" action="uninstall" regions="4" />
-      <Title id="0000000100000016" revision="1293" action="uninstall" regions="4" />
-      <Title id="000000010000001C" revision="1806" action="uninstall" regions="4" />
-      <Title id="000000010000001E" revision="2816" action="uninstall" regions="4" />
-      <Title id="000000010000001F" revision="3607" action="uninstall" regions="4" />
-      <Title id="0000000100000021" revision="3607" action="uninstall" regions="4" />
-      <Title id="0000000100000022" revision="3607" action="uninstall" regions="4" />
-      <Title id="0000000100000023" revision="3607" action="uninstall" regions="4" />
-      <Title id="0000000100000026" revision="4123" action="uninstall" regions="4" />      
-      <Title id="0000000100000028" revision="3072" action="uninstall" regions="0,1,2" />
-      <Title id="0000000100000029" revision="3606" action="uninstall" regions="0,1,2" />
-      <Title id="000000010000002B" revision="3606" action="uninstall" regions="0,1,2" />
-      <Title id="000000010000002D" revision="3606" action="uninstall" regions="0,1,2" />
-      <Title id="000000010000002E" revision="3606" action="uninstall" regions="0,1,2" />
-      <Title id="0000000100000030" revision="4123" action="uninstall" regions="0,1,2" />
-      <Title id="0000000100000032" revision="5120" action="uninstall" regions="4" />
-      <Title id="0000000100000034" revision="5888" action="uninstall" regions="0,1,2" />
     </CompositeInstaller>
     
     <CompositeInstaller option="Preloader" name="Preloader">

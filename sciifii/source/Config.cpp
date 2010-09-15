@@ -2,17 +2,8 @@
 #include "business/common/InstallerFactory.h"
 #include "business/common/FileManager.h"
 #include <libwiisys.h>
-
-
 #include <ogc/conf.h>
 #include <cstdlib>
-
-#include <libwiisys/logging/Log.h>
-#include <libwiisys/logging/FileLogger.h>
-#include <libwiisys/logging/GeckoLogger.h>
-
-#include <ogc/conf.h>
-#include <libwiisys/logging/WebLogger.h>
 
 using namespace std;
 using namespace Libwiisys;

@@ -4,12 +4,12 @@
 #include "../TitleStep.h"
 #include "../CiosCorp.h"
 #include "../Cios.h"
-#include "../SystemUpdater.h"
 #include "../WadBatch.h"
 #include "../Preloader.h"
 #include "../CompositeInstaller.h"
 #include "../FileDownloader.h"
 #include "../FileSystemTask.h"
+#include "../../Config.h"
 #include <libwiisys.h>
 #include <string>
 
@@ -23,6 +23,7 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::System;
 using namespace Libwiisys::System::Patching;
+
 Installer* InstallerFactory::Create(TiXmlElement* node)
 {
 	Installer* step(NULL);
@@ -113,9 +114,9 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 			section=section->NextSiblingElement();
 		}
 	}
-	else if(nodeValue == "SystemUpdater")
+	else if(nodeValue == "MemoryPatcher")
 	{
-		step = CreateSystemUpdater(node);
+		step = NULL;
 	}
 	else if(nodeValue == "Preloader")
 	{
@@ -221,7 +222,6 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 
 	return step;
 }
-
 
 void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
 {
@@ -427,46 +427,6 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
 
         child = child->NextSiblingElement();
     }
-}
-
-Installer* InstallerFactory::CreateSystemUpdater(TiXmlElement* node)
-{
-	SystemUpdater* step = new SystemUpdater();
-	TiXmlElement* child = node->FirstChildElement();
-
-    while(child != NULL)
-    {
-        if (child->Type() != TiXmlElement::COMMENT)
-        {
-            if (UtilString::ToStr(child->Value()) != "title")
-                throw Exception("UpdateList child node is invalid", -1);
-
-            u64 id = UtilString::ToU64(child->Attribute("id"), nr_hex);
-            u16 revision = UtilString::ToU16(child->Attribute("revision"));
-            s8 region = UtilString::ToS32(child->Attribute("region"), -1);
-            u64 slot = UtilString::ToU64(child->Attribute("slot"), 0);
-
-            if (region == -1 || region == (s32)Config::GetRegion())
-            {
-				titleDescriptor descriptor = (titleDescriptor){slot, id, revision};
-
-				u32 type = id >> 32;
-				//skip some channels
-				if (type != 1 && Title::IsInstalled(id))
-					if (Title::GetInstalledTitleVersion(id) >= revision)
-					{
-						child = child->NextSiblingElement();
-						continue;
-					}
-
-				step->AddTitle(descriptor);
-            }
-        }
-
-        child = child->NextSiblingElement();
-    };
-
-	return step;
 }
 
 void InstallerFactory::FillCompositeInstaller(Installer* composite, TiXmlElement* node)

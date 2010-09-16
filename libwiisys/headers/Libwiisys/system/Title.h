@@ -12,7 +12,8 @@
 #define TITLE_BLOCK_SIZE 1000
 
 #define TITLE_ROUND_UP(x,n)	(-(-(x) & -(n)))
-#define TITLE_ROUND_DOWN(x,n) ((typeof(x))((unsigned int)x & n))
+#define TITLE_ROUND_DOWN(x,n) ((x) & ~((n) - 1))
+
 #define INIT_PROCESS_CONTROL(p, s) p.tmdInfo = s;\
 		p.skipStep = false;\
 		p.abortProcess = false;

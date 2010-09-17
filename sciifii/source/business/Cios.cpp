@@ -18,7 +18,7 @@ using namespace Libwiisys::System;
 using namespace Libwiisys::System::Patching;
 
 
-Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision)
+Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision)
 : Installer(),
   _iosId(iosId),
   _iosRevision(iosRevision),

@@ -146,7 +146,6 @@
     <CompositeInstaller option="update" name="Update Ioses">
 		
 			<!-- classic ioses -->
-      <Title id="0000000100000001" revision="4" action="install" />
 			<Title id="0000000100000004" revision="65280" action="install" />
 			<Title id="000000010000000A" revision="768" action="install" />
 			<Title id="000000010000000C" revision="526" action="install" />
@@ -273,6 +272,7 @@
         <item slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
         <item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
         <item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+				<item slot="0000000100000050" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
       </items>
     </CorpInstaller>
 

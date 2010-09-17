@@ -227,7 +227,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 	u32 iosDest = UtilString::ToU32(node->Attribute("slot"));
 
 	u16 iosRevision = UtilString::ToU16(node->Attribute("revision"));
-	u16 ciosRevision = UtilString::ToU16(node->Attribute("ciosRevision"));
+	s32 ciosRevision = UtilString::ToS32(node->Attribute("ciosRevision"), -1);
 
 	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
 

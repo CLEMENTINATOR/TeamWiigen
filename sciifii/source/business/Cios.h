@@ -36,10 +36,10 @@ private:
 	u32 _iosId;
 	u16 _iosRevision;
 	u32 _slot;
-	u32 _ciosRevision;
+	s32 _ciosRevision;
 
 public:
-	Cios(u32 iosId, u16 iosRevision, u32 slot, u16 ciosRevision);
+	Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision);
 	bool Prepare();
 	void Install();
 	void SendToLog();

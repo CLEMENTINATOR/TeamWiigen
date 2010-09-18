@@ -65,3 +65,9 @@ void CompositeInstaller::SendToLog()
 	}
 	Log::WriteLog(Log_Info,"End of CompositeInstaller("+_name+")");
 }
+
+CompositeInstaller::~CompositeInstaller()
+{
+	for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
+		delete *ite;
+}

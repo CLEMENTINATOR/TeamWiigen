@@ -25,13 +25,6 @@ Sciifii::Sciifii()
 		(*ite)->Progressing += MakeDelegate(this, &Sciifii::DisplayProgress);
 }
 
-Sciifii::~Sciifii()
-{
-	vector<Installer*> steps = Config::Steps();
-	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-		(*ite)->Progressing -= MakeDelegate(this, &Sciifii::DisplayProgress);
-}
-
 void Sciifii::DisplayProgress(Object* sender, ProgressEventArgs* args)
 {
 	//erase the line
@@ -82,34 +75,37 @@ void Sciifii::Execute()
 	vector<Installer*> steps = Config::Steps();
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
-    try
-    {
-      (*ite)->Install();
-    }
-    catch(Exception& ex)
-    {
-      bool ignore = false;
-      for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
-        if(*itex == ex.GetCode())
-        {
-          ignore = true;
-          break;
-        }
-        
-      if(!ignore)
-        throw;
-      else
-      {
-        cout << endl << "\x1b[33mError " << ex.GetCode() << " ignored!\x1b[37m";
-        hasDisplayed = true;
-      }
-    }
+		try
+		{
+		  (*ite)->Install();
+		}
+		catch(Exception& ex)
+		{
+		  bool ignore = false;
+		  for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
+			if(*itex == ex.GetCode())
+			{
+			  ignore = true;
+			  break;
+			}
+
+		  if(!ignore)
+			throw;
+		  else
+		  {
+			cout << endl << "\x1b[33mError " << ex.GetCode() << " ignored!\x1b[37m";
+			hasDisplayed = true;
+		  }
+		}
     
 		if(hasDisplayed)
 		{
 			cout << endl;
 			hasDisplayed = false;
 		}
+
+		(*ite)->Progressing -= MakeDelegate(this, &Sciifii::DisplayProgress);
+		delete *ite;
 	}
 }
 

@@ -18,12 +18,13 @@ using namespace Libwiisys::System;
 using namespace Libwiisys::System::Patching;
 
 
-Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision)
+Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision, bool del)
 : Installer(),
   _iosId(iosId),
   _iosRevision(iosRevision),
   _slot(slot),
-  _ciosRevision(ciosRevision)
+  _ciosRevision(ciosRevision),
+  _delete(del)
 {}
 
 void Cios::AddModule(customModule descriptor)
@@ -118,10 +119,13 @@ void Cios::Install()
 
 		stringstream wadFile;
 		wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + _iosId, _iosRevision);
-        stringstream str;
-        str<<"Deleting old IOS"<<_slot<<" or stub";
-		OnProgress(str.str(), 0.2);
-		Title::Uninstall(0x0000000100000000ULL + _slot);
+        if(_delete)
+        {
+			stringstream str;
+			str<<"Deleting old IOS"<<_slot<<" or stub";
+			OnProgress(str.str(), 0.2);
+			Title::Uninstall(0x0000000100000000ULL + _slot);
+        }
 
 		OnProgress("Load base wad for cios and patch it!", 0.4);
 		cios.LoadFromWad(wadFile.str(), Config::WorkingDirectory());
@@ -155,4 +159,10 @@ void Cios::SendToLog()
 stringstream str;
 str<<"Cios("<<_iosId<<","<<_iosRevision<<","<<_slot<<","<<_ciosRevision<<")";
 Log::WriteLog(Log_Info,str.str());
+}
+
+Cios::~Cios()
+{
+	for(vector<Patch*>::iterator ite = _patches.begin(); ite != _patches.end(); ite++)
+		delete *ite;
 }

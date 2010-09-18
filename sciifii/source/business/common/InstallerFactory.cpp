@@ -224,12 +224,14 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 {
 	u32 iosSource = UtilString::ToU32(node->Attribute("source"));
-	u32 iosDest = UtilString::ToU32(node->Attribute("slot"));
+	u32 iosDest = UtilString::ToU32(node->Attribute("slot"), iosSource);
 
 	u16 iosRevision = UtilString::ToU16(node->Attribute("revision"));
 	s32 ciosRevision = UtilString::ToS32(node->Attribute("ciosRevision"), -1);
 
-	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision);
+	bool del = UtilString::ToBool(node->Attribute("delete"), false);
+
+	Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision, del);
 
     TiXmlElement* section = node->FirstChildElement();
 	while (section != NULL)
@@ -283,33 +285,33 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
            {
                string patchName=UtilString::ToStr(child->Attribute("name"));
 
-               ((Cios*)cios)->AddPatch(SimplePatch::getPatch(patchName));
+               ((Cios*)cios)->AddPatch(new SimplePatch(*SimplePatch::getPatch(patchName)));
            }
             if(nodeValue=="SimplePatch")
            {
-            string module=UtilString::ToStr(child->Attribute("module"),"");
-            Buffer pattern;
-            Buffer value;
-            vector<string> splitPattern = UtilString::Split(UtilString::ToStr(child->Attribute("pattern")),',');
-            vector<string> splitValue = UtilString::Split(UtilString::ToStr(child->Attribute("value")),',');
+				string module=UtilString::ToStr(child->Attribute("module"),"");
+				Buffer pattern;
+				Buffer value;
+				vector<string> splitPattern = UtilString::Split(UtilString::ToStr(child->Attribute("pattern")),',');
+				vector<string> splitValue = UtilString::Split(UtilString::ToStr(child->Attribute("value")),',');
 
-            for(u16 i = 0; i < splitPattern.size(); i++)
-            {
-               vector<string> val = UtilString::Split(splitPattern[i], 'x');
-               if(val.size() != 2)
-                    throw Exception("Value length !=2",-1);
+				for(u16 i = 0; i < splitPattern.size(); i++)
+				{
+				   vector<string> val = UtilString::Split(splitPattern[i], 'x');
+				   if(val.size() != 2)
+						throw Exception("Value length !=2",-1);
 
-               u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-               pattern.Append(&v, 1);
-            }
+				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+				   pattern.Append(&v, 1);
+				}
 
-            for(u16 i = 0; i < splitValue.size(); i++)
-            {
-               vector<string> val = UtilString::Split(splitValue[i], 'x');
-               u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-               value.Append(&v, 1);
-            }
-            SimplePatch*s=new SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),module);
+				for(u16 i = 0; i < splitValue.size(); i++)
+				{
+				   vector<string> val = UtilString::Split(splitValue[i], 'x');
+				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+				   value.Append(&v, 1);
+				}
+				SimplePatch*s=new SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),module);
                 ((Cios*)cios)->AddPatch(s);
            }
 

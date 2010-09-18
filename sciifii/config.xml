@@ -71,7 +71,7 @@
       <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
 		</MemoryPatcher>
 	
-    <CiosInstaller option="TBR" source="36" revision="0" slot="36">
+    <CiosInstaller option="TBR" source="36" revision="0">
       <patches>
         <prebuild name="ES_HashCheck_Old" />
         <prebuild name="ES_HashCheck_New" />
@@ -82,7 +82,7 @@
 	
     <IOSReloader option="TBR|cIOS249|cIOS250" id="36" user="0" />
     
-   <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" >
+   <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" delete="true">
       <modules>
         <module file="ehci_module.dat" position="3" />
         <module file="fat_module.dat" />
@@ -177,11 +177,6 @@
 			<Title id="000000010000003A" revision="6176" action="install" />
 			<Title id="000000010000003D" revision="5662" action="install" />
 			<Title id="0000000100000050" revision="6944" action="install" />
-			<Title id="00000001000000DE" revision="65280" action="install" />
-			<Title id="00000001000000DF" revision="65280" action="install" />
-			<Title id="00000001000000F9" revision="65280" action="install" />
-			<Title id="00000001000000FA" revision="65280" action="install" />
-			<Title id="00000001000000FE" revision="65280" action="install" />
 			<Title id="0000000100000100" revision="6" action="install" />
 			<Title id="0000000100000101" revision="10" action="install" />
       
@@ -204,7 +199,6 @@
 			<Title id="0000000100000046" revision="6912" action="install" />
       
       <!-- Channels -->
-      <Title id="0001000248414141" revision="2" action="install" regions="0,1,2" />
 			<Title id="0001000248414241" revision="20" action="install" regions="0,1,2" />
 			<Title id="000100024841424B" revision="20" action="install" regions="4" />
 			<Title id="0001000248414341" revision="6" action="install" regions="0,1,2" />

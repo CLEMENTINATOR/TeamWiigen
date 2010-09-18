@@ -71,7 +71,7 @@
       <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
 		</MemoryPatcher>
 	
-    <CiosInstaller option="TBR" source="36" revision="0">
+    <CiosInstaller option="TBR" source="36" revision="0" delete="true">
       <patches>
         <prebuild name="ES_HashCheck_Old" />
         <prebuild name="ES_HashCheck_New" />

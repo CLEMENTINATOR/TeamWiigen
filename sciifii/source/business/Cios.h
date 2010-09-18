@@ -37,14 +37,17 @@ private:
 	u16 _iosRevision;
 	u32 _slot;
 	s32 _ciosRevision;
+	bool _delete;
 
 public:
-	Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision);
+	Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision, bool del = false);
 	bool Prepare();
 	void Install();
 	void SendToLog();
 	void AddModule(customModule descriptor);
 	void AddPlugin(pluginDescriptor descriptor);
 	void AddPatch(Libwiisys::System::Patching::Patch* descriptor);
+
+	virtual ~Cios();
 };
 #endif

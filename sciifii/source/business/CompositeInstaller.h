@@ -19,6 +19,7 @@ public:
 	void AddStep(Installer* step);
 	bool Prepare();
 	void Install();
+	virtual ~CompositeInstaller();
 };
 
 #endif

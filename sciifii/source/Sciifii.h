@@ -14,7 +14,6 @@ private:
 	bool hasDisplayed;
 public:
 	Sciifii();
-	~Sciifii();
 	bool Prepare();
 	void Execute();
 	static std::string& LastStepMessage();

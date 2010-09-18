@@ -319,7 +319,17 @@ void Config::ValidateOptions()
             Instance()._validatedSteps.push_back(*step);
             (*step)->SendToLog();
         }
+        else
+        	delete *step;
     }
+
+    vector<option*> options = Instance()._options;
+    for(vector<option*>::iterator opt = options.begin(); opt != options.end(); opt++)
+    	delete *opt;
+
+    vector<mode*> modes = Instance()._modes;
+    for(vector<mode*>::iterator mod = modes.begin(); mod != modes.end(); mod++)
+        	delete *mod;
 }
 
 vector<mode*> Config::Modes()

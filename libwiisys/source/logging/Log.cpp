@@ -8,6 +8,7 @@ Log::Log() :
 	_logs.insert(make_pair(Log_Error, new vector<ILogProvider*> ()));
 	_logs.insert(make_pair(Log_Warning, new vector<ILogProvider*> ()));
 	_logs.insert(make_pair(Log_Info, new vector<ILogProvider*> ()));
+	_logs.insert(make_pair(Log_Debug, new vector<ILogProvider*> ()));
 }
 
 Log::~Log() {

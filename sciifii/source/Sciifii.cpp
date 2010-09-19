@@ -73,11 +73,13 @@ void Sciifii::Execute()
 	cout << "Please wait until sciifii finish the installation." << endl;
 
 	vector<Installer*> steps = Config::Steps();
+	MEM_DEBUG_INIT
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
 		try
 		{
 		  (*ite)->Install();
+		  MEM_DEBUG_FOLLOW("Step")
 		}
 		catch(Exception& ex)
 		{
@@ -93,7 +95,7 @@ void Sciifii::Execute()
 			throw;
 		  else
 		  {
-			cout << endl << "\x1b[33mError " << ex.GetCode() << " ignored!\x1b[37m";
+			cout << endl << "\x1b[33mStep skipped!\x1b[37m";
 			hasDisplayed = true;
 		  }
 		}

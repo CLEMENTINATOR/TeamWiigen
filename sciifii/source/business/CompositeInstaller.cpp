@@ -12,7 +12,8 @@ using namespace Libwiisys::Exceptions;
 
 CompositeInstaller::CompositeInstaller(const string& name)
 :  Installer(),
-   _name(name)
+   _name(name),
+   _cleaned(false)
 {}
 
 void CompositeInstaller::DisplayProgress(Object* sender, ProgressEventArgs* args)
@@ -49,11 +50,31 @@ void CompositeInstaller::Install()
 	for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
 	{
 		(*ite)->Progressing += MakeDelegate(this, &CompositeInstaller::DisplayProgress);
-		(*ite)->Install();
+		try
+		{
+			(*ite)->Install();
+		}
+		catch(Exception& ex)
+		{
+		  bool ignore = false;
+		  for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
+			if(*itex == ex.GetCode())
+			{
+			  ignore = true;
+			  break;
+			}
+
+		  if(!ignore)
+			throw;
+		  else
+			OnProgress("\x1b[33mSubstep skipped!\x1b[37m", (1 + _currentStep) / _steps.size());
+		}
 		(*ite)->Progressing -= MakeDelegate(this, &CompositeInstaller::DisplayProgress);
+		delete *ite;
 		_currentStep++;
 	}
 	
+	_cleaned = true;
 	OnProgress(_name + " installation done!", 1);
 }
 void CompositeInstaller::SendToLog()
@@ -68,6 +89,7 @@ void CompositeInstaller::SendToLog()
 
 CompositeInstaller::~CompositeInstaller()
 {
-	for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
-		delete *ite;
+	if(!_cleaned)
+		for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
+			delete *ite;
 }

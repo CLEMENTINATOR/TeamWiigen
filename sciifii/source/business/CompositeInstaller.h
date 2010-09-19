@@ -10,6 +10,7 @@ private:
 	std::vector<Installer*> _steps;
 	std::string _name;
 	u32 _currentStep;
+	bool _cleaned;
 	
 	void DisplayProgress(Object* sender, ProgressEventArgs* args);
 	

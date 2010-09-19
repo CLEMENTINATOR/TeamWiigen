@@ -117,6 +117,8 @@ void Config::CreateLogs(TiXmlElement* element)
         t = Lgt_Info;
       else if (cat == "all")
         t = Lgt_All;
+      else if (cat == "debug")
+              t = Lgt_Debug;
       else
         throw Exception("Invalid log category : "+cat, -1);
 

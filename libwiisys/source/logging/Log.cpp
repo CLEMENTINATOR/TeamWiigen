@@ -46,30 +46,31 @@ void Log::AddLogProvider(LogType type, ILogProvider* logger) {
 	if (status & (u8) Log_Info)
 		Current()._logs.find(Log_Info)->second->push_back(logger);
 
+	if (status & (u8) Log_Debug)
+			Current()._logs.find(Log_Debug)->second->push_back(logger);
+
 	Current()._hasLog = true;
 }
 
-void Log::Write(LogStatus status, const std::string& message, int line,
-		const char* file) {
+void Log::Write(LogStatus status, const std::string& message, int line,	const char* file) {
 	if (!Current()._hasLog || !Current()._isInit)
 		return;
 
-	for (map<LogStatus, vector<ILogProvider*>*>::iterator ite =
-			Current()._logs.begin(); ite != Current()._logs.end(); ite++) {
+	for (map<LogStatus, vector<ILogProvider*>*>::iterator ite =	Current()._logs.begin(); ite != Current()._logs.end(); ite++) {
 		if ((ite->first & status) > 0)
-			for (vector<ILogProvider*>::iterator lite = ite->second->begin(); lite
-					!= ite->second->end(); lite++) {
+			for (vector<ILogProvider*>::iterator lite = ite->second->begin(); lite != ite->second->end(); lite++)
+			{
 				if ((ite->first & Log_Error) == Log_Error)
-					(*lite)->WriteError(message, line, file,
-							Current()._appName, Current()._appVersion);
+					(*lite)->WriteError(message, line, file, Current()._appName, Current()._appVersion);
 
 				if ((ite->first & Log_Warning) == Log_Warning)
-					(*lite)->WriteWarning(message, line, file,
-							Current()._appName, Current()._appVersion);
+					(*lite)->WriteWarning(message, line, file, Current()._appName, Current()._appVersion);
 
 				if ((ite->first & Log_Info) == Log_Info)
-					(*lite)->WriteInfo(message, line, file, Current()._appName,
-							Current()._appVersion);
+					(*lite)->WriteInfo(message, line, file, Current()._appName, Current()._appVersion);
+
+				if ((ite->first & Log_Debug) == Log_Debug)
+									(*lite)->WriteInfo(message, line, file, Current()._appName, Current()._appVersion);
 			}
 	}
 }

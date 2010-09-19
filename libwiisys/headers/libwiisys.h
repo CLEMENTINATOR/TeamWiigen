@@ -19,6 +19,19 @@
  *
  */
 
+#define MEM_DEBUG_INIT struct mallinfo dbg_meminfo = mallinfo(); \
+	int mem_old_free_dbg = dbg_meminfo.fordblks; \
+	int mem_new_free_dbg = 0; \
+	int mem_old_use_dbg = dbg_meminfo.uordblks; \
+	int mem_new_use_dbg = 0; \
+	stringstream memdbg;
+
+#define MEM_DEBUG_FOLLOW(name) dbg_meminfo = mallinfo(); \
+	int mem_new_free_dbg = dbg_meminfo.fordblks; \
+	int mem_new_use_dbg = dbg_meminfo.uordblks; \
+	memdbg.str(""); \
+	memdbg << name << "  |  dif: " << mem_new_use_dbg - mem_old_use_dbg; \
+	Log::WriteLog(Log_Debug, memdbg.str());
 
 #ifdef __cplusplus
 

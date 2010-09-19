@@ -14,6 +14,7 @@ namespace Libwiisys {
 			Lgt_Warning = 2,//!< Lgt_Warning
 			Lgt_Info = 4, //!< Lgt_Info
 			Lgt_All = 7, //!< Lgt_All
+			Lgt_Debug = 8,
 		}LogType;
 
 	}}

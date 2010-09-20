@@ -31,7 +31,7 @@
 	mem_new_use_dbg = dbg_meminfo.uordblks; \
 	memdbg.str(""); \
 	memdbg << name << "  |  dif: " << mem_new_use_dbg - mem_old_use_dbg << "  |  used: " << mem_new_use_dbg << "  |  free: " << mem_new_free_dbg << endl; \
-	Log::WriteLog(Log_Debug, memdbg.str()); \
+	Libwiisys::Logging::Log::WriteLog(Libwiisys::Logging::Log_Debug, memdbg.str()); \
 	mem_old_free_dbg = mem_new_free_dbg; \
 	mem_old_use_dbg = mem_new_use_dbg;
 

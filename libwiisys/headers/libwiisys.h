@@ -27,11 +27,14 @@
 	stringstream memdbg;
 
 #define MEM_DEBUG_FOLLOW(name) dbg_meminfo = mallinfo(); \
-	int mem_new_free_dbg = dbg_meminfo.fordblks; \
-	int mem_new_use_dbg = dbg_meminfo.uordblks; \
+	mem_new_free_dbg = dbg_meminfo.fordblks; \
+	mem_new_use_dbg = dbg_meminfo.uordblks; \
 	memdbg.str(""); \
-	memdbg << name << "  |  dif: " << mem_new_use_dbg - mem_old_use_dbg; \
-	Log::WriteLog(Log_Debug, memdbg.str());
+	memdbg << name << "  |  dif: " << mem_new_use_dbg - mem_old_use_dbg << "  |  used: " << mem_new_use_dbg << "  |  free: " << mem_new_free_dbg << endl; \
+	Log::WriteLog(Log_Debug, memdbg.str()); \
+	mem_old_free_dbg = mem_new_free_dbg; \
+	mem_old_use_dbg = mem_new_use_dbg;
+
 
 #ifdef __cplusplus
 

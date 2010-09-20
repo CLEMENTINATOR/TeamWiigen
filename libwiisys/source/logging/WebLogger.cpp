@@ -31,6 +31,11 @@ void WebLogger::WriteInfo(const string& message, int line, const char* file,
 	Write("NFO", message, line, file, appName, appVersion);
 }
 
+void WebLogger::WriteDebug(const string& message, int line, const char* file,
+		const string& appName, const string& appVersion) {
+	Write("DBG", message, line, file, appName, appVersion);
+}
+
 void WebLogger::Write(const string& type, const string& message, int line,
 		const char* file, const string& appName, const string& appVersion) {
 	try {

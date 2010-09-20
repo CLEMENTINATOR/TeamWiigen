@@ -56,6 +56,18 @@ namespace Libwiisys {
 			virtual void WriteInfo( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion) = 0;
 
 			/**
+			 * @brief Write a debug (needs to be implemented in inherited class)
+			 * @param message The message
+			 * @param line The line where the error occured
+			 * @param file The file where the error occured
+			 * @param appName The application name
+			 * @param appVersion The application version
+			 * @see WriteLog(status,message)
+			 */
+			virtual void WriteDebug( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion) = 0;
+
+
+			/**
 			 * @brief Start the logging(needs to be reimplemented in inherited class)
 			 */
 			virtual void Start()=0;

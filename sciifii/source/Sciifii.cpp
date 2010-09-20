@@ -73,14 +73,11 @@ void Sciifii::Execute()
 	cout << "Please wait until sciifii finish the installation." << endl;
 
 	vector<Installer*> steps = Config::Steps();
-	MEM_DEBUG_INIT
 	for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
 	{
 		try
 		{
-		  MEM_DEBUG_FOLLOW("Before Step")
 		  (*ite)->Install();
-		  MEM_DEBUG_FOLLOW("Step")
 		}
 		catch(Exception& ex)
 		{

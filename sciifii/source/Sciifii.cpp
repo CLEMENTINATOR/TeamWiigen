@@ -78,6 +78,7 @@ void Sciifii::Execute()
 	{
 		try
 		{
+		  MEM_DEBUG_FOLLOW("Before Step")
 		  (*ite)->Install();
 		  MEM_DEBUG_FOLLOW("Step")
 		}

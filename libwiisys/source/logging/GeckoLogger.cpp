@@ -48,6 +48,14 @@ void GeckoLogger::WriteInfo(const std::string& message, int line,
 	Write(formatedMessage.str());
 }
 
+void GeckoLogger::WriteDebug(const std::string& message, int line,
+		const char* file, const string& appName, const string& appVersion) {
+	stringstream formatedMessage;
+	formatedMessage << "Debug " << " (" << file << " line : " << line << "): "
+			<< message;
+	Write(formatedMessage.str());
+}
+
 void GeckoLogger::Write(const std::string& text) {
 	string sendText(text + "\n");
 	usb_sendbuffer_safe(1, sendText.c_str(), sendText.size() + 1);

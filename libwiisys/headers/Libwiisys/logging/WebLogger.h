@@ -69,6 +69,17 @@ namespace Libwiisys {
 			void WriteInfo(const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
 
 			/**
+			 * @brief Write a debug information to the WebLogger
+			 * @param message The message
+			 * @param line The line where the error occured
+			 * @param file The file where the error occured
+			 * @param appName The application name
+			 * @param appVersion The application version
+			 * @see WriteLog(status,message)
+			 */
+			void WriteDebug( const std::string& message,int line,const char* file, const std::string& appName, const std::string& appVersion);
+
+			/**
 			 * @brief Write an text to the WebLogger
 			 * @param message The message
 			 * @param type Type of the log(ERR,WAR,NFO)

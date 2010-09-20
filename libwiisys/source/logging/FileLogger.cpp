@@ -73,3 +73,11 @@ void FileLogger::WriteInfo(const std::string& message, int line,
 			<< message;
 	Write(formatedMessage.str());
 }
+
+void FileLogger::WriteDebug(const std::string& message, int line, const char* file, const string& appName, const string& appVersion)
+{
+	stringstream formatedMessage;
+	formatedMessage << "Debug " << " (" << file << " line : " << line << "): "
+			<< message;
+	Write(formatedMessage.str());
+}

@@ -30,7 +30,6 @@ void CompositeInstaller::AddStep(Installer* step)
 bool CompositeInstaller::Prepare()
 {
 	_currentStep = 0;
-	
 	for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
 	{
 		(*ite)->Progressing += MakeDelegate(this, &CompositeInstaller::DisplayProgress);
@@ -45,18 +44,13 @@ bool CompositeInstaller::Prepare()
 
 void CompositeInstaller::Install()
 {
-	MEM_DEBUG_INIT
-	_currentStep = 0;
-	
+	_currentStep = 0;	
 	for(vector<Installer*>::iterator ite = _steps.begin(); ite != _steps.end(); ite++)
 	{
 		(*ite)->Progressing += MakeDelegate(this, &CompositeInstaller::DisplayProgress);
 		try
 		{
-			MEM_DEBUG_FOLLOW("Before substep")
 			(*ite)->Install();
-
-			MEM_DEBUG_FOLLOW("substep")
 		}
 		catch(Exception& ex)
 		{

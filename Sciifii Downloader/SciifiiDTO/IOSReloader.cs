@@ -13,12 +13,9 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "id")]
         public UInt32 Id { get; set; }
 
-        [XmlAttribute(AttributeName = "user")]
-        public Int32 UserId { get; set; }
-
         public IOSReloader()
         {
-            UserId = -1;
+            
         }
     }
 }

@@ -11,12 +11,9 @@ class IosReloader : public Installer
 {
 private:
 	u32 _id;
-	bool _identify;
-	UserType _type;
 
 public:
 	IosReloader(u32 ios);
-	IosReloader(u32 ios, UserType type);
 	bool Prepare();
 	void SendToLog();
 

@@ -1,19 +1,18 @@
-#ifndef _IOSRELOADER_H_
-#define _IOSRELOADER_H_
+#ifndef _IDENTIFIER_H_
+#define _IDENTIFIER_H_
 
 #include <string>
-#include <gctypes.h>
 #include <libwiisys.h>
 
 #include "common/Installer.h"
 
-class IosReloader : public Installer
+class Identifier : public Installer
 {
 private:
-	u32 _id;
+	UserType _type;
 
 public:
-	IosReloader(u32 ios);
+	Identifier(UserType type);
 	bool Prepare();
 	void SendToLog();
 

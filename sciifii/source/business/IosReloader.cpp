@@ -1,5 +1,4 @@
 #include "IosReloader.h"
-#include "../Config.h"
 
 #include <libwiisys.h>
 #include <ogc/ios.h>
@@ -13,15 +12,7 @@ using namespace Libwiisys::Logging;
 
 IosReloader::IosReloader(u32 ios)
 : Installer(),
-  _id(ios),
-  _identify(false)
-{}
-
-IosReloader::IosReloader(u32 ios, UserType type)
-: Installer(),
-  _id(ios),
-  _identify(true),
-  _type(type)
+  _id(ios)
 {}
 
 bool IosReloader::Prepare()
@@ -35,8 +26,6 @@ void IosReloader::Install()
 	txt << "Reloading under IOS" << _id;
 	OnProgress(txt.str(), 1);
 	Title::ReloadIOS(_id);
-	if(_identify)
-	  Identification::IdentifyAs(_type);
 }
 void IosReloader::SendToLog()
 {

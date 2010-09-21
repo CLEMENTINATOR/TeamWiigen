@@ -10,6 +10,7 @@
 #include "../FileDownloader.h"
 #include "../FileSystemTask.h"
 #include "../MemoryPatcher.h"
+#include "../Identifier.h"
 #include "../../Config.h"
 #include <libwiisys.h>
 #include <string>
@@ -42,18 +43,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	else if(nodeValue == "IOSReloader")
 	{
 		u32 id = UtilString::ToU32(node->Attribute("id"));
-		s32 userId = UtilString::ToS32(node->Attribute("user"), -1);
-
-
-		if(userId == -1)
-			step = new IosReloader(id);
-		else
-		{
-			u16 realUserId = (u16)userId;
-			UserType ut = (UserType)realUserId;
-			step = new IosReloader(id, ut);
-		}
-
+		step = new IosReloader(id);
 	}
 	else if(nodeValue == "Title")
 	{
@@ -146,6 +136,11 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 			}
 			patch = patch->NextSiblingElement();
 		}
+	}
+	else if(nodeValue == "Identifier")
+	{
+		u16 user = UtilString::ToU16(node->Attribute("user"));
+		step = new Identifier((UserType)user);
 	}
 	else if(nodeValue == "Preloader")
 	{

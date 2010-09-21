@@ -41,14 +41,13 @@
   </files>
 
   <modes>
-    <mode text="Hack your wii ! (Light Mode)" options="TBR|cIOS249|cIOS250|Preloader" />
-    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="TBR|cIOS249|cIOS250|Preloader|GXLoader" />
-    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="TBR|cIOS249|cIOS250|Preloader|wiiflow" />
-    <mode text="Unhack your wii" options="TBR|cIOS249|update|uninstall" />
+    <mode text="Hack your wii ! (Light Mode)" options="cIOS249|cIOS250|Preloader" />
+    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="cIOS249|cIOS250|Preloader|GXLoader" />
+    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="cIOS249|cIOS250|Preloader|wiiflow" />
+    <mode text="Unhack your wii" options="cIOS249|update|uninstall" />
   </modes>
 
   <options>
-    <option name="TBR" text="Restore Trucha Bug" />
     <option name="cIOS249" text="Install cios249 rev 17" />
     <option name="cIOS250" text="Install cios250 rev 19 (base 37)" />
     <option name="update" text="Update your wii to 4.3" />
@@ -62,16 +61,21 @@
   </options>  
 
   <steps>
-    <MemoryPatcher option="TBR">
-				  <patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
-				  <patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
-				  <patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
-				  <patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
-      <patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
-      <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
-		  </MemoryPatcher>
+		<CompositeInstaller option="cIOS249|cIOS250" name="trucha IOS">
+			<MemoryPatcher>
+				<patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
+				<patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
+				<patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
+				<patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
+				<patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
+				<patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
+			</MemoryPatcher>
+			
+			<Identifier user="0" />
+		</CompositeInstaller>
 	
-    <CiosInstaller option="TBR" source="36" revision="0" slot="36" ciosRevision="65535">
+    <!--
+		<CiosInstaller option="TBR" source="36" revision="0"  exceptions="-1035">
       <patches>
         <prebuild name="ES_HashCheck_Old" />
         <prebuild name="ES_HashCheck_New" />
@@ -80,9 +84,13 @@
       </patches>
     </CiosInstaller>
 	
-    <IOSReloader option="TBR|cIOS249|cIOS250" id="36" user="0" />
+		<CompositeInstaller option="TBR|cIOS249|cIOS250">
+			<IOSReloader id="36" />
+			<Identifier user="0" />
+		</CompositeInstaller>
+		-->
     
-   <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" >
+   <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" delete="true">
       <modules>
         <module file="ehci_module.dat" position="3" />
         <module file="fat_module.dat" />
@@ -125,7 +133,7 @@
     </CiosInstaller>
 	
     
-    <CiosInstaller option="cIOS250" source="37" revision="3869" slot="250" ciosRevision="19" >
+    <CiosInstaller option="cIOS250" source="37" revision="3869" slot="250" ciosRevision="19" delete="true">
       <modules>
         <module file="mload_module_19.dat" />
         <module file="ehci_module_19.dat" position="3" />
@@ -146,7 +154,6 @@
     <CompositeInstaller option="update" name="Update Ioses">
 		
 			<!-- classic ioses -->
-      <Title id="0000000100000001" revision="4" action="install" />
 			<Title id="0000000100000004" revision="65280" action="install" />
 			<Title id="000000010000000A" revision="768" action="install" />
 			<Title id="000000010000000C" revision="526" action="install" />
@@ -178,11 +185,6 @@
 			<Title id="000000010000003A" revision="6176" action="install" />
 			<Title id="000000010000003D" revision="5662" action="install" />
 			<Title id="0000000100000050" revision="6944" action="install" />
-			<Title id="00000001000000DE" revision="65280" action="install" />
-			<Title id="00000001000000DF" revision="65280" action="install" />
-			<Title id="00000001000000F9" revision="65280" action="install" />
-			<Title id="00000001000000FA" revision="65280" action="install" />
-			<Title id="00000001000000FE" revision="65280" action="install" />
 			<Title id="0000000100000100" revision="6" action="install" />
 			<Title id="0000000100000101" revision="10" action="install" />
       
@@ -205,7 +207,6 @@
 			<Title id="0000000100000046" revision="6912" action="install" />
       
       <!-- Channels -->
-      <Title id="0001000248414141" revision="2" action="install" regions="0,1,2" />
 			<Title id="0001000248414241" revision="20" action="install" regions="0,1,2" />
 			<Title id="000100024841424B" revision="20" action="install" regions="4" />
 			<Title id="0001000248414341" revision="6" action="install" regions="0,1,2" />
@@ -273,6 +274,7 @@
         <item slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
         <item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
         <item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+				<item slot="0000000100000050" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
       </items>
     </CorpInstaller>
 

@@ -67,6 +67,7 @@
     <Compile Include="Cios\PluginHeader.cs" />
     <Compile Include="Cios\PreBuildPatch.cs" />
     <Compile Include="Cios\SimplePatch.cs" />
+    <Compile Include="Identifier.cs" />
     <Compile Include="MemoryPatcher.cs" />
     <Compile Include="Preloader.cs" />
     <Compile Include="CompositeInstaller.cs" />

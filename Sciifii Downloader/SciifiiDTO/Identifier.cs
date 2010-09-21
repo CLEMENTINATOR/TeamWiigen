@@ -7,15 +7,15 @@ using System.Xml.Serialization;
 namespace SciifiiDTO
 {
     [Serializable]
-    [XmlType(TypeName = "IOSReloader")]
-    public class IOSReloader : Step
+    [XmlType(TypeName = "Identifier")]
+    public class Identifier : Step
     {
-        [XmlAttribute(AttributeName = "id")]
-        public UInt32 Id { get; set; }
+        [XmlAttribute(AttributeName = "user")]
+        public UInt32 userId { get; set; }
 
-        public IOSReloader()
+        public Identifier()
         {
-            
+
         }
     }
 }

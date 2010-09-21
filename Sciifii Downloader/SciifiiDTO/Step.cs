@@ -25,7 +25,7 @@ namespace SciifiiDTO
             get
             {
                 List<string> regs = RegionsString.Split(',').ToList();
-                return (from r in regs select (Regions)Enum.Parse(typeof(Regions), r)).ToList();
+                return (from r in regs select (Regions)int.Parse(r.Trim())).ToList();
             }
         }
 

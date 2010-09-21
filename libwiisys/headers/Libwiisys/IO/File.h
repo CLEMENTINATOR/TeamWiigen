@@ -73,7 +73,9 @@ namespace Libwiisys {namespace IO {
 			 * @param len The len to read
 			 * @return The len read
 			 */
-			virtual u32 Read(Buffer& b,u32 len) = 0;
+			virtual u32 Read(Buffer& b,u32 len, u32 offset = -1) = 0;
+
+			virtual void Seek(u32 offset) = 0;
 
 			/*!
 			 * \brief Close the opened file

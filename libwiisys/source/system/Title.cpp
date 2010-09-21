@@ -287,10 +287,13 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 	TitleEventArgs processControl;
 	_dataLen = 0;
 	//getting wadBuffer
-	Buffer wadBuffer = File::ReadToEnd(file);
+	File& wadBuffer = File::Open(file, FileMode_Read);
 
-	try {
-		wad_header *header = (wad_header*) wadBuffer.Content();
+	try
+	{
+		Buffer b_header;
+		wadBuffer.Read(b_header, sizeof(wad_header));
+		wad_header *header = (wad_header*) b_header.Content();
 
 		//getting offsets
 		u32 o_cert = TITLE_ROUND_UP(header->header_len, 64);
@@ -300,32 +303,33 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 		u32 o_ctnt = o_tmd + TITLE_ROUND_UP(header->tmd_len, 64);
 
 		//create temp directory
-		Buffer p_tmd((char*) header + o_tmd,
-				TITLE_ROUND_UP(header->tmd_len, 64));
-		tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD(
-				(signed_blob*) p_tmd.Content());
-		CreateTempDirectory(tmd_data->title_id, tmd_data->title_version,
-				tempFolder);
+		Buffer p_tmd;
+		wadBuffer.Read(p_tmd, TITLE_ROUND_UP(header->tmd_len, 64), o_tmd);
+		tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) p_tmd.Content());
+		CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
 
 		// register certs and crl
 		{
-			Buffer b_cert((char*) header + o_cert, header->certs_len);
+			Buffer b_cert;
+			wadBuffer.Read(b_cert, TITLE_ROUND_UP(header->certs_len, 64), o_cert);
 			Certificate(b_cert);
 		}
 
-		if (header->crl_len != 0) {
-			Buffer b_crl((char*) header + o_crl, header->crl_len);
+		if (header->crl_len != 0)
+		{
+			Buffer b_crl;
+			wadBuffer.Read(b_crl, TITLE_ROUND_UP(header->crl_len, 64), o_crl);
 			Crl(b_crl);
 		}
 
 		//Getting Tiket
 		processControl.buffer.Clear();
-		processControl.buffer.Append((char*) header + o_tik,
-				TITLE_ROUND_UP(header->tik_len, 64));
+		wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(header->tik_len, 64), o_tik);
 		DecryptTitleKey(processControl.buffer);
 		INIT_PROCESS_CONTROL(processControl, NULL);
 		OnTicketLoading(processControl);
-		if (!processControl.skipStep) {
+		if (!processControl.skipStep)
+		{
 			Ticket(processControl.buffer);
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTicketLoaded(processControl);
@@ -343,35 +347,38 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 		tmd_data = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) p_tmd.Content());
 
 		//getting contents
-		void* p_content = (char*) header + o_ctnt;
-		for (u32 contentIndex = 0; contentIndex < tmd_data->num_contents; contentIndex++) {
+		u32 contentOffset = o_ctnt;
+		for (u32 contentIndex = 0; contentIndex < tmd_data->num_contents; contentIndex++)
+		{
 			tmd_content &content = tmd_data->contents[contentIndex];
 			u64 wadContentSize = content.size;
 
 			processControl.buffer.Clear();
-			processControl.buffer.Append(p_content,
-					TITLE_ROUND_UP(content.size, 64));
+			wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(content.size, 64), contentOffset);
 			_dataLen += TITLE_ROUND_UP(content.size, 64);
 
 			INIT_PROCESS_CONTROL(processControl, &content);
 			OnContentLoading(processControl);
-			if (!processControl.skipStep) {
+			if (!processControl.skipStep)
+			{
 				AddContent(processControl.buffer, content.cid);
 				INIT_PROCESS_CONTROL(processControl, &content);
 				OnContentLoaded(processControl);
 			}
 
-			p_content = (u8*) p_content + TITLE_ROUND_UP(wadContentSize, 64);
+			contentOffset += TITLE_ROUND_UP(wadContentSize, 64);
 		}
 
-		if (!skipTmd) {
+		if (!skipTmd)
+		{
 			Tmd(p_tmd);
 			processControl.buffer = p_tmd;
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTmdLoaded(processControl);
 		}
-	} catch (AbortException &ex) {
 	}
+	catch (AbortException &ex)
+	{}
 }
 
 void Title::PackAsWad(const string& fileName) {

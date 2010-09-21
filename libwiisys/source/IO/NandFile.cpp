@@ -69,7 +69,17 @@ void NandFile::Write(const Buffer& b) {
 		throw Exception("Error writing file!", -1);
 }
 
-u32 NandFile::Read(Buffer& b, u32 len) {
+u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
+{
+	if(offset != (u32)-1)
+	{
+		if(offset + len > _fileLength)
+			throw Exception("Can't read the file. EOF will be reached.", offset + len);
+
+		Seek(offset);
+		_rest.Clear();
+	}
+
 	s32 nbLus = 0;
 	s32 restToRead = len;
 
@@ -106,6 +116,14 @@ u32 NandFile::Read(Buffer& b, u32 len) {
 
 	free(tempBuffer);
 	return nbLus;
+}
+
+void NandFile::Seek(u32 offset)
+{
+	if(offset > _fileLength)
+		throw Exception("Can't seek out of the file", offset);
+
+	ISFS_Seek(_fd, offset, SEEK_SET);
 }
 
 void NandFile::Close() {

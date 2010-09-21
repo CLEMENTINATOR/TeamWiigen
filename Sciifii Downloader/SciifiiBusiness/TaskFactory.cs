@@ -6,7 +6,6 @@ using SciifiiDTO;
 using SciifiiDTO.Corp;
 using SciifiiDTO.Cios;
 using System.Globalization;
-using SciifiiDTO.Updater;
 
 namespace SciifiiBusiness
 {
@@ -144,27 +143,6 @@ namespace SciifiiBusiness
             worker.ReportProgress((int)(100 * progress));
         }
 
-        internal void PrepareSystemUpdate(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
-        {
-            SystemUpdater step = s as SystemUpdater;
-            List<Title> titleToInstall = step.Titles.Where(t => t.Region == Regions.ALL || t.Region == config.SelectedRegion).ToList();
-            double progressStep = 1.0 / titleToInstall.Count;
-
-            double progress = (double)stepIndex / nbSteps;
-            worker.ReportProgress((int)(100 * progress));
-
-            foreach (Title t in titleToInstall)
-            {
-                if (worker.CancellationPending)
-                    break;
-                
-                NUSDownloader.DownloadWad(UInt64.Parse(t.TitleId, System.Globalization.NumberStyles.HexNumber), t.TitleRevision, GetRealPath(folder, config.workingDirectory));
-                message("Title " + t.TitleId + " rev" + t.TitleRevision);
-                progress += progressStep / nbSteps;
-                worker.ReportProgress((int)(100 * progress));
-            }
-        }
-
         internal void PrepareFileDownloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             String fileName = "";
@@ -194,6 +172,18 @@ namespace SciifiiBusiness
             worker.ReportProgress((int)(100 * progress));
         }
 
+        internal void PreparePreloader(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
+        {
+            Preloader step = s as Preloader;
+
+            ManagedFile file = config.ManagedFiles.Where(mf => mf.Key == step.File).First();
+            FileDownloader.Download(file.Key, file.Url, file.ShaUrl, file.FilePath, folder, config.workingDirectory);
+            message(file.Key);
+
+            double progress = (double)(stepIndex + 1) / nbSteps;
+            worker.ReportProgress((int)(100 * progress));
+        }
+
         internal void PrepareComposite(Step s, string folder, SciifiiConfiguration config, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             CompositeInstaller step = s as CompositeInstaller;
@@ -201,6 +191,10 @@ namespace SciifiiBusiness
             {
                 if (worker.CancellationPending)
                     break;
+
+                if (!innerStep.Regions.Contains(config.SelectedRegion))
+                    continue;
+
                 Task t = CreateTask(innerStep);
 
                 if (innerStep is CompositeInstaller)
@@ -223,12 +217,12 @@ namespace SciifiiBusiness
                 return new Task { Step = step, job = PrepareTitleInstaller };
             else if (step is TitleDowngrader)
                 return new Task { Step = step, job = PrepareTitleDowngrader };
-            else if (step is SystemUpdater)
-                return new Task { Step = step, job = PrepareSystemUpdate };
-            else if (step is SciifiiDTO.FileDownloader || step is SciifiiDTO.Preloader) //Same process just different cast
+            else if (step is SciifiiDTO.FileDownloader)
                 return new Task { Step = step, job = PrepareFileDownloader };
             else if (step is CompositeInstaller)
                 return new Task { Step = step, job = PrepareComposite };
+            else if (step is Preloader)
+                return new Task { Step = step, job = PreparePreloader };
             else
                 return new Task { Step = step, job = PrepareEmptyTask };
         }

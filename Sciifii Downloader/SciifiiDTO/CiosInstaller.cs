@@ -21,7 +21,7 @@ namespace SciifiiDTO
         public UInt32 DestinationSlot { get; set; }
 
         [XmlAttribute(AttributeName = "ciosRevision")]
-        public UInt32 DestinationRevision { get; set; }
+        public Int32 DestinationRevision { get; set; }
 
         [XmlArrayItem(ElementName = "module", Type = typeof(CiosModule))]
         [XmlArray(ElementName = "modules")]
@@ -40,6 +40,7 @@ namespace SciifiiDTO
         {
             Plugins = new List<Plugin>();
             Modules = new List<CiosModule>();
+            DestinationRevision = -1;
         }
     }
 }

@@ -135,7 +135,7 @@ void Config::CreateLogs(TiXmlElement* element)
         GeckoLogger* g = new GeckoLogger();
         Log::AddLogProvider(t,g);
       }
-      else if (type=="web")
+      else if (type=="web" && _hasNetwork)
       {
     	  if(url=="")
     		  throw Exception("Weblogger needs an url for logging  !", -1);

@@ -192,7 +192,7 @@ namespace SciifiiBusiness
                 if (worker.CancellationPending)
                     break;
 
-                if (!innerStep.Regions.Contains(config.SelectedRegion) & !innerStep.Regions.Contains(Regions.All))
+                if (!innerStep.Regions.Contains(config.SelectedRegion) & !innerStep.Regions.Contains(Regions.ALL))
                     continue;
 
                 Task t = CreateTask(innerStep);

@@ -379,6 +379,21 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 	}
 	catch (AbortException &ex)
 	{}
+	catch(Exception &ex)
+	{
+		wadBuffer.Close();
+		delete &wadBuffer;
+		throw;
+	}
+	catch(...)
+	{
+		wadBuffer.Close();
+		delete &wadBuffer;
+		throw;
+	}
+	
+	wadBuffer.Close();
+	delete &wadBuffer;
 }
 
 void Title::PackAsWad(const string& fileName) {

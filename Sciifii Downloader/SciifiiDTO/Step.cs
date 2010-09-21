@@ -24,8 +24,8 @@ namespace SciifiiDTO
         {
             get
             {
-                List<string> opts = OptionsString.Split(',').ToList();
-                return (from o in opts select (Regions)Enum.Parse(typeof(Regions), o)).ToList();
+                List<string> regs = RegionsString.Split(',').ToList();
+                return (from r in regs select (Regions)Enum.Parse(typeof(Regions), r)).ToList();
             }
         }
 

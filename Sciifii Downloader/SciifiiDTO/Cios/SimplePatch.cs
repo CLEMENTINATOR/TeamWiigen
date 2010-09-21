@@ -15,5 +15,8 @@ namespace SciifiiDTO.Cios
 
         [XmlAttribute(AttributeName = "value")]
         public string Value { get; set; }
+
+        [XmlAttribute(AttributeName = "module")]
+        public string Module { get; set; }
     }
 }

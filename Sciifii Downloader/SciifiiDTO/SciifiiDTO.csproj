@@ -67,6 +67,7 @@
     <Compile Include="Cios\PluginHeader.cs" />
     <Compile Include="Cios\PreBuildPatch.cs" />
     <Compile Include="Cios\SimplePatch.cs" />
+    <Compile Include="MemoryPatcher.cs" />
     <Compile Include="Preloader.cs" />
     <Compile Include="CompositeInstaller.cs" />
     <Compile Include="FileDownloader.cs" />
@@ -79,10 +80,8 @@
     <Compile Include="Region.cs" />
     <Compile Include="SciifiiConfiguration.cs" />
     <Compile Include="Step.cs" />
-    <Compile Include="SystemUpdater.cs" />
     <Compile Include="TitleDowngrader.cs" />
     <Compile Include="TitleInstaller.cs" />
-    <Compile Include="Updater\Title.cs" />
     <Compile Include="WadBatchInstaller.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

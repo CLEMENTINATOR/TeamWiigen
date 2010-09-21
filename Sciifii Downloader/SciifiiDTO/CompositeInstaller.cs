@@ -11,7 +11,7 @@ namespace SciifiiDTO
     public class CompositeInstaller : Step
     {
         [XmlElement(ElementName = "CiosInstaller", Type = typeof(CiosInstaller))]
-        [XmlElement(ElementName = "SystemUpdater", Type = typeof(SystemUpdater))]
+        [XmlElement(ElementName = "MemoryPatcher", Type = typeof(MemoryPatcher))]
         [XmlElement(ElementName = "CorpInstaller", Type = typeof(CiosCorp))]
         [XmlElement(ElementName = "Title", Type = typeof(TitleInstaller))]
         [XmlElement(ElementName = "CompositeInstaller", Type = typeof(CompositeInstaller))]

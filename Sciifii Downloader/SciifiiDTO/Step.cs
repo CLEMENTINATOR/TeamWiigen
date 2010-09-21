@@ -13,7 +13,25 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "option")]
         public String OptionsString { get; set; }
 
+        [XmlAttribute(AttributeName = "regions")]
+        public String RegionsString { get; set; }
+
         [XmlIgnore]
         public List<String> Options { get { return OptionsString.Split('|').ToList(); } }
+
+        [XmlIgnore]
+        public List<Regions> Regions
+        {
+            get
+            {
+                List<string> opts = OptionsString.Split(',').ToList();
+                return (from o in opts select (Regions)Enum.Parse(typeof(Regions), o)).ToList();
+            }
+        }
+
+        public Step()
+        {
+            RegionsString = "-1";
+        }
     }
 }

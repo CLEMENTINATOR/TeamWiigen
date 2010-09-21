@@ -38,7 +38,7 @@ namespace SciifiiDTO
         public List<Option> Options { get; set; }
 
         [XmlArrayItem(ElementName = "CiosInstaller", Type = typeof(CiosInstaller))]
-        [XmlArrayItem(ElementName = "SystemUpdater", Type = typeof(SystemUpdater))]
+        [XmlArrayItem(ElementName = "MemoryPatcher", Type = typeof(MemoryPatcher))]
         [XmlArrayItem(ElementName = "CorpInstaller", Type = typeof(CiosCorp))]
         [XmlArrayItem(ElementName = "Title", Type = typeof(TitleInstaller))]
         [XmlArrayItem(ElementName = "CompositeInstaller", Type = typeof(CompositeInstaller))]

@@ -107,8 +107,8 @@ namespace SciifiiBusiness
             {
                
                 NUSDownloader.DownloadWad(UInt64.Parse(step.TitleId, System.Globalization.NumberStyles.HexNumber), step.TitleRevision, GetRealPath(folder, config.workingDirectory));
-                if (step.TitleRevision != 0) message("IOS" + step.TitleId + " rev" + step.TitleRevision);
-                else message("IOS" + step.TitleId);
+                if (step.TitleRevision != 0) message("Title " + step.TitleId + " rev" + step.TitleRevision);
+                else message("Title " + step.TitleId);
             
             }
             else

@@ -66,7 +66,9 @@ namespace Libwiisys {
 			 * @param len the length you want to read
 			 * @return the number of read chars
 			 */
-			u32 Read(Buffer& b,u32 len);
+			u32 Read(Buffer& b,u32 len, u32 offset = -1);
+
+			void Seek(u32 offset);
 
 			/**
 			 * @brief Close the NandFile

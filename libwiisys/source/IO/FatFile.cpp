@@ -95,7 +95,16 @@ void FatFile::Write(const Buffer& b) {
 }
 
 
-u32 FatFile::Read(Buffer& b, u32 len) {
+u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
+{
+	if(offset != (u32)-1)
+	{
+		if(offset + len > _fileLength)
+			throw Exception("Can't read the file. EOF will be reached.", offset + len);
+
+		Seek(offset);
+	}
+
 	void* tempBuffer = malloc(len);
 	s32 nbLus = fread(tempBuffer, 1, len, _fd);
 
@@ -109,6 +118,13 @@ u32 FatFile::Read(Buffer& b, u32 len) {
 	return (u32) nbLus;
 }
 
+void FatFile::Seek(u32 offset)
+{
+	if(offset > _fileLength)
+		throw Exception("Can't seek out of the file.", offset);
+
+	fseek(_fd, offset, SEEK_SET);
+}
 
 FatFile::~FatFile() {
 	if (_fd)

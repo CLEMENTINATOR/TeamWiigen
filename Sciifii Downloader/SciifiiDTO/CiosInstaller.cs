@@ -15,7 +15,7 @@ namespace SciifiiDTO
         public UInt32 Source { get; set; }
 
         [XmlAttribute(AttributeName = "revision")]
-        public UInt32 SourceRevision { get; set; }
+        public ushort SourceRevision { get; set; }
 
         [XmlAttribute(AttributeName = "slot")]
         public UInt32 DestinationSlot { get; set; }

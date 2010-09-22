@@ -28,11 +28,11 @@ bool& NetworkUtility::Initialized() {
 string NetworkUtility::GetIp(void) {
 	if (!Initialized()) {
 		char hostip[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		Initialized() = true;
 		s32 ret = if_config(hostip, NULL, NULL, true);
 		if (ret < 0)
 			throw Exception("Error initialising network !", ret);
 
+		Initialized() = true;
 		Current()._hostIp = string(hostip);
 	}
 

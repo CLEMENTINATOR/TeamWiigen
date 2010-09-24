@@ -34,9 +34,11 @@ namespace Libwiisys {
 
 				bool _tmdDirty;
 				bool _tikDirty;
+				
 
 				u64 _titleId;
 				s32 _revision;
+			bool _fakeSign;
 				virtual void DecryptTitleKey(Buffer& b_tik);
 				void InsertModule(TitleModule& module, Buffer& b_tmd);
 			public:
@@ -46,7 +48,7 @@ namespace Libwiisys {
 				 * @param titleId The title id of the title
 				 * @param revision The revision of the title
 				 */
-				TitlePatcher(u64 titleId = 0, s32 revision = -1);
+				TitlePatcher(u64 titleId = 0, s32 revision = -1,bool fakeSign=true);
 				virtual void OnTicketLoading(Event::TitleEventArgs &processControl);
 				virtual void OnTmdLoading(Event::TitleEventArgs &processControl);
 				virtual void OnContentLoading(Event::TitleEventArgs &processControl);

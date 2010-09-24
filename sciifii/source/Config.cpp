@@ -5,6 +5,10 @@
 #include <ogc/conf.h>
 #include <cstdlib>
 
+#include <iostream>
+
+#include "ui/VirtualPad.h"
+
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::Network;
@@ -13,8 +17,7 @@ using namespace Libwiisys::Serialization;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 Config::Config()
-        : _hasNetwork(false),
-        _uninstall(false)
+        : _hasNetwork(false)
 {
     try
     {

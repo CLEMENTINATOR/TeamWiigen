@@ -134,14 +134,19 @@ namespace SciifiiBusiness
                 // Write TMD at this point...
                 wadfs.Write(tmd, 0, contents.Count * 36 + 484);
                 wadfs.Seek(NextBoudary(wadfs.Position, 64), SeekOrigin.Begin);
-
+                
                 // Add the individual contents
                 foreach(byte[] content in contents)
                 {
-
                     wadfs.Write(content, 0, content.Length);
-                    wadfs.Seek(NextBoudary(wadfs.Position, 64), SeekOrigin.Begin);
+
+                    long padding = NextBoudary(wadfs.Position, 64) - wadfs.Position;
+                    byte[] pad=new byte[padding];
+                    for(int i=0;i<padding;i++) pad[i]=0;
+
+                    wadfs.Write(pad, 0, (int)padding);
                 }
+              
             }
         }
     }

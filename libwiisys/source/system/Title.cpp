@@ -366,7 +366,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 				OnContentLoaded(processControl);
 			}
 
-			contentOffset += TITLE_ROUND_UP(wadContentSize, 64);
+			contentOffset += wadContentSize;
 		}
 
 		if (!skipTmd)

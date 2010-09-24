@@ -7,9 +7,9 @@ using namespace Libwiisys::System::Patching;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys::Exceptions;
 
-TitlePatcher::TitlePatcher(u64 titleId, s32 revision) :
+TitlePatcher::TitlePatcher(u64 titleId, s32 revision,bool fakeSign) :
 	_patchList(), _moduleList(), _tmdDirty(false), _tikDirty(false), _titleId(
-			titleId), _revision(revision) {
+			titleId), _revision(revision),_fakeSign(fakeSign) {
 }
 
 void TitlePatcher::AddPatch(const Patch* patch) {
@@ -109,6 +109,7 @@ void TitlePatcher::OnTicketLoading(TitleEventArgs &processControl) {
 }
 
 void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl) {
+	if(!_fakeSign) return;
 	if (_tikDirty) {
 		signed_blob* s_tik = (signed_blob*) processControl.buffer.Content();
 
@@ -141,7 +142,7 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl) {
 		_tmdDirty = true;
 		InsertModule(*ite, processControl.buffer);
 	}
-
+	if(!_fakeSign) return;
 	if (_tmdDirty) {
 		signed_blob* s_tmd = (signed_blob*) processControl.buffer.Content();
 

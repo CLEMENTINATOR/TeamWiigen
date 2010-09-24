@@ -11,7 +11,7 @@ void VPAD_ScanPads()
 u32 VPAD_ButtonsDown(u32 chan)
 {
 	u32 buttonsDown = 0;
-	
+		
 	u32 pressed = WPAD_ButtonsDown(chan);
 	if (pressed & WPAD_BUTTON_A) buttonsDown |= vpb_Ok;
 	if (pressed & WPAD_BUTTON_B) buttonsDown |= vpb_Cancel;
@@ -41,6 +41,5 @@ void VPAD_Init()
 
 void VPAD_Shutdown()
 {
-	//PAD_Shutdown();
 	WPAD_Shutdown();
 }

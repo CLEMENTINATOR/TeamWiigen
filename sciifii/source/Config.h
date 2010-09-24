@@ -30,8 +30,6 @@ private:
 	s32 _region;
 	bool _hasNetwork;
 
-	bool _uninstall;
-
 	std::string _menuMessage;
 	std::string _workingDirectory;
 	bool _useAdvancedSettings;

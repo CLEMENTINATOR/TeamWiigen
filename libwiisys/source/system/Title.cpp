@@ -354,8 +354,8 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 			u64 wadContentSize = content.size;
 
 			processControl.buffer.Clear();
-			wadBuffer.Read(processControl.buffer,content.size, contentOffset);
-			_dataLen += content.size;
+			wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(content.size, 64), contentOffset);
+			_dataLen += TITLE_ROUND_UP(content.size, 64);
 
 			INIT_PROCESS_CONTROL(processControl, &content);
 			OnContentLoading(processControl);
@@ -366,7 +366,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 				OnContentLoaded(processControl);
 			}
 
-			contentOffset += wadContentSize;
+			contentOffset += TITLE_ROUND_UP(wadContentSize, 64);
 		}
 
 		if (!skipTmd)

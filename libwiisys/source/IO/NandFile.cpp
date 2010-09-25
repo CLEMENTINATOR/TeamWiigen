@@ -74,7 +74,7 @@ u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
 	if(offset != (u32)-1)
 	{
 		if(offset + len > _fileLength)
-			throw Exception("Can't read the file. EOF will be reached.", offset + len);
+			throw Exception("Can't read the file. EOF will be reached.",(offset+len)-_fileLength);
 
 		Seek(offset);
 		_rest.Clear();

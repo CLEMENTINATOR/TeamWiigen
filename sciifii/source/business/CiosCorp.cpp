@@ -110,7 +110,7 @@ void CiosCorp::Install()
 			else if(!File::Exists(wadFile.str()))
 				continue;
 
-			TitlePatcher ciosPatcher( ite->destId, 0xFFFF);
+			TitlePatcher ciosPatcher(ite->destId, 0xFFFF, false);
 			u32 destid= (u32)ite->destId;
 			u32 srcid=(u32)ite->sourceId ;
 			ciosPatcher.AddPatch(SimplePatch::ES_HashCheck_Old());

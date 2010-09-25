@@ -100,7 +100,7 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
 	if(offset != (u32)-1)
 	{
 		if(offset + len > _fileLength)
-			throw Exception("Can't read the file. EOF will be reached.", offset + len);
+			throw Exception("Can't read the file. "+_fileName+" will be reached.", (offset+len)-_fileLength);
 
 		Seek(offset);
 	}
@@ -121,7 +121,7 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
 void FatFile::Seek(u32 offset)
 {
 	if(offset > _fileLength)
-		throw Exception("Can't seek out of the file.", offset);
+		throw Exception("Can't seek out of the file.", offset-_fileLength);
 
 	fseek(_fd, offset, SEEK_SET);
 }

@@ -362,7 +362,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 			{
 				u32 restToRead = wadBuffer.Size() - contentOffset;
 				//use classic way if we can
-				if(restToRead > TITLE_ROUND_UP(content.size, 64))
+				if(restToRead >= TITLE_ROUND_UP(content.size, 64))
 				{
 					wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(content.size, 64), contentOffset);
 				}

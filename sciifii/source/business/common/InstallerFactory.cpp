@@ -425,7 +425,7 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
             bool identifyPatch = UtilString::ToBool(child->Attribute("identifyPatch"));
             bool nandPatch = UtilString::ToBool(child->Attribute("nandPatch"));
             bool kkPatch = UtilString::ToBool(child->Attribute("kkPatch"));
-            bool localOnly = UtilString::ToBool(child->Attribute("localOnly"));
+            bool localOnly = UtilString::ToBool(child->Attribute("localOnly"), false);
 
 			((CiosCorp*)corp)->AddItem((ciosDesc){ slot, source, revision, modules, identifyPatch, nandPatch, kkPatch, localOnly });
         }

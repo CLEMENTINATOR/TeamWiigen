@@ -354,7 +354,28 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 			u64 wadContentSize = content.size;
 
 			processControl.buffer.Clear();
-			wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(content.size, 64), contentOffset);
+
+			//this bullshit code has been done to handle crappy wads
+			// for example the ios38v3867 from NUSD (because nusd doesn't
+			// add padding data to the last content......)
+			if((s32)contentIndex == (tmd_data->num_contents - 1))
+			{
+				u32 restToRead = wadBuffer.Size() - contentOffset;
+				//use classic way if we can
+				if(restToRead > TITLE_ROUND_UP(content.size, 64))
+				{
+					wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(content.size, 64), contentOffset);
+				}
+				else
+				{
+					Buffer padding((u8)0, (u64)(TITLE_ROUND_UP(content.size, 64) - restToRead));
+					wadBuffer.Read(processControl.buffer, restToRead, contentOffset);
+					processControl.buffer.Append(padding);
+				}
+			}
+			else
+				wadBuffer.Read(processControl.buffer, TITLE_ROUND_UP(content.size, 64), contentOffset);
+
 			_dataLen += TITLE_ROUND_UP(content.size, 64);
 
 			INIT_PROCESS_CONTROL(processControl, &content);

@@ -26,7 +26,6 @@
     <file key="dip_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat.sha" />
     <file key="ffs_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat.sha" />
     <file key="mload_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat.sha" />
-    <file key="es17.dat" url="http://teamwiigen.fr.cr/appfiles/es17.dat" sha1="http://teamwiigen.fr.cr/appfiles/es17.dat.sha" />
     <file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
     <file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
     <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
@@ -53,7 +52,7 @@
     <option name="update" text="Update your wii to 4.3" />
     <option name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
     <option name="Preloader" text="Install the priiloader" />
-    <option name="corp" text="Install the corp cioses" />
+    <option name="corp" text="Install the Darkcorp 1.1" />
     <option name="cmios" text="Install the cmios" />
     <option name="GXLoader" text="Install the USB LoaderGX" />
     <option name="wiiflow" text="Install Wiiflow" />
@@ -61,16 +60,15 @@
   </options>  
 
   <steps>
-		<CompositeInstaller option="cIOS249|cIOS250" name="trucha IOS">
-			<MemoryPatcher>
-				<patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
-				<patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
-				<patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
-				<patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
-				<patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
-				<patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
-			</MemoryPatcher>
-		</CompositeInstaller>
+	
+		<MemoryPatcher option="cIOS249|cIOS250">
+			<patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
+			<patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
+			<patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
+			<patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
+			<patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
+			<patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
+		</MemoryPatcher>
 	
     <!--
 		<CiosInstaller option="TBR" source="36" revision="0"  exceptions="-1035">
@@ -243,36 +241,38 @@
 
     <CorpInstaller option="corp">
       <modules>
-        <module type="ES" name="es17" file="es17.dat" />
         <module type="DIP" name="dip13" file="dip13.dat" />
         <module type="DIP" name="dip17" file="dip17.dat" />
       </modules>
       <items>
-        <item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="000000010000000b" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-        <item slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-        <item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip17"  identifyPatch="true" nandPatch="false" kkPatch="false" localOnly="false" />
-        <item slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13"  identifyPatch="true" nandPatch="true" kkPatch="false" localOnly="false" />
-        <item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip17"  identifyPatch="true" nandPatch="true" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000026" source="0000000100000026" revision="3610" modules="dip17|es17" identifyPatch="false" nandPatch="false" kkPatch="false" localOnly="false" />
-        <item slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000038" source="0000000100000038" revision="5146" modules="dip17"  identifyPatch="false" nandPatch="false" kkPatch="true" localOnly="true" />
-        <item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-        <item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
-				<item slot="0000000100000050" source="000000010000003C" revision="6174" modules="dip13"  identifyPatch="true" nandPatch="false" kkPatch="true" localOnly="false" />
+        <item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000000B" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
+        <item slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
+        <item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip17" identifyPatch="true" nandPatch="false" kkPatch="false" />
+        <item slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13" identifyPatch="true" nandPatch="true" kkPatch="false" />
+        <item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip17" identifyPatch="true" nandPatch="true" kkPatch="true" />
+        <item slot="0000000100000026" source="0000000100000026" revision="3867" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
+        <item slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000030" source="0000000100000030" revision="4123" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000038" source="0000000100000038" revision="5661" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000039" source="0000000100000039" revision="5918" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000003A" source="000000010000003A" revision="6175" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000050" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
       </items>
     </CorpInstaller>
 

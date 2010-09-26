@@ -16,6 +16,9 @@ namespace Libwiisys {
 			class TitleEventArgs : public EventArgs
 			{
 			public:
+			virtual std::string GetType(){
+                    return "Libwiisys::System::Event::TitleEventArgs,"+EventArgs::GetType();
+			}
 				/** Buffer accessible in your events functions*/
 				Buffer buffer;
 

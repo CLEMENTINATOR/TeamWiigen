@@ -190,3 +190,9 @@ void TitlePatcher::DecryptTitleKey(Buffer& b_tik) {
 	}
 
 }
+
+std::string TitlePatcher::GetType()
+{
+	return "Libwiisys::System::Patching::TitlePatcher,"+Title::GetType();
+}
+

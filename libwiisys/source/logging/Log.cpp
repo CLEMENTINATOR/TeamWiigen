@@ -81,3 +81,8 @@ void Log::Init(std::string appName, std::string appVersion) {
 	Current()._appVersion = appVersion;
 	Current()._isInit = true;
 }
+
+std::string Log::GetType()
+{
+	return "Libwiisys::Logging::Log,"+Object::GetType();
+}

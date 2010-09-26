@@ -244,7 +244,7 @@ namespace Libwiisys {namespace System {
 			Buffer GetSharedContent(tmd_content* c);
 
 		public:
-
+             virtual std::string GetType();
 			/**
 			 * \brief Reload IOS(secure fct : shutdown device, shutdown internet,shutdown logs..)
 			 * \param ios The ios to be reloaded

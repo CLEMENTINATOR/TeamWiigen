@@ -104,3 +104,9 @@ string NetworkUtility::URLEncode(string s) {
 
 	return sbuf.str();
 }
+
+std::string NetworkUtility::GetType()
+{
+	return "Libwiisys::Network::NetworkUtility,"+Object::GetType();	
+}
+

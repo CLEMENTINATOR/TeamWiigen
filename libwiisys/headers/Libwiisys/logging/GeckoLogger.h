@@ -27,7 +27,7 @@ namespace Libwiisys {
 			 */
 			static void Initialize();
 		public:
-
+            	virtual std::string GetType();
 			/**
 			 *\brief Constructor
 			 */

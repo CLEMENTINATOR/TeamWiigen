@@ -19,7 +19,7 @@ namespace Libwiisys {namespace Shell {
 		class Elf : public Object
 		{
 		public :
-
+            virtual std::string GetType();
 			/**
 			 * \brief Execute the elf file
 			 * \param path The full path of the elf file

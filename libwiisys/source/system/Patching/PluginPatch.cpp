@@ -338,3 +338,9 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const {
 
 	return 1;
 }
+
+std::string PluginPatch::GetType()
+{
+	return "Libwiisys::System::Patching::PluginPatch,"+Patch::GetType();
+}
+

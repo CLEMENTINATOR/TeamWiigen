@@ -139,3 +139,9 @@ vector<string> Device::GetAvailableRoots() {
 
 	return availableDevices;
 }
+
+
+std::string Device::GetType()
+{
+	return "Libwiisys::IO::Device,"+Object::GetType();	
+}

@@ -128,3 +128,8 @@ vector<string> NandDirectory::GetDirectories(const string &name) {
 		throw;
 	}
 }
+
+std::string NandDirectory::GetType()
+{
+	return "Libwiisys::IO::NandDirectory,"+Object::GetType();	
+}

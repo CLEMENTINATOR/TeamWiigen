@@ -16,3 +16,8 @@ void Event::operator+=(DelegateType listener) {
 void Event::operator-=(DelegateType listener) {
 	listenerList.remove(listener);
 }
+
+std::string Event::GetType()
+{
+	return "Libwiisys::Event,"+Object::GetType();	
+}

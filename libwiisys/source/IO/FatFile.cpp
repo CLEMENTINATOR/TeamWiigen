@@ -130,3 +130,8 @@ FatFile::~FatFile() {
 	if (_fd)
 		Close();
 }
+
+std::string FatFile::GetType()
+{
+	return "Libwiisys::IO::FatFile,"+File::GetType();	
+}

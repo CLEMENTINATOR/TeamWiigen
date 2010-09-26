@@ -68,3 +68,8 @@ vector<string> FatDirectory::GetDirectories(const string & path) {
 
 	return directories;
 }
+
+std::string FatDirectory::GetType()
+{
+	return "Libwiisys::IO::FatDirectory,"+Object::GetType();	
+}

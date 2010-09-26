@@ -28,3 +28,7 @@ u32 TitleModule::Position() const
 {
 	return _position;
 }
+std::string TitleModule::GetType()
+{
+	return "Libwiisys::System::Patching::TitleModule,"+Buffer::GetType();
+}

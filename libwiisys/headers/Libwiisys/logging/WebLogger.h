@@ -15,10 +15,10 @@ namespace Libwiisys {
 		 * This class can log data using get method into your website, you just have to read the key and the parameters form your website
 		 * and do whatever you like to do
 		 */
-		class WebLogger : public ILogProvider
+		class WebLogger : public Object,public ILogProvider
 		{
 		public:
-
+				virtual std::string GetType();
 			/**
 			 * @brief Constructor
 			 * @param url The url where the WebLogger'll log

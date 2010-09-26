@@ -26,7 +26,7 @@ namespace Libwiisys {namespace IO {
 		class Device : public Object
 		{
 		public:
-
+			virtual std::string GetType();
 			/**
 			 *\brief Check if there is no files left open and then shutdown all devices
 			 */

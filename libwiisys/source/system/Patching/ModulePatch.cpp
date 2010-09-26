@@ -48,3 +48,8 @@ u32 ModulePatch::Patching(TitleEventArgs &processControl) const {
 
 	return 1;
 }
+
+std::string ModulePatch::GetType()
+{
+	return "Libwiisys::System::Patching::ModulePatch,"+Patch::GetType();
+}

@@ -18,6 +18,7 @@ namespace Libwiisys {namespace Exceptions {
 		class AbortException : public Exception
 		{
 		public:
+			virtual std::string GetType();
 			/**
 			 * \brief Default Constructor
 			 *

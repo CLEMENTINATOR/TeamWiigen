@@ -22,7 +22,7 @@ namespace Libwiisys {
 		u64 _checksum;
 
 	public:
-
+		virtual std::string GetType();
 		/**
 		 * \brief  Overloaded Constructor
 		 * \param content Pointer to the data

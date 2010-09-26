@@ -15,7 +15,7 @@ namespace Libwiisys {namespace IO {
 		class Directory : public Object
 		{
 		public:
-
+			virtual std::string GetType();
 			/*!
 			 * \brief Create a new directory
 			 * \param name The fullpath of the file

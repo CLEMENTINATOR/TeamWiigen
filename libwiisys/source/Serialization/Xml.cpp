@@ -15,3 +15,4 @@ TiXmlDocument& Xml::Load(const std::string &file) {
 	Device::UnMount(file);
 	return *doc;
 }
+

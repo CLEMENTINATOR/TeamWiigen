@@ -19,7 +19,7 @@ namespace Libwiisys {
 		class NandFile : public File
 		{
 		public:
-
+			virtual std::string GetType();
 			/**
 			 * @brief Create a NandFile
 			 * @param fileName The file name of the file you want to create

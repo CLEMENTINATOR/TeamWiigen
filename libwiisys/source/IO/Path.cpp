@@ -107,3 +107,8 @@ string Path::CleanPath(const string &path) {
 	}
 	return work;
 }
+
+std::string Path::GetType()
+{
+	return "Libwiisys::IO::Path,"+Object::GetType();	
+}

@@ -412,7 +412,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) 
 		delete &wadBuffer;
 		throw;
 	}
-	
+
 	wadBuffer.Close();
 	delete &wadBuffer;
 }
@@ -1078,4 +1078,9 @@ u32 Title::GetRunningIOS() {
 		_runningIos = IOS_GetVersion();
 
 	return _runningIos;
+}
+
+std::string Title::GetType()
+{
+	return "Libwiisys::System::Title,"+Object::GetType();
 }

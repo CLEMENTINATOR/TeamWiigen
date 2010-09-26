@@ -62,3 +62,8 @@ u32 Patch::ApplyPatch(TitleEventArgs &processControl) const {
 	return Patching(processControl);
 }
 
+std::string Patch::GetType()
+{
+	return "Libwiisys::System::Patching::Patch,"+Object::GetType();
+}
+

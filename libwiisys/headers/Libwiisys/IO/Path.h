@@ -17,7 +17,7 @@ namespace Libwiisys {
 		class Path : public Object
 		{
 		public:
-
+			virtual std::string GetType();
 			/*!
 			 * \brief Get the root of the path
 			 * \param path A file/directory path

@@ -189,3 +189,8 @@ void File::Move(const std::string &fileToCopy,const std::string &destFile)
 	File::Copy(fileToCopy,destFile);
 	File::Delete(fileToCopy);
 }
+
+std::string File::GetType()
+{
+	return "Libwiisys::IO::File,"+Object::GetType();	
+}

@@ -138,3 +138,8 @@ void NandFile::Close() {
 NandFile::~NandFile() {
 	Close();
 }
+
+std::string NandFile::GetType()
+{
+	return "Libwiisys::IO::NandFile,"+File::GetType();	
+}

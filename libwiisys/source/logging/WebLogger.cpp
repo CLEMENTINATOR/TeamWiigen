@@ -70,3 +70,8 @@ void WebLogger::Start() {
 
 void WebLogger::Pause() {
 }
+
+std::string WebLogger::GetType()
+{
+	return "Libwiisys::Logging::WebLogger,"+Object::GetType();
+}

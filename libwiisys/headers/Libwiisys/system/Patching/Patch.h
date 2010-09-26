@@ -49,6 +49,8 @@ namespace Libwiisys {
 				virtual u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const = 0;
 
 			public:
+
+			virtual std::string GetType();
 				/** AllowedModule to patch */
 				std::string AllowedModule;
 

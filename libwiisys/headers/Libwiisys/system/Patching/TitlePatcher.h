@@ -34,7 +34,7 @@ namespace Libwiisys {
 
 				bool _tmdDirty;
 				bool _tikDirty;
-				
+
 
 				u64 _titleId;
 				s32 _revision;
@@ -42,7 +42,7 @@ namespace Libwiisys {
 				virtual void DecryptTitleKey(Buffer& b_tik);
 				void InsertModule(TitleModule& module, Buffer& b_tmd);
 			public:
-
+virtual std::string GetType();
 				/**
 				 * @brief Constructor
 				 * @param titleId The title id of the title

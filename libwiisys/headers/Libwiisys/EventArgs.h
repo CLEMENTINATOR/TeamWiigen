@@ -11,6 +11,10 @@ namespace Libwiisys {
  */
 class EventArgs : public Object
 {
+	public :
+	virtual std::string GetType(){
+		return "Libwiisys::EventArgs,"+Object::GetType();
+	}
 };
 
 }

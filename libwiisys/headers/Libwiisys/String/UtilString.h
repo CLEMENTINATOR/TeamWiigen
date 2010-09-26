@@ -21,7 +21,7 @@ namespace Libwiisys {namespace String {
 		class UtilString : public Object
 		{
 		public:
-
+            virtual std::string GetType();
 			/*!
 			 * \brief Convert a const char* to is u64 representation.
 			 * \param val The const char* to convert.

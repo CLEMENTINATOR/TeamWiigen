@@ -11,13 +11,10 @@ namespace Libwiisys {namespace Network {
 		 * \class NetworkUtility
 		 * @brief A class to manage networking
 		 */
-		class NetworkUtility {
+		class NetworkUtility : public Object {
 		public:
-
-			/**
-			 *\brief Constructor
-			 */
-			NetworkUtility();
+			virtual std::string GetType();
+			
 
 			/**
 			 *\brief Destructor
@@ -39,7 +36,7 @@ namespace Libwiisys {namespace Network {
 			/*!
 			 * \brief UrlEncoding
 			 * \param s The string to urlencode
-			 * \return the urlencoded
+			 * \return the urlencodeds
 			 */
 			static std::string URLEncode(std::string s);
 
@@ -49,7 +46,10 @@ namespace Libwiisys {namespace Network {
 			static void Deinit();
 		private :
 			std::string _hostIp;
-
+			/**
+			 *\brief Constructor
+			 */
+			NetworkUtility();
 			/**
 			 *\brief Return if the NetworkUtility has been initialized
 			 *\return The current NetworkUtility

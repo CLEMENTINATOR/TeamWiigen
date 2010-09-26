@@ -16,7 +16,7 @@ namespace Libwiisys {
 		class FatDirectory : public Object
 		{
 		public:
-
+			virtual std::string GetType();
 			/**
 			 *\brief Create the given directory
 			 *\param name The absolute path of the directory

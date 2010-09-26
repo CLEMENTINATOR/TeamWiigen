@@ -32,7 +32,7 @@ namespace Libwiisys {
 				u32 Patching(System::Event::TitleEventArgs &processControl) const;
 
 			public:
-
+                virtual std::string GetType();
 				/**
 				 * @brief Constructor
 				 * @param patch A patch for rewriting a module

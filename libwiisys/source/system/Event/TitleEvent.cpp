@@ -16,3 +16,9 @@ void TitleEvent::operator+=(DelegateType listener) {
 void TitleEvent::operator-=(DelegateType listener) {
 	listenerList.remove(listener);
 }
+
+
+std::string TitleEvent::GetType()
+{
+	return "Libwiisys::System::Event::TitleEvent;"+Object::GetType();
+}

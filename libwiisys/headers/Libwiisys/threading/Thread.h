@@ -19,6 +19,7 @@ namespace Libwiisys {
 		class Thread : public Object
 		{
 		public:
+            virtual std::string GetType();
 			/** Simple typedef for a more readable code :)*/
 			typedef fastdelegate::FastDelegate1<Object *> ThreadStart;
 

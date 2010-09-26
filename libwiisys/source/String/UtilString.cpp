@@ -33,6 +33,7 @@ u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)
 	return returnValue;
 }
 
+
 u64 UtilString::ToU64(const char* val, NumberRepresentation rep) {
 	if (val == NULL)
 		throw Exception("Cannot parse NULL value to u64", -1);
@@ -223,4 +224,10 @@ string UtilString::WstrToStr(const wstring& wstr) {
 	string str;
 	str.assign(wstr.begin(), wstr.end());
 	return str;
+}
+
+
+std::string UtilString::GetType()
+{
+	return "Libwiisys::String::UtilString,"+Object::GetType();
 }

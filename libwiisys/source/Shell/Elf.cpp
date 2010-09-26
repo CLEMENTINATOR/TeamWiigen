@@ -92,4 +92,7 @@ void Elf::Run() {
 	_CPU_ISR_Restore(level);
 
 }
-
+std::string Elf::GetType()
+{
+	return "Libwiisys::Shell::Elf,"+Object::GetType();
+}

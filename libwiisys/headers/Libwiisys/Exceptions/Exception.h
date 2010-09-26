@@ -23,7 +23,7 @@ namespace Libwiisys {namespace Exceptions {
 		class Exception : public Object
 		{
 		public:
-
+			virtual std::string GetType();
 			/*!
 			 * \brief Constructor
 			 * \param message The message text of your exception

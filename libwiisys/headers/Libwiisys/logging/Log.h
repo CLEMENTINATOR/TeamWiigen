@@ -56,7 +56,7 @@ namespace Libwiisys {
 			std::map<LogStatus, std::vector<ILogProvider*>*> _logs;
 
 		public:
-
+            	virtual std::string GetType();
 			/**
 			 *\brief Add a log provider to the log system
 			 *\param type The LogType associed to the provider

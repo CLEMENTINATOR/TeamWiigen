@@ -181,3 +181,8 @@ u64 Buffer::Find(const Buffer&b) {
 	}
 	return _length;
 }
+
+std::string Buffer::GetType()
+{
+	return "Libwiisys::Buffer,"+Object::GetType();	
+}

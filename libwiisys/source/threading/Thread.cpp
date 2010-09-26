@@ -25,3 +25,8 @@ void * Thread::EntryPoint(void * pthis) {
 	pt->Run();
 	return NULL;
 }
+
+std::string Thread::GetType()
+{
+	return "Libwiisys::Threading::Thread,"+Object::GetType();
+}

@@ -94,3 +94,10 @@ void Dol::Run() {
 	ep();
 	_CPU_ISR_Restore(level);
 }
+
+
+
+std::string Dol::GetType()
+{
+	return "Libwiisys::Shell::Dol,"+Object::GetType();
+}

@@ -81,3 +81,8 @@ void FileLogger::WriteDebug(const std::string& message, int line, const char* fi
 			<< message;
 	Write(formatedMessage.str());
 }
+
+std::string FileLogger::GetType()
+{
+	return "Libwiisys::Logging::FileLogger,"+Object::GetType();
+}

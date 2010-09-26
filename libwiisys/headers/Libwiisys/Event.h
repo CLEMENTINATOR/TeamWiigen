@@ -18,6 +18,9 @@ namespace Libwiisys {
 	class Event : public Object
 	{
 	public:
+		
+		virtual std::string GetType();
+	
 		/** Little typedef */
 		typedef fastdelegate::FastDelegate2<Object*,EventArgs*> DelegateType;
 

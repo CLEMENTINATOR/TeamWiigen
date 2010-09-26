@@ -8,7 +8,7 @@
 #include "FileMode.h"
 
 namespace Libwiisys {namespace IO {
-
+	
 		/**
 		 *\class File
 		 *\brief Represents a file
@@ -24,7 +24,7 @@ namespace Libwiisys {namespace IO {
 			u32 _fileLength;
 
 		public:
-
+			virtual std::string GetType();
 			/*!
 			 * \brief Create a new file
 			 * \param fileName The fullpath of the file

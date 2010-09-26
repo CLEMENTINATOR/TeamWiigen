@@ -19,3 +19,9 @@ NusServer::NusServer(u64 titleId, const string &fileName) :
 
 	SetRequest(netpath.str());
 }
+
+
+std::string NusServer::GetType()
+{
+	return "Libwiisys::Network::HttpRequest,"+HttpRequest::GetType();
+}

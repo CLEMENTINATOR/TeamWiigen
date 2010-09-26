@@ -25,7 +25,7 @@ namespace Libwiisys {namespace Network {
 		class HttpRequest : public Object
 		{
 		public:
-
+			virtual std::string GetType();
 			/*!
 			 * \brief Constructor
 			 */

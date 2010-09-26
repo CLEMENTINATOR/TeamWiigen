@@ -26,7 +26,7 @@ namespace Libwiisys {namespace Shell {
 		class Dol : public Object
 		{
 		public :
-
+            virtual std::string GetType();
 			/**
 			 * \brief Execute the dol file
 			 * \param path The full path of the dol file

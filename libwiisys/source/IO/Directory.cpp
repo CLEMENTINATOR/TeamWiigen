@@ -195,3 +195,8 @@ void Directory::Move(const string &name, const string &dest) {
 	Directory::Copy(name, dest, true);
 	Directory::Delete(name, true);
 }
+
+std::string Directory::GetType()
+{
+	return "Libwiisys::IO::Directory,"+Object::GetType();	
+}

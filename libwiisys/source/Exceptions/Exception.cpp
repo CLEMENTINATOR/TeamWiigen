@@ -15,3 +15,8 @@ string Exception::GetMessage() {
 s32 Exception::GetCode() {
 	return _errorCode;
 }
+
+std::string Exception::GetType()
+{
+	return "Libwiisys::Exceptions::Exceptions,"+Object::GetType();	
+}

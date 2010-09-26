@@ -18,6 +18,7 @@ namespace Libwiisys {
 				s32 _position;
 
 			public:
+			virtual std::string GetType();
 				/**
 				 * @brief Constructor
 				 * @param buffer A Buffer containing the patched module

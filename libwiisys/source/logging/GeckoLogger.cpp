@@ -66,3 +66,8 @@ void GeckoLogger::Start() {
 
 void GeckoLogger::Pause() {
 }
+
+std::string GeckoLogger::GetType()
+{
+	return "Libwiisys::Logging::GeckoLogger,"+Object::GetType();
+}

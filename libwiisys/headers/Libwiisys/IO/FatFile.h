@@ -21,7 +21,7 @@ namespace Libwiisys {
 		class FatFile : public File
 		{
 		public:
-
+			virtual std::string GetType();
 			/**
 			 * @brief Create a FatFile
 			 * @param fileName The file name of the file you want to create

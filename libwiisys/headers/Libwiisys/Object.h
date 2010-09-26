@@ -1,6 +1,7 @@
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
+#include <string>
 #include <malloc.h>
 
 /** \namespace Libwiisys
@@ -24,6 +25,8 @@ class Object
 {
 public:
 	virtual ~Object() = 0;
+	virtual std::string GetType();
+	virtual std::string ToString();
 };
 
 }

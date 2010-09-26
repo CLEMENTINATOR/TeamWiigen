@@ -28,7 +28,7 @@ namespace Libwiisys {
 			void Write(const std::string& line);
 
 		public:
-
+	virtual std::string GetType();
 			/**
 			 *\brief Constructor,Open the file when you want to log data
 			 *\param filePath The log file path

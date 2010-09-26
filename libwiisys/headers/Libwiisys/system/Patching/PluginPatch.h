@@ -55,7 +55,7 @@ namespace Libwiisys {namespace System {namespace Patching {
 				u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const;
 
 			public:
-
+                    virtual std::string GetType();
 				/**
 				 * @brief Constructor
 				 * @param plugin The patched plugin

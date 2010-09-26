@@ -209,3 +209,8 @@ Buffer HttpRequest::GetResponse(const std::string& shaUrl) {
 void HttpRequest::AddParameter(const string& key, const string& value) {
 	_params[key] = value;
 }
+
+std::string HttpRequest::GetType()
+{
+	return "Libwiisys::Network::HttpRequest,"+Object::GetType();	
+}

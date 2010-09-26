@@ -240,3 +240,9 @@ SimplePatch* SimplePatch::getPatch(const std::string &s) {
 
 	return NULL;
 }
+
+std::string SimplePatch::GetType()
+{
+	return "Libwiisys::System::Patching::SimplePatch,"+Patch::GetType();
+}
+

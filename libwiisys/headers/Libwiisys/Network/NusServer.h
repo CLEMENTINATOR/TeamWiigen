@@ -18,7 +18,7 @@ namespace Libwiisys {namespace Network {
 		class NusServer : public HttpRequest
 		{
 		public:
-
+			virtual std::string GetType();
 			/**
 			 * \brief Constructor
 			 * \param titleId The title id

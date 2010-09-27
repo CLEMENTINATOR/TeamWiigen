@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[REL_USER_ROLE]
+(
+	RUR_USR_ID int NOT NULL, 
+	RUR_ROL_ID int NOT NULL
+)

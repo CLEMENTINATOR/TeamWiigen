@@ -23,13 +23,13 @@ NandFile& NandFile::Create(const string &fileName) {
 	s32 ret;
 
 	if (NandFile::Exists(fileName))
-		throw Exception("Can't create " + fileName + " already exists!", -1);
+		throw Exception("Can't create " + fileName + " already exists!");
 
 	ret = ISFS_CreateFile(fileName.c_str(), 0, ISFS_OPEN_RW, ISFS_OPEN_RW,
 			ISFS_OPEN_RW);
 
 	if (ret < 0)
-		throw Exception("Error creating file : " + fileName, ret);
+		throw SystemException("Error creating file : " + fileName, ret);
 
 	/* Open the file after creation */
 	return NandFile::Open(fileName, ISFS_OPEN_WRITE);
@@ -40,7 +40,7 @@ NandFile& NandFile::Open(const string &fileName, u8 mode) {
 
 	ret = IOS_Open(fileName.c_str(), mode);
 	if (ret < 0)
-		throw Exception("Error opening " + fileName, ret);
+		throw SystemException("Error opening " + fileName, ret);
 
 	return (*new NandFile(ret, fileName));
 }
@@ -53,7 +53,7 @@ void NandFile::Delete(const string &fileName) {
 
 	ret = ISFS_Delete(fileName.c_str());
 	if (ret < 0)
-		throw Exception("Error deleting " + fileName, ret);
+		throw SystemException("Error deleting " + fileName, ret);
 }
 
 bool NandFile::Exists(const string &fileName) {
@@ -66,7 +66,7 @@ bool NandFile::Exists(const string &fileName) {
 
 void NandFile::Write(const Buffer& b) {
 	if (IOS_Write(_fd, b.Content(), b.Length()) != (s32) b.Length())
-		throw Exception("Error writing file!", -1);
+		throw Exception("Error writing file!");
 }
 
 u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
@@ -74,7 +74,7 @@ u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
 	if(offset != (u32)-1)
 	{
 		if(offset + len > _fileLength)
-			throw Exception("Can't read the file. EOF will be reached.",(offset+len)-_fileLength);
+			throw SystemException("Can't read the file. EOF will be reached.",(offset+len)-_fileLength);
 
 		Seek(offset);
 		_rest.Clear();
@@ -102,7 +102,7 @@ u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
 
 	if (ret < 0) {
 		free(tempBuffer);
-		throw Exception("Error reading file!", nbLus);
+		throw SystemException("Error reading file!", nbLus);
 	}
 
 	if (ret > restToRead) {
@@ -121,7 +121,7 @@ u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
 void NandFile::Seek(u32 offset)
 {
 	if(offset > _fileLength)
-		throw Exception("Can't seek out of the file", offset);
+		throw SystemException("Can't seek out of the file", offset);
 
 	ISFS_Seek(_fd, offset, SEEK_SET);
 }

@@ -205,17 +205,18 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder) {
 	u32 tmd_size;
 	u32 ret = ES_GetStoredTMDSize(titleId, &tmd_size);
 	if (ret < 0)
-		throw Exception("Unable to get stored tmd size", ret);
+		throw SystemException("Unable to get stored tmd size", ret);
 
 	signed_blob *btmd = (signed_blob *) memalign(32, (tmd_size + 31) & (~31));
 	if (btmd == NULL)
-		throw Exception("Not enough memory", -1);
+		throw Exception("Not enough memory");
 	memset(btmd, 0, tmd_size);
 
 	ret = ES_GetStoredTMD(titleId, btmd, tmd_size);
-	if (ret < 0) {
+	if (ret < 0) 
+	{
 		free(btmd);
-		throw Exception("Unable to get stored tmd", -1);
+		throw SystemException("Unable to get stored tmd", ret);
 	}
 
 	tmd *tmd_data = NULL;
@@ -255,7 +256,7 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder) {
 			processControl.buffer = GetSharedContent(content);
 		} else {
 			free(btmd);
-			throw Exception("Unknown content type !", -1);
+			throw Exception("Unknown content type !");
 		}
 
 		/* Content, on encrypte */
@@ -282,7 +283,7 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder) {
 
 void Title::LoadFromWad(const std::string& file, const std::string& tempFolder) {
 	if (!File::Exists(file))
-		throw Exception("The wad file doesn't exists : " + file, -1);
+		throw Exception("The wad file doesn't exists : " + file);
 
 	TitleEventArgs processControl;
 	_dataLen = 0;
@@ -537,7 +538,7 @@ void Title::Install() {
 					certificate.Length(), (signed_blob*) crl.Content(),
 					crl.Length());
 			if (ret < 0)
-				throw Exception("Error installing ticket.", ret);
+				throw SystemException("Error installing ticket.", ret);
 
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTicketInstalled(processControl);
@@ -555,7 +556,7 @@ void Title::Install() {
 					(signed_blob*) certificate.Content(), certificate.Length(),
 					(signed_blob*) crl.Content(), crl.Length());
 			if (ret < 0)
-				throw Exception("Error starting title installation.", ret);
+				throw SystemException("Error starting title installation.", ret);
 
 			INIT_PROCESS_CONTROL(processControl, NULL);
 			OnTmdInstalled(processControl);
@@ -576,7 +577,7 @@ void Title::Install() {
 			if (!processControl.skipStep) {
 				cfd = ES_AddContentStart(tmdData->title_id, tmdContent->cid);
 				if (cfd < 0)
-					throw Exception("Error adding content start.", ret);
+					throw SystemException("Error adding content start.", ret);
 
 				//writing content datas
 				ret = ES_AddContentData(cfd,
@@ -586,13 +587,13 @@ void Title::Install() {
 					//if an error occures, we ensure to close the content
 					//and notify the system of the error
 					ES_AddContentFinish(cfd);
-					throw Exception("Error writing content.", ret);
+					throw SystemException("Error writing content.", ret);
 				}
 
 				//end content installation
 				ret = ES_AddContentFinish(cfd);
 				if (ret < 0)
-					throw Exception("Error finising content installation.", ret);
+					throw SystemException("Error finising content installation.", ret);
 
 				INIT_PROCESS_CONTROL(processControl, tmdContent);
 				OnContentInstalled(processControl);
@@ -601,7 +602,7 @@ void Title::Install() {
 
 		ret = ES_AddTitleFinish();
 		if (ret < 0)
-			throw Exception("Error finising title installation", ret);
+			throw SystemException("Error finising title installation", ret);
 	} catch (AbortException &abort) {
 	} catch (Exception &ex) {
 		//Cancel install
@@ -639,33 +640,33 @@ void Title::Uninstall(u64 titleId) {
 
 	ret = ES_GetNumTicketViews(titleId, &viewCnt);
 	if (ret < 0)
-		throw Exception("Error getting view count.", ret);
+		throw SystemException("Error getting view count.", ret);
 
 	viewData = (tikview *) memalign(32, sizeof(tikview) * viewCnt);
 	if (!viewData)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	try {
 		ret = ES_GetTicketViews(titleId, viewData, viewCnt);
 		if (ret < 0)
-			throw Exception("Error getting ticket views.", ret);
+			throw SystemException("Error getting ticket views.", ret);
 
 		/* Delete all tickets */
 		for (u32 tickViewIndex = 0; tickViewIndex < viewCnt; tickViewIndex++) {
 			ret = ES_DeleteTicket(&viewData[tickViewIndex]);
 			if (ret < 0)
-				throw Exception("Error deleting title tickets.", ret);
+				throw SystemException("Error deleting title tickets.", ret);
 		}
 
 		// Delete title content
 		ret = ES_DeleteTitleContent(titleId);
 		if (ret < 0)
-			throw Exception("Error deleting title contents.", ret);
+			throw SystemException("Error deleting title contents.", ret);
 
 		//delete title
 		ret = ES_DeleteTitle(titleId);
 		if (ret < 0)
-			throw Exception("Error deleting title.", ret);
+			throw SystemException("Error deleting title.", ret);
 	} catch (...) {
 		free(viewData);
 		throw;
@@ -698,16 +699,16 @@ vector<u8> Title::GetInstalledIos() {
 	//Get stored IOS versions.
 	ret = ES_GetNumTitles(&nbTitle);
 	if (ret < 0)
-		throw Exception("Error getting the number of installed titles.", ret);
+		throw SystemException("Error getting the number of installed titles.", ret);
 
 	titlesBuffer = (u64*) memalign(32, sizeof(u64) * nbTitle);
 	if (!titlesBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	try {
 		ret = ES_GetTitles(titlesBuffer, nbTitle);
 		if (ret < 0)
-			throw Exception("Error getting title list from nand.", ret);
+			throw SystemException("Error getting title list from nand.", ret);
 
 		//filtering ios from other titles
 		for (u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++) {
@@ -737,16 +738,16 @@ bool Title::IsInstalled(u64 titleId) {
 	//Get stored IOS versions.
 	ret = ES_GetNumTitles(&nbTitle);
 	if (ret < 0)
-		throw Exception("Error getting the number of installed titles.", ret);
+		throw SystemException("Error getting the number of installed titles.", ret);
 
 	titlesBuffer = (u64*) memalign(32, sizeof(u64) * nbTitle);
 	if (!titlesBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	try {
 		ret = ES_GetTitles(titlesBuffer, nbTitle);
 		if (ret < 0)
-			throw Exception("Error getting title list from nand.", ret);
+			throw SystemException("Error getting title list from nand.", ret);
 
 		//filtering ios from other titles
 		for (u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++)
@@ -775,18 +776,18 @@ u16 Title::GetInstalledTitleVersion(u64 titleId) {
 	/* Get TMD size */
 	ret = ES_GetStoredTMDSize(titleId, &tmdLength);
 	if (ret < 0)
-		throw Exception("Error getting TMD length", ret);
+		throw SystemException("Error getting TMD length", ret);
 
 	/* Allocate memory */
 	tmdBuffer = (signed_blob*) memalign(32, TITLE_ROUND_UP(tmdLength, 32));
 	if (!tmdBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	/* Read TMD */
 	ret = ES_GetStoredTMD(titleId, tmdBuffer, tmdLength);
 	if (ret < 0) {
 		free(tmdBuffer);
-		throw Exception("Error getting stored tmd.", ret);
+		throw SystemException("Error getting stored tmd.", ret);
 	}
 
 	titleVersion = ((tmd *) SIGNATURE_PAYLOAD(tmdBuffer))->title_version;
@@ -933,7 +934,7 @@ void Title::EncryptContent(Buffer& b, tmd_content* tmdInfo) {
 	u64 bufferLength = TITLE_ROUND_UP(b.Length(), 64);
 	u8* outbuf = (u8*) memalign(32, bufferLength);
 	if (!outbuf)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	/* Set IV key */
 	u8 ivkey[16];
@@ -959,7 +960,7 @@ void Title::DecryptContent(Buffer& b, tmd_content* tmdInfo) {
 	u64 bufferLength = b.Length();
 	u8* outbuf = (u8*) memalign(32, bufferLength);
 	if (!outbuf)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	/* Set IV key */
 	u8 ivkey[16];
@@ -980,7 +981,7 @@ void Title::DecryptContent(Buffer& b, tmd_content* tmdInfo) {
 		stringstream str;
 		str << "Content " << hex << tmdInfo->cid << dec
 				<< " decryption failed -> hash mismatch";
-		throw Exception(str.str(), -1);
+		throw Exception(str.str());
 	}
 	b.Clear();
 	b.Append(outbuf, bufferLength);
@@ -1017,7 +1018,7 @@ Buffer Title::GetSharedContent(tmd_content* c) {
 
 	u64 index = sharedMap.Find(bsha);
 	if (index == sharedMap.Length())
-		throw Exception("Shared content not found in content.map", c->index);
+		throw SystemException("Shared content not found in content.map", c->index);
 
 	stringstream str;
 	char name[9];
@@ -1067,7 +1068,7 @@ void Title::ReloadIOS(u32 ios) {
 		usleep(500000);
 		ret = IOS_ReloadIOS(ios);
 		if (ret < 0)
-			throw Exception("Can't reload ios" + ios, ret);
+			throw SystemException("Can't reload ios" + ios, ret);
 		usleep(500000);
 		_runningIos = ios;
 	}

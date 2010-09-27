@@ -19,30 +19,14 @@
  *
  */
 
-#define MEM_DEBUG_INIT struct mallinfo dbg_meminfo = mallinfo(); \
-	int mem_old_free_dbg = dbg_meminfo.fordblks; \
-	int mem_new_free_dbg = 0; \
-	int mem_old_use_dbg = dbg_meminfo.uordblks; \
-	int mem_new_use_dbg = 0; \
-	stringstream memdbg;
-
-#define MEM_DEBUG_FOLLOW(name) dbg_meminfo = mallinfo(); \
-	mem_new_free_dbg = dbg_meminfo.fordblks; \
-	mem_new_use_dbg = dbg_meminfo.uordblks; \
-	memdbg.str(""); \
-	memdbg << name << "  |  dif: " << mem_new_use_dbg - mem_old_use_dbg << "  |  used: " << mem_new_use_dbg << "  |  free: " << mem_new_free_dbg << endl; \
-	Libwiisys::Logging::Log::WriteLog(Libwiisys::Logging::Log_Debug, memdbg.str()); \
-	mem_old_free_dbg = mem_new_free_dbg; \
-	mem_old_use_dbg = mem_new_use_dbg;
-
-
 #ifdef __cplusplus
 
 #include "Libwiisys/Buffer.h"
 #include "Libwiisys/Event.h"
 #include "Libwiisys/EventArgs.h"
-#include "Libwiisys/Exceptions/AbortException.h"
 #include "Libwiisys/Exceptions/Exception.h"
+#include "Libwiisys/Exceptions/SystemException.h"
+#include "Libwiisys/Exceptions/AbortException.h"
 #include "Libwiisys/IO/Device.h"
 #include "Libwiisys/IO/Directory.h"
 #include "Libwiisys/IO/FatDirectory.h"

@@ -16,7 +16,7 @@ void Dol::Execute(const string &path, void* physicalAddress) {
 	d.Run();
 
 	//we shouldn't access here
-	throw Exception("Error launching dol file", -1);
+	throw Exception("Error launching dol file");
 }
 /*
  void Dol::Execute(void* physicalAddress, void *content, u64 contentLength) {
@@ -35,7 +35,7 @@ Dol::Dol(const std::string &path, void* physicalAddress) :
 	if (dolFile.Read(content, dolFile.Size()) != dolFile.Size()) {
 		dolFile.Close();
 		delete &dolFile;
-		throw Exception("Error reading the dol file.", -1);
+		throw Exception("Error reading the dol file.");
 	}
 
 	dolFile.Close();

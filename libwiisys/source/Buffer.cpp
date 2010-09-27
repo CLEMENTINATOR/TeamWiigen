@@ -12,7 +12,7 @@ Buffer::Buffer(const void* content, const u64 length) :
 
 	_innerBuffer = memalign(32, _length);
 	if (!_innerBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	memcpy(_innerBuffer, content, _length);
 
@@ -28,7 +28,7 @@ Buffer::Buffer(const u8 value, const u64 length) :
 	_innerBuffer = memalign(32, _length);
 
 	if (!_innerBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	memset(_innerBuffer, value, _length);
 
@@ -44,7 +44,7 @@ Buffer::Buffer(const Buffer& b) :
 	_innerBuffer = memalign(32, _length);
 
 	if (!_innerBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	memcpy(_innerBuffer, b._innerBuffer, _length);
 }
@@ -61,7 +61,7 @@ Buffer& Buffer::operator=(const Buffer& b) {
 
 	_innerBuffer = memalign(32, _length);
 	if (!_innerBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 	memcpy(_innerBuffer, b._innerBuffer, _length);
 
 	_checksum = b._checksum;
@@ -83,7 +83,7 @@ void Buffer::Append(const void* content, const u64 length) {
 	u8* tempBuffer = NULL;
 	tempBuffer = (u8*) memalign(32, _length + length);
 	if (!tempBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	if (_length != 0)
 		memcpy(tempBuffer, _innerBuffer, _length);
@@ -134,7 +134,7 @@ void Buffer::Truncate(const u64 position) {
 	u8* tempBuffer = NULL;
 	tempBuffer = (u8*) memalign(32, position);
 	if (!tempBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	memcpy(tempBuffer, _innerBuffer, position);
 

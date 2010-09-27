@@ -17,7 +17,7 @@ void GeckoLogger::Initialize() {
 			usb_flush(EXI_CHANNEL_1);
 			initialised = true;
 		} else
-			throw Exception("Pb with gecko!", -1);
+			throw Exception("Pb with gecko!");
 	}
 }
 

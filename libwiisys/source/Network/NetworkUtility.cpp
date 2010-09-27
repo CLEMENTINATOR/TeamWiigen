@@ -30,7 +30,7 @@ string NetworkUtility::GetIp(void) {
 		char hostip[17] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		s32 ret = if_config(hostip, NULL, NULL, true);
 		if (ret < 0)
-			throw Exception("Error initialising network !", ret);
+			throw SystemException("Error initialising network !", ret);
 
 		Initialized() = true;
 		Current()._hostIp = string(hostip);

@@ -20,7 +20,7 @@ void Device::EnsureShutdown() {
 	for (u16 deviceIndex = 0; deviceIndex < NB_DEVICES; deviceIndex++) {
 		fatDevice *tempDevice = devices + deviceIndex;
 		if (tempDevice->deviceHandles > 0)
-			throw Exception("Can shutdown device. Files are used.",
+			throw SystemException("Can shutdown device. Files are used.",
 					tempDevice->deviceHandles);
 	}
 
@@ -53,7 +53,7 @@ Device::FindDevice(const std::string &pathName) {
 	}
 
 	if (device == NULL)
-		throw Exception("Device not found." + mountName, -1);
+		throw Exception("Device not found." + mountName);
 
 	return *device;
 }
@@ -78,7 +78,7 @@ void Device::Mount() {
 
 	ret = ISFS_Initialize();
 	if (ret < 0)
-		throw Exception("Could not initialize NAND subsystem!", ret);
+		throw SystemException("Could not initialize NAND subsystem!", ret);
 }
 
 void Device::Mount(fatDevice &device) {
@@ -91,7 +91,7 @@ void Device::Mount(fatDevice &device) {
 	/* Mount device */
 	s32 ret = fatMountSimple(device.mount.c_str(), device.interface);
 	if (!ret)
-		throw Exception("Error mounting device!", ret);
+		throw SystemException("Error mounting device!", ret);
 }
 
 void Device::UnMount(const std::string &path) {

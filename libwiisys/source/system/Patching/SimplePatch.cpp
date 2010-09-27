@@ -11,7 +11,7 @@ SimplePatch::SimplePatch(const u8* pattern, const u8* patch, const u32 length,
 		const std::string &module) :
 	Patch(module), _pattern(NULL), _patch(NULL), _length(length) {
 	if (!pattern || !patch)
-		throw Exception("You need to indicate a pattern and a patch.", -1);
+		throw Exception("You need to indicate a pattern and a patch.");
 
 	_pattern = new u8[length];
 	memcpy(_pattern, pattern, length);
@@ -236,7 +236,7 @@ SimplePatch* SimplePatch::getPatch(const std::string &s) {
 	else if (s == "KoreanKey_EnablePatch")
 		return KoreanKey_EnablePatch();
 	else
-		throw Exception("Unknown prebuld patch", -1);
+		throw Exception("Unknown prebuld patch");
 
 	return NULL;
 }

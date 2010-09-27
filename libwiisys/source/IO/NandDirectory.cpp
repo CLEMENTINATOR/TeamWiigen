@@ -11,7 +11,7 @@ void NandDirectory::Create(const string &name) {
 			ISFS_OPEN_RW);
 
 	if (ret < 0)
-		throw Exception("Couldn't create directory : " + name, ret);
+		throw SystemException("Couldn't create directory : " + name, ret);
 }
 
 void NandDirectory::Delete(const string &name) {
@@ -19,7 +19,7 @@ void NandDirectory::Delete(const string &name) {
 	s32 ret = ISFS_Delete(name.c_str());
 
 	if (ret)
-		throw Exception("Error deleting " + name, ret);
+		throw SystemException("Error deleting " + name, ret);
 }
 
 bool NandDirectory::Exists(const string &name) {
@@ -38,19 +38,19 @@ vector<string> NandDirectory::GetFiles(const string &name) {
 
 	ret = ISFS_ReadDir(name.c_str(), NULL, &childCount);
 	if (ret)
-		throw Exception("Can't open " + name, ret);
+		throw SystemException("Can't open " + name, ret);
 
 	if (childCount == 0)
 		return files;
 
 	childBuffer = (char*) memalign(32, (ISFS_MAXPATH + 1) * childCount);
 	if (!childBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	try {
 		ret = ISFS_ReadDir(name.c_str(), childBuffer, &childCount);
 		if (ret)
-			throw Exception("Can't read " + name, ret);
+			throw SystemException("Can't read " + name, ret);
 
 		u32 charPosition = 0;
 		for (u32 entryIndex = 0; entryIndex < childCount; entryIndex++) {
@@ -87,19 +87,19 @@ vector<string> NandDirectory::GetDirectories(const string &name) {
 
 	ret = ISFS_ReadDir(name.c_str(), NULL, &childCount);
 	if (ret)
-		throw Exception("Can't open " + name, ret);
+		throw SystemException("Can't open " + name, ret);
 
 	if (childCount == 0)
 		return directories;
 
 	childBuffer = (char*) memalign(32, (ISFS_MAXPATH + 1) * childCount);
 	if (!childBuffer)
-		throw Exception("Not enough memory.", -1);
+		throw Exception("Not enough memory.");
 
 	try {
 		ret = ISFS_ReadDir(name.c_str(), childBuffer, &childCount);
 		if (ret)
-			throw Exception("Can't read " + name, ret);
+			throw SystemException("Can't read " + name, ret);
 
 		u32 charPosition = 0;
 		for (u32 entryIndex = 0; entryIndex < childCount; entryIndex++) {

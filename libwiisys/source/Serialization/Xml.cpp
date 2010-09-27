@@ -9,7 +9,7 @@ using namespace Libwiisys::Exceptions;
 TiXmlDocument& Xml::Load(const std::string &file) {
 	Device::Mount(file);
 	if (!File::Exists(file))
-		throw Exception("The specified xml file not found !", -1);
+		throw Exception("The specified xml file not found !");
 	TiXmlDocument* doc = new TiXmlDocument(file.c_str());
 	doc->LoadFile();
 	Device::UnMount(file);

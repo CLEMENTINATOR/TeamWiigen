@@ -146,7 +146,7 @@ u32 File::Size() const
 Buffer File::ReadToEnd(const string& path)
 {
 	if(!File::Exists(path))
-		throw Exception("Invalid filename : "+path,-1);
+		throw Exception("Invalid filename : "+ path);
 
 	Buffer buffer;
 	File &f = File::Open(path, FileMode_Read);
@@ -171,10 +171,10 @@ Buffer File::ReadToEnd(const string& path)
 void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 {
 	if(!File::Exists(fileToCopy))
-		throw Exception("File to copy doesnt exist : " + fileToCopy,-1);
+		throw Exception("File to copy doesnt exist : " + fileToCopy);
 
 	if(File::Exists(destFile))
-		throw Exception("File already exists : " + destFile,-1);
+		throw Exception("File already exists : " + destFile);
 
 	Buffer b=File::ReadToEnd(fileToCopy);
 	File&f=File::Create(destFile);

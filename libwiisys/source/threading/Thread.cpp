@@ -13,7 +13,7 @@ void Thread::Start(Object* params) {
 	s32 code = LWP_CreateThread(&_threadId, Thread::EntryPoint, this, NULL, 0,
 			70);
 	if (code < 0)
-		throw Exception("Error creating thread.", code);
+		throw SystemException("Error creating thread.", code);
 }
 
 void Thread::Run() {

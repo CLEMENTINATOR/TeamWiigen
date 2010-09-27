@@ -22,15 +22,15 @@ FileSystemTask::FileSystemTask(const std::string &target, FSTAction action, FSTT
 bool FileSystemTask::Prepare()
 {
 	if(_target == "")
-		throw Exception("The target of the FileSystemTask must be provided.", -1);
+		throw Exception("The target of the FileSystemTask must be provided.");
 		
 	if(_type == FSTType_File && !File::Exists(_target))
-		throw Exception("The file " + _target + " doesn't exists.", -1);
+		throw Exception("The file " + _target + " doesn't exists.");
 	else if(!Directory::Exists(_target))
-		throw Exception("The directory " + _target + " doesn't exists.", -1);
+		throw Exception("The directory " + _target + " doesn't exists.");
 		
 	if((_action == FSTAction_Move || _action == FSTAction_Copy) && _destination == "")
-		throw Exception("A destination must be specified for copy/move actions.", -1);
+		throw Exception("A destination must be specified for copy/move actions.");
 		
 	return true;
 }

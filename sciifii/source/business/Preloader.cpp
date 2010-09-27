@@ -23,7 +23,7 @@ bool Preloader::Prepare()
 	OnProgress("Downloading priiloader.", 0.2);
 	
 	if(!FileManager::Download(_file))
-		throw Exception("Error getting files.", -1);
+		throw Exception("Error getting files.");
 		
 	OnProgress("Priiloader preparation done!", 1);
 	
@@ -37,16 +37,16 @@ Buffer Preloader::GetSysMenuTMD()
 
     s32 ret = ES_GetStoredTMDSize(title_id,&tmd_size);
     if (ret < 0)
-        throw Exception("Unable to find System Menu TMD size.", ret);
+        throw SystemException("Unable to find System Menu TMD size.", ret);
 
     signed_blob *s_tmd = (signed_blob*)memalign(32,(tmd_size+32)&(~31));
     if (!s_tmd)
-        throw Exception("Not enough memory!", -1);
+        throw Exception("Not enough memory!");
 
     memset(s_tmd, 0, (tmd_size+32)&(~31));
     ret = ES_GetStoredTMD(title_id, s_tmd, tmd_size);
     if (ret < 0)
-        throw Exception("Cant read SysMenu tmd!", -1);
+        throw SystemException("Cant read SysMenu tmd!", ret);
 
     Buffer returnValue(s_tmd, (tmd_size+32)&(~31));
     free(s_tmd);
@@ -79,7 +79,7 @@ void Preloader::CopyTicket()
         {
             f_tik.Close();
             delete &f_tik;
-            throw Exception("Error copying ticket!", -1);
+            throw Exception("Error copying ticket!");
         }
     }
 }
@@ -106,7 +106,7 @@ void Preloader::CopySysMenu()
         {
             f_sys.Close();
             delete &f_sys;
-            throw Exception("Error copying SysMenu!", -1);
+            throw Exception("Error copying SysMenu!");
         }
     }
 }
@@ -155,7 +155,7 @@ void Preloader::Install()
     OnProgress("Getting sysMenu boot index.", 0.3);
     bootCid = GetBootCid(tmd_data);
     if (bootCid == 0)
-        throw Exception("Boot index not found!", -1);
+        throw Exception("Boot index not found!");
     b_tmd.Clear();
 
     OnProgress("Copiing sysMenu ticket.", 0.4);
@@ -185,7 +185,7 @@ void Preloader::Install()
         //checking installation
         OnProgress("Checking Priiloader.", 0.9);
         if (!CheckPreloader())
-            throw Exception("Error detected in priiloader.", -1);
+            throw Exception("Error detected in priiloader.");
 
         OnProgress("Priiloader installation done!", 1);
     }

@@ -60,7 +60,7 @@ void Config::Initialize(const string& configFilePath)
     TiXmlElement* root = doc.RootElement();
 
     if (string(root->Attribute("version")) != SCIIFII_VERSION || string(root->Value()) != "sciifii")
-        throw Exception("Config file version not supported", -1);
+        throw Exception("Config file version not supported");
 
     c._menuMessage = root->Attribute("MenuMessage");
     c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");;
@@ -87,7 +87,7 @@ void Config::Initialize(const string& configFilePath)
             else if (nodeValue == "Disclaimer")
                 c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
             else
-                throw Exception("Invalid XmlNode.", -1);
+                throw Exception("Invalid XmlNode.");
         }
 
         child = child->NextSiblingElement();
@@ -106,7 +106,7 @@ void Config::CreateLogs(TiXmlElement* element)
     if (child->Type() != TiXmlElement::COMMENT)
     {
       if (string(child->Value()) != "log")
-        throw Exception("options child node is invalid", -1);
+        throw Exception("options child node is invalid");
 
       string type = UtilString::ToStr(child->Attribute("type"));
       string cat = UtilString::ToStr(child->Attribute("category"),"all");
@@ -124,12 +124,12 @@ void Config::CreateLogs(TiXmlElement* element)
       else if (cat == "debug")
               t = Lgt_Debug;
       else
-        throw Exception("Invalid log category : "+cat, -1);
+        throw Exception("Invalid log category : " + cat);
 
       if(type=="file")
       {
         if(path=="" )
-          throw Exception("File logger needs a file path !", -1);
+          throw Exception("File logger needs a file path !");
 
           FileLogger* l = new FileLogger(path);
           Log::AddLogProvider(t,l);
@@ -142,12 +142,12 @@ void Config::CreateLogs(TiXmlElement* element)
       else if (type=="web" && _hasNetwork)
       {
     	  if(url=="")
-    		  throw Exception("Weblogger needs an url for logging  !", -1);
+    		  throw Exception("Weblogger needs an url for logging!");
     	  WebLogger *sciifiiLog=new WebLogger(url, "message", "line", "file", "application", "version");
     	  Log::AddLogProvider(t, sciifiiLog);
       }
       else
-        throw Exception("Invalid log type : " + type, -1);
+        throw Exception("Invalid log type : " + type);
     }
 
     child = child->NextSiblingElement();
@@ -163,7 +163,7 @@ void Config::CreateOptionList(TiXmlElement* element)
         if (child->Type() != TiXmlElement::COMMENT)
         {
             if (string(child->Value()) != "option")
-                throw Exception("options child node is invalid", -1);
+                throw Exception("options child node is invalid");
 
             string name = child->Attribute("name");
             string text = child->Attribute("text");
@@ -181,16 +181,16 @@ void Config::CreateOptionList(TiXmlElement* element)
 			  }
 			}
 
-            if(valid)
-            {
-            	option* opt = new option();
+			if(valid)
+			{
+				option* opt = new option();
 				(*opt) = (option){name, text,false,hidden};
 				_options.push_back(opt);
-            }
-        }
+			}
+		}
 
-        child = child->NextSiblingElement();
-    }
+		child = child->NextSiblingElement();
+	}
 
 }
 
@@ -203,7 +203,7 @@ void Config::CreateModeList(TiXmlElement* element)
         if (child->Type() != TiXmlElement::COMMENT)
         {
             if (string(child->Value()) != "mode")
-                throw Exception("modes child node is invalid", -1);
+                throw Exception("modes child node is invalid");
 
             string text = child->Attribute("text");
             vector<string> optionList = UtilString::Split(UtilString::ToStr(child->Attribute("options")), '|');

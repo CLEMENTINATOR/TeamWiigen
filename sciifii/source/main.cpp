@@ -87,12 +87,9 @@ int mainText(int argc, char **argv)
     }
     catch (Exception &ex)
     {
-        cout << endl << "\x1b[33m" << "Exception " << ex.GetCode() << endl
-        << ex.GetMessage() << "\x1b[37m" << endl
+        cout << endl << "\x1b[33m" << ex << "\x1b[37m" << endl
         << "Press A to exit and relaunch sciifii.";
-        stringstream str;
-        str<<"Exception "<<ex.GetMessage()<<" "<<ex.GetCode()<<" in : "<<Sciifii::LastStepMessage();
-        Log::WriteLog(Log_Error,str.str());
+        Log::WriteLog(Log_Error,ex.ToString());
         Pause();
         return 0;
     }
@@ -125,17 +122,16 @@ int mainText(int argc, char **argv)
         else
         {
         	Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
-        	throw Exception("An error occured during prepare.",-1);
+        	throw Exception("An error occured during prepare.");
         }
     }
     catch (Exception &ex)
     {
-        cout << endl << "\x1b[33m" << "Exception " << ex.GetCode() << endl
-        << ex.GetMessage() << "\x1b[37m" << endl
+        cout << endl << "\x1b[33m" << ex << "\x1b[37m" << endl
         << "Press A to exit and relaunch sciifii.";
 
         stringstream str;
-        str<<"Exception "<<ex.GetMessage()<<" "<<ex.GetCode()<<" in : "<<Sciifii::LastStepMessage();
+        str<< ex <<" in : "<<Sciifii::LastStepMessage();
         Log::WriteLog(Log_Error,str.str());
     }
     catch (...)

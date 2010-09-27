@@ -26,7 +26,7 @@ void CiosCorp::AddItem(const ciosDesc& item)
 void CiosCorp::AddModule(const std::string& name, const moduleDesc& module)
 {
   if (_modules.find(name) != _modules.end())
-    throw Exception("The module has already been registered", -1);
+    throw Exception("The module has already been registered");
 
   _modules.insert(pair<string,moduleDesc>(name, module));
 }
@@ -106,7 +106,7 @@ void CiosCorp::Install()
 			wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName( ite->sourceId,ite->revision);
 
 			if(!File::Exists(wadFile.str()) && !ite->localOnly)
-				throw Exception("File not found.", -1);
+				throw Exception("File not found.");
 			else if(!File::Exists(wadFile.str()))
 				continue;
 

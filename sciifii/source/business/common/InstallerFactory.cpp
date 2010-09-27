@@ -65,13 +65,13 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
         else if (choice == "decrypt")
             action = ti_Decrypt;
         else
-			throw Exception("Can't parse TitleAction enum from xml!", -1);
+			throw Exception("Can't parse TitleAction enum from xml!");
 
          if (titleId!=0 && file=="")
              step= new TitleStep(titleId, revision, action, path);
          else if (titleId==0 && file!="")
             step= new TitleStep(file, action, path);
-         else  throw Exception("Title XML error", -1);
+         else  throw Exception("Title XML error");
 	}
 	else if(nodeValue == "CiosInstaller")
 		step = CreateCios(node);
@@ -90,7 +90,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 				else if(nodeValue == "modules")
 					FillCiosCorpModules(step, section);
 				else
-					throw Exception("Child node of Corp not defined.", -1);
+					throw Exception("Child node of Corp not defined.");
 			}
 			section=section->NextSiblingElement();
 		}
@@ -116,7 +116,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 					{
 					   vector<string> val = UtilString::Split(splitPattern[i], 'x');
 					   if(val.size() != 2)
-							throw Exception("Value length !=2",-1);
+							throw Exception("Value length != 2");
 
 					   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
 					   pattern.Append(&v, 1);
@@ -132,7 +132,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 					((MemoryPatcher*)step)->AddPatch(((MemoryPatch){pattern, value}));
 				}
 				else
-					throw Exception("Child node of MemoryPatcher not defined.", -1);
+					throw Exception("Child node of MemoryPatcher not defined.");
 			}
 			patch = patch->NextSiblingElement();
 		}
@@ -146,7 +146,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 	{
 		string file = UtilString::ToStr(node->Attribute("file"));
 		if(file == "")
-			throw Exception("Priiloader file must be provided.", -1);
+			throw Exception("Priiloader file must be provided.");
 
 
 		step = new Preloader(file);
@@ -161,7 +161,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		else if(saction == "uninstall")
 			action = ti_Uninstall;
         else
-			throw Exception("Can't parse WadBatchAction enum from xml!", -1);
+			throw Exception("Can't parse WadBatchAction enum from xml!");
 
 		step = new WadBatch(folder,action);
 	}
@@ -195,7 +195,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		else if(stype == "folder")
 			type = FSTType_Folder;
 		else
-			throw Exception("Can't parse FSTType from \"" + stype + "\".", -1);
+			throw Exception("Can't parse FSTType from \"" + stype + "\".");
 
 		if(saction == "move")
 			action = FSTAction_Move;
@@ -207,7 +207,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		step = new FileSystemTask(target, action, type, destination, recursive);
 	}
 	else
-		throw Exception("This step doesn't exists", -1);
+		throw Exception("This step doesn't exists");
 
 	step->Options(UtilString::ToStr(node->Attribute("option"), ""));
 	step->Region(UtilString::ToStr(node->Attribute("regions"), ""));
@@ -241,7 +241,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 			else if(nodeValue=="patches")
 				FillCiosPatches(step, section);
 			else
-				throw Exception("Child node of Cios not defined", -1);
+				throw Exception("Child node of Cios not defined");
 		}
 		section=section->NextSiblingElement();
 	}
@@ -254,17 +254,17 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
     TiXmlElement* module = xml->FirstChildElement();
     while (module != NULL)
     {
-        if (module->Type() != TiXmlElement::COMMENT)
-        {
-			if(UtilString::ToStr(module->Value()) != "module")
-				throw Exception("There can only be module item in modules", -1);
+			if (module->Type() != TiXmlElement::COMMENT)
+			{
+				if(UtilString::ToStr(module->Value()) != "module")
+					throw Exception("There can only be module item in modules");
 
-			string file = UtilString::ToStr(module->Attribute("file"));
-            s32 position = UtilString::ToS32(module->Attribute("position"), -1);
+				string file = UtilString::ToStr(module->Attribute("file"));
+				s32 position = UtilString::ToS32(module->Attribute("position"), -1);
 
-            ((Cios*)cios)->AddModule((customModule){file, position});
-        }
-        module = module->NextSiblingElement();
+				((Cios*)cios)->AddModule((customModule){file, position});
+			}
+			module = module->NextSiblingElement();
     }
 }
 
@@ -275,40 +275,40 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
     {
         if (child->Type() != TiXmlElement::COMMENT)
         {
-           string nodeValue = UtilString::ToStr(child->Value());
-           if(nodeValue=="prebuild")
-           {
-               string patchName=UtilString::ToStr(child->Attribute("name"));
+				  string nodeValue = UtilString::ToStr(child->Value());
+				  if(nodeValue=="prebuild")
+				  {
+						string patchName=UtilString::ToStr(child->Attribute("name"));
+						((Cios*)cios)->AddPatch(new SimplePatch(*SimplePatch::getPatch(patchName)));
+				  }
+				 
+				  if(nodeValue=="SimplePatch")
+				  {
+						string module=UtilString::ToStr(child->Attribute("module"),"");
+						Buffer pattern;
+						Buffer value;
+						vector<string> splitPattern = UtilString::Split(UtilString::ToStr(child->Attribute("pattern")),',');
+						vector<string> splitValue = UtilString::Split(UtilString::ToStr(child->Attribute("value")),',');
 
-               ((Cios*)cios)->AddPatch(new SimplePatch(*SimplePatch::getPatch(patchName)));
-           }
-            if(nodeValue=="SimplePatch")
-           {
-				string module=UtilString::ToStr(child->Attribute("module"),"");
-				Buffer pattern;
-				Buffer value;
-				vector<string> splitPattern = UtilString::Split(UtilString::ToStr(child->Attribute("pattern")),',');
-				vector<string> splitValue = UtilString::Split(UtilString::ToStr(child->Attribute("value")),',');
+						for(u16 i = 0; i < splitPattern.size(); i++)
+						{
+							 vector<string> val = UtilString::Split(splitPattern[i], 'x');
+							 if(val.size() != 2)
+								throw Exception("Value length !=2");
 
-				for(u16 i = 0; i < splitPattern.size(); i++)
-				{
-				   vector<string> val = UtilString::Split(splitPattern[i], 'x');
-				   if(val.size() != 2)
-						throw Exception("Value length !=2",-1);
+							 u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+							 pattern.Append(&v, 1);
+						}
 
-				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-				   pattern.Append(&v, 1);
-				}
-
-				for(u16 i = 0; i < splitValue.size(); i++)
-				{
-				   vector<string> val = UtilString::Split(splitValue[i], 'x');
-				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-				   value.Append(&v, 1);
-				}
-				SimplePatch*s=new SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),module);
-                ((Cios*)cios)->AddPatch(s);
-           }
+						for(u16 i = 0; i < splitValue.size(); i++)
+						{
+							 vector<string> val = UtilString::Split(splitValue[i], 'x');
+							 u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
+							 value.Append(&v, 1);
+						}
+						SimplePatch*s=new SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),module);
+            ((Cios*)cios)->AddPatch(s);
+         }
 
         }
         child = child->NextSiblingElement();
@@ -323,7 +323,7 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
 		if (plugin->Type() != TiXmlElement::COMMENT)
 		{
 			if(UtilString::ToStr(plugin->Value()) != "plugin")
-				throw Exception("There can only be plugin item in plugins", -1);
+				throw Exception("There can only be plugin item in plugins");
 
 			string dest = UtilString::ToStr(plugin->Attribute("dest"));
 			string file = UtilString::ToStr(plugin->Attribute("file"));
@@ -361,7 +361,7 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 				{
 				   vector<string> val = UtilString::Split(splitPattern[i], 'x');
 				   if(val.size() != 2)
-						throw Exception("Value length !=2",-1);
+						throw Exception("Value length != 2");
 
 				   u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
 				   pattern.Append(&v, 1);
@@ -415,7 +415,7 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
         if (child->Type() != TiXmlElement::COMMENT)
         {
             if (UtilString::ToStr(child->Value()) != "item")
-                throw Exception("CorpItem child node is invalid", -1);
+                throw Exception("CorpItem child node is invalid");
 
             u64 slot = UtilString::ToU64(child->Attribute("slot"),nr_hex);
             u64 source = UtilString::ToU64(child->Attribute("source"),nr_hex);
@@ -442,7 +442,7 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
         if (child->Type() != TiXmlElement::COMMENT)
         {
             if (UtilString::ToStr(child->Value()) != "module")
-                throw Exception("CorpItem module child node is invalid", -1);
+                throw Exception("CorpItem module child node is invalid");
 
             string type = UtilString::ToStr(child->Attribute("type"));
 			string name = UtilString::ToStr(child->Attribute("name"));

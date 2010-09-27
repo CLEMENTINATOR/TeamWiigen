@@ -16,7 +16,7 @@ Elf::Elf(const std::string &path, void* physicalAddress) :
 	if (elfFile.Read(content, elfFile.Size()) != elfFile.Size()) {
 		elfFile.Close();
 		delete &elfFile;
-		throw Exception("Error reading the dol file.", -1);
+		throw Exception("Error reading the elf file.");
 	}
 
 	elfFile.Close();
@@ -26,13 +26,13 @@ Elf::Elf(const std::string &path, void* physicalAddress) :
 void Elf::Execute(const std::string &path, void* physicalAddress) {
 	Elf e(path, physicalAddress);
 	if (!e.Validate())
-		throw Exception("Not a valid elf file !", -1);
+		throw Exception("Not a valid elf file !");
 
 	e.LoadElf();
 	e.Run();
 
 	//we shouldn't access here
-	throw Exception("Error launching Elf file", -1);
+	throw Exception("Error launching Elf file");
 }
 
 bool Elf::Validate() {

@@ -31,11 +31,11 @@ bool FatFile::Exists(const string &fileName) {
 
 FatFile& FatFile::Open(const string &fileName, const string &mode) {
 	if (!FatFile::Exists(fileName))
-		throw Exception("The file to open doesn't exists!", -1);
+		throw Exception("The file to open doesn't exists!");
 
 	FILE *fd = fopen(fileName.c_str(), mode.c_str());
 	if (!fd)
-		throw Exception("Error opening file : " + fileName, -1);
+		throw Exception("Error opening file : " + fileName);
 
 	return *(new FatFile(fd, fileName));
 }
@@ -43,7 +43,7 @@ FatFile& FatFile::Open(const string &fileName, const string &mode) {
 
 void FatFile::Close() {
 	if (fclose(_fd) == EOF)
-		throw Exception("Error closing file!", -1);
+		throw Exception("Error closing file!");
 
 	_fd = NULL;
 
@@ -56,17 +56,17 @@ void FatFile::Delete(const string &fileName) {
 		return;
 
 	if (remove(fileName.c_str()))
-		throw Exception("Error deleting " + fileName, -1);
+		throw Exception("Error deleting " + fileName);
 }
 
 
 FatFile& FatFile::Create(const string &fileName) {
 	if (FatFile::Exists(fileName))
-		throw Exception("Can't create " + fileName + " already exists!", -1);
+		throw Exception("Can't create " + fileName + " already exists!");
 
 	FILE *fd = fopen(fileName.c_str(), "wb");
 	if (!fd)
-		throw Exception("Error creating file : " + fileName, -1);
+		throw Exception("Error creating file : " + fileName);
 
 	return *(new FatFile(fd, fileName));
 }
@@ -87,7 +87,7 @@ void FatFile::Write(const Buffer& b) {
 
 		nbWrited = fwrite((u8*) b.Content() + nbWritten, 1, nbToRight, _fd);
 		if (nbWrited == 0)
-			throw Exception((char*) "Error writing file!", -1);
+			throw Exception((char*) "Error writing file!");
 
 		nbWritten += nbWrited;
 		totalToRight -= nbWrited;
@@ -100,7 +100,7 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
 	if(offset != (u32)-1)
 	{
 		if(offset + len > _fileLength)
-			throw Exception("Can't read the file. "+_fileName+" will be reached.", (offset+len)-_fileLength);
+			throw SystemException("Can't read the file. "+_fileName+" will be reached.", (offset+len)-_fileLength);
 
 		Seek(offset);
 	}
@@ -110,7 +110,7 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
 
 	if (nbLus < 0) {
 		free(tempBuffer);
-		throw Exception((char*) "Error reading file!", nbLus);
+		throw SystemException((char*) "Error reading file!", nbLus);
 	}
 
 	b.Append(tempBuffer, nbLus);
@@ -121,7 +121,7 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
 void FatFile::Seek(u32 offset)
 {
 	if(offset > _fileLength)
-		throw Exception("Can't seek out of the file.", offset-_fileLength);
+		throw SystemException("Can't seek out of the file.", offset-_fileLength);
 
 	fseek(_fd, offset, SEEK_SET);
 }

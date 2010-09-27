@@ -51,7 +51,7 @@ void Directory::Delete(const string &name, bool recursive) {
 
 	if (Exists(path)) {
 		if (!IsEmpty(path) && !recursive)
-			throw Exception(path + " is not empty.", -1);
+			throw Exception(path + " is not empty.");
 
 		vector < string > files = GetFiles(path);
 		vector < string > subDirectories = GetDirectories(path);
@@ -80,7 +80,7 @@ vector<string> Directory::GetFiles(const string &name) {
 
 	if (!Exists(path)) {
 		Device::UnMount(path);
-		throw Exception(path + " doesn't exists.", -1);
+		throw Exception(path + " doesn't exists.");
 	}
 
 	string cleanedPath = CleanPath(path);
@@ -102,7 +102,7 @@ vector<string> Directory::GetDirectories(const string &name) {
 
 	if (!Exists(path)) {
 		Device::UnMount(path);
-		throw Exception(path + " doesn't exists.", -1);
+		throw Exception(path + " doesn't exists.");
 	}
 
 	string cleanedPath = CleanPath(path);
@@ -139,7 +139,7 @@ bool Directory::IsEmpty(const string &name) {
 
 	if (!Exists(path)) {
 		Device::UnMount(path);
-		throw Exception(path + " doesn't exists.", -1);
+		throw Exception(path + " doesn't exists.");
 	}
 
 	bool empty = true;

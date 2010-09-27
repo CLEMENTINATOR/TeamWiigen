@@ -43,7 +43,7 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd) {
 	u32 newTmdLen = SIGNED_TMD_SIZE(oldTmd) + sizeof(tmd_content);
 	signed_blob* newTmd = (signed_blob*) malloc(newTmdLen);
 	if (!newTmd)
-		throw Exception("Not enough memory!", -1);
+		throw Exception("Not enough memory!");
 
 	//copy the old TMD
 	memset(newTmd, 0, newTmdLen);
@@ -132,7 +132,7 @@ void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl) {
 			}
 		}
 
-		throw Exception("Error fake signing the Ticket.", -1);
+		throw Exception("Error fake signing the Ticket.");
 	}
 }
 
@@ -168,7 +168,7 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl) {
 			}
 		}
 
-		throw Exception("Error fake signing the TMD.", -1);
+		throw Exception("Error fake signing the TMD.");
 	}
 }
 

@@ -27,25 +27,19 @@ namespace Libwiisys {namespace Exceptions {
 			/*!
 			 * \brief Constructor
 			 * \param message The message text of your exception
-			 * \param errorCode The error code associated to the exception
 			 */
-			Exception(const std::string& message, s32 errorCode);
+			Exception(const std::string& message);
 
 			/*!
 			 * \brief Return the exception message
 			 * \return The exception message
 			 */
 			std::string GetMessage();
-
-			/*!
-			 * \brief Return the exception error code
-			 * \return The exception error code
-			 */
-			s32 GetCode();
+			
+			virtual std::string ToString();
 
 		private:
 			std::string _message;
-			s32 _errorCode;
 		};
 
 	}}

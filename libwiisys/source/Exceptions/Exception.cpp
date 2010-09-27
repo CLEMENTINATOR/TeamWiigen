@@ -3,20 +3,20 @@
 using namespace std;
 using namespace Libwiisys::Exceptions;
 
-Exception::Exception(const string& message, s32 errorCode) {
-	_message = message;
-	_errorCode = errorCode;
-}
+Exception::Exception(const string& message) 
+  :  _message(message)
+{}
 
 string Exception::GetMessage() {
 	return _message;
 }
 
-s32 Exception::GetCode() {
-	return _errorCode;
+string Exception::GetType()
+{
+	return "Libwiisys::Exceptions::Exception," + Object::GetType();	
 }
 
-std::string Exception::GetType()
+string Exception::ToString()
 {
-	return "Libwiisys::Exceptions::Exceptions,"+Object::GetType();	
+	return "Exception: " + _message;	
 }

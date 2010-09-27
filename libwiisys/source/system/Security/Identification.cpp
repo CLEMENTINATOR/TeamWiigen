@@ -15,9 +15,9 @@ void Identification::IdentifyAs(UserType user) {
 				fake_su_tmd_dat_size, fake_su_ticket_dat,
 				fake_su_ticket_dat_size);
 	} else if (user == UserType_SystemMenu) {
-		throw Exception("Not implemented.", -1);
+		throw Exception("Not implemented.");
 	} else
-		throw Exception("Unknown user. Can't identify as this user.", user);
+		throw SystemException("Unknown user. Can't identify as this user.", user);
 }
 
 void Identification::Identify(const u8 *certs, u32 certs_size, const u8 *idtmd,
@@ -29,15 +29,15 @@ void Identification::Identify(const u8 *certs, u32 certs_size, const u8 *idtmd,
 	if (ret < 0) {
 		switch (ret) {
 		case ES_EINVAL:
-			throw Exception("Error! ES_Identify Data invalid!", ret);
+			throw SystemException("Error! ES_Identify Data invalid!", ret);
 		case ES_EALIGN:
-			throw Exception("Error! ES_Identify Data not aligned!", ret);
+			throw SystemException("Error! ES_Identify Data not aligned!", ret);
 		case ES_ENOTINIT:
-			throw Exception("Error! ES_Identify ES not initialized!", ret);
+			throw SystemException("Error! ES_Identify ES not initialized!", ret);
 		case ES_ENOMEM:
-			throw Exception("Error! ES_Identify No memory!", ret);
+			throw SystemException("Error! ES_Identify No memory!", ret);
 		default:
-			throw Exception("Error! ES_Identify", ret);
+			throw SystemException("Error! ES_Identify", ret);
 		}
 	}
 }

@@ -36,12 +36,12 @@ void HttpRequest::Connect(string hostname) {
 	/* Create socket */
 	sockfd = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
 	if (sockfd < 0)
-		throw Exception("Error openning socket !", sockfd);
+		throw SystemException("Error openning socket !", sockfd);
 
 	/* Get host by name */
 	he = net_gethostbyname(hostname.c_str());
 	if (!he)
-		throw Exception("Error getting host name !", -1);
+		throw Exception("Error getting host name !");
 
 	/* Setup socket */
 	memcpy(&sa.sin_addr, he->h_addr_list[0], he->h_length);
@@ -50,7 +50,7 @@ void HttpRequest::Connect(string hostname) {
 
 	ret = net_connect(sockfd, (struct sockaddr *) &sa, sizeof(sa));
 	if (ret < 0)
-		throw Exception("Connection error !", ret);
+		throw SystemException("Connection error !", ret);
 }
 
 void HttpRequest::SetRequest(const string& url) {
@@ -61,7 +61,7 @@ void HttpRequest::SetRequest(const string& url) {
 
 u32 HttpRequest::GetResponseLength() {
 	if (_path.length() == 0 || _hostName.length() == 0)
-		throw Exception("The request isn't properly initialised.", -1);
+		throw Exception("The request isn't properly initialised.");
 
 	char buf[1024], request[256];
 
@@ -94,7 +94,7 @@ u32 HttpRequest::GetResponseLength() {
 	/* Send request */
 	ret = net_send(sockfd, request, strlen(request), 0);
 	if (ret < 0)
-		throw Exception("Error sending request.", ret);
+		throw SystemException("Error sending request.", ret);
 
 	/* Clear buffer */
 	memset(buf, 0, sizeof(buf));
@@ -102,16 +102,16 @@ u32 HttpRequest::GetResponseLength() {
 	/* Read HTTP header */
 	for (u32 cnt = 0; !strstr(buf, "\r\n\r\n"); cnt++)
 		if (net_recv(sockfd, buf + cnt, 1, 0) <= 0)
-			throw Exception("Error reading http header", -1);
+			throw Exception("Error reading http header");
 
 	/* HTTP request OK? */
 	if (!(strstr(buf, "HTTP/1.1 200 OK") || strstr(buf, "HTTP/1.0 200 OK")))
-		throw Exception("The response status indicate an error.", -1);
+		throw Exception("The response status indicate an error.");
 
 	/* Retrieve content size */
 	char *ptr = strstr(buf, "Content-Length:");
 	if (!ptr)
-		throw Exception("Error retrieving response lengt", -1);
+		throw Exception("Error retrieving response lengt");
 
 	u32 length;
 	sscanf(ptr, "Content-Length: %u", &length);
@@ -131,7 +131,7 @@ s32 HttpRequest::Read(Buffer& b, u32 len) {
 		s32 nbRead = net_read(sockfd, tempBuffer, size);
 		if (nbRead < 0) {
 			free(tempBuffer);
-			throw Exception("Error reading http response.", nbRead);
+			throw SystemException("Error reading http response.", nbRead);
 		}
 
 		b.Append(tempBuffer, nbRead);
@@ -160,7 +160,7 @@ s32 HttpRequest::Write(Buffer& b) {
 		s32 nbWritten = net_write(sockfd, (char*) b.Content() + totalWritten,
 				size);
 		if (nbWritten < 0)
-			throw Exception("Error writing data to http socket.", nbWritten);
+			throw SystemException("Error writing data to http socket.", nbWritten);
 
 		/* Write finished */
 		if (nbWritten == 0)
@@ -191,7 +191,7 @@ Buffer HttpRequest::GetResponse() {
 Buffer HttpRequest::GetResponse(const Buffer& sha) {
 	Buffer response = GetResponse();
 	if (!response.ValidateSHA1(sha))
-		throw Exception("SHA encryption is not valid.", -1);
+		throw Exception("SHA encryption is not valid.");
 
 	return response;
 }

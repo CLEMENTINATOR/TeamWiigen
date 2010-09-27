@@ -11,7 +11,7 @@ ModulePatch::ModulePatch(const u8* patch, const u32 length,
 		const std::string &module) :
 	Patch(module), _patch(NULL), _length(length) {
 	if (!patch)
-		throw Exception("You need to indicate a patch.", -1);
+		throw Exception("You need to indicate a patch.");
 
 	_patch = new u8[length];
 	memcpy(_patch, patch, length);

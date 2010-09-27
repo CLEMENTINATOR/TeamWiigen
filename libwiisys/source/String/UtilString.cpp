@@ -7,7 +7,7 @@ using namespace Libwiisys::Exceptions;
 
 string UtilString::ToStr(const char* value) {
 	if (!value)
-		throw Exception("Cannot parse NULL value to string", -1);
+		throw Exception("Cannot parse NULL value to string");
 
 	return string(value);
 }
@@ -36,7 +36,7 @@ u64 UtilString::ToU64(const char* val, u64 defaultval, NumberRepresentation rep)
 
 u64 UtilString::ToU64(const char* val, NumberRepresentation rep) {
 	if (val == NULL)
-		throw Exception("Cannot parse NULL value to u64", -1);
+		throw Exception("Cannot parse NULL value to u64");
 
 	stringstream str(val);
 	u64 returnValue;
@@ -64,7 +64,7 @@ u32 UtilString::ToU32(const char* val, u32 defaultval, NumberRepresentation rep)
 
 u32 UtilString::ToU32(const char* val, NumberRepresentation rep) {
 	if (val == NULL)
-		throw Exception("Cannot parse NULL value to u32", -1);
+		throw Exception("Cannot parse NULL value to u32");
 	stringstream str(val);
 	u32 returnValue;
 
@@ -90,7 +90,7 @@ u16 UtilString::ToU16(const char* val, u16 defaultval, NumberRepresentation rep)
 
 u16 UtilString::ToU16(const char* val, NumberRepresentation rep) {
 	if (val == NULL)
-		throw Exception("Cannot parse NULL value to u16", -1);
+		throw Exception("Cannot parse NULL value to u16");
 	stringstream str(val);
 	u16 returnValue;
 
@@ -118,7 +118,7 @@ u8 UtilString::ToU8(const char* val, u8 defaultval, NumberRepresentation rep) {
 
 u8 UtilString::ToU8(const char* val, NumberRepresentation rep) {
 	if (val == NULL)
-		throw Exception("Cannot parse NULL value to u8", -1);
+		throw Exception("Cannot parse NULL value to u8");
 
 	stringstream str(val);
 	u16 returnValue;
@@ -132,7 +132,7 @@ u8 UtilString::ToU8(const char* val, NumberRepresentation rep) {
 
 s32 UtilString::ToS32(const char* val, NumberRepresentation rep) {
 	if (val == NULL)
-		throw Exception("Cannot parse NULL value to s32", -1);
+		throw Exception("Cannot parse NULL value to s32");
 	stringstream str(val);
 	s32 returnValue;
 
@@ -158,7 +158,7 @@ s32 UtilString::ToS32(const char* val, s32 defaultval, NumberRepresentation rep)
 
 bool UtilString::ToBool(const char* val) {
 	if (val == NULL)
-		throw Exception("Cannot parse NULL value to bool", -1);
+		throw Exception("Cannot parse NULL value to bool");
 
 	string value(val);
 
@@ -167,7 +167,7 @@ bool UtilString::ToBool(const char* val) {
 	else if (value == "false")
 		return false;
 	else
-		throw Exception("Error parsing bool value", -1);
+		throw Exception("Error parsing bool value");
 }
 
 bool UtilString::ToBool(const char* val, bool defaultval) {
@@ -179,7 +179,7 @@ bool UtilString::ToBool(const char* val, bool defaultval) {
 	else if (value == "false")
 		return false;
 	else
-		throw Exception("Error parsing bool value", -1);
+		throw Exception("Error parsing bool value");
 }
 
 vector<string> UtilString::Split(const string& str, const char splitCaracter,

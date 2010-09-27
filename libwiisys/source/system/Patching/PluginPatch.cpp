@@ -86,7 +86,7 @@ u32 PluginPatch::FindIOSVersionIndex(const Buffer& b) const {
 				skipedModules++;
 		}
 
-	throw Exception("IOS Module not found.", skipedModules);
+	throw SystemException("IOS Module not found.", skipedModules);
 }
 
 u32 PluginPatch::FindPlugedSegment(u8* elf, u32 moduleToSkip) const {
@@ -114,7 +114,7 @@ u32 PluginPatch::FindPlugedSegment(u8* elf, u32 moduleToSkip) const {
 	}
 
 	if (!found)
-		throw Exception("No segment found!", -1);
+		throw Exception("No segment found!");
 
 	return segmentIndex;
 }
@@ -135,7 +135,7 @@ u32 PluginPatch::FindBssSegment(u8* elf, u32 moduleToSkip) const {
 		}
 	}
 
-	throw Exception("No bss segment found!", -1);
+	throw Exception("No bss segment found!");
 }
 
 u32 PluginPatch::FindSegmentSize(u8* elf, u32 segmentIndex) const {
@@ -287,7 +287,7 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const {
 		armLength = arm->headerSize + arm->offset;
 		sourceElf = sourceElf + armLength;
 		if (arm->headerSize != sizeof(ArmHeader) || !IsElf(sourceElf))
-			throw Exception("The module isn't arm nor elf", -1);
+			throw Exception("The module isn't arm nor elf");
 	}
 
 	u32 modulesToSkip = FindIOSVersionIndex(processControl.buffer);
@@ -311,7 +311,7 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const {
 
 	u8* destElf = (u8*) malloc(TITLE_ROUND_UP(newElfLength + armLength, 64));
 	if (!destElf)
-		throw Exception("Not enough memory!", -1);
+		throw Exception("Not enough memory!");
 
 	try {
 		memset(destElf, 0, TITLE_ROUND_UP(newElfLength + armLength, 64));

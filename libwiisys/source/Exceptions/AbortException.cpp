@@ -3,7 +3,7 @@
 using namespace Libwiisys::Exceptions;
 
 AbortException::AbortException() :
-	Exception("Process aborted.", -1) {
+	Exception("Process aborted.") {
 }
 
 std::string AbortException::GetType()

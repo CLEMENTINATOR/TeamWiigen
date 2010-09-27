@@ -27,6 +27,7 @@ public:
 	virtual ~Object() = 0;
 	virtual std::string GetType();
 	virtual std::string ToString();
+	friend std::ostream& operator<< ( std::ostream& theStream, Object& obj );
 };
 
 }

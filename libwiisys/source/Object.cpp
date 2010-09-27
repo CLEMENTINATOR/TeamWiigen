@@ -1,5 +1,6 @@
 #include <libwiisys.h>
 
+using namespace std;
 using namespace Libwiisys;
 
 /**
@@ -8,12 +9,20 @@ using namespace Libwiisys;
 Object::~Object()
 {}
 
-std::string Object::GetType()
+string Object::GetType()
 {
 	return "Libwiisys::Object";	
 }
-std::string Object::ToString()
+string Object::ToString()
 {
 	return GetType();
 }	
-	
+
+namespace Libwiisys
+{
+ostream& operator<< ( ostream& theStream, Object& obj)
+{
+	theStream << obj.ToString();
+	return theStream;
+}
+}

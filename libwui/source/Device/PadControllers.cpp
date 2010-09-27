@@ -17,7 +17,7 @@ PadController* PadController::Currents()
 void PadController::LoadCursorImages(int channel, const std::string& im, int offsetLeft, int offsetTop)
 {
 	if(channel < 0 || channel > 3)
-		throw Exception("Invalid wiimote index.", channel);
+		throw SystemException("Invalid wiimote index.", channel);
 		
 	Currents()[channel].padImage = im;
 	Currents()[channel].offsetLeft = offsetLeft;

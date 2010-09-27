@@ -52,7 +52,7 @@ ImageResource::ImageResource(const string& imgPath)
 	}
 
 	if (!data)
-		throw Exception("Error creating image from data.", -1);
+		throw Exception("Error creating image from data.");
 }
 
 ImageResource::ImageResource(const u8 * buffer)
@@ -96,7 +96,7 @@ ImageResource::ImageResource(const u8 * buffer)
 	}
 	
 	if (!data)
-		throw Exception("Error creating image from data.", -1);
+		throw Exception("Error creating image from data.");
 }
 
 ImageResource::~ImageResource()

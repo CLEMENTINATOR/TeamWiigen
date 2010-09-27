@@ -20,7 +20,7 @@ bool ThemeManager::IsInitialized()
 void ThemeManager::ThemeRootFolder(const string& path)
 {
 	if(!Directory::Exists(path))
-		throw Exception("The theme directory doesn't exists.", -1);
+		throw Exception("The theme directory doesn't exists.");
 		
 	Current()._themeFolder = path;
 	
@@ -29,7 +29,7 @@ void ThemeManager::ThemeRootFolder(const string& path)
 	if(dirs.size() == 0)
 	{
 		Current()._themeFolder = "";
-		throw Exception("The theme directory doesn't contains any theme.", -1);
+		throw Exception("The theme directory doesn't contains any theme.");
 	}
 	
 	CurrentTheme(dirs[0]);
@@ -43,7 +43,7 @@ vector<string> ThemeManager::AvailableThemes()
 void ThemeManager::CurrentTheme(const string& theme)
 {
 	if(Current()._themeFolder.length() == 0)
-		throw Exception("The theme directory isn't specified.", -1);
+		throw Exception("The theme directory isn't specified.");
 		
 	vector<string> dirs = Directory::GetDirectories(Current()._themeFolder);
 	bool exists = false;
@@ -55,7 +55,7 @@ void ThemeManager::CurrentTheme(const string& theme)
 		}
 	
 	if(!exists)
-		throw Exception("The theme doesn't exists.", -1);
+		throw Exception("The theme doesn't exists.");
 		
 	Current()._currentTheme = theme;
 }

@@ -2,10 +2,10 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Name>tw_sql</Name>
+    <Name>tw_web</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.0</ProjectVersion>
-    <ProjectGuid>{67cbc824-a49e-4e9b-a947-360f3dfe65c3}</ProjectGuid>
+    <ProjectGuid>{819b6bed-632d-409e-9128-8a83d57db1bb}</ProjectGuid>
     <DSP>Microsoft.Data.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ShowWizard>False</ShowWizard>
@@ -13,20 +13,21 @@
     <RootPath>
     </RootPath>
     <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
-    <ModelCollation>1036,CI</ModelCollation>
+    <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchema</DefaultFileStructure>
     <DeployToDatabaseAddToServerExplorer>True</DeployToDatabaseAddToServerExplorer>
     <DeployToScript>True</DeployToScript>
     <CatalogPropertiesFile>Properties\Database.sqlsettings</CatalogPropertiesFile>
     <LoadSqlClrTypes>True</LoadSqlClrTypes>
-    <RootNamespace>tw_sql</RootNamespace>
+    <RootNamespace>tw_web</RootNamespace>
     <DefaultSchema>dbo</DefaultSchema>
     <PreviousProjectVersion>4.0</PreviousProjectVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>.\sql\release\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=teamwiigen.fr.cr;User ID=tw_sql_user;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>
+    </TargetConnectionString>
     <TargetDatabase>
     </TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -39,7 +40,8 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=.;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>
+    </TargetConnectionString>
     <TargetDatabase>
     </TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -137,85 +139,77 @@
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Constraints\DF_APPLICATION_VERSION_APV_CREATION_DATE.defconst.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ROLE.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Constraints\DF_LOGS_LOG_CREATION_DATE.defconst.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\ROLES.PK_ROLE.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Constraints\DF_APPLICATIONS_APP_CREATION_DATE.defconst.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\ROLE.UK_ROL_CODE.ukey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Database Level Objects\Storage\Files\tw_sql_log.sqlfile.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\RIGHT.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Database Level Objects\Storage\Files\tw_sql.sqlfile.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\RIGHT.PK_RIGHT.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\FK_APPLICATION_VERSION_APPLICATIONS.fkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\RIGHT.FK_RIGHT_RIGHT.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\FK_LOGS_APPLICATION_VERSION.fkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\RIGHT.UK_RIG_CODE.ukey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\FK_LOGS_LOG_TYPE.fkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\REL_ROLE_RIGHT.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\PK_APPLICATION_VERSION.pkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_ROLE_RIGHT.PK_REL_ROLE_RIGHT.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\PK_LOG_TYPE.pkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_ROLE_RIGHT.FK_REL_ROLE_RIGHT_ROLE.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\PK_LOGS.pkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_ROLE_RIGHT.FK_REL_ROLE_RIGHT_RIGHT.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\PK_APPLICATIONS.pkey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\USER.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\INS_LOG.proc.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\USER.PK_USER.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\SEL_LOG.proc.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\USER.UK_USR_LOGIN.ukey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\UK_APPLICATION_VERSION.ukey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\USER.UK_USR_MAIL.ukey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\UK_LTY_CODE.ukey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\REL_USER_RIGHT.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\UK_APP_NAME.ukey.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_USER_RIGHT.PK_REL_USER_RIGHT.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\APPLICATIONS.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_USER_RIGHT.FK_REL_USER_RIGHT_USER.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\APPLICATION_VERSION.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_USER_RIGHT.FK_REL_USER_RIGHT_RIGHT.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\LOG_TYPE.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\REL_USER_ROLE.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\LOG.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_USER_ROLE.PK_REL_USER_ROLE.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Database Level Objects\Service Broker\Routes\AutoCreatedLocal.route.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_USER_ROLE.FK_REL_USER_ROLE_USER.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\STATS.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\REL_USER_ROLE.FK_REL_USER_ROLE_ROLE.fkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\START_SESSION.proc.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\GET_USER_RIGHTS.proc.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\DEL_LOG.proc.sql">
-      <SubType>Code</SubType>
-    </Build>
-  </ItemGroup>
-  <ItemGroup>
-    <NotInBuild Include="Scripts\Post-Deployment\Populate.sql">
-      <SubType>NotInBuild</SubType>
-    </NotInBuild>
   </ItemGroup>
 </Project>

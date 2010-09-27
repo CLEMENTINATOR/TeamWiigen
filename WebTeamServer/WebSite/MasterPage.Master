@@ -1,0 +1,65 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs"
+    Inherits="WebSite.MasterPage" %>
+
+<%@ Register Src="~/Login.ascx" TagName="login" TagPrefix="csm" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Teamwiigen development web portal</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            TeamWiigen website</h1>
+        <ul>
+            <asp:Repeater ID="rptFrontMenu" runat="server">
+                <ItemTemplate>
+                    <li>
+                        <asp:HyperLink ID="hypMainPage" runat="server" NavigateUrl='<%#DataBinder.GetPropertyValue(Container.DataItem, "Url")%>'
+                            Text='<%#DataBinder.GetPropertyValue(Container.DataItem, "Text")%>' />
+                    </li>
+                </ItemTemplate>
+            </asp:Repeater>
+            <li>
+                <csm:login ID="Login1" runat="server" />
+            </li>
+        </ul>
+    </div>
+    <div class="background">
+        <div class="content">
+            <p class="menuSection">
+                <%= Title %></p>
+            <form id="form1" runat="server">
+            <ajax:ToolkitScriptManager ID="scriptManager" runat="server" />
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+            </form>
+        </div>
+        <div class="menu_droit">
+            <p class="menuHeader">
+                Sections</p>
+            <asp:Repeater ID="rptSubMenu" runat="server">
+                <HeaderTemplate>
+                    <ul>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li>
+                        <asp:HyperLink ID="hySubPage" runat="server" NavigateUrl='<%#DataBinder.GetPropertyValue(Container.DataItem, "Url")%>'
+                            Text='<%#DataBinder.GetPropertyValue(Container.DataItem, "Text")%>' /></li>
+                </ItemTemplate>
+                <FooterTemplate>
+                    </ul>
+                </FooterTemplate>
+            </asp:Repeater>
+            <p class="menuHeader">
+                Links</p>
+            <p class="liens">
+                <br />
+            </p>
+        </div>
+        <p class="footer">
+            &nbsp;</p>
+    </div>
+</body>
+</html>

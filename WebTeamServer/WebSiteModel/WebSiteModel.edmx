@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="WebModelStoreContainer">
+          <EntitySet Name="REL_ROLE_RIGHT" EntityType="WebModel.Store.REL_ROLE_RIGHT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="REL_USER_RIGHT" EntityType="WebModel.Store.REL_USER_RIGHT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="REL_USER_ROLE" EntityType="WebModel.Store.REL_USER_ROLE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RIGHT" EntityType="WebModel.Store.RIGHT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ROLE" EntityType="WebModel.Store.ROLE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="USER" EntityType="WebModel.Store.USER" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_REL_ROLE_RIGHT_RIGHT" Association="WebModel.Store.FK_REL_ROLE_RIGHT_RIGHT">
+            <End Role="RIGHT" EntitySet="RIGHT" />
+            <End Role="REL_ROLE_RIGHT" EntitySet="REL_ROLE_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REL_ROLE_RIGHT_ROLE" Association="WebModel.Store.FK_REL_ROLE_RIGHT_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="REL_ROLE_RIGHT" EntitySet="REL_ROLE_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REL_USER_RIGHT_RIGHT" Association="WebModel.Store.FK_REL_USER_RIGHT_RIGHT">
+            <End Role="RIGHT" EntitySet="RIGHT" />
+            <End Role="REL_USER_RIGHT" EntitySet="REL_USER_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REL_USER_RIGHT_USER" Association="WebModel.Store.FK_REL_USER_RIGHT_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="REL_USER_RIGHT" EntitySet="REL_USER_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REL_USER_ROLE_ROLE" Association="WebModel.Store.FK_REL_USER_ROLE_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="REL_USER_ROLE" EntitySet="REL_USER_ROLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REL_USER_ROLE_USER" Association="WebModel.Store.FK_REL_USER_ROLE_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="REL_USER_ROLE" EntitySet="REL_USER_ROLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RIGHT_RIGHT" Association="WebModel.Store.FK_RIGHT_RIGHT">
+            <End Role="RIGHT" EntitySet="RIGHT" />
+            <End Role="RIGHT1" EntitySet="RIGHT" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="REL_ROLE_RIGHT">
+          <Key>
+            <PropertyRef Name="RRR_ROL_ID" />
+            <PropertyRef Name="RRR_RIG_ID" />
+          </Key>
+          <Property Name="RRR_ROL_ID" Type="int" Nullable="false" />
+          <Property Name="RRR_RIG_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REL_USER_RIGHT">
+          <Key>
+            <PropertyRef Name="RUR_USR_ID" />
+            <PropertyRef Name="RUR_RIG_ID" />
+          </Key>
+          <Property Name="RUR_USR_ID" Type="int" Nullable="false" />
+          <Property Name="RUR_RIG_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REL_USER_ROLE">
+          <Key>
+            <PropertyRef Name="RUR_USR_ID" />
+            <PropertyRef Name="RUR_ROL_ID" />
+          </Key>
+          <Property Name="RUR_USR_ID" Type="int" Nullable="false" />
+          <Property Name="RUR_ROL_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RIGHT">
+          <Key>
+            <PropertyRef Name="RIG_ID" />
+          </Key>
+          <Property Name="RIG_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RIG_PARENT_ID" Type="int" />
+          <Property Name="RIG_CODE" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="RIG_LABEL" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="RIG_CREATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="RIG_CREATION_USER" Type="int" Nullable="false" />
+          <Property Name="RIG_LAST_MODIFICATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="RIG_LAST_MODIFICATION_USER" Type="int" Nullable="false" />
+          <Property Name="RIG_STATUT" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROL_ID" />
+          </Key>
+          <Property Name="ROL_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ROL_CODE" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="ROL_LABEL" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="ROL_CREATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="ROL_CREATION_USER" Type="int" Nullable="false" />
+          <Property Name="ROL_LAST_MODIFICATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="ROL_LAST_MODIFICATION_USER" Type="int" Nullable="false" />
+          <Property Name="ROL_STATUT" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="int" Nullable="false" />
+          <Property Name="USR_LOGIN" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="USR_PASSWORD" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="USR_MAIL" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="USR_CREATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="USR_CREATION_USER" Type="int" Nullable="false" />
+          <Property Name="USR_LAST_MODIFICATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="USR_LAST_MODIFICATION_USER" Type="int" Nullable="false" />
+          <Property Name="USR_STATUT" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_REL_ROLE_RIGHT_RIGHT">
+          <End Role="RIGHT" Type="WebModel.Store.RIGHT" Multiplicity="1" />
+          <End Role="REL_ROLE_RIGHT" Type="WebModel.Store.REL_ROLE_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RIGHT">
+              <PropertyRef Name="RIG_ID" />
+            </Principal>
+            <Dependent Role="REL_ROLE_RIGHT">
+              <PropertyRef Name="RRR_RIG_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REL_ROLE_RIGHT_ROLE">
+          <End Role="ROLE" Type="WebModel.Store.ROLE" Multiplicity="1" />
+          <End Role="REL_ROLE_RIGHT" Type="WebModel.Store.REL_ROLE_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROL_ID" />
+            </Principal>
+            <Dependent Role="REL_ROLE_RIGHT">
+              <PropertyRef Name="RRR_ROL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REL_USER_RIGHT_RIGHT">
+          <End Role="RIGHT" Type="WebModel.Store.RIGHT" Multiplicity="1" />
+          <End Role="REL_USER_RIGHT" Type="WebModel.Store.REL_USER_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RIGHT">
+              <PropertyRef Name="RIG_ID" />
+            </Principal>
+            <Dependent Role="REL_USER_RIGHT">
+              <PropertyRef Name="RUR_RIG_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REL_USER_RIGHT_USER">
+          <End Role="USER" Type="WebModel.Store.USER" Multiplicity="1" />
+          <End Role="REL_USER_RIGHT" Type="WebModel.Store.REL_USER_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="REL_USER_RIGHT">
+              <PropertyRef Name="RUR_USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REL_USER_ROLE_ROLE">
+          <End Role="ROLE" Type="WebModel.Store.ROLE" Multiplicity="1" />
+          <End Role="REL_USER_ROLE" Type="WebModel.Store.REL_USER_ROLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROL_ID" />
+            </Principal>
+            <Dependent Role="REL_USER_ROLE">
+              <PropertyRef Name="RUR_ROL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REL_USER_ROLE_USER">
+          <End Role="USER" Type="WebModel.Store.USER" Multiplicity="1" />
+          <End Role="REL_USER_ROLE" Type="WebModel.Store.REL_USER_ROLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="REL_USER_ROLE">
+              <PropertyRef Name="RUR_USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RIGHT_RIGHT">
+          <End Role="RIGHT" Type="WebModel.Store.RIGHT" Multiplicity="0..1" />
+          <End Role="RIGHT1" Type="WebModel.Store.RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RIGHT">
+              <PropertyRef Name="RIG_ID" />
+            </Principal>
+            <Dependent Role="RIGHT1">
+              <PropertyRef Name="RIG_PARENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="tw_web">
+          <EntitySet Name="Rights" EntityType="WebModel.Right" />
+          <EntitySet Name="Roles" EntityType="WebModel.Role" />
+          <EntitySet Name="Users" EntityType="WebModel.User" />
+          <AssociationSet Name="FK_RIGHT_RIGHT" Association="WebModel.FK_RIGHT_RIGHT">
+            <End Role="RIGHT" EntitySet="Rights" />
+            <End Role="RIGHT1" EntitySet="Rights" />
+          </AssociationSet>
+          <AssociationSet Name="REL_ROLE_RIGHT" Association="WebModel.REL_ROLE_RIGHT">
+            <End Role="RIGHT" EntitySet="Rights" />
+            <End Role="ROLE" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="REL_USER_RIGHT" Association="WebModel.REL_USER_RIGHT">
+            <End Role="RIGHT" EntitySet="Rights" />
+            <End Role="USER" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="REL_USER_ROLE" Association="WebModel.REL_USER_ROLE">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Right">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="CommonInfo" Type="Self.CommonInfo" Nullable="false" />
+          <NavigationProperty Name="Childs" Relationship="WebModel.FK_RIGHT_RIGHT" FromRole="RIGHT" ToRole="RIGHT1" />
+          <NavigationProperty Name="Parent" Relationship="WebModel.FK_RIGHT_RIGHT" FromRole="RIGHT1" ToRole="RIGHT" />
+          <NavigationProperty Name="Roles" Relationship="WebModel.REL_ROLE_RIGHT" FromRole="RIGHT" ToRole="ROLE" />
+          <NavigationProperty Name="Users" Relationship="WebModel.REL_USER_RIGHT" FromRole="RIGHT" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="Labeel" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="CommonInfo" Type="Self.CommonInfo" Nullable="false" />
+          <NavigationProperty Name="Rights" Relationship="WebModel.REL_ROLE_RIGHT" FromRole="ROLE" ToRole="RIGHT" />
+          <NavigationProperty Name="Users" Relationship="WebModel.REL_USER_ROLE" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Rights" Relationship="WebModel.REL_USER_RIGHT" FromRole="USER" ToRole="RIGHT" />
+          <Property Name="CommonInfo" Type="WebModel.CommonInfo" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="WebModel.REL_USER_ROLE" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_RIGHT_RIGHT">
+          <End Role="RIGHT" Type="WebModel.Right" Multiplicity="0..1" />
+          <End Role="RIGHT1" Type="WebModel.Right" Multiplicity="*" />
+        </Association>
+        <Association Name="REL_ROLE_RIGHT">
+          <End Role="RIGHT" Type="WebModel.Right" Multiplicity="*" />
+          <End Role="ROLE" Type="WebModel.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="REL_USER_RIGHT">
+          <End Role="RIGHT" Type="WebModel.Right" Multiplicity="*" />
+          <End Role="USER" Type="WebModel.User" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="CommonInfo">
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="CreationUser" Type="Int32" Nullable="false" />
+          <Property Type="DateTime" Name="ModificationDate" Nullable="false" />
+          <Property Type="Int32" Name="ModificationUser" Nullable="false" />
+          <Property Type="Boolean" Name="Status" Nullable="false" />
+        </ComplexType>
+        <Association Name="REL_USER_ROLE">
+          <End Type="WebModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="WebModel.User" Role="User" Multiplicity="*" />
+        </Association>
+     </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="WebModelStoreContainer" CdmEntityContainer="tw_web">
+          <EntitySetMapping Name="Rights"><EntityTypeMapping TypeName="WebModel.Right"><MappingFragment StoreEntitySet="RIGHT">
+            <ScalarProperty Name="Id" ColumnName="RIG_ID" />
+            <ScalarProperty Name="Code" ColumnName="RIG_CODE" />
+            <ScalarProperty Name="Label" ColumnName="RIG_LABEL" />
+            <ComplexProperty Name="CommonInfo" TypeName="WebModel.CommonInfo">
+              <ScalarProperty Name="CreationDate" ColumnName="RIG_CREATION_DATE" />
+              <ScalarProperty Name="CreationUser" ColumnName="RIG_CREATION_USER" />
+              <ScalarProperty Name="ModificationDate" ColumnName="RIG_LAST_MODIFICATION_DATE" />
+              <ScalarProperty Name="ModificationUser" ColumnName="RIG_LAST_MODIFICATION_USER" />
+              <ScalarProperty Name="Status" ColumnName="RIG_STATUT" />
+            </ComplexProperty>
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="WebModel.Role"><MappingFragment StoreEntitySet="ROLE">
+            <ScalarProperty Name="Id" ColumnName="ROL_ID" />
+            <ScalarProperty Name="Code" ColumnName="ROL_CODE" />
+            <ScalarProperty Name="Labeel" ColumnName="ROL_LABEL" />
+                <ComplexProperty Name="CommonInfo">
+                  <ScalarProperty Name="Status" ColumnName="ROL_STATUT" />
+                  <ScalarProperty Name="ModificationUser" ColumnName="ROL_LAST_MODIFICATION_USER" />
+                  <ScalarProperty Name="ModificationDate" ColumnName="ROL_LAST_MODIFICATION_DATE" />
+                  <ScalarProperty Name="CreationUser" ColumnName="ROL_CREATION_USER" />
+                  <ScalarProperty Name="CreationDate" ColumnName="ROL_CREATION_DATE" />
+                </ComplexProperty>
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="WebModel.User"><MappingFragment StoreEntitySet="USER">
+            <ScalarProperty Name="Id" ColumnName="USR_ID" />
+            <ScalarProperty Name="Login" ColumnName="USR_LOGIN" />
+            <ScalarProperty Name="Password" ColumnName="USR_PASSWORD" />
+            <ScalarProperty Name="Mail" ColumnName="USR_MAIL" />
+                <ComplexProperty Name="CommonInfo">
+                  <ScalarProperty Name="Status" ColumnName="USR_STATUT" />
+                  <ScalarProperty Name="ModificationUser" ColumnName="USR_LAST_MODIFICATION_USER" />
+                  <ScalarProperty Name="ModificationDate" ColumnName="USR_LAST_MODIFICATION_DATE" />
+                  <ScalarProperty Name="CreationUser" ColumnName="USR_CREATION_USER" />
+                  <ScalarProperty Name="CreationDate" ColumnName="USR_CREATION_DATE" />
+                </ComplexProperty>
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="FK_RIGHT_RIGHT" TypeName="WebModel.FK_RIGHT_RIGHT" StoreEntitySet="RIGHT">
+            <EndProperty Name="RIGHT">
+              <ScalarProperty Name="Id" ColumnName="RIG_PARENT_ID" />
+            </EndProperty>
+            <EndProperty Name="RIGHT1">
+              <ScalarProperty Name="Id" ColumnName="RIG_ID" />
+            </EndProperty>
+            <Condition ColumnName="RIG_PARENT_ID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="REL_ROLE_RIGHT" TypeName="WebModel.REL_ROLE_RIGHT" StoreEntitySet="REL_ROLE_RIGHT">
+            <EndProperty Name="RIGHT">
+              <ScalarProperty Name="Id" ColumnName="RRR_RIG_ID" />
+            </EndProperty>
+            <EndProperty Name="ROLE">
+              <ScalarProperty Name="Id" ColumnName="RRR_ROL_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="REL_USER_RIGHT" TypeName="WebModel.REL_USER_RIGHT" StoreEntitySet="REL_USER_RIGHT">
+            <EndProperty Name="RIGHT">
+              <ScalarProperty Name="Id" ColumnName="RUR_RIG_ID" />
+            </EndProperty>
+            <EndProperty Name="USER">
+              <ScalarProperty Name="Id" ColumnName="RUR_USR_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="REL_USER_ROLE" TypeName="WebModel.REL_USER_ROLE" StoreEntitySet="REL_USER_ROLE">
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="RUR_USR_ID" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RUR_ROL_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="WebSiteModel">
+        <EntityTypeShape EntityType="WebModel.Right" Width="1.5" PointX="0.75" PointY="2.75" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebModel.Role" Width="1.5" PointX="3" PointY="1.25" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebModel.User" Width="1.5" PointX="3" PointY="4.625" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="WebModel.FK_RIGHT_RIGHT" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.076396484375" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.326396484375" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.326396484375" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.076396484375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebModel.REL_ROLE_RIGHT" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.0862939453125" />
+          <ConnectorPoint PointX="3" PointY="3.0862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebModel.REL_USER_RIGHT" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.9660953776041659" />
+          <ConnectorPoint PointX="3" PointY="4.9660953776041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebModel.REL_USER_ROLE" >
+          <ConnectorPoint PointX="3.75" PointY="3.422587890625" />
+          <ConnectorPoint PointX="3.75" PointY="4.625" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

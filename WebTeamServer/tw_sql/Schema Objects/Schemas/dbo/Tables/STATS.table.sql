@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[STATS](
+	[STA_ID]            INT           IDENTITY (1, 1) NOT NULL, 
+	[STA_APV_ID]		INT			  NOT NULL,
+	[STA_USER_IP]		INT			  NOT NULL,
+	[STA_NB_USE]		INT			  NOT NULL,
+	[STA_LAST_USE]		DATETIME	  NOT NULL
+)

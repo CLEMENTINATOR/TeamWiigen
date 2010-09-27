@@ -26,25 +26,25 @@ TitleStep::TitleStep(string file, TitleAction a, string path) :_id(0),_revision(
 bool TitleStep::Prepare()
 {
   if (_action == ti_PackAsWad && Path::GetFileExtension(_path) != "wad")
-    throw Exception("You must specify a wad file path in order to store the wad", -1);
+    throw Exception("You must specify a wad file path in order to store the wad");
 
   if (_action == ti_PackAsWad && _file != "")
-    throw Exception("This is impossible to create a wad from an other wad!", -1);
+    throw Exception("This is impossible to create a wad from an other wad!");
 
   if (_action == ti_Decrypt && _path == "")
-    throw Exception("I don't know where to decrypt the title contents !", -1);
+    throw Exception("I don't know where to decrypt the title contents !");
 
   if (_action == ti_Extract && Path::GetFileExtension(_path) != "wad")
-    throw Exception("You must specify a wad file path in order to store the extracted title", -1);
+    throw Exception("You must specify a wad file path in order to store the extracted title");
 
   if (_action == ti_Extract && _file != "")
-    throw Exception("This is impossible to extract a title from a wad!", -1);
+    throw Exception("This is impossible to extract a title from a wad!");
 
   if (_file!="")  /* Si fichier donne en parametre */
     {
       OnProgress("Getting wad file", 0.25);
       if (!FileManager::Download(_file))
-        throw Exception("Error downloading " + _file, -1);
+        throw Exception("Error downloading " + _file);
       _file = FileManager::GetPath(_file);
     }
   else  /*  Si tid */

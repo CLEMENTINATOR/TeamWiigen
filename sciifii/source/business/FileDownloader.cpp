@@ -18,7 +18,7 @@ bool FileDownloader::Prepare()
 {
 	OnProgress("Downloading "+_file, 0.1);
 	if(!FileManager::Download(_file))
-		throw Exception("Error downloading " + _file, -1);
+		throw Exception("Error downloading " + _file);
 	OnProgress("Done",1);
 	return true;
 }

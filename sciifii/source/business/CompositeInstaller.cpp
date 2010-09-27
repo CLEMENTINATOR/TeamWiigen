@@ -52,7 +52,7 @@ void CompositeInstaller::Install()
 		{
 			(*ite)->Install();
 		}
-		catch(Exception& ex)
+		catch(SystemException& ex)
 		{
 		  bool ignore = false;
 		  for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)

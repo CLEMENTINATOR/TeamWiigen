@@ -79,9 +79,9 @@ void Sciifii::Execute()
 		{
 		  (*ite)->Install();
 		}
-		catch(Exception& ex)
+		catch(SystemException &ex)
 		{
-		  bool ignore = false;
+			bool ignore = false;
 		  for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
 			if(*itex == ex.GetCode())
 			{
@@ -90,11 +90,11 @@ void Sciifii::Execute()
 			}
 
 		  if(!ignore)
-			throw;
+				throw;
 		  else
 		  {
-			cout << endl << "\x1b[33mStep skipped!\x1b[37m";
-			hasDisplayed = true;
+				cout << endl << "\x1b[33mStep skipped!\x1b[37m";
+				hasDisplayed = true;		
 		  }
 		}
     

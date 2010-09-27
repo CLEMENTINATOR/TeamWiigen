@@ -36,7 +36,7 @@ void FileManager::Init(TiXmlElement* config)
       if (child->Type() != TiXmlElement::COMMENT)
         {
           if (string(child->Value()) != "file")
-            throw Exception("Invalid file child node name", -1);
+            throw Exception("Invalid file child node name");
 
           string key = UtilString::ToStr(child->Attribute("key"));
           string url = UtilString::ToStr(child->Attribute("url"), "");
@@ -44,13 +44,13 @@ void FileManager::Init(TiXmlElement* config)
           string path = UtilString::ToStr(child->Attribute("path"), "");
 
           if (key.length() == 0)
-            throw Exception("The file key must be provided", -1);
+            throw Exception("The file key must be provided");
 
           if (path.length() == 0)
             path = Config::WorkingDirectory() + "/" + key;
 
           if (fm._fileList.find(key) != fm._fileList.end())
-            throw Exception("The file descirption has already been registered", -1);
+            throw Exception("The file descirption has already been registered");
 
           fileObject fo = (fileObject){url, sha1, path};
 
@@ -69,7 +69,7 @@ bool FileManager::Download(const std::string& fileKey)
   map<string,fileObject>::iterator ite = Instance()._fileList.find(fileKey);
 
   if (ite == Instance()._fileList.end())
-    throw Exception("File key not defined", -1);
+    throw Exception("File key not defined");
 
   fileObject fo = ite->second;
 
@@ -110,7 +110,7 @@ Buffer FileManager::GetFile(const std::string& fileKey)
   if (ite == Instance()._fileList.end())
   {
     if(!File::Exists(Config::WorkingDirectory() + "/" + fileKey))
-		throw Exception("File key not defined and file ot found in working directory!", -1);
+		throw Exception("File key not defined and file ot found in working directory!");
 		
 	return File::ReadToEnd(Config::WorkingDirectory() + "/" + fileKey);
   }
@@ -125,7 +125,7 @@ string FileManager::GetPath(const std::string& fileKey)
   if (ite == Instance()._fileList.end())
   {
     if(!File::Exists(Config::WorkingDirectory() + "/" + fileKey))
-		throw Exception("File key not defined and file ot found in working directory!", -1);
+		throw Exception("File key not defined and file ot found in working directory!");
 		
 	return Config::WorkingDirectory() + "/" + fileKey;
   }

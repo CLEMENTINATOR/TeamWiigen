@@ -16,13 +16,15 @@ WebLogger::WebLogger(const string& url, const string& msgKey,
 
 void WebLogger::Init(std::string appName, std::string appVersion)
 {
+	try{
 	HttpRequest r(_url);
 
 	r.AddParameter("action", "init");
 	r.AddParameter(_appKey, appName);
 	r.AddParameter(_versionKey,appVersion);
 	r.GetResponse();
-	
+	} catch (...) {
+	}
 }
 
 WebLogger::~WebLogger() {

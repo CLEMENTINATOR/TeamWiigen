@@ -30,7 +30,11 @@ using namespace Libwui::Device;
 
 int mainUI(int argc, char **argv)
 {
-  Config::Initialize();
+  string configFile = "sd:/sciifii/config.xml";
+	if(argc == 2)
+		configFile = string(argv[1]);
+		
+	Config::Initialize(configFile);
   GraphicDisclaimer g;
   PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
 	UIManager::Run(g);
@@ -75,7 +79,11 @@ int mainText(int argc, char **argv)
 
     try
     {
-        Config::Initialize();
+			string configFile = "sd:/sciifii/config.xml";
+			if(argc == 2)
+				configFile = string(argv[1]);
+				
+      Config::Initialize(configFile);
     }
     catch (Exception &ex)
     {

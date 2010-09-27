@@ -47,7 +47,7 @@ private:
 	void CreateModeList(TiXmlElement* element);
 	void CreateStepList(TiXmlElement* element);
 public:
-	static void Initialize();
+	static void Initialize(const std::string& configFilePath);
 	static void ApplyMode(const mode& m);
 	static void ValidateOptions();
 	static u32 GetRegion();

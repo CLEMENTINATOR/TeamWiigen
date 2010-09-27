@@ -24,6 +24,10 @@ void GeckoLogger::Initialize() {
 GeckoLogger::~GeckoLogger() {
 }
 
+
+void GeckoLogger::Init(std::string appName, std::string appVersion)
+{
+}
 void GeckoLogger::WriteError(const std::string& message, int line,
 		const char* file, const string& appName, const string& appVersion) {
 	stringstream formatedMessage;

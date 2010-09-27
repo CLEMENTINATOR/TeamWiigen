@@ -51,6 +51,7 @@ void Log::AddLogProvider(LogType type, ILogProvider* logger) {
 			Current()._logs.find(Log_Debug)->second->push_back(logger);
 
 	Current()._hasLog = true;
+	logger->Init(Current()._appName  ,Current()._appVersion);
 }
 
 void Log::Write(LogStatus status, const std::string& message, int line,	const char* file) {

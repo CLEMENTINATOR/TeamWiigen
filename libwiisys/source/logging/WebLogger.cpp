@@ -11,6 +11,18 @@ WebLogger::WebLogger(const string& url, const string& msgKey,
 		const string& versionKey) :
 	_url(url), _msgKey(msgKey), _lineKey(lineKey), _fileKey(fileKey), _appKey(
 			appKey), _versionKey(versionKey) {
+			
+}
+
+void WebLogger::Init(std::string appName, std::string appVersion)
+{
+	HttpRequest r(_url);
+
+	r.AddParameter("action", "init");
+	r.AddParameter(_appKey, appName);
+	r.AddParameter(_versionKey,appVersion);
+	r.GetResponse();
+	
 }
 
 WebLogger::~WebLogger() {

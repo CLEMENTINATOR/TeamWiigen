@@ -93,6 +93,7 @@ namespace Libwiisys {
 			 * @brief Pause the logging
 			 */
 			void Pause();
+			void Init(std::string appName, std::string appVersion);
 		};
 
 	}

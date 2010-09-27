@@ -20,6 +20,9 @@ FileLogger::~FileLogger() {
 	}
 }
 
+void FileLogger::Init(std::string appName, std::string appVersion)
+{
+}
 void FileLogger::Start() {
 	if (!paused)
 		return;

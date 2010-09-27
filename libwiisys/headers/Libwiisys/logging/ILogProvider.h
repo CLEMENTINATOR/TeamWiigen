@@ -76,6 +76,7 @@ namespace Libwiisys {
 			 * @brief Pause the logging(needs to be reimplemented in inherited class)
 			 */
 			virtual void Pause()=0;
+			virtual void Init(std::string appName, std::string appVersion)=0;
 		};
 	}
 }

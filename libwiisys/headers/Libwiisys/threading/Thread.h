@@ -1,7 +1,7 @@
 #ifndef _UTILS_THREAD_H_
 #define _UTILS_THREAD_H_
 
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 #include "../Object.h"
 #include <ogcsys.h>
 

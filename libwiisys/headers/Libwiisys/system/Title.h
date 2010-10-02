@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 #include "../Object.h"
-#include "event/TitleEvent.h"
-#include "event/TitleEventArgs.h"
-#include "security/Identification.h"
+#include "Event/TitleEvent.h"
+#include "Event/TitleEventArgs.h"
+#include "Security/Identification.h"
 
 #define TITLE_BLOCK_SIZE 1000
 

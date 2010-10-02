@@ -2,7 +2,7 @@
 #define CIOSCORP_H_
 
 #include <string>
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 #include <libwiisys.h>
 #include <vector>
 #include <map>

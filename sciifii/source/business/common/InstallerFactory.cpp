@@ -1,6 +1,6 @@
 #include "InstallerFactory.h"
 #include "../TitleDowngrader.h"
-#include "../IOSReloader.h"
+#include "../IosReloader.h"
 #include "../TitleStep.h"
 #include "../CiosCorp.h"
 #include "../Cios.h"

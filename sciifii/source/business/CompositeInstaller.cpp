@@ -1,6 +1,6 @@
 #include "CompositeInstaller.h"
 
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 
 using namespace std;
 using namespace fastdelegate;

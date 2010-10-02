@@ -9,6 +9,7 @@ endif
 
 include $(DEVKITPPC)/wii_rules
 
+SystemName := $(shell uname)
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
 # BUILD is the directory where object files & intermediate files will be placed
@@ -114,11 +115,16 @@ clean:
 #---------------------------------------------------------------------------------
 prepare:
 	@make -C ../libwiisys
+
+ifeq ($(SystemName),Linux)
+	@rsync -qrc --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/  include/
+else 
 ifeq ($(SystemName),Darwin)
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/libwiisys
-else
+	@rsync -qrc --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/
+else 
 	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
+endif
 endif
 	@cp ../libwiisys/libwiisys.a lib
 	

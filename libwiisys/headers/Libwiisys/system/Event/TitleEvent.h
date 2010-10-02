@@ -3,7 +3,7 @@
 
 #include "../../Object.h"
 #include "TitleEventArgs.h"
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 #include <list>
 
 /*! \namespace Libwiisys::System::Event

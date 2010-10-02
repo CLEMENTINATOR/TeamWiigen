@@ -4,10 +4,8 @@
 #include <vector>
 #include <string>
 #include <gctypes.h>
-#include <libwiisys/Object.h>
 #include <sstream>
-#include <libwiisys/logging/Log.h>
-#include <libwiisys/logging/ILogProvider.h>
+#include <libwiisys.h>
 #include "ProgressEvent.h"
 
 class Installer : public Libwiisys::Object

@@ -3,13 +3,13 @@
 #---------------------------------------------------------------------------------
 .SUFFIXES:
 #---------------------------------------------------------------------------------
-SystemName=$(shell uname)
-
 ifeq ($(strip $(DEVKITPPC)),)
 $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>devkitPPC")
 endif
 
 include $(DEVKITPPC)/wii_rules
+
+SystemName := $(shell uname)
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
@@ -40,7 +40,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lwui -lwiisys -ltinyxml -lasnd -lwiiuse -lbte -logc -lm -lpngu -lpng -lfat -lfreetype -lmetaphrasis -lz
+LIBS	:= -lwui -lwiisys -lTinyXML -lasnd -lwiiuse -lbte -logc -lm -lpngu -lpng -lfat -lfreetype -lmetaphrasis -lz
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -120,6 +120,10 @@ prepare:
 	@make -C ../libwui prepare
 	@make -C ../libwui
 	
+ifeq ($(SystemName),Linux)
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/  include/
+	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
+else
 ifeq ($(SystemName),Darwin)
 	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/
 	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
@@ -127,6 +131,7 @@ else
 	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
 	-@robocopy ../libwui/headers include/ //E //XD _svn //XD .svn >> rbcp.log
 	@rm rbcp.log
+endif
 endif
 	@cp ../libwui/libwui.a lib
 	@cp ../libwiisys/libwiisys.a lib

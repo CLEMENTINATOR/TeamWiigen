@@ -5,7 +5,7 @@
 
 
 #include "ProgressEventArgs.h"
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 #include <list>
 
 class ProgressEvent : public Libwiisys::Object

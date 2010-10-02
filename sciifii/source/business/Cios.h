@@ -2,7 +2,7 @@
 #define _CIOS_H_
 
 #include <string>
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 #include <vector>
 
 #include <libwiisys.h>

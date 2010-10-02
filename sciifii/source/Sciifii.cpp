@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 
 #include <libwiisys.h>
 #include "Sciifii.h"

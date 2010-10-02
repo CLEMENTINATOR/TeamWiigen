@@ -5,7 +5,7 @@
 
 #include "CursorEventArgs.h"
 #include <list>
-#include <fastdelegate.h>
+#include <FastDelegate.h>
 
 namespace Libwui
 {

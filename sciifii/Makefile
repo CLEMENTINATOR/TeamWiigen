@@ -121,12 +121,12 @@ prepare:
 	@make -C ../libwui
 	
 ifeq ($(SystemName),Linux)
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/  include/
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
+	@rsync -qrc --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/  include/
+	@rsync -qrc --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
 else
 ifeq ($(SystemName),Darwin)
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/
-	@rsync -qr --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
+	@rsync -qrc --exclude='_svn/' --exclude='.svn/'  ../libwiisys/headers/ include/
+	@rsync -qrc --exclude='_svn/' --exclude='.svn/'  ../libwui/headers/ include/
 else
 	-@robocopy ../libwiisys/headers include/ //MIR //XD _svn //XD .svn >> rbcp.log
 	-@robocopy ../libwui/headers include/ //E //XD _svn //XD .svn >> rbcp.log

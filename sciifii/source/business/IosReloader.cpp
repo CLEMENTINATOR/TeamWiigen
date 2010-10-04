@@ -1,8 +1,7 @@
-#include "IosReloader.h"
-
-#include <libwiisys.h>
 #include <ogc/ios.h>
 #include <sstream>
+
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys::System;

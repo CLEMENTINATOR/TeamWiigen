@@ -1,11 +1,8 @@
-#include "TitleStep.h"
-#include "common/FileManager.h"
-
 #include <sstream>
-#include <libwiisys.h>
-#include "../Config.h"
 #include <iostream>
 #include <iomanip>
+
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys::Logging;

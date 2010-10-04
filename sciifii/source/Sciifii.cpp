@@ -2,10 +2,7 @@
 #include <sstream>
 #include <FastDelegate.h>
 
-#include <libwiisys.h>
-#include "Sciifii.h"
-#include "Config.h"
-
+#include <Sciifii.h>
 
 
 using namespace fastdelegate;

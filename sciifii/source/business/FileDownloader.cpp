@@ -1,8 +1,4 @@
-#include "FileDownloader.h"
-
-#include <libwiisys.h>
-
-#include "common/FileManager.h"
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys::Logging;

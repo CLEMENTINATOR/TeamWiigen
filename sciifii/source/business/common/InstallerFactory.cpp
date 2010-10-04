@@ -1,19 +1,6 @@
-#include "InstallerFactory.h"
-#include "../TitleDowngrader.h"
-#include "../IosReloader.h"
-#include "../TitleStep.h"
-#include "../CiosCorp.h"
-#include "../Cios.h"
-#include "../WadBatch.h"
-#include "../Preloader.h"
-#include "../CompositeInstaller.h"
-#include "../FileDownloader.h"
-#include "../FileSystemTask.h"
-#include "../MemoryPatcher.h"
-#include "../Identifier.h"
-#include "../../Config.h"
-#include <libwiisys.h>
 #include <string>
+
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys;

@@ -19,9 +19,9 @@ SystemName := $(shell uname)
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/business/common source/business/tools source/business source/ui
+SOURCES		:=	source source/business/common source/business/tools source/business source/ui/text source/ui/graphic
 DATA		:=	data  
-INCLUDES	:=	include
+INCLUDES	:=	include headers
 
 #---------------------------------------------------------------------------------
 # MS Visual Studio Style Fix
@@ -87,7 +87,7 @@ export OFILES	:=	$(addsuffix .o,$(BINFILES)) \
 #---------------------------------------------------------------------------------
 # build a list of include paths
 #---------------------------------------------------------------------------------
-export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
+export INCLUDE	:=	$(foreach dir,$(INCLUDES), -I $(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
 					-I$(CURDIR)/$(BUILD) \
 					-I$(LIBOGC_INC)

@@ -1,9 +1,8 @@
-#include "TitleDowngrader.h"
 #include <sstream>
-#include <libwiisys.h>
-#include "../Config.h"
 #include <iostream>
 #include <iomanip>
+
+#include <Sciifii.h>
 
 using namespace fastdelegate;
 using namespace std;

@@ -1,7 +1,7 @@
-#include "MemoryPatcher.h"
-#include <libwiisys.h>
 #include <gccore.h>
 #include <ogc/machine/processor.h>
+
+#include <Sciifii.h>
 
 #define HAVE_AHBPROT (*(vu32*)0xcd800064 == 0xFFFFFFFF)
 #define MEM2_PROT 0xd8b420A

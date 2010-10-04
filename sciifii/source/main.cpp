@@ -1,16 +1,10 @@
-#include <ogcsys.h>
-#include <libwiisys.h>
-
 #include <iostream>
-
-#include "Tools.h"
-#include "Sciifii.h"
-#include "Config.h"
-
 #include <cstdlib>
 #include <unistd.h>
 #include <sstream>
 
+#include <ogcsys.h>
+#include <Sciifii.h>
 
 //#define USE_ADVANCED_UI
 
@@ -20,9 +14,6 @@ using namespace Libwiisys::Logging;
 
 
 #ifdef USE_ADVANCED_UI
-
-#include <libwui.h>
-#include "ui/GraphicDisclaimer.h"
 
 using namespace Libwui;
 using namespace Libwui::Component;
@@ -43,11 +34,6 @@ int mainUI(int argc, char **argv)
 }
 
 #else
-
-#include "ui/MainMenu.h"
-#include "ui/AdvancedMenu.h"
-#include "ui/Disclaimer.h"
-#include "ui/VirtualPad.h"
 
 static void *xfb;
 static GXRModeObj *vmode;

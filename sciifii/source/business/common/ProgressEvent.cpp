@@ -1,4 +1,4 @@
-#include "ProgressEvent.h"
+#include <Sciifii.h>
 
 void ProgressEvent::operator()(Object* sender, ProgressEventArgs* args)
 {

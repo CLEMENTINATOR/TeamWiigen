@@ -1,5 +1,4 @@
-#include "Installer.h"
-#include <libwiisys.h>
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys::String;

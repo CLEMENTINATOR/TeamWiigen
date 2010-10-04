@@ -1,13 +1,8 @@
-#include "CiosCorp.h"
-
-#include "../Config.h"
-#include "common/KoreanKeyPatch.h"
-#include "common/FileManager.h"
-
 #include <iostream>
 #include <sstream>
 
-#include <libwiisys.h>
+#include <Sciifii.h>
+
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::Network;

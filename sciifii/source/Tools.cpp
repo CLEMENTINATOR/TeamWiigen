@@ -1,7 +1,6 @@
-#include "Tools.h"
 #include <iostream>
 #include <ogcsys.h>
-#include "ui/VirtualPad.h"
+#include <Sciifii.h>
 
 using namespace std;
 

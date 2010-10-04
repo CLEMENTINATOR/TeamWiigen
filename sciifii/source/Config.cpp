@@ -1,13 +1,8 @@
-#include "Config.h"
-#include "business/common/InstallerFactory.h"
-#include "business/common/FileManager.h"
-#include <libwiisys.h>
 #include <ogc/conf.h>
 #include <cstdlib>
-
 #include <iostream>
 
-#include "ui/VirtualPad.h"
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys;

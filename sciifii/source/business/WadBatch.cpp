@@ -1,8 +1,6 @@
-#include "WadBatch.h"
-
 #include <vector>
-#include <libwiisys.h>
 
+#include <Sciifii.h>
 using namespace std;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::System;

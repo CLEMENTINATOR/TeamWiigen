@@ -5,7 +5,7 @@
 #include <ogcsys.h>
 #include <string>
 #include <vector>
-#include "../Config.h"
+#include "../../Config.h"
 typedef enum
 {
 	amResult_Continue = 0,

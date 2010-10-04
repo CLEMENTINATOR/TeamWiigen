@@ -1,6 +1,5 @@
-#include "CompositeInstaller.h"
-
 #include <FastDelegate.h>
+#include <Sciifii.h>
 
 using namespace std;
 using namespace fastdelegate;

@@ -1,10 +1,6 @@
-#include "Cios.h"
-#include "../Config.h"
-
-#include <libwiisys.h>
-
 #include <sstream>
-#include "common/FileManager.h"
+
+#include <Sciifii.h>
 
 using namespace std;
 using namespace Libwiisys;

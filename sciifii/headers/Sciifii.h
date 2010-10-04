@@ -32,5 +32,17 @@
 #include "sciifii/ui/text/AdvancedMenu.h"
 #include "sciifii/ui/text/Disclaimer.h"
 #include "sciifii/ui/text/VirtualPad.h"
+#include "sciifii/ui/text/DynamicMenu.h"
+#include "sciifii/ui/text/Events/NavigateEvent.h"
+#include "sciifii/ui/text/Events/NavigateEventArgs.h"
+#include "sciifii/ui/text/Events/OptionEvent.h"
+#include "sciifii/ui/text/Events/OptionEventArgs.h"
+#include "sciifii/ui/text/MenuItems/ExitMenuItem.h"
+#include "sciifii/ui/text/MenuItems/MenuItem.h"
+#include "sciifii/ui/text/MenuItems/ModeMenuItem.h"
+#include "sciifii/ui/text/MenuItems/NavigationMenuItem.h"
+#include "sciifii/ui/text/MenuItems/SeparatorMenuItem.h"
+#include "sciifii/ui/text/MenuItems/StartMenuItem.h"
+#include "sciifii/ui/text/MenuItems/SwitchMenuItem.h"
 
 #endif

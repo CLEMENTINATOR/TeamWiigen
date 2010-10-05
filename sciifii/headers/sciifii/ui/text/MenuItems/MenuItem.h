@@ -5,12 +5,15 @@
 #include <libwiisys.h>
 #include "../Events/OptionEvent.h"
 #include "../Events/OptionEventArgs.h"
+#include "../Events/NavigateEvent.h"
+#include "../Events/NavigateEventArgs.h"
 
 class MenuItem : public Libwiisys::Object
 {	
 protected:
 	std::string _text;
 	void OnModifyOption(OptionEventArgs& args);
+	void OnNavigate(NavigateEventArgs& args);
 	
 public:
 	bool Selectable;
@@ -23,6 +26,7 @@ public:
 	virtual void Cancel();
 	
 	OptionEvent OptionSelectionChanged;
+	NavigateEvent NavigateRequested;
 };
 
 #endif

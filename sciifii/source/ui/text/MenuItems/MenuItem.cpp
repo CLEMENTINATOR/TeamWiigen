@@ -10,12 +10,11 @@ MenuItem::MenuItem()
 
 void MenuItem::Render()
 {
+	cout << (_selected ? ">>>\t" : "   \t") << _text;
 }
 
 void MenuItem::ButtonPressed(u32 button)
-{
-  cout << (_selected ? ">>>\t" : "   \t") << _text;
-}
+{}
 
 void MenuItem::Selected(const& bool s)
 {
@@ -32,3 +31,13 @@ void MenuItem::Validate()
 	
 void MenuItem::Cancel()
 {}
+
+void MenuItem::OnNavigate(NavigateEventArgs& args)
+{
+	NavigateRequested(this, args);
+}
+
+void MenuItem::OnModifyOption(OptionEventArgs& args)
+{
+	OptionSelectionChanged(this, args);
+}

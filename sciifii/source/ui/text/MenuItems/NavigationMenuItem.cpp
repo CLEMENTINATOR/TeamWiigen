@@ -1,9 +1,4 @@
 #include <Sciifii.h>
-
-void NavigationMenuItem::OnNavigate(NavigateEventArgs& args)
-{
-	NavigateRequested(this, args);
-}
 	
 NavigationMenuItem::NavigationMenuItem(TiXmlElement* node)
 {}

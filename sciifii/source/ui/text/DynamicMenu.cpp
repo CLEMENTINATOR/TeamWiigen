@@ -1,13 +1,44 @@
 #include <iostream>
-
+#include <FastDelegate.h>
 #include <Sciifii.h>
 
 using namespace std;
+using namespace fastdelegate;
+using namespace Libwiisys;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
 
 DynamicMenu::DynamicMenu(TiXmlElement* node)
 : MenuBase(),
   selectIndex(0)
-{}
+{
+	string nodeValue = UtilString::ToStr(node->Value());
+	if(nodeValue != "menu")
+		throw Exception("Can't create DynamicMenu from an other tag than menu");
+		
+	TiXmlElement* item = node->FirstChildElement();
+	while (item != NULL)
+	{
+		if (item->Type() != TiXmlElement::COMMENT)
+		{
+			MenuItem *mitem = MenuItemFactory::CreateItem(item);
+			mitem->NavigateRequested += MakeDelegate(this, &DynamicMenu::NavigateRequested);
+			mitem->OptionSelectionChanged += MakeDelegate(this, &DynamicMenu::OptionSelectionChanged);
+			items.push_back(mitem);
+		}
+		item = item->NextSiblingElement();
+	}
+}
+
+DynamicMenu::~DynamicMenu()
+{
+	for(vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+	{
+		(*ite)->NavigateRequested -= MakeDelegate(this, &DynamicMenu::NavigateRequested);
+		(*ite)->OptionSelectionChanged -= MakeDelegate(this, &DynamicMenu::OptionSelectionChanged);
+		delete *ite;
+	}
+}
 
 void DynamicMenu::Display()
 {
@@ -26,9 +57,9 @@ void DynamicMenu::Display()
 NavigateEventArgs DynamicMenu::Show()
 {
 		nav.NavigateTo = "menu";
-		nav.MenuId = _menuId;
+		nav.MenuId = MenuId;
 		
-    while (nav.NavigateTo == "menu" && nav.MenuId == _menuId)
+    while (nav.NavigateTo == "menu" && nav.MenuId == MenuId)
     {
         Display();
         u32 command = GetCommand();
@@ -68,4 +99,13 @@ NavigateEventArgs DynamicMenu::Show()
     }
 		
 		return nav;
+}
+
+void DynamicMenu::OptionSelectionChanged(Object* sender, OptionEventArgs* args)
+{
+}
+
+void DynamicMenu::NavigateRequested(Object* sender, NavigateEventArgs* args)
+{
+	nav = *args;
 }

@@ -8,6 +8,7 @@
 #include "MenuBase.h"
 #include "MenuItems/MenuItem.h"
 #include "Events/NavigateEventArgs.h"
+#include "Events/SwitchEventArgs.h"
 
 class DynamicMenu : public MenuBase
 {
@@ -17,7 +18,7 @@ private:
 	NavigateEventArgs nav;
 	
 	void Display();
-	void OptionSelectionChanged(Libwiisys::Object* sender, OptionEventArgs* args);
+	void SwitchSelectionChanged(Libwiisys::Object* sender, SwitchEventArgs* args);
 	void NavigateRequested(Libwiisys::Object* sender, NavigateEventArgs* args);
 	
 public:

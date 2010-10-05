@@ -2,12 +2,22 @@
 #include <Sciifii.h>
 
 using namespace std;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
 
-SwitchMenuItem::SwitchMenuItem(TiXmlElement* node);
-  : MenuItem(),
+SwitchMenuItem::SwitchMenuItem(TiXmlElement* node)
+  : MenuItem(node),
 	  _switchOn(false),
 		_lastSwitchOn(false)
-{}
+{
+	string nodeValue = UtilString::ToStr(node->Value());
+	if(nodeValue != "switchMenuItem")
+		throw Exception("Can't create SwitchMenuItem from the tag " + nodeValue);
+		
+	_switchName = UtilString::ToStr(node->Attribute("name"),"");
+	if(_switchName == "")
+		throw Exception("No name defined in the xml for the SwitchMenuItem");
+}
 
 void SwitchMenuItem::Render()
 {
@@ -27,10 +37,10 @@ void SwitchMenuItem::ButtonPressed(u32 button)
 
 void SwitchMenuItem::Validate()
 {
-	OptionEventArgs arg;
-	args.Incremental = true;
-	args.Options.push_back(_option, _switchOn);
-	OnModifyOption(args);
+	SwitchEventArgs arg;
+	arg.Incremental = true;
+	arg.Switches.push_back(Switch(_switchName, _switchOn));
+	OnModifySwitch(arg);
 	_lastSwitchOn = _switchOn;
 }
 

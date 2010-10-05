@@ -10,7 +10,7 @@ class SwitchMenuItem : public MenuItem
 protected:
 	bool _switchOn;
 	bool _lastSwitchOn;
-	std::string _option;
+	std::string _switchName;
 	
 public:
 	SwitchMenuItem(TiXmlElement* node);

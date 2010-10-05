@@ -9,7 +9,7 @@
 class ModeMenuItem : public StartMenuItem
 {
 private:
-	std::vector<std::string> _options;
+	std::vector<std::string> _switches;
 	
 public:
 	ModeMenuItem(TiXmlElement* node);

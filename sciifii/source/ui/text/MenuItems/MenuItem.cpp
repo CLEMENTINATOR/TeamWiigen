@@ -2,29 +2,25 @@
 #include <Sciifii.h>
 
 using namespace std;
+using namespace Libwiisys::String;
+using namespace Libwiisys::Exceptions;
 
-MenuItem::MenuItem()
+MenuItem::MenuItem(TiXmlElement* node)
   : _text(),
-	  _selected(false)
-{}
+	  Selected(false)
+{
+	_text = UtilString::ToStr(node->Attribute("text"),"");
+	if(_text == "")
+		throw Exception("Can't find the text to display from the XML");
+}
 
 void MenuItem::Render()
 {
-	cout << (_selected ? ">>>\t" : "   \t") << _text;
+	cout << (Selected ? ">>>\t" : "   \t") << _text;
 }
 
 void MenuItem::ButtonPressed(u32 button)
 {}
-
-void MenuItem::Selected(const& bool s)
-{
-	_selected = s;
-}
-
-bool MenuItem::Selected()
-{
-	return _selected;
-}
 
 void MenuItem::Validate()
 {}
@@ -34,10 +30,10 @@ void MenuItem::Cancel()
 
 void MenuItem::OnNavigate(NavigateEventArgs& args)
 {
-	NavigateRequested(this, args);
+	NavigateRequested(this, &args);
 }
 
-void MenuItem::OnModifyOption(OptionEventArgs& args)
+void MenuItem::OnModifySwitch(SwitchEventArgs& args)
 {
-	OptionSelectionChanged(this, args);
+	SwitchSelectionChanged(this, &args);
 }

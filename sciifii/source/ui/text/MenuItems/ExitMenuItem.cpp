@@ -1,6 +1,7 @@
 #include <Sciifii.h>
 
 ExitMenuItem::ExitMenuItem(TiXmlElement* node)
+  : NavigationMenuItem(node)
 {}
 
 void ExitMenuItem::ButtonPressed(u32 button)

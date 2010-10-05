@@ -1,16 +1,16 @@
-#ifndef _OPTION_EVENT_H_
-#define _OPTION_EVENT_H_
+#ifndef _SWITCH_EVENT_H_
+#define _SWITCH_EVENT_H_
 
 #include <FastDelegate.h>
 #include <list>
-#include "OptionEventArgs.h"
+#include "SwitchEventArgs.h"
 
-class OptionEvent : public Libwiisys::Object
+class SwitchEvent : public Libwiisys::Object
 {
 public:
 
 	/** Little typedef for a more readable code*/
-	typedef fastdelegate::FastDelegate2<Object*,OptionEventArgs*> DelegateType;
+	typedef fastdelegate::FastDelegate2<Object*,SwitchEventArgs*> DelegateType;
 
 	/*!
 	 * \brief This execute the event.
@@ -19,7 +19,7 @@ public:
 	 *
 	 * All listener will be executed.
 	 */
-	virtual void operator()(Object* sender, OptionEventArgs* args);
+	virtual void operator()(Object* sender, SwitchEventArgs* args);
 
 	/*!
 	 * \brief Add a listener to the event

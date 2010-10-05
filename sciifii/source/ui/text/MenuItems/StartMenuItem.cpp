@@ -1,6 +1,7 @@
 #include <Sciifii.h>
 
 StartMenuItem::StartMenuItem(TiXmlElement* node)
+  : NavigationMenuItem(node)
 {}
 
 void StartMenuItem::ButtonPressed(u32 button)

@@ -23,7 +23,7 @@ DynamicMenu::DynamicMenu(TiXmlElement* node)
 		{
 			MenuItem *mitem = MenuItemFactory::CreateItem(item);
 			mitem->NavigateRequested += MakeDelegate(this, &DynamicMenu::NavigateRequested);
-			mitem->OptionSelectionChanged += MakeDelegate(this, &DynamicMenu::OptionSelectionChanged);
+			mitem->SwitchSelectionChanged += MakeDelegate(this, &DynamicMenu::SwitchSelectionChanged);
 			items.push_back(mitem);
 		}
 		item = item->NextSiblingElement();
@@ -35,7 +35,7 @@ DynamicMenu::~DynamicMenu()
 	for(vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
 	{
 		(*ite)->NavigateRequested -= MakeDelegate(this, &DynamicMenu::NavigateRequested);
-		(*ite)->OptionSelectionChanged -= MakeDelegate(this, &DynamicMenu::OptionSelectionChanged);
+		(*ite)->SwitchSelectionChanged -= MakeDelegate(this, &DynamicMenu::SwitchSelectionChanged);
 		delete *ite;
 	}
 }
@@ -101,7 +101,7 @@ NavigateEventArgs DynamicMenu::Show()
 		return nav;
 }
 
-void DynamicMenu::OptionSelectionChanged(Object* sender, OptionEventArgs* args)
+void DynamicMenu::SwitchSelectionChanged(Object* sender, SwitchEventArgs* args)
 {
 }
 

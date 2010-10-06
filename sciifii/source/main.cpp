@@ -80,20 +80,9 @@ int mainText(int argc, char **argv)
         return 0;
     }
 
-    MainMenu menu;
-    MainMenuResult result = menu.Show();
-
-    if (result == mmResult_Exit)
-       return 0;
-
-    if (result == mmResult_Advanced)
-    {
-        AdvancedMenu aMenu;
-        AdvancedMenuResult aresult = aMenu.Show();
-        if (aresult == amResult_Exit)
-           return 0;
-    }
-    Config::ValidateOptions();
+    //TODO manage the MenuManager
+		throw Exception("MenuManager here");
+    
     Disclaimer::Show();
     VPAD_Shutdown();
 

@@ -35,8 +35,6 @@ public:
 	 */
 	virtual void operator-= (DelegateType listener);
 	
-	virtual void Clear();
-	
 private:
 	std::list<DelegateType> listenerList; // pointer to object
 };

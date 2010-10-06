@@ -79,6 +79,8 @@ void Config::Initialize(const string& configFilePath)
 				c.CreateStepList(child);
 			else if (nodeValue == "Disclaimer")
 				c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
+			else if (nodeValue == "menus")
+				MenuManager::Instance(child);
 			else
 				throw Exception("Invalid XmlNode.");
 		}

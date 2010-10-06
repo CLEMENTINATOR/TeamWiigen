@@ -10,8 +10,6 @@ NavigationMenuItem::NavigationMenuItem(TiXmlElement* node)
 	string nodeValue = UtilString::ToStr(node->Value());
 		
 	_navigationMenuId = UtilString::ToStr(node->Attribute("menuId"),"");
-	if(_navigationMenuId == "")
-		throw Exception("No menuId defined in the xml for the NavigationMenuItem");
 		
 	_validate = UtilString::ToBool(node->Attribute("saveOptions"), true);
 }

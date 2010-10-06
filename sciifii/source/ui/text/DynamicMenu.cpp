@@ -14,6 +14,10 @@ DynamicMenu::DynamicMenu(TiXmlElement* node) :
 	string nodeValue = UtilString::ToStr(node->Value());
 	if (nodeValue != "menu")
 		throw Exception("Can't create DynamicMenu from an other tag than menu");
+	MenuId = UtilString::ToStr(node->Attribute("id"),"");
+	if (MenuId == "")
+		throw Exception("Can't create DynamicMenuwith no MenuId");
+
 
 	TiXmlElement* item = node->FirstChildElement();
 	while (item != NULL)

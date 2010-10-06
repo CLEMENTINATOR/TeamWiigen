@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="4" MenuMessage="Choose an option : ">
+<sciifii version="5" MenuMessage="Choose an option : ">
 
   <!-- Region:
     JAP: 0
@@ -17,7 +17,7 @@
         <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|Preloader|wiiflow" />
         <modeMenuItem text="Unhack your wii" switches="cIOS249|update|uninstall" />
         <separatorMenuItem char=" " />
-        <navigationMenuItem text="Advanced Menu" menuId="advanced" saveOptions="false" />
+        <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
         <separatorMenuItem char=" " />
         <exitMenuItem text="Exit" />
     </menu>
@@ -36,7 +36,6 @@
         <separatorMenuItem char=" " />
         <startMenuItem text="start" saveOptions="true" />
         <separatorMenuItem char=" " />
-        <PreviousMenuItem text="Return to previous menu" saveOptions="false" />
         <exitMenuItem text="Exit" />
     </menu>
 </menus>

@@ -192,26 +192,14 @@ void Config::ValidateOptions()
 			validated = true;
 		else
 		{
-			vector<string> voptions =
-					UtilString::Split((*step)->Options(), '|');
-
-			for (vector<string>::iterator ite = voptions.begin(); ite
-					!= voptions.end(); ite++)
+			vector<string> switches = UtilString::Split((*step)->Options(), '|');
+			
+			for (vector<string>::iterator ite = switches.begin(); ite != switches.end(); ite++)
 			{
-				vector<option*> opts = Instance()._options;
-				for (vector<option*>::iterator opt = opts.begin(); opt
-						!= opts.end(); opt++)
+				if (Instance()._switches.find(*ite) != Instance()._switches.end())
 				{
-					if ((*opt)->name == *ite && (*opt)->selected)
-					{
 						validated = true;
 						break;
-					}
-				}
-				if (validated)
-				{
-					cout << ".";
-					break;
 				}
 			}
 		}
@@ -221,17 +209,7 @@ void Config::ValidateOptions()
 			Instance()._validatedSteps.push_back(*step);
 			(*step)->SendToLog();
 		}
-		else
-			delete *step;
 	}
-
-	vector<option*> options = Instance()._options;
-	for (vector<option*>::iterator opt = options.begin(); opt != options.end(); opt++)
-		delete *opt;
-
-	vector<mode*> modes = Instance()._modes;
-	for (vector<mode*>::iterator mod = modes.begin(); mod != modes.end(); mod++)
-		delete *mod;
 }
 
 vector<Installer*> Config::Steps()

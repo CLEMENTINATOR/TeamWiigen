@@ -29,8 +29,6 @@
 #include "sciifii/business/common/ProgressEvent.h"
 #include "sciifii/business/common/ProgressEventArgs.h"
 #include "sciifii/ui/graphic/GraphicDisclaimer.h"
-#include "sciifii/ui/text/MainMenu.h"
-#include "sciifii/ui/text/AdvancedMenu.h"
 #include "sciifii/ui/text/Disclaimer.h"
 #include "sciifii/ui/text/VirtualPad.h"
 #include "sciifii/ui/text/DynamicMenu.h"

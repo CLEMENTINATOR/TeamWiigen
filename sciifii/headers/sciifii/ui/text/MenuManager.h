@@ -11,12 +11,11 @@ private:
 	std::map<std::string, DynamicMenu*> _menus;
 	MenuManager();
 	void Initialyze(TiXmlElement* node);
+	bool ExecuteSciifii();
 	
 public:
 	~MenuManager();
 	void DisplayMenu();
-	bool ExecuteSciifii();
-	
 	static MenuManager& Instance(TiXmlElement* node = NULL);
 };
 

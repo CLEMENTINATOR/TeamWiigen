@@ -88,27 +88,11 @@ class MainText : public IMain
 					Log::WriteLog(Log_Error,ex.ToString());
 					Pause();
 					return 0;
-			}
-
-			//TODO manage the MenuManager
-			throw Exception("MenuManager here");
-			
-			Disclaimer::Show();
-			VPAD_Shutdown();
+			}			
 
 			try
 			{
-					Sciifii sci;
-					if (sci.Prepare())
-					{
-							sci.Execute();
-							cout << "Installation done! Press A to exit.";
-					}
-					else
-					{
-						Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
-						throw Exception("An error occured during prepare.");
-					}
+					MenuManager::Instance().DisplayMenu();
 			}
 			catch (Exception &ex)
 			{

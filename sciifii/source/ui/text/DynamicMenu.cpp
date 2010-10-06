@@ -106,6 +106,10 @@ NavigateEventArgs DynamicMenu::Show()
 
 void DynamicMenu::SwitchSelectionChanged(Object* sender, SwitchEventArgs* args)
 {
+	if(!args->Incremental)
+		Config::ClearSwitches();
+	for(vector<Switch>::iterator ite = args->Switches.begin(); ite != args->Switches.end(); ite++)
+		Config::SetSwitch(*ite);
 }
 
 void DynamicMenu::NavigateRequested(Object* sender, NavigateEventArgs* args)

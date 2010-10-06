@@ -3,6 +3,7 @@
 using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::Logging;
 
 MenuManager::MenuManager()
 {}
@@ -68,6 +69,21 @@ bool MenuManager::ExecuteSciifii()
 {
 	try
 	{
+		Disclaimer::Show();
+		VPAD_Shutdown();
+		
+		Sciifii sci;
+		if (sci.Prepare())
+		{
+				sci.Execute();
+				cout << "Installation done! Press A to exit.";
+		}
+		else
+		{
+			Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
+			throw Exception("An error occured during prepare.");
+		}
+					
 		return true;
 	}
 	catch(AbortException& ex)

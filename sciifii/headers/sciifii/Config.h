@@ -9,7 +9,7 @@
 #include "business/common/Installer.h"
 #include <map>
 #include "Switch.h"
-#define SCIIFII_VERSION "4"
+#define SCIIFII_VERSION "5"
 
 class Config : public Libwiisys::Object
 {

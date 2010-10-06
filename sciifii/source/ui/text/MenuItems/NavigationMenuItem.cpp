@@ -8,8 +8,6 @@ NavigationMenuItem::NavigationMenuItem(TiXmlElement* node)
   : MenuItem(node)
 {
 	string nodeValue = UtilString::ToStr(node->Value());
-	if(nodeValue != "navigationMenuItem")
-		throw Exception("Can't create NavigationMenuItem from the tag " + nodeValue);
 		
 	_navigationMenuId = UtilString::ToStr(node->Attribute("menuId"),"");
 	if(_navigationMenuId == "")

@@ -8,9 +8,10 @@ class Switch : public Libwiisys::Object
 {
 public:
 	std::string Name;
+	std::string Value;
 	bool Activated;
 	
-	Switch(std::string name = "", bool active = false);
+	Switch(std::string name = "", bool active = false, std::string value = "");
 };
 
 #endif

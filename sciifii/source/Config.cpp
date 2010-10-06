@@ -61,11 +61,7 @@ void Config::Initialize(const string& configFilePath)
 		throw Exception("Config file version not supported");
 
 	c._menuMessage = root->Attribute("MenuMessage");
-	c._workingDirectory = UtilString::ToStr(
-			root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
-	;
-	c._useAdvancedSettings = UtilString::ToBool(root->Attribute(
-			"AllowAdvancedMode"), true);
+	c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
 
 	TiXmlElement* child = root->FirstChildElement();
 
@@ -75,19 +71,14 @@ void Config::Initialize(const string& configFilePath)
 		{
 			string nodeValue = UtilString::ToStr(child->Value());
 
-			if (nodeValue == "options")
-				c.CreateOptionList(child);
-			else if (nodeValue == "logs")
+			if (nodeValue == "logs")
 				c.CreateLogs(child);
-			else if (nodeValue == "modes")
-				c.CreateModeList(child);
 			else if (nodeValue == "files")
 				FileManager::Init(child);
 			else if (nodeValue == "steps")
 				c.CreateStepList(child);
 			else if (nodeValue == "Disclaimer")
-				c._disclaimer = UtilString::Replace(UtilString::ToStr(
-						child->FirstChild()->Value(), ""), "\\n", "\n");
+				c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
 			else
 				throw Exception("Invalid XmlNode.");
 		}
@@ -156,94 +147,6 @@ void Config::CreateLogs(TiXmlElement* element)
 	}
 }
 
-void Config::CreateOptionList(TiXmlElement* element)
-{
-	TiXmlElement* child = element->FirstChildElement();
-
-	while (child != NULL)
-	{
-		if (child->Type() != TiXmlElement::COMMENT)
-		{
-			if (string(child->Value()) != "option")
-				throw Exception("options child node is invalid");
-
-			string name = child->Attribute("name");
-			string text = child->Attribute("text");
-			bool hidden = UtilString::ToBool(child->Attribute("hidden"), false);
-			vector<string> regions = UtilString::Split(UtilString::ToStr(
-					child->Attribute("regions"), ""), ',', true);
-
-			bool valid = regions.size() == 0;
-
-			for (vector<string>::iterator ite = regions.begin(); ite
-					!= regions.end(); ite++)
-			{
-				if (UtilString::ToU32(ite->c_str()) == GetRegion())
-				{
-					valid = true;
-					break;
-				}
-			}
-
-			if (valid)
-			{
-				option* opt = new option();
-				(*opt) = (option)
-				{	name, text,false,hidden};
-				_options.push_back(opt);
-			}
-		}
-
-		child = child->NextSiblingElement();
-	}
-
-}
-
-void Config::CreateModeList(TiXmlElement* element)
-{
-	TiXmlElement* child = element->FirstChildElement();
-
-	while (child != NULL)
-	{
-		if (child->Type() != TiXmlElement::COMMENT)
-		{
-			if (string(child->Value()) != "mode")
-				throw Exception("modes child node is invalid");
-
-			string text = child->Attribute("text");
-			vector<string> optionList = UtilString::Split(UtilString::ToStr(
-					child->Attribute("options")), '|');
-			vector<string> regions = UtilString::Split(UtilString::ToStr(
-					child->Attribute("regions"), ""), ',', true);
-
-			bool valid = regions.size() == 0;
-
-			for (vector<string>::iterator ite = regions.begin(); ite
-					!= regions.end(); ite++)
-			{
-				s8 region;
-				stringstream sregion(*ite);
-				sregion >> region;
-				if (region == -1 || (u32) region == GetRegion())
-				{
-					valid = true;
-					break;
-				}
-			}
-
-			if (valid)
-			{
-				mode* m = new mode();
-				(*m) = (mode)
-				{	optionList, text};
-				_modes.push_back(m);
-			}
-		}
-
-		child = child->NextSiblingElement();
-	}
-}
-
 void Config::CreateStepList(TiXmlElement* element)
 {
 	TiXmlElement* child = element->FirstChildElement();
@@ -272,26 +175,6 @@ void Config::CreateStepList(TiXmlElement* element)
 		child = child->NextSiblingElement();
 	}
 
-}
-
-void Config::ApplyMode(const mode& m)
-{
-	vector<option*> options = Instance()._options;
-
-	for (vector<option*>::iterator ite = options.begin(); ite != options.end(); ite++)
-	{
-		bool found = false;
-		vector<string> moptions = m.options;
-		for (vector<string>::const_iterator site = moptions.begin(); site
-				!= moptions.end(); site++)
-			if ((*ite)->name == (*site))
-			{
-				found = true;
-				break;
-			}
-
-		(*ite)->selected = found;
-	}
 }
 
 void Config::ValidateOptions()
@@ -351,16 +234,6 @@ void Config::ValidateOptions()
 		delete *mod;
 }
 
-vector<mode*> Config::Modes()
-{
-	return Instance()._modes;
-}
-
-vector<option*> Config::Options()
-{
-	return Instance()._options;
-}
-
 vector<Installer*> Config::Steps()
 {
 	return Instance()._validatedSteps;
@@ -376,25 +249,20 @@ string Config::DisclaimerText()
 	return Instance()._disclaimer;
 }
 
-bool Config::UseAdvancedMode()
-{
-	return Instance()._useAdvancedSettings;
-}
-
 u32 Config::GetRegion()
 {
 	return Instance()._region;
 }
 
 
-void Config::AddSwitch(Switch e)
+void Config::SetSwitch(const Switch& s)
 {
-	Instance()._switches[e.Name] = e.Value;
+	if(s.Activated)
+		Instance()._switches[s.Name] = s.Value;
+	else
+		Instance()._switches.erase(s.Name);
 }
-void Config::RemoveSwitch(Switch e)
-{
-	Instance()._switches.erase(e.Value);
-}
+
 void Config::ClearSwitches()
 {
 	Instance()._switches.clear();

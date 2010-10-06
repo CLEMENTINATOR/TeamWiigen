@@ -11,7 +11,7 @@
 #include "sciifii/Tools.h"
 #include "sciifii/Switch.h"
 #include "sciifii/business/Cios.h"
-#include "sciifii/business/Cioscorp.h"
+#include "sciifii/business/CiosCorp.h"
 #include "sciifii/business/CompositeInstaller.h"
 #include "sciifii/business/FileDownloader.h"
 #include "sciifii/business/FileSystemTask.h"

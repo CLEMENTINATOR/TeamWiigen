@@ -11,8 +11,6 @@ SwitchMenuItem::SwitchMenuItem(TiXmlElement* node)
 		_lastSwitchOn(false)
 {
 	string nodeValue = UtilString::ToStr(node->Value());
-	if(nodeValue != "switchMenuItem")
-		throw Exception("Can't create SwitchMenuItem from the tag " + nodeValue);
 		
 	_switchName = UtilString::ToStr(node->Attribute("name"),"");
 	if(_switchName == "")

@@ -20,7 +20,7 @@ public:
 	bool Selected;
 	
 	MenuItem(TiXmlElement* node);
-	virtual void Render() = 0;
+	virtual void Render();
 	virtual void ButtonPressed(u32 button);
 	virtual void Validate();
 	virtual void Cancel();

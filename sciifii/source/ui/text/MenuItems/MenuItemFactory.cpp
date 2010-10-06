@@ -14,7 +14,7 @@ MenuItem* MenuItemFactory::CreateItem(TiXmlElement* node)
 	}
 	else if (nodeValue == "navigationMenuItem")
 	{
-		return new ExitMenuItem(node);
+		return new NavigationMenuItem(node);
 	}
 	else if (nodeValue == "modeMenuItem")
 	{

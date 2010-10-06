@@ -7,7 +7,8 @@
 #include <vector>
 #include <tinyxml.h>
 #include "business/common/Installer.h"
-
+#include <map>
+#include "Switch.h"
 #define SCIIFII_VERSION "4"
 
 typedef struct
@@ -30,6 +31,8 @@ private:
 	s32 _region;
 	bool _hasNetwork;
 
+	std::map<std::string,Switch> _switches;
+
 	std::string _menuMessage;
 	std::string _workingDirectory;
 	bool _useAdvancedSettings;
@@ -51,7 +54,9 @@ public:
 	static void ApplyMode(const mode& m);
 	static void ValidateOptions();
 	static u32 GetRegion();
-
+	static void AddSwitch(Switch e);
+	static void RemoveSwitch(Switch e);
+	static void ClearSwitches();
 	static std::string WorkingDirectory();
 	static bool HasNetwork();
 	static bool AutoClean();

@@ -12,12 +12,12 @@ SeparatorMenuItem::SeparatorMenuItem(TiXmlElement* node)
   if(nodeValue != "separatorMenuItem")
     throw Exception("Can't create SeparatorMenuItem from the tag " + nodeValue);
 	  
-  _pattern = UtilString::ToStr(node->Attribute("char"),"");
+  _separator = UtilString::ToStr(node->Attribute("char"),"");
   Selectable = false;
 }
 
-void SeparatorhMenuItem::Render()
+void SeparatorMenuItem::Render()
 {
   for(int i = 0; i < 20; ++i)
-    cout << _pattern;
+    cout << _separator;
 }

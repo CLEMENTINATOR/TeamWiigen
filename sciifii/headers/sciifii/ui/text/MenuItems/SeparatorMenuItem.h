@@ -1,12 +1,13 @@
 #ifndef _SEPERATOR_MENU_ITEM_H_
 #define _SEPERATOR_MENU_ITEM_H_
 
+#include <string>
 #include "MenuItem.h"
 
 class SeparatorMenuItem : public MenuItem
 {
 private:
-  char _separator;
+  std::string _separator;
   
 public:
   SeparatorMenuItem(TiXmlElement* node);

@@ -9,9 +9,7 @@ ModeMenuItem::ModeMenuItem(TiXmlElement* node)
   : StartMenuItem(node)
 {
 	string nodeValue = UtilString::ToStr(node->Value());
-	if(nodeValue != "modeMenuItem")
-		throw Exception("Can't create ModeMenuItem from the tag " + nodeValue);
-		
+
 	string switches = UtilString::ToStr(node->Attribute("switches"),"");
 	if(switches == "")
 		throw Exception("No options defined in the xml for the ModeMenuItem");

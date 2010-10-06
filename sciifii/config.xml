@@ -9,66 +9,48 @@
     US: 1
   -->
   
-  <logs>
-    <log type="file" path="sd:/sciifii.log" />
-  </logs>
-  
-  <files>
-	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
-    <file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />
-    <file key="sdhc_module.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat.sha" />
-    <file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
-    <file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
-    <file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
-    <file key="fat_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_19.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module_19.dat.sha" />
-    <file key="ehci_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat.sha" />
-    <file key="sdhc_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat.sha" />
-    <file key="dip_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat.sha" />
-    <file key="ffs_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat.sha" />
-    <file key="mload_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat.sha" />
-    <file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
-    <file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
-    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
-    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
-    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
-    <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
-    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appfiles/r937.wad" sha1="http://teamwiigen.fr.cr/appfiles/r937.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
-    <file key="GXDol" url="http://teamwiigen.fr.cr/appfiles/r937.dol" sha1="http://teamwiigen.fr.cr/appfiles/r937.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
-    <file key="GXmeta" url="http://teamwiigen.fr.cr/appfiles/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
-    <file key="GXicon" url="http://teamwiigen.fr.cr/appfiles/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
-    <file key="cmios_plugin.dat" url="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat" sha1="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat.sha" />
-  </files>
 
-  <modes>
-    <mode text="Hack your wii ! (Light Mode)" options="cIOS249|cIOS250|Preloader" />
-    <mode text="Hack your wii ! (Full Mode with LoaderGX)" options="cIOS249|cIOS250|Preloader|GXLoader" />
-    <mode text="Hack your wii ! (Full Mode with wiiflow)" options="cIOS249|cIOS250|Preloader|wiiflow" />
-    <mode text="Unhack your wii" options="cIOS249|update|uninstall" />
-  </modes>
+<menus>
+    <menu id="id1">
+        <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
+        <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />
+        <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|Preloader|wiiflow" />
+        <modeMenuItem text="Unhack your wii" switches="cIOS249|update|uninstall" />
+        <separatorMenuItem char=" " />
+        <navigationMenuItem text="Advanced Menu" menuId="advanced" saveOptions="false" />
+        <separatorMenuItem char=" " />
+        <exitMenuItem text="Exit" />
+    </menu>
+    
+     <menu id="advanced">
+        <switchMenuItem name="cIOS249" text="Install cios249 rev 17" />
+        <switchMenuItem name="cIOS250" text="Install cios250 rev 19 (base 37)" />
+        <switchMenuItem name="update" text="Update your wii to 4.3" />
+        <switchMenuItem name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
+        <switchMenuItem name="Preloader" text="Install the priiloader" />
+        <switchMenuItem name="corp" text="Install the Darkcorp 1.1" />
+        <switchMenuItem name="cmios" text="Install the cmios" />
+        <switchMenuItem name="GXLoader" text="Install the USB LoaderGX" />
+        <switchMenuItem name="wiiflow" text="Install Wiiflow" />
+        <switchMenuItem name="clean" text="Clean temp files on exit" />
+        <separatorMenuItem char=" " />
+        <startMenuItem text="start" saveOptions="true" />
+        <separatorMenuItem char=" " />
+        <PreviousMenuItem text="Return to previous menu" saveOptions="false" />
+        <exitMenuItem text="Exit" />
+    </menu>
+</menus>
 
-  <options>
-    <option name="cIOS249" text="Install cios249 rev 17" />
-    <option name="cIOS250" text="Install cios250 rev 19 (base 37)" />
-    <option name="update" text="Update your wii to 4.3" />
-    <option name="uninstall" text="Remove the cioses (install ios stubs)" hidden="true"/>
-    <option name="Preloader" text="Install the priiloader" />
-    <option name="corp" text="Install the Darkcorp 1.1" />
-    <option name="cmios" text="Install the cmios" />
-    <option name="GXLoader" text="Install the USB LoaderGX" />
-    <option name="wiiflow" text="Install Wiiflow" />
-    <option name="clean" text="Clean temp files on exit" />
-  </options>  
-
-  <steps>
+ <steps>
 	
-		<MemoryPatcher option="cIOS249|cIOS250">
-			<patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
-			<patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
-			<patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
-			<patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
-			<patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
-			<patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
-		</MemoryPatcher>
+	<MemoryPatcher option="cIOS249|cIOS250">
+		<patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
+		<patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
+		<patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
+		<patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
+		<patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
+		<patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
+	</MemoryPatcher>
 	
     <!--
 		<CiosInstaller option="TBR" source="36" revision="0"  exceptions="-1035">
@@ -304,7 +286,8 @@
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>
 
-  <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.\n
+
+     <Disclaimer> This software comes with NO WARRANTY WHATSOEVER.\n
   You may use this software at your own risk.\n
   We take no responsibility for damage caused by Sciifii.\n  </Disclaimer>
 

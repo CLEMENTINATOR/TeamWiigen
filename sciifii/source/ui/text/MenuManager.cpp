@@ -4,8 +4,22 @@ using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
-MenuManager::MenuManager(TiXmlElement* node)
+MenuManager::MenuManager()
+{}
+
+MenuManager::~MenuManager()
 {
+	for(map<string,DynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
+		delete ite->second;
+}
+
+void MenuManager::Initialyze(TiXmlElement* node)
+{
+	for(map<string,DynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
+		delete ite->second;
+		
+	_menus.clear();
+		
 	string nodeValue = UtilString::ToStr(node->Value());
 	if(nodeValue != "menus")
 		throw Exception("Can't create MenuManager from an other tag than menus");
@@ -22,10 +36,13 @@ MenuManager::MenuManager(TiXmlElement* node)
 	}
 }
 
-MenuManager::~MenuManager()
+MenuManager& MenuManager::Instance(TiXmlElement* node)
 {
-	for(map<string,DynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
-		delete ite->second;
+	static MenuManager manager;
+	if(node != NULL)
+		manager.Initialyze(node);
+		
+	return manager;
 }
 
 void MenuManager::DisplayMenu()
@@ -49,5 +66,12 @@ void MenuManager::DisplayMenu()
 
 bool MenuManager::ExecuteSciifii()
 {
-	return true;
+	try
+	{
+		return true;
+	}
+	catch(AbortException& ex)
+	{
+		return false;
+	}
 }

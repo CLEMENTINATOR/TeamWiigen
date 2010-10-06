@@ -9,12 +9,15 @@ class MenuManager : public Libwiisys::Object
 {
 private:
 	std::map<std::string, DynamicMenu*> _menus;
+	MenuManager();
+	void Initialyze(TiXmlElement* node);
 	
 public:
-	MenuManager(TiXmlElement* node);
 	~MenuManager();
 	void DisplayMenu();
 	bool ExecuteSciifii();
+	
+	static MenuManager& Instance(TiXmlElement* node = NULL);
 };
 
 #endif

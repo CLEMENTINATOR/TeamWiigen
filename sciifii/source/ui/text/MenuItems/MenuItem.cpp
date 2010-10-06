@@ -10,8 +10,6 @@ MenuItem::MenuItem(TiXmlElement* node)
 	  Selected(false)
 {
 	_text = UtilString::ToStr(node->Attribute("text"),"");
-	if(_text == "")
-		throw Exception("Can't find the text to display from the XML");
 }
 
 void MenuItem::Render()

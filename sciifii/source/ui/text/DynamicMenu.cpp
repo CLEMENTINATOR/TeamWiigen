@@ -74,7 +74,10 @@ NavigateEventArgs DynamicMenu::Show()
 			do
 			{
 				nextItem++;
-			} while (nextItem < items.size() && !items.at(nextItem)->Selectable);
+				//forced to do it, because the while check the second condition before...
+				if(nextItem >= items.size())
+					break;
+			} while (!items.at(nextItem)->Selectable);
 
 			if (nextItem < items.size())
 			{
@@ -88,7 +91,10 @@ NavigateEventArgs DynamicMenu::Show()
 			do
 			{
 				nextItem--;
-			} while (nextItem >= 0 && !items.at(nextItem)->Selectable);
+				//the same as above
+				if(nextItem < 0)
+					break;
+			} while (!items.at(nextItem)->Selectable);
 
 			if (nextItem >= 0)
 			{

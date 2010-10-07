@@ -53,7 +53,7 @@ void MultiSwitchMenuItem::Render()
 
 void MultiSwitchMenuItem::ButtonPressed(u32 button)
 {
-	if (button & (vpb_Left) && _activated)
+	if ((button & (vpb_Left)) && _activated)
 	{
 		if (_selectedIndex == 0)
 		{
@@ -65,7 +65,7 @@ void MultiSwitchMenuItem::ButtonPressed(u32 button)
 		else
 			_selectedIndex--;
 	}
-	else if (button & (vpb_Right) && _activated)
+	else if ((button & (vpb_Right)) && _activated)
 	{
 		if (_selectedIndex == _multiSwitches.size() - 1)
 		{

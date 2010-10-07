@@ -88,7 +88,7 @@ NavigateEventArgs DynamicMenu::Show()
 			do
 			{
 				nextItem--;
-			} while (nextItem >= 0 && !items.at(nextItem)->Selectable);
+			} while (nextItem > 0 && !items.at(nextItem)->Selectable);
 
 			if (nextItem >= 0)
 			{

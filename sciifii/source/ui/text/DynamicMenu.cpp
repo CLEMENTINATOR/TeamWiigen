@@ -16,7 +16,7 @@ DynamicMenu::DynamicMenu(TiXmlElement* node) :
 		throw Exception("Can't create DynamicMenu from an other tag than menu");
 	MenuId = UtilString::ToStr(node->Attribute("id"),"");
 	if (MenuId == "")
-		throw Exception("Can't create DynamicMenuwith no MenuId");
+		throw Exception("Can't create DynamicMenu with no MenuId");
 
 
 	TiXmlElement* item = node->FirstChildElement();
@@ -39,10 +39,8 @@ DynamicMenu::~DynamicMenu()
 {
 	for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
 	{
-		(*ite)->NavigateRequested -= MakeDelegate(this,
-				&DynamicMenu::NavigateRequested);
-		(*ite)->SwitchSelectionChanged -= MakeDelegate(this,
-				&DynamicMenu::SwitchSelectionChanged);
+		(*ite)->NavigateRequested -= MakeDelegate(this,	&DynamicMenu::NavigateRequested);
+		(*ite)->SwitchSelectionChanged -= MakeDelegate(this, &DynamicMenu::SwitchSelectionChanged);
 		delete *ite;
 	}
 }

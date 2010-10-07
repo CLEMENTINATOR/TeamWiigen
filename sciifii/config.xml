@@ -11,7 +11,7 @@
   
 
 <menus>
-    <menu id="id1">
+    <menu id="main">
         <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
         <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />
         <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|Preloader|wiiflow" />

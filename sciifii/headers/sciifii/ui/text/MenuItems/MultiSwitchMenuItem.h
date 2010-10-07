@@ -12,7 +12,12 @@ protected:
 
 	std::vector<Switch> _multiSwitches;
 	u32 _selectedIndex;
+	u32 _lastIndex;
 	bool _allowBoucle;
+	bool _allowActivation;
+	bool _activated;
+	bool _lastActivated;
+	std::string _switchName;
 
 public:
 	MultiSwitchMenuItem(TiXmlElement* node);

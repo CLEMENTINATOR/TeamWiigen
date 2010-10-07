@@ -29,6 +29,6 @@ MenuItem* MenuItemFactory::CreateItem(TiXmlElement* node)
 		return new SeparatorMenuItem(node);
 	}
 	else
-		throw new Exception("Incorrect node : " + nodeValue);
+		throw Exception("Incorrect node : " + nodeValue);
 
 }

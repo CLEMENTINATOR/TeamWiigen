@@ -4,6 +4,7 @@
 #include <map>
 #include <libwiisys.h>
 #include "DynamicMenu.h"
+#include <vector>
 
 class MenuManager : public Libwiisys::Object
 {
@@ -12,7 +13,7 @@ private:
 	MenuManager();
 	void Initialyze(TiXmlElement* node);
 	bool ExecuteSciifii();
-	
+	std::string _startId;
 public:
 	~MenuManager();
 	void DisplayMenu();

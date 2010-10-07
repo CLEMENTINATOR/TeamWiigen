@@ -4,9 +4,10 @@
 using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
+
 MenuItem* MenuItemFactory::CreateItem(TiXmlElement* node)
 {
-	string nodeValue = UtilString::ToStr(node->Value());
+	string nodeValue = UtilString::ToStr(node->Value(), "");
 
 	if (nodeValue == "exitMenuItem")
 	{
@@ -28,6 +29,15 @@ MenuItem* MenuItemFactory::CreateItem(TiXmlElement* node)
 	{
 		return new SeparatorMenuItem(node);
 	}
+	else if (nodeValue == "startMenuItem")
+	{
+		return new StartMenuItem(node);
+	}
+	else if (nodeValue == "multiSwitchMenuItem")
+	{
+		return new MultiSwitchMenuItem(node);
+	}
+
 	else
 		throw Exception("Incorrect node : " + nodeValue);
 

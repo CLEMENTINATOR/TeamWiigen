@@ -44,6 +44,7 @@
 #include "sciifii/ui/text/MenuItems/SeparatorMenuItem.h"
 #include "sciifii/ui/text/MenuItems/StartMenuItem.h"
 #include "sciifii/ui/text/MenuItems/SwitchMenuItem.h"
+#include "sciifii/ui/text/MenuItems/MultiSwitchMenuItem.h"
 #include "sciifii/ui/text/MenuItems/MenuItemFactory.h"
 
 #endif

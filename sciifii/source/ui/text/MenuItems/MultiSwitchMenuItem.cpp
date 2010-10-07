@@ -6,7 +6,8 @@ using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
 MultiSwitchMenuItem::MultiSwitchMenuItem(TiXmlElement* node) :
-	MenuItem(node), _selectedIndex(0), _lastIndex(0), _activated(true), _lastActivated(true)
+	MenuItem(node), _selectedIndex(0), _lastIndex(0), _activated(true),
+			_lastActivated(true)
 {
 	TiXmlElement* item = node->FirstChildElement();
 
@@ -17,9 +18,11 @@ MultiSwitchMenuItem::MultiSwitchMenuItem(TiXmlElement* node) :
 			if (UtilString::ToStr(item->Value(), "") != "switch")
 				throw Exception("Child of multiswitch isnt \"switch");
 
-			_allowBoucle = UtilString::ToBool(item->Attribute("allowBoucle"),false);
-			_allowActivation = UtilString::ToBool(item->Attribute("allowActivation"),false);
-			_activated = UtilString::ToBool(item->Attribute("activated"),true);
+			_allowBoucle = UtilString::ToBool(item->Attribute("allowBoucle"),
+					false);
+			_allowActivation = UtilString::ToBool(item->Attribute(
+					"allowActivation"), false);
+			_activated = UtilString::ToBool(item->Attribute("activated"), true);
 			_lastActivated = _activated;
 
 			string value = UtilString::ToStr(item->Attribute("value"), "");
@@ -27,7 +30,7 @@ MultiSwitchMenuItem::MultiSwitchMenuItem(TiXmlElement* node) :
 			if (text == "")
 				throw Exception("Multiswitch child false text.");
 
-			_multiSwitches.push_back(Switch(text, true, value));
+			_multiSwitches.push_back(Switch(text, _activated, value));
 		}
 		item = item->NextSiblingElement();
 	}
@@ -42,13 +45,27 @@ void MultiSwitchMenuItem::Render()
 	string red = "\x1b[31m";
 	string green = "\x1b[32m";
 	string white = "\x1b[37m";
-	
-	if(_activated)
-		cout << green;
-	else
-		cout << red;
+	if (_allowActivation)
+	{
+		if (_activated)
+			cout << green;
+		else
+			cout << red;
+	}
+	cout << "\t ";
 
-	cout << "\t<<\t" << _multiSwitches[_selectedIndex].Name << "\t>>" << white;
+	if (_selectedIndex != 0)
+		cout << " << ";
+	else
+		cout << "    ";
+	cout << _multiSwitches[_selectedIndex].Name;
+
+	if (_selectedIndex != _multiSwitches.size() - 1)
+		cout << " >> ";
+	else
+		cout << "    ";
+
+	cout << white;
 }
 
 void MultiSwitchMenuItem::ButtonPressed(u32 button)
@@ -78,7 +95,7 @@ void MultiSwitchMenuItem::ButtonPressed(u32 button)
 			_selectedIndex++;
 
 	}
-	else if(button & (vpb_Ok))
+	else if (button & (vpb_Ok))
 	{
 		_activated = !_activated;
 	}

@@ -28,6 +28,7 @@ void MenuManager::Initialyze(TiXmlElement* node)
 	 _startId = UtilString::ToStr(node->Attribute("start"),"");
 	if(_startId=="")
 		throw Exception("No start menu specified !");
+	_menuPath.push_back(_startId);
 
 	TiXmlElement* menu = node->FirstChildElement();
 	while (menu != NULL)
@@ -67,7 +68,20 @@ void MenuManager::DisplayMenu()
 				break;
 		}
 		else if(result.NavigateTo == "menu")
-			activeMenu = result.MenuId;
+		{
+			if(result.MenuId == "..")
+			{
+				if(_menuPath.size() == 1)
+					throw Exception("There isn't previous menu...");
+				_menuPath.pop_back();
+				activeMenu = _menuPath.back();
+			}
+			else
+			{
+				_menuPath.push_back(result.MenuId);
+				activeMenu = result.MenuId;
+			}
+		}
 	}
 }
 

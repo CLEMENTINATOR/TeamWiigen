@@ -46,5 +46,5 @@
 #include "sciifii/ui/text/MenuItems/SwitchMenuItem.h"
 #include "sciifii/ui/text/MenuItems/MultiSwitchMenuItem.h"
 #include "sciifii/ui/text/MenuItems/MenuItemFactory.h"
-
+#include "sciifii/ui/text/MenuItems/PreviousMenuItem.h"
 #endif

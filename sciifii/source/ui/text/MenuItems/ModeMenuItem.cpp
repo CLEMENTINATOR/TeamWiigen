@@ -8,8 +8,6 @@ using namespace Libwiisys::Exceptions;
 ModeMenuItem::ModeMenuItem(TiXmlElement* node)
   : StartMenuItem(node)
 {
-	string nodeValue = UtilString::ToStr(node->Value());
-
 	string switches = UtilString::ToStr(node->Attribute("switches"),"");
 	if(switches == "")
 		throw Exception("No options defined in the xml for the ModeMenuItem");

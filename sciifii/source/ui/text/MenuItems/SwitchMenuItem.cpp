@@ -7,11 +7,9 @@ using namespace Libwiisys::Exceptions;
 
 SwitchMenuItem::SwitchMenuItem(TiXmlElement* node)
   : MenuItem(node),
-	  _switchOn(false),
-		_lastSwitchOn(false)
+	_switchOn(false),
+	_lastSwitchOn(false)
 {
-	string nodeValue = UtilString::ToStr(node->Value());
-		
 	_switchName = UtilString::ToStr(node->Attribute("name"),"");
 	if(_switchName == "")
 		throw Exception("No name defined in the xml for the SwitchMenuItem");

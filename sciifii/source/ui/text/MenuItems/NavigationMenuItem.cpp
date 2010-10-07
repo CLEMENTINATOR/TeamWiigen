@@ -7,10 +7,7 @@ using namespace Libwiisys::Exceptions;
 NavigationMenuItem::NavigationMenuItem(TiXmlElement* node)
   : MenuItem(node)
 {
-	string nodeValue = UtilString::ToStr(node->Value());
-		
-	_navigationMenuId = UtilString::ToStr(node->Attribute("menuId"),"");
-		
+	_navigationMenuId = UtilString::ToStr(node->Attribute("menuId"),"");		
 	_validate = UtilString::ToBool(node->Attribute("saveOptions"), true);
 }
 

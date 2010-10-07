@@ -8,10 +8,6 @@ using namespace Libwiisys::Exceptions;
 SeparatorMenuItem::SeparatorMenuItem(TiXmlElement* node)
   : MenuItem(node)
 {
-  string nodeValue = UtilString::ToStr(node->Value());
-  if(nodeValue != "separatorMenuItem")
-    throw Exception("Can't create SeparatorMenuItem from the tag " + nodeValue);
-	  
   _separator = UtilString::ToStr(node->Attribute("char"),"");
   Selectable = false;
 }

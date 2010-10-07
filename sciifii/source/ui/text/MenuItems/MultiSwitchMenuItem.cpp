@@ -53,17 +53,23 @@ void MultiSwitchMenuItem::Render()
 			cout << red;
 	}
 	cout << "\t ";
+	if (!_allowBoucle)
+	{
+		if (_selectedIndex != 0)
+			cout << " << ";
+		else
+			cout << "    ";
+		cout << _multiSwitches[_selectedIndex].Name;
 
-	if (_selectedIndex != 0)
-		cout << " << ";
+		if (_selectedIndex != _multiSwitches.size() - 1)
+			cout << " >> ";
+		else
+			cout << "    ";
+	}
 	else
-		cout << "    ";
-	cout << _multiSwitches[_selectedIndex].Name;
-
-	if (_selectedIndex != _multiSwitches.size() - 1)
-		cout << " >> ";
-	else
-		cout << "    ";
+	{
+		cout << " << " << _multiSwitches[_selectedIndex].Name << " >> ";
+	}
 
 	cout << white;
 }

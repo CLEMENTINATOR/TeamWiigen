@@ -10,7 +10,7 @@
   -->
   
 
-<menus>
+<menus start="main">
     <menu id="main">
         <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
         <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />

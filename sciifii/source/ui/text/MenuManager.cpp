@@ -18,13 +18,17 @@ void MenuManager::Initialyze(TiXmlElement* node)
 {
 	for(map<string,DynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
 		delete ite->second;
-		
+
 	_menus.clear();
-		
+
 	string nodeValue = UtilString::ToStr(node->Value());
 	if(nodeValue != "menus")
 		throw Exception("Can't create MenuManager from an other tag than menus");
-		
+
+	 _startId = UtilString::ToStr(node->Attribute("start"),"");
+	if(_startId=="")
+		throw Exception("No start menu specified !");
+
 	TiXmlElement* menu = node->FirstChildElement();
 	while (menu != NULL)
 	{
@@ -35,6 +39,8 @@ void MenuManager::Initialyze(TiXmlElement* node)
 		}
 		menu = menu->NextSiblingElement();
 	}
+	if(_menus.find(_startId)==_menus.end())
+		throw Exception("start menu doesn't exist : "+_startId);
 }
 
 MenuManager& MenuManager::Instance(TiXmlElement* node)
@@ -42,14 +48,14 @@ MenuManager& MenuManager::Instance(TiXmlElement* node)
 	static MenuManager manager;
 	if(node != NULL)
 		manager.Initialyze(node);
-		
+
 	return manager;
 }
 
 void MenuManager::DisplayMenu()
 {
-	string activeMenu = _menus.begin()->first;
-	
+	string activeMenu = _startId;
+
 	while(true)
 	{
 		NavigateEventArgs result = _menus[activeMenu]->Show();
@@ -71,7 +77,7 @@ bool MenuManager::ExecuteSciifii()
 	{
 		Disclaimer::Show();
 		VPAD_Shutdown();
-		
+
 		Sciifii sci;
 		if (sci.Prepare())
 		{
@@ -83,7 +89,7 @@ bool MenuManager::ExecuteSciifii()
 			Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
 			throw Exception("An error occured during prepare.");
 		}
-					
+
 		return true;
 	}
 	catch(AbortException& ex)

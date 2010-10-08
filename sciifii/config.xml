@@ -34,7 +34,7 @@
         <switchMenuItem name="wiiflow" text="Install Wiiflow" />
         <switchMenuItem name="clean" text="Clean temp files on exit" />
         <separatorMenuItem char=" " />
-				<previousMenuItem text="Return to simple menu" saveOptions="false" />
+		<previousMenuItem text="Return to simple menu" saveOptions="false" />
         <startMenuItem text="start" saveOptions="true" />
         <separatorMenuItem char=" " />
         <exitMenuItem text="Exit" />

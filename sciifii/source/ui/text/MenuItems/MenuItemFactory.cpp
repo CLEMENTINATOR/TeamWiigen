@@ -37,7 +37,10 @@ MenuItem* MenuItemFactory::CreateItem(TiXmlElement* node)
 	{
 		return new MultiSwitchMenuItem(node);
 	}
-
+	else if (nodeValue == "previousMenuItem")
+	{
+		return new PreviousMenuItem(node);
+	}
 	else
 		throw Exception("Incorrect node : " + nodeValue);
 

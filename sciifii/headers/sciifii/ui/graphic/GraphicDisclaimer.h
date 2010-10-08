@@ -6,7 +6,7 @@ class GraphicDisclaimer : public Libwui::Component::Form
   private:
 	Libwui::Component::Button btnContinue;
 	Libwui::Component::Button btnExit;
-	Libwui::Component::Label textDisclaimer;
+	Libwui::Component::TextAera textDisclaimer;
 
 
   public:

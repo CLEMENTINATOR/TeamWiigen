@@ -12,7 +12,6 @@ class PreviousMenuItem: public NavigationMenuItem
 {
 public:
 	PreviousMenuItem(TiXmlElement* node);
-	virtual ~PreviousMenuItem();
 	virtual void ButtonPressed(u32 button);
 };
 

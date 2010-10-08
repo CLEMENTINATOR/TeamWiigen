@@ -120,4 +120,18 @@ void DynamicMenu::SwitchSelectionChanged(Object* sender, SwitchEventArgs* args)
 void DynamicMenu::NavigateRequested(Object* sender, NavigateEventArgs* args)
 {
 	nav = *args;
+	if(nav.ValidateCurrentMenu)
+	{
+		for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		{
+			(*ite)->Validate();
+		}
+	}
+	else
+	{
+		for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		{
+			(*ite)->Cancel();
+		}
+	}
 }

@@ -9,8 +9,37 @@
     US: 1
   -->
   
+  <logs>
+    <log type="file" path="sd:/sciifii.log" />
+  </logs>
+  
+  <files>
+	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
+    <file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />
+    <file key="sdhc_module.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat.sha" />
+    <file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
+    <file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
+    <file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
+    <file key="fat_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_19.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module_19.dat.sha" />
+    <file key="ehci_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat.sha" />
+    <file key="sdhc_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat.sha" />
+    <file key="dip_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat.sha" />
+    <file key="ffs_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat.sha" />
+    <file key="mload_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat.sha" />
+    <file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
+    <file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
+    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
+    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
+    <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appfiles/r937.wad" sha1="http://teamwiigen.fr.cr/appfiles/r937.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
+    <file key="GXDol" url="http://teamwiigen.fr.cr/appfiles/r937.dol" sha1="http://teamwiigen.fr.cr/appfiles/r937.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
+    <file key="GXmeta" url="http://teamwiigen.fr.cr/appfiles/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+    <file key="GXicon" url="http://teamwiigen.fr.cr/appfiles/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+    <file key="cmios_plugin.dat" url="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat" sha1="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat.sha" />
+  </files>
 
-<menus start="main">
+	<menus start="main">
     <menu id="main">
         <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
         <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />
@@ -34,7 +63,7 @@
         <switchMenuItem name="wiiflow" text="Install Wiiflow" />
         <switchMenuItem name="clean" text="Clean temp files on exit" />
         <separatorMenuItem char=" " />
-		<previousMenuItem text="Return to simple menu" saveOptions="false" />
+				<previousMenuItem text="Return to simple menu" saveOptions="false" />
         <startMenuItem text="start" saveOptions="true" />
         <separatorMenuItem char=" " />
         <exitMenuItem text="Exit" />

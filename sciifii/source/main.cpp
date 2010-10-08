@@ -110,7 +110,6 @@ class MainText : public IMain
 
 					Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
 			}
-			VPAD_Init();
 			Pause();
 		return 0;
 	}

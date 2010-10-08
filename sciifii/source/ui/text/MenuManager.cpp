@@ -101,10 +101,12 @@ bool MenuManager::ExecuteSciifii()
 		}
 		else
 		{
+			VPAD_Init();
 			Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
 			throw Exception("An error occured during prepare.");
 		}
 
+		VPAD_Init();
 		return true;
 	}
 	catch(AbortException& ex)

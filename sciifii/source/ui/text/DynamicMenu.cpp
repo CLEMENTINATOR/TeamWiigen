@@ -33,6 +33,9 @@ DynamicMenu::DynamicMenu(TiXmlElement* node) :
 		}
 		item = item->NextSiblingElement();
 	}
+	
+	if(items.begin() != items.end())
+		items.front()->Selectable = true;
 }
 
 DynamicMenu::~DynamicMenu()

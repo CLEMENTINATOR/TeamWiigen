@@ -1,8 +1,6 @@
 #ifndef _SCIIFII_GLOBAL_H_
 #define _SCIIFII_GLOBAL_H_
 
-//#define USE_ADVANCED_UI
-
 #include <libwiisys.h>
 #include <libwui.h>
 

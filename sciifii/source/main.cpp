@@ -6,7 +6,7 @@
 #include <ogcsys.h>
 #include <Sciifii.h>
 
-//#define USE_ADVANCED_UI
+#define USE_ADVANCED_UI
 
 using namespace std;
 using namespace Libwiisys::Exceptions;
@@ -33,8 +33,10 @@ class MainUI : public IMain
 			configFile = string(argv[1]);
 			
 		Config::Initialize(configFile);
+		Log::WriteLog(Log_Info, "config done!");
 		GraphicDisclaimer g;
 		PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
+		Log::WriteLog(Log_Info, "pad image Loaded!");
 		UIManager::Run(g);
 		STM_RebootSystem();
 		return 0;
@@ -110,6 +112,7 @@ class MainText : public IMain
 
 					Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
 			}
+			VPAD_Init();;
 			Pause();
 		return 0;
 	}

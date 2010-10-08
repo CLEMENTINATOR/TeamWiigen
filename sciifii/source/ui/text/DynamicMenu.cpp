@@ -71,18 +71,15 @@ NavigateEventArgs DynamicMenu::Show()
 	{
 		Display();
 		u32 command = GetCommand();
-		u32 nextItem = selectIndex;
+		s32 nextItem = selectIndex;
 		if (command & vpb_Down)
 		{
 			do
 			{
 				nextItem++;
-				//forced to do it, because the while check the second condition before...
-				if(nextItem >= items.size())
-					break;
-			} while (!items.at(nextItem)->Selectable);
+			} while (nextItem < (s32)items.size() && !items.at(nextItem)->Selectable);
 
-			if (nextItem < items.size())
+			if (nextItem < (s32)items.size())
 			{
 				items.at(selectIndex)->Selected = false;
 				selectIndex = nextItem;
@@ -94,10 +91,7 @@ NavigateEventArgs DynamicMenu::Show()
 			do
 			{
 				nextItem--;
-				//the same as above
-				if(nextItem < 0)
-					break;
-			} while (!items.at(nextItem)->Selectable);
+			} while (nextItem >= 0 && !items.at(nextItem)->Selectable);
 
 			if (nextItem >= 0)
 			{

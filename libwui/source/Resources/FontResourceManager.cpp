@@ -18,7 +18,7 @@ FontResourceManager& FontResourceManager::Current()
 FontResourceManager::FontResourceManager()
 {
 	FontResource* res = new FontResource(font_ttf, font_ttf_size);
-	_resources.insert(make_pair("", res));
+	_resources.insert(make_pair(".", res));
 }
 
 FontResource* FontResourceManager::Get(const string& fontPath)

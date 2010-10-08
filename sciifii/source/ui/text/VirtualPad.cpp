@@ -3,6 +3,8 @@
 
 #include <Sciifii.h>
 
+static bool padInitiated = false;
+
 void VPAD_ScanPads()
 {
 	WPAD_ScanPads();
@@ -36,11 +38,19 @@ u32 VPAD_ButtonsDown(u32 chan)
 
 void VPAD_Init()
 {
+	if(padInitiated)
+		return;
 	WPAD_Init();
 	PAD_Init();
+	padInitiated = true;
 }
 
 void VPAD_Shutdown()
 {
+	if(!padInitiated)
+		return;
+
 	WPAD_Shutdown();
+
+	padInitiated = false;
 }

@@ -89,6 +89,7 @@ bool MenuManager::ExecuteSciifii()
 {
 	try
 	{
+		Config::ValidateOptions();
 		Disclaimer::Show();
 		VPAD_Shutdown();
 

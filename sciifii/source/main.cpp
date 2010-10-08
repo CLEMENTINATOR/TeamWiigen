@@ -38,7 +38,6 @@ class MainUI : public IMain
 		PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
 		Log::WriteLog(Log_Info, "pad image Loaded!");
 		UIManager::Run(g);
-		STM_RebootSystem();
 		return 0;
 	}
 };

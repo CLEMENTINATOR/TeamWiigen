@@ -53,9 +53,13 @@ void FileSystemTask::Install()
 	else if(_action == FSTAction_Delete)
 	{
 		if(_type == FSTType_File)
-			File::Delete(_target);
+		{
+			if(File::Exists(_target)) File::Delete(_target);
+		}
 		else
-			Directory::Delete(_target, _recursive);
+		{
+			if(Directory::Exists(_target)) Directory::Delete(_target, _recursive);
+		}
 	}
 }
 void FileSystemTask::SendToLog()

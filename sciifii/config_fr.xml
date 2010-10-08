@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sciifii version="5" MenuMessage="Choississez une option : ">
+
+  <!-- Region:
+    JAP: 0
+    EUR: 2
+    KK: 4
+    US: 1
+  -->
+  
+  <logs>
+    <log type="file" path="sd:/sciifii.log" />
+  </logs>
+  
+  <files>
+	<file key="fat_module.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module.dat.sha" />
+    <file key="ehci_module.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module.dat.sha" />
+    <file key="sdhc_module.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module.dat.sha" />
+    <file key="dip_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin.dat.sha" />
+    <file key="es_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/es_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/es_plugin.dat.sha" />
+    <file key="ffs_plugin.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin.dat.sha" />
+    <file key="fat_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_19.dat" sha1="http://www.teamwiigen.fr.cr/appfiles/fat_module_19.dat.sha" />
+    <file key="ehci_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_19.dat.sha" />
+    <file key="sdhc_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_19.dat.sha" />
+    <file key="dip_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_plugin_19.dat.sha" />
+    <file key="ffs_plugin_19.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_plugin_19.dat.sha" />
+    <file key="mload_module_19.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_19.dat.sha" />
+    <file key="dip13.dat" url="http://teamwiigen.fr.cr/appfiles/dip13.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip13.dat.sha" />
+    <file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
+    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
+    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
+    <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appfiles/r937.wad" sha1="http://teamwiigen.fr.cr/appfiles/r937.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
+    <file key="GXDol" url="http://teamwiigen.fr.cr/appfiles/r937.dol" sha1="http://teamwiigen.fr.cr/appfiles/r937.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
+    <file key="GXmeta" url="http://teamwiigen.fr.cr/appfiles/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+    <file key="GXicon" url="http://teamwiigen.fr.cr/appfiles/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+    <file key="cmios_plugin.dat" url="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat" sha1="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat.sha" />
+  </files>
+
+<menus start="main">
+    <menu id="main">
+        <modeMenuItem text="Hacker votre wii mode simple" switches="cIOS249|cIOS250|Preloader" />
+        <modeMenuItem text="Hacker votre wii mode complet avec UsbLoaderGX " switches="cIOS249|cIOS250|Preloader|GXLoader" />
+        <modeMenuItem text="Hacker votre wii mode complet avec Wiiflow" switches="cIOS249|cIOS250|Preloader|wiiflow" />
+        <modeMenuItem text="Enveler le hack de votre wii" switches="cIOS249|update|uninstall" />
+        <separatorMenuItem char=" " />
+        <navigationMenuItem  text="Menu avance" menuId="advanced" saveOptions="false" />
+        <separatorMenuItem char=" " />
+        <exitMenuItem text="Quitter" />
+    </menu>
+    
+     <menu id="advanced">
+        <switchMenuItem name="cIOS249" text="Installation cios249 rev 17                       " />
+        <switchMenuItem name="cIOS250" text="Installation cios250 rev 19 (base 37)             " />
+        <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3                      " />
+        <switchMenuItem name="uninstall" text="Retirer les cios (installation des ios stubs)       " hidden="true"/>
+        <switchMenuItem name="Preloader" text="Installation du priiloader                          " />
+        <switchMenuItem name="corp" text="Installation du Darkcorp 1.1                        " />
+        <switchMenuItem name="cmios" text="Installation du cmios                             " />
+        <switchMenuItem name="GXLoader" text="Installation de USB LoaderGX                        " />
+        <switchMenuItem name="wiiflow" text="Installation de Wiiflow                           " />
+        <switchMenuItem name="clean" text="Nettoyage du repertoire temporaire lors de la sortie" />
+        <separatorMenuItem char=" " />
+				<previousMenuItem text="Retourner au menu simple" saveOptions="false" />
+        <startMenuItem text="Demarrer" saveOptions="true" />
+        <separatorMenuItem char=" " />
+        <exitMenuItem text="Quitter" />
+    </menu>
+</menus>
+
+ <steps>
+	
+	<MemoryPatcher option="cIOS249|cIOS250">
+		<patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
+		<patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
+		<patch pattern="0xD1, 0x2A, 0x1C, 0x39" value="0x46, 0xC0, 0x1C, 0x39" />
+		<patch pattern="0x28, 0x03, 0xD1, 0x23" value="0x28, 0x03, 0x00, 0x00" />
+		<patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
+		<patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
+	</MemoryPatcher>
+	
+    <!--
+		<CiosInstaller option="TBR" source="36" revision="0"  exceptions="-1035">
+      <patches>
+        <prebuild name="ES_HashCheck_Old" />
+        <prebuild name="ES_HashCheck_New" />
+        <prebuild name="ES_Identify" />
+        <prebuild name="FFS_PermsCheck" />
+      </patches>
+    </CiosInstaller>
+	
+		<CompositeInstaller option="TBR|cIOS249|cIOS250">
+			<IOSReloader id="36" />
+			<Identifier user="0" />
+		</CompositeInstaller>
+		-->
+    
+   <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" delete="true">
+      <modules>
+        <module file="ehci_module.dat" position="3" />
+        <module file="fat_module.dat" />
+        <module file="sdhc_module.dat" />
+      </modules>
+      <plugins>
+        <plugin dest="DIP" file="dip_plugin.dat" offset="200" bss="2C000">
+          <handle name="DIP_Cmd1" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x01, 0x68, 0x05, 0x46, 0x8A, 0x21" />
+          <handle name="DIP_Cmd2" pattern="0xB5, 0xF0, 0x46, 0x5F, 0x46, 0x56, 0x46, 0x4D, 0x46, 0x44, 0xB4, 0xF0, 0x4B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x05, 0x46, 0x44, 0xB4, 0xF0, 0x4B" />
+        </plugin>
+        <plugin dest="ES" file="es_plugin.dat" offset="200" bss="5000" >
+          <handle name="ES_Cmd" pattern="0xB5, 0x70, 0xB0, 0x88, 0x68, 0x85, 0x1C, 0x01, 0x31, 0x0C, 0x22, 0xC0" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x10, 0xB2, 0x01, 0x31, 0x0C, 0x22, 0xC0" />
+        </plugin>
+        <plugin dest="FFS" file="ffs_plugin.dat" offset="7200" bss="47000">
+          <handle name="FFS_OpenCmd" pattern="0xB5, 0xF0, 0x46, 0x47, 0xB4, 0x80, 0xB0, 0x81, 0x1C, 0x04, 0x1C, 0x05, 0x35" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x1C, 0x04, 0x1C, 0x05, 0x35" />
+          <handle name="FFS_CloseCmd" pattern="0xB5, 0x70, 0x26, 0x00, 0x68, 0x84, 0x6A, 0x23, 0x2B, 0x00, 0xD0, 0x00, 0x1C" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x2B, 0x00, 0xD0, 0x00, 0x1C" />
+          <handle name="FFS_ReadCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x22, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x22, 0x0C, 0x18" />
+          <handle name="FFS_WriteCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x21, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x21, 0x0C, 0x18" />
+          <handle name="FFS_SeekCmd" pattern="0xB5, 0x10, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x81, 0x6A, 0x08, 0x28, 0x00, 0xD1" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x6A, 0x08, 0x28, 0x00, 0xD1" />
+          <handle name="FFS_IoctlCmd" pattern="0xB5, 0xF0, 0xB0, 0x9C, 0x24, 0x00, 0x1C, 0x05, 0x35, 0x0C, 0x68, 0x81, 0x26" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x35, 0x0C, 0x68, 0x81, 0x26" />
+          <handle name="FFS_IoctlvCmd" pattern="0xB5, 0xF0, 0xB0, 0x81, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x85, 0x68, 0xC3, 0x2B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x68, 0x85, 0x68, 0xC3, 0x2B" />
+        </plugin>
+      </plugins>
+      <patches>
+        <prebuild name="ES_HashCheck_Old" />
+        <prebuild name="ES_HashCheck_New" />
+        <prebuild name="ES_Identify" />
+        <prebuild name="ES_OpenTitleContent1" />
+        <prebuild name="ES_OpenTitleContent2" />
+        <prebuild name="ES_ReadContent" />
+        <prebuild name="ES_CloseContent" />
+        <prebuild name="ES_SetUIDCheck" />
+        <prebuild name="ES_TitleVersionCheck" />
+        <prebuild name="ES_TitleDeleteCheck" />
+        <prebuild name="ES_MEM2Protection" />
+        <prebuild name="FFS_PermsCheck" />
+        <prebuild name="DIP_UnencryptedLimit" />
+        <prebuild name="DIP_EnableDvdVideo" />
+      </patches>
+    </CiosInstaller>
+	
+    
+    <CiosInstaller option="cIOS250" source="37" revision="3869" slot="250" ciosRevision="19" delete="true">
+      <modules>
+        <module file="mload_module_19.dat" />
+        <module file="ehci_module_19.dat" position="3" />
+        <module file="fat_module_19.dat" />
+        <module file="sdhc_module_19.dat" />
+        <module file="dip_plugin_19.dat" />
+        <module file="ffs_plugin_19.dat" />
+      </modules>
+	  
+      <patches>
+        <SimplePatch module="IOSP" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" />
+        <prebuild name="DIP_EnableDvdVideo" />
+      </patches>
+    </CiosInstaller>
+    
+    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
+
+    <CompositeInstaller option="update" name="Update Ioses">
+		
+			<!-- classic ioses -->
+			<Title id="0000000100000004" revision="65280" action="install" />
+			<Title id="000000010000000A" revision="768" action="install" />
+			<Title id="000000010000000C" revision="526" action="install" />
+			<Title id="000000010000000D" revision="1032" action="install" />
+			<Title id="000000010000000E" revision="1032" action="install" />
+			<Title id="000000010000000F" revision="1032" action="install" />
+			<Title id="0000000100000010" revision="512" action="install" />
+			<Title id="0000000100000011" revision="1032" action="install" />
+			<Title id="0000000100000015" revision="1039" action="install" />
+			<Title id="0000000100000016" revision="1294" action="install" />
+			<Title id="000000010000001C" revision="1807" action="install" />
+			<Title id="000000010000001F" revision="3608" action="install" />
+			<Title id="0000000100000021" revision="3608" action="install" />
+			<Title id="0000000100000022" revision="3608" action="install" />
+			<Title id="0000000100000023" revision="3608" action="install" />
+			<Title id="0000000100000024" revision="3608" action="install" />
+			<Title id="0000000100000025" revision="5663" action="install" />
+			<Title id="0000000100000026" revision="4124" action="install" />
+			<Title id="0000000100000029" revision="3607" action="install" />
+			<Title id="000000010000002B" revision="3607" action="install" />
+			<Title id="000000010000002D" revision="3607" action="install" />
+			<Title id="000000010000002E" revision="3607" action="install" />
+			<Title id="0000000100000030" revision="4124" action="install" />
+			<Title id="0000000100000033" revision="4864" action="install" />
+			<Title id="0000000100000035" revision="5663" action="install" />
+			<Title id="0000000100000037" revision="5663" action="install" />
+			<Title id="0000000100000038" revision="5662" action="install" />
+			<Title id="0000000100000039" revision="5919" action="install" />
+			<Title id="000000010000003A" revision="6176" action="install" />
+			<Title id="000000010000003D" revision="5662" action="install" />
+			<Title id="0000000100000050" revision="6944" action="install" />
+			<Title id="0000000100000100" revision="6" action="install" />
+			<Title id="0000000100000101" revision="10" action="install" />
+      
+      <!-- System Menu -->
+			<Title id="0000000100000002" revision="512" action="install" regions="0" />
+			<Title id="0000000100000002" revision="513" action="install" regions="1" />
+      <Title id="0000000100000002" revision="514" action="install" regions="2" />
+			<Title id="0000000100000002" revision="518" action="install" regions="4" />
+      <CiosInstaller source="60" revision="6174" slot="80" ciosRevision="6944" />
+      
+      <!-- Old sysMenus stubs -->
+			<Title id="0000000100000009" revision="1034" action="install" />
+			<Title id="000000010000000B" revision="256" action="install" />
+			<Title id="0000000100000014" revision="256" action="install" />
+			<Title id="000000010000001E" revision="2816" action="install" />
+			<Title id="0000000100000028" revision="3072" action="install" />
+			<Title id="0000000100000032" revision="5120" action="install" />
+			<Title id="0000000100000034" revision="5888" action="install" />
+			<Title id="000000010000003C" revision="6400" action="install" />
+			<Title id="0000000100000046" revision="6912" action="install" />
+      
+      <!-- Channels -->
+			<Title id="0001000248414241" revision="20" action="install" regions="0,1,2" />
+			<Title id="000100024841424B" revision="20" action="install" regions="4" />
+			<Title id="0001000248414341" revision="6" action="install" regions="0,1,2" />
+			<Title id="0001000248414645" revision="7" action="install" regions="1" />
+			<Title id="000100024841464A" revision="7" action="install" regions="0" />
+			<Title id="0001000248414650" revision="7" action="install" regions="2" />
+			<Title id="0001000248414745" revision="7" action="install" regions="1" />
+			<Title id="000100024841474A" revision="7" action="install" regions="0" />
+			<Title id="0001000248414750" revision="7" action="install" regions="2" />
+			<Title id="0001000248415941" revision="3" action="install" regions="0,1,2" />
+			<Title id="000100024841594B" revision="3" action="install" regions="4" />
+			<Title id="0001000848414B45" revision="3" action="install" regions="1" />
+			<Title id="0001000848414B4A" revision="3" action="install" regions="0" />
+			<Title id="0001000848414B4B" revision="3" action="install" regions="4" />
+			<Title id="0001000848414B50" revision="3" action="install" regions="2" />
+			<Title id="0001000848414C45" revision="2" action="install" regions="1" />
+			<Title id="0001000848414C4A" revision="2" action="install" regions="0" />
+			<Title id="0001000848414C4B" revision="2" action="install" regions="4" />
+			<Title id="0001000848414C50" revision="2" action="install" regions="2" />
+			<Title id="000100084843434A" revision="2" action="install" regions="0" />
+    </CompositeInstaller>
+    
+    <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
+      <Title id="00000001000000FE" revision="65280" action="install" />
+      <Title id="00000001000000DE" revision="65280" action="install" />
+      <Title id="00000001000000DF" revision="65280" action="install" />
+      <Title id="00000001000000FA" revision="65280" action="install" />
+      <IOSReloader id="36" />
+      <Title id="00000001000000F9" revision="65280" action="install" />
+    </CompositeInstaller>
+    
+    <CompositeInstaller option="Preloader" name="Preloader">
+      <Preloader  file="priiloader.dat" />
+      <FileDownloader file="hacks.ini" />
+    </CompositeInstaller>
+
+    <CorpInstaller option="corp">
+      <modules>
+        <module type="DIP" name="dip13" file="dip13.dat" />
+        <module type="DIP" name="dip17" file="dip17.dat" />
+      </modules>
+      <items>
+        <item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000000B" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
+        <item slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
+        <item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip17" identifyPatch="true" nandPatch="false" kkPatch="false" />
+        <item slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13" identifyPatch="true" nandPatch="true" kkPatch="false" />
+        <item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip17" identifyPatch="true" nandPatch="true" kkPatch="true" />
+        <item slot="0000000100000026" source="0000000100000026" revision="3867" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
+        <item slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000030" source="0000000100000030" revision="4123" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000038" source="0000000100000038" revision="5661" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000039" source="0000000100000039" revision="5918" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000003A" source="000000010000003A" revision="6175" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
+        <item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+        <item slot="0000000100000050" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
+      </items>
+    </CorpInstaller>
+
+    <CiosInstaller option="cmios" source="257" revision="8" slot="257" ciosRevision="8" >
+      <plugins>
+        <plugin dest="IOS" file="cmios_plugin.dat">
+          <header type="1" vaddr="0x01000000" paddr="0x01000000" flag="0x00F00005" align="1" />
+          <handle name="cmios_handle" pattern="0x81, 0x30, 0x02, 0x00, 0x81, 0x32" value="0x81, 0x00, 0x00, 0x00, 0x81, 0x32" />
+        </plugin>
+      </plugins>
+      <patches>
+        <SimplePatch pattern="0x23, 0x80, 0x03, 0x9b, 0x43, 0x1a" value="0x23, 0x80, 0x03, 0x9b, 0x43, 0x9a" />
+      </patches>
+    </CiosInstaller>
+    
+    <CompositeInstaller option="GXLoader" name="LoaderGX">
+      <FileDownloader file="GXDol" />
+      <FileDownloader file="GXmeta" />
+      <FileDownloader file="GXicon" />
+      <Title wad="GXForwarder" action="install" />
+    </CompositeInstaller>
+
+
+    <CompositeInstaller option="wiiflow" name="Wiiflow">
+      <FileDownloader file="wiiflow.dol" />
+      <Title wad="wiiflow.wad" action="install" />
+    </CompositeInstaller>
+    
+    <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
+  </steps>
+
+
+     <Disclaimer> Ce logiciel ne laisse aucune garantie quand a son fonctionnement.\n
+  Vous pouvez utiliser ce logiciel à votre propre risque .\n
+  Nous ne prenons aucune responsabilite de degats causes par Sciifii.\n  </Disclaimer>
+
+</sciifii>

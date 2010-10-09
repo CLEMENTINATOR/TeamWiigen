@@ -7,8 +7,8 @@
 #include <libwiisys.h>
 #include "MenuBase.h"
 #include "MenuItems/MenuItem.h"
-#include "Events/NavigateEventArgs.h"
-#include "Events/SwitchEventArgs.h"
+#include "../Events/NavigateEventArgs.h"
+#include "../Events/SwitchEventArgs.h"
 
 class DynamicMenu : public MenuBase
 {

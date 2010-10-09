@@ -6,11 +6,11 @@ using namespace Libwui::Events;
 using namespace std;
 using namespace fastdelegate;
 
-GraphicDisclaimer::GraphicDisclaimer() 
+GDisclaimer::GDisclaimer()
   : textDisclaimer(" ", 12, (GXColor){255,255,255,255})
 {}
 
-void GraphicDisclaimer::InitializeComponents()
+void GDisclaimer::InitializeComponents()
 {
   BackgroundImage("sd:/sciifii/default/disclaimer.png");
   SetSize(640, 480);
@@ -19,7 +19,7 @@ void GraphicDisclaimer::InitializeComponents()
   btnExit.OverImage("sd:/sciifii/default/exitbutton_over.png");
   btnExit.SetSize(44,44);
   btnExit.SetPosition(590,430);
-  btnExit.Click += MakeDelegate(this, &GraphicDisclaimer::Exit);
+  btnExit.Click += MakeDelegate(this, &GDisclaimer::Exit);
   btnExit.InitializeComponents();
 
   textDisclaimer.Text(Config::DisclaimerText());
@@ -42,7 +42,7 @@ void GraphicDisclaimer::InitializeComponents()
   AddChildren(&textDisclaimer);
 }
 
-void GraphicDisclaimer::Exit(Object* sender, CursorEventArgs* args)
+void GDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
   Visible(false);
 }

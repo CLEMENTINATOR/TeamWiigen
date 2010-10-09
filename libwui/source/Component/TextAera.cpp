@@ -9,8 +9,7 @@ using namespace Libwui::Component;
 TextAera::TextAera(const string& text, int s, GXColor c)
 : txt(text),
   size(s),
-  color(c),
-  _invalidated(true)
+  color(c)
 {}
 
 TextAera::~TextAera()
@@ -20,9 +19,6 @@ TextAera::~TextAera()
 
 void TextAera::Invalidate()
 {
-	if(_invalidated)
-		return;
-		
 	for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
 	{
 		RemoveChildren(*ite);
@@ -30,8 +26,7 @@ void TextAera::Invalidate()
 	}
 		
 	_textItems.clear();
-	
-	_invalidated = true;
+	Control::Invalidate();
 }
 
 void TextAera::Text(const string& text)
@@ -146,9 +141,6 @@ void TextAera::Draw()
 
 void TextAera::EnsureItems()
 {
-  if(!_invalidated)
-	return;
-	
   u8 nbCharMax = (_width * 2.0) / size;
   
   char* buffer = new char[nbCharMax + 1];
@@ -170,8 +162,6 @@ void TextAera::EnsureItems()
 	}
 	
 	delete[] buffer;
-	
-	_invalidated = false;
   }
   catch(...)
   {

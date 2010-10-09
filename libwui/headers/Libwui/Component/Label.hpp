@@ -24,7 +24,8 @@ namespace Libwui
 				void Style(u16 s);
 				void SetTextAlignment(HAlign hor, VAlign vert);
 				void Draw();
-				
+				std::string Text();
+				s32 FontSize();
 			protected:
 				std::string txt;
 				std::string _font;

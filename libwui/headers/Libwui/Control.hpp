@@ -37,8 +37,11 @@ namespace Libwui
 		s32 _width;
 		s32 _height;
 		bool _initialized;
+		bool _invalidated;
 		
 		virtual void Draw();
+		virtual void Invalidate();
+		virtual void EnsureItems();
 		
 		bool InvokeRequired();
 		bool IsInside(s32 x, s32 y);

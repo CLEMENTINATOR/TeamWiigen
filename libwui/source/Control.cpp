@@ -18,6 +18,7 @@ Control::Control()
   _width(0),
   _height(0),
   _initialized(false),
+  _invalidated(true),
   _idGenerator(1),
   _childs(),
   _parent(NULL),
@@ -101,9 +102,22 @@ void Control::RemoveChildren(Control* child)
 
 void Control::Draw()
 {
+	if(_invalidated)
+	{
+		EnsureItems();
+		_invalidated = false;
+	}
 	for(set<Control*>::iterator child = _childs.begin(); child != _childs.end(); child++)
 		(*child)->StartDrawing();
 }
+
+void Control::Invalidate()
+{
+	_invalidated = true;
+}
+
+void Control::EnsureItems()
+{}
 
 void Control::StartDrawing()
 {

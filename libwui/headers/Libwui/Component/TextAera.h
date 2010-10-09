@@ -30,10 +30,10 @@ namespace Libwui
 		int size; //!< Font size
 		GXColor color; //!< Font color
 		
-	private:
-		bool _invalidated;
 		void Invalidate();
 		void EnsureItems();
+
+	private:
 		std::vector<Label*> _textItems;
 	};
   }

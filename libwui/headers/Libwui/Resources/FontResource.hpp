@@ -19,7 +19,7 @@ namespace Libwui
         ~FontResource();
 
 		bool IsInitialized();
-		void Initialize(bool cacheAll = false, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
+		void Initialize(bool cacheAll = true, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
 		
 		FreeTypeGX* Font();
 		

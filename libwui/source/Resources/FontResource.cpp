@@ -34,7 +34,7 @@ bool FontResource::IsInitialized()
 void FontResource::Initialize(bool cacheAll, uint8_t textureFormat, uint8_t vertexIndex)
 {
 	_font = new FreeTypeGX(textureFormat, vertexIndex);
-	_font->loadFont((u8*)_resource.Content(), _resource.Length(), 12, cacheAll);
+	_font->loadFont((u8*)_resource.Content(), _resource.Length(), 12,cacheAll);
 	_resource.Clear();
 }
 

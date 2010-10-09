@@ -1,4 +1,5 @@
 #include <Sciifii.h>
+#include <libwui.h>
 
 using namespace Libwiisys;
 using namespace Libwui::Component;
@@ -18,9 +19,19 @@ void GDisclaimer::InitializeComponents()
   btnExit.DefaultImage("sd:/sciifii/default/exitbutton_normal.png");
   btnExit.OverImage("sd:/sciifii/default/exitbutton_over.png");
   btnExit.SetSize(44,44);
-  btnExit.SetPosition(590,430);
+  btnExit.SetPosition(545,415);
   btnExit.Click += MakeDelegate(this, &GDisclaimer::Exit);
   btnExit.InitializeComponents();
+
+
+  checkBox.DefaultImage("sd:/sciifii/default/disable_button.png");
+  checkBox.CheckedImage("sd:/sciifii/default/enable_button.png");
+  checkBox.SetSize(24,24);
+  checkBox.Text("Jeanmi  !");
+ //checkBox.CurrentAlign(Libwui::HAlign_Left);
+  checkBox.SetPosition(120,120);
+  checkBox.InitializeComponents();
+
 
   textDisclaimer.Text(Config::DisclaimerText());
   textDisclaimer.SetPosition(130,250);
@@ -40,6 +51,7 @@ void GDisclaimer::InitializeComponents()
   AddChildren(&btnExit);
   AddChildren(&btnContinue);
   AddChildren(&textDisclaimer);
+  AddChildren(&checkBox);
 }
 
 void GDisclaimer::Exit(Object* sender, CursorEventArgs* args)

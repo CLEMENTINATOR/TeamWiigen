@@ -249,3 +249,13 @@ void Label::Draw()
 	resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, _textToDisplay, color, displayStyle);
 	
 }
+
+std::string Label::Text()
+{
+return _textToDisplay;
+}
+
+s32 Label::FontSize()
+{
+return size;
+}

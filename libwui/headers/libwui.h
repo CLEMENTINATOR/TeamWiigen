@@ -12,6 +12,7 @@
 #include "Libwui/Component/Image.hpp"
 #include "Libwui/Component/Label.hpp"
 #include "Libwui/Component/TextAera.h"
+#include "Libwui/Component/Checkbox.hpp"
 #include "Libwui/Device/PadControllers.hpp"
 #include "Libwui/Events/CursorEvent.h"
 #include "Libwui/Events/CursorEventArgs.h"

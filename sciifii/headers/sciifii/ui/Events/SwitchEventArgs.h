@@ -3,7 +3,7 @@
 
 #include <ogcsys.h>
 #include <libwiisys.h>
-#include "../../../Switch.h"
+#include "../../Switch.h"
 
 class SwitchEventArgs : public Libwiisys::EventArgs
 {

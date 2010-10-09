@@ -34,7 +34,7 @@ class MainUI : public IMain
 			
 		Config::Initialize(configFile);
 		Log::WriteLog(Log_Info, "config done!");
-		GraphicDisclaimer g;
+		GDisclaimer g;
 		PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
 		Log::WriteLog(Log_Info, "pad image Loaded!");
 		UIManager::Run(g);

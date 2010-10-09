@@ -1,7 +1,7 @@
 #include <libwiisys.h>
 #include <libwui.h>
 
-class GraphicDisclaimer : public Libwui::Component::Form
+class GDisclaimer : public Libwui::Component::Form
 {
   private:
 	Libwui::Component::Button btnContinue;
@@ -10,7 +10,7 @@ class GraphicDisclaimer : public Libwui::Component::Form
 
 
   public:
-    GraphicDisclaimer() ;
+    GDisclaimer() ;
 
   protected:
     void InitializeComponents();

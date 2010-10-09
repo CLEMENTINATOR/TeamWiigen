@@ -133,11 +133,6 @@ void TextAera::SetSize(int w, int h)
 	Control::SetSize(w, h);
 }
 
-void TextAera::Draw()
-{
-	EnsureItems();	
-	Control::Draw();
-}
 
 void TextAera::EnsureItems()
 {

@@ -23,7 +23,6 @@ void GraphicDisclaimer::InitializeComponents()
   btnExit.InitializeComponents();
 
   textDisclaimer.Text(Config::DisclaimerText());
-  textDisclaimer.SetFont("sd:/font.ttf");
   textDisclaimer.SetPosition(130,250);
   textDisclaimer.SetSize(390,150);
   textDisclaimer.ForeColor((GXColor){255,0,0,255});
@@ -32,7 +31,6 @@ void GraphicDisclaimer::InitializeComponents()
   btnContinue.DefaultImage("sd:/sciifii/default/go_button.png");
   btnContinue.OverImage("sd:/sciifii/default/go_button_over.png");
   btnContinue.Text("Click here !");
-  textDisclaimer.SetFont("sd:/font.ttf");
   btnContinue.SetSize(164,40);
   btnContinue.SetPosition(238,430);
   btnContinue.InitializeComponents();

@@ -12,7 +12,7 @@ namespace Libwui
 	{
 	public:
 		TextAera(const std::string& text, int s = 12, GXColor c = (GXColor){255, 255, 255, 255});
-		~TextAera();
+		virtual ~TextAera();
 		
 		virtual void ProcessMessage(Message& message);
 		
@@ -22,7 +22,6 @@ namespace Libwui
 		void SetFont(const std::string& font);
 		void FontSize(int size);
 		void ForeColor(GXColor c);
-		void Draw();
 		
 	protected:
 		std::string txt;

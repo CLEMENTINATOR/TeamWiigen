@@ -252,7 +252,7 @@ void Label::Draw()
 
 std::string Label::Text()
 {
-return _textToDisplay;
+return txt;
 }
 
 s32 Label::FontSize()

@@ -76,12 +76,8 @@ void Checkbox::CurrentAlign(const HAlign& align)
 		else if (align == HAlign_Left)
 		{
 			u32 s = _checkBoxText.FontSize() * _checkBoxText.Text().length()/ 2;  /// taille du texte en pix
-			if (_xoffset-s < 0)
-				_checkBoxText.SetPosition(0, 0);
-			else
-				_checkBoxText.SetPosition(-s, 0);
-
-			_checkBoxImg.SetPosition(this->_width-image->Width(),_height-image->Height());
+			_checkBoxText.SetPosition(0, 0);
+			_checkBoxImg.SetPosition(s+10,0);
 		}
 
 	}

@@ -10,7 +10,7 @@ Checkbox::Checkbox() :
 	_checkBoxText("", 12, (GXColor)
 	{	0,0,0,255}), _checked(false), _currentAlign(HAlign_Right)
 {
-	_checkBoxText.SetTextAlignment(HAlign_Right, VAlign_Middle);
+	_checkBoxText.SetTextAlignment(_currentAlign, VAlign_Middle);
 }
 
 Checkbox::~Checkbox()
@@ -77,8 +77,9 @@ void Checkbox::CurrentAlign(const HAlign& align)
 		{
 			u32 size =( _checkBoxText.Text().length()*_checkBoxText.FontSize())/2;
 			_checkBoxText.SetPosition(0, 0);
-			_checkBoxImg.SetPosition(size + 10 ,size + 10 );
+			_checkBoxImg.SetPosition(size + 10 ,0);
 		}
+		_checkBoxText.SetTextAlignment(_currentAlign, VAlign_Middle);
 
 	}
 }

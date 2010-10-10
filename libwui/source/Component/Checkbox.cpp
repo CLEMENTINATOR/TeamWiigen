@@ -7,8 +7,7 @@ using namespace Libwui::Events;
 using namespace std;
 
 Checkbox::Checkbox() :
-	_checkBoxText("", 12, (GXColor)
-	{	0,0,0,255}), _checked(false), _currentAlign(HAlign_Right)
+	_checkBoxText("", 12, (GXColor){0,0,0,255}), _checked(false), _currentAlign(HAlign_Right)
 {
 	_checkBoxText.SetTextAlignment(_currentAlign, VAlign_Middle);
 }
@@ -20,6 +19,7 @@ Checkbox::~Checkbox()
 void Checkbox::InitializeComponents()
 {
 	_currentImage = _defaultImage;
+	_checkBoxImg.SetSize(24, 24);
 	AddChildren(&_checkBoxText);
 	AddChildren(&_checkBoxImg);
 	CurrentAlign(_currentAlign);
@@ -56,7 +56,6 @@ void Checkbox::ProcessMessage(Message& message)
 		int s;
 		params >> s;
 		FontSize(s);
-		FontSize(s);
 	}
 	else
 		Control::ProcessMessage(message);
@@ -76,22 +75,19 @@ void Checkbox::CurrentAlign(const HAlign& align)
 	else
 	{
 		_currentAlign = align;
-		ImageResource* image = Enabled() ? ImageResourceManager::Get(
-				_currentImage) : ImageResourceManager::Get(_defaultImage);
 		if (align == HAlign_Center || align == HAlign_Right)
 		{
 			_checkBoxImg.SetPosition(0, 0);
-			_checkBoxText.SetPosition(15 + image->Width(), 0);
+			_checkBoxText.SetPosition(5 + _checkBoxImg.GetWidth(), 0);
 		}
 		else if (align == HAlign_Left)
 		{
-			u32 size = (_checkBoxText.Text().length()
-					* _checkBoxText.FontSize()) / 2;
-			_checkBoxText.SetPosition(0, 0);
-			_checkBoxImg.SetPosition(size + 10, 0);
-		}
-		_checkBoxText.SetTextAlignment(_currentAlign, VAlign_Middle);
+			u32 size = (_checkBoxText.Text().length() * _checkBoxText.FontSize()) / 2;
 
+			_checkBoxText.SetPosition(0, 0);
+			_checkBoxImg.SetPosition(size + 15, 0);
+			_checkBoxText.SetTextAlignment(HAlign_Left, VAlign_Middle);
+		}
 	}
 }
 
@@ -109,7 +105,6 @@ void Checkbox::DefaultImage(const string& imagePath)
 		if (_currentImage == _defaultImage)
 		{
 			_currentImage = imagePath;
-			CurrentAlign(_currentAlign);
 		}
 		_defaultImage = imagePath;
 	}
@@ -129,7 +124,6 @@ void Checkbox::CheckedImage(const string& imagePath)
 		if (_currentImage == _checkedImage)
 		{
 			_currentImage = imagePath;
-			CurrentAlign(_currentAlign);
 		}
 		_checkedImage = imagePath;
 	}
@@ -148,17 +142,7 @@ string Checkbox::CheckedImage() const
 
 void Checkbox::Text(const std::string& text)
 {
-	if (InvokeRequired())
-	{
-		stringstream params;
-		params << text;
-		Message* m = new Message(_fullId, "Text", params.str());
-		UIManager::AddMessage(m);
-		return;
-	}
-
 	_checkBoxText.Text(text.c_str());
-	CurrentAlign(_currentAlign);
 }
 
 void Checkbox::ForeColor(GXColor c)
@@ -168,16 +152,7 @@ void Checkbox::ForeColor(GXColor c)
 
 void Checkbox::FontSize(int pt)
 {
-	if (InvokeRequired())
-	{
-		stringstream params;
-		params << pt;
-		Message* m = new Message(_fullId, "FontSize", params.str());
-		UIManager::AddMessage(m);
-		return;
-	}
 	_checkBoxText.FontSize(pt);
-	CurrentAlign(_currentAlign);
 }
 
 void Checkbox::OnClick(Libwui::Device::PadController &c)
@@ -193,7 +168,6 @@ void Checkbox::OnClick(Libwui::Device::PadController &c)
 	{
 		_currentImage = _defaultImage;
 	}
-	CurrentAlign(_currentAlign);
 
 	if (Enabled())
 	{
@@ -214,11 +188,6 @@ bool Checkbox::Checked() const
 
 void Checkbox::Draw()
 {
-	CurrentAlign(_currentAlign);
-	ImageResource* image = Enabled() ? ImageResourceManager::Get(_currentImage)
-			: ImageResourceManager::Get(_defaultImage);
-	u8 alpha = Enabled() ? 255 : 50;
-	Menu_DrawImg(GetLeft(), GetTop(), image->Width(), image->Height(),
-			image->Image(), 0, 1, 1, alpha);
+	_checkBoxImg.ImageLocation(_currentImage);
 	Control::Draw();
 }

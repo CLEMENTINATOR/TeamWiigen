@@ -81,7 +81,7 @@ void Checkbox::CurrentAlign(const HAlign& align)
 			else
 				_checkBoxText.SetPosition(-s, 0);
 
-			_checkBoxImg.SetPosition(_width-image->width,_height-image->height);
+			_checkBoxImg.SetPosition(this->_width-image->Width(),_height-image->Height());
 		}
 
 	}

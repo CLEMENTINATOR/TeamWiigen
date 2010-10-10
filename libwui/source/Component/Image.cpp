@@ -16,10 +16,10 @@ void Image::ProcessMessage(Message& message)
 		Control::ProcessMessage(message);
 		return;
 	}
-	
+
 	string tag = message.GetTag();
 	stringstream params(message.GetSerializedParameters());
-	
+
 	if(tag == "FillMode")
 	{
 		int mode;
@@ -42,7 +42,7 @@ void Image::FillMode(ResizeMode mode)
 		UIManager::AddMessage(m);
 		return;
 	}
-	
+
 	_mode = mode;
 }
 
@@ -59,7 +59,7 @@ void Image::ImageLocation(const std::string& location)
 		UIManager::AddMessage(m);
 		return;
 	}
-	
+
 	_imagePath = location;
 }
 
@@ -72,18 +72,18 @@ void Image::Draw()
 {
 	if(_imagePath.length() == 0)
 		return;
-		
+
 	ImageResource* resource = ImageResourceManager::Get(_imagePath);
 	f32 xscale = 1;
 	f32 yscale = 1;
-	
+
 	//find x and y ratios
 	if(_mode != ResizeMode_None)
 	{
 		xscale = ((f32)GetWidth())/resource->Width();
 		yscale = ((f32)GetHeight())/resource->Height();
 	}
-	
+
 	if(_mode == ResizeMode_FitToFill)
 	{
 		if(xscale < yscale)
@@ -91,7 +91,7 @@ void Image::Draw()
 		else
 			xscale = yscale;
 	}
-	
+
 	Menu_DrawImg(GetLeft(), GetTop(), GetWidth(), GetHeight(), resource->Image(), 0, xscale, yscale, 255);
 	Control::Draw();
 }

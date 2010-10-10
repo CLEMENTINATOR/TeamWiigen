@@ -148,6 +148,15 @@ string Checkbox::CheckedImage() const
 
 void Checkbox::Text(const std::string& text)
 {
+	if (InvokeRequired())
+	{
+		stringstream params;
+		params << text;
+		Message* m = new Message(_fullId, "Text", params.str());
+		UIManager::AddMessage(m);
+		return;
+	}
+
 	_checkBoxText.Text(text.c_str());
 	CurrentAlign(_currentAlign);
 }
@@ -159,6 +168,14 @@ void Checkbox::ForeColor(GXColor c)
 
 void Checkbox::FontSize(int pt)
 {
+	if (InvokeRequired())
+	{
+		stringstream params;
+		params << pt;
+		Message* m = new Message(_fullId, "FontSize", params.str());
+		UIManager::AddMessage(m);
+		return;
+	}
 	_checkBoxText.FontSize(pt);
 	CurrentAlign(_currentAlign);
 }

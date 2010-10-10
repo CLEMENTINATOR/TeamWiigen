@@ -34,13 +34,16 @@ public:
 	void TextSize(int pt);
 	void CurrentAlign(const HAlign& align);
 
+
 	bool Checked() const;
 private:
 	std::string _currentImage;
 	std::string _checkedImage;
 	std::string _defaultImage;
-	Label _ckeckboxText;
+	Label _checkBoxText;
+	Image _checkBoxImg;
 	bool _checked;
+
 	HAlign _currentAlign;
 
 };

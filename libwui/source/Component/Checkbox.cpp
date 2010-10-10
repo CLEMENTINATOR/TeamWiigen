@@ -7,10 +7,10 @@ using namespace Libwui::Events;
 using namespace std;
 
 Checkbox::Checkbox() :
-	_ckeckboxText("", 12, (GXColor)
-	{	0,0,0,255}), _checked(false),_currentAlign(HAlign_Right)
+	_checkBoxText("", 12, (GXColor)
+	{	0,0,0,255}), _checked(false), _currentAlign(HAlign_Right)
 {
-	_ckeckboxText.SetTextAlignment(HAlign_Center, VAlign_Middle);
+	_checkBoxText.SetTextAlignment(HAlign_Center, VAlign_Middle);
 }
 
 Checkbox::~Checkbox()
@@ -20,8 +20,9 @@ Checkbox::~Checkbox()
 void Checkbox::InitializeComponents()
 {
 	_currentImage = _defaultImage;
+	AddChildren(&_checkBoxText);
+	AddChildren(&_checkBoxImg);
 	CurrentAlign(_currentAlign);
-	AddChildren(&_ckeckboxText);
 	Control::InitializeComponents();
 }
 
@@ -56,26 +57,33 @@ void Checkbox::CurrentAlign(const HAlign& align)
 	if (InvokeRequired())
 	{
 		stringstream params;
-		params << (int)align;
-		Message* m = new Message(_fullId, "CurrentAlign",params.str());
+		params << (int) align;
+		Message* m = new Message(_fullId, "CurrentAlign", params.str());
 		UIManager::AddMessage(m);
 		return;
 	}
 
 	else
 	{
-		_currentAlign=align;
+		_currentAlign = align;
 		ImageResource* image = Enabled() ? ImageResourceManager::Get(
 				_currentImage) : ImageResourceManager::Get(_defaultImage);
 		if (align == HAlign_Center || align == HAlign_Right)
 		{
-			_ckeckboxText.SetPosition(15 + image->Width(),0);
+			_checkBoxImg.SetPosition(0,0);
+			_checkBoxText.SetPosition(15 + image->Width(), 0);
 		}
 		else if (align == HAlign_Left)
 		{
-			u32 s= _ckeckboxText.FontSize() * _ckeckboxText.Text().length() / 2;
-			if(s<0)_ckeckboxText.SetPosition(0,0);
-			else _ckeckboxText.SetPosition(s,0);
+			/*
+			// TODO Text a gauche , image a droite...
+			u32 s = _checkBoxText.FontSize() * _checkBoxText.Text().length()
+					/ 2;
+			if (s < 0)
+				_checkBoxText.SetPosition(0, 0);
+			else
+				_checkBoxText.SetPosition(s, 0);
+				*/
 		}
 
 	}
@@ -131,33 +139,34 @@ string Checkbox::CheckedImage() const
 
 void Checkbox::SetTextAlignement(HAlign halign, VAlign valign)
 {
-	_ckeckboxText.HorizontalAlignement(halign);
-	_ckeckboxText.VerticalAlignement(valign);
+	_checkBoxText.HorizontalAlignement(halign);
+	_checkBoxText.VerticalAlignement(valign);
 }
 
 HAlign Checkbox::TextHorizontalAlignement() const
 {
-	return _ckeckboxText.HorizontalAlignement();
+	return _checkBoxText.HorizontalAlignement();
 }
 
 VAlign Checkbox::TextVerticalAlignement() const
 {
-	return _ckeckboxText.VerticalAlignement();
+	return _checkBoxText.VerticalAlignement();
 }
 
 void Checkbox::Text(const std::string& text)
 {
-	_ckeckboxText.Text(text.c_str());
+	_checkBoxText.Text(text.c_str());
+	CurrentAlign(_currentAlign);
 }
 
 void Checkbox::ForeColor(GXColor c)
 {
-	_ckeckboxText.ForeColor(c);
+	_checkBoxText.ForeColor(c);
 }
 
 void Checkbox::TextSize(int pt)
 {
-	_ckeckboxText.FontSize(pt);
+	_checkBoxText.FontSize(pt);
 }
 
 void Checkbox::OnClick(Libwui::Device::PadController &c)
@@ -177,7 +186,6 @@ void Checkbox::OnClick(Libwui::Device::PadController &c)
 
 	if (Enabled())
 	{
-
 		Control::OnClick(c);
 	}
 }

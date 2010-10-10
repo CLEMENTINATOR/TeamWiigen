@@ -50,10 +50,6 @@ void Checkbox::ProcessMessage(Message& message)
 	else
 		Control::ProcessMessage(message);
 }
-void Checkbox::Text(const string& str)
-{
-
-}
 
 void Checkbox::CurrentAlign(const HAlign& align)
 {

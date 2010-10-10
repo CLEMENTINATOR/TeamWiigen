@@ -10,7 +10,7 @@ Checkbox::Checkbox() :
 	_checkBoxText("", 12, (GXColor)
 	{	0,0,0,255}), _checked(false), _currentAlign(HAlign_Right)
 {
-	_checkBoxText.SetTextAlignment(HAlign_Right, VAlign_Top);
+	_checkBoxText.SetTextAlignment(HAlign_Right, VAlign_Middle);
 }
 
 Checkbox::~Checkbox()

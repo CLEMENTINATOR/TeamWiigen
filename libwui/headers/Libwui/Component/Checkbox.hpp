@@ -26,12 +26,9 @@ public:
 	std::string CheckedImage() const;
 	void CheckedImage(const std::string& imagePath);
 	virtual void ProcessMessage(Message& message);
-	void SetTextAlignement(HAlign halign, VAlign valign);
-	HAlign TextHorizontalAlignement() const;
-	VAlign TextVerticalAlignement() const;
 	void Text(const std::string& text);
 	void ForeColor(GXColor c);
-	void TextSize(int pt);
+	void FontSize(int pt);
 	void CurrentAlign(const HAlign& align);
 
 

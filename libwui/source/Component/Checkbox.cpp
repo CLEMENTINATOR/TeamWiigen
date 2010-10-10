@@ -47,7 +47,17 @@ void Checkbox::ProcessMessage(Message& message)
 		params >> align;
 		CurrentAlign((HAlign) align);
 	}
-
+	else if (tag == "Text")
+	{
+		Text(params.str());
+	}
+	else if (tag == "FontSize")
+	{
+		int s;
+		params >> s;
+		FontSize(s);
+		FontSize(s);
+	}
 	else
 		Control::ProcessMessage(message);
 }
@@ -70,14 +80,15 @@ void Checkbox::CurrentAlign(const HAlign& align)
 				_currentImage) : ImageResourceManager::Get(_defaultImage);
 		if (align == HAlign_Center || align == HAlign_Right)
 		{
-			_checkBoxImg.SetPosition(0,0);
+			_checkBoxImg.SetPosition(0, 0);
 			_checkBoxText.SetPosition(15 + image->Width(), 0);
 		}
 		else if (align == HAlign_Left)
 		{
-			u32 size =( _checkBoxText.Text().length()*_checkBoxText.FontSize())/2;
+			u32 size = (_checkBoxText.Text().length()
+					* _checkBoxText.FontSize()) / 2;
 			_checkBoxText.SetPosition(0, 0);
-			_checkBoxImg.SetPosition(size + 10 ,0);
+			_checkBoxImg.SetPosition(size + 10, 0);
 		}
 		_checkBoxText.SetTextAlignment(_currentAlign, VAlign_Middle);
 
@@ -98,6 +109,7 @@ void Checkbox::DefaultImage(const string& imagePath)
 		if (_currentImage == _defaultImage)
 		{
 			_currentImage = imagePath;
+			CurrentAlign(_currentAlign);
 		}
 		_defaultImage = imagePath;
 	}
@@ -117,6 +129,7 @@ void Checkbox::CheckedImage(const string& imagePath)
 		if (_currentImage == _checkedImage)
 		{
 			_currentImage = imagePath;
+			CurrentAlign(_currentAlign);
 		}
 		_checkedImage = imagePath;
 	}
@@ -132,21 +145,6 @@ string Checkbox::CheckedImage() const
 	return _checkedImage;
 }
 
-void Checkbox::SetTextAlignement(HAlign halign, VAlign valign)
-{
-	_checkBoxText.HorizontalAlignement(halign);
-	_checkBoxText.VerticalAlignement(valign);
-}
-
-HAlign Checkbox::TextHorizontalAlignement() const
-{
-	return _checkBoxText.HorizontalAlignement();
-}
-
-VAlign Checkbox::TextVerticalAlignement() const
-{
-	return _checkBoxText.VerticalAlignement();
-}
 
 void Checkbox::Text(const std::string& text)
 {
@@ -159,7 +157,7 @@ void Checkbox::ForeColor(GXColor c)
 	_checkBoxText.ForeColor(c);
 }
 
-void Checkbox::TextSize(int pt)
+void Checkbox::FontSize(int pt)
 {
 	_checkBoxText.FontSize(pt);
 	CurrentAlign(_currentAlign);

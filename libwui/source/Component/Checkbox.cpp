@@ -161,6 +161,7 @@ void Checkbox::ForeColor(GXColor c)
 void Checkbox::TextSize(int pt)
 {
 	_checkBoxText.FontSize(pt);
+	CurrentAlign(_currentAlign);
 }
 
 void Checkbox::OnClick(Libwui::Device::PadController &c)
@@ -197,6 +198,7 @@ bool Checkbox::Checked() const
 
 void Checkbox::Draw()
 {
+	CurrentAlign(_currentAlign);
 	ImageResource* image = Enabled() ? ImageResourceManager::Get(_currentImage)
 			: ImageResourceManager::Get(_defaultImage);
 	u8 alpha = Enabled() ? 255 : 50;

@@ -6,14 +6,12 @@ using namespace Libwui::Resources;
 using namespace Libwui::Events;
 using namespace std;
 
-Checkbox::Checkbox() :
-	_checkBoxText("", 12, (GXColor){0,0,0,255}), _checked(false), _currentAlign(HAlign_Right)
+Checkbox::Checkbox() 
+  :	_checkBoxText("", 12, (GXColor){0,0,0,255}), 
+	  _checked(false), 
+		_textPosition(HAlign_Right)
 {
-	_checkBoxText.SetTextAlignment(_currentAlign, VAlign_Middle);
-}
-
-Checkbox::~Checkbox()
-{
+	_checkBoxText.SetTextAlignment(_textPosition, VAlign_Middle);
 }
 
 void Checkbox::InitializeComponents()
@@ -22,7 +20,6 @@ void Checkbox::InitializeComponents()
 	_checkBoxImg.SetSize(24, 24);
 	AddChildren(&_checkBoxText);
 	AddChildren(&_checkBoxImg);
-	CurrentAlign(_currentAlign);
 	Control::InitializeComponents();
 }
 
@@ -41,54 +38,29 @@ void Checkbox::ProcessMessage(Message& message)
 		DefaultImage(params.str());
 	else if (tag == "CheckedImage")
 		CheckedImage(params.str());
-	else if (tag == "CurrentAlign")
+	else if (tag == "TextPosition")
 	{
 		int align;
 		params >> align;
-		CurrentAlign((HAlign) align);
-	}
-	else if (tag == "Text")
-	{
-		Text(params.str());
-	}
-	else if (tag == "FontSize")
-	{
-		int s;
-		params >> s;
-		FontSize(s);
+		TextPosition((HAlign) align);
 	}
 	else
 		Control::ProcessMessage(message);
 }
 
-void Checkbox::CurrentAlign(const HAlign& align)
+void Checkbox::TextPosition(const HAlign& align)
 {
 	if (InvokeRequired())
 	{
 		stringstream params;
 		params << (int) align;
-		Message* m = new Message(_fullId, "CurrentAlign", params.str());
+		Message* m = new Message(_fullId, "TextPosition", params.str());
 		UIManager::AddMessage(m);
 		return;
 	}
 
-	else
-	{
-		_currentAlign = align;
-		if (align == HAlign_Center || align == HAlign_Right)
-		{
-			_checkBoxImg.SetPosition(0, 0);
-			_checkBoxText.SetPosition(5 + _checkBoxImg.GetWidth(), 0);
-		}
-		else if (align == HAlign_Left)
-		{
-			u32 size = (_checkBoxText.Text().length() * _checkBoxText.FontSize()) / 2;
-
-			_checkBoxText.SetPosition(0, 0);
-			_checkBoxImg.SetPosition(size + 15, 0);
-			_checkBoxText.SetTextAlignment(HAlign_Left, VAlign_Middle);
-		}
-	}
+	_textPosition = align;
+	Invalidate();
 }
 
 void Checkbox::DefaultImage(const string& imagePath)
@@ -100,14 +72,12 @@ void Checkbox::DefaultImage(const string& imagePath)
 		return;
 	}
 
-	else
+	if (_currentImage == _defaultImage)
 	{
-		if (_currentImage == _defaultImage)
-		{
-			_currentImage = imagePath;
-		}
-		_defaultImage = imagePath;
+		_currentImage = imagePath;
+		Invalidate();
 	}
+	_defaultImage = imagePath;
 }
 
 void Checkbox::CheckedImage(const string& imagePath)
@@ -119,14 +89,12 @@ void Checkbox::CheckedImage(const string& imagePath)
 		return;
 	}
 
-	else
+	if (_currentImage == _checkedImage)
 	{
-		if (_currentImage == _checkedImage)
-		{
-			_currentImage = imagePath;
-		}
-		_checkedImage = imagePath;
+		_currentImage = imagePath;
+		Invalidate();
 	}
+	_checkedImage = imagePath;
 }
 
 string Checkbox::DefaultImage() const
@@ -139,10 +107,10 @@ string Checkbox::CheckedImage() const
 	return _checkedImage;
 }
 
-
 void Checkbox::Text(const std::string& text)
 {
 	_checkBoxText.Text(text.c_str());
+	Invalidate();
 }
 
 void Checkbox::ForeColor(GXColor c)
@@ -153,6 +121,7 @@ void Checkbox::ForeColor(GXColor c)
 void Checkbox::FontSize(int pt)
 {
 	_checkBoxText.FontSize(pt);
+	Invalidate();
 }
 
 void Checkbox::OnClick(Libwui::Device::PadController &c)
@@ -168,11 +137,9 @@ void Checkbox::OnClick(Libwui::Device::PadController &c)
 	{
 		_currentImage = _defaultImage;
 	}
-
-	if (Enabled())
-	{
-		Control::OnClick(c);
-	}
+		
+	Invalidate();
+	Control::OnClick(c);
 }
 
 void Checkbox::OnCheckChanged(Libwui::Device::PadController &c)
@@ -186,8 +153,21 @@ bool Checkbox::Checked() const
 	return _checked;
 }
 
-void Checkbox::Draw()
+void Checkbox::EnsureItems()
 {
 	_checkBoxImg.ImageLocation(_currentImage);
-	Control::Draw();
+	
+	if (_textPosition == HAlign_Center || _textPosition == HAlign_Right)
+	{
+		_checkBoxImg.SetPosition(0, 0);
+		_checkBoxText.SetPosition(5 + _checkBoxImg.GetWidth(), 0);
+	}
+	else if (_textPosition == HAlign_Left)
+	{
+		u32 size = (_checkBoxText.Text().length() * _checkBoxText.FontSize()) / 2;
+
+		_checkBoxText.SetPosition(0, 0);
+		_checkBoxImg.SetPosition(size + 15, 0);
+		_checkBoxText.SetTextAlignment(HAlign_Left, VAlign_Middle);
+	}
 }

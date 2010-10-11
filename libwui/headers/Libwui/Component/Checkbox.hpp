@@ -7,45 +7,45 @@
 
 namespace Libwui
 {
-namespace Component
-{
-class Checkbox: public Libwui::Control
-{
-protected:
-	void OnClick(Libwui::Device::PadController &c);
+	namespace Component
+	{
+		class Checkbox: public Libwui::Control
+		{
+		protected:
+			void OnClick(Libwui::Device::PadController &c);
+			virtual void OnCheckChanged(Libwui::Device::PadController &c);
 
-public:
-	Events::CursorEvent CheckChanged;
-	void Draw();
-	void OnCheckChanged(Libwui::Device::PadController &c);
-	Checkbox();
-	virtual ~Checkbox();
-	void InitializeComponents();
-	std::string DefaultImage() const;
-	void DefaultImage(const std::string& imagePath);
-	std::string CheckedImage() const;
-	void CheckedImage(const std::string& imagePath);
-	virtual void ProcessMessage(Message& message);
-	void Text(const std::string& text);
-	void ForeColor(GXColor c);
-	void FontSize(int pt);
-	void CurrentAlign(const HAlign& align);
+			void EnsureItems();		
+		public:
+			Checkbox();
+			void InitializeComponents();
+			virtual void ProcessMessage(Message& message);
+			
+			std::string DefaultImage() const;
+			void DefaultImage(const std::string& imagePath);
+			
+			std::string CheckedImage() const;
+			void CheckedImage(const std::string& imagePath);
+			
+			bool Checked() const;
+			void Checked(bool c);
+			
+			void Text(const std::string& text);
+			void ForeColor(GXColor c);
+			void FontSize(int pt);
+			void TextPosition(const HAlign& align);
 
-
-	bool Checked() const;
-private:
-	std::string _currentImage;
-	std::string _checkedImage;
-	std::string _defaultImage;
-	Label _checkBoxText;
-	Image _checkBoxImg;
-	bool _checked;
-
-	HAlign _currentAlign;
-
-};
-
-}
+			Events::CursorEvent CheckChanged;
+		private:
+			std::string _currentImage;
+			std::string _checkedImage;
+			std::string _defaultImage;
+			Label _checkBoxText;
+			Image _checkBoxImg;
+			bool _checked;
+			HAlign _textPosition;
+		};
+	}
 }
 
 #endif /* CHECKBOX_HPP_ */

@@ -17,7 +17,6 @@ Checkbox::Checkbox()
 void Checkbox::InitializeComponents()
 {
 	_currentImage = _defaultImage;
-	_checkBoxImg.SetSize(24, 24);
 	AddChildren(&_checkBoxText);
 	AddChildren(&_checkBoxImg);
 	Control::InitializeComponents();
@@ -155,7 +154,9 @@ bool Checkbox::Checked() const
 
 void Checkbox::EnsureItems()
 {
+	ImageResource* resource = ImageResourceManager::Get(_currentImage);
 	_checkBoxImg.ImageLocation(_currentImage);
+	_checkBoxImg.SetSize(resource->Width(), resource->Height());
 	
 	if (_textPosition == HAlign_Center || _textPosition == HAlign_Right)
 	{

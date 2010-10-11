@@ -10,7 +10,7 @@ ListItem::ListItem(ListItemData* data)
 		_normalBackgroundColor(Colors::White())
 {
 	_data = data;
-	_lbl.SetTextAlignment(HAlign_Center, VAlign_Middle,);
+	_lbl.SetTextAlignment(HAlign_Center, VAlign_Middle);
 	if (data != NULL)
 	{
 		if (data->text != "")

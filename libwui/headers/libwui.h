@@ -21,6 +21,6 @@
 #include "Libwui/Resources/ImageResource.hpp"
 #include "Libwui/Resources/ImageResourceManager.hpp"
 #include "Libwui/Resources/ThemeManager.hpp"
-
+#include "Libwui/Resources/Colors.h"
 
 #endif /* #include "Libwui_H_ */

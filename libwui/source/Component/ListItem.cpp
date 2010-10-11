@@ -91,4 +91,5 @@ void ListItem::Draw()
 {
 	if(_data.text == "")
 		_lbl.Text(_data.data->ToString());
+	Control::Draw();
 }

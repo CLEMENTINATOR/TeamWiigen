@@ -10,23 +10,35 @@
 
 namespace Libwui
 {
-	namespace Component
-	{
-		class List : public Control
-		{
-		public :
-			void AddItem(Libwiisys::Object* item,const std::string& text = "");
+namespace Component
+{
+class List: public Control
+{
+public:
+	void AddItem(Libwiisys::Object* item, const std::string& text = "");
+	void InitializeComponents();
+	void UpDefaultImage(std::string image);
+	void DownDefaultImage(std::string image);
+	void UpClickedImage(std::string image);
+	void DownClickedImage(std::string image);
+	void UpOverImage(std::string image);
+	void SetSize(s32 w, s32 h);
+	void DownOverImage(std::string image);
+private:
+	std::vector<ListItemData> _dataItems;
+	std::vector<ListItem*> _items;
+	Button _bScrollUp;
+	Button _bScrollDown;
+	virtual void Draw();
+	u32 _selectedIndex;
+	u32 _maxItemsShowable;
 
-		private :
-			std::vector<ListItemData> _dataItems;
-			std::vector<ListItem*> _items;
-			ListItem* _selectedItem;
-			
-			void SetSize(s32 w, s32 h);
-			
-		protected :
-			void EnsureItems();
-		};
-	}
+protected:
+	void EnsureItems();
+	void Invalidate();
+	void ScrollDown(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+	void ScrollUp(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+};
+}
 }
 #endif

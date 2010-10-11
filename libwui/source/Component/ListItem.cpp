@@ -7,7 +7,7 @@ using namespace std;
 ListItem::ListItem(ListItemData data) 
   :	_lbl("", 12, Colors::Black()),
 	  _overBackgroundColor(Colors::Blue()),
-		_normalBackgroundColor(Colors::White())
+		_normalBackgroundColor(Colors::FromRGBA(255,255,255,0))
 {
 	_data = data;
 	_lbl.SetTextAlignment(HAlign_Center, VAlign_Middle);

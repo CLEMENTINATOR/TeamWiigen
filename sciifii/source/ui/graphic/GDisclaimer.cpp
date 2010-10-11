@@ -49,10 +49,10 @@ void GDisclaimer::InitializeComponents()
 	list.AddItem(0, "f");
 	list.AddItem(0, "g");
 	list.AddItem(0, "h");
-	list.AddItem(0, "i");
-	list.AddItem(0, "Jeanmi !");
-	list.AddItem(0, "k");
-	list.AddItem(0, "l");
+	list.DefaultImage("sd:/sciifii/default/go_button_drop_normal.png");
+	list.OverImage("sd:/sciifii/default/go_button_drop_over.png");
+
+
 	list.UpDefaultImage("sd:/sciifii/default/arrow_up.png");
 	list.DownDefaultImage("sd:/sciifii/default/arrow_down.png");
 	list.UpOverImage("sd:/sciifii/default/arrow_up_over.png");

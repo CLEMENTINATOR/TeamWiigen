@@ -2,6 +2,7 @@
 
 using namespace Libwui::Component;
 using namespace Libwui::Resources;
+using namespace Libwui::Device;
 using namespace std;
 
 ListItem::ListItem(ListItemData data) 

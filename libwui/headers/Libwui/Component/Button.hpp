@@ -21,7 +21,8 @@ namespace Libwui
 			Button();
 			void InitializeComponents();
 			void Draw();			
-			virtual void ProcessMessage(Message& message);			
+			virtual void ProcessMessage(Message& message);
+			std::string CurrentImage();
 			void DefaultImage(const std::string& imagePath);
 			std::string DefaultImage() const;
 			void OverImage(const std::string& imagePath);

@@ -9,7 +9,7 @@ namespace Libwui
 {
 	namespace Component
 	{
-		class Checkbox: public Libwui::Control
+		class Checkbox: public Control
 		{
 		protected:
 			void OnClick(Libwui::Device::PadController &c);

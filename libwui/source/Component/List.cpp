@@ -2,6 +2,7 @@
 #include <fastdelegate.h>
 
 using namespace Libwui::Component;
+using namespace Libwui::Device;
 using namespace std;
 using namespace Libwui::Resources;
 using namespace Libwui::Events;
@@ -90,6 +91,8 @@ void List::DownOverImage(string image)
 void List::EnsureItems()
 {
 	_maxItemsShowable = _height / 20;
+	_bScrollUp.SetPosition(_width, 0);
+	_bScrollDown.SetPosition(_width, _height - _bScrollDown.GetHeight());
 	for (vector<ListItem*>::iterator ite = _items.begin(); ite != _items.end(); ite++)
 	{
 		RemoveChildren(*ite);

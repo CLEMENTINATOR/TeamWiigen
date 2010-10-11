@@ -15,24 +15,20 @@ namespace Libwui
 		{
 		public :
 			ListItem(ListItemData* data);
-			virtual ~ListItem();
-			void OverBackgroundColor(GXColor c);
 			void InitializeComponents();
-			void BackgroundColor(GXColor color);
-			void Text(std::string text);
+			void OverBackgroundColor(GXColor c);
+			void NormalBackgroundColor(GXColor color);
+
 		private :
 			ListItemData* _data;
 			Label _lbl;
 			GXColor _overBackgroundColor;
 			GXColor _normalBackgroundColor;
+			
 		protected :
 			void ProcessMessage(Message& message);
 			virtual void OnCursorEnter();
 			virtual void OnCursorLeave();
-			virtual void Draw();
-			virtual void EnsureItems();
-
-
 		};
 	}
 }

@@ -18,8 +18,7 @@ namespace Libwui
 		{
 			Libwiisys::Object *data;
 			std::string text;
-		}ListItemData;
-
-}
+		} ListItemData;
+	}
 }
 #endif /* LISTITEMDATA_H_ */

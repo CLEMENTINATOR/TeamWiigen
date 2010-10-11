@@ -22,6 +22,7 @@
 #ifdef __cplusplus
 
 #include "Libwiisys/Buffer.h"
+#include "Libwiisys/TemplateObject.h"
 #include "Libwiisys/Event.h"
 #include "Libwiisys/EventArgs.h"
 #include "Libwiisys/Exceptions/Exception.h"

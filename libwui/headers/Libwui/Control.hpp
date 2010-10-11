@@ -82,7 +82,7 @@ namespace Libwui
 		virtual void ProcessInput(Device::PadController& controller);
 		virtual void ProcessMessage(Message& message);
 		void SetPosition(s32 x, s32 y);
-		void SetSize(s32 w, s32 h);
+		virtual void SetSize(s32 w, s32 h);
 		
 		virtual void VerticalAlignement(VAlign alignement);
 		VAlign VerticalAlignement() const;

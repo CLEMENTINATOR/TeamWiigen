@@ -4,24 +4,15 @@ using namespace Libwui::Component;
 using namespace Libwui::Resources;
 using namespace std;
 
-ListItem::ListItem(ListItemData* data) 
+ListItem::ListItem(ListItemData data) 
   :	_lbl("", 12, Colors::Black()),
 	  _overBackgroundColor(Colors::Blue()),
 		_normalBackgroundColor(Colors::White())
 {
 	_data = data;
 	_lbl.SetTextAlignment(HAlign_Center, VAlign_Middle);
-	if (data != NULL)
-	{
-		if (data->text != "")
-		{
-			_lbl.Text(data->text);
-		}
-		else
-		{
-			_lbl.Text(data->data->ToString());
-		}
-	}
+	if (data.text != "")
+		_lbl.Text(data.text);
 }
 
 void ListItem::InitializeComponents()
@@ -94,4 +85,10 @@ void ListItem::OnCursorEnter()
 void ListItem::OnCursorLeave()
 {
 	Control::BackgroundColor(_normalBackgroundColor);
+}
+
+void ListItem::Draw()
+{
+	if(_data.text == "")
+		_lbl.Text(_data.data->ToString());
 }

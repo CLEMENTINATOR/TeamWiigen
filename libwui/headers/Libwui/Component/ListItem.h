@@ -1,12 +1,11 @@
-/*
- * ListItem.h
- *
- *  Created on: 11 oct. 2010
- *      Author: Clément
- */
-#include "ListItemData.h"
 #ifndef LISTITEM_H_
 #define LISTITEM_H_
+
+#include "../Control.hpp"
+#include "../Message.hpp"
+#include "Label.hpp"
+#include "ListItemData.h"
+
 namespace Libwui
 {
 	namespace Component
@@ -14,18 +13,19 @@ namespace Libwui
 		class ListItem : public Control
 		{
 		public :
-			ListItem(ListItemData* data);
+			ListItem(ListItemData data);
 			void InitializeComponents();
 			void OverBackgroundColor(GXColor c);
 			void NormalBackgroundColor(GXColor color);
 
 		private :
-			ListItemData* _data;
+			ListItemData _data;
 			Label _lbl;
 			GXColor _overBackgroundColor;
 			GXColor _normalBackgroundColor;
 			
 		protected :
+			void Draw();
 			void ProcessMessage(Message& message);
 			virtual void OnCursorEnter();
 			virtual void OnCursorLeave();

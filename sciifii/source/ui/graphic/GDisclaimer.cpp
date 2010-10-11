@@ -28,7 +28,7 @@ void GDisclaimer::InitializeComponents()
   checkBox.CheckedImage("sd:/sciifii/default/enable_button.png");
   checkBox.SetSize(100,24);
   checkBox.Text("Jeanmi pouet !");
- //checkBox.CurrentAlign(Libwui::HAlign_Left);
+  checkBox.TextPosition(Libwui::HAlign_Left);
   checkBox.SetPosition(120,120);
   checkBox.InitializeComponents();
 

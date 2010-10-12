@@ -12,7 +12,8 @@ class DropDownList: public Control
 {
 public:
 	DropDownList();
-	void AddItem(Libwiisys::Object* item, const std::string& text = "");
+	void AddItem(Libwiisys::Object* item, const std::string& text = "",bool defaultValue=false);
+	void AddItem(ListItemData d,bool defaultValue=false);
 	void SetPosition(int x, int y);
 	void DefaultImage(std::string s);
 	void OverImage(std::string s);
@@ -26,9 +27,11 @@ public:
 	void UpOverImage(std::string image);
 	void DownOverImage(std::string image);
 private:
+	ListItem *_selected;
 	Button _bSelected;
 	List _list;
 	void ShowList(Libwiisys::Object *o, Libwui::Events::CursorEventArgs* args);
+	void OnClickSetValue(Libwiisys::Object *o, Libwui::Events::CursorEventArgs* args);
 	void Draw();
 
 };

@@ -90,7 +90,15 @@ void ListItem::OnCursorLeave()
 
 void ListItem::Draw()
 {
-	if(_data.text == "")
-		_lbl.Text(_data.data->ToString());
+
+	_lbl.Text(StringValue());
 	Control::Draw();
 }
+
+string ListItem::StringValue()
+{
+	if(_data.text == "")
+		return _data.data->ToString();
+	else return _data.text;
+}
+

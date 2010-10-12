@@ -104,8 +104,8 @@ void List::DownOverImage(string image)
 void List::EnsureItems()
 {
 	_maxItemsShowable = _height / 20;
-	_bScrollUp.SetPosition(_width, 0);
-	_bScrollDown.SetPosition(_width, _height - _bScrollDown.GetHeight());
+	_bScrollUp.SetPosition(_width-_bScrollUp.GetWidth(), 0);
+	_bScrollDown.SetPosition(_width-_bScrollDown.GetWidth(), _height - _bScrollDown.GetHeight());
 
 	for (vector<ListItem*>::iterator ite = _items.begin(); ite != _items.end(); ite++)
 	{
@@ -121,7 +121,7 @@ void List::EnsureItems()
 		ListItem* i = _items.at(j);
 		AddChildren(i);
 
-		i->SetSize(_width, 20);
+		i->SetSize(_width-_bScrollDown.GetWidth(), 20);
 		i->SetPosition(0, nbItems * 20);
 
 		i->Visible(true);

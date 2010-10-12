@@ -16,6 +16,8 @@ class List: public Control
 {
 public:
 	void AddItem(Libwiisys::Object* item, const std::string& text = "");
+	void AddItem(ListItemData d);
+	void AddItem(ListItem* i);
 	void InitializeComponents();
 	void UpDefaultImage(std::string image);
 	void DownDefaultImage(std::string image);
@@ -25,7 +27,6 @@ public:
 	void SetSize(s32 w, s32 h);
 	void DownOverImage(std::string image);
 private:
-	std::vector<ListItemData> _dataItems;
 	std::vector<ListItem*> _items;
 	Button _bScrollUp;
 	Button _bScrollDown;

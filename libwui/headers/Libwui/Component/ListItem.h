@@ -17,7 +17,7 @@ namespace Libwui
 			void InitializeComponents();
 			void OverBackgroundColor(GXColor c);
 			void NormalBackgroundColor(GXColor color);
-
+			std::string StringValue();
 		private :
 			ListItemData _data;
 			Label _lbl;

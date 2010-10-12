@@ -7,12 +7,26 @@ using namespace std;
 using namespace Libwui::Resources;
 using namespace Libwui::Events;
 using namespace fastdelegate;
+
 void List::AddItem(Object* item, const std::string& text)
 {
-	_dataItems.push_back((ListItemData)
+	ListItem* i = new ListItem((ListItemData)
 	{	item, text});
+	_items.push_back(i);
 	Invalidate();
+}
 
+void List::AddItem(ListItemData d)
+{
+	ListItem* i = new ListItem(d);
+	_items.push_back(i);
+	Invalidate();
+}
+
+void List::AddItem(ListItem* i)
+{
+	_items.push_back(i);
+	Invalidate();
 }
 
 void List::InitializeComponents()
@@ -27,15 +41,14 @@ void List::InitializeComponents()
 	_bScrollUp.Click += MakeDelegate(this, &List::ScrollUp);
 	_bScrollDown.Click += MakeDelegate(this, &List::ScrollDown);
 	Control::InitializeComponents();
-	_bScrollUp.SetPosition(_width, 0);
-	_bScrollDown.SetPosition(_width, _height - _bScrollDown.GetHeight());
+	Invalidate();
 }
 void List::ScrollDown(Object *o, CursorEventArgs* args)
 {
 	_selectedIndex++;
-	if (_selectedIndex > _dataItems.size() - _maxItemsShowable)
+	if (_selectedIndex > _items.size() - _maxItemsShowable)
 	{
-		_selectedIndex = _dataItems.size() - _maxItemsShowable;
+		_selectedIndex = _items.size() - _maxItemsShowable;
 	}
 	Invalidate();
 }
@@ -93,24 +106,26 @@ void List::EnsureItems()
 	_maxItemsShowable = _height / 20;
 	_bScrollUp.SetPosition(_width, 0);
 	_bScrollDown.SetPosition(_width, _height - _bScrollDown.GetHeight());
+
 	for (vector<ListItem*>::iterator ite = _items.begin(); ite != _items.end(); ite++)
 	{
+		(*ite)->Visible(false);
+		(*ite)->Enabled(false);
 		RemoveChildren(*ite);
-		delete *ite;
 	}
 
-	_items.clear();
-
 	u32 nbItems = 0;
-	for (u32 j = _selectedIndex; j < _dataItems.size() && nbItems
+	for (u32 j = _selectedIndex; j < _items.size() && nbItems
 			< _maxItemsShowable; j++)
 	{
-
-		ListItem* i = new ListItem(_dataItems[j]);
+		ListItem* i = _items.at(j);
 		AddChildren(i);
+
 		i->SetSize(_width, 20);
 		i->SetPosition(0, nbItems * 20);
-		_items.push_back(i);
+
+		i->Visible(true);
+		i->Enabled(true);
 		nbItems++;
 
 	}
@@ -132,7 +147,7 @@ void List::Draw()
 		EnsureItems();
 		_invalidated = false;
 	}
-	if ((s32) (_dataItems.size() * 20) > _height) // needs scrool
+	if ((s32) (_items.size() * 20) > _height) // needs scrool
 	{
 		if (_selectedIndex == 0)
 		{
@@ -142,7 +157,7 @@ void List::Draw()
 		{
 			_bScrollUp.Visible(true);
 		}
-		if (_selectedIndex == _dataItems.size() - _maxItemsShowable)
+		if (_selectedIndex == _items.size() - _maxItemsShowable)
 		{
 			_bScrollDown.Visible(false);
 
@@ -165,3 +180,4 @@ void List::Draw()
 	}
 
 }
+

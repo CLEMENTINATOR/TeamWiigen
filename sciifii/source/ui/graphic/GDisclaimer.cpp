@@ -46,7 +46,7 @@ void GDisclaimer::InitializeComponents()
 	list.AddItem(0, "c");
 	list.AddItem(0, "d");
 	list.AddItem(0, "e");
-	list.AddItem(0, "f");
+	list.AddItem(0, "f",true);
 	list.AddItem(0, "g");
 	list.AddItem(0, "h");
 	list.DefaultImage("sd:/sciifii/default/go_button_drop_normal.png");

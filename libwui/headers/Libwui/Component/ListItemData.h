@@ -11,14 +11,16 @@
 #include <string>
 #include <libwiisys.h>
 namespace Libwui
-{
-	namespace Component
+    {
+    namespace Component
 	{
-		typedef struct ListItemData
-		{
-			Libwiisys::Object *data;
-			std::string text;
-		} ListItemData;
+
+	typedef struct ListItemData
+	{
+	    Libwiisys::Object *data;
+	    std::string text;
+	} ListItemData;
+
 	}
-}
+    }
 #endif /* LISTITEMDATA_H_ */

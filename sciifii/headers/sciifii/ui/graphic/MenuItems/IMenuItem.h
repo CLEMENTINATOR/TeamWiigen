@@ -4,10 +4,10 @@
 #include <string>
 #include <libwiisys.h>
 #include <libwui.h>
-#include "../Events/SwitchEvent.h"
-#include "../Events/SwitchEventArgs.h"
-#include "../Events/NavigateEvent.h"
-#include "../Events/NavigateEventArgs.h"
+#include "../../Events/SwitchEvent.h"
+#include "../../Events/SwitchEventArgs.h"
+#include "../../Events/NavigateEvent.h"
+#include "../../Events/NavigateEventArgs.h"
 
 class IMenuItem
 {	

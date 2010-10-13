@@ -214,26 +214,26 @@
       <Title id="0000000100000046" revision="6912" action="install" />
 
       <!-- Channels -->
-      <Title id="0001000248414241" revision="20" action="install" regions="0,1,2" />
-      <Title id="000100024841424B" revision="20" action="install" regions="4" />
-      <Title id="0001000248414341" revision="6" action="install" regions="0,1,2" />
-      <Title id="0001000248414645" revision="7" action="install" regions="1" />
-      <Title id="000100024841464A" revision="7" action="install" regions="0" />
-      <Title id="0001000248414650" revision="7" action="install" regions="2" />
-      <Title id="0001000248414745" revision="7" action="install" regions="1" />
-      <Title id="000100024841474A" revision="7" action="install" regions="0" />
-      <Title id="0001000248414750" revision="7" action="install" regions="2" />
-      <Title id="0001000248415941" revision="3" action="install" regions="0,1,2" />
-      <Title id="000100024841594B" revision="3" action="install" regions="4" />
-      <Title id="0001000848414B45" revision="3" action="install" regions="1" />
-      <Title id="0001000848414B4A" revision="3" action="install" regions="0" />
-      <Title id="0001000848414B4B" revision="3" action="install" regions="4" />
-      <Title id="0001000848414B50" revision="3" action="install" regions="2" />
-      <Title id="0001000848414C45" revision="2" action="install" regions="1" />
-      <Title id="0001000848414C4A" revision="2" action="install" regions="0" />
-      <Title id="0001000848414C4B" revision="2" action="install" regions="4" />
-      <Title id="0001000848414C50" revision="2" action="install" regions="2" />
-      <Title id="000100084843434A" revision="2" action="install" regions="0" />
+      <Title id="0001000248414241" revision="20" action="update" regions="0,1,2" />
+      <Title id="000100024841424B" revision="20" action="update" regions="4" />
+      <Title id="0001000248414341" revision="6" action="update" regions="0,1,2" />
+      <Title id="0001000248414645" revision="7" action="update" regions="1" />
+      <Title id="000100024841464A" revision="7" action="update" regions="0" />
+      <Title id="0001000248414650" revision="7" action="update" regions="2" />
+      <Title id="0001000248414745" revision="7" action="update" regions="1" />
+      <Title id="000100024841474A" revision="7" action="update" regions="0" />
+      <Title id="0001000248414750" revision="7" action="update" regions="2" />
+      <Title id="0001000248415941" revision="3" action="update" regions="0,1,2" />
+      <Title id="000100024841594B" revision="3" action="update" regions="4" />
+      <Title id="0001000848414B45" revision="3" action="update" regions="1" />
+      <Title id="0001000848414B4A" revision="3" action="update" regions="0" />
+      <Title id="0001000848414B4B" revision="3" action="update" regions="4" />
+      <Title id="0001000848414B50" revision="3" action="update" regions="2" />
+      <Title id="0001000848414C45" revision="2" action="update" regions="1" />
+      <Title id="0001000848414C4A" revision="2" action="update" regions="0" />
+      <Title id="0001000848414C4B" revision="2" action="update" regions="4" />
+      <Title id="0001000848414C50" revision="2" action="update" regions="2" />
+      <Title id="000100084843434A" revision="2" action="update" regions="0" />
     </CompositeInstaller>
 
     <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">

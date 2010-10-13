@@ -12,7 +12,7 @@ private:
 	u32 _currentStep;
 	bool _cleaned;
 	
-	void DisplayProgress(Object* sender, ProgressEventArgs* args);
+	void DisplayProgress(Object* sender, Libwiisys::Threading::ProgressEventArgs* args);
 	
 public:
 	CompositeInstaller(const std::string& name);

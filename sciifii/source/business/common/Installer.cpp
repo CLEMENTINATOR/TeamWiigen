@@ -2,6 +2,7 @@
 
 using namespace std;
 using namespace Libwiisys::String;
+using namespace Libwiisys::Threading;
 
 void Installer::OnProgress(const std::string& message, f32 value)
 {

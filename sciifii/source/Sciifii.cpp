@@ -10,6 +10,7 @@ using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::Threading;
 
 
 #define TITLE_IOS(x) (0x0000000100000000ULL + x)

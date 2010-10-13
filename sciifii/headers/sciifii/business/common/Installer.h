@@ -6,7 +6,6 @@
 #include <gctypes.h>
 #include <sstream>
 #include <libwiisys.h>
-#include "ProgressEvent.h"
 
 class Installer : public Libwiisys::Object
 {
@@ -32,8 +31,8 @@ public:
 
 	virtual bool Prepare() = 0;
 	virtual void Install() = 0;
-	ProgressEvent Progressing;
-	ProgressEvent Warning;
+	Libwiisys::Threading::ProgressEvent Progressing;
+	Libwiisys::Threading::ProgressEvent Warning;
 	virtual ~Installer();
 };
 

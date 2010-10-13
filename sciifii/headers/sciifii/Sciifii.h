@@ -9,7 +9,7 @@
 class Sciifii : public Libwiisys::Object
 {
 private:
-	void DisplayProgress(Libwiisys::Object* sender, ProgressEventArgs* args);
+	void DisplayProgress(Libwiisys::Object* sender, Libwiisys::Threading::ProgressEventArgs* args);
 
 	bool hasDisplayed;
 public:

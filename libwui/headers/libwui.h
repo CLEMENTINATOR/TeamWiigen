@@ -16,6 +16,7 @@
 #include "Libwui/Component/ListItem.h"
 #include "Libwui/Component/List.hpp"
 #include "Libwui/Component/DropDownList.hpp"
+#include "Libwui/Component/MessageBox.hpp"
 #include "Libwui/Device/PadControllers.hpp"
 #include "Libwui/Events/CursorEvent.h"
 #include "Libwui/Events/CursorEventArgs.h"

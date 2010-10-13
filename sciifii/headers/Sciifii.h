@@ -43,4 +43,10 @@
 #include "sciifii/ui/text/MenuItems/MultiSwitchMenuItem.h"
 #include "sciifii/ui/text/MenuItems/MenuItemFactory.h"
 #include "sciifii/ui/text/MenuItems/PreviousMenuItem.h"
+
+#include "sciifii/ui/graphic/MenuItems/GMenuItemFactory.h"
+#include "sciifii/ui/graphic/MenuItems/GModeMenuItem.h"
+#include "sciifii/ui/graphic/MenuItems/GExitMenuItem.h"
+#include "sciifii/ui/graphic/MenuItems/IMenuItem.h"
+
 #endif

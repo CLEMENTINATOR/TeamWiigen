@@ -9,6 +9,7 @@ typedef enum
   ti_PackAsWad,
   ti_Extract,
   ti_Decrypt,
+  ti_Update,
 } TitleAction;
 
 class TitleStep : public Installer

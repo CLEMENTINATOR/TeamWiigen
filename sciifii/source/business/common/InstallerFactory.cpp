@@ -51,6 +51,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		    action = ti_Extract;
         else if (choice == "decrypt")
             action = ti_Decrypt;
+        else if (choice == "update")
+                action = ti_Update;
         else
 			throw Exception("Can't parse TitleAction enum from xml!");
 

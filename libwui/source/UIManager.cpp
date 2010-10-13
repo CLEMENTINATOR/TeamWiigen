@@ -10,7 +10,9 @@ using namespace Libwui::Resources;
 
 UIManager::UIManager()
 : _uiThread(-1),
-  _uiThreadDefined(false)
+  _uiThreadDefined(false),
+	_rootElement(NULL),
+	_modalDialog(NULL)
 {
 	LWP_MutexInit(&_messageQueueMutex, true);
 	
@@ -60,18 +62,38 @@ void UIManager::Run(Form &form)
 	}
 }
 
+void UIManager::ShowDialog(Libwui::Component::Form& dialog)
+{
+	Current()._modalDialog = &dialog;
+	dialog.SetRoot(true);
+	dialog.InitializeComponents();
+	
+	while(dialog.Visible())
+	{
+		Current().Update();
+		LWP_YieldThread();
+	}
+	
+	Current()._modalDialog = NULL;
+	dialog.SetRoot(false);
+}
+
 void UIManager::Update()
 {
-	//On lance l'affichage
+	//draw root
 	Current()._rootElement->StartDrawing();
 	
+	//then draw dialog if their is one
+	if(Current()._modalDialog)
+		Current()._modalDialog->StartDrawing();
+	
 	for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
-    {
+  {
 		PadController& controler = PadController::Currents()[i];
 			
 		if(controler.wpad.ir.valid)
 			Menu_DrawImg(controler.wpad.ir.x- controler.offsetLeft, controler.wpad.ir.y - controler.offsetTop, 96, 96, ImageResourceManager::Get(controler.padImage)->Image(), controler.wpad.ir.angle, 1, 1, 255);
-    }
+  }
 	
 	//On affiche toutes les modifications graphiques
 	Menu_Render();
@@ -79,7 +101,11 @@ void UIManager::Update()
 	//Gestion des input
 	for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
 	{
-		Current()._rootElement->ProcessInput(PadController::Currents()[i]);
+		//Disable the root if a modalDialog is opened
+		if(Current()._modalDialog)
+			Current()._modalDialog->ProcessInput(PadController::Currents()[i]);
+		else
+			Current()._rootElement->ProcessInput(PadController::Currents()[i]);
 	}
 	
 	//Gestion des messages

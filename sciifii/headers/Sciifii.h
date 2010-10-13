@@ -24,8 +24,6 @@
 #include "sciifii/business/common/Installer.h"
 #include "sciifii/business/common/InstallerFactory.h"
 #include "sciifii/business/common/KoreanKeyPatch.h"
-#include "sciifii/business/common/ProgressEvent.h"
-#include "sciifii/business/common/ProgressEventArgs.h"
 #include "sciifii/ui/graphic/GDisclaimer.h"
 #include "sciifii/ui/text/Disclaimer.h"
 #include "sciifii/ui/text/VirtualPad.h"

@@ -1,5 +1,5 @@
-#ifndef _EXIT_MENU_ITEM_H_
-#define _EXIT_MENU_ITEM_H_
+#ifndef _G_EXIT_MENU_ITEM_H_
+#define _G_EXIT_MENU_ITEM_H_
 
 #include <string>
 #include <libwiisys.h>

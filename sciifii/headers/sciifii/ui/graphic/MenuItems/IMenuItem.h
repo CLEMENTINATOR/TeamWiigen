@@ -1,5 +1,5 @@
-#ifndef _MENU_ITEM_H_
-#define _MENU_ITEM_H_
+#ifndef _I_MENU_ITEM_H_
+#define _I_MENU_ITEM_H_
 
 #include <string>
 #include <libwiisys.h>

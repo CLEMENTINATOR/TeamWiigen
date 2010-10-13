@@ -17,7 +17,7 @@ public:
 	DoWorkEvent DoWork;
 
 	BackgroundWorker();
-	void ReportProgress(u32 progress,std::string s);
+	void ReportProgress(f32 progress,std::string s);
 	void RunWorkerAsync(Object *params);
 private:
 	Thread _thread;

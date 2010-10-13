@@ -3,6 +3,8 @@
 
 #include <FastDelegate.h>
 #include "../Object.h"
+#include "ThreadResult.h"
+#include "ThreadResultEvent.h"
 #include <ogcsys.h>
 
 /*! \namespace Libwiisys::Threading
@@ -19,9 +21,10 @@ namespace Libwiisys {
 		class Thread : public Object
 		{
 		public:
-            virtual std::string GetType();
+      virtual std::string GetType();
+			
 			/** Simple typedef for a more readable code :)*/
-			typedef fastdelegate::FastDelegate1<Object *> ThreadStart;
+			typedef fastdelegate::FastDelegate1<Object *, void*> ThreadStart;
 
 			/**
 			 *\brief Constructor
@@ -33,18 +36,25 @@ namespace Libwiisys {
 			 * \param params the parameters which are given to the thread
 			 */
 			void Start(Object* params = NULL);
+			
+			void Suspend();
+			void Resume();
+			void* Join();
+			
+			ThreadResultEvent ThreadTerminated;
 
 		private:
 			lwp_t _threadId;
 			ThreadStart _start;
 			Object* _params;
-
+			ThreadResult _threadResult;
+			
 		protected:
 
 			/**
 			 * \brief Run the thread
 			 */
-			void Run();
+			void* Run();
 
 			/**
 			 * \brief Get the entry point and run the thread

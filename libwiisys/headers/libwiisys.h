@@ -70,6 +70,9 @@
 #include "Libwiisys/system/Security/UserType.h"
 #include "Libwiisys/system/Security/Certificate.h"
 #include "Libwiisys/threading/Thread.h"
+#include "Libwiisys/threading/ThreadResult.h"
+#include "Libwiisys/threading/ThreadResultEvent.h"
+#include "Libwiisys/threading/ThreadResultEventArgs.h"
 
 #endif
 

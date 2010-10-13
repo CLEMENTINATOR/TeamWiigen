@@ -1,5 +1,5 @@
-#ifndef _TITLEEVENTS_H_
-#define _TITLEEVENTS_H_
+#ifndef _TITLE_EVENT_ARGS_H_
+#define _TITLE_EVENT_ARGS_H_
 
 #include <ogcsys.h>
 #include "../../EventArgs.h"

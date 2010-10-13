@@ -33,7 +33,6 @@ void MessageBox::Show(Control* _current, std::string text, std::string title)
 
     Visible(true);
     Enabled(true);
-    _boxButton.Click += MakeDelegate(this, &MessageBox::UnShow);
     UIManager::ShowDialog(*this);
     }
 void MessageBox::UnShow(Object*sender, CursorEventArgs *c)
@@ -50,6 +49,8 @@ MessageBox::MessageBox() :
     {
     BackgroundColor(Colors::FromRGBA(200, 200, 200, 175));
     _boxButton.Text("OK");
+    _boxButton.Click += MakeDelegate(this, &MessageBox::UnShow);
+
     Visible(false);
     Enabled(false);
 

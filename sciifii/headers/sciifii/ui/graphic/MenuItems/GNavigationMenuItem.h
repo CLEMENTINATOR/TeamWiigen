@@ -1,5 +1,5 @@
-#ifndef _NAVIGATION_MENU_ITEM_H_
-#define _NAVIGATION_MENU_ITEM_H_
+#ifndef _G_NAVIGATION_MENU_ITEM_H_
+#define _G_NAVIGATION_MENU_ITEM_H_
 
 #include <string>
 #include <libwiisys.h>

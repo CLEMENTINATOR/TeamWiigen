@@ -20,6 +20,7 @@ namespace Libwui
 		static void AddMessage(Message* message);
 		static bool IsUiThread();
 		static void Run(Libwui::Component::Form& main);
+		static void ShowDialog(Libwui::Component::Form& dialog);
 		~UIManager();
 	private:
 		std::queue<Message*> _messageQueue;
@@ -27,6 +28,7 @@ namespace Libwui
 		lwp_t _uiThread;
 		bool _uiThreadDefined;
 		Libwui::Component::Form* _rootElement;
+		Libwui::Component::Form* _modalDialog;
 
 		UIManager();
 		void Update();

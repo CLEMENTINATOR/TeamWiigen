@@ -10,11 +10,11 @@ BackgroundWorker::BackgroundWorker()
   : _thread(MakeDelegate(this, &BackgroundWorker::AsyncJob))
 {}
 
-void BackgroundWorker::ReportProgress(u32 progress, std::string s)
+void BackgroundWorker::ReportProgress(f32 progress, std::string s)
 {
 	ProgressEventArgs e;
-	e.progress = progress;
-	e.msg = s;
+	e.percent = progress;
+	e.message = s;
 	ProgressChanged((Object*) this, &e);
 }
 

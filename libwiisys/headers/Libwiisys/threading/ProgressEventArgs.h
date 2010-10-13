@@ -8,8 +8,8 @@ namespace Threading
 class ProgressEventArgs: public EventArgs
 {
 public :
-	u32 progress;
-	std::string msg;
+	std::string message;
+	f32 percent;
 };
 }
 }

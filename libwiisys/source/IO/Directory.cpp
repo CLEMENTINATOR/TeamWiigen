@@ -1,202 +1,227 @@
-#include <libwiisys.h>
+#include <libwiisys/IO/Directory.h>
+#include <libwiisys/IO/Device.h>
+#include <libwiisys/IO/Path.h>
+#include <libwiisys/IO/FatDirectory.h>
+#include <libwiisys/IO/NandDirectory.h>
+#include <libwiisys/IO/File.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/SystemException.h>
 
 using namespace std;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::Exceptions;
 
-bool Directory::Exists(const string &name) {
-	string path = Path::CleanPath(name);
+bool Directory::Exists(const string &name)
+{
+  string path = Path::CleanPath(name);
 
-	Device::Mount(path);
+  Device::Mount(path);
 
-	bool exists = false;
-	if (Device::IsFatPath(path))
-		exists = FatDirectory::Exists(path);
-	else
-		exists = NandDirectory::Exists(Device::GetWiiPath(path));
+  bool exists = false;
+  if (Device::IsFatPath(path))
+    exists = FatDirectory::Exists(path);
+  else
+    exists = NandDirectory::Exists(Device::GetWiiPath(path));
 
-	Device::UnMount(path);
+  Device::UnMount(path);
 
-	return exists;
+  return exists;
 }
 
-void Directory::Create(const string &name) {
-	if (name == "")
-		return;
+void Directory::Create(const string &name)
+{
+  if (name == "")
+    return;
 
-	string path = Path::CleanPath(name);
+  string path = Path::CleanPath(name);
 
-	if (Path::GetRoot(path) == path)
-		return;
+  if (Path::GetRoot(path) == path)
+    return;
 
-	string parent = Path::GetParentDirectory(name);
+  string parent = Path::GetParentDirectory(name);
 
-	if (!Exists(parent))
-		Create(parent);
+  if (!Exists(parent))
+    Create(parent);
 
-	Device::Mount(path);
-	if (!Exists(path)) {
-		if (Device::IsFatPath(path))
-			FatDirectory::Create(path);
-		else
-			NandDirectory::Create(Device::GetWiiPath(name));
-	}
-	Device::UnMount(name);
+  Device::Mount(path);
+  if (!Exists(path))
+  {
+    if (Device::IsFatPath(path))
+      FatDirectory::Create(path);
+    else
+      NandDirectory::Create(Device::GetWiiPath(name));
+  }
+  Device::UnMount(name);
 }
 
-void Directory::Delete(const string &name, bool recursive) {
-	string path = Path::CleanPath(name);
+void Directory::Delete(const string &name, bool recursive)
+{
+  string path = Path::CleanPath(name);
 
-	Device::Mount(path);
+  Device::Mount(path);
 
-	if (Exists(path)) {
-		if (!IsEmpty(path) && !recursive)
-			throw Exception(path + " is not empty.");
+  if (Exists(path))
+  {
+    if (!IsEmpty(path) && !recursive)
+      throw Exception(path + " is not empty.");
 
-		vector < string > files = GetFiles(path);
-		vector < string > subDirectories = GetDirectories(path);
+    vector < string > files = GetFiles(path);
+    vector < string > subDirectories = GetDirectories(path);
 
-		for (vector<string>::iterator file = files.begin(); file != files.end(); file++)
-			File::Delete(*file);
+    for (vector<string>::iterator file = files.begin(); file != files.end(); file++)
+      File::Delete(*file);
 
-		for (vector<string>::iterator dir = subDirectories.begin(); dir
-				!= subDirectories.end(); dir++)
-			Directory::Delete(*dir, true);
+    for (vector<string>::iterator dir = subDirectories.begin(); dir
+         != subDirectories.end(); dir++)
+      Directory::Delete(*dir, true);
 
-		if (Device::IsFatPath(path))
-			FatDirectory::Delete(name);
-		else
-			NandDirectory::Delete(Device::GetWiiPath(name));
-	}
+    if (Device::IsFatPath(path))
+      FatDirectory::Delete(name);
+    else
+      NandDirectory::Delete(Device::GetWiiPath(name));
+  }
 
-	Device::UnMount(path);
+  Device::UnMount(path);
 }
 
-vector<string> Directory::GetFiles(const string &name) {
-	string path = Path::CleanPath(name);
+vector<string> Directory::GetFiles(const string &name)
+{
+  string path = Path::CleanPath(name);
 
-	Device::Mount(path);
-	vector < string > returnValue;
+  Device::Mount(path);
+  vector < string > returnValue;
 
-	if (!Exists(path)) {
-		Device::UnMount(path);
-		throw Exception(path + " doesn't exists.");
-	}
+  if (!Exists(path))
+  {
+    Device::UnMount(path);
+    throw Exception(path + " doesn't exists.");
+  }
 
-	string cleanedPath = CleanPath(path);
+  string cleanedPath = CleanPath(path);
 
-	if (Device::IsFatPath(cleanedPath))
-		returnValue = FatDirectory::GetFiles(cleanedPath);
-	else
-		returnValue = NandDirectory::GetFiles(Device::GetWiiPath(cleanedPath));
+  if (Device::IsFatPath(cleanedPath))
+    returnValue = FatDirectory::GetFiles(cleanedPath);
+  else
+    returnValue = NandDirectory::GetFiles(Device::GetWiiPath(cleanedPath));
 
-	Device::UnMount(path);
+  Device::UnMount(path);
 
-	return returnValue;
+  return returnValue;
 }
 
-vector<string> Directory::GetDirectories(const string &name) {
-	string path = Path::CleanPath(name);
-	Device::Mount(path);
-	vector < string > returnValue;
+vector<string> Directory::GetDirectories(const string &name)
+{
+  string path = Path::CleanPath(name);
+  Device::Mount(path);
+  vector < string > returnValue;
 
-	if (!Exists(path)) {
-		Device::UnMount(path);
-		throw Exception(path + " doesn't exists.");
-	}
+  if (!Exists(path))
+  {
+    Device::UnMount(path);
+    throw Exception(path + " doesn't exists.");
+  }
 
-	string cleanedPath = CleanPath(path);
+  string cleanedPath = CleanPath(path);
 
-	if (Device::IsFatPath(cleanedPath))
-		returnValue = FatDirectory::GetDirectories(cleanedPath);
-	else
-		returnValue = NandDirectory::GetDirectories(Device::GetWiiPath(
-				cleanedPath));
+  if (Device::IsFatPath(cleanedPath))
+    returnValue = FatDirectory::GetDirectories(cleanedPath);
+  else
+    returnValue = NandDirectory::GetDirectories(Device::GetWiiPath(
+                    cleanedPath));
 
-	Device::UnMount(path);
+  Device::UnMount(path);
 
-	return returnValue;
+  return returnValue;
 }
 
-string Directory::CleanPath(const string &path) {
-	if (path == (WII_ROOT_DIRECTORY ":/"))
-		return path;
+string Directory::CleanPath(const string &path)
+{
+  if (path == (WII_ROOT_DIRECTORY ":/"))
+    return path;
 
-	string outs = Path::CleanPath(path);
-	bool needSlash = Device::IsFatPath(outs);
+  string outs = Path::CleanPath(path);
+  bool needSlash = Device::IsFatPath(outs);
 
-	if (!needSlash && outs[outs.length() - 1] == '/')
-		outs.erase(outs.size() - 1);
-	else if (needSlash && outs[outs.length() - 1] != '/')
-		outs.push_back('/');
+  if (!needSlash && outs[outs.length() - 1] == '/')
+    outs.erase(outs.size() - 1);
+  else if (needSlash && outs[outs.length() - 1] != '/')
+    outs.push_back('/');
 
-	return outs;
+  return outs;
 }
 
-bool Directory::IsEmpty(const string &name) {
-	string path = Path::CleanPath(name);
-	Device::Mount(path);
+bool Directory::IsEmpty(const string &name)
+{
+  string path = Path::CleanPath(name);
+  Device::Mount(path);
 
-	if (!Exists(path)) {
-		Device::UnMount(path);
-		throw Exception(path + " doesn't exists.");
-	}
+  if (!Exists(path))
+  {
+    Device::UnMount(path);
+    throw Exception(path + " doesn't exists.");
+  }
 
-	bool empty = true;
+  bool empty = true;
 
-	if (GetFiles(path).size() > 0)
-		empty = false;
-	else if (GetDirectories(path).size() > 0)
-		empty = false;
+  if (GetFiles(path).size() > 0)
+    empty = false;
+  else if (GetDirectories(path).size() > 0)
+    empty = false;
 
-	Device::UnMount(path);
+  Device::UnMount(path);
 
-	return empty;
+  return empty;
 }
 
-void Directory::Copy(const string &name, const string &dest, bool recursive) {
-	string path = Path::CleanPath(name);
-	string cdest = "";
+void Directory::Copy(const string &name, const string &dest, bool recursive)
+{
+  string path = Path::CleanPath(name);
+  string cdest = "";
 
-	//create the directory?
-	if (name.c_str()[name.size() - 1] == '/' && recursive)
-		cdest = Path::CleanPath(dest + "/" + Path::GetDirectoryName(name));
-	else
-		cdest = Path::CleanPath(dest);
+  //create the directory?
+  if (name.c_str()[name.size() - 1] == '/' && recursive)
+    cdest = Path::CleanPath(dest + "/" + Path::GetDirectoryName(name));
+  else
+    cdest = Path::CleanPath(dest);
 
-	Device::Mount(path);
+  Device::Mount(path);
 
-	if (Exists(path)) {
-		if (!Exists(cdest))
-			Create(cdest);
+  if (Exists(path))
+  {
+    if (!Exists(cdest))
+      Create(cdest);
 
-		vector < string > files = GetFiles(path);
-		vector < string > subDirectories = GetDirectories(path);
+    vector < string > files = GetFiles(path);
+    vector < string > subDirectories = GetDirectories(path);
 
-		for (vector<string>::iterator file = files.begin(); file != files.end(); file++) {
-			string destination = cdest + "/" + Path::GetFileName(*file);
-			File::Copy(*file, destination);
-		}
+    for (vector<string>::iterator file = files.begin(); file != files.end(); file++)
+    {
+      string destination = cdest + "/" + Path::GetFileName(*file);
+      File::Copy(*file, destination);
+    }
 
-		if (recursive) {
-			for (vector<string>::iterator dir = subDirectories.begin(); dir
-					!= subDirectories.end(); dir++) {
-				string directoryName = Path::GetDirectoryName(*dir);
-				string destination = cdest + "/" + directoryName;
-				Directory::Copy(*dir, destination);
-			}
-		}
-	}
+    if (recursive)
+    {
+      for (vector<string>::iterator dir = subDirectories.begin(); dir
+           != subDirectories.end(); dir++)
+      {
+        string directoryName = Path::GetDirectoryName(*dir);
+        string destination = cdest + "/" + directoryName;
+        Directory::Copy(*dir, destination);
+      }
+    }
+  }
 
-	Device::UnMount(path);
+  Device::UnMount(path);
 }
 
-void Directory::Move(const string &name, const string &dest) {
-	Directory::Copy(name, dest, true);
-	Directory::Delete(name, true);
+void Directory::Move(const string &name, const string &dest)
+{
+  Directory::Copy(name, dest, true);
+  Directory::Delete(name, true);
 }
 
 std::string Directory::GetType()
 {
-	return "Libwiisys::IO::Directory,"+Object::GetType();	
+  return "Libwiisys::IO::Directory,"+Object::GetType();
 }

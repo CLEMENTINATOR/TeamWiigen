@@ -6,16 +6,18 @@
 #include <ogcsys.h>
 
 
-namespace Libwiisys {
-	namespace Threading {
+namespace Libwiisys
+{
+  namespace Threading
+  {
 
-		class ThreadResultEventArgs : public EventArgs
-		{
-		public:
-			ThreadResultEventArgs(ThreadResult r, u32 tid);
-			ThreadResult Result;
-      u32 ThreadId;
-		};
-	}
+    class ThreadResultEventArgs : public EventArgs
+    {
+      public:
+        ThreadResultEventArgs(ThreadResult r, u32 tid);
+        ThreadResult Result;
+        u32 ThreadId;
+    };
+  }
 }
 #endif

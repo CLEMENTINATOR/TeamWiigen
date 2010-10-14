@@ -4,18 +4,20 @@
 #include "Object.h"
 #include <string>
 
-namespace Libwiisys {
-/**
- * \class EventArgs
- * \brief Events args handled in Event use
- */
-class EventArgs : public Object
+namespace Libwiisys
 {
-	public :
-	virtual std::string GetType(){
-		return "Libwiisys::EventArgs,"+Object::GetType();
-	}
-};
+  /**
+   * \class EventArgs
+   * \brief Events args handled in Event use
+   */
+  class EventArgs : public Object
+  {
+    public :
+      virtual std::string GetType()
+      {
+        return "Libwiisys::EventArgs,"+Object::GetType();
+      }
+  };
 
 }
 

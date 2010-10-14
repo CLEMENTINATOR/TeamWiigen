@@ -5,31 +5,30 @@
 namespace Libwiisys
 {
 
-template<typename T>
-class TemplateObject
-{
+  template<typename T>
+  class TemplateObject
+  {
 
-	private:
-		T _value;
+    private:
+      T _value;
 
-	public:
-		T& Value()
-		{
-			return _value;
-		}
-		TemplateObject(T val) :
-			_value(val)
-		{
-		}
+    public:
+      T& Value()
+      {
+        return _value;
+      }
+      TemplateObject(T val) :
+          _value(val)
+      {}
 
-		std::string ToString()
-		{
-			std::stringstream s;
-			s<<_value;
-			return s.str();
-		}
+      std::string ToString()
+      {
+        std::stringstream s;
+        s<<_value;
+        return s.str();
+      }
 
-};
+  };
 
 }
 

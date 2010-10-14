@@ -1,22 +1,23 @@
-#include <libwiisys.h>
+#include <libwiisys/Exceptions/Exception.h>
 
 using namespace std;
 using namespace Libwiisys::Exceptions;
 
-Exception::Exception(const string& message) 
-  :  _message(message)
+Exception::Exception(const string& message)
+    :  _message(message)
 {}
 
-string Exception::GetMessage() {
-	return _message;
+string Exception::GetMessage()
+{
+  return _message;
 }
 
 string Exception::GetType()
 {
-	return "Libwiisys::Exceptions::Exception," + Object::GetType();	
+  return "Libwiisys::Exceptions::Exception," + Object::GetType();
 }
 
 string Exception::ToString()
 {
-	return "Exception: " + _message;	
+  return "Exception: " + _message;
 }

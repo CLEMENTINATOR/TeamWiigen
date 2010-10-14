@@ -6,60 +6,63 @@
 #include "../../Buffer.h"
 #include "../Event/TitleEventArgs.h"
 #include "Patch.h"
-namespace Libwiisys {
-	namespace System {
-		namespace Patching {
+namespace Libwiisys
+{
+  namespace System
+  {
+    namespace Patching
+    {
 
-			/**
-			 * \class ModulePatch
-			 * \brief Handles module patching
-			 * \author Arasium,Teton,Fanta
-			 * \version 1.0
-			 */
-			class ModulePatch : public Patch
-			{
-			private:
-				u8* _patch;
-				u32 _length;
+      /**
+       * \class ModulePatch
+       * \brief Handles module patching
+       * \author Arasium,Teton,Fanta
+       * \version 1.0
+       */
+      class ModulePatch : public Patch
+      {
+        private:
+          u8* _patch;
+          u32 _length;
 
-			protected:
+        protected:
 
-				/**
-				 * @brief Patch
-				 * @param processControl the TitleEventArgs with the data to patch ( throw by events)
-				 * @return 1
-				 */
-				u32 Patching(System::Event::TitleEventArgs &processControl) const;
+          /**
+           * @brief Patch
+           * @param processControl the TitleEventArgs with the data to patch ( throw by events)
+           * @return 1
+           */
+          u32 Patching(System::Event::TitleEventArgs &processControl) const;
 
-			public:
-                virtual std::string GetType();
-				/**
-				 * @brief Constructor
-				 * @param patch A patch for rewriting a module
-				 * @param length the length of the patch
-				 * @param module The name of the module to rewrite
-				 */
-				ModulePatch(const u8* patch, const u32 length, const std::string &module = "");
+        public:
+          virtual std::string GetType();
+          /**
+           * @brief Constructor
+           * @param patch A patch for rewriting a module
+           * @param length the length of the patch
+           * @param module The name of the module to rewrite
+           */
+          ModulePatch(const u8* patch, const u32 length, const std::string &module = "");
 
-				/**
-				 * @brief Copy Constructor
-				 * @param patch An other ModulePatch object
-				 */
-				ModulePatch(const ModulePatch& patch);
+          /**
+           * @brief Copy Constructor
+           * @param patch An other ModulePatch object
+           */
+          ModulePatch(const ModulePatch& patch);
 
-				/**
-				 * Destructor
-				 */
-				virtual ~ModulePatch();
+          /**
+           * Destructor
+           */
+          virtual ~ModulePatch();
 
-				/**
-				 * @brief Overloaded =() operator
-				 * @param patch The patch to copy ( data are copied)
-				 * @return The ModulePatch set to patch
-				 */
-				ModulePatch& operator=(const ModulePatch& patch);
-			};
-		}
-	}
+          /**
+           * @brief Overloaded =() operator
+           * @param patch The patch to copy ( data are copied)
+           * @return The ModulePatch set to patch
+           */
+          ModulePatch& operator=(const ModulePatch& patch);
+      };
+    }
+  }
 }
 #endif

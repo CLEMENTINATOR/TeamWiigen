@@ -6,48 +6,49 @@
 #include <FastDelegate.h>
 #include <list>
 
-namespace Libwiisys {
+namespace Libwiisys
+{
 
-	/*! \class Event
-	 * \brief This is the base class of all events
-	 *
-	 * You can use it with fastdelegate.
-	 * Code is like this:
-	 * myObject.MyEvent += MakeDelegate(myListenerClass, ListenerClassType.myListenerMethod);
-	 */
-	class Event : public Object
-	{
-	public:
-		
-		virtual std::string GetType();
-	
-		/** Little typedef */
-		typedef fastdelegate::FastDelegate2<Object*,EventArgs*> DelegateType;
+  /*! \class Event
+   * \brief This is the base class of all events
+   *
+   * You can use it with fastdelegate.
+   * Code is like this:
+   * myObject.MyEvent += MakeDelegate(myListenerClass, ListenerClassType.myListenerMethod);
+   */
+  class Event : public Object
+  {
+    public:
 
-		/*! \brief This execute the event.
-		 * \param sender The source of the event
-		 * \param args Additional informations useful to the listeners
-		 *
-		 * All listener will be executed.
-		 */
-		virtual void operator()(Object* sender, EventArgs* args);
+      virtual std::string GetType();
 
-		/*!
-		 * \brief Add a listener to the event
-		 * \param listener The listener to add
-		 *
-		 * A listener can be added twice. The second will be executed too.
-		 */
-		virtual void operator+= (DelegateType listener);
+      /** Little typedef */
+      typedef fastdelegate::FastDelegate2<Object*,EventArgs*> DelegateType;
 
-		/*!
-		 * \brief Remove the listener from the listener list
-		 * \param listener The listener to remove
-		 */
-		virtual void operator-= (DelegateType listener);
-	private:
-		std::list<DelegateType> listenerList; // pointer to object
-	};
+      /*! \brief This execute the event.
+       * \param sender The source of the event
+       * \param args Additional informations useful to the listeners
+       *
+       * All listener will be executed.
+       */
+      virtual void operator()(Object* sender, EventArgs* args);
+
+      /*!
+       * \brief Add a listener to the event
+       * \param listener The listener to add
+       *
+       * A listener can be added twice. The second will be executed too.
+       */
+      virtual void operator+= (DelegateType listener);
+
+      /*!
+       * \brief Remove the listener from the listener list
+       * \param listener The listener to remove
+       */
+      virtual void operator-= (DelegateType listener);
+    private:
+      std::list<DelegateType> listenerList; // pointer to object
+  };
 
 }
 

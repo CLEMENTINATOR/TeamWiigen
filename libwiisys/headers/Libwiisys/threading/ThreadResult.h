@@ -6,15 +6,17 @@
 #include <ogcsys.h>
 
 
-namespace Libwiisys {
-	namespace Threading {
+namespace Libwiisys
+{
+  namespace Threading
+  {
 
-		class ThreadResult : public Object
-		{
-		public:
-      bool HasError;
-			void* Result;
-		};
-	}
+    class ThreadResult : public Object
+    {
+      public:
+        bool HasError;
+        void* Result;
+    };
+  }
 }
 #endif

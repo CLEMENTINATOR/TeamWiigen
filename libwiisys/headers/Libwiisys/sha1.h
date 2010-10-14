@@ -4,7 +4,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 void SHA1(unsigned char *, unsigned int, unsigned char *);
+
 #ifdef __cplusplus
 }
 #endif

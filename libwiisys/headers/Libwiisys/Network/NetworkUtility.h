@@ -2,62 +2,68 @@
 #define NETWORKUTILITY_H_
 
 #include <string>
+#include "../Object.h"
 
-namespace Libwiisys {namespace Network {
+namespace Libwiisys
+{
+  namespace Network
+  {
 
-		/**
-		 * \author Teton, Arasium, Fanta
-		 * \version 1.0
-		 * \class NetworkUtility
-		 * @brief A class to manage networking
-		 */
-		class NetworkUtility : public Object {
-		public:
-			virtual std::string GetType();
-			
+    /**
+     * \author Teton, Arasium, Fanta
+     * \version 1.0
+     * \class NetworkUtility
+     * @brief A class to manage networking
+     */
+    class NetworkUtility : public Object
+    {
+      public:
+        virtual std::string GetType();
 
-			/**
-			 *\brief Destructor
-			 */
-			virtual ~NetworkUtility();
 
-			/*!
-			 * \brief Gets the wii IP
-			 * \return the ip on a string array
-			 */
-			static std::string GetIp(void);
+        /**
+         *\brief Destructor
+         */
+        virtual ~NetworkUtility();
 
-			/**
-			 *\brief Return the current NetworkUtility
-			 *\return The current NetworkUtility
-			 */
-			static NetworkUtility &Current();
+        /*!
+         * \brief Gets the wii IP
+         * \return the ip on a string array
+         */
+        static std::string GetIp(void);
 
-			/*!
-			 * \brief UrlEncoding
-			 * \param s The string to urlencode
-			 * \return the urlencodeds
-			 */
-			static std::string URLEncode(std::string s);
+        /**
+         *\brief Return the current NetworkUtility
+         *\return The current NetworkUtility
+         */
+        static NetworkUtility &Current();
 
-			/*!
-			 * \brief Deinit networking
-			 */
-			static void Deinit();
-		private :
-			std::string _hostIp;
-			/**
-			 *\brief Constructor
-			 */
-			NetworkUtility();
-			/**
-			 *\brief Return if the NetworkUtility has been initialized
-			 *\return The current NetworkUtility
-			 */
-			static bool& Initialized();
+        /*!
+         * \brief UrlEncoding
+         * \param s The string to urlencode
+         * \return the urlencodeds
+         */
+        static std::string URLEncode(std::string s);
 
-		};
+        /*!
+         * \brief Deinit networking
+         */
+        static void Deinit();
+      private :
+        std::string _hostIp;
+        /**
+         *\brief Constructor
+         */
+        NetworkUtility();
+        /**
+         *\brief Return if the NetworkUtility has been initialized
+         *\return The current NetworkUtility
+         */
+        static bool& Initialized();
 
-	}}
+    };
+
+  }
+}
 
 #endif /* NETWORKUTILITY_H_ */

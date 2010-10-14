@@ -1,12 +1,12 @@
-#include <libwiisys.h>
+#include <libwiisys/Exceptions/AbortException.h>
 
 using namespace Libwiisys::Exceptions;
 
 AbortException::AbortException() :
-	Exception("Process aborted.") {
-}
+    Exception("Process aborted.")
+{}
 
 std::string AbortException::GetType()
 {
-	return "Libwiisys::Exceptions::AbortException,"+Exception::GetType();
+  return "Libwiisys::Exceptions::AbortException,"+Exception::GetType();
 }

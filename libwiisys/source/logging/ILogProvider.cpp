@@ -1,7 +1,7 @@
-#include <libwiisys.h>
+#include <libwiisys/logging/ILogProvider.h>
 
 using namespace Libwiisys::Logging;
 
-ILogProvider::~ILogProvider() {
-}
+ILogProvider::~ILogProvider()
+{}
 

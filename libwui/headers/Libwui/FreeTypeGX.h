@@ -1,4 +1,4 @@
-/* 
+/*
  * FreeTypeGX is a wrapper class for libFreeType which renders a compiled
  * FreeType parsable font into a GX texture for Wii homebrew development.
  * Copyright (C) 2008 Armin Tamzarian
@@ -61,8 +61,8 @@
  * -# Modify the Makefile to convert the font into an object file:
  * \code
  * %.ttf.o : %.ttf
- * 	@echo $(notdir $<)
- * 	$(bin2o)
+ *  @echo $(notdir $<)
+ *  $(bin2o)
  * \endcode
  * \n
  * -# Include the font object's generated header file in your source code:
@@ -71,8 +71,8 @@
  * \endcode
  * This header file defines the two variables that you will need for use within your project:
  * \code
- * extern const u8 rursus_compact_mono_ttf[];	A pointer to the font buffer within the compiled project.
- * extern const u32 rursus_compact_mono_ttf_size;	The size of the font's buffer in bytes.
+ * extern const u8 rursus_compact_mono_ttf[]; A pointer to the font buffer within the compiled project.
+ * extern const u32 rursus_compact_mono_ttf_size; The size of the font's buffer in bytes.
  * \endcode
  * 
  * \section sec_freetypegx_usage FreeTypeGX Usage
@@ -167,59 +167,67 @@
  * 
  * Font face character glyph relevant data structure.
  */
-typedef struct ftgxCharData_ {
-	uint16_t glyphAdvanceX;	/**< Character glyph X coordinate advance in pixels. */
-	uint16_t glyphIndex;	/**< Charachter glyph index in the font face. */
+typedef struct ftgxCharData_
+{
+  uint16_t glyphAdvanceX; /**< Character glyph X coordinate advance in pixels. */
+  uint16_t glyphIndex; /**< Charachter glyph index in the font face. */
 
-	uint16_t textureWidth;	/**< Texture width in pixels/bytes. */
-	uint16_t textureHeight;	/**< Texture glyph height in pixels/bytes. */
+  uint16_t textureWidth; /**< Texture width in pixels/bytes. */
+  uint16_t textureHeight; /**< Texture glyph height in pixels/bytes. */
 
-	uint16_t renderOffsetY;	/**< Texture Y axis bearing offset. */
-	uint16_t renderOffsetMax;	/**< Texture Y axis bearing maximum value. */
-	uint16_t renderOffsetMin;	/**< Texture Y axis bearing minimum value. */
+  uint16_t renderOffsetY; /**< Texture Y axis bearing offset. */
+  uint16_t renderOffsetMax; /**< Texture Y axis bearing maximum value. */
+  uint16_t renderOffsetMin; /**< Texture Y axis bearing minimum value. */
 
-	uint32_t* glyphDataTexture;	/**< Glyph texture bitmap data buffer. */
-} ftgxCharData;
+  uint32_t* glyphDataTexture; /**< Glyph texture bitmap data buffer. */
+}
+ftgxCharData;
 
 /*! \struct ftgxDataOffset_
  * 
  * Offset structure which hold both a maximum and minimum value.
  */
-typedef struct ftgxDataOffset_ {
-	uint16_t max;	/**< Maximum data offset. */
-	uint16_t min;	/**< Minimum data offset. */
-} ftgxDataOffset;
+typedef struct ftgxDataOffset_
+{
+  uint16_t max; /**< Maximum data offset. */
+  uint16_t min; /**< Minimum data offset. */
+}
+ftgxDataOffset;
 
 #define _TEXT(t) L ## t /**< Unicode helper macro. */
 
-#define FTGX_NULL				0x0000
-#define FTGX_JUSTIFY_LEFT		0x0001
-#define FTGX_JUSTIFY_CENTER		0x0002
-#define FTGX_JUSTIFY_RIGHT		0x0004
+#define FTGX_NULL    0x0000
+#define FTGX_JUSTIFY_LEFT  0x0001
+#define FTGX_JUSTIFY_CENTER  0x0002
+#define FTGX_JUSTIFY_RIGHT  0x0004
 
-#define FTGX_ALIGN_TOP			0x0010
-#define FTGX_ALIGN_MIDDLE		0x0020
-#define FTGX_ALIGN_BOTTOM		0x0040
+#define FTGX_ALIGN_TOP   0x0010
+#define FTGX_ALIGN_MIDDLE  0x0020
+#define FTGX_ALIGN_BOTTOM  0x0040
 
-#define FTGX_STYLE_UNDERLINE	0x0100
-#define FTGX_STYLE_STRIKE		0x0200
+#define FTGX_STYLE_UNDERLINE 0x0100
+#define FTGX_STYLE_STRIKE  0x0200
 
-#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_MODULATE	0X0001
-#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_DECAL		0X0002
-#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_BLEND		0X0004
-#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_REPLACE		0X0008
-#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR		0X0010
+#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_MODULATE 0X0001
+#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_DECAL  0X0002
+#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_BLEND  0X0004
+#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_REPLACE  0X0008
+#define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR  0X0010
 
-#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE		0X0100
-#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_DIRECT	0X0200
-#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_INDEX8	0X0400
-#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_INDEX16	0X0800
+#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE  0X0100
+#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_DIRECT 0X0200
+#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_INDEX8 0X0400
+#define FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_INDEX16 0X0800
 
-#define FTGX_COMPATIBILITY_NONE							0x0000
-#define FTGX_COMPATIBILITY_GRRLIB						FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE
-#define FTGX_COMPATIBILITY_LIBWIISPRITE					FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_MODULATE | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_DIRECT
+#define FTGX_COMPATIBILITY_NONE       0x0000
+#define FTGX_COMPATIBILITY_GRRLIB      FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE
+#define FTGX_COMPATIBILITY_LIBWIISPRITE     FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_MODULATE | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_DIRECT
 
-const GXColor ftgxWhite = (GXColor){0xff, 0xff, 0xff, 0xff}; /**< Constant color value used only to sanitize Doxygen documentation. */
+const GXColor ftgxWhite = (GXColor)
+                          {
+                            0xff, 0xff, 0xff, 0xff
+                          }
+                          ; /**< Constant color value used only to sanitize Doxygen documentation. */
 
 /*! \class FreeTypeGX
  * \brief Wrapper class for the libFreeType library with GX rendering.
@@ -230,62 +238,63 @@ const GXColor ftgxWhite = (GXColor){0xff, 0xff, 0xff, 0xff}; /**< Constant color
  * a specified texture format. Rendering of the data to the EFB is accomplished through the application of high performance
  * GX texture functions resulting in high throughput of string rendering.  
  */
-class FreeTypeGX {
+class FreeTypeGX
+{
 
-	private:
-		FT_Library ftLibrary;	/**< FreeType FT_Library instance. */
-		FT_Face ftFace;			/**< FreeType reusable FT_Face typographic object. */
-		FT_GlyphSlot ftSlot;	/**< FreeType reusable FT_GlyphSlot glyph container object. */
-		FT_UInt ftPointSize;	/**< Requested size of the rendered font. */
-		bool ftKerningEnabled;	/**< Flag indicating the availability of font kerning data. */
-		
-		uint8_t textureFormat;	/**< Defined texture format of the target EFB. */
-		uint8_t vertexIndex;	/**< Vertex format descriptor index. */	
-		uint32_t compatibilityMode;	/**< Compatibility mode for default tev operations and vertex descriptors. */	
-		std::map<wchar_t, ftgxCharData> fontData; /**< Map which holds the glyph data structures for the corresponding characters. */
+  private:
+    FT_Library ftLibrary; /**< FreeType FT_Library instance. */
+    FT_Face ftFace;   /**< FreeType reusable FT_Face typographic object. */
+    FT_GlyphSlot ftSlot; /**< FreeType reusable FT_GlyphSlot glyph container object. */
+    FT_UInt ftPointSize; /**< Requested size of the rendered font. */
+    bool ftKerningEnabled; /**< Flag indicating the availability of font kerning data. */
 
-		static uint16_t adjustTextureWidth(uint16_t textureWidth, uint8_t textureFormat);
-		static uint16_t adjustTextureHeight(uint16_t textureHeight, uint8_t textureFormat);
+    uint8_t textureFormat; /**< Defined texture format of the target EFB. */
+    uint8_t vertexIndex; /**< Vertex format descriptor index. */
+    uint32_t compatibilityMode; /**< Compatibility mode for default tev operations and vertex descriptors. */
+    std::map<wchar_t, ftgxCharData> fontData; /**< Map which holds the glyph data structures for the corresponding characters. */
 
-		static uint16_t getStyleOffsetWidth(uint16_t width, uint16_t format);
-		static uint16_t getStyleOffsetHeight(ftgxDataOffset offset, uint16_t format);
+    static uint16_t adjustTextureWidth(uint16_t textureWidth, uint8_t textureFormat);
+    static uint16_t adjustTextureHeight(uint16_t textureHeight, uint8_t textureFormat);
 
-		void unloadFont();
-		ftgxCharData *cacheGlyphData(wchar_t charCode);
-		uint16_t cacheGlyphDataComplete();
-		void loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData);
+    static uint16_t getStyleOffsetWidth(uint16_t width, uint16_t format);
+    static uint16_t getStyleOffsetHeight(ftgxDataOffset offset, uint16_t format);
 
-		void setDefaultMode();
+    void unloadFont();
+    ftgxCharData *cacheGlyphData(wchar_t charCode);
+    uint16_t cacheGlyphDataComplete();
+    void loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData);
 
-		void drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset offsetData, uint16_t format, GXColor color);
-		void copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, GXColor color);
-		void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY,  GXColor color);
-		
-	public:
-		FreeTypeGX(uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
-		~FreeTypeGX();
+    void setDefaultMode();
 
-		static wchar_t* charToWideChar(const char* p);
-		void setVertexFormat(uint8_t vertexIndex);
-		void setCompatibilityMode(uint32_t compatibilityMode);
-		
-		uint16_t loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll = false);
-		void changeFontSize(FT_UInt pixelSize);
-		
-		uint16_t drawText(int16_t x, int16_t y, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
-		uint16_t drawText(int16_t x, int16_t y, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
-		uint16_t drawText(int16_t x, int16_t y, const std::string &text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
+    void drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset offsetData, uint16_t format, GXColor color);
+    void copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, GXColor color);
+    void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY,  GXColor color);
 
-		uint16_t getWidth(wchar_t *text);
-		uint16_t getWidth(wchar_t const *text);
-		uint16_t getWidth(const std::string& text);
-		
-		uint16_t getHeight(wchar_t *text);
-		uint16_t getHeight(wchar_t const *text);
-		uint16_t getHeight(const std::string& text);
-		
-		ftgxDataOffset getOffset(wchar_t *text);
-		ftgxDataOffset getOffset(wchar_t const *text);
+  public:
+    FreeTypeGX(uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
+    ~FreeTypeGX();
+
+    static wchar_t* charToWideChar(const char* p);
+    void setVertexFormat(uint8_t vertexIndex);
+    void setCompatibilityMode(uint32_t compatibilityMode);
+
+    uint16_t loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll = false);
+    void changeFontSize(FT_UInt pixelSize);
+
+    uint16_t drawText(int16_t x, int16_t y, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
+    uint16_t drawText(int16_t x, int16_t y, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
+    uint16_t drawText(int16_t x, int16_t y, const std::string &text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
+
+    uint16_t getWidth(wchar_t *text);
+    uint16_t getWidth(wchar_t const *text);
+    uint16_t getWidth(const std::string& text);
+
+    uint16_t getHeight(wchar_t *text);
+    uint16_t getHeight(wchar_t const *text);
+    uint16_t getHeight(const std::string& text);
+
+    ftgxDataOffset getOffset(wchar_t *text);
+    ftgxDataOffset getOffset(wchar_t const *text);
 };
 
 #endif /* FREETYPEGX_H_ */

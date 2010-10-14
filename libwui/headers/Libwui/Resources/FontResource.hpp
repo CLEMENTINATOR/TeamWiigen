@@ -1,7 +1,8 @@
 #ifndef _UI_RESOURCE_FONTRESOURCE_HPP_
 #define _UI_RESOURCE_FONTRESOURCE_HPP_
 
-#include <libwiisys.h>
+#include <libwiisys/Object.h>
+#include <Libwiisys/Buffer.h>
 
 #include "../FreeTypeGX.h"
 #include <ogcsys.h>
@@ -15,16 +16,16 @@ namespace Libwui
     {
       public:
         FontResource(const std::string& fontPath);
-		FontResource(const u8* data, u32 size);
+        FontResource(const u8* data, u32 size);
         ~FontResource();
 
-		bool IsInitialized();
-		void Initialize(bool cacheAll = true, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
-		
-		FreeTypeGX* Font();
-		
+        bool IsInitialized();
+        void Initialize(bool cacheAll = true, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
+
+        FreeTypeGX* Font();
+
       protected:
-		FreeTypeGX* _font;
+        FreeTypeGX* _font;
         Libwiisys::Buffer _resource;
     };
   }

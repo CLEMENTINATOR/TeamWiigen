@@ -7,29 +7,29 @@
 #include "ListItemData.h"
 
 namespace Libwui
+{
+  namespace Component
+  {
+    class ListItem: public Control
     {
-    namespace Component
-	{
-	class ListItem: public Control
-	{
-	public:
-	    ListItem(ListItemData data);
-	    void InitializeComponents();
-	    void OverBackgroundColor(GXColor c);
-	    void NormalBackgroundColor(GXColor color);
-	    std::string StringValue();
-	private:
-	    ListItemData _data;
-	    Label _lbl;
-	    GXColor _overBackgroundColor;
-	    GXColor _normalBackgroundColor;
+      public:
+        ListItem(ListItemData data);
+        void InitializeComponents();
+        void OverBackgroundColor(GXColor c);
+        void NormalBackgroundColor(GXColor color);
+        std::string StringValue();
+      private:
+        ListItemData _data;
+        Label _lbl;
+        GXColor _overBackgroundColor;
+        GXColor _normalBackgroundColor;
 
-	protected:
-	    void Draw();
-	    void ProcessMessage(Message& message);
-	    virtual void OnCursorEnter();
-	    virtual void OnCursorLeave();
-	};
-	}
-    }
+      protected:
+        void Draw();
+        void ProcessMessage(Message& message);
+        virtual void OnCursorEnter();
+        virtual void OnCursorLeave();
+    };
+  }
+}
 #endif /* LISTITEM_H_ */

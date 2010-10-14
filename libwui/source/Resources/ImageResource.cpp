@@ -1,6 +1,5 @@
-#include <libwiisys.h>
-#include <libwui.h>
-
+#include <libwui/Resources/ImageResource.hpp>
+#include <Libwiisys/Exceptions/Exception.h>
 #include <pngu.h>
 #include <malloc.h>
 
@@ -11,114 +10,116 @@ using namespace Libwiisys::Exceptions;
 
 ImageResource::ImageResource(const string& imgPath)
 {
-	data = NULL;
-	width = 0;
-	height = 0;
+  data = NULL;
+  width = 0;
+  height = 0;
 
-	if(imgPath.length() > 0)
-	{
-			PNGUPROP imgProp;
-			IMGCTX ctx = PNGU_SelectImageFromDevice(imgPath.c_str());
+  if(imgPath.length() > 0)
+  {
+    PNGUPROP imgProp;
+    IMGCTX ctx = PNGU_SelectImageFromDevice(imgPath.c_str());
 
-			if(ctx)
-			{
-					int res = PNGU_GetImageProperties(ctx, &imgProp);
+    if(ctx)
+    {
+      int res = PNGU_GetImageProperties(ctx, &imgProp);
 
-					if(res == PNGU_OK)
-					{
-							int len = imgProp.imgWidth * imgProp.imgHeight * 4;
-							if(len%32) len += (32-len%32);
-							data = (u8 *)memalign (32, len);
+      if(res == PNGU_OK)
+      {
+        int len = imgProp.imgWidth * imgProp.imgHeight * 4;
+        if(len%32)
+          len += (32-len%32);
+        data = (u8 *)memalign (32, len);
 
-							if(data)
-							{
-									res = PNGU_DecodeTo4x4RGBA8 (ctx, imgProp.imgWidth, imgProp.imgHeight, data, 255);
+        if(data)
+        {
+          res = PNGU_DecodeTo4x4RGBA8 (ctx, imgProp.imgWidth, imgProp.imgHeight, data, 255);
 
-									if(res == PNGU_OK)
-									{
-											width = imgProp.imgWidth;
-											height = imgProp.imgHeight;
-											DCFlushRange(data, len);
-									}
-									else
-									{
-											free(data);
-											data = NULL;
-									}
-							}
-					}
-					PNGU_ReleaseImageContext (ctx);
-			}
-	}
+          if(res == PNGU_OK)
+          {
+            width = imgProp.imgWidth;
+            height = imgProp.imgHeight;
+            DCFlushRange(data, len);
+          }
+          else
+          {
+            free(data);
+            data = NULL;
+          }
+        }
+      }
+      PNGU_ReleaseImageContext (ctx);
+    }
+  }
 
-	if (!data)
-		throw Exception("Error creating image from data.");
+  if (!data)
+    throw Exception("Error creating image from data.");
 }
 
 ImageResource::ImageResource(const u8 * buffer)
 {
-	width = 0;
-	height = 0;
-	if(buffer)
-	{
-			PNGUPROP imgProp;
-			IMGCTX ctx = PNGU_SelectImageFromBuffer(buffer);
+  width = 0;
+  height = 0;
+  if(buffer)
+  {
+    PNGUPROP imgProp;
+    IMGCTX ctx = PNGU_SelectImageFromBuffer(buffer);
 
-			if(!ctx)
-					return;
+    if(!ctx)
+      return;
 
-			int res = PNGU_GetImageProperties(ctx, &imgProp);
+    int res = PNGU_GetImageProperties(ctx, &imgProp);
 
-			if(res == PNGU_OK)
-			{
-					int len = imgProp.imgWidth * imgProp.imgHeight * 4;
-					if(len%32) len += (32-len%32);
-					data = (u8 *)memalign (32, len);
+    if(res == PNGU_OK)
+    {
+      int len = imgProp.imgWidth * imgProp.imgHeight * 4;
+      if(len%32)
+        len += (32-len%32);
+      data = (u8 *)memalign (32, len);
 
-					if(data)
-					{
-							res = PNGU_DecodeTo4x4RGBA8 (ctx, imgProp.imgWidth, imgProp.imgHeight, data, 255);
+      if(data)
+      {
+        res = PNGU_DecodeTo4x4RGBA8 (ctx, imgProp.imgWidth, imgProp.imgHeight, data, 255);
 
-							if(res == PNGU_OK)
-							{
-									width = imgProp.imgWidth;
-									height = imgProp.imgHeight;
-									DCFlushRange(data, len);
-							}
-							else
-							{
-									free(data);
-									data = NULL;
-							}
-					}
-			}
-			PNGU_ReleaseImageContext (ctx);
-	}
-	
-	if (!data)
-		throw Exception("Error creating image from data.");
+        if(res == PNGU_OK)
+        {
+          width = imgProp.imgWidth;
+          height = imgProp.imgHeight;
+          DCFlushRange(data, len);
+        }
+        else
+        {
+          free(data);
+          data = NULL;
+        }
+      }
+    }
+    PNGU_ReleaseImageContext (ctx);
+  }
+
+  if (!data)
+    throw Exception("Error creating image from data.");
 }
 
 ImageResource::~ImageResource()
 {
-	if(data)
-	{
-		free(data);
-		data = NULL;
-	}
+  if(data)
+  {
+    free(data);
+    data = NULL;
+  }
 }
 
 u8* ImageResource::Image()
 {
-	return data;
+  return data;
 }
 
 int ImageResource::Width()
 {
-	return width;
+  return width;
 }
 
 int ImageResource::Height()
 {
-	return height;
+  return height;
 }

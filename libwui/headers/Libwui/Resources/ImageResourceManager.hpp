@@ -5,24 +5,24 @@
 #include <string>
 #include <ogcsys.h>
 
-#include <libwiisys.h>
+#include <libwiisys/Object.h>
 
 #include "ImageResource.hpp"
 
 namespace Libwui
 {
-	namespace Resources
-	{
-		class ImageResourceManager : public Libwiisys::Object
-		{
-		public:
-			static ImageResource* Get(const std::string& imagePath);
-		private:
-			ImageResourceManager();
-			std::map<std::string, ImageResource*> _resources;
-			static ImageResourceManager& Current();
-		};
-	}
+  namespace Resources
+  {
+    class ImageResourceManager : public Libwiisys::Object
+    {
+      public:
+        static ImageResource* Get(const std::string& imagePath);
+      private:
+        ImageResourceManager();
+        std::map<std::string, ImageResource*> _resources;
+        static ImageResourceManager& Current();
+    };
+  }
 }
 
 #endif

@@ -9,18 +9,19 @@
 #define LISTITEMDATA_H_
 
 #include <string>
-#include <libwiisys.h>
+#include <libwiisys/Object.h>
 namespace Libwui
+{
+  namespace Component
+  {
+
+    typedef struct ListItemData
     {
-    namespace Component
-	{
-
-	typedef struct ListItemData
-	{
-	    Libwiisys::Object *data;
-	    std::string text;
-	} ListItemData;
-
-	}
+      Libwiisys::Object *data;
+      std::string text;
     }
+    ListItemData;
+
+  }
+}
 #endif /* LISTITEMDATA_H_ */

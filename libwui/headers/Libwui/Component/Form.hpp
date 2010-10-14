@@ -6,19 +6,19 @@
 
 namespace Libwui
 {
-	namespace Component
-	{
-		class Form : public Libwui::Control
-		{			
-		protected:
-			bool IsInUITree();			
-		public:
-			void SetRoot(bool root);
-			Form();
-		private:
-			bool isRoot;
-		};
-	}
+  namespace Component
+  {
+    class Form : public Libwui::Control
+    {
+      protected:
+        bool IsInUITree();
+      public:
+        void SetRoot(bool root);
+        Form();
+      private:
+        bool isRoot;
+    };
+  }
 }
 
 #endif

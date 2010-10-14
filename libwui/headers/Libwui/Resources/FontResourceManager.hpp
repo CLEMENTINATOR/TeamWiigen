@@ -5,24 +5,24 @@
 #include <string>
 #include <ogcsys.h>
 
-#include <libwiisys.h>
+#include <libwiisys/Object.h>
 
 #include "FontResource.hpp"
 
 namespace Libwui
 {
-	namespace Resources
-	{
-		class FontResourceManager : public Libwiisys::Object
-		{
-		public:
-			static FontResource* Get(const std::string& fontPath);
-		private:
-			FontResourceManager();
-			std::map<std::string, FontResource*> _resources;
-			static FontResourceManager& Current();
-		};
-	}
+  namespace Resources
+  {
+    class FontResourceManager : public Libwiisys::Object
+    {
+      public:
+        static FontResource* Get(const std::string& fontPath);
+      private:
+        FontResourceManager();
+        std::map<std::string, FontResource*> _resources;
+        static FontResourceManager& Current();
+    };
+  }
 }
 
 #endif

@@ -7,14 +7,14 @@
 
 class MenuBase
 {
-protected:
-	u32 cursorPosition;
-	u32 nbItems;
-	u32 skip;
-	u32 skipMax;
+  protected:
+    u32 cursorPosition;
+    u32 nbItems;
+    u32 skip;
+    u32 skipMax;
 
-	u32 GetCommand();
-	MenuBase();
+    u32 GetCommand();
+    MenuBase();
 };
 
 #endif /* MENUBASE_H_ */

@@ -6,12 +6,12 @@
 
 class SeparatorMenuItem : public MenuItem
 {
-private:
-  std::string _separator;
-  
-public:
-  SeparatorMenuItem(TiXmlElement* node);
-  virtual void Render();
+  private:
+    std::string _separator;
+
+  public:
+    SeparatorMenuItem(TiXmlElement* node);
+    virtual void Render();
 };
 
 #endif

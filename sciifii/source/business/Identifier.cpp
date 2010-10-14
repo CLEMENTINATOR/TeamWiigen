@@ -1,14 +1,15 @@
 #include <sstream>
 
-#include <Sciifii.h>
+#include <sciifii/business/Identifier.h>
+#include <Libwiisys/logging/Log.h>
 
 using namespace std;
 using namespace Libwiisys::System::Security;
 using namespace Libwiisys::Logging;
 
 Identifier::Identifier(UserType type)
-: Installer(),
-	_type(type)
+    : Installer(),
+    _type(type)
 {}
 
 bool Identifier::Prepare()
@@ -18,14 +19,14 @@ bool Identifier::Prepare()
 
 void Identifier::Install()
 {
-	stringstream txt;
-	txt << "Identify as " << _type;
-	OnProgress(txt.str(), 1);
-	Identification::IdentifyAs(_type);
+  stringstream txt;
+  txt << "Identify as " << _type;
+  OnProgress(txt.str(), 1);
+  Identification::IdentifyAs(_type);
 }
 void Identifier::SendToLog()
 {
-	stringstream txt;
-	txt << "Identifier("<< _type <<" )";
-	Log::WriteLog(Log_Info,txt.str());
+  stringstream txt;
+  txt << "Identifier("<< _type <<" )";
+  Log::WriteLog(Log_Info,txt.str());
 }

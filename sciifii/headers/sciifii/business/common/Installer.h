@@ -5,35 +5,36 @@
 #include <string>
 #include <gctypes.h>
 #include <sstream>
-#include <libwiisys.h>
+#include <Libwiisys/Object.h>
+#include <Libwiisys/threading/ProgressEvent.h>
 
 class Installer : public Libwiisys::Object
 {
-private:
-	std::string _options;
-	std::vector<u32> _regions;
-  std::vector<s32> _ignoredExceptions;
+  private:
+    std::string _options;
+    std::vector<u32> _regions;
+    std::vector<s32> _ignoredExceptions;
 
-protected:
-	virtual void OnProgress(const std::string& message, f32 value);
-	virtual void OnWarning(const std::string& message, f32 value);
-public:
-	std::string Options();
-	void Options(const std::string& options);
-  
-	std::vector<u32>& Region();
-	void Region(std::string regions);
-  
-  std::vector<s32>& IgnoredExceptions();
-  void IgnoredExceptions(const std::string& exceptionsList);
+  protected:
+    virtual void OnProgress(const std::string& message, f32 value);
+    virtual void OnWarning(const std::string& message, f32 value);
+  public:
+    std::string Options();
+    void Options(const std::string& options);
 
-	virtual void SendToLog();
+    std::vector<u32>& Region();
+    void Region(std::string regions);
 
-	virtual bool Prepare() = 0;
-	virtual void Install() = 0;
-	Libwiisys::Threading::ProgressEvent Progressing;
-	Libwiisys::Threading::ProgressEvent Warning;
-	virtual ~Installer();
+    std::vector<s32>& IgnoredExceptions();
+    void IgnoredExceptions(const std::string& exceptionsList);
+
+    virtual void SendToLog();
+
+    virtual bool Prepare() = 0;
+    virtual void Install() = 0;
+    Libwiisys::Threading::ProgressEvent Progressing;
+    Libwiisys::Threading::ProgressEvent Warning;
+    virtual ~Installer();
 };
 
 #endif

@@ -6,14 +6,14 @@
 
 class FileDownloader : public Installer
 {
-private:
-	std::string _file;
+  private:
+    std::string _file;
 
-public:
-	FileDownloader(const std::string &file);
-	bool Prepare();
-	void Install();
-	void SendToLog();
+  public:
+    FileDownloader(const std::string &file);
+    bool Prepare();
+    void Install();
+    void SendToLog();
 };
 
 #endif

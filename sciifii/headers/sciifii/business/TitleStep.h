@@ -2,6 +2,7 @@
 #define _TITLE_STEP_H_
 
 #include "common/Installer.h"
+
 typedef enum
 {
   ti_Install,
@@ -13,7 +14,7 @@ typedef enum
 } TitleAction;
 
 class TitleStep : public Installer
-  {
+{
   private:
     u64 _id;
     u16 _revision;
@@ -27,6 +28,6 @@ class TitleStep : public Installer
     bool Prepare();
     void Install();
     void SendtoLog();
-  };
+};
 
 #endif

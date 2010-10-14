@@ -1,10 +1,10 @@
-#include <Sciifii.h>
+#include <sciifii/Switch.h>
 
 using namespace std;
 
 Switch::Switch(string name, bool active, string value)
 {
-	Name = name;
-	Value = value;
-	Activated = active;
+  Name = name;
+  Value = value;
+  Activated = active;
 }

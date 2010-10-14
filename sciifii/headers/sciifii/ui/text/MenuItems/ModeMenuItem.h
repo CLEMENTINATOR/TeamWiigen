@@ -3,17 +3,17 @@
 
 #include <string>
 #include <vector>
-#include <libwiisys.h>
+#include <Libwiisys/Serialization/Xml.h>
 #include "StartMenuItem.h"
 
 class ModeMenuItem : public StartMenuItem
 {
-private:
-	std::vector<std::string> _switches;
-	
-public:
-	ModeMenuItem(TiXmlElement* node);
-	virtual void ButtonPressed(u32 button);
+  private:
+    std::vector<std::string> _switches;
+
+  public:
+    ModeMenuItem(TiXmlElement* node);
+    virtual void ButtonPressed(u32 button);
 };
 
 #endif

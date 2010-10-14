@@ -3,7 +3,7 @@
 
 #include <gctypes.h>
 #include <string>
-#include <libwiisys.h>
+#include <Libwiisys/Object.h>
 #include <vector>
 #include <tinyxml.h>
 #include "business/common/Installer.h"
@@ -13,35 +13,35 @@
 
 class Config : public Libwiisys::Object
 {
-private:
-	s32 _region;
-	bool _hasNetwork;
+  private:
+    s32 _region;
+    bool _hasNetwork;
 
-	std::map<std::string,std::string> _switches;
+    std::map<std::string,std::string> _switches;
 
-	std::string _menuMessage;
-	std::string _workingDirectory;
-	std::string _disclaimer;
+    std::string _menuMessage;
+    std::string _workingDirectory;
+    std::string _disclaimer;
 
-	std::vector<Installer*> _availableSteps;
-	std::vector<Installer*> _validatedSteps;
+    std::vector<Installer*> _availableSteps;
+    std::vector<Installer*> _validatedSteps;
 
-	Config();
-	static Config& Instance();
-	void CreateLogs(TiXmlElement* element);
-	void CreateStepList(TiXmlElement* element);
-public:
-	static void Initialize(const std::string& configFilePath);
-	static void ValidateOptions();
-	static u32 GetRegion();
-	static void SetSwitch(const Switch& s);
-	static void ClearSwitches();
-	static std::string WorkingDirectory();
-	static bool HasNetwork();
-	static bool AutoClean();
-	static std::vector<Installer*> Steps();
-	static std::string MenuMessage();
-	static std::string DisclaimerText();
+    Config();
+    static Config& Instance();
+    void CreateLogs(TiXmlElement* element);
+    void CreateStepList(TiXmlElement* element);
+  public:
+    static void Initialize(const std::string& configFilePath);
+    static void ValidateOptions();
+    static u32 GetRegion();
+    static void SetSwitch(const Switch& s);
+    static void ClearSwitches();
+    static std::string WorkingDirectory();
+    static bool HasNetwork();
+    static bool AutoClean();
+    static std::vector<Installer*> Steps();
+    static std::string MenuMessage();
+    static std::string DisclaimerText();
 };
 
 #endif

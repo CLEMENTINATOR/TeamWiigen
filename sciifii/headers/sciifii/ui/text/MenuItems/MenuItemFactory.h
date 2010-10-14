@@ -5,8 +5,8 @@
 
 class MenuItemFactory : public Libwiisys::Object
 {
-public:
-	static MenuItem* CreateItem(TiXmlElement* node);
+  public:
+    static MenuItem* CreateItem(TiXmlElement* node);
 };
 
 #endif

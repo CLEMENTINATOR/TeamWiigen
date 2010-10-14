@@ -1,20 +1,22 @@
 #include <iostream>
-#include <Sciifii.h>
+#include <sciifii/ui/text/MenuItems/MenuItem.h>
+#include <Libwiisys/String/UtilString.h>
+#include <Libwiisys/Exceptions/Exception.h>
 
 using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
 MenuItem::MenuItem(TiXmlElement* node)
-  : _text(),
-	  Selected(false)
+    : _text(),
+    Selected(false)
 {
-	_text = UtilString::ToStr(node->Attribute("text"),"");
+  _text = UtilString::ToStr(node->Attribute("text"),"");
 }
 
 void MenuItem::Render()
 {
-	cout << (Selected ? ">>>\t" : "   \t") << _text;
+  cout << (Selected ? ">>>\t" : "   \t") << _text;
 }
 
 void MenuItem::ButtonPressed(u32 button)
@@ -22,16 +24,16 @@ void MenuItem::ButtonPressed(u32 button)
 
 void MenuItem::Validate()
 {}
-	
+
 void MenuItem::Cancel()
 {}
 
 void MenuItem::OnNavigate(NavigateEventArgs& args)
 {
-	NavigateRequested(this, &args);
+  NavigateRequested(this, &args);
 }
 
 void MenuItem::OnModifySwitch(SwitchEventArgs& args)
 {
-	SwitchSelectionChanged(this, &args);
+  SwitchSelectionChanged(this, &args);
 }

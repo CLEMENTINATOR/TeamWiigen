@@ -1,4 +1,5 @@
-#include <Sciifii.h>
+#include <sciifii/business/common/Installer.h>
+#include <Libwiisys/String/UtilString.h>
 
 using namespace std;
 using namespace Libwiisys::String;
@@ -6,45 +7,44 @@ using namespace Libwiisys::Threading;
 
 void Installer::OnProgress(const std::string& message, f32 value)
 {
-	ProgressEventArgs arg;
-	arg.message = message;
-	arg.percent = value;
-	Progressing(this, &arg);
+  ProgressEventArgs arg;
+  arg.message = message;
+  arg.percent = value;
+  Progressing(this, &arg);
 }
 
 void Installer::OnWarning(const std::string& message, f32 value)
 {
-	ProgressEventArgs arg;
-	arg.message = message;
-	arg.percent = value;
-	Warning(this, &arg);
+  ProgressEventArgs arg;
+  arg.message = message;
+  arg.percent = value;
+  Warning(this, &arg);
 }
 void Installer::SendToLog()
-{
-}
+{}
 Installer::~Installer()
 {}
 
 string Installer::Options()
 {
-	return _options;
+  return _options;
 }
 
 void Installer::Options(const string &o)
 {
-	_options = o;
+  _options = o;
 }
 
 vector<u32>& Installer::Region()
 {
-	return _regions;
+  return _regions;
 }
 
 void Installer::Region(string r)
 {
-	_regions.clear();
+  _regions.clear();
   vector<string> regions = UtilString::Split(r, ',', true);
-  
+
   for(vector<string>::iterator ite = regions.begin(); ite != regions.end(); ite++)
     _regions.push_back(UtilString::ToU32(ite->c_str()));
 }
@@ -58,7 +58,7 @@ void Installer::IgnoredExceptions(const string& exceptionsList)
 {
   _ignoredExceptions.clear();
   vector<string> exceptions = UtilString::Split(exceptionsList, ',');
-  
+
   for(vector<string>::iterator ite = exceptions.begin(); ite != exceptions.end(); ite++)
   {
     stringstream str(*ite);

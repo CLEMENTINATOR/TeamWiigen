@@ -20,7 +20,7 @@ SystemName := $(shell uname)
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source source/business/common source/business/tools source/business source/ui/text \
-							source/ui/text/MenuItems source/ui/Events source/ui/graphic
+							source/ui/text/MenuItems source/ui/Events source/ui/graphic/ source/ui/graphic/MenuItems
 DATA		:=	data  
 INCLUDES	:=	include headers
 

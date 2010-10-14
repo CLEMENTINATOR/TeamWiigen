@@ -1,9 +1,6 @@
 #ifndef _SCIIFII_GLOBAL_H_
 #define _SCIIFII_GLOBAL_H_
 
-#include <libwiisys.h>
-#include <libwui.h>
-
 #include "sciifii/Config.h"
 #include "sciifii/Sciifii.h"
 #include "sciifii/Tools.h"

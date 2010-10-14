@@ -2,18 +2,18 @@
 #define _NAVIGATION_MENU_ITEM_H_
 
 #include <string>
-#include <libwiisys.h>
+#include <Libwiisys/Serialization/Xml.h>
 #include "MenuItem.h"
 
 class NavigationMenuItem : public MenuItem
 {
-protected:
-	std::string _navigationMenuId;
-	bool _validate;
-	
-public:
-	NavigationMenuItem(TiXmlElement* node);
-	virtual void ButtonPressed(u32 button);
+  protected:
+    std::string _navigationMenuId;
+    bool _validate;
+
+  public:
+    NavigationMenuItem(TiXmlElement* node);
+    virtual void ButtonPressed(u32 button);
 };
 
 #endif

@@ -2,21 +2,21 @@
 #define _IDENTIFIER_H_
 
 #include <string>
-#include <libwiisys.h>
+#include <Libwiisys/system/Security/Identification.h>
 
 #include "common/Installer.h"
 
 class Identifier : public Installer
 {
-private:
-	UserType _type;
+  private:
+    UserType _type;
 
-public:
-	Identifier(UserType type);
-	bool Prepare();
-	void SendToLog();
+  public:
+    Identifier(UserType type);
+    bool Prepare();
+    void SendToLog();
 
-	void Install();
+    void Install();
 };
 
 #endif

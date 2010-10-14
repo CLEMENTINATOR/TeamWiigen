@@ -2,14 +2,14 @@
 #define _NAVIGATE_EVENT_ARGS_H_
 
 #include <string>
-#include <libwiisys.h>
+#include <Libwiisys/Object.h>
 
 class NavigateEventArgs : public Libwiisys::Object
 {
-public:
-	std::string NavigateTo;
-	std::string MenuId;
-	bool ValidateCurrentMenu;
+  public:
+    std::string NavigateTo;
+    std::string MenuId;
+    bool ValidateCurrentMenu;
 };
 
 #endif

@@ -1,15 +1,19 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
-
-#include <Sciifii.h>
+#include <Libwiisys/IO/File.h>
+#include <Libwiisys/IO/Path.h>
+#include <Libwiisys/system/Title.h>
+#include <Libwiisys/logging/Log.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <sciifii/business/TitleDowngrader.h>
+#include <sciifii/Config.h>
 
 using namespace fastdelegate;
 using namespace std;
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::System;
-using namespace Libwiisys::System::Patching;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys;
@@ -29,40 +33,40 @@ bool TitleDowngrader::Prepare()
   oldWad << Config::WorkingDirectory() << "/" <<Title::GetWadFormatedName(_id,_neededRevision);
 
   if ((!File::Exists(newWad.str()) || !File::Exists(oldWad.str())) && !Config::HasNetwork())
-    {
-      cout << "Network unavailable and wad files missing. Please refer to the readme." << endl;
-      return false;
-    }
+  {
+    cout << "Network unavailable and wad files missing. Please refer to the readme." << endl;
+    return false;
+  }
 
   if (!File::Exists(newWad.str()))
-    {
-      Title ios;
+  {
+    Title ios;
 
-      stringstream downloadMessage;
-      downloadMessage << "Downloading title " <<hex<<setfill('0') << setw(16) << _id << dec<< " from NUS.";
-      OnProgress(downloadMessage.str(), 0);
-      ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
+    stringstream downloadMessage;
+    downloadMessage << "Downloading title " <<hex<<setfill('0') << setw(16) << _id << dec<< " from NUS.";
+    OnProgress(downloadMessage.str(), 0);
+    ios.LoadFromNusServer(_id, 0, Config::WorkingDirectory());
 
-      stringstream packMessage;
-      packMessage << "Saving as "<< Path::GetFileName(newWad.str());
-      OnProgress(packMessage.str(), 0.25);
-      ios.PackAsWad(newWad.str());
-    }
+    stringstream packMessage;
+    packMessage << "Saving as "<< Path::GetFileName(newWad.str());
+    OnProgress(packMessage.str(), 0.25);
+    ios.PackAsWad(newWad.str());
+  }
 
   if (!File::Exists(oldWad.str()))
-    {
-      Title ios;
+  {
+    Title ios;
 
-      stringstream downloadMessage;
-      downloadMessage << "Downloading title " << hex<<setfill('0') << setw(16)<< _id << dec<< "v" << _neededRevision << " from NUS.";
-      OnProgress(downloadMessage.str(), 0.5);
-      ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
+    stringstream downloadMessage;
+    downloadMessage << "Downloading title " << hex<<setfill('0') << setw(16)<< _id << dec<< "v" << _neededRevision << " from NUS.";
+    OnProgress(downloadMessage.str(), 0.5);
+    ios.LoadFromNusServer(_id, _neededRevision, Config::WorkingDirectory());
 
-      stringstream packMessage;
-      packMessage << "Saving as " << Path::GetFileName(oldWad.str());
-      OnProgress(packMessage.str(), 0.75);
-      ios.PackAsWad(oldWad.str());
-    }
+    stringstream packMessage;
+    packMessage << "Saving as " << Path::GetFileName(oldWad.str());
+    OnProgress(packMessage.str(), 0.75);
+    ios.PackAsWad(oldWad.str());
+  }
 
   OnProgress("Downgrade preparation done.", 1);
   return true;
@@ -132,8 +136,8 @@ void TitleDowngrader::SkipStep(Object* sender, TitleEventArgs *args)
 
 void TitleDowngrader::SendToLog()
 {
-	stringstream str;
-	str<<"TitleDowngrader("<<hex<<_id<<dec<<","<<_neededRevision<<")";
-	Log::WriteLog(Log_Info,str.str());
+  stringstream str;
+  str<<"TitleDowngrader("<<hex<<_id<<dec<<","<<_neededRevision<<")";
+  Log::WriteLog(Log_Info,str.str());
 }
 

@@ -1,5 +1,3 @@
-
-
 #ifndef GMENUITEMFACTORY_H_
 #define GMENUITEMFACTORY_H_
 
@@ -7,8 +5,8 @@
 
 class GMenuItemFactory : public Libwiisys::Object
 {
-public:
-	static IMenuItem* CreateItem(TiXmlElement* node);
+  public:
+    static IMenuItem* CreateItem(TiXmlElement* node);
 };
 
 #endif /* GMENUITEMFACTORY_H_ */

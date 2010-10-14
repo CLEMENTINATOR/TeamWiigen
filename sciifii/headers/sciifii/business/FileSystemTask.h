@@ -5,31 +5,31 @@
 
 typedef enum
 {
-	FSTType_Folder,
-	FSTType_File,
+  FSTType_Folder,
+  FSTType_File,
 } FSTType;
 
 typedef enum
 {
-	FSTAction_Copy,
-	FSTAction_Delete,
-	FSTAction_Move,
+  FSTAction_Copy,
+  FSTAction_Delete,
+  FSTAction_Move,
 } FSTAction;
 
 class FileSystemTask : public Installer
 {
-private:
-	std::string _target;
-	std::string _destination;
-	FSTAction _action;
-	FSTType _type;
-	bool _recursive;
-	
-public:
-	FileSystemTask(const std::string &target, FSTAction action, FSTType type, const std::string& destination = "", bool recursive = true);
-	bool Prepare();
-	void Install();
-	void SendToLog();
+  private:
+    std::string _target;
+    std::string _destination;
+    FSTAction _action;
+    FSTType _type;
+    bool _recursive;
+
+  public:
+    FileSystemTask(const std::string &target, FSTAction action, FSTType type, const std::string& destination = "", bool recursive = true);
+    bool Prepare();
+    void Install();
+    void SendToLog();
 };
 
 #endif

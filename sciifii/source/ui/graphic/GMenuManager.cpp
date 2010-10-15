@@ -1,5 +1,7 @@
 #include <FastDelegate.h>
 #include <sciifii/ui/graphic/GMenuManager.h>
+#include <sciifii/Sciifii.h>
+#include <sciifii/Config.h>
 #include <Libwui/Resources/Colors.h>
 #include <Libwiisys/string/UtilString.h>
 #include <Libwiisys/Exceptions/Exception.h>
@@ -70,6 +72,15 @@ void GMenuManager::InitializeComponents()
 		ite->second->SetPosition(44,142);
 		ite->second->BackgroundColor(Colors::Transparent());
 	}
+	
+	mb.SetTitlePosition(16, 2);
+  mb.SetTitleSize(279, 14);
+  mb.SetTextPosition(16, 64);
+  mb.SetTextSize(279, 45);
+  mb.SetButtonPosition(76, 137);
+  mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
+  mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
+  mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
 }
 
 void GMenuManager::Menu_NavigateRequested(Libwiisys::Object* sender, NavigateEventArgs* args)
@@ -78,6 +89,8 @@ void GMenuManager::Menu_NavigateRequested(Libwiisys::Object* sender, NavigateEve
 		Visible(false);
 	else if(args->NavigateTo == "execution")
 	{
+		if(!ExecuteSciifii())
+			Visible(false);
 	}
 	else if(args->NavigateTo == "menu")
 	{
@@ -108,4 +121,35 @@ void GMenuManager::EnsureItems()
 	
 	AddChildren(_menus[_currentMenu]);
 	_menus[_currentMenu]->NavigateRequested += MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
+}
+
+bool GMenuManager::ExecuteSciifii()
+{
+  try
+  {
+    Config::ValidateOptions();
+    Sciifii sci;
+		
+    /*if (sci.Prepare())
+    {
+      sci.Execute();
+      cout << "Installation done! Press A to exit.";
+    }
+    else
+    {
+      Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
+      throw Exception("An error occured during prepare.");
+    }*/
+
+    return true;
+  }
+  catch(AbortException& ex)
+  {
+    return false;
+  }
+	catch(Exception& ex)
+  {
+		mb.Show(this, "Error", ex.ToString());
+    return false;
+  }
 }

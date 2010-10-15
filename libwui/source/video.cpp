@@ -27,38 +27,42 @@ static Mtx GXmodelView2D;
 int screenheight;
 int screenwidth;
 u32 FrameTimer = 0;
+static bool analyseWPads = false;
 
 /****************************************************************************
  * UpdatePadsCB
  *
  * called by postRetraceCallback in InitGCVideo - scans gcpad and wpad
  ***************************************************************************/
-static void
-UpdatePadsCB ()
+static void UpdatePadsCB ()
 {
-#ifdef HW_RVL
-  WPAD_ScanPads();
-#endif
+	#ifdef HW_RVL
+	if(analyseWPads)
+		WPAD_ScanPads();
+	#endif
 
-  PAD_ScanPads();
+	PAD_ScanPads();
 
-  for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
-  {
-#ifdef HW_RVL
-    memcpy(&PadController::Currents()[i].wpad, WPAD_Data(i), sizeof(WPADData));
-#endif
+	for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
+	{
+		#ifdef HW_RVL
+		if(analyseWPads)
+			memcpy(&PadController::Currents()[i].wpad, WPAD_Data(i), sizeof(WPADData));
+		else
+			memset(&PadController::Currents()[i].wpad, 0, sizeof(WPADData));
+		#endif
 
-    PadController::Currents()[i].chan = i;
-    PadController::Currents()[i].pad.btns_d = PAD_ButtonsDown(i);
-    PadController::Currents()[i].pad.btns_u = PAD_ButtonsUp(i);
-    PadController::Currents()[i].pad.btns_h = PAD_ButtonsHeld(i);
-    PadController::Currents()[i].pad.stickX = PAD_StickX(i);
-    PadController::Currents()[i].pad.stickY = PAD_StickY(i);
-    PadController::Currents()[i].pad.substickX = PAD_SubStickX(i);
-    PadController::Currents()[i].pad.substickY = PAD_SubStickY(i);
-    PadController::Currents()[i].pad.triggerL = PAD_TriggerL(i);
-    PadController::Currents()[i].pad.triggerR = PAD_TriggerR(i);
-  }
+		PadController::Currents()[i].chan = i;
+		PadController::Currents()[i].pad.btns_d = PAD_ButtonsDown(i);
+		PadController::Currents()[i].pad.btns_u = PAD_ButtonsUp(i);
+		PadController::Currents()[i].pad.btns_h = PAD_ButtonsHeld(i);
+		PadController::Currents()[i].pad.stickX = PAD_StickX(i);
+		PadController::Currents()[i].pad.stickY = PAD_StickY(i);
+		PadController::Currents()[i].pad.substickX = PAD_SubStickX(i);
+		PadController::Currents()[i].pad.substickY = PAD_SubStickY(i);
+		PadController::Currents()[i].pad.triggerL = PAD_TriggerL(i);
+		PadController::Currents()[i].pad.triggerR = PAD_TriggerR(i);
+	}
 }
 
 /****************************************************************************
@@ -66,8 +70,7 @@ UpdatePadsCB ()
  *
  * Initialises GX and sets it up for use
  ***************************************************************************/
-static void
-StartGX ()
+static void StartGX ()
 {
   GXColor background = { 0, 0, 0, 0xff };
 
@@ -87,8 +90,7 @@ StartGX ()
  *
  * Reset the video/rendering mode for the menu
 ****************************************************************************/
-void
-ResetVideo_Menu()
+void ResetVideo_Menu()
 {
   Mtx44 p;
   f32 yscale;
@@ -159,9 +161,7 @@ ResetVideo_Menu()
  * This function MUST be called at startup.
  * - also sets up menu video mode
  ***************************************************************************/
-
-void
-InitVideo ()
+void InitVideo ()
 {
   VIDEO_Init();
   vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
@@ -328,4 +328,22 @@ void Menu_DrawRectangle(f32 x, f32 y, f32 width, f32 height, GXColor color, u8 f
     GX_Color4u8(color.r, color.g, color.b, color.a);
   }
   GX_End();
+}
+
+void Menu_StopWPads()
+{
+	if(!analyseWPads)
+		return;
+		
+	WPAD_Shutdown();
+	analyseWPads = false;
+}
+
+void Menu_StartWPads()
+{
+	if(analyseWPads)
+		return;
+		
+	WPAD_Init();
+	analyseWPads = true;
 }

@@ -25,6 +25,7 @@ namespace Libwui
         static GXColor Cyan();
         static GXColor Yellow();
         static GXColor White();
+				static GXColor Transparent();
         static GXColor FromRGBA(int r, int g, int b, int a = 255);
 
     };

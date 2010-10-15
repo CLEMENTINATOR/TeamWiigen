@@ -8,6 +8,7 @@
 #include <Libwui/Device/PadControllers.hpp>
 #include <sciifii/Config.h>
 #include <sciifii/ui/graphic/GDisclaimer.h>
+#include <sciifii/ui/graphic/GMenuManager.h>
 
 using namespace std;
 using namespace Libwiisys::Exceptions;
@@ -39,6 +40,7 @@ class MainUI : public IMain
       PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
       Log::WriteLog(Log_Info, "pad image Loaded!");
       UIManager::Run(g);
+			UIManager::Run(GMenuManager::Instance());
       return 0;
     }
 };

@@ -3,12 +3,12 @@
 
 #include <map>
 #include <string>
-#include <Libwui/Control.hpp>
+#include <Libwui/Component/Form.hpp>
 #include <Libwui/Component/MessageBox.hpp>
 #include <Libwiisys/Serialization/Xml.h>
 #include "GDynamicMenu.h"
 
-class GMenuManager : public Libwui::Control
+class GMenuManager : public Libwui::Component::Form
 {
   private:
     std::map<std::string, GDynamicMenu*> _menus;

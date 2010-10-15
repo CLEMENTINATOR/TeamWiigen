@@ -37,11 +37,15 @@
     <file key="GXmeta" url="http://teamwiigen.fr.cr/appfiles/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
     <file key="GXicon" url="http://teamwiigen.fr.cr/appfiles/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
     <file key="cmios_plugin.dat" url="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat" sha1="http://teamwiigen.fr.cr/appFiles/gcbackuplauncher.dat.sha" />
+    <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appfiles/neoforwarder.wad" path="sd:/sciifii/temp/neoforwarder.wad" />
+    <file key="Neodol" url="http://teamwiigen.fr.cr/appfiles/neo.dol" path="sd:/apps/neogamma/boot.dol" />
+    <file key="Neoxml" url="http://teamwiigen.fr.cr/appfiles/neo.xml" path="sd:/apps/neogamma/meta.xml" />
   </files>
 
   <menus start="main">
     <menu id="main">
       <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
+      <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|Preloader|wiiflow" />
       <modeMenuItem text="Unhack your wii" switches="cIOS249|update|uninstall" />
@@ -55,10 +59,12 @@
       <switchMenuItem name="cIOS249" text="Install cios249 rev 17                   " />
       <switchMenuItem name="cIOS250" text="Install cios250 rev 19 (base 37)         " />
       <switchMenuItem name="update" text="Update your wii to 4.3                   " />
+      <switchMenuItem name="update4.2" text="Update your wii to 4.2                   " />
       <switchMenuItem name="uninstall" text="Remove the cioses (install ios stubs)    " hidden="true"/>
       <switchMenuItem name="Preloader" text="Install the priiloader                   " />
       <switchMenuItem name="corp" text="Install the Darkcorp 1.1                 " />
       <switchMenuItem name="cmios" text="Install the cmios                        " />
+      <switchMenuItem name="NeoLoader" text="Install the NeoGamma                     " />
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX                 " />
       <switchMenuItem name="wiiflow" text="Install Wiiflow                          " />
       <switchMenuItem name="clean" text="Clean temp files on exit                 " />
@@ -80,22 +86,6 @@
       <patch pattern="0x20, 0x07, 0x23, 0xA2" value="0x20, 0x00, 0x23, 0xA2" />
       <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
     </MemoryPatcher>
-
-    <!--
-		<CiosInstaller option="TBR" source="36" revision="0"  exceptions="-1035">
-      <patches>
-        <prebuild name="ES_HashCheck_Old" />
-        <prebuild name="ES_HashCheck_New" />
-        <prebuild name="ES_Identify" />
-        <prebuild name="FFS_PermsCheck" />
-      </patches>
-    </CiosInstaller>
-	
-		<CompositeInstaller option="TBR|cIOS249|cIOS250">
-			<IOSReloader id="36" />
-			<Identifier user="0" />
-		</CompositeInstaller>
-		-->
 
     <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" delete="true">
       <modules>
@@ -156,7 +146,7 @@
       </patches>
     </CiosInstaller>
 
-    <IOSReloader option="update|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean" id="249" user="0" />
+    <IOSReloader option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader" id="249" user="0" />
 
     <CompositeInstaller option="update" name="Update Ioses">
 
@@ -212,6 +202,85 @@
       <Title id="0000000100000034" revision="5888" action="install" />
       <Title id="000000010000003C" revision="6400" action="install" />
       <Title id="0000000100000046" revision="6912" action="install" />
+
+      <!-- Channels -->
+      <Title id="0001000248414241" revision="20" action="update" regions="0,1,2" />
+      <Title id="000100024841424B" revision="20" action="update" regions="4" />
+      <Title id="0001000248414341" revision="6" action="update" regions="0,1,2" />
+      <Title id="0001000248414645" revision="7" action="update" regions="1" />
+      <Title id="000100024841464A" revision="7" action="update" regions="0" />
+      <Title id="0001000248414650" revision="7" action="update" regions="2" />
+      <Title id="0001000248414745" revision="7" action="update" regions="1" />
+      <Title id="000100024841474A" revision="7" action="update" regions="0" />
+      <Title id="0001000248414750" revision="7" action="update" regions="2" />
+      <Title id="0001000248415941" revision="3" action="update" regions="0,1,2" />
+      <Title id="000100024841594B" revision="3" action="update" regions="4" />
+      <Title id="0001000848414B45" revision="3" action="update" regions="1" />
+      <Title id="0001000848414B4A" revision="3" action="update" regions="0" />
+      <Title id="0001000848414B4B" revision="3" action="update" regions="4" />
+      <Title id="0001000848414B50" revision="3" action="update" regions="2" />
+      <Title id="0001000848414C45" revision="2" action="update" regions="1" />
+      <Title id="0001000848414C4A" revision="2" action="update" regions="0" />
+      <Title id="0001000848414C4B" revision="2" action="update" regions="4" />
+      <Title id="0001000848414C50" revision="2" action="update" regions="2" />
+      <Title id="000100084843434A" revision="2" action="update" regions="0" />
+    </CompositeInstaller>
+    
+    <CompositeInstaller option="update4.2" name="Update Ioses 4.2">
+
+      <!-- classic ioses -->
+      <Title id="0000000100000004" revision="65280" action="install" />
+      <Title id="0000000100000009" revision="778" action="install" />
+      <Title id="000000010000000a" revision="768" action="install" />
+      <Title id="000000010000000b" revision="256" action="install" />
+      <Title id="000000010000000c" revision="269" action="install" />
+      <Title id="000000010000000d" revision="273" action="install" />
+      <Title id="000000010000000e" revision="520" action="install" />
+      <Title id="000000010000000f" revision="523" action="install" />
+      <Title id="0000000100000010" revision="512" action="install" />
+      <Title id="0000000100000011" revision="775" action="install" />
+      <Title id="0000000100000014" revision="256" action="install" />
+      <Title id="0000000100000015" revision="782" action="install" />
+      <Title id="0000000100000016" revision="1037" action="install" />
+      <Title id="000000010000001c" revision="1550" action="install" />
+      <Title id="000000010000001f" revision="3349" action="install" />
+      <Title id="0000000100000021" revision="3091" action="install" />
+      <Title id="0000000100000022" revision="3348" action="install" />
+      <Title id="0000000100000023" revision="3349" action="install" />
+      <Title id="0000000100000024" revision="3351" action="install" />
+      <Title id="0000000100000025" revision="3869" action="install" />
+      <Title id="0000000100000026" revision="3867" action="install" />
+      <Title id="0000000100000029" revision="3348" action="install" />
+      <Title id="000000010000002B" revision="3348" action="install" />
+      <Title id="000000010000002D" revision="3348" action="install" />
+      <Title id="000000010000002E" revision="3350" action="install" />
+      <Title id="0000000100000033" revision="4864" action="install" />
+      <Title id="0000000100000034" revision="5888" action="install" />
+      <Title id="0000000100000035" revision="5406" action="install" />
+      <Title id="0000000100000037" revision="5406" action="install" />
+      <Title id="0000000100000038" revision="5662" action="install" />
+      <Title id="0000000100000039" revision="5661" action="install" />
+      <Title id="000000010000003A" revision="6176" action="install" />
+      <Title id="000000010000003d" revision="5405" action="install" />
+      <Title id="0000000100000046" revision="6687" action="install" />
+
+      <!-- System Menu -->
+      <Title id="0000000100000002" revision="480" regions="0" action="install"/>
+      <Title id="0000000100000002" revision="481" regions="1" action="install"/>
+      <Title id="0000000100000002" revision="482" regions="2" action="install"/>
+      <Title id="0000000100000002" revision="486" regions="4" action="install"/>
+      <CiosInstaller source="60" revision="6174" slot="70" ciosRevision="6687" />
+
+      <!-- Old sysMenus stubs -->
+      <Title id="0000000100000009" revision="1034" action="install" />
+      <Title id="000000010000000B" revision="256" action="install" />
+      <Title id="0000000100000014" revision="256" action="install" />
+      <Title id="000000010000001E" revision="2816" action="install" />
+      <Title id="0000000100000028" revision="3072" action="install" />
+      <Title id="0000000100000032" revision="5120" action="install" />
+      <Title id="0000000100000034" revision="5888" action="install" />
+      <Title id="000000010000003C" revision="6400" action="install" />
+    
 
       <!-- Channels -->
       <Title id="0001000248414241" revision="20" action="update" regions="0,1,2" />
@@ -299,7 +368,15 @@
       </patches>
     </CiosInstaller>
 
-    <CompositeInstaller option="GXLoader" name="LoaderGX">
+
+    <CompositeInstaller option="NeoLoader" name="NeoLoader">
+      <FileDownloader file="Neodol" />
+      <FileDownloader file="Neoxml" />
+      <Title wad="Neoforwarder" action="install" />
+    </CompositeInstaller>
+
+
+    <CompositeInstaller option="GXLoader" name="GXLoader">
       <FileDownloader file="GXDol" />
       <FileDownloader file="GXmeta" />
       <FileDownloader file="GXicon" />

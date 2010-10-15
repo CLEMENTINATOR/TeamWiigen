@@ -62,6 +62,9 @@ void UIManager::Run(Form &form)
     Current().Update();
     LWP_YieldThread();
   }
+
+  Current()._uiThreadDefined = false;
+  Current()._rootElement = NULL;
 }
 
 void UIManager::ShowDialog(Libwui::Component::Form& dialog)

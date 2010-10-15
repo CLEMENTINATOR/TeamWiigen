@@ -6,6 +6,7 @@
 #include <sciifii/business/common/FileManager.h>
 #include <sciifii/business/common/InstallerFactory.h>
 #include <sciifii/ui/text/MenuManager.h>
+#include <sciifii/ui/graphic/GMenuManager.h>
 #include <Libwiisys/Network/NetworkUtility.h>
 #include <Libwiisys/logging/WebLogger.h>
 #include <Libwiisys/logging/GeckoLogger.h>
@@ -91,7 +92,13 @@ void Config::Initialize(const string& configFilePath)
       else if (nodeValue == "Disclaimer")
         c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
       else if (nodeValue == "menus")
-        MenuManager::Instance(child);
+			{
+				#ifdef USE_ADVANCED_UI
+				GMenuManager::Instance(child);
+				#else
+        MenuManager::Instance(child);				
+				#endif
+			}
       else
         throw Exception("Invalid XmlNode.");
     }

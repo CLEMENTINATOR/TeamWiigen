@@ -9,8 +9,6 @@
 #include <sciifii/Config.h>
 #include <sciifii/ui/graphic/GDisclaimer.h>
 
-#define USE_ADVANCED_UI
-
 using namespace std;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Logging;

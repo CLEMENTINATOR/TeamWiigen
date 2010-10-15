@@ -9,6 +9,8 @@
 #include "business/common/Installer.h"
 #include <map>
 #include "Switch.h"
+
+#define USE_ADVANCED_UI
 #define SCIIFII_VERSION "5"
 
 class Config : public Libwiisys::Object

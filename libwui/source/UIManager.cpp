@@ -17,9 +17,9 @@ UIManager::UIManager()
     _modalDialog(NULL)
 {
   LWP_MutexInit(&_messageQueueMutex, true);
-
+	
   PAD_Init();
-  WPAD_Init();
+	TrackWPads(true);
   InitVideo(); // Initialise video
   InitAudio(); // Initialize audio
 
@@ -123,6 +123,14 @@ void UIManager::Update()
     delete message;
   }
   LWP_MutexUnlock(Current()._messageQueueMutex);
+}
+
+void UIManager::TrackWPads(bool track)
+{
+	if(!track)
+		Menu_StopWPads();
+	else
+		Menu_StartWPads();
 }
 
 UIManager::~UIManager()

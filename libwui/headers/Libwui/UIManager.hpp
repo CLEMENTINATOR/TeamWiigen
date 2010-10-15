@@ -21,7 +21,9 @@ namespace Libwui
       static bool IsUiThread();
       static void Run(Libwui::Component::Form& main);
       static void ShowDialog(Libwui::Component::Form& dialog);
+			static void TrackWPads(bool track);
       ~UIManager();
+			
     private:
       std::queue<Message*> _messageQueue;
       mutex_t _messageQueueMutex;

@@ -16,7 +16,6 @@ GMenuManager::GMenuManager()
 {
 	BackgroundImage("sd:/sciifii/default/advanced_screen.png");
   SetSize(640, 480);
-	//44,142 à 596,377 (taille inner menu)
 }
 
 GMenuManager::~GMenuManager()
@@ -37,6 +36,7 @@ void GMenuManager::Initialyze(TiXmlElement* node)
     throw Exception("Can't create MenuManager from an other tag than menus");
 
   _startId = UtilString::ToStr(node->Attribute("start"),"");
+	_currentMenu = _startId;
   if(_startId=="")
     throw Exception("No start menu specified !");
   _menuPath.push_back(_startId);
@@ -52,7 +52,7 @@ void GMenuManager::Initialyze(TiXmlElement* node)
     menu = menu->NextSiblingElement();
   }
   if(_menus.find(_startId)==_menus.end())
-    throw Exception("start menu doesn't exist : "+_startId);
+    throw Exception("start menu doesn't exist : " + _startId);
 }
 
 GMenuManager& GMenuManager::Instance(TiXmlElement* node)
@@ -116,9 +116,8 @@ void GMenuManager::EnsureItems()
 	{
 		RemoveChildren(_menus[_currentMenu]);
 		_menus[_currentMenu]->NavigateRequested -= MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
-		_currentMenu = _menuPath.back();
 	}
-	
+	_currentMenu = _menuPath.back();
 	AddChildren(_menus[_currentMenu]);
 	_menus[_currentMenu]->NavigateRequested += MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
 }

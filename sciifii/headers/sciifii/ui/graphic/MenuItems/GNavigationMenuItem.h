@@ -4,9 +4,9 @@
 #include <string>
 #include <Libwiisys/Serialization/Xml.h>
 #include <Libwui/Component/Button.hpp>
-#include "IMenuItem.h"
+#include "GMenuItem.h"
 
-class GNavigationMenuItem : public IMenuItem, public Libwui::Component::Button
+class GNavigationMenuItem : public GMenuItem//, public Libwui::Component::Button
 {
   protected:
     std::string _navigationMenuId;

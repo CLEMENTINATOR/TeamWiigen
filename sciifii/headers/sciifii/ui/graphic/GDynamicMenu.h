@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "MenuItems/IMenuItem.h"
+#include "MenuItems/GMenuItem.h"
 #include "../Events/SwitchEventArgs.h"
 #include "../Events/NavigateEvent.h"
 #include "../Events/NavigateEventArgs.h"
@@ -16,7 +16,7 @@
 class GDynamicMenu : public Libwui::Control
 {
   private:
-		std::vector<IMenuItem*> items;
+		std::vector<GMenuItem*> items;
 		u32 _nbSkip;
 
 		Libwui::Component::Button _btnDown;

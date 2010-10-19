@@ -1,12 +1,12 @@
 #ifndef GMENUITEMFACTORY_H_
 #define GMENUITEMFACTORY_H_
 
-#include "IMenuItem.h"
+#include "GMenuItem.h"
 
 class GMenuItemFactory : public Libwiisys::Object
 {
   public:
-    static IMenuItem* CreateItem(TiXmlElement* node);
+    static GMenuItem* CreateItem(TiXmlElement* node);
 };
 
 #endif /* GMENUITEMFACTORY_H_ */

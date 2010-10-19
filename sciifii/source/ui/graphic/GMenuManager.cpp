@@ -11,6 +11,7 @@ using namespace fastdelegate;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 using namespace Libwui::Resources;
+using namespace Libwui::Events;
 
 GMenuManager::GMenuManager()
 {
@@ -68,7 +69,7 @@ void GMenuManager::InitializeComponents()
 {
 	for(map<string,GDynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
 	{
-    ite->second->SetSize(552,135);
+    ite->second->SetSize(552,230);
 		ite->second->SetPosition(44,142);
 		ite->second->BackgroundColor(Colors::Transparent());
 	}
@@ -81,6 +82,19 @@ void GMenuManager::InitializeComponents()
   mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
   mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
   mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
+	
+	btnExit.DefaultImage("sd:/sciifii/default/exitbutton_normal.png");
+  btnExit.OverImage("sd:/sciifii/default/exitbutton_over.png");
+  btnExit.SetSize(44, 44);
+  btnExit.SetPosition(600, 415);
+  btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
+  btnExit.InitializeComponents();
+	AddChildren(&btnExit);
+}
+
+void GMenuManager::Exit(Object* sender, CursorEventArgs* args)
+{
+  Visible(false);
 }
 
 void GMenuManager::Menu_NavigateRequested(Libwiisys::Object* sender, NavigateEventArgs* args)

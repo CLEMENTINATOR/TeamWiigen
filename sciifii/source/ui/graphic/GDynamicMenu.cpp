@@ -10,6 +10,7 @@ using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
 GDynamicMenu::GDynamicMenu(TiXmlElement* node)
+  : _nbSkip(0)
 {
 	string nodeValue = UtilString::ToStr(node->Value());
 	if (nodeValue != "menu")
@@ -83,19 +84,19 @@ void GDynamicMenu::EnsureItems()
 	u32 offsetY = 12;
 	for(u32 index = 0; index < items.size(); index++)
 	{
-		Control* c = (Control*)items[index];
+		GMenuItem* item = (GMenuItem*)items[index];
 		if(index < _nbSkip)
-			c->Visible(false);
-		else if(((s32)offsetY + c->GetHeight()) > GetHeight())
+			item->Visible(false);
+		else if(((s32)offsetY + item->GetHeight()) > GetHeight())
 		{
 			_btnDown.Enabled(true);
-			c->Visible(false);
+			item->Visible(false);
 		}
 		else
 		{
-			c->Visible(true);
-			c->SetPosition(12, offsetY);
-			offsetY += c->GetHeight();
+			item->Visible(true);
+			item->SetPosition(12, 12);
+			offsetY += item->GetHeight() + 12;
 		}
 	}
 }
@@ -110,7 +111,7 @@ void GDynamicMenu::btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs
 
 void GDynamicMenu::btnDown_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args)
 {
-	_nbSkip--;
+	_nbSkip++;
 	_btnUp.Enabled(true);
 	_btnDown.Enabled(false);
 	Invalidate();

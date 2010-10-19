@@ -2,12 +2,14 @@
 #include <sciifii/ui/graphic/MenuItems/GModeMenuItem.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwui/Events/CursorEventArgs.h>
+#include <Libwui/Resources/Colors.h>
 
 using namespace std;
 using namespace fastdelegate;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 using namespace Libwui::Events;
+using namespace Libwui::Resources;
 
 GModeMenuItem::GModeMenuItem(TiXmlElement* node)
     : GMenuItem(node)
@@ -23,6 +25,7 @@ GModeMenuItem::GModeMenuItem(TiXmlElement* node)
 void GModeMenuItem::InitializeComponents()
 {
 	SetSize(164,40);
+	BackgroundColor(Colors::Blue());
 	
 	_btn.Text(_text);
   _btn.SetSize(164,40);

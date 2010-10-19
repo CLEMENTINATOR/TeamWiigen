@@ -16,12 +16,15 @@ class GMenuManager : public Libwui::Component::Form
 		std::string _startId;
 		std::string _currentMenu;
 		
+		Libwui::Component::Button btnExit;
 		Libwui::Component::MessageBox mb;
 		
     GMenuManager();
     void Initialyze(TiXmlElement* node);
 		void Menu_NavigateRequested(Libwiisys::Object* sender, NavigateEventArgs* args);
 		bool ExecuteSciifii();
+		
+		void Exit(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
 		
 	protected:
 		void EnsureItems();

@@ -4,17 +4,22 @@
 #include <string>
 #include <Libwiisys/Serialization/Xml.h>
 #include <Libwui/Component/Button.hpp>
-#include "IMenuItem.h"
+#include "GMenuItem.h"
 
-class GModeMenuItem : public IMenuItem, public Libwui::Component::Button
+class GModeMenuItem : public GMenuItem//, public Libwui::Component::Button
 {
+	private:
+	Libwui::Component::Button _btn;
+	
+	void ManageClick(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+	
   protected:
     std::string _navigationMenuId;
 		std::vector<std::string> _switches;
-
+		
   public:
     GModeMenuItem(TiXmlElement* node);
-    virtual void OnClick(Libwui::Device::PadController &c);
+		void InitializeComponents();
 };
 
 #endif

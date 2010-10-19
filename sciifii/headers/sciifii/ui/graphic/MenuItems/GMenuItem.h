@@ -1,15 +1,16 @@
-#ifndef _I_MENU_ITEM_H_
-#define _I_MENU_ITEM_H_
+#ifndef _G_MENU_ITEM_H_
+#define _G_MENU_ITEM_H_
 
 #include <string>
 #include <Libwiisys/Object.h>
 #include <Libwiisys/Serialization/Xml.h>
+#include <Libwui/Control.hpp>
 #include "../../Events/SwitchEvent.h"
 #include "../../Events/SwitchEventArgs.h"
 #include "../../Events/NavigateEvent.h"
 #include "../../Events/NavigateEventArgs.h"
 
-class IMenuItem
+class GMenuItem : public Libwui::Control
 {
   protected:
     std::string _text;
@@ -20,7 +21,7 @@ class IMenuItem
     bool Selectable;
     bool Selected;
 
-    IMenuItem(TiXmlElement* node);
+    GMenuItem(TiXmlElement* node);
     virtual void Validate();
     virtual void Cancel();
 

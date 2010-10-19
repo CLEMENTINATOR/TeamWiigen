@@ -4,9 +4,9 @@
 #include <string>
 #include <Libwiisys/Serialization/Xml.h>
 #include <Libwui/Component/Button.hpp>
-#include "IMenuItem.h"
+#include "GMenuItem.h"
 
-class GExitMenuItem : public IMenuItem, public Libwui::Component::Button
+class GExitMenuItem : public GMenuItem//, public Libwui::Component::Button
 {
   public:
     GExitMenuItem(TiXmlElement* node);

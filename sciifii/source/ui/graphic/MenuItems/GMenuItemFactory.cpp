@@ -4,13 +4,13 @@
 #include "sciifii/ui/graphic/MenuItems/GMenuItemFactory.h"
 #include "sciifii/ui/graphic/MenuItems/GModeMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GExitMenuItem.h"
-#include "sciifii/ui/graphic/MenuItems/IMenuItem.h"
+#include "sciifii/ui/graphic/MenuItems/GMenuItem.h"
 
 using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
-IMenuItem* GMenuItemFactory::CreateItem(TiXmlElement* node)
+GMenuItem* GMenuItemFactory::CreateItem(TiXmlElement* node)
 {
   string nodeValue = UtilString::ToStr(node->Value(), "");
 

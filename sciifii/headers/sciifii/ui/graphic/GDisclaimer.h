@@ -12,13 +12,13 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::Button btnContinue;
     Libwui::Component::Button btnExit;
     Libwui::Component::TextAera textDisclaimer;
-    Libwui::Component::DropDownList list;
-    Libwui::Component::MessageBox mb;
+    //Libwui::Component::DropDownList list;
+    //Libwui::Component::MessageBox mb;
   public:
     GDisclaimer() ;
 
   protected:
     void InitializeComponents();
     void Exit(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
-    void PopupExit(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+    void Continue(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
 };

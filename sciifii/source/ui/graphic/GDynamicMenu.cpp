@@ -23,11 +23,10 @@ GDynamicMenu::GDynamicMenu(TiXmlElement* node)
 	{
 		if (item->Type() != TiXmlElement::COMMENT)
 		{
-			IMenuItem *mitem = GMenuItemFactory::CreateItem(item);
+			GMenuItem *mitem = GMenuItemFactory::CreateItem(item);
 			mitem->NavigateRequested += MakeDelegate(this,	&GDynamicMenu::Item_NavigateRequested);
 			mitem->SwitchSelectionChanged += MakeDelegate(this,	&GDynamicMenu::Item_SwitchSelectionChanged);
 			items.push_back(mitem);
-			AddChildren((Control*)mitem);
 		}
 		item = item->NextSiblingElement();
 	}
@@ -38,7 +37,7 @@ GDynamicMenu::GDynamicMenu(TiXmlElement* node)
 
 GDynamicMenu::~GDynamicMenu()
 {
-	for (vector<IMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
 	{
 		(*ite)->NavigateRequested -= MakeDelegate(this,	&GDynamicMenu::Item_NavigateRequested);
 		(*ite)->SwitchSelectionChanged -= MakeDelegate(this, &GDynamicMenu::Item_SwitchSelectionChanged);
@@ -49,6 +48,10 @@ GDynamicMenu::~GDynamicMenu()
 void GDynamicMenu::InitializeComponents()
 {
 	//Mettre en place les deux boutons
+	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		AddChildren(*ite);
+
+	Control::InitializeComponents();
 }
 
 void GDynamicMenu::Item_SwitchSelectionChanged(Object* sender, SwitchEventArgs* args)
@@ -63,12 +66,12 @@ void GDynamicMenu::Item_NavigateRequested(Object* sender, NavigateEventArgs* arg
 {
 	if(args->ValidateCurrentMenu)
 	{
-		for (vector<IMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
 			(*ite)->Validate();
 	}
 	else
 	{
-		for (vector<IMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
 			(*ite)->Cancel();
 	}
 

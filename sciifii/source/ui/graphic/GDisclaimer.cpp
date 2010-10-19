@@ -1,16 +1,15 @@
 #include <sciifii/ui/graphic/GDisclaimer.h>
+#include <Libwiisys/Exceptions/AbortException.h>
 
 using namespace Libwiisys;
 using namespace Libwui::Component;
 using namespace Libwui::Events;
+using namespace Libwiisys::Exceptions;
 using namespace std;
 using namespace fastdelegate;
 
 GDisclaimer::GDisclaimer() :
-    textDisclaimer(" ", 12, (GXColor)
-               {
-                 255,255,255,255
-               })
+    textDisclaimer(" ", 12, (GXColor){255,255,255,255})
 {}
 
 void GDisclaimer::InitializeComponents()
@@ -28,11 +27,7 @@ void GDisclaimer::InitializeComponents()
   textDisclaimer.Text(Config::DisclaimerText());
   textDisclaimer.SetPosition(130, 250);
   textDisclaimer.SetSize(390, 150);
-  textDisclaimer.ForeColor((GXColor)
-                           {
-                             255,0,0,255
-                           }
-                          );
+  textDisclaimer.ForeColor((GXColor){255,0,0,255});
   textDisclaimer.InitializeComponents();
 
   btnContinue.DefaultImage("sd:/sciifii/default/go_button.png");
@@ -41,9 +36,9 @@ void GDisclaimer::InitializeComponents()
   btnContinue.SetSize(164, 40);
   btnContinue.SetPosition(238, 430);
   btnContinue.InitializeComponents();
-  btnContinue.Click += MakeDelegate(this, &GDisclaimer::PopupExit);
+  btnContinue.Click += MakeDelegate(this, &GDisclaimer::Continue);
 
-  list.SetPosition(100, 100);
+  /*list.SetPosition(100, 100);
   list.SetSize(100, 100);
   list.AddItem(0, "a");
   list.AddItem(0, "b");
@@ -60,21 +55,21 @@ void GDisclaimer::InitializeComponents()
   list.DownDefaultImage("sd:/sciifii/default/arrow_down.png");
   list.UpOverImage("sd:/sciifii/default/arrow_up_over.png");
   list.DownOverImage("sd:/sciifii/default/arrow_down_over.png");
-  list.InitializeComponents();
+  list.InitializeComponents();*/
 
-  mb.SetTitlePosition(16, 2);
+  /*mb.SetTitlePosition(16, 2);
   mb.SetTitleSize(279, 14);
   mb.SetTextPosition(16, 64);
   mb.SetTextSize(279, 45);
   mb.SetButtonPosition(76, 137);
   mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
   mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
-  mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
+  mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");*/
 
   Form::InitializeComponents();
 
   AddChildren(&btnExit);
-  AddChildren(&list);
+  //AddChildren(&list);
   AddChildren(&btnContinue);
   AddChildren(&textDisclaimer);
 
@@ -83,10 +78,10 @@ void GDisclaimer::InitializeComponents()
 void GDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
   Visible(false);
+	throw AbortException();
 }
-void GDisclaimer::PopupExit(Object* sender, CursorEventArgs* args)
-{
-  mb.Show(this, "NON FALLAIT PAS TOUCHER ICI !", "KABOOM");
-  Visible(false);
 
+void GDisclaimer::Continue(Object* sender, CursorEventArgs* args)
+{
+  Visible(false);
 }

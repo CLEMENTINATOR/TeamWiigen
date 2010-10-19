@@ -90,6 +90,8 @@ void GMenuManager::InitializeComponents()
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
   btnExit.InitializeComponents();
 	AddChildren(&btnExit);
+	
+	Form::InitializeComponents();
 }
 
 void GMenuManager::Exit(Object* sender, CursorEventArgs* args)
@@ -134,6 +136,8 @@ void GMenuManager::EnsureItems()
 	_currentMenu = _menuPath.back();
 	AddChildren(_menus[_currentMenu]);
 	_menus[_currentMenu]->NavigateRequested += MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
+	
+	Form::EnsureItems();
 }
 
 bool GMenuManager::ExecuteSciifii()

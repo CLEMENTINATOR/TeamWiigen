@@ -95,10 +95,12 @@ void GDynamicMenu::EnsureItems()
 		else
 		{
 			item->Visible(true);
-			item->SetPosition(12, 12);
+			item->SetPosition(12, offsetY);
 			offsetY += item->GetHeight() + 12;
 		}
 	}
+	
+	Control::EnsureItems();
 }
 
 void GDynamicMenu::btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args)

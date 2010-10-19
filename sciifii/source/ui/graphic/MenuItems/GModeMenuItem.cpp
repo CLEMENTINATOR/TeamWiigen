@@ -25,7 +25,6 @@ GModeMenuItem::GModeMenuItem(TiXmlElement* node)
 void GModeMenuItem::InitializeComponents()
 {
 	SetSize(164,40);
-	BackgroundColor(Colors::Blue());
 	
 	_btn.Text(_text);
   _btn.SetSize(164,40);

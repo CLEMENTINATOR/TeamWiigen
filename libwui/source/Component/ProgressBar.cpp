@@ -13,17 +13,18 @@ using namespace Libwiisys::Threading;
 using namespace std;
 
 ProgressBar::ProgressBar() :
-	ActualValue(0), l("", 12, Colors::Black())
-{
-	l.SetTextAlignment(HAlign_Center, VAlign_Middle);
-	usedColor = Colors::Green();
-	defaultColor = Colors::White();
-	borderColor = Colors::Black();
-}
+	ActualValue(0), 
+	l("", 12, Colors::Black()),
+	usedColor(Colors::Green()),
+	defaultColor(Colors::White()),
+	borderColor(Colors::Black())
+{	}
 
 void ProgressBar::InitializeComponents()
 {
+	l.SetTextAlignment(HAlign_Center, VAlign_Middle);
 	AddChildren(&l);
+	Control::InitializeComponents();
 }
 
 void ProgressBar::SetMaxValue(f32 max)
@@ -41,6 +42,7 @@ void ProgressBar::SetMaxValue(f32 max)
 			MaxValue = max;
 	}
 }
+
 void ProgressBar::SetActualValue(f32 act)
 {
 	if (InvokeRequired())
@@ -56,11 +58,13 @@ void ProgressBar::SetActualValue(f32 act)
 		ActualValue = act;
 	}
 }
+
 void ProgressBar::ProcessMessage(Message& message)
 {
 	if (message.GetComponentId() != _fullId)
 	{
 		Control::ProcessMessage(message);
+		return;
 	}
 
 	string tag = message.GetTag();
@@ -90,24 +94,21 @@ void ProgressBar::ProcessMessage(Message& message)
 		params >> r >> g >> b >> a;
 		SetUsedColor(Colors::FromRGBA(r, g, b, a));
 	}
-	else if (tag == "BorderColor")
-	{
-		u8 r, g, b, a;
-		params >> r >> g >> b >> a;
-		SetBorderColor(Colors::FromRGBA(r, g, b, a));
-	}
 	else
 		Control::ProcessMessage(message);
 }
+
 void ProgressBar::SetText(string s)
 {
 	l.Text(s);
 }
+
 void ProgressBar::SetValue(Object *sender, ProgressEventArgs *p)
 {
 	SetActualValue(p->percent);
 	l.Text(p->message);
 }
+
 void ProgressBar::SetUsedColor(GXColor c)
 {
 	if (InvokeRequired())
@@ -137,28 +138,11 @@ void ProgressBar::SetDefaultColor(GXColor c)
 		defaultColor = c;
 	}
 }
-void ProgressBar::SetBorderColor(GXColor c)
-{
-	if (InvokeRequired())
-	{
-		stringstream params;
-		params << c.r << " " << c.g << " " << c.b << " " << c.a;
-		Message* m = new Message(_fullId, "BorderColor", params.str());
-		UIManager::AddMessage(m);
-	}
-	else
-	{
-		borderColor = c;
-	}
-}
+
 void ProgressBar::Draw()
 {
-	Menu_DrawRectangle(GetLeft(), GetTop(), GetWidth(), GetHeight(),
-			borderColor, 1);
-	Menu_DrawRectangle(GetLeft() + 1, GetTop() + 1, GetWidth() - 2, GetHeight()
-			- 2, defaultColor, 1);
-	Menu_DrawRectangle(GetLeft() + 1, GetTop() + 1, GetWidth()*(ActualValue/MaxValue), GetHeight() - 2,
-			usedColor, 1);
+	Menu_DrawRectangle(GetLeft() + 1, GetTop() + 1, GetWidth() - 2, GetHeight()	- 2, defaultColor, 1);
+	Menu_DrawRectangle(GetLeft() + 1, GetTop() + 1, GetWidth()*(ActualValue/MaxValue), GetHeight() - 2,	usedColor, 1);
 	Control::Draw();
 }
 
@@ -171,6 +155,7 @@ void ProgressBar::TextSize(int pt)
 {
 	l.FontSize(pt);
 }
+
 void ProgressBar::SetTextAlignement(HAlign halign, VAlign valign)
 {
 	l.HorizontalAlignement(halign);

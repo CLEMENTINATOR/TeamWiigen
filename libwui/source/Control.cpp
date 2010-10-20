@@ -110,11 +110,6 @@ void Control::RemoveChildren(Control* child)
 
 void Control::Draw()
 {
-  if(_invalidated)
-  {
-    EnsureItems();
-    _invalidated = false;
-  }
   for(set<Control*>::iterator child = _childs.begin(); child != _childs.end(); child++)
     (*child)->StartDrawing();
 }
@@ -138,7 +133,13 @@ void Control::StartDrawing()
   }
   else if(_backgroundColor.a != 0)
     Menu_DrawRectangle(GetLeft(), GetTop(), GetWidth(), GetHeight(), _backgroundColor, 1);
-
+		
+	if(_invalidated)
+  {
+    EnsureItems();
+    _invalidated = false;
+  }
+	
   Draw();
 }
 

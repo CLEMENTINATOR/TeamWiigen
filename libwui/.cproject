@@ -27,20 +27,20 @@
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.190923971" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\libogc\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\portlibs\ppc\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\powerpc-eabi&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\backward&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include-fixed&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1\powerpc-eabi&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1\backward&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.5.1\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.5.1\include-fixed&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.undef.incpaths.2106105843" superClass="org.eclipse.cdt.build.core.settings.holder.undef.incpaths" valueType="undefIncludePath">
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3/powerpc-eabi"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3/backward"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1/powerpc-eabi"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1/backward"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1"/>
 									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.4.3/include"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.4.3/include-fixed"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.5.1/include"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.5.1/include-fixed"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1308035463" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -48,20 +48,20 @@
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1927263808" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\libogc\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\portlibs\ppc\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\powerpc-eabi&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\backward&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include-fixed&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1\powerpc-eabi&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1\backward&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.5.1\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.5.1\include-fixed&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.undef.incpaths.1238431679" superClass="org.eclipse.cdt.build.core.settings.holder.undef.incpaths" valueType="undefIncludePath">
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3/powerpc-eabi"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3/backward"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1/powerpc-eabi"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1/backward"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1"/>
 									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.4.3/include"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.4.3/include-fixed"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.5.1/include"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.5.1/include-fixed"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1119834431" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -69,20 +69,20 @@
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.2036765576" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\libogc\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\portlibs\ppc\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\powerpc-eabi&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.4.3\backward&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.4.3\include-fixed&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1\powerpc-eabi&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include\c++\4.5.1\backward&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.5.1\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\lib\gcc\powerpc-eabi\4.5.1\include-fixed&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\devkitPro\devkitPPC\powerpc-eabi\include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.undef.incpaths.291319498" superClass="org.eclipse.cdt.build.core.settings.holder.undef.incpaths" valueType="undefIncludePath">
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3/powerpc-eabi"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3/backward"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.4.3"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1/powerpc-eabi"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1/backward"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include/c++/4.5.1"/>
 									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/powerpc-eabi/include"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.4.3/include"/>
-									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.4.3/include-fixed"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.5.1/include"/>
+									<listOptionValue builtIn="false" value="c:/devkitpro/devkitppc/lib/gcc/powerpc-eabi/4.5.1/include-fixed"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1492564063" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>

@@ -6,6 +6,7 @@
 
 using namespace std;
 using namespace fastdelegate;
+using namespace Libwui;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
@@ -48,7 +49,25 @@ GDynamicMenu::~GDynamicMenu()
 
 void GDynamicMenu::InitializeComponents()
 {
-	//Mettre en place les deux boutons
+	_btnDown.SetSize(36,36);
+	_btnDown.Enabled(false);
+	_btnDown.SetPosition(0, -3);
+	_btnDown.VerticalAlignement(VAlign_Bottom);
+	_btnDown.HorizontalAlignement(HAlign_Center);
+	_btnDown.DefaultImage("sd:/sciifii/default/Down_Default.png");
+  _btnDown.OverImage("sd:/sciifii/default/Down_Over.png");
+  _btnDown.ClickedImage("sd:/sciifii/default/Down_Clicked.png");
+	AddChildren(&_btnDown);
+	
+	_btnUp.SetSize(36,36);
+	_btnUp.Enabled(false);
+	_btnUp.SetPosition(0, 9);
+	_btnUp.HorizontalAlignement(HAlign_Center);
+	_btnUp.DefaultImage("sd:/sciifii/default/Up_Default.png");
+  _btnUp.OverImage("sd:/sciifii/default/Up_Over.png");
+  _btnUp.ClickedImage("sd:/sciifii/default/Up_Clicked.png");
+	AddChildren(&_btnUp);
+	
 	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
 		AddChildren(*ite);
 
@@ -81,29 +100,33 @@ void GDynamicMenu::Item_NavigateRequested(Object* sender, NavigateEventArgs* arg
 
 void GDynamicMenu::EnsureItems()
 {
-	u32 offsetY = 12;
+	u32 offsetY = 48;
 	u32 offsetX = 12;
-	s32 currentLine = 0;
+	u32 currentLine = 0;
 	s32 maxHeight = 0;
 
 	for(u32 index = 0; index < items.size(); index++)
 	{
 		GMenuItem* item = (GMenuItem*)items[index];
 
-		if(((s32)offsetX + item->GetWidth()) > GetWidth() - 12)
+		//detect when we need to put new lines
+		if((item->BreakBefore && offsetX != 12) || ((s32)offsetX + item->GetWidth()) > GetWidth() - 12)
 		{
-			currentLine++;
 			offsetX = 12;
-			offsetY += 12 + maxHeight;
+			if(currentLine >= _nbSkip)
+				offsetY += 3 + maxHeight;
+			currentLine++;
 			maxHeight = 0;
 		}
 
+		//getting the max height item of the line
 		if(maxHeight < item->GetHeight())
 			maxHeight = item->GetHeight();
 
+		//setting the items position and visibility
 		if(currentLine < _nbSkip)
 			item->Visible(false);
-		else if(((s32)offsetY + item->GetHeight()) > GetHeight())
+		else if(((s32)offsetY + item->GetHeight() + 48) > GetHeight())
 		{
 			_btnDown.Enabled(true);
 			item->Visible(false);
@@ -111,10 +134,19 @@ void GDynamicMenu::EnsureItems()
 		else
 		{
 			item->Visible(true);
-			item->SetPosition(12, offsetY);
-			offsetY += item->GetHeight() + 12;
-			offsetX += item->GetWidth() + 12;
+			item->SetPosition(offsetX, offsetY);
 		}
+		
+		//setting the Position for the next item
+		if(item->BreakAfter)
+		{
+			offsetX = 12;
+			offsetY += maxHeight + 3;
+			maxHeight = 0;
+			currentLine++;
+		}
+		else
+			offsetX += item->GetWidth() + 12;
 	}
 	
 	Control::EnsureItems();

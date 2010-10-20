@@ -82,10 +82,26 @@ void GDynamicMenu::Item_NavigateRequested(Object* sender, NavigateEventArgs* arg
 void GDynamicMenu::EnsureItems()
 {
 	u32 offsetY = 12;
+	u32 offsetX = 12;
+	s32 currentLine = 0;
+	s32 maxHeight = 0;
+
 	for(u32 index = 0; index < items.size(); index++)
 	{
 		GMenuItem* item = (GMenuItem*)items[index];
-		if(index < _nbSkip)
+
+		if(((s32)offsetX + item->GetWidth()) > GetWidth() - 12)
+		{
+			currentLine++;
+			offsetX = 12;
+			offsetY += 12 + maxHeight;
+			maxHeight = 0;
+		}
+
+		if(maxHeight < item->GetHeight())
+			maxHeight = item->GetHeight();
+
+		if(currentLine < _nbSkip)
 			item->Visible(false);
 		else if(((s32)offsetY + item->GetHeight()) > GetHeight())
 		{
@@ -97,6 +113,7 @@ void GDynamicMenu::EnsureItems()
 			item->Visible(true);
 			item->SetPosition(12, offsetY);
 			offsetY += item->GetHeight() + 12;
+			offsetX += item->GetWidth() + 12;
 		}
 	}
 	

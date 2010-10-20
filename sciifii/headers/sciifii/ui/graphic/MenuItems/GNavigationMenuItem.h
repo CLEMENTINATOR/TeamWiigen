@@ -6,15 +6,18 @@
 #include <Libwui/Component/Button.hpp>
 #include "GMenuItem.h"
 
-class GNavigationMenuItem : public GMenuItem//, public Libwui::Component::Button
+class GNavigationMenuItem : public GMenuItem
 {
   protected:
+	Libwui::Component::Button _btn;
     std::string _navigationMenuId;
     bool _validate;
 
+    void ManageClick(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+
   public:
     GNavigationMenuItem(TiXmlElement* node);
-    virtual void OnClick(Libwui::Device::PadController &c);
+    void InitializeComponents();
 };
 
 #endif

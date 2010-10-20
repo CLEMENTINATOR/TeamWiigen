@@ -21,7 +21,6 @@ public:
 	void ProcessMessage(Message& message);
 	void SetUsedColor(GXColor c);
 	void SetDefaultColor(GXColor c);
-	void SetBorderColor(GXColor c);
 	void ForeColor(GXColor c);
 	void TextSize(int pt);
 	void SetTextAlignement(HAlign halign, VAlign valign);
@@ -31,7 +30,6 @@ private:
 	Label l;
 	GXColor defaultColor;
 	GXColor usedColor;
-	GXColor borderColor;
 protected:
 	void Draw();
 };

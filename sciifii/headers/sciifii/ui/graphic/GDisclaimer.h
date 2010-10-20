@@ -4,6 +4,7 @@
 #include <Libwui/Component/TextAera.h>
 #include <Libwui/Component/DropDownList.hpp>
 #include <Libwui/Component/MessageBox.hpp>
+#include <Libwui/Component/ProgressBar.h>
 #include <sciifii/Config.h>
 
 class GDisclaimer : public Libwui::Component::Form
@@ -14,6 +15,7 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::TextAera textDisclaimer;
     //Libwui::Component::DropDownList list;
     //Libwui::Component::MessageBox mb;
+    Libwui::Component::ProgressBar pBar;
   public:
     GDisclaimer() ;
 

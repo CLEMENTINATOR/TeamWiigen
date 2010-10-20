@@ -39,8 +39,8 @@ class MainUI : public IMain
       GDisclaimer g;
       PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
       Log::WriteLog(Log_Info, "pad image Loaded!");
-      //UIManager::Run(g);
-			UIManager::Run(GMenuManager::Instance());
+      UIManager::Run(g);
+	  UIManager::Run(GMenuManager::Instance());
       return 0;
     }
 };

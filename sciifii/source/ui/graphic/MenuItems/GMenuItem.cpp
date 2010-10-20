@@ -9,7 +9,8 @@ using namespace Libwiisys::String;
 
 GMenuItem::GMenuItem(TiXmlElement* node)
     : _text(),
-    Selected(false)
+    BreakBefore(false),
+    BreakAfter(false)
 {
   _text = UtilString::ToStr(node->Attribute("text"),"");
 }

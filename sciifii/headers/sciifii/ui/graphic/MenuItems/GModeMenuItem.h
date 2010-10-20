@@ -6,20 +6,19 @@
 #include <Libwui/Component/Button.hpp>
 #include "GMenuItem.h"
 
-class GModeMenuItem : public GMenuItem//, public Libwui::Component::Button
+class GModeMenuItem : public GMenuItem
 {
-	private:
+  private:
 	Libwui::Component::Button _btn;
-	
 	void ManageClick(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
 	
   protected:
     std::string _navigationMenuId;
-		std::vector<std::string> _switches;
+	std::vector<std::string> _switches;
 		
   public:
     GModeMenuItem(TiXmlElement* node);
-		void InitializeComponents();
+	void InitializeComponents();
 };
 
 #endif

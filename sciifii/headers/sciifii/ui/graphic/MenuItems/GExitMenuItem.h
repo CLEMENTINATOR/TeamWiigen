@@ -6,11 +6,15 @@
 #include <Libwui/Component/Button.hpp>
 #include "GMenuItem.h"
 
-class GExitMenuItem : public GMenuItem//, public Libwui::Component::Button
+class GExitMenuItem : public GMenuItem
 {
+  private:
+	Libwui::Component::Button _btn;
+	void ManageClick(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
+
   public:
     GExitMenuItem(TiXmlElement* node);
-    virtual void OnClick(Libwui::Device::PadController &c);
+    void InitializeComponents();
 };
 
 #endif

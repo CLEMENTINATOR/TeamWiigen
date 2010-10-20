@@ -18,8 +18,8 @@ class GMenuItem : public Libwui::Control
     void OnNavigate(NavigateEventArgs& args);
 
   public:
-    bool Selectable;
-    bool Selected;
+    bool BreakBefore;
+    bool BreakAfter;
 
     GMenuItem(TiXmlElement* node);
     virtual void Validate();

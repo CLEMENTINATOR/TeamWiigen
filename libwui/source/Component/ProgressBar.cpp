@@ -141,8 +141,8 @@ void ProgressBar::SetDefaultColor(GXColor c)
 
 void ProgressBar::Draw()
 {
-	Menu_DrawRectangle(1,1, GetWidth() - 2, GetHeight()	- 2, defaultColor, 1);
-	Menu_DrawRectangle(1,1, GetWidth()*(ActualValue/MaxValue), GetHeight() - 2,	usedColor, 1);
+	Menu_DrawRectangle(GetLeft() + 1, GetTop() + 1, GetWidth() - 2, GetHeight()	- 2, defaultColor, 1);
+	Menu_DrawRectangle(GetLeft() + 1, GetTop() + 1, (int)((f32)(GetWidth())*(ActualValue/MaxValue)), GetHeight() - 2,	usedColor, 1);
 	Control::Draw();
 }
 

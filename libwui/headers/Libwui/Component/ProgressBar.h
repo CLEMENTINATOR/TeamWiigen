@@ -28,8 +28,9 @@ private:
 	f32 MaxValue;
 	f32 ActualValue;
 	Label l;
-	GXColor defaultColor;
 	GXColor usedColor;
+
+	GXColor defaultColor;
 protected:
 	void Draw();
 };

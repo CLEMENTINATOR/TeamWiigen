@@ -132,19 +132,7 @@ void Checkbox::FontSize(int pt)
 
 void Checkbox::OnClick(Libwui::Device::PadController &c)
 {
-  _checked = !_checked;
-
-  if (_checked)
-  {
-    if (_checkedImage != "")
-      _currentImage = _checkedImage;
-  }
-  else
-  {
-    _currentImage = _defaultImage;
-  }
-
-  Invalidate();
+	Checked(!Checked());
   Control::OnClick(c);
 }
 
@@ -157,6 +145,35 @@ void Checkbox::OnCheckChanged(Libwui::Device::PadController &c)
 bool Checkbox::Checked() const
 {
   return _checked;
+}
+
+void Checkbox::Checked(bool c)
+{
+  if (InvokeRequired())
+  {
+		stringstream param;
+		param << c;
+    Message* m = new Message(_fullId, "Checked", param.str());
+    UIManager::AddMessage(m);
+    return;
+  }
+
+	if(_checked != c)
+	{
+		_checked = c;
+
+		if (_checked)
+		{
+			if (_checkedImage != "")
+				_currentImage = _checkedImage;
+		}
+		else
+		{
+			_currentImage = _defaultImage;
+		}
+
+		Invalidate();
+	}
 }
 
 void Checkbox::EnsureItems()

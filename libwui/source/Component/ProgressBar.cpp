@@ -13,6 +13,7 @@ using namespace Libwiisys::Threading;
 using namespace std;
 
 ProgressBar::ProgressBar() :
+	MaxValue(1),
 	ActualValue(0), 
 	l("", 12, Colors::Black()),
 	usedColor(Colors::Green()),
@@ -38,7 +39,7 @@ void ProgressBar::SetMaxValue(f32 max)
 	}
 	else
 	{
-		if (MaxValue > 0)
+		if (max > 0)
 			MaxValue = max;
 	}
 }

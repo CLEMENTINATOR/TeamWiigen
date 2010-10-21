@@ -5,6 +5,7 @@
 #include "sciifii/ui/graphic/MenuItems/GModeMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GExitMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GSeparatorMenuItem.h"
+#include "sciifii/ui/graphic/MenuItems/GSwitchMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GMenuItem.h"
 
 using namespace std;
@@ -30,6 +31,10 @@ GMenuItem* GMenuItemFactory::CreateItem(TiXmlElement* node)
 	else if (nodeValue == "separatorMenuItem")
   {
     return new GSeparatorMenuItem(node);
+  }
+	else if (nodeValue == "switchMenuItem")
+  {
+    return new GSwitchMenuItem(node);
   }
   else
     throw Exception("Incorrect node : " + nodeValue);

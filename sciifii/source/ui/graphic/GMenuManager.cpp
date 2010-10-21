@@ -134,6 +134,8 @@ void GMenuManager::EnsureItems()
 		_menus[_currentMenu]->NavigateRequested -= MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
 	}
 	_currentMenu = _menuPath.back();
+	if(_menus.find(_currentMenu) == _menus.end())
+		throw Exception("The requested menu \"" + _currentMenu + "\" doesn't exist.");
 	AddChildren(_menus[_currentMenu]);
 	_menus[_currentMenu]->NavigateRequested += MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
 	

@@ -19,7 +19,9 @@ ProgressBar::ProgressBar() :
 	usedColor(Colors::Green()),
 	defaultColor(Colors::White())
 
-{	}
+{
+BackgroundColor(Colors::Black());
+}
 
 void ProgressBar::InitializeComponents()
 {

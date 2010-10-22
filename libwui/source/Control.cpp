@@ -29,12 +29,8 @@ Control::Control()
     _state(STATE_ENABLED | STATE_VISIBLE),
     _buttonState(0),
     _downButton(0),
-    _backgroundColor((GXColor)
-                 {
-                   255,255,255,0
-                 }
-                ),
-_backgroundImage()
+    _backgroundColor((GXColor){255,255,255,0}),
+    _backgroundImage()
 {}
 
 void Control::AddChildren(Control* child)
@@ -438,6 +434,7 @@ void Control::SetPosition(int x, int y)
   {
     _xoffset = x;
     _yoffset = y;
+		Invalidate();
   }
 }
 
@@ -454,6 +451,7 @@ void Control::SetSize(int w, int h)
   {
     _width = w;
     _height = h;
+		Invalidate();
   }
 }
 

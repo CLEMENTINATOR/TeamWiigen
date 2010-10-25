@@ -13,7 +13,7 @@ using namespace std;
 Checkbox::Checkbox() :
     _checkBoxText("", 12, Colors::Black()), _checked(false), _textPosition(HAlign_Right)
 {
-  _checkBoxText.SetTextAlignment(_textPosition, VAlign_Middle);
+  _checkBoxText.SetTextAlignment(HAlign_Left, VAlign_Middle);
   _checkBoxImg.VerticalAlignement(VAlign_Middle);
 
 }
@@ -183,13 +183,14 @@ void Checkbox::EnsureItems()
   {
     _checkBoxImg.SetPosition(0, 0);
     _checkBoxText.SetPosition(5 + _checkBoxImg.GetWidth(), 0);
+    _checkBoxText.SetTextAlignment(HAlign_Left, VAlign_Middle);
     _checkBoxText.SetSize(GetWidth()-(5 + _checkBoxImg.GetWidth()),GetHeight());
   }
   else if (_textPosition == HAlign_Left)
   {
     _checkBoxText.SetPosition(0, 0);
     _checkBoxImg.SetPosition(GetWidth()-resource->Width(), 0);
-    _checkBoxText.SetTextAlignment(HAlign_Left, VAlign_Middle);
+    _checkBoxText.SetTextAlignment(HAlign_Right, VAlign_Middle);
     _checkBoxText.SetSize(GetWidth()-resource->Width(),GetHeight());
   }
 }

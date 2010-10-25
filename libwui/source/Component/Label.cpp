@@ -191,7 +191,7 @@ void Label::Draw()
 
 
   //test si le text est trop long pour le label (et donc scroll)
-  u8 nbCharMax = (Parent()->GetWidth() * 2.0) / size;
+  u8 nbCharMax = ((Parent()->GetWidth() - _xoffset) * 2.0) / size;
   bool needScroll = nbCharMax < txt.length();
 
 

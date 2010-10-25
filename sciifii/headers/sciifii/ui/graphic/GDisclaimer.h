@@ -13,9 +13,6 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::Button btnContinue;
     Libwui::Component::Button btnExit;
     Libwui::Component::TextAera textDisclaimer;
-    //Libwui::Component::DropDownList list;
-    //Libwui::Component::MessageBox mb;
-    Libwui::Component::ProgressBar pBar;
   public:
     GDisclaimer() ;
 

@@ -6,6 +6,8 @@
 #include "sciifii/ui/graphic/MenuItems/GExitMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GSeparatorMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GSwitchMenuItem.h"
+#include "sciifii/ui/graphic/MenuItems/GPreviousMenuItem.h"
+#include "sciifii/ui/graphic/MenuItems/GStartMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GMenuItem.h"
 
 using namespace std;
@@ -35,6 +37,14 @@ GMenuItem* GMenuItemFactory::CreateItem(TiXmlElement* node)
 	else if (nodeValue == "switchMenuItem")
   {
     return new GSwitchMenuItem(node);
+  }
+	else if (nodeValue == "previousMenuItem")
+  {
+    return new GPreviousMenuItem(node);
+  }
+	else if (nodeValue == "startMenuItem")
+  {
+    return new GStartMenuItem(node);
   }
   else
     throw Exception("Incorrect node : " + nodeValue);

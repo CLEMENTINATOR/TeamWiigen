@@ -22,6 +22,7 @@ FontResource::~FontResource()
 {
   if(_font)
     delete _font;
+	_resource.Clear();
 }
 
 bool FontResource::IsInitialized()
@@ -33,7 +34,6 @@ void FontResource::Initialize(bool cacheAll, uint8_t textureFormat, uint8_t vert
 {
   _font = new FreeTypeGX(textureFormat, vertexIndex);
   _font->loadFont((u8*)_resource.Content(), _resource.Length(), 12,cacheAll);
-  _resource.Clear();
 }
 
 FreeTypeGX* FontResource::Font()

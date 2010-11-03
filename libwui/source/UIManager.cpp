@@ -18,14 +18,11 @@ UIManager::UIManager()
 {
   LWP_MutexInit(&_messageQueueMutex, true);
 	
-  PAD_Init();
-	TrackWPads(true);
   InitVideo(); // Initialise video
   InitAudio(); // Initialize audio
-
-  // read wiimote accelerometer and IR data
-  WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
-  WPAD_SetVRes(WPAD_CHAN_ALL, screenwidth, screenheight);
+	
+	PAD_Init();
+	TrackWPads(true);
 }
 
 void UIManager::AddMessage(Message* message)

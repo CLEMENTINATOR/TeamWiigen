@@ -119,7 +119,11 @@ void UIManager::Update()
   {
     Message *message = Current()._messageQueue.front();
     Current()._messageQueue.pop();
-    Current()._rootElement->ProcessMessage(*message);
+		if(Current()._modalDialog)
+      Current()._modalDialog->ProcessMessage(*message);
+    else
+      Current()._rootElement->ProcessMessage(*message);
+    
     delete message;
   }
   LWP_MutexUnlock(Current()._messageQueueMutex);

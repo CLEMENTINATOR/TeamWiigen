@@ -136,6 +136,7 @@ endif
 endif
 	@cp ../libwui/libwui.a lib
 	@cp ../libwiisys/libwiisys.a lib
+	@rm -fr $(OUTPUT).elf $(OUTPUT).dol
 
 
 #---------------------------------------------------------------------------------

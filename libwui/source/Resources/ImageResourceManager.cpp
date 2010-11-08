@@ -37,8 +37,24 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
     if(!File::Exists(resourcePath))
       resource = Current()._resources.find(".")->second;
     else
-      resource = new ImageResource(resourcePath);
-
+		{
+			try
+			{
+				Device::Mount(resourcePath);
+				resource = new ImageResource(resourcePath);
+				Device::UnMount(resourcePath);
+			}
+			catch(Exception &ex)
+			{
+				Device::UnMount(resourcePath);
+				throw;
+			}
+			catch(...)
+			{
+				Device::UnMount(resourcePath);
+				throw;
+			}
+		}
     Current()._resources.insert(make_pair(resourcePath, resource));
     return resource;
   }

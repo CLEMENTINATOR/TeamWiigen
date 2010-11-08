@@ -1,11 +1,14 @@
 #include <libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/ThemeManager.hpp>
 #include <Libwiisys/IO/File.h>
+#include <Libwiisys/IO/Device.h>
+#include <Libwiisys/Exceptions/Exception.h>
 #include <notFound_png.h>
 
 using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys;
+using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 
 ImageResourceManager& ImageResourceManager::Current()

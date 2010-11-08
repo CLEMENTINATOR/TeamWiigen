@@ -87,7 +87,7 @@ void Log::Write(LogStatus status, const std::string& message, int line, const ch
           (*lite)->WriteInfo(message, line, file, Current()._appName, Current()._appVersion);
 
         if ((ite->first & Log_Debug) == Log_Debug)
-          (*lite)->WriteInfo(message, line, file, Current()._appName, Current()._appVersion);
+          (*lite)->WriteDebug(message, line, file, Current()._appName, Current()._appVersion);
       }
   }
 }

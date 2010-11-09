@@ -27,6 +27,7 @@ Syscheck::~Syscheck()
 
 bool Syscheck::Prepare()
 {
+  OnProgress("Syscheck preparation done !",1);
   return true;
 }
 
@@ -37,11 +38,13 @@ void Syscheck::Install()
   stringstream report,stubs;
   report<<"IOS,"<<"Revision,"<<"Flash Access,"<<"Nand Access,"<<"Boot2 Access,"<<"Usb2,"<<"Trucha,"<<"ES_Identify,"<<endl;
   stubs<<"Report"<<endl;
+  f32 step=0;
   for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
   {
+    step++;
     u64 tid;
     u16 rev;
-
+    OnProgress("Analysing IOS n°"+(*ite),(f32)((f32)step/(f32)titleList.size()));
     {
       stringstream s;
       s<<"00000001";
@@ -92,6 +95,7 @@ void Syscheck::Install()
       report<<endl;
     }
   }
+  OnProgress("Writing report",1);
   if(File::Exists(fileName))
     File::Delete(fileName);
   File & f = File::Create(fileName);
@@ -104,6 +108,7 @@ void Syscheck::Install()
   f.Close();
   delete &f;
   Title::ReloadIOS(currentIos);
+  OnProgress("Syscheck done !",1);
 }
 
 bool Syscheck::CheckFlashAccess()

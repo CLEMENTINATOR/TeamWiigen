@@ -6,6 +6,10 @@
 #include <Libwiisys/logging/Log.h>
 #include <Libwui/UIManager.hpp>
 #include <Libwui/Device/PadControllers.hpp>
+#include <sciifii/ui/text/VirtualPad.h>
+#include <sciifii/Tools.h>
+#include <sciifii/ui/text/MenuManager.h>
+#include <sciifii/Sciifii.h>
 #include <sciifii/Config.h>
 #include <sciifii/ui/graphic/GDisclaimer.h>
 #include <sciifii/ui/graphic/GMenuManager.h>

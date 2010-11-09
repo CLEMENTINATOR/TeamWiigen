@@ -1,15 +1,15 @@
 #include <libwiisys/threading/Thread.h>
 #include <libwiisys/Exceptions/Exception.h>
 #include <libwiisys/Exceptions/SystemException.h>
-#include <libwiisys/Logging/Log.h>
 
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Threading;
-using namespace Libwiisys::Logging;
+
 Thread::Thread(ThreadStart start)
 {
   _start = start;
+	_threadResult.HasError = false;
 }
 
 void Thread::Start(Object* params)

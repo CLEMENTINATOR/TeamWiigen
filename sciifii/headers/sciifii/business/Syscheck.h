@@ -26,7 +26,7 @@ class Syscheck : public Installer
     bool CheckBoot2Access();
     bool CheckUSB2();
     bool IsIosStub(u32 tid,u32 revision);
-
+    bool CheckFakeSignature();
 };
 
 

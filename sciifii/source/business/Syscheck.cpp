@@ -42,21 +42,20 @@ void Syscheck::Install()
   for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
   {
     step++;
-    u32 titleId=(u32)(*ite);
-    u64 tid;
+    u32 titleId = (u32)(*ite) & 0xFFFFFFFF;
+    u64 tid=0x0000000100000000ULL | titleId;
+
+
+    if(titleId==currentIos) // current ios
+    	continue;
+
     u16 rev;
+    rev=Title::GetInstalledTitleVersion(tid);
+
     stringstream prog;
     prog<<"Analysing IOS "<<titleId<<endl;
     OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
 
-    {
-      stringstream s;
-      s<<"00000001";
-      s<<hex<<setfill('0') << setw(8) << titleId <<dec;
-      cout<<s.str()<<endl;
-      tid= UtilString::ToU64(s.str().c_str());
-      rev=Title::GetInstalledTitleVersion(tid);
-    }
 
     if(IsIosStub(titleId,rev))
     {

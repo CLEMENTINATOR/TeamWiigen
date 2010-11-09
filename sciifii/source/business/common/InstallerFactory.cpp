@@ -59,6 +59,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
         	         }
            }
+           stubs=stubs->NextSiblingElement();
          }
 
   }

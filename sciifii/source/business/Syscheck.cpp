@@ -42,25 +42,30 @@ void Syscheck::Install()
   for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
   {
     step++;
+    u32 titleId=(u32)(*ite);
     u64 tid;
     u16 rev;
-    OnProgress("Analysing IOS n°"+(*ite),(f32)((f32)step/(f32)titleList.size()));
+    stringstream prog;
+    prog<<"Analysing IOS "<<titleId<<endl;
+    OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
+
     {
       stringstream s;
       s<<"00000001";
-      s<<hex<<setfill('0') << setw(8) << *ite ;
+      s<<hex<<setfill('0') << setw(8) << titleId <<dec;
+      cout<<s.str()<<endl;
       tid= UtilString::ToU64(s.str().c_str());
       rev=Title::GetInstalledTitleVersion(tid);
     }
 
-    if(IsIosStub(*ite,rev))
+    if(IsIosStub(titleId,rev))
     {
-      stubs<<(*ite)<<","<<(rev)<<","<<endl;
+      stubs<<(titleId)<<","<<(rev)<<","<<endl;
     }
     else
     {
-      report<<(*ite)<<","<<(rev)<<",";
-      Title::ReloadIOS(*ite);
+      report<<(titleId)<<","<<(rev)<<",";
+      Title::ReloadIOS(titleId);
 
       if(CheckFlashAccess())
         report<<"OK,";

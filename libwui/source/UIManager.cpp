@@ -67,7 +67,7 @@ void UIManager::Run(Form &form)
 void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 {
   Current()._modalDialog = &dialog;
-  dialog.SetRoot(true);
+  dialog.SetRoot(true, "dialog");
   dialog.InitializeComponents();
 
   while(dialog.Visible())
@@ -115,12 +115,13 @@ void UIManager::Update()
   while(!Current()._messageQueue.empty())
   {
     Message *message = Current()._messageQueue.front();
-    Current()._messageQueue.pop();
+    
 		if(Current()._modalDialog)
       Current()._modalDialog->ProcessMessage(*message);
     else
       Current()._rootElement->ProcessMessage(*message);
     
+		Current()._messageQueue.pop();
     delete message;
   }
   LWP_MutexUnlock(Current()._messageQueueMutex);

@@ -4,6 +4,8 @@
 #include "../Control.hpp"
 #include "../Message.hpp"
 
+#include <string>
+
 namespace Libwui
 {
   namespace Component
@@ -13,7 +15,7 @@ namespace Libwui
       protected:
         bool IsInUITree();
       public:
-        void SetRoot(bool root);
+        void SetRoot(bool root, const std::string& id = "root");
         Form();
       private:
         bool isRoot;

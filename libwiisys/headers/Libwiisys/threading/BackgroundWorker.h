@@ -15,11 +15,12 @@ namespace Libwiisys
       public:
         ProgressEvent ProgressChanged;
         DoWorkEvent DoWork;
-
+        ThreadResultEvent WorkDone;
         BackgroundWorker();
         void ReportProgress(f32 progress,std::string s);
         void RunWorkerAsync(Object *params);
       private:
+        void JobDone(Object* sender, ThreadResultEventArgs* args);
         Thread _thread;
         void* AsyncJob(Object* param);
     };

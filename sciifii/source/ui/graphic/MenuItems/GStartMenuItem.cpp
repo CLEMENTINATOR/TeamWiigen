@@ -16,16 +16,16 @@ GStartMenuItem::GStartMenuItem(TiXmlElement* node)
 
 void GStartMenuItem::InitializeComponents()
 {
-	SetSize(164,40);
+  SetSize(164,40);
 
-	_btn.Text(_text);
+  _btn.Text(_text);
   _btn.SetSize(164,40);
-  _btn.DefaultImage("sd:/sciifii/default/Start_Default.png");
-  _btn.OverImage("sd:/sciifii/default/Start_Over.png");
-  _btn.ClickedImage("sd:/sciifii/default/Start_Clicked.png");
-	AddChildren(&_btn);
+  _btn.DefaultImage("sd:/sciifii/default/Mode_Default.png");
+  _btn.OverImage("sd:/sciifii/default/Mode_Over.png");
+  _btn.ClickedImage("sd:/sciifii/default/Mode_Clicked.png");
+  AddChildren(&_btn);
 
-	Control::InitializeComponents();
+  Control::InitializeComponents();
 }
 
 void GStartMenuItem::ManageClick(Object* sender, CursorEventArgs* args)

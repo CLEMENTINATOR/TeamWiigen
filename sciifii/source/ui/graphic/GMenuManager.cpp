@@ -5,17 +5,19 @@
 #include <Libwui/Resources/Colors.h>
 #include <Libwiisys/string/UtilString.h>
 #include <Libwiisys/Exceptions/Exception.h>
-
+#include <Libwui/UIManager.hpp>
+#include <sciifii/ui/graphic/GSciifiiLauncher.h>
+#include <Libwui/UIManager.hpp>
 using namespace std;
 using namespace fastdelegate;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 using namespace Libwui::Resources;
 using namespace Libwui::Events;
-
+using namespace Libwui;
 GMenuManager::GMenuManager()
 {
-	BackgroundImage("sd:/sciifii/default/advanced_screen.png");
+  BackgroundImage("sd:/sciifii/default/advanced_screen.png");
   SetSize(640, 480);
 }
 
@@ -37,7 +39,7 @@ void GMenuManager::Initialyze(TiXmlElement* node)
     throw Exception("Can't create MenuManager from an other tag than menus");
 
   _startId = UtilString::ToStr(node->Attribute("start"),"");
-	_currentMenu = _startId;
+  _currentMenu = _startId;
   if(_startId=="")
     throw Exception("No start menu specified !");
   _menuPath.push_back(_startId);
@@ -67,14 +69,14 @@ GMenuManager& GMenuManager::Instance(TiXmlElement* node)
 
 void GMenuManager::InitializeComponents()
 {
-	for(map<string,GDynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
-	{
+  for(map<string,GDynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
+  {
     ite->second->SetSize(552,230);
-		ite->second->SetPosition(44,142);
-		ite->second->BackgroundColor(Colors::Transparent());
-	}
-	
-	mb.SetTitlePosition(16, 2);
+    ite->second->SetPosition(44,142);
+    ite->second->BackgroundColor(Colors::Transparent());
+  }
+
+  mb.SetTitlePosition(16, 2);
   mb.SetTitleSize(279, 14);
   mb.SetTextPosition(16, 64);
   mb.SetTextSize(279, 45);
@@ -82,16 +84,16 @@ void GMenuManager::InitializeComponents()
   mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
   mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
   mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
-	
-	btnExit.DefaultImage("sd:/sciifii/default/exitbutton_normal.png");
+
+  btnExit.DefaultImage("sd:/sciifii/default/exitbutton_normal.png");
   btnExit.OverImage("sd:/sciifii/default/exitbutton_over.png");
   btnExit.SetSize(44, 44);
   btnExit.SetPosition(600, 415);
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
   btnExit.InitializeComponents();
-	AddChildren(&btnExit);
-	
-	Form::InitializeComponents();
+  AddChildren(&btnExit);
+
+  Control::InitializeComponents();
 }
 
 void GMenuManager::Exit(Object* sender, CursorEventArgs* args)
@@ -101,74 +103,62 @@ void GMenuManager::Exit(Object* sender, CursorEventArgs* args)
 
 void GMenuManager::Menu_NavigateRequested(Libwiisys::Object* sender, NavigateEventArgs* args)
 {
-	if(args->NavigateTo == "loader")
-		Visible(false);
-	else if(args->NavigateTo == "execution")
-	{
-		if(!ExecuteSciifii())
-			Visible(false);
-	}
-	else if(args->NavigateTo == "menu")
-	{
-		if(args->MenuId == "..")
-		{
-			if(_menuPath.size() == 1)
-				throw Exception("There isn't previous menu...");
-			_menuPath.pop_back();
-		}
-		else
-		{
-			if(_menus.find(_currentMenu) == _menus.end())
-				throw Exception("The menu " + args->MenuId + " doesn't exists.");
-			_menuPath.push_back(args->MenuId);
-		}
-		Invalidate();
-	}
+  if(args->NavigateTo == "loader")
+    Visible(false);
+  else if(args->NavigateTo == "execution")
+  {
+    if(!ExecuteSciifii())
+      Visible(false);
+  }
+  else if(args->NavigateTo == "menu")
+  {
+    if(args->MenuId == "..")
+    {
+      if(_menuPath.size() == 1)
+        throw Exception("There isn't previous menu...");
+      _menuPath.pop_back();
+    }
+    else
+    {
+      if(_menus.find(_currentMenu) == _menus.end())
+        throw Exception("The menu " + args->MenuId + " doesn't exists.");
+      _menuPath.push_back(args->MenuId);
+    }
+    Invalidate();
+  }
 }
 
 void GMenuManager::EnsureItems()
 {
-	if(_currentMenu != "")
-	{
-		RemoveChildren(_menus[_currentMenu]);
-		_menus[_currentMenu]->NavigateRequested -= MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
-	}
-	_currentMenu = _menuPath.back();
-	if(_menus.find(_currentMenu) == _menus.end())
-		throw Exception("The requested menu \"" + _currentMenu + "\" doesn't exist.");
-	AddChildren(_menus[_currentMenu]);
-	_menus[_currentMenu]->NavigateRequested += MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
-	
-	Form::EnsureItems();
+  if(_currentMenu != "")
+  {
+    RemoveChildren(_menus[_currentMenu]);
+    _menus[_currentMenu]->NavigateRequested -= MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
+  }
+  _currentMenu = _menuPath.back();
+  if(_menus.find(_currentMenu) == _menus.end())
+    throw Exception("The requested menu \"" + _currentMenu + "\" doesn't exist.");
+  AddChildren(_menus[_currentMenu]);
+  _menus[_currentMenu]->NavigateRequested += MakeDelegate(this, &GMenuManager::Menu_NavigateRequested);
+
+  Form::EnsureItems();
 }
 
 bool GMenuManager::ExecuteSciifii()
 {
   try
   {
-    Config::ValidateOptions();
-    Sciifii sci;
-		
-    /*if (sci.Prepare())
-    {
-      sci.Execute();
-      cout << "Installation done! Press A to exit.";
-    }
-    else
-    {
-      Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
-      throw Exception("An error occured during prepare.");
-    }*/
-
+    GSciifiiLauncher g;
+    UIManager::ShowDialog(g);
     return true;
   }
   catch(AbortException& ex)
   {
     return false;
   }
-	catch(Exception& ex)
+  catch(Exception& ex)
   {
-		mb.Show(this, "Error", ex.ToString());
+    mb.Show(this, "Error", ex.ToString());
     return false;
   }
 }

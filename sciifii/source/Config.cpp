@@ -96,7 +96,7 @@ void Config::Initialize(const string& configFilePath)
 				#ifdef USE_ADVANCED_UI
 				GMenuManager::Instance(child);
 				#else
-        MenuManager::Instance(child);				
+        MenuManager::Instance(child);
 				#endif
 			}
       else

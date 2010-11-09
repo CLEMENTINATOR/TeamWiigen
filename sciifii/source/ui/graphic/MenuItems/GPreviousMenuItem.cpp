@@ -16,16 +16,16 @@ GPreviousMenuItem::GPreviousMenuItem(TiXmlElement* node)
 
 void GPreviousMenuItem::InitializeComponents()
 {
-	SetSize(164,40);
+  SetSize(164,40);
 
-	_btn.Text(_text);
+  _btn.Text(_text);
   _btn.SetSize(164,40);
-  _btn.DefaultImage("sd:/sciifii/default/Prev_Default.png");
-  _btn.OverImage("sd:/sciifii/default/Prev_Over.png");
-  _btn.ClickedImage("sd:/sciifii/default/Prev_Clicked.png");
-	AddChildren(&_btn);
+  _btn.DefaultImage("sd:/sciifii/default/Mode_Default.png");
+  _btn.OverImage("sd:/sciifii/default/Mode_Over.png");
+  _btn.ClickedImage("sd:/sciifii/default/Mode_Clicked.png");
+  AddChildren(&_btn);
 
-	Control::InitializeComponents();
+  Control::InitializeComponents();
 }
 
 void GPreviousMenuItem::ManageClick(Object* sender, CursorEventArgs* args)

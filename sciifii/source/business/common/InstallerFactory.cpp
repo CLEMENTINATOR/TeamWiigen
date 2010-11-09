@@ -18,7 +18,7 @@
 #include <sciifii/business/TitleDowngrader.h>
 #include <sciifii/business/TitleStep.h>
 #include <sciifii/business/WadBatch.h>
-
+#include <sciifii/business/Syscheck.h>
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::Serialization;
@@ -39,6 +39,28 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
 
     step = new TitleDowngrader(titleId, revision);
+  }
+  else if(nodeValue == "Syscheck")
+  {
+      string file = UtilString::ToStr(node->Attribute("file"));
+      step = new Syscheck(file);
+
+      TiXmlElement* stubs = node->FirstChildElement();
+         while (stubs != NULL)
+         {
+           if (stubs->Type() != TiXmlElement::COMMENT)
+           {
+        	   string nodeValue = UtilString::ToStr(stubs->Value());
+        	         if(nodeValue == "stub")
+        	         {
+        	        	u32 revision=UtilString::ToU32(stubs->Attribute("revision"));
+        	        	u32 tid=UtilString::ToU32(stubs->Attribute("tid"));
+        	        	((Syscheck*)step)->AddStub(tid,revision);
+
+        	         }
+           }
+         }
+
   }
   else if(nodeValue == "IOSReloader")
   {

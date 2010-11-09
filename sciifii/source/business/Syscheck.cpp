@@ -34,9 +34,9 @@ void Syscheck::Install()
 {
   vector<u8> titleList=Title::GetInstalledIos();
   int currentIos=Title::GetRunningIOS();
-  stringstream report;
+  stringstream report,stubs;
   report<<"IOS,"<<"Revision,"<<"Flash Access,"<<"Nand Access,"<<"Boot2 Access,"<<"Usb2,"<<"Trucha,"<<"ES_Identify,"<<endl;
-
+  stubs<<"Report"<<endl;
   for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
   {
     u64 tid;
@@ -51,7 +51,9 @@ void Syscheck::Install()
     }
 
     if(IsIosStub(*ite,rev))
-    {}
+    {
+      stubs<<(*ite)<<","<<(rev)<<","<<endl;
+    }
     else
     {
       report<<(*ite)<<","<<(rev)<<",";
@@ -95,6 +97,9 @@ void Syscheck::Install()
   File & f = File::Create(fileName);
   Buffer b;
   b.Append(report.str().c_str(),strlen(report.str().c_str()));
+  f.Write(b);
+  b.Clear();
+  b.Append(stubs.str().c_str(),strlen(stubs.str().c_str()));
   f.Write(b);
   f.Close();
   delete &f;

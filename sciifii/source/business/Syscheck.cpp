@@ -4,11 +4,13 @@
 #include <libwiisys/system/Security/Identification.h>
 #include <libwiisys/IO/File.h>
 #include <libwiisys/String/UtilString.h>
+#include <libwiisys/Buffer.h>
 #include <sstream>
 #include <iostream>
 #include <iomanip>
 
 using namespace Libwiisys::System;
+using namespace Libwiisys;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::String;
 using namespace Libwiisys::System::Security;
@@ -31,32 +33,69 @@ bool Syscheck::Prepare()
 void Syscheck::Install()
 {
   vector<u8> titleList=Title::GetInstalledIos();
+  int currentIos=Title::GetRunningIOS();
+  stringstream report;
+  report<<"IOS,"<<"Revision,"<<"Flash Access,"<<"Nand Access,"<<"Boot2 Access,"<<"Usb2,"<<"Trucha,"<<"ES_Identify,"<<endl;
+
+  for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
+  {
+    u64 tid;
+    u16 rev;
+
+    {
+      stringstream s;
+      s<<"00000001";
+      s<<hex<<setfill('0') << setw(8) << *ite ;
+      tid= UtilString::ToU64(s.str().c_str());
+      rev=Title::GetInstalledTitleVersion(tid);
+    }
+
+    if(IsIosStub(*ite,rev))
+    {}
+    else
+    {
+      report<<(*ite)<<","<<(rev)<<",";
+      Title::ReloadIOS(*ite);
+
+      if(CheckFlashAccess())
+        report<<"OK,";
+      else
+        report<<"NOK,";
+
+      if(CheckNANDAccess())
+        report<<"OK,";
+      else
+        report<<"NOK,";
+
+      if(CheckBoot2Access())
+        report<<"OK,";
+      else
+        report<<"NOK,";
+
+      if(CheckUSB2())
+        report<<"OK,";
+      else
+        report<<"NOK,";
+
+      if(CheckFakeSignature())
+        report<<"TODO,";
+      else
+        report<<"TODO,";
+
+      if(CheckESIdentify())
+        report<<"OK,";
+      else
+        report<<"NOK,";
+
+      report<<endl;
+    }
+  }
   if(File::Exists(fileName))
     File::Delete(fileName);
   File & f = File::Create(fileName);
-  int currentIos=Title::GetRunningIOS();
-  for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
-  {
-
-    stringstream s;
-    s<<"00000001";
-    s<<hex<<setfill('0') << setw(8) << *ite ;
-    u64 tid= UtilString::ToU64(s.str().c_str());
-    u16 rev=Title::GetInstalledTitleVersion(tid);
-
-    if(IsIosStub(*ite,rev))
-    {
-
-
-    }
-    else
-    {
-
-
-
-      Title::ReloadIOS(*ite);
-    }
-  }
+  Buffer b;
+  b.Append(report.str().c_str(),strlen(report.str().c_str()));
+  f.Write(b);
   f.Close();
   delete &f;
   Title::ReloadIOS(currentIos);
@@ -147,8 +186,13 @@ bool Syscheck::IsIosStub(u32 tid,u32 revision)
   {
     if((*ite).tid ==tid && (*ite).rev==revision)
     {
-    	return true;
+      return true;
     }
   }
   return false;
+}
+
+bool Syscheck::CheckFakeSignature()
+{
+  return true;
 }

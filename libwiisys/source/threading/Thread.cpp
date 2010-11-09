@@ -28,23 +28,13 @@ void* Thread::Run()
 void * Thread::EntryPoint(void * pthis)
 {
   Thread * pt = (Thread*) pthis;
+  pt->_threadResult.HasError =false;
   try
   {
     pt->_threadResult.Result = pt->Run();
   }
-  catch(Exception e)
-  {
-	Log::WriteLog(Log_Error,e.GetMessage());
-    pt->_threadResult.HasError = true;
-  }
-  catch(std::exception e)
-   {
- 	Log::WriteLog(Log_Error,std::string(e.what()));
-     pt->_threadResult.HasError = true;
-   }
   catch(...)
   {
-	Log::WriteLog(Log_Error,"Exception non gérée");
     pt->_threadResult.HasError = true;
   }
 

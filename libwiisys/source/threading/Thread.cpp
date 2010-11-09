@@ -1,11 +1,12 @@
 #include <libwiisys/threading/Thread.h>
 #include <libwiisys/Exceptions/Exception.h>
 #include <libwiisys/Exceptions/SystemException.h>
+#include <libwiisys/Logging/Log.h>
 
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Threading;
-
+using namespace Libwiisys::Logging;
 Thread::Thread(ThreadStart start)
 {
   _start = start;
@@ -31,8 +32,19 @@ void * Thread::EntryPoint(void * pthis)
   {
     pt->_threadResult.Result = pt->Run();
   }
+  catch(Exception e)
+  {
+	Log::WriteLog(Log_Error,e.GetMessage());
+    pt->_threadResult.HasError = true;
+  }
+  catch(std::exception e)
+   {
+ 	Log::WriteLog(Log_Error,std::string(e.what()));
+     pt->_threadResult.HasError = true;
+   }
   catch(...)
   {
+	Log::WriteLog(Log_Error,"Exception non gérée");
     pt->_threadResult.HasError = true;
   }
 

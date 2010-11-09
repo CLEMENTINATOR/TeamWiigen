@@ -10,11 +10,11 @@ Form::Form()
     : isRoot(false)
 {}
 
-void Form::SetRoot(bool root)
+void Form::SetRoot(bool root, const string& id)
 {
   isRoot = root;
   if(root)
-    SetId("root");
+    SetId(id);
 }
 
 bool Form::IsInUITree()

@@ -97,8 +97,8 @@ void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
   Config::ValidateOptions();
 
   vector<Installer*> steps = Config::Steps();
-  for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-    (*ite)->Progressing += MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
+  /*for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+    (*ite)->Progressing += MakeDelegate(this, &GSciifiiLauncher::SetValueActual);*/
   UIManager::TrackWPads(false);
   if (Prepare())
   {
@@ -177,7 +177,7 @@ void GSciifiiLauncher::Execute()
 
 
 
-    (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
+   /* (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);*/
     delete *ite;
   }
 }

@@ -67,6 +67,7 @@
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                     " />
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX                 " />
       <switchMenuItem name="wiiflow" text="Install Wiiflow                          " />
+      <switchMenuItem name="Syscheck" text="Execute syscheck                         " />
       <switchMenuItem name="clean" text="Clean temp files on exit                 " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to simple menu" saveOptions="false" />
@@ -226,7 +227,7 @@
       <Title id="0001000848414C50" revision="2" action="update" regions="2" />
       <Title id="000100084843434A" revision="2" action="update" regions="0" />
     </CompositeInstaller>
-    
+
     <CompositeInstaller option="update4.2" name="Update Ioses 4.2">
 
       <!-- classic ioses -->
@@ -281,7 +282,7 @@
       <Title id="0000000100000032" revision="5120" action="install" />
       <Title id="0000000100000034" revision="5888" action="install" />
       <Title id="000000010000003C" revision="6400" action="install" />
-    
+
 
       <!-- Channels -->
       <Title id="0001000248414241" revision="20" action="update" regions="0,1,2" />
@@ -389,6 +390,29 @@
       <FileDownloader file="wiiflow.dol" />
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
+
+    <Syscheck file="sd:/syscheck.log" option="Syscheck">
+      <stub tid="3" revision="65280"/>
+      <stub tid="4" revision="65280"/>
+      <stub tid="10" revision="768"/>
+      <stub tid="11" revision="256"/>
+      <stub tid="16" revision="512"/>
+      <stub tid="20" revision="256"/>
+      <stub tid="30" revision="2816"/>
+      <stub tid="40" revision="3072"/>
+      <stub tid="50" revision="5120"/>
+      <stub tid="51" revision="4864"/>
+      <stub tid="52" revision="5888"/>
+      <stub tid="60" revision="6400"/>
+      <stub tid="70" revision="6912"/>
+      <stub tid="222" revision="65280"/>
+      <stub tid="223" revision="65280"/>
+      <stub tid="249" revision="65280"/>
+      <stub tid="250" revision="65280"/>
+      <stub tid="254" revision="2"/>
+      <stub tid="254" revision="3"/>
+      <stub tid="254" revision="65280"/>
+    </Syscheck>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>

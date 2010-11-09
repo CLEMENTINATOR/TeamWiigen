@@ -23,11 +23,8 @@ using namespace Libwui;
 
 
 
-GSciifiiLauncher::GSciifiiLauncher()
-{}
 void GSciifiiLauncher::InitializeComponents()
 {
-
   Visible(true);
   BackgroundColor(Colors::FromRGBA(122, 122 ,122,125));
   SetPosition(0,0);
@@ -58,153 +55,125 @@ void GSciifiiLauncher::InitializeComponents()
   AddChildren(&pBarActual);
   AddChildren(&pBarGlobal);
   AddChildren(&bOk);
-  Control::InitializeComponents();
-  Run();
-
 }
-bool GSciifiiLauncher::Run()
-{
-  try
-  {
-    bw.DoWork+=MakeDelegate(this,&GSciifiiLauncher::LaunchProcess);
-    bw.WorkDone+=MakeDelegate(this,&GSciifiiLauncher::JobDone);
-    bw.RunWorkerAsync(NULL);
-  }
-  catch(...)
-  {
-    return false;
-  }
-  return true;
-}
-GSciifiiLauncher::~GSciifiiLauncher()
-{}
 
 void GSciifiiLauncher::SetValueGlobal(Object *sender, ProgressEventArgs *p)
 {
   pBarGlobal.SetValue(sender,p);
 }
+
 void GSciifiiLauncher::SetValueActual(Object *sender, ProgressEventArgs *p)
 {
   pBarActual.SetValue(sender, p);
-
 }
+
 void GSciifiiLauncher::Exit(Object *sender, CursorEventArgs *p)
 {
   Visible(false);
 }
-void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
-{
-  Config::ValidateOptions();
 
+void GSciifiiLauncher::LaunchProcess()
+{
+	static u16 stepIndex = 0;
+	static bool prepare = true;
+	static bool endJob = false;
+	
+	if(endJob)
+		return;
+		
+	//initialisation of ui
+	if(stepIndex == 0 && prepare)
+	{
+		UIManager::TrackWPads(false);
+		Config::ValidateOptions();
+	}
+	else if(stepIndex == 0)
+	{
+		pBarGlobal.SetText("Installation");
+	}
+	
+	//getting all the steps
   vector<Installer*> steps = Config::Steps();
-  /*for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-    (*ite)->Progressing += MakeDelegate(this, &GSciifiiLauncher::SetValueActual);*/
-  UIManager::TrackWPads(false);
-  if (Prepare())
-  {
-    Execute();
-    pBarGlobal.SetText("Done !");
-  }
-  else
-  {
-    bOk.Enabled(true);
+	
+	//initialisation of execution
+	if(stepIndex == 0 && prepare)
+	{		
+		pBarGlobal.SetMaxValue(steps.size()*2);
+		pBarGlobal.SetText("Preparation");
+		
+		//attach the handlers
+		for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+			(*ite)->Progressing += MakeDelegate(this, &GSciifiiLauncher::SetValueActual);  
+	}
+	
+	//doing the stuff
+	if(prepare)
+	{
+		endJob = !(steps[stepIndex]->Prepare());
+		pBarGlobal.SetActualValue(stepIndex);
+		stringstream s;
+		s<< "Step " << stepIndex << " / " << steps.size() * 2;
+		pBarGlobal.SetText(s.str());
+		stepIndex++;
+		if(stepIndex == steps.size())
+		{
+			prepare = !prepare;
+			stepIndex = 0;
+		}
+	}
+	else
+	{
+		try
+		{
+				pBarGlobal.SetActualValue(stepIndex + steps.size());
+				stringstream s;
+				s << "Step " << stepIndex << " / " << steps.size() * 2;
+				pBarGlobal.SetText(s.str());
+				steps[stepIndex]->Install();
+				stepIndex++;
+		}
+		catch(SystemException &ex)
+		{
+			bool ignore = false;
+			for(vector<s32>::iterator itex = steps[stepIndex]->IgnoredExceptions().begin(); itex != steps[stepIndex]->IgnoredExceptions().end(); itex++)
+				if(*itex == ex.GetCode())
+				{
+					ignore = true;
+					break;
+				}
+
+			if(!ignore)
+				endJob = true;
+			else
+			{
+				pBarActual.SetActualValue(100);
+				pBarActual.SetText("Step skipped !");
+			}
+		}
+		catch(...)
+		{
+			endJob = true;
+		}
+
+		steps[stepIndex]->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
+		
+		if(stepIndex == steps.size())
+			endJob = true;
+	}
+	
+  if(endJob)
+	{
+		bOk.Enabled(true);
     bOk.Visible(true);
     UIManager::TrackWPads(true);
-    throw Exception("An error occured during prepare.");
-  }
-
-  UIManager::TrackWPads(true);
+	}
 }
 
-
-bool GSciifiiLauncher::Prepare()
-{
-  bool sucess = true;
-  pBarGlobal.SetText("Preparation");
-  u32 step=0;
-  vector<Installer*> steps = Config::Steps();
-  pBarGlobal.SetMaxValue(steps.size()*2);
-  for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-  {
-    sucess &= (*ite)->Prepare();
-    step++;
-    pBarGlobal.SetActualValue(step);
-    stringstream s;
-    s<<"Step "<<step<<" / "<<steps.size()*2;
-    pBarGlobal.SetText(s.str());
-  }
-  return sucess;
-}
-
-void GSciifiiLauncher::Execute()
-{
-  pBarGlobal.SetText("Installation");
-  vector<Installer*> steps = Config::Steps();
-  u32 step=0;
-  for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-  {
-    try
-    {
-      pBarGlobal.SetActualValue(step+steps.size());
-      stringstream s;
-      s<<"Step "<<step<<" / "<<steps.size()*2;
-      pBarGlobal.SetText(s.str());
-      step++;
-      (*ite)->Install();
-    }
-    catch(SystemException &ex)
-    {
-      bool ignore = false;
-      for(vector<s32>::iterator itex = (*ite)->
-                                       IgnoredExceptions().begin();
-          itex != (*ite)->IgnoredExceptions().end();
-          itex++)
-        if(*itex == ex.GetCode()
-          )
-        {
-          ignore = true;
-          break;
-        }
-
-      if(!ignore)
-        throw;
-      else
-      {
-        pBarActual.SetActualValue(100);
-        pBarActual.SetText("Step skipped !");
-      }
-    }
-
-
-
-   /* (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);*/
-    delete *ite;
-  }
-}
-
-void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
-{
-  if( args->Result.HasError)
-  {
-    bOk.Text("Error !");
-  }
-  else
-  {
-    bOk.Text("Done !");
-  }
-
-  pBarActual.SetText("Done !");
-  pBarActual.SetActualValue(100);
-  pBarGlobal.SetText("Done !");
-  pBarGlobal.SetActualValue(100);
-
-  bOk.Visible(true);
-  bOk.Enabled(true);
-}
 void GSciifiiLauncher::Draw()
 {
+	LaunchProcess();
   Menu_DrawRectangle(190,160,256,160, Colors::White(), 1);
   Menu_DrawRectangle(191,161,254,158, BackgroundColor(), 1);
-  Control::Draw();
+  Form::Draw();
 }
 

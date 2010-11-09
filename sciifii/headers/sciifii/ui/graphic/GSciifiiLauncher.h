@@ -15,25 +15,17 @@
 class GSciifiiLauncher : public Libwui::Component::Form
 {
   public:
-	GSciifiiLauncher();
     void InitializeComponents();
-    bool Run();
-    void LaunchProcess(Object *sender, Object *args);
+    void LaunchProcess();
     void SetValueActual(Libwiisys::Object *sender, Libwiisys::Threading::ProgressEventArgs *p);
     void SetValueGlobal(Libwiisys::Object *sender, Libwiisys::Threading::ProgressEventArgs *p);
     virtual void Draw();
     void Exit(Libwiisys::Object *sender, Libwui::Events::CursorEventArgs *p);
-    virtual ~GSciifiiLauncher();
 
-    void JobDone(Libwiisys::Object* sender, Libwiisys::Threading::ThreadResultEventArgs* args);
   private :
-    bool Prepare();
-    void Execute();
     Libwui::Component::ProgressBar pBarGlobal;
     Libwui::Component::ProgressBar pBarActual;
     Libwui::Component::Button bOk;
-    Libwiisys::Threading::BackgroundWorker bw;
-
 };
 
 

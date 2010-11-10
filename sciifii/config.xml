@@ -414,7 +414,8 @@
       <stub tid="254" revision="2"/>
       <stub tid="254" revision="3"/>
       <stub tid="254" revision="260"/>
-      <stub tid="254" revision="31338"/>
+      <stub tid="254" revision="65280"/>
+      <stub tid="254" revision="65281"/>
     </Syscheck>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />

@@ -17,6 +17,8 @@ class Syscheck : public Installer
     virtual bool Prepare();
     virtual void Install();
     void AddStub(u32 tid,u32 revision);
+    void SendToLog();
+
   private :
     std::string fileName;
     std::vector<Stub> stubList;

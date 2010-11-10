@@ -8,6 +8,11 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include <unistd.h>
+
+#include <Libwiisys/logging/Log.h>
+
+using namespace Libwiisys::Logging;
 
 using namespace Libwiisys::System;
 using namespace Libwiisys;
@@ -34,79 +39,93 @@ bool Syscheck::Prepare()
 void Syscheck::Install()
 {
   vector<u8> titleList=Title::GetInstalledIos();
-  int currentIos=Title::GetRunningIOS();
+  u32 currentIos=Title::GetRunningIOS();
   stringstream report,stubs;
-  report<<"IOS,"<<"Revision,"<<"Flash Access,"<<"Nand Access,"<<"Boot2 Access,"<<"Usb2,"<<"Trucha,"<<"ES_Identify,"<<endl;
+  report<<"IOS;"<<"Revision;"<<"Flash Access;"<<"Nand Access;"<<"Boot2 Access;"<<"Usb2;"<<"Trucha;"<<"ES_Identify;"<<endl;
   stubs<<"Report"<<endl;
   f32 step=0;
-  for(vector<u8>::iterator ite = titleList.begin(); ite != titleList.end(); ite++)
+
+
+  vector<u16> revList;
+  for(u32 i = 0 ; i < titleList.size();i++)
+  {
+
+    u32 titleId = (u32)(titleList[i]) ;
+    u64 tid=0x0000000100000000ULL | titleId;
+    if(titleId==currentIos)
+    {
+      revList.push_back(0);
+    }
+    else
+    {
+      revList.push_back(Title::GetInstalledTitleVersion(tid));
+    }
+  }
+  for(u32 i = 0 ; i < titleList.size();i++)
   {
     step++;
-    u32 titleId = (u32)(*ite) & 0xFFFFFFFF;
-    u64 tid=0x0000000100000000ULL | titleId;
 
+    u32 titleId = (u32)(titleList[i]);
+    u16 rev=revList[i];
 
-    if(titleId==currentIos) // current ios
-    	continue;
-
-    u16 rev;
-    rev=Title::GetInstalledTitleVersion(tid);
 
     stringstream prog;
-    prog<<"Analysing IOS "<<titleId<<endl;
+    prog<<"Analysing IOS "<<titleId;
     OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
 
 
     if(IsIosStub(titleId,rev))
     {
-      stubs<<(titleId)<<","<<(rev)<<","<<endl;
+      stubs<<(titleId)<<";"<<(rev)<<";"<<endl;
     }
     else
     {
-      report<<(titleId)<<","<<(rev)<<",";
+      report<<(titleId)<<";"<<(rev)<<";";
       Title::ReloadIOS(titleId);
 
+
       if(CheckFlashAccess())
-        report<<"OK,";
+        report<<"OK;";
       else
-        report<<"NOK,";
+        report<<"NOK;";
 
       if(CheckNANDAccess())
-        report<<"OK,";
+        report<<"OK;";
       else
-        report<<"NOK,";
+        report<<"NOK;";
 
       if(CheckBoot2Access())
-        report<<"OK,";
+        report<<"OK;";
       else
-        report<<"NOK,";
+        report<<"NOK;";
 
       if(CheckUSB2())
-        report<<"OK,";
+        report<<"OK;";
       else
-        report<<"NOK,";
+        report<<"NOK;";
 
       if(CheckFakeSignature())
-        report<<"TODO,";
+        report<<"TODO;";
       else
-        report<<"TODO,";
+        report<<"TODO;";
 
       if(CheckESIdentify())
-        report<<"OK,";
+        report<<"OK;";
       else
-        report<<"NOK,";
+        report<<"NOK;";
 
       report<<endl;
     }
   }
   OnProgress("Writing report",1);
+ // Log::WriteLog(Lgt_All,"syscheck done, writing...");
+
   if(File::Exists(fileName))
     File::Delete(fileName);
   File & f = File::Create(fileName);
+
   Buffer b;
   b.Append(report.str().c_str(),strlen(report.str().c_str()));
-  f.Write(b);
-  b.Clear();
   b.Append(stubs.str().c_str(),strlen(stubs.str().c_str()));
   f.Write(b);
   f.Close();
@@ -198,7 +217,7 @@ bool Syscheck::IsIosStub(u32 tid,u32 revision)
 {
   for(vector<Stub>::iterator ite = stubList.begin(); ite != stubList.end(); ite++)
   {
-    if((*ite).tid ==tid && (*ite).rev==revision)
+    if((*ite).tid==tid && (*ite).rev==revision)
     {
       return true;
     }
@@ -210,3 +229,12 @@ bool Syscheck::CheckFakeSignature()
 {
   return true;
 }
+
+
+void Syscheck::SendToLog()
+{
+  stringstream txt;
+  txt << "Syscheck()";
+  Log::WriteLog(Log_Info,txt.str());
+}
+

@@ -1,6 +1,6 @@
 #include <gccore.h>
 #include <ogc/machine/processor.h>
-
+#include <libwiisys/system/Title.h>
 #include <Libwiisys/system/Title.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/logging/Log.h>
@@ -14,6 +14,7 @@
 using namespace std;
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::System;
 
 MemoryPatcher::MemoryPatcher()
     : _patchList()
@@ -32,8 +33,8 @@ void MemoryPatcher::AddPatch(MemoryPatch patch)
 
 void MemoryPatcher::Install()
 {
-  if(!HAVE_AHBPROT)
-    throw Exception("Use HBC 1.0.7 or higher and don't reload the IOS in order to have the AHBPROT disabled.");
+  if(!HAVE_AHBPROT && Title::GetRunningIOS()==249)
+    throw Exception("Use HBC 1.0.7 or higher and don't reload the IOS in order to have the AHBPROT disabled, or run cios249");
 
   u32 mem2Status = read32(MEM2_PROT);
   write32(MEM2_PROT, mem2Status & 0x0000FFFF);

@@ -30,6 +30,7 @@
     <file key="dip17.dat" url="http://teamwiigen.fr.cr/appfiles/dip17.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip17.dat.sha" />
     <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
     <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
+    <file key="hacks_hash.ini" url="http://www.teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/hacks_hash.ini" />
     <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
     <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
     <file key="GXForwarder" url="http://teamwiigen.fr.cr/appfiles/r937.wad" sha1="http://teamwiigen.fr.cr/appfiles/r937.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
@@ -148,7 +149,7 @@
     </CiosInstaller>
 
     <IOSReloader option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader|Syscheck" id="249"  />
-    <Identifier option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader|Syscheck" user="0" />
+ <!--   <Identifier option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader|Syscheck" user="0" /> -->
 
     <CompositeInstaller option="update" name="Update Ioses">
 
@@ -319,6 +320,7 @@
     <CompositeInstaller option="Preloader" name="Preloader">
       <Preloader  file="priiloader.dat" />
       <FileDownloader file="hacks.ini" />
+      <FileDownloader file="hacks_hash.ini" />
     </CompositeInstaller>
 
     <CorpInstaller option="corp">
@@ -411,7 +413,8 @@
       <stub tid="250" revision="65280"/>
       <stub tid="254" revision="2"/>
       <stub tid="254" revision="3"/>
-      <stub tid="254" revision="65280"/>
+      <stub tid="254" revision="260"/>
+      <stub tid="254" revision="31338"/>
     </Syscheck>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />

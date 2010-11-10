@@ -393,7 +393,7 @@
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
 
-    <Syscheck file="sd:/syscheck.log" option="Syscheck">
+    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
       <stub tid="3" revision="65280"/>
       <stub tid="4" revision="65280"/>
       <stub tid="10" revision="768"/>

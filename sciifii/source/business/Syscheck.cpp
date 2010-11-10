@@ -9,6 +9,8 @@
 #include <iostream>
 #include <iomanip>
 #include <unistd.h>
+#include <algorithm>
+
 
 #include <Libwiisys/logging/Log.h>
 
@@ -39,13 +41,14 @@ bool Syscheck::Prepare()
 void Syscheck::Install()
 {
   vector<u8> titleList=Title::GetInstalledIos();
+
   u32 currentIos=Title::GetRunningIOS();
   stringstream report,stubs;
   report<<"IOS;"<<"Revision;"<<"Flash Access;"<<"Nand Access;"<<"Boot2 Access;"<<"Usb2;"<<"Trucha;"<<"ES_Identify;"<<endl;
-  stubs<<"Report"<<endl;
+  stubs<<"Stubs;IOS;Revision"<<endl;
   f32 step=0;
 
-
+  sort(titleList.begin(), titleList.end());
   vector<u16> revList;
   for(u32 i = 0 ; i < titleList.size();i++)
   {
@@ -76,7 +79,7 @@ void Syscheck::Install()
 
     if(IsIosStub(titleId,rev))
     {
-      stubs<<(titleId)<<";"<<(rev)<<";"<<endl;
+      stubs<<";"<<(titleId)<<";"<<(rev)<<";"<<endl;
     }
     else
     {
@@ -118,7 +121,6 @@ void Syscheck::Install()
     }
   }
   OnProgress("Writing report",1);
- // Log::WriteLog(Lgt_All,"syscheck done, writing...");
 
   if(File::Exists(fileName))
     File::Delete(fileName);

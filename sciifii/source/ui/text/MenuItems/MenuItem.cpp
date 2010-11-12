@@ -9,7 +9,9 @@ using namespace Libwiisys::Exceptions;
 
 MenuItem::MenuItem(TiXmlElement* node)
     : _text(),
+      Selectable(true),
     Selected(false)
+
 {
   _text = UtilString::ToStr(node->Attribute("text"),"");
 }

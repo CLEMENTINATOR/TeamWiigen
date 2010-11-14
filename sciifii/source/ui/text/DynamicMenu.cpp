@@ -146,3 +146,9 @@ void DynamicMenu::NavigateRequested(Object* sender, NavigateEventArgs* args)
     }
   }
 }
+
+void DynamicMenu::Reset()
+{
+	for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		(*ite)->Reset();
+}

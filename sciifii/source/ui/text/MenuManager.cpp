@@ -105,6 +105,9 @@ bool MenuManager::ExecuteSciifii()
     if (sci.Prepare())
     {
       sci.Execute();
+      Config::Reset();
+      for(map<string,DynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
+      	  ite->second->Reset();
       cout << "Installation done! Press A to exit.";
     }
     else

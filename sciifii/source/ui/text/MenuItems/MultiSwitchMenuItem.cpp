@@ -9,7 +9,12 @@ using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 
 MultiSwitchMenuItem::MultiSwitchMenuItem(TiXmlElement* node) :
-    MenuItem(node), _selectedIndex(0), _lastIndex(0), _activated(true),
+    MenuItem(node),
+    _selectedIndex(0),
+    _initialIndex(0),
+    _lastIndex(0),
+    _activated(true),
+    _initialActivated(true),
     _lastActivated(true)
 {
   TiXmlElement* item = node->FirstChildElement();
@@ -26,6 +31,7 @@ MultiSwitchMenuItem::MultiSwitchMenuItem(TiXmlElement* node) :
       _allowActivation = UtilString::ToBool(item->Attribute(
                                               "allowActivation"), false);
       _activated = UtilString::ToBool(item->Attribute("activated"), true);
+      _initialActivated = _activated;
       _lastActivated = _activated;
 
       string value = UtilString::ToStr(item->Attribute("value"), "");
@@ -129,3 +135,10 @@ void MultiSwitchMenuItem::Cancel()
   _activated = _lastActivated;
 }
 
+void MultiSwitchMenuItem::Reset()
+{
+	_selectedIndex = _initialIndex;
+	_lastIndex = _initialIndex;
+	_activated = _initialActivated;
+	_lastActivated = _initialActivated;
+}

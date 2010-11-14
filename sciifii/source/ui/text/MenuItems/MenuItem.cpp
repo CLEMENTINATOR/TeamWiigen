@@ -30,6 +30,9 @@ void MenuItem::Validate()
 void MenuItem::Cancel()
 {}
 
+void MenuItem::Reset()
+{}
+
 void MenuItem::OnNavigate(NavigateEventArgs& args)
 {
   NavigateRequested(this, &args);

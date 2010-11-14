@@ -92,8 +92,6 @@ void GMenuManager::InitializeComponents()
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
   btnExit.InitializeComponents();
   AddChildren(&btnExit);
-
-  Control::InitializeComponents();
 }
 
 void GMenuManager::Exit(Object* sender, CursorEventArgs* args)
@@ -150,6 +148,9 @@ bool GMenuManager::ExecuteSciifii()
   {
     GSciifiiLauncher g;
     UIManager::ShowDialog(g);
+    Config::Reset();
+    for(map<string,GDynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
+	  ite->second->Reset();
     return true;
   }
   catch(AbortException& ex)

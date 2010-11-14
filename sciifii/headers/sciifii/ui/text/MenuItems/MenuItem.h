@@ -25,6 +25,7 @@ class MenuItem : public Libwiisys::Object
     virtual void ButtonPressed(u32 button);
     virtual void Validate();
     virtual void Cancel();
+    virtual void Reset();
 
     SwitchEvent SwitchSelectionChanged;
     NavigateEvent NavigateRequested;

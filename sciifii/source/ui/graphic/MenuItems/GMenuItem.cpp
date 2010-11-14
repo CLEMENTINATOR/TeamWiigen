@@ -21,6 +21,9 @@ void GMenuItem::Validate()
 void GMenuItem::Cancel()
 {}
 
+void GMenuItem::Reset()
+{}
+
 void GMenuItem::OnNavigate(NavigateEventArgs& args)
 {
   NavigateRequested(this, &args);

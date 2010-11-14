@@ -168,7 +168,6 @@ void GSciifiiLauncher::Execute()
     }
 
     (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
-    delete *ite;
   }
 }
 

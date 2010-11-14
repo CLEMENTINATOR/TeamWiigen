@@ -44,6 +44,7 @@ class Config : public Libwiisys::Object
     static std::vector<Installer*> Steps();
     static std::string MenuMessage();
     static std::string DisclaimerText();
+    static void Reset();
 };
 
 #endif

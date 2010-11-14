@@ -12,10 +12,12 @@ class MultiSwitchMenuItem : public MenuItem
 
     std::vector<Switch> _multiSwitches;
     u32 _selectedIndex;
+    u32 _initialIndex;
     u32 _lastIndex;
     bool _allowBoucle;
     bool _allowActivation;
     bool _activated;
+    bool _initialActivated;
     bool _lastActivated;
     std::string _switchName;
 
@@ -25,6 +27,7 @@ class MultiSwitchMenuItem : public MenuItem
     virtual void ButtonPressed(u32 button);
     virtual void Validate();
     virtual void Cancel();
+    virtual void Reset();
 };
 
 #endif

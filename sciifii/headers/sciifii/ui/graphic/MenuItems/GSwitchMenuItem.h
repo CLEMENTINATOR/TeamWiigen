@@ -9,15 +9,17 @@
 class GSwitchMenuItem : public GMenuItem
 {
   protected:
+	bool _initialSwitchOn;
     bool _lastSwitchOn;
     std::string _switchName;
-		Libwui::Component::Checkbox _cbx;
+    Libwui::Component::Checkbox _cbx;
 		
   public:
     GSwitchMenuItem(TiXmlElement* node);
-		void InitializeComponents();
+	void InitializeComponents();
     virtual void Validate();
     virtual void Cancel();
+    virtual void Reset();
 };
 
 #endif

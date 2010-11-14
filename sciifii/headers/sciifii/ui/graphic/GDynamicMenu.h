@@ -31,6 +31,7 @@ class GDynamicMenu : public Libwui::Control
   public:
 		std::string MenuId;
 		GDynamicMenu(TiXmlElement* node);
+		void Reset();
 		~GDynamicMenu();
 
 		void InitializeComponents();

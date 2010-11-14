@@ -16,7 +16,6 @@ class GSciifiiLauncher : public Libwui::Component::Form
 {
   public:
 
-	GSciifiiLauncher();
     void InitializeComponents();
     bool Run();
     void LaunchProcess(Object *sender, Object *args);
@@ -24,7 +23,6 @@ class GSciifiiLauncher : public Libwui::Component::Form
     void SetValueGlobal(Libwiisys::Object *sender, Libwiisys::Threading::ProgressEventArgs *p);
     virtual void Draw();
     void Exit(Libwiisys::Object *sender, Libwui::Events::CursorEventArgs *p);
-    virtual ~GSciifiiLauncher();
 
     void JobDone(Libwiisys::Object* sender, Libwiisys::Threading::ThreadResultEventArgs* args);
   private :

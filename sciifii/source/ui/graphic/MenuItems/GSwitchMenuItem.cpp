@@ -8,6 +8,7 @@ using namespace Libwiisys::Exceptions;
 
 GSwitchMenuItem::GSwitchMenuItem(TiXmlElement* node)
     : GMenuItem(node),
+      _initialSwitchOn(false),
     _lastSwitchOn(false)
 {
   _switchName = UtilString::ToStr(node->Attribute("name"),"");
@@ -42,3 +43,8 @@ void GSwitchMenuItem::Cancel()
   _cbx.Checked(_lastSwitchOn);
 }
 
+void GSwitchMenuItem::Reset()
+{
+	_cbx.Checked(_initialSwitchOn);
+	_lastSwitchOn = _initialSwitchOn;
+}

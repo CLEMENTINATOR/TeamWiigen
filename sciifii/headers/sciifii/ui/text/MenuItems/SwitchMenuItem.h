@@ -9,6 +9,7 @@ class SwitchMenuItem : public MenuItem
 {
   protected:
     bool _switchOn;
+    bool _initialSwitchOn;
     bool _lastSwitchOn;
     std::string _switchName;
 
@@ -18,6 +19,7 @@ class SwitchMenuItem : public MenuItem
     virtual void ButtonPressed(u32 button);
     virtual void Validate();
     virtual void Cancel();
+    virtual void Reset();
 };
 
 #endif

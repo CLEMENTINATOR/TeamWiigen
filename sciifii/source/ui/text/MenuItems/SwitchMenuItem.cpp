@@ -11,6 +11,7 @@ using namespace Libwiisys::Exceptions;
 SwitchMenuItem::SwitchMenuItem(TiXmlElement* node)
     : MenuItem(node),
     _switchOn(false),
+    _initialSwitchOn(false),
     _lastSwitchOn(false)
 {
   _switchName = UtilString::ToStr(node->Attribute("name"),"");
@@ -46,4 +47,10 @@ void SwitchMenuItem::Validate()
 void SwitchMenuItem::Cancel()
 {
   _switchOn = _lastSwitchOn;
+}
+
+void SwitchMenuItem::Reset()
+{
+	_switchOn = _initialSwitchOn;
+	_lastSwitchOn = _initialSwitchOn;
 }

@@ -84,12 +84,8 @@ void Sciifii::Execute()
     catch(SystemException &ex)
     {
       bool ignore = false;
-      for(vector<s32>::iterator itex = (*ite)->
-                                       IgnoredExceptions().begin();
-          itex != (*ite)->IgnoredExceptions().end();
-          itex++)
-        if(*itex == ex.GetCode()
-          )
+      for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
+        if(*itex == ex.GetCode())
         {
           ignore = true;
           break;
@@ -111,7 +107,6 @@ void Sciifii::Execute()
     }
 
     (*ite)->Progressing -= MakeDelegate(this, &Sciifii::DisplayProgress);
-    delete *ite;
   }
 }
 

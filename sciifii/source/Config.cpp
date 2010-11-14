@@ -92,13 +92,15 @@ void Config::Initialize(const string& configFilePath)
       else if (nodeValue == "Disclaimer")
         c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
       else if (nodeValue == "menus")
-			{
-				#ifdef USE_ADVANCED_UI
-				GMenuManager::Instance(child);
-				#else
+      {
+#ifdef USE_ADVANCED_UI
+        GMenuManager::Instance(child);
+#else
+
         MenuManager::Instance(child);
-				#endif
-			}
+#endif
+
+      }
       else
         throw Exception("Invalid XmlNode.");
     }
@@ -178,16 +180,10 @@ void Config::CreateStepList(TiXmlElement* element)
       Installer* step = InstallerFactory::Create(child);
       bool addToList = step->Region().size() == 0;
 
-      for (vector<u32>::iterator ite = step->
-                                       Region().begin();
-           ite
-           != step->Region().end();
-           ite++)
-        if (*ite == GetRegion()
-           )
+      for (vector<u32>::iterator ite = step->Region().begin(); ite != step->Region().end(); ite++)
+        if (*ite == GetRegion())
         {
           addToList = true;
-          break;
         }
 
       if (addToList)
@@ -270,3 +266,14 @@ void Config::ClearSwitches()
   Instance()._switches.clear();
 }
 
+void Config::Reset()
+{
+  ClearSwitches();
+  vector<Installer*> steps = Instance()._validatedSteps;
+  for (vector<Installer*>::iterator step = steps.begin(); step != steps.end(); step++)
+  {
+	  delete *step;
+  }
+
+  Instance()._validatedSteps.clear();
+}

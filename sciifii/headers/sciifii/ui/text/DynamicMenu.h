@@ -24,6 +24,7 @@ class DynamicMenu : public MenuBase
   public:
     std::string MenuId;
     DynamicMenu(TiXmlElement* node);
+    void Reset();
     ~DynamicMenu();
     NavigateEventArgs Show();
 };

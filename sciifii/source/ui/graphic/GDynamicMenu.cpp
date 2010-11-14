@@ -55,8 +55,8 @@ void GDynamicMenu::InitializeComponents()
 	_btnDown.VerticalAlignement(VAlign_Bottom);
 	_btnDown.HorizontalAlignement(HAlign_Center);
 	_btnDown.DefaultImage("sd:/sciifii/default/Down_Default.png");
-  _btnDown.OverImage("sd:/sciifii/default/Down_Over.png");
-  _btnDown.ClickedImage("sd:/sciifii/default/Down_Clicked.png");
+    _btnDown.OverImage("sd:/sciifii/default/Down_Over.png");
+    _btnDown.ClickedImage("sd:/sciifii/default/Down_Clicked.png");
 	AddChildren(&_btnDown);
 	
 	_btnUp.SetSize(36,36);
@@ -64,8 +64,8 @@ void GDynamicMenu::InitializeComponents()
 	_btnUp.SetPosition(0, 9);
 	_btnUp.HorizontalAlignement(HAlign_Center);
 	_btnUp.DefaultImage("sd:/sciifii/default/Up_Default.png");
-  _btnUp.OverImage("sd:/sciifii/default/Up_Over.png");
-  _btnUp.ClickedImage("sd:/sciifii/default/Up_Clicked.png");
+    _btnUp.OverImage("sd:/sciifii/default/Up_Over.png");
+    _btnUp.ClickedImage("sd:/sciifii/default/Up_Clicked.png");
 	AddChildren(&_btnUp);
 	
 	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
@@ -166,4 +166,10 @@ void GDynamicMenu::btnDown_Clicked(Object* sender, Libwui::Events::CursorEventAr
 	_btnUp.Enabled(true);
 	_btnDown.Enabled(false);
 	Invalidate();
+}
+
+void GDynamicMenu::Reset()
+{
+	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
+		(*ite)->Reset();
 }

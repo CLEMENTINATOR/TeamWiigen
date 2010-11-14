@@ -24,6 +24,7 @@ class GMenuItem : public Libwui::Control
     GMenuItem(TiXmlElement* node);
     virtual void Validate();
     virtual void Cancel();
+    virtual void Reset();
 
     SwitchEvent SwitchSelectionChanged;
     NavigateEvent NavigateRequested;

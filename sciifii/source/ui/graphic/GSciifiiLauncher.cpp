@@ -21,20 +21,14 @@ using namespace std;
 using namespace fastdelegate;
 using namespace Libwui;
 
-
-
-GSciifiiLauncher::GSciifiiLauncher()
-{}
 void GSciifiiLauncher::InitializeComponents()
 {
-
   Visible(true);
   BackgroundColor(Colors::FromRGBA(122, 122 ,122,125));
   SetPosition(0,0);
   SetSize(640, 480);
 
   bOk.Enabled(false);
-  bOk.Visible(false);
   bOk.Click+=MakeDelegate(this,& GSciifiiLauncher::Exit);
   bOk.Text("Done !");
   bOk.SetPosition(220,250);
@@ -60,8 +54,8 @@ void GSciifiiLauncher::InitializeComponents()
   AddChildren(&bOk);
   Control::InitializeComponents();
   Run();
-
 }
+
 bool GSciifiiLauncher::Run()
 {
   try
@@ -76,22 +70,23 @@ bool GSciifiiLauncher::Run()
   }
   return true;
 }
-GSciifiiLauncher::~GSciifiiLauncher()
-{}
 
 void GSciifiiLauncher::SetValueGlobal(Object *sender, ProgressEventArgs *p)
 {
   pBarGlobal.SetValue(sender,p);
 }
+
 void GSciifiiLauncher::SetValueActual(Object *sender, ProgressEventArgs *p)
 {
   pBarActual.SetValue(sender, p);
 
 }
+
 void GSciifiiLauncher::Exit(Object *sender, CursorEventArgs *p)
 {
   Visible(false);
 }
+
 void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
 {
   Config::ValidateOptions();
@@ -99,6 +94,7 @@ void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
   vector<Installer*> steps = Config::Steps();
   for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
     (*ite)->Progressing += MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
+
   UIManager::TrackWPads(false);
   if (Prepare())
   {
@@ -155,12 +151,8 @@ void GSciifiiLauncher::Execute()
     catch(SystemException &ex)
     {
       bool ignore = false;
-      for(vector<s32>::iterator itex = (*ite)->
-                                       IgnoredExceptions().begin();
-          itex != (*ite)->IgnoredExceptions().end();
-          itex++)
-        if(*itex == ex.GetCode()
-          )
+      for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
+        if(*itex == ex.GetCode())
         {
           ignore = true;
           break;
@@ -170,12 +162,10 @@ void GSciifiiLauncher::Execute()
         throw;
       else
       {
-        pBarActual.SetActualValue(100);
+        pBarActual.SetActualValue(1);
         pBarActual.SetText("Step skipped !");
       }
     }
-
-
 
     (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
     delete *ite;
@@ -198,7 +188,6 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
   pBarGlobal.SetText("Done !");
   pBarGlobal.SetActualValue(100);
 
-  bOk.Visible(true);
   bOk.Enabled(true);
 }
 void GSciifiiLauncher::Draw()

@@ -93,7 +93,7 @@ void GMenuManager::InitializeComponents()
 
   AddChildren(&btnExit);
 
-  Control::InitializeComponents();
+  Form::InitializeComponents();
 }
 
 void GMenuManager::Exit(Object* sender, CursorEventArgs* args)

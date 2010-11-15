@@ -90,8 +90,10 @@ void GMenuManager::InitializeComponents()
   btnExit.SetSize(44, 44);
   btnExit.SetPosition(600, 415);
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
-  btnExit.InitializeComponents();
+
   AddChildren(&btnExit);
+
+  Control::InitializeComponents();
 }
 
 void GMenuManager::Exit(Object* sender, CursorEventArgs* args)

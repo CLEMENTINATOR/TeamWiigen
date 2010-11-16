@@ -43,8 +43,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   else if(nodeValue == "Syscheck")
   {
 		string file = UtilString::ToStr(node->Attribute("file"));
-		string ticket = UtilString::ToStr(node->Attribute("fakeTicket"));
-		step = new Syscheck(file, ticket);
+		step = new Syscheck(file);
 
 		TiXmlElement* stubs = node->FirstChildElement();
 		while (stubs != NULL)

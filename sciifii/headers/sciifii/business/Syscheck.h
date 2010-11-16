@@ -15,7 +15,7 @@ typedef struct
 class Syscheck : public Installer
 {
   public:
-    Syscheck(const std::string& resultLog, const std::string& fakeTicket);
+    Syscheck(const std::string& resultLog);
     virtual bool Prepare();
     virtual void Install();
     void AddStub(u8 tid,u16 revision);
@@ -23,7 +23,6 @@ class Syscheck : public Installer
 
   private :
     std::string fileName;
-		std::string _fakeTicket;
     std::map<u8, CheckDescriptor> stubList;
     bool CheckESIdentify();
     bool CheckFlashAccess();

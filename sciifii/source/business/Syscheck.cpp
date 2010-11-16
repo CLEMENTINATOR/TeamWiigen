@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <Libwiisys/logging/Log.h>
 #include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/fake_su_ticket_dat.h>
 
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;
@@ -24,17 +25,12 @@ using namespace Libwiisys::String;
 using namespace Libwiisys::System::Security;
 using namespace std;
 
-Syscheck::Syscheck(const string& resultLog, const string& fakeTicket)
-  : fileName(resultLog),
-	  _fakeTicket(fakeTicket)
+Syscheck::Syscheck(const string& resultLog)
+  : fileName(resultLog)
 {}
 
 bool Syscheck::Prepare()
 {
-	OnProgress("Downloading the fake ticket", 0.1);
-  if(!FileManager::Download(_fakeTicket))
-    throw Exception("Error downloading the fake ticket");
-
   OnProgress("Syscheck preparation done !",1);
   return true;
 }
@@ -93,7 +89,10 @@ void Syscheck::Install()
 		for(vector<u8>::iterator t = titleList.begin(); t != titleList.end(); t++)
 		{
 			CheckDescriptor desc;
-			desc.revision = Title::GetInstalledTitleVersion(IOS_FULL_ID(*t));
+			if(*t == currentIos)
+				desc.revision = IOS_GetRevision();
+			else
+				desc.revision = Title::GetInstalledTitleVersion(IOS_FULL_ID(*t));
 			desc.isStub = IsIosStub(*t, desc.revision);
 			descriptorList[*t] = desc;
 		}
@@ -356,8 +355,7 @@ void Syscheck::DeleteFakeTicket()
 
 bool Syscheck::CheckFakeSignature()
 {
-	Buffer fake = FileManager::GetFile(_fakeTicket);
-  int ret = ES_AddTicket((signed_blob*) fake.Content(), fake.Length(), (signed_blob*) Certificate::GetContent(), Certificate::GetLength(), 0, 0);
+  int ret = ES_AddTicket((signed_blob*) fake_su_ticket_dat, fake_su_ticket_dat_size, (signed_blob*) Certificate::GetContent(), Certificate::GetLength(), 0, 0);
 	//removing installed ticket
 	if (ret > -1)
 		DeleteFakeTicket();

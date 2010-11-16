@@ -93,7 +93,8 @@ void Syscheck::Install()
         desc.revision = IOS_GetRevision();
       else
         desc.revision = Title::GetInstalledTitleVersion(IOS_FULL_ID(*t));
-      desc.isStub = IsIosStub(*t, desc.revision);
+      if(desc.isStub = IsIosStub(*t, desc.revision))
+				stubCount++;
       descriptorList[*t] = desc;
     }
 

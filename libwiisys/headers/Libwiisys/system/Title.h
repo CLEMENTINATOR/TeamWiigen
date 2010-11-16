@@ -64,6 +64,16 @@ namespace Libwiisys
     {
       return (title & 0x100000000ULL) > 0;
     }
+		
+		/**
+     *@brief Return long IOS id of the given IOS
+     *@param version The 8hex digit representation IOS version
+     *@return the 16Hex representation
+     */
+    inline u64 IOS_FULL_ID(u32 version)
+    {
+      return (0x100000000ULL | version);
+    }
 
     class Title : public Object
     {

@@ -40,9 +40,6 @@ namespace Libwui
         s32 textScrollInitialDelay; //!< Delay to wait before starting to scroll
         s32 textScrollDelay; //!< Scrolling speed
         u16 style; //!< FreeTypeGX style attributes
-
-      private:
-        std::string _textToDisplay;
     };
   }
 }

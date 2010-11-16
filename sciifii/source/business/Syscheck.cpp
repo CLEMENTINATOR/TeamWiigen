@@ -221,7 +221,7 @@ u32 Syscheck::GetSysMenuVersion()
 
 bool Syscheck::CheckBootmiiIOS(u8 id, const CheckDescriptor& descriptor)
 {
-  return (id == 254 && descriptor.revision == 31338 ||id == 254 && descriptor.revision == 65281 );
+  return ((id == 254 && descriptor.revision == 31338) ||(id == 254 && descriptor.revision == 65281 ));
 }
 
 bool Syscheck::CheckFlashAccess()
@@ -346,7 +346,7 @@ void Syscheck::DeleteFakeTicket()
   u32 views;
 
   // Get number of ticket views
-  if(ES_GetNumTicketViews(titleId, &views) >= 0)
+  if(ES_GetNumTicketViews(titleId, &views) < 0)
     return;
 
   if (views == 0 || views > 16)
@@ -354,7 +354,7 @@ void Syscheck::DeleteFakeTicket()
 
   // Get ticket views
   tikview *viewdata  = (tikview*)memalign(32, sizeof(tikview) * views);
-  if(ES_GetTicketViews(titleId, viewdata, views) >= 0)
+  if(ES_GetTicketViews(titleId, viewdata, views)>= 0)
   {
     // Remove tickets
     for (u32 cnt = 0; cnt < views; cnt++)
@@ -370,7 +370,7 @@ bool Syscheck::CheckFakeSignature()
   int ret = ES_AddTicket((signed_blob*) fake_su_ticket_dat, fake_su_ticket_dat_size, (signed_blob*) Certificate::GetContent(), Certificate::GetLength(), 0, 0);
   //removing installed ticket
   if (ret > -1)
-    DeleteFakeTicket();
+   DeleteFakeTicket();
 
   if (ret > -1 || ret == -1028)
     return true;

@@ -1,7 +1,9 @@
-
+#include <sciifii/business/common/FileManager.h>
 #include <sciifii/business/Syscheck.h>
+#include <sciifii/Config.h>
 #include <libwiisys/system/Title.h>
 #include <libwiisys/system/Security/Identification.h>
+#include <libwiisys/system/Security/Certificate.h>
 #include <libwiisys/IO/File.h>
 #include <libwiisys/String/UtilString.h>
 #include <libwiisys/Buffer.h>
@@ -10,12 +12,11 @@
 #include <iomanip>
 #include <unistd.h>
 #include <algorithm>
-
-
 #include <Libwiisys/logging/Log.h>
+#include <Libwiisys/Exceptions/Exception.h>
 
 using namespace Libwiisys::Logging;
-
+using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::System;
 using namespace Libwiisys;
 using namespace Libwiisys::IO;
@@ -23,117 +24,193 @@ using namespace Libwiisys::String;
 using namespace Libwiisys::System::Security;
 using namespace std;
 
-Syscheck::Syscheck(std::string s)
-{
-  fileName=s;
-}
-
-Syscheck::~Syscheck()
+Syscheck::Syscheck(const string& resultLog, const string& fakeTicket)
+  : fileName(resultLog),
+	  _fakeTicket(fakeTicket)
 {}
-
 
 bool Syscheck::Prepare()
 {
+	OnProgress("Downloading the fake ticket", 0.1);
+  if(!FileManager::Download(_fakeTicket))
+    throw Exception("Error downloading the fake ticket");
+
   OnProgress("Syscheck preparation done !",1);
   return true;
 }
 
 void Syscheck::Install()
 {
-  vector<u8> titleList=Title::GetInstalledIos();
-
-  u32 currentIos=Title::GetRunningIOS();
-  stringstream report,stubs;
-  report<<"IOS;"<<"Revision;"<<"Flash Access;"<<"Nand Access;"<<"Boot2 Access;"<<"Usb2;"<<"Trucha;"<<"ES_Identify;"<<endl;
-  stubs<<"Stubs;IOS;Revision"<<endl;
-  f32 step=0;
-
-  sort(titleList.begin(), titleList.end());
-  vector<u16> revList;
-  for(u32 i = 0 ; i < titleList.size();i++)
-  {
-
-    u32 titleId = (u32)(titleList[i]) ;
-    u64 tid=0x0000000100000000ULL | titleId;
-    if(titleId==currentIos)
-    {
-      revList.push_back(0);
-    }
-    else
-    {
-      revList.push_back(Title::GetInstalledTitleVersion(tid));
-    }
-  }
-  for(u32 i = 0 ; i < titleList.size();i++)
-  {
-    step++;
-
-    u32 titleId = (u32)(titleList[i]);
-    u16 rev=revList[i];
-
-
-    stringstream prog;
-    prog<<"Analysing IOS "<<titleId;
-    OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
-
-
-    if(IsIosStub(titleId,rev))
-    {
-      stubs<<";"<<(titleId)<<";"<<(rev)<<";"<<endl;
-    }
-    else
-    {
-      report<<(titleId)<<";"<<(rev)<<";";
-      Title::ReloadIOS(titleId);
-
-
-      if(CheckFlashAccess())
-        report<<"OK;";
-      else
-        report<<"NOK;";
-
-      if(CheckNANDAccess())
-        report<<"OK;";
-      else
-        report<<"NOK;";
-
-      if(CheckBoot2Access())
-        report<<"OK;";
-      else
-        report<<"NOK;";
-
-      if(CheckUSB2())
-        report<<"OK;";
-      else
-        report<<"NOK;";
-
-      if(CheckFakeSignature())
-        report<<"TODO;";
-      else
-        report<<"TODO;";
-
-      if(CheckESIdentify())
-        report<<"OK;";
-      else
-        report<<"NOK;";
-
-      report<<endl;
-    }
-  }
-  OnProgress("Writing report",1);
-
-  if(File::Exists(fileName))
+  vector<u8> titleList = Title::GetInstalledIos();
+	map<u8, CheckDescriptor> descriptorList;
+	u32 stubCount = 0;
+  u32 currentIos = Title::GetRunningIOS();
+	
+  stringstream temp;
+	
+	//creating report file
+	if(File::Exists(fileName))
     File::Delete(fileName);
   File & f = File::Create(fileName);
+	try
+	{
+		//printing report header
+		f.Write("Region: ");
+		switch(Config::GetRegion())
+		{
+			case CONF_REGION_US:
+				f.Write("NTSC-U");
+				break;
 
-  Buffer b;
-  b.Append(report.str().c_str(),strlen(report.str().c_str()));
-  b.Append(stubs.str().c_str(),strlen(stubs.str().c_str()));
-  f.Write(b);
-  f.Close();
-  delete &f;
-  Title::ReloadIOS(currentIos);
-  OnProgress("Syscheck done !",1);
+			case CONF_REGION_EU:
+				f.Write("PAL");
+				break;
+
+			case CONF_REGION_JP:
+				f.Write("NTSC-J");
+				break;
+
+			case CONF_REGION_KR:
+				f.Write("KOR");
+				break;
+
+			default:
+				f.Write("unknown");
+				break;
+		}
+		temp << endl << "The system menu v" << GetSysMenuVersion() << " is running under IOS" <<  currentIos << " (rev " << Title::GetInstalledTitleVersion(IOS_FULL_ID(currentIos))  << ")" << endl;
+		temp << "Hollywood v0x" << hex << *(u32 *)0x80003138 << dec << endl;
+		temp << "Console ID: " << GetDeviceID() << endl;
+		temp << "Boot2 v" << GetBoot2Version() << endl;
+		temp << "Found " << titleList.size() << " titles" << endl;
+		f.Write(temp.str());
+		temp.str("");
+		
+		//sorting the list
+		sort(titleList.begin(), titleList.end());
+		
+		//analising titles
+		for(vector<u8>::iterator t = titleList.begin(); t != titleList.end(); t++)
+		{
+			CheckDescriptor desc;
+			desc.revision = Title::GetInstalledTitleVersion(IOS_FULL_ID(*t));
+			desc.isStub = IsIosStub(*t, desc.revision);
+			descriptorList[*t] = desc;
+		}
+		
+		//stub summary
+		if ((titleList.size() - stubCount) == 0)
+				f.Write("No IOS on this console\n");
+		else
+		{
+			temp << "Found " << titleList.size() - stubCount << "  IOS on this console" << endl;
+			f.Write(temp.str());
+			temp.str("");
+		}
+
+		if (stubCount == 0)
+			f.Write("No IOS Stub on this console\n");
+		else
+		{
+			temp << "Found " << stubCount << "IOS Stubs on this console" << endl;
+			f.Write(temp.str());
+			temp.str("");
+		}
+		
+		
+		//genrating the report
+		f.Write("\nIOS (revision),IOS Stub,Trucha Bug,ES Identify,Flash Access,NAND Access,Boot2 Access,USB 2.0\n");
+		
+		f32 step = 0;
+		for(vector<u8>::iterator t = titleList.begin(); t != titleList.end(); t++)
+		{
+			CheckDescriptor desc = descriptorList[*t];
+			step++;
+
+			stringstream prog;
+			prog<<"Analysing IOS " << *t;
+			OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
+			
+			temp << "IOS" << *t << " (rev " << desc.revision << "),";
+			f.Write(temp.str());
+			temp.str("");
+			
+			if(CheckBootmiiIOS(*t, desc))
+			{
+				f.Write("No,?,?,?,?,?,?\n");
+				continue;
+			}
+			if (desc.isStub)
+			{
+				f.Write("Yes,?,?,?,?,?,?\n");
+				continue;
+			}
+			
+			Title::ReloadIOS(*t);
+			
+			f.Write("No,");
+			CheckFakeSignature() ? f.Write("Enabled,") : f.Write("Disabled,");
+			CheckESIdentify() ? f.Write("Enabled,") : f.Write("Disabled,");
+			CheckFlashAccess() ? f.Write("Enabled,") : f.Write("Disabled,");
+			CheckNANDAccess() ? f.Write("Enabled,") : f.Write("Disabled,");
+			CheckBoot2Access() ? f.Write("Enabled,") : f.Write("Disabled,");
+			CheckUSB2() ? f.Write("Enabled") : f.Write("Disabled");
+		}
+		
+		f.Close();
+		delete &f;
+		
+		Title::ReloadIOS(currentIos);
+		
+		OnProgress("Syscheck done !",1);
+	}
+	catch(Exception &ex)
+	{
+		f.Close();
+		delete &f;
+		throw;
+	}
+	catch(...)
+	{
+		f.Close();
+		delete &f;
+		throw;
+	}
+}
+
+// Get the system menu version from TMD
+u32 Syscheck::GetSysMenuVersion()
+{
+	u64 TitleID ATTRIBUTE_ALIGN(32) = 0x0000000100000002LL;
+	u32 tmdSize ATTRIBUTE_ALIGN(32);
+
+	// Get the stored TMD size for the system menu
+	if (ES_GetStoredTMDSize(TitleID, &tmdSize) < 0)
+		return 0;
+
+	signed_blob *TMD = (signed_blob *)memalign(32, (tmdSize+32)&(~31));
+	memset(TMD, 0, tmdSize);
+
+	// Get the stored TMD for the system menu
+	if (ES_GetStoredTMD(TitleID, TMD, tmdSize) < 0)
+	{
+		free(TMD);
+		return false;
+	}
+	
+	// Get the system menu version from TMD
+	tmd *rTMD = (tmd *)(TMD+(0x140/sizeof(tmd *)));
+	u32 version = rTMD->title_version;
+
+	free(TMD);
+
+	// Return the system menu version
+	return version;
+}
+
+bool Syscheck::CheckBootmiiIOS(u8 id, const CheckDescriptor& descriptor)
+{
+  return (id == 254 && descriptor.revision == 31338);
 }
 
 bool Syscheck::CheckFlashAccess()
@@ -149,7 +226,6 @@ bool Syscheck::CheckFlashAccess()
     return true;
 }
 
-
 bool  Syscheck::CheckNANDAccess()
 {
   int ret = IOS_Open("/title/00000001/00000002/content/title.tmd", 1);
@@ -162,7 +238,6 @@ bool  Syscheck::CheckNANDAccess()
   else
     return true;
 }
-
 
 bool  Syscheck::CheckBoot2Access()
 {
@@ -207,31 +282,91 @@ bool  Syscheck::CheckESIdentify()
   }
   return true;
 }
-void Syscheck:: AddStub(u32 tid,u32 revision)
+
+void Syscheck:: AddStub(u8 tid,u16 revision)
 {
-  Stub s;
-  s.tid=tid;
-  s.rev=revision;
-  stubList.push_back(s);
+  CheckDescriptor s;
+  s.isStub = true;
+  s.revision = revision;
+  stubList[tid] = s;
 }
 
-bool Syscheck::IsIosStub(u32 tid,u32 revision)
+bool Syscheck::IsIosStub(u8 tid,u16 revision)
 {
-  for(vector<Stub>::iterator ite = stubList.begin(); ite != stubList.end(); ite++)
-  {
-    if((*ite).tid==tid && (*ite).rev==revision)
-    {
-      return true;
-    }
-  }
-  return false;
+	if(stubList.find(tid) != stubList.end() && stubList[tid].revision == revision)
+		return true;
+		
+	//manual check
+	u32 tmdSize;
+	
+	// Get the stored TMD size for the title
+	if (ES_GetStoredTMDSize(IOS_FULL_ID(tid), &tmdSize) < 0)
+		return false;
+
+	signed_blob *b_tmd = (signed_blob *)memalign(32, (tmdSize + 32) & (~31));
+	memset(b_tmd, 0, tmdSize);
+
+	// Get the stored TMD for the title
+	if (ES_GetStoredTMD(IOS_FULL_ID(tid), b_tmd, tmdSize) < 0)
+		return false;
+	
+	tmd *iosTMD ATTRIBUTE_ALIGN(32);
+	iosTMD = (tmd *)SIGNATURE_PAYLOAD(b_tmd);
+
+	// If the version is 00, it's probably a stub
+	//
+	// Stubs have these things in common:
+	//	- Title version is mostly 65280, or even better, the last 2 hexadecimal digits are 0;
+	// 	- Stub have one app of their own (type 0x1) and 2 shared apps (type 0x8001).
+	bool isStub = false;	
+	if (iosTMD->title_version == 0)
+		isStub = ((iosTMD->num_contents == 3) && (iosTMD->contents[0].type == 1 && iosTMD->contents[1].type == 0x8001 && iosTMD->contents[2].type == 0x8001));
+	else		
+		isStub = false;
+		
+	free(b_tmd);
+		
+  return isStub;
+}
+
+void Syscheck::DeleteFakeTicket()
+{
+	u64 titleId = 0x100000000LL;
+	u32 views;
+
+	// Get number of ticket views
+	if(ES_GetNumTicketViews(titleId, &views) >= 0)
+		return;
+
+	if (views == 0 || views > 16) 
+		return;
+	
+	// Get ticket views
+	tikview *viewdata  = (tikview*)memalign(32, sizeof(tikview) * views);
+	if(ES_GetTicketViews(titleId, viewdata, views) >= 0)
+	{
+		// Remove tickets
+		for (u32 cnt = 0; cnt < views; cnt++)
+			if(ES_DeleteTicket(&viewdata[cnt]) < 0)
+				break;
+	}
+
+	free(viewdata);
 }
 
 bool Syscheck::CheckFakeSignature()
 {
-  return true;
-}
+	Buffer fake = FileManager::GetFile(_fakeTicket);
+  int ret = ES_AddTicket((signed_blob*) fake.Content(), fake.Length(), (signed_blob*) Certificate::GetContent(), Certificate::GetLength(), 0, 0);
+	//removing installed ticket
+	if (ret > -1)
+		DeleteFakeTicket();
+		
+	if (ret > -1 || ret == -1028)
+		return true;
 
+	return false;
+}
 
 void Syscheck::SendToLog()
 {
@@ -240,3 +375,22 @@ void Syscheck::SendToLog()
   Log::WriteLog(Log_Info,txt.str());
 }
 
+u32 Syscheck::GetDeviceID()
+{
+	u32 deviceId = 0;
+
+	if (ES_GetDeviceID(&deviceId) < 0)
+		deviceId = 0;
+	
+	return deviceId;
+}
+
+u32 Syscheck::GetBoot2Version()
+{
+	u32 boot2version = 0;
+
+	if (ES_GetBoot2Version(&boot2version) < 0)
+		boot2version = 0;
+	
+	return boot2version;
+}

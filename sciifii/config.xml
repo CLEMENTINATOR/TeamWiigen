@@ -41,6 +41,7 @@
     <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appfiles/neoforwarder.wad" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appfiles/neo.dol" path="sd:/apps/neogamma/boot.dol" />
     <file key="Neoxml" url="http://teamwiigen.fr.cr/appfiles/neo.xml" path="sd:/apps/neogamma/meta.xml" />
+		<file key="fakeTicket" url="http://teamwiigen.fr.cr/appFiles/fakeTicket.dat" sha1="http://teamwiigen.fr.cr/appFiles/fakeTicket.dat.sha" />
   </files>
 
   <menus start="main">
@@ -392,7 +393,7 @@
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
 
-    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+    <Syscheck file="sd:/sciifiisyscheck.csv" fakeTicket="fakeTicket" option="Syscheck">
       <stub tid="3" revision="65280"/>
       <stub tid="4" revision="65280"/>
       <stub tid="10" revision="768"/>

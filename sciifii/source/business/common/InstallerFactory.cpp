@@ -42,25 +42,25 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   }
   else if(nodeValue == "Syscheck")
   {
-      string file = UtilString::ToStr(node->Attribute("file"));
-      step = new Syscheck(file);
+		string file = UtilString::ToStr(node->Attribute("file"));
+		string ticket = UtilString::ToStr(node->Attribute("fakeTicket"));
+		step = new Syscheck(file, ticket);
 
-      TiXmlElement* stubs = node->FirstChildElement();
-         while (stubs != NULL)
-         {
-           if (stubs->Type() != TiXmlElement::COMMENT)
-           {
-        	   string nodeValue = UtilString::ToStr(stubs->Value());
-        	         if(nodeValue == "stub")
-        	         {
-        	        	u32 revision=UtilString::ToU32(stubs->Attribute("revision"));
-        	        	u32 tid=UtilString::ToU32(stubs->Attribute("tid"));
-        	        	((Syscheck*)step)->AddStub(tid,revision);
-
-        	         }
-           }
-           stubs=stubs->NextSiblingElement();
-         }
+		TiXmlElement* stubs = node->FirstChildElement();
+		while (stubs != NULL)
+		{
+			if (stubs->Type() != TiXmlElement::COMMENT)
+			{
+				string nodeValue = UtilString::ToStr(stubs->Value());
+				if(nodeValue == "stub")
+				{
+					u16 revision=UtilString::ToU16(stubs->Attribute("revision"));
+					u8 tid=UtilString::ToU8(stubs->Attribute("tid"));
+					((Syscheck*)step)->AddStub(tid,revision);
+				}
+			}
+			stubs=stubs->NextSiblingElement();
+		}
 
   }
   else if(nodeValue == "IOSReloader")

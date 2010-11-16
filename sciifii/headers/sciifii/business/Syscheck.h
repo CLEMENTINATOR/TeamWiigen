@@ -4,31 +4,39 @@
 
 #include "common/Installer.h"
 #include <vector>
+#include <map>
 
-typedef struct {
-	u32 tid;
-	u32 rev;
-}Stub;
+typedef struct 
+{
+	bool isStub;
+	u16 revision;
+} CheckDescriptor;
+
 class Syscheck : public Installer
 {
   public:
-    Syscheck(std::string s);
-    virtual ~Syscheck();
+    Syscheck(const std::string& resultLog, const std::string& fakeTicket);
     virtual bool Prepare();
     virtual void Install();
-    void AddStub(u32 tid,u32 revision);
+    void AddStub(u8 tid,u16 revision);
     void SendToLog();
 
   private :
     std::string fileName;
-    std::vector<Stub> stubList;
+		std::string _fakeTicket;
+    std::map<u8, CheckDescriptor> stubList;
     bool CheckESIdentify();
     bool CheckFlashAccess();
     bool CheckNANDAccess();
     bool CheckBoot2Access();
     bool CheckUSB2();
-    bool IsIosStub(u32 tid,u32 revision);
+    bool IsIosStub(u8 tid,u16 revision);
     bool CheckFakeSignature();
+		u32 GetDeviceID();
+		u32 GetBoot2Version();
+		bool CheckBootmiiIOS(u8 id, const CheckDescriptor& descriptor);
+		void DeleteFakeTicket();
+		u32 GetSysMenuVersion();
 };
 
 

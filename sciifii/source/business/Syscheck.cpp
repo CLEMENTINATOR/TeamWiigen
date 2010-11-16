@@ -130,7 +130,7 @@ void Syscheck::Install()
 			prog<<"Analysing IOS " << (u32)*t;
 			OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
 			
-			temp << "IOS" << *t << " (rev " << desc.revision << "),";
+			temp << "IOS" << (u32)*t << " (rev " << desc.revision << "),";
 			f->Write(temp.str());
 			temp.str("");
 			

@@ -127,7 +127,7 @@ void Syscheck::Install()
 			step++;
 
 			stringstream prog;
-			prog<<"Analysing IOS " << *t;
+			prog<<"Analysing IOS " << (u32)*t;
 			OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
 			
 			temp << "IOS" << *t << " (rev " << desc.revision << "),";

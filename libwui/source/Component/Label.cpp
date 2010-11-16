@@ -195,7 +195,7 @@ void Label::Draw()
   bool needScroll = nbCharMax < txt.length();
 
 
-  _textToDisplay = txt;
+  string textToDisplay = txt;
 
   //recupération du text réelle a afficher
   if(needScroll)
@@ -222,7 +222,7 @@ void Label::Draw()
         textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
       }
     }
-    _textToDisplay = txt.substr(textScrollPos, nbCharMax);
+    textToDisplay = txt.substr(textScrollPos, nbCharMax);
   }
 
   //Get the real position
@@ -234,10 +234,10 @@ void Label::Draw()
     case FTGX_JUSTIFY_LEFT:
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = Parent()->GetWidth() - resource->Font()->getWidth(_textToDisplay);
+      alignOffsetX = Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (Parent()->GetWidth() - resource->Font()->getWidth(_textToDisplay)) / 2;
+      alignOffsetX = (Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
       break;
   }
 
@@ -246,16 +246,16 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = Parent()->GetHeight() - resource->Font()->getHeight(_textToDisplay);
+      alignOffsetY = Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (Parent()->GetHeight() - resource->Font()->getHeight(_textToDisplay)) / 2;
+      alignOffsetY = (Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
       break;
   }
 
   u16 displayStyle = style & ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
   displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
-  resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, _textToDisplay, color, displayStyle);
+  resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
 
 }
 

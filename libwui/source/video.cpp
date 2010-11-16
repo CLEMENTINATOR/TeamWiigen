@@ -41,7 +41,7 @@ static void UpdatePadsCB ()
 		WPAD_ScanPads();
 	#endif
 
-	PAD_ScanPads();
+	//PAD_ScanPads();
 
 	for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
 	{

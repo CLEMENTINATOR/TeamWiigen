@@ -221,7 +221,7 @@ u32 Syscheck::GetSysMenuVersion()
 
 bool Syscheck::CheckBootmiiIOS(u8 id, const CheckDescriptor& descriptor)
 {
-  return (id == 254 && descriptor.revision == 31338);
+  return (id == 254 && descriptor.revision == 31338 ||id == 254 && descriptor.revision == 65281 );
 }
 
 bool Syscheck::CheckFlashAccess()

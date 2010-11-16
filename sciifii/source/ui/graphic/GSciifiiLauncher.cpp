@@ -188,6 +188,7 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
   pBarGlobal.SetActualValue(100);
 
   bOk.Enabled(true);
+  UIManager::TrackWPads(true);
 }
 void GSciifiiLauncher::Draw()
 {

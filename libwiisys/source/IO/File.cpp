@@ -32,7 +32,6 @@ bool File::Exists(const string &fileName)
   return exists;
 }
 
-
 File& File::Open(const string &fileName, FileMode mode)
 {
   string path = Path::CleanPath(fileName);
@@ -89,7 +88,6 @@ File& File::Open(const string &fileName, FileMode mode)
   }
 }
 
-
 File& File::Create(const string &fileName)
 {
   string path = Path::CleanPath(fileName);
@@ -109,7 +107,6 @@ File& File::Create(const string &fileName)
     throw;
   }
 }
-
 
 void File::Delete(const string &fileName)
 {
@@ -133,22 +130,18 @@ void File::Delete(const string &fileName)
   Device::UnMount(path);
 }
 
-
 void File::Close()
 {
   Device::UnMount(this->_fileName);
 }
 
-
 File::~File()
 {}
-
 
 u32 File::Size() const
 {
   return _fileLength;
 }
-
 
 Buffer File::ReadToEnd(const string& path)
 {
@@ -174,6 +167,17 @@ Buffer File::ReadToEnd(const string& path)
   return buffer;
 }
 
+void File::Write(const string& text)
+{
+	Buffer b(text.c_str(), text.length());
+	Write(b);
+}
+
+void File::Write(const char* text)
+{
+	string s(text);
+	Write(s);
+}
 
 void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 {
@@ -189,7 +193,6 @@ void File::Copy(const std::string &fileToCopy,const std::string &destFile)
   f.Close();
   delete &f;
 }
-
 
 void File::Move(const std::string &fileToCopy,const std::string &destFile)
 {

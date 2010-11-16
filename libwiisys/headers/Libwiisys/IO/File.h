@@ -70,6 +70,9 @@ namespace Libwiisys
          */
         virtual void Write(const Buffer& b) = 0;
 
+				void Write(const std::string& text);
+				void Write(const char* text);
+				
         /**
          * @brief Read to the file( need to be reimplemented if you inherit this class)
          * @param b The buffer where readed data will e stored

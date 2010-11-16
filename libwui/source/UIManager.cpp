@@ -20,9 +20,8 @@ UIManager::UIManager()
 	
   InitVideo(); // Initialise video
   InitAudio(); // Initialize audio
-	
-	PAD_Init();
-	TrackWPads(true);
+
+  TrackWPads(true);
 }
 
 void UIManager::AddMessage(Message* message)

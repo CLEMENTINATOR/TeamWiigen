@@ -47,31 +47,31 @@ void Syscheck::Install()
 	//creating report file
 	if(File::Exists(fileName))
     File::Delete(fileName);
-  File & f = File::Create(fileName);
+  File* f = &File::Create(fileName);
 	try
 	{
 		//printing report header
-		f.Write("Region: ");
+		f->Write("Region: ");
 		switch(Config::GetRegion())
 		{
 			case CONF_REGION_US:
-				f.Write("NTSC-U");
+				f->Write("NTSC-U");
 				break;
 
 			case CONF_REGION_EU:
-				f.Write("PAL");
+				f->Write("PAL");
 				break;
 
 			case CONF_REGION_JP:
-				f.Write("NTSC-J");
+				f->Write("NTSC-J");
 				break;
 
 			case CONF_REGION_KR:
-				f.Write("KOR");
+				f->Write("KOR");
 				break;
 
 			default:
-				f.Write("unknown");
+				f->Write("unknown");
 				break;
 		}
 		temp << endl << "The system menu v" << GetSysMenuVersion() << " is running under IOS" <<  currentIos << " (rev " << Title::GetInstalledTitleVersion(IOS_FULL_ID(currentIos))  << ")" << endl;
@@ -79,7 +79,7 @@ void Syscheck::Install()
 		temp << "Console ID: " << GetDeviceID() << endl;
 		temp << "Boot2 v" << GetBoot2Version() << endl;
 		temp << "Found " << titleList.size() << " titles" << endl;
-		f.Write(temp.str());
+		f->Write(temp.str());
 		temp.str("");
 		
 		//sorting the list
@@ -99,26 +99,26 @@ void Syscheck::Install()
 		
 		//stub summary
 		if ((titleList.size() - stubCount) == 0)
-				f.Write("No IOS on this console\n");
+				f->Write("No IOS on this console\n");
 		else
 		{
 			temp << "Found " << titleList.size() - stubCount << "  IOS on this console" << endl;
-			f.Write(temp.str());
+			f->Write(temp.str());
 			temp.str("");
 		}
 
 		if (stubCount == 0)
-			f.Write("No IOS Stub on this console\n");
+			f->Write("No IOS Stub on this console\n");
 		else
 		{
 			temp << "Found " << stubCount << "IOS Stubs on this console" << endl;
-			f.Write(temp.str());
+			f->Write(temp.str());
 			temp.str("");
 		}
 		
 		
 		//genrating the report
-		f.Write("\nIOS (revision),IOS Stub,Trucha Bug,ES Identify,Flash Access,NAND Access,Boot2 Access,USB 2.0\n");
+		f->Write("\nIOS (revision),IOS Stub,Trucha Bug,ES Identify,Flash Access,NAND Access,Boot2 Access,USB 2.0\n");
 		
 		f32 step = 0;
 		for(vector<u8>::iterator t = titleList.begin(); t != titleList.end(); t++)
@@ -131,33 +131,38 @@ void Syscheck::Install()
 			OnProgress(prog.str(),(f32)((f32)step/(f32)titleList.size()));
 			
 			temp << "IOS" << *t << " (rev " << desc.revision << "),";
-			f.Write(temp.str());
+			f->Write(temp.str());
 			temp.str("");
 			
 			if(CheckBootmiiIOS(*t, desc))
 			{
-				f.Write("No,?,?,?,?,?,?\n");
+				f->Write("No,?,?,?,?,?,?\n");
 				continue;
 			}
 			if (desc.isStub)
 			{
-				f.Write("Yes,?,?,?,?,?,?\n");
+				f->Write("Yes,?,?,?,?,?,?\n");
 				continue;
 			}
 			
+			f->Close();
+			delete f;
+			f = NULL;
 			Title::ReloadIOS(*t);
 			
-			f.Write("No,");
-			CheckFakeSignature() ? f.Write("Enabled,") : f.Write("Disabled,");
-			CheckESIdentify() ? f.Write("Enabled,") : f.Write("Disabled,");
-			CheckFlashAccess() ? f.Write("Enabled,") : f.Write("Disabled,");
-			CheckNANDAccess() ? f.Write("Enabled,") : f.Write("Disabled,");
-			CheckBoot2Access() ? f.Write("Enabled,") : f.Write("Disabled,");
-			CheckUSB2() ? f.Write("Enabled") : f.Write("Disabled");
+			f = &File::Open(fileName, FileMode_Write);
+			f->Write("No,");
+			CheckFakeSignature() ? f->Write("Enabled,") : f->Write("Disabled,");
+			CheckESIdentify() ? f->Write("Enabled,") : f->Write("Disabled,");
+			CheckFlashAccess() ? f->Write("Enabled,") : f->Write("Disabled,");
+			CheckNANDAccess() ? f->Write("Enabled,") : f->Write("Disabled,");
+			CheckBoot2Access() ? f->Write("Enabled,") : f->Write("Disabled,");
+			CheckUSB2() ? f->Write("Enabled") : f->Write("Disabled");
 		}
 		
-		f.Close();
-		delete &f;
+		f->Close();
+		delete f;
+		f = NULL;
 		
 		Title::ReloadIOS(currentIos);
 		
@@ -165,14 +170,20 @@ void Syscheck::Install()
 	}
 	catch(Exception &ex)
 	{
-		f.Close();
-		delete &f;
+		if(f)
+		{
+			f->Close();
+			delete f;
+		}
 		throw;
 	}
 	catch(...)
 	{
-		f.Close();
-		delete &f;
+		if(f)
+		{
+			f->Close();
+			delete f;
+		}
 		throw;
 	}
 }

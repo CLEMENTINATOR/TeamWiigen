@@ -134,8 +134,17 @@ u32 HttpRequest::GetResponseLength()
       char *newUrl = (char*)malloc(sizeof(char)*(s+1));
       memcpy(newUrl, ptr+10, s);
       newUrl[s]='\0';
-      SetRequest(string(newUrl));
+      string newUrlString=string(newUrl);
       free(newUrl);
+      if(newUrlString.find("http://")==string::npos)
+      {
+        if(newUrlString.find(_hostName)==string::npos)
+        {
+          newUrlString=_hostName+newUrlString;
+        }
+        newUrlString=string("http://")+newUrlString;
+      }
+      SetRequest(newUrlString);
       return this->GetResponseLength();
     }
   }

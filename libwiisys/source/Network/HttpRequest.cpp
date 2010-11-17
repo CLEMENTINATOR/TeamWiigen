@@ -71,7 +71,7 @@ u32 HttpRequest::GetResponseLength()
   if (_path.length() == 0 || _hostName.length() == 0)
     throw Exception("The request isn't properly initialised.");
 
-  char buf[1024], request[256];
+  char buf[2048], request[256];
 
   s32 ret;
 
@@ -115,11 +115,41 @@ u32 HttpRequest::GetResponseLength()
       throw Exception("Error reading http header");
 
   /* HTTP request OK? */
-  if (!(strstr(buf, "HTTP/1.1 200 OK") || strstr(buf, "HTTP/1.0 200 OK")))
-    throw Exception("The response status indicate an error.");
+  u32 code;
+  char *ptr = strstr(buf, "HTTP/1.1");
+  if (ptr)
+  {
+    sscanf(ptr, "HTTP/1.1 %u", &code);
+  }
+  else
+    throw Exception("No http 1.1 response");
+
+  if(code>300 && code<304)
+  {
+    ptr=strstr(buf, "Location:");
+    if(ptr)
+    {
+      int s;
+      s= (int)(strstr(ptr, "\n") - ptr - 10);
+      char *newUrl = (char*)malloc(sizeof(char)*(s+1));
+      memcpy(newUrl, ptr+10, s);
+      newUrl[s]='\0';
+      SetRequest(string(newUrl));
+      free(newUrl);
+      return this->GetResponseLength();
+    }
+  }
+  else if (code==200)
+  {}
+  else
+  {
+    throw Exception("Error http "+code);
+  }
+
+
 
   /* Retrieve content size */
-  char *ptr = strstr(buf, "Content-Length:");
+  ptr = strstr(buf, "Content-Length:");
   if (!ptr)
     throw Exception("Error retrieving response lengt");
 

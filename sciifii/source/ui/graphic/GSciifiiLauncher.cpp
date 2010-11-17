@@ -144,14 +144,14 @@ void GSciifiiLauncher::Execute()
 {
   pBarGlobal.SetText("Installation");
   vector<Installer*> steps = Config::Steps();
-  u32 step=steps.size();
+  u32 step=0;
   for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
   {
     try
     {
       pBarGlobal.SetActualValue(step+steps.size());
       stringstream s;
-      s<<"Step "<<step<<" / "<<steps.size()*2;
+      s<<"Step "<<step+steps.size()<<" / "<<steps.size()*2;
       pBarGlobal.SetText(s.str());
       step++;
       (*ite)->Install();

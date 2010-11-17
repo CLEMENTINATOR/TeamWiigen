@@ -9,7 +9,12 @@ using namespace Libwiisys::Threading;
 Thread::Thread(ThreadStart start)
 {
   _start = start;
-	_threadResult.HasError = false;
+  _threadResult.HasError = false;
+}
+Thread::~Thread()
+{
+  if(_threadResult.e!=NULL)
+    delete _threadResult.e;
 }
 
 void Thread::Start(Object* params)
@@ -33,9 +38,15 @@ void * Thread::EntryPoint(void * pthis)
   {
     pt->_threadResult.Result = pt->Run();
   }
+  catch(Exception &e)
+  {
+    pt->_threadResult.HasError = true;
+    pt->_threadResult.e=&e;
+  }
   catch(...)
   {
     pt->_threadResult.HasError = true;
+    pt->_threadResult.e= new Exception("Unhandled Exception !");
   }
 
   ThreadResultEventArgs args(pt->_threadResult, pt->_threadId);

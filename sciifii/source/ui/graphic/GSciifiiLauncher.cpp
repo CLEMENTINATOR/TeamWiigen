@@ -36,6 +36,14 @@ void GSciifiiLauncher::InitializeComponents()
   bOk.OverImage("sd:/sciifii/default/go_button_over.png");
   bOk.SetSize(164, 40);
 
+  mb.SetTitlePosition(16, 2);
+  mb.SetTitleSize(279, 14);
+  mb.SetTextPosition(16, 64);
+  mb.SetTextSize(279, 45);
+  mb.SetButtonPosition(76, 137);
+  mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
+  mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
+  mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
 
   pBarGlobal.SetActualValue(0);
   pBarGlobal.SetMaxValue(100);
@@ -151,8 +159,12 @@ void GSciifiiLauncher::Execute()
     catch(SystemException &ex)
     {
       bool ignore = false;
-      for(vector<s32>::iterator itex = (*ite)->IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
-        if(*itex == ex.GetCode())
+      for(vector<s32>::iterator itex = (*ite)->
+                                       IgnoredExceptions().begin();
+          itex != (*ite)->IgnoredExceptions().end();
+          itex++)
+        if(*itex == ex.GetCode()
+          )
         {
           ignore = true;
           break;
@@ -173,8 +185,10 @@ void GSciifiiLauncher::Execute()
 
 void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 {
+  UIManager::TrackWPads(true);
   if( args->Result.HasError)
   {
+    mb.Show(this, "Exception",  args->Result.e->ToString());
     bOk.Text("Error !");
   }
   else
@@ -188,7 +202,6 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
   pBarGlobal.SetActualValue(100);
 
   bOk.Enabled(true);
-  UIManager::TrackWPads(true);
 }
 void GSciifiiLauncher::Draw()
 {

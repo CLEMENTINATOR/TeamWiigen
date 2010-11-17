@@ -4,7 +4,7 @@
 #include <FastDelegate.h>
 #include "../Object.h"
 #include <ogcsys.h>
-
+#include "../exceptions/Exception.h"
 
 namespace Libwiisys
 {
@@ -16,6 +16,7 @@ namespace Libwiisys
       public:
         bool HasError;
         void* Result;
+        Libwiisys::Exceptions::Exception* e;
     };
   }
 }

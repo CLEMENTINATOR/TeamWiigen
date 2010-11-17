@@ -10,6 +10,7 @@ Thread::Thread(ThreadStart start)
 {
   _start = start;
   _threadResult.HasError = false;
+ _threadResult.e=NULL;
 }
 Thread::~Thread()
 {

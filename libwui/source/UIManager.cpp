@@ -76,8 +76,9 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
     LWP_YieldThread();
   }
 
-  Current()._modalDialog = oldDial;
+
   dialog.SetRoot(false);
+  Current()._modalDialog = oldDial;
 }
 
 void UIManager::Update()

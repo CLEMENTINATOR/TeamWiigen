@@ -17,7 +17,7 @@ UIManager::UIManager()
     _modalDialog(NULL)
 {
   LWP_MutexInit(&_messageQueueMutex, true);
-	
+
   InitVideo(); // Initialise video
   InitAudio(); // Initialize audio
 
@@ -65,6 +65,7 @@ void UIManager::Run(Form &form)
 
 void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 {
+  Form *oldDial=Current()._modalDialog;
   Current()._modalDialog = &dialog;
   dialog.SetRoot(true, "dialog");
   dialog.InitializeComponents();
@@ -75,7 +76,7 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
     LWP_YieldThread();
   }
 
-  Current()._modalDialog = NULL;
+  Current()._modalDialog = oldDial;
   dialog.SetRoot(false);
 }
 
@@ -114,13 +115,13 @@ void UIManager::Update()
   while(!Current()._messageQueue.empty())
   {
     Message *message = Current()._messageQueue.front();
-    
-		if(Current()._modalDialog)
+
+    if(Current()._modalDialog)
       Current()._modalDialog->ProcessMessage(*message);
     else
       Current()._rootElement->ProcessMessage(*message);
-    
-		Current()._messageQueue.pop();
+
+    Current()._messageQueue.pop();
     delete message;
   }
   LWP_MutexUnlock(Current()._messageQueueMutex);
@@ -128,10 +129,10 @@ void UIManager::Update()
 
 void UIManager::TrackWPads(bool track)
 {
-	if(!track)
-		Menu_StopWPads();
-	else
-		Menu_StartWPads();
+  if(!track)
+    Menu_StopWPads();
+  else
+    Menu_StartWPads();
 }
 
 UIManager::~UIManager()

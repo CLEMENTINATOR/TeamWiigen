@@ -41,7 +41,7 @@ void * Thread::EntryPoint(void * pthis)
   catch(Exception &e)
   {
     pt->_threadResult.HasError = true;
-    pt->_threadResult.e=&e;
+    pt->_threadResult.e=new Exception(e);
   }
   catch(...)
   {

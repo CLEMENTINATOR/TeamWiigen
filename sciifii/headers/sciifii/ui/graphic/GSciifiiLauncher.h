@@ -31,6 +31,7 @@ class GSciifiiLauncher : public Libwui::Component::Form
     Libwui::Component::ProgressBar pBarGlobal;
     Libwui::Component::ProgressBar pBarActual;
     Libwui::Component::Button bOk;
+    Libwui::Component::MessageBox mb;
     Libwiisys::Threading::BackgroundWorker bw;
 
 };

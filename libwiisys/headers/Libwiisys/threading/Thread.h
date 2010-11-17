@@ -32,7 +32,7 @@ namespace Libwiisys
          *\brief Constructor
          */
         Thread(ThreadStart start);
-
+        ~Thread();
         /**
          * \brief Start the thread
          * \param params the parameters which are given to the thread

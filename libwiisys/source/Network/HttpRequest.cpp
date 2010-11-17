@@ -136,12 +136,12 @@ u32 HttpRequest::GetResponseLength()
       newUrl[s]='\0';
       string newUrlString=string(newUrl);
       free(newUrl);
-      if(newUrlString.find("http://")==string::npos)
+      if(newUrlString.find("http://")==string::npos) // if pas http:// devant
       {
-        if(newUrlString.find(_hostName)==string::npos)
-        {
-          newUrlString=_hostName+newUrlString;
-        }
+    	  if(newUrlString.find("/")==0)  // path only
+    	  {
+    		  newUrlString=_hostName+newUrlString;
+    	  }
         newUrlString=string("http://")+newUrlString;
       }
       SetRequest(newUrlString);

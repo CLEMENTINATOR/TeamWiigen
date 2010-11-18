@@ -199,9 +199,9 @@ void Config::CreateStepList(TiXmlElement* element)
 
 void Config::ValidateOptions()
 {
-  cout << "\x1b[2J";
+  /*cout << "\x1b[2J";
   cout << "\x1b[2;0H";
-  cout << "Sciifii is analysing your choice" << endl;
+  cout << "Sciifii is analysing your choice" << endl;*/
   vector<Installer*> steps = Instance()._availableSteps;
 
   for (vector<Installer*>::iterator step = steps.begin(); step != steps.end(); step++)

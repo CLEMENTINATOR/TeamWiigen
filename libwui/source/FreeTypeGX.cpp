@@ -535,7 +535,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, const std::string &text, GXC
 {
   wchar_t *t = charToWideChar(text.c_str());
   uint16_t returnValue = drawText(x, y, t, color, textStyling);
-  free(t);
+  delete [] t;
   return returnValue;
 }
 
@@ -638,7 +638,7 @@ uint16_t FreeTypeGX::getWidth(const std::string& text)
 {
   wchar_t *t = charToWideChar(text.c_str());
   uint16_t returnValue = this->getWidth(t);
-  free(t);
+  delete[] t;
   return returnValue;
 }
 
@@ -671,7 +671,7 @@ uint16_t FreeTypeGX::getHeight(const std::string& text)
 {
   wchar_t *t = charToWideChar(text.c_str());
   uint16_t returnValue = this->getHeight(t);
-  free(t);
+  delete[] t;
   return returnValue;
 }
 

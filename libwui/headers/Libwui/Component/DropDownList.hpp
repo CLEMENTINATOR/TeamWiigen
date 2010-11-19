@@ -32,7 +32,7 @@ namespace Libwui
 				
 			protected:
 				void EnsureItems();
-				void OnSelectedItemChanged(Device::PadController &c);
+				virtual void OnSelectedItemChanged(Device::PadController &c);
 				
       private:
         Button _bSelected;

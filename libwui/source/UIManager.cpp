@@ -17,7 +17,7 @@ UIManager::UIManager()
     _modalDialog(NULL),
     _untilNextCacheClean(20)
 {
-  LWP_MutexInit(&_messageQueueMutex, true);
+  LWP_MutexInit(&_messageQueueMutex, false);
 
   InitVideo(); // Initialise video
   InitAudio(); // Initialize audio

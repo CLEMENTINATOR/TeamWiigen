@@ -24,7 +24,7 @@ namespace Libwui
   	  public:
   		  static Resource* GetResource(const std::string& key);
   		  static void AddResource(const std::string& key, Resource* res);
-  		  static void Clean();
+  		  static void Clean(bool force = false);
   		  static void SetCacheDuration(u32 frameCount);
   	  };
   }

@@ -3,6 +3,7 @@
 #include <libwui/Resources/Colors.h>
 #include <libwui/UIManager.hpp>
 #include <Libwui/video.h>
+#include <sstream>
 
 using namespace Libwui;
 using namespace Libwui::Component;

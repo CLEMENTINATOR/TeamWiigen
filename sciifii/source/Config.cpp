@@ -270,12 +270,6 @@ void Config::ClearSwitches()
 void Config::Reset()
 {
   ClearSwitches();
-  vector<Installer*> steps = Instance()._validatedSteps;
-  for (vector<Installer*>::iterator step = steps.begin(); step != steps.end(); step++)
-  {
-	  delete *step;
-  }
-
   Instance()._validatedSteps.clear();
 }
 

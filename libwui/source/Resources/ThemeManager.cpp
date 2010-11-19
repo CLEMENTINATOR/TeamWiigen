@@ -38,7 +38,10 @@ void ThemeManager::ThemeRootFolder(const string& path)
 
 vector<string> ThemeManager::AvailableThemes()
 {
-  return Directory::GetDirectories(Current()._themeFolder);
+	vector<string> dirList = Directory::GetDirectories(Current()._themeFolder);
+	for(vector<string>::iterator t = dirList.begin(); t != dirList.end(); t++)
+		*t = Path::GetDirectoryName(*t);
+  return dirList;
 }
 
 void ThemeManager::CurrentTheme(const string& theme)

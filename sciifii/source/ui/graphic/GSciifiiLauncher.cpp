@@ -22,192 +22,162 @@ using namespace std;
 using namespace fastdelegate;
 using namespace Libwui;
 
-void GSciifiiLauncher::InitializeComponents()
-{
-  Visible(true);
-  BackgroundColor(Colors::FromRGBA(122, 122 ,122,125));
-  SetPosition(0,0);
-  SetSize(640, 480);
+void GSciifiiLauncher::InitializeComponents() {
+	Visible(true);
+	BackgroundColor(Colors::FromRGBA(122, 122, 122, 125));
+	SetPosition(0, 0);
+	SetSize(640, 480);
 
-  bOk.Enabled(false);
-  bOk.Click+=MakeDelegate(this,& GSciifiiLauncher::Exit);
-  bOk.Text("Done !");
-  bOk.SetPosition(220,250);
-  bOk.DefaultImage("go_button.png");
-  bOk.OverImage("go_button_over.png");
-  bOk.SetSize(164, 40);
+	bOk.Enabled(false);
+	bOk.Click += MakeDelegate(this, &GSciifiiLauncher::Exit);
+	bOk.Text("Done !");
+	bOk.SetPosition(220, 250);
+	bOk.DefaultImage("go_button.png");
+	bOk.OverImage("go_button_over.png");
+	bOk.SetSize(164, 40);
 
-  mb.SetTitlePosition(16, 2);
-  mb.SetTitleSize(279, 14);
-  mb.SetTextPosition(16, 64);
-  mb.SetTextSize(279, 45);
-  mb.SetButtonPosition(76, 137);
-  mb.DefaultButtonImage("go_button.png");
-  mb.OverButtonImage("go_button_over.png");
-  mb.SetMessageBoxImage("error_popup_screen.png");
+	mb.SetTitlePosition(16, 2);
+	mb.SetTitleSize(279, 14);
+	mb.SetTextPosition(16, 64);
+	mb.SetTextSize(279, 45);
+	mb.SetButtonPosition(76, 137);
+	mb.DefaultButtonImage("go_button.png");
+	mb.OverButtonImage("go_button_over.png");
+	mb.SetMessageBoxImage("error_popup_screen.png");
 
-  pBarGlobal.SetActualValue(0);
-  pBarGlobal.SetMaxValue(100);
-  pBarGlobal.SetSize(200,20);
-  pBarGlobal.SetPosition(220,190);
+	pBarGlobal.SetActualValue(0);
+	pBarGlobal.SetMaxValue(100);
+	pBarGlobal.SetSize(200, 20);
+	pBarGlobal.SetPosition(220, 190);
 
+	pBarActual.SetActualValue(0);
+	pBarActual.SetMaxValue(1);
+	pBarActual.SetSize(200, 20);
+	pBarActual.SetPosition(220, 220);
 
-  pBarActual.SetActualValue(0);
-  pBarActual.SetMaxValue(1);
-  pBarActual.SetSize(200,20);
-  pBarActual.SetPosition(220,220);
-
-
-  AddChildren(&pBarActual);
-  AddChildren(&pBarGlobal);
-  AddChildren(&bOk);
-  Control::InitializeComponents();
-  Run();
+	AddChildren(&pBarActual);
+	AddChildren(&pBarGlobal);
+	AddChildren(&bOk);
+	Control::InitializeComponents();
+	Run();
 }
 
-bool GSciifiiLauncher::Run()
-{
-  try
-  {
-    bw.DoWork+=MakeDelegate(this,&GSciifiiLauncher::LaunchProcess);
-    bw.WorkDone+=MakeDelegate(this,&GSciifiiLauncher::JobDone);
-    bw.RunWorkerAsync(NULL);
-  }
-  catch(...)
-  {
-    return false;
-  }
-  return true;
+bool GSciifiiLauncher::Run() {
+	try {
+		bw.DoWork += MakeDelegate(this, &GSciifiiLauncher::LaunchProcess);
+		bw.WorkDone += MakeDelegate(this, &GSciifiiLauncher::JobDone);
+		bw.RunWorkerAsync(NULL);
+	} catch (...) {
+		return false;
+	}
+	return true;
 }
 
-void GSciifiiLauncher::SetValueGlobal(Object *sender, ProgressEventArgs *p)
-{
-  pBarGlobal.SetValue(sender,p);
+void GSciifiiLauncher::SetValueGlobal(Object *sender, ProgressEventArgs *p) {
+	pBarGlobal.SetValue(sender, p);
 }
 
-void GSciifiiLauncher::SetValueActual(Object *sender, ProgressEventArgs *p)
-{
-  pBarActual.SetValue(sender, p);
+void GSciifiiLauncher::SetValueActual(Object *sender, ProgressEventArgs *p) {
+	pBarActual.SetValue(sender, p);
 
 }
 
-void GSciifiiLauncher::Exit(Object *sender, CursorEventArgs *p)
-{
-  Visible(false);
+void GSciifiiLauncher::Exit(Object *sender, CursorEventArgs *p) {
+	Visible(false);
 }
 
-void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
-{
-  Config::ValidateOptions();
+void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args) {
+	Config::ValidateOptions();
 
-  vector<Installer*> steps = Config::Steps();
-  for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-    (*ite)->Progressing += MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
+	vector<Installer*> steps = Config::Steps();
+	for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+		(*ite)->Progressing += MakeDelegate(this,
+				&GSciifiiLauncher::SetValueActual);
 
-  UIManager::TrackWPads(false);
-  if (Prepare())
-  {
-    Execute();
-    pBarGlobal.SetText("Done !");
-  }
-  else
-  {
-    bOk.Enabled(true);
-    bOk.Visible(true);
-    UIManager::TrackWPads(true);
-    throw Exception("An error occured during prepare.");
-  }
+	UIManager::TrackWPads(false);
+	if (Prepare()) {
+		Execute();
+		pBarGlobal.SetText("Done !");
+	} else {
+		bOk.Enabled(true);
+		bOk.Visible(true);
+		UIManager::TrackWPads(true);
+		throw Exception("An error occured during prepare.");
+	}
 
-  UIManager::TrackWPads(true);
+	UIManager::TrackWPads(true);
 }
 
-
-bool GSciifiiLauncher::Prepare()
-{
-  bool sucess = true;
-  pBarGlobal.SetText("Preparation");
-  u32 step=0;
-  vector<Installer*> steps = Config::Steps();
-  pBarGlobal.SetMaxValue(steps.size()*2);
-  for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-  {
-    sucess &= (*ite)->Prepare();
-    step++;
-    pBarGlobal.SetActualValue(step);
-    stringstream s;
-    s<<"Step "<<step<<" / "<<steps.size()*2;
-    pBarGlobal.SetText(s.str());
-  }
-  return sucess;
+bool GSciifiiLauncher::Prepare() {
+	bool sucess = true;
+	pBarGlobal.SetText("Preparation");
+	u32 step = 0;
+	vector<Installer*> steps = Config::Steps();
+	pBarGlobal.SetMaxValue(steps.size() * 2);
+	for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++) {
+		sucess &= (*ite)->Prepare();
+		step++;
+		pBarGlobal.SetActualValue(step);
+		stringstream s;
+		s << "Step " << step << " / " << steps.size() * 2;
+		pBarGlobal.SetText(s.str());
+	}
+	return sucess;
 }
 
-void GSciifiiLauncher::Execute()
-{
-  pBarGlobal.SetText("Installation");
-  vector<Installer*> steps = Config::Steps();
-  u32 step=0;
-  for(vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-  {
-    try
-    {
-      pBarGlobal.SetActualValue(step+steps.size());
-      stringstream s;
-      s<<"Step "<<step+steps.size()<<" / "<<steps.size()*2;
-      pBarGlobal.SetText(s.str());
-      step++;
-      (*ite)->Install();
-    }
-    catch(SystemException &ex)
-    {
-      bool ignore = false;
-      for(vector<s32>::iterator itex = (*ite)->
-                                       IgnoredExceptions().begin();
-          itex != (*ite)->IgnoredExceptions().end();
-          itex++)
-        if(*itex == ex.GetCode()
-          )
-        {
-          ignore = true;
-          break;
-        }
+void GSciifiiLauncher::Execute() {
+	pBarGlobal.SetText("Installation");
+	vector<Installer*> steps = Config::Steps();
+	u32 step = 0;
+	for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++) {
+		try {
+			pBarGlobal.SetActualValue(step + steps.size());
+			stringstream s;
+			s << "Step " << step + steps.size() << " / " << steps.size() * 2;
+			pBarGlobal.SetText(s.str());
+			step++;
+			(*ite)->Install();
+		} catch (SystemException &ex) {
+			bool ignore = false;
+			for (vector<s32>::iterator itex =
+					(*ite)-> IgnoredExceptions().begin(); itex
+					!= (*ite)->IgnoredExceptions().end(); itex++)
+				if (*itex == ex.GetCode()) {
+					ignore = true;
+					break;
+				}
 
-      if(!ignore)
-        throw;
-      else
-      {
-        pBarActual.SetActualValue(1);
-        pBarActual.SetText("Step skipped !");
-      }
-    }
+			if (!ignore)
+				throw;
+			else {
+				pBarActual.SetActualValue(1);
+				pBarActual.SetText("Step skipped !");
+			}
+		}
 
-    (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
-  }
+		(*ite)->Progressing -= MakeDelegate(this,
+				&GSciifiiLauncher::SetValueActual);
+	}
 }
 
-void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
-{
-  UIManager::TrackWPads(true);
-  if( args->Result.HasError)
-  {
-    mb.Show(this, args->Result.e->ToString(),  "Exception");
-    bOk.Text("Error !");
-  }
-  else
-  {
-    bOk.Text("Done !");
-  }
+void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args) {
+	UIManager::TrackWPads(true);
+	if (args->Result.HasError) {
+		// mb.Show(this, args->Result.e->ToString(),  "Exception");
+		bOk.Text(args->Result.e->ToString());
+	} else {
+		bOk.Text("Done !");
+		pBarActual.SetText("Done !");
+		pBarActual.SetActualValue(100);
+		pBarGlobal.SetText("Done !");
+		pBarGlobal.SetActualValue(100);
+	}
 
-  pBarActual.SetText("Done !");
-  pBarActual.SetActualValue(100);
-  pBarGlobal.SetText("Done !");
-  pBarGlobal.SetActualValue(100);
-
-  bOk.Enabled(true);
+	bOk.Enabled(true);
 }
-void GSciifiiLauncher::Draw()
-{
-  Menu_DrawRectangle(190,160,256,160, Colors::White(), 1);
-  Menu_DrawRectangle(191,161,254,158, BackgroundColor(), 1);
-  Control::Draw();
+void GSciifiiLauncher::Draw() {
+	Menu_DrawRectangle(190, 160, 256, 160, Colors::White(), 1);
+	Menu_DrawRectangle(191, 161, 254, 158, BackgroundColor(), 1);
+	Control::Draw();
 }
 

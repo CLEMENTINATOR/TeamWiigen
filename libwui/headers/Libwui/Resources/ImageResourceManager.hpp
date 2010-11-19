@@ -18,8 +18,8 @@ namespace Libwui
       public:
         static ImageResource* Get(const std::string& imagePath);
       private:
-        ImageResourceManager();
-        std::map<std::string, ImageResource*> _resources;
+        ImageResource* defaultImage;
+        ImageResourceManager();\
         static ImageResourceManager& Current();
     };
   }

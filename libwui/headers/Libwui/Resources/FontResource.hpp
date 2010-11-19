@@ -1,10 +1,9 @@
 #ifndef _UI_RESOURCE_FONTRESOURCE_HPP_
 #define _UI_RESOURCE_FONTRESOURCE_HPP_
 
-#include <libwiisys/Object.h>
 #include <Libwiisys/Buffer.h>
-
 #include "../FreeTypeGX.h"
+#include "Resource.h"
 #include <ogcsys.h>
 #include <string>
 
@@ -12,7 +11,7 @@ namespace Libwui
 {
   namespace Resources
   {
-    class FontResource : public Libwiisys::Object
+    class FontResource : public Resource
     {
       public:
         FontResource(const std::string& fontPath);

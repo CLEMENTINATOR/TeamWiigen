@@ -3,6 +3,7 @@
 #include <Libwiisys/IO/File.h>
 #include <Libwiisys/IO/Device.h>
 #include <Libwiisys/Exceptions/Exception.h>
+#include <Libwui/Resources/ResourceManager.h>
 #include <notFound_png.h>
 
 using namespace Libwui::Resources;
@@ -18,10 +19,8 @@ ImageResourceManager& ImageResourceManager::Current()
 }
 
 ImageResourceManager::ImageResourceManager()
-{
-  ImageResource* res = new ImageResource(notFound_png);
-  _resources.insert(make_pair(".", res));
-}
+  : defaultImage(new ImageResource(notFound_png))
+{}
 
 ImageResource* ImageResourceManager::Get(const string& imagePath)
 {
@@ -29,42 +28,21 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
   if(ThemeManager::IsInitialized())
     resourcePath = ThemeManager::GetResourcePath("image/" + imagePath);
 
-  map<string, ImageResource*>::iterator element = Current()._resources.find(resourcePath);
-  if(element != Current()._resources.end())
-    return element->second;
+  ImageResource* resource = (ImageResource*)ResourceManager::GetResource("image." + resourcePath);
+  if(resource)
+	return resource;
 
   try
   {
-    ImageResource* resource = NULL;
-    //si ressource n'existe pas, on met defautla la place
     if(!File::Exists(resourcePath))
-      resource = Current()._resources.find(".")->second;
-    else
-		{
-			try
-			{
-				Device::Mount(resourcePath);
-				resource = new ImageResource(resourcePath);
-				Device::UnMount(resourcePath);
-			}
-			catch(Exception &ex)
-			{
-				Device::UnMount(resourcePath);
-				throw;
-			}
-			catch(...)
-			{
-				Device::UnMount(resourcePath);
-				throw;
-			}
-		}
-    Current()._resources.insert(make_pair(resourcePath, resource));
+      return Current().defaultImage;
+
+    resource = new ImageResource(resourcePath);
+    ResourceManager::AddResource("image." + resourcePath, resource);
     return resource;
   }
   catch(...)
   {
-    ImageResource* resource = Current()._resources.find(".")->second;
-    Current()._resources.insert(make_pair(resourcePath, resource));
-    return resource;
+	  return Current().defaultImage;
   }
 }

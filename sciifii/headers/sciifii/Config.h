@@ -24,6 +24,7 @@ class Config : public Libwiisys::Object
     std::string _menuMessage;
     std::string _workingDirectory;
     std::string _disclaimer;
+		std::string _themeDirectory;
 
     std::vector<Installer*> _availableSteps;
     std::vector<Installer*> _validatedSteps;
@@ -44,6 +45,7 @@ class Config : public Libwiisys::Object
     static std::vector<Installer*> Steps();
     static std::string MenuMessage();
     static std::string DisclaimerText();
+		static std::string ThemeDirectory();
     static void Reset();
 };
 

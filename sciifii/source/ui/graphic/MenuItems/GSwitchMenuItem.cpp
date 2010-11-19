@@ -21,8 +21,8 @@ void GSwitchMenuItem::InitializeComponents()
 	SetSize(164,40);
 	_cbx.SetSize(164,40);
 	_cbx.Checked(false);
-	_cbx.CheckedImage("sd:/sciifii/default/enable_button.png");
-	_cbx.DefaultImage("sd:/sciifii/default/disable_button.png");
+	_cbx.CheckedImage("enable_button.png");
+	_cbx.DefaultImage("disable_button.png");
 	_cbx.Text(_text);
 	AddChildren(&_cbx);
 	

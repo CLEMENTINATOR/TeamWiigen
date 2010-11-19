@@ -16,9 +16,9 @@ void GExitMenuItem::InitializeComponents()
   SetSize(164,40);
   _btn.Text(_text);
   _btn.SetSize(164,40);
-  _btn.DefaultImage("sd:/sciifii/default/Exit_Default.png");
-  _btn.OverImage("sd:/sciifii/default/Exit_Over.png");
-  _btn.ClickedImage("sd:/sciifii/default/Exit_Clicked.png");
+  _btn.DefaultImage("Exit_Default.png");
+  _btn.OverImage("Exit_Over.png");
+  _btn.ClickedImage("Exit_Clicked.png");
   AddChildren(&_btn);
   Control::InitializeComponents();
 }

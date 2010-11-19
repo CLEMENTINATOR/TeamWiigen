@@ -16,11 +16,11 @@ GDisclaimer::GDisclaimer() :
 
 void GDisclaimer::InitializeComponents()
 {
-	BackgroundImage("sd:/sciifii/default/disclaimer.png");
+	BackgroundImage("disclaimer.png");
 	SetSize(640, 480);
 
-	btnExit.DefaultImage("sd:/sciifii/default/exitbutton_normal.png");
-	btnExit.OverImage("sd:/sciifii/default/exitbutton_over.png");
+	btnExit.DefaultImage("exitbutton_normal.png");
+	btnExit.OverImage("exitbutton_over.png");
 	btnExit.SetSize(44, 44);
 	btnExit.SetPosition(545, 415);
 	btnExit.Click += MakeDelegate(this, &GDisclaimer::Exit);
@@ -31,16 +31,20 @@ void GDisclaimer::InitializeComponents()
 	textDisclaimer.FontSize(12);
 	textDisclaimer.ForeColor((GXColor){255,0,0,255});
 
-	btnContinue.DefaultImage("sd:/sciifii/default/go_button.png");
-	btnContinue.OverImage("sd:/sciifii/default/go_button_over.png");
+	btnContinue.DefaultImage("go_button.png");
+	btnContinue.OverImage("go_button_over.png");
 	btnContinue.Text("Click here !");
 	btnContinue.SetSize(164, 40);
 	btnContinue.SetPosition(238, 370);
 	btnContinue.Click += MakeDelegate(this, &GDisclaimer::Continue);
-
+	
+	_themeDdl.SetPosition(500, 10);
+	_themeDdl.SetSize(80, 20);
+	
 	AddChildren(&btnExit);
 	AddChildren(&btnContinue);
 	AddChildren(&textDisclaimer);
+	AddChildren(&_themeDdl);
 
 	Form::InitializeComponents();
 }

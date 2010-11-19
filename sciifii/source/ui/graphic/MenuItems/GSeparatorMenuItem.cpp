@@ -10,6 +10,6 @@ GSeparatorMenuItem::GSeparatorMenuItem(TiXmlElement* node)
 void GSeparatorMenuItem::InitializeComponents()
 {
 	SetSize(552,20);
-	BackgroundImage("sd:/sciifii/default/separator.png");
+	BackgroundImage("separator.png");
 	Control::InitializeComponents();
 }

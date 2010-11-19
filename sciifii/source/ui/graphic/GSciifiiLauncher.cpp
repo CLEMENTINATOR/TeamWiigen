@@ -9,6 +9,7 @@
 #include <sstream>
 #include <libwiisys/threading/ThreadResultEvent.h>
 #include <libwiisys/threading/ThreadResultEventArgs.h>
+#include <Libwiisys/Exceptions/SystemException.h>
 
 using namespace Libwiisys;
 using namespace Libwiisys::Threading;
@@ -32,8 +33,8 @@ void GSciifiiLauncher::InitializeComponents()
   bOk.Click+=MakeDelegate(this,& GSciifiiLauncher::Exit);
   bOk.Text("Done !");
   bOk.SetPosition(220,250);
-  bOk.DefaultImage("sd:/sciifii/default/go_button.png");
-  bOk.OverImage("sd:/sciifii/default/go_button_over.png");
+  bOk.DefaultImage("go_button.png");
+  bOk.OverImage("go_button_over.png");
   bOk.SetSize(164, 40);
 
   mb.SetTitlePosition(16, 2);
@@ -41,9 +42,9 @@ void GSciifiiLauncher::InitializeComponents()
   mb.SetTextPosition(16, 64);
   mb.SetTextSize(279, 45);
   mb.SetButtonPosition(76, 137);
-  mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
-  mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
-  mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
+  mb.DefaultButtonImage("go_button.png");
+  mb.OverButtonImage("go_button_over.png");
+  mb.SetMessageBoxImage("error_popup_screen.png");
 
   pBarGlobal.SetActualValue(0);
   pBarGlobal.SetMaxValue(100);

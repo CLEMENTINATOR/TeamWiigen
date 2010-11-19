@@ -5,6 +5,7 @@
 #include <Libwui/Component/DropDownList.hpp>
 #include <Libwui/Component/MessageBox.hpp>
 #include <Libwui/Component/ProgressBar.h>
+#include <sciifii/ui/graphic/GThemeDdl.h>
 #include <sciifii/Config.h>
 
 class GDisclaimer : public Libwui::Component::Form
@@ -13,6 +14,8 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::Button btnContinue;
     Libwui::Component::Button btnExit;
     Libwui::Component::TextAera textDisclaimer;
+		GThemeDdl _themeDdl;
+		
   public:
     GDisclaimer() ;
 

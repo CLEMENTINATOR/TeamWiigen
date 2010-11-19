@@ -74,7 +74,7 @@ void Config::Initialize(const string& configFilePath)
 
   c._menuMessage = root->Attribute("MenuMessage");
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
-	c._themeDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "");
+	c._themeDirectory = UtilString::ToStr(root->Attribute("themeDirectory"), "");
 	
   TiXmlElement* child = root->FirstChildElement();
 

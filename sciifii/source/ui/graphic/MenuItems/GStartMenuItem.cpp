@@ -1,3 +1,4 @@
+#include <Libwiisys/String/UtilString.h>
 #include <sciifii/ui/graphic/MenuItems/GStartMenuItem.h>
 #include <FastDelegate.h>
 
@@ -20,9 +21,9 @@ void GStartMenuItem::InitializeComponents()
 
   _btn.Text(_text);
   _btn.SetSize(164,40);
-  _btn.DefaultImage("sd:/sciifii/default/Mode_Default.png");
-  _btn.OverImage("sd:/sciifii/default/Mode_Over.png");
-  _btn.ClickedImage("sd:/sciifii/default/Mode_Clicked.png");
+  _btn.DefaultImage("Mode_Default.png");
+  _btn.OverImage("Mode_Over.png");
+  _btn.ClickedImage("Mode_Clicked.png");
   AddChildren(&_btn);
 
   Control::InitializeComponents();

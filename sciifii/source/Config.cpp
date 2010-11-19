@@ -59,10 +59,10 @@ void Config::Initialize(const string& configFilePath)
 
   if (Config::HasNetwork())
   {
-   /** WebLogger* sciifiiLog = new WebLogger(
+    WebLogger* sciifiiLog = new WebLogger(
                               "http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx",
                               "message", "line", "file", "application", "version");
-    Log::AddLogProvider(Lgt_All, sciifiiLog);*/
+    Log::AddLogProvider(Lgt_All, sciifiiLog);
   }
 
   TiXmlDocument& doc = Xml::Load(configFilePath);
@@ -74,7 +74,8 @@ void Config::Initialize(const string& configFilePath)
 
   c._menuMessage = root->Attribute("MenuMessage");
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
-
+	c._themeDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "");
+	
   TiXmlElement* child = root->FirstChildElement();
 
   while (child != NULL)
@@ -276,4 +277,9 @@ void Config::Reset()
   }
 
   Instance()._validatedSteps.clear();
+}
+
+string Config::ThemeDirectory()
+{
+	return Instance()._themeDirectory;
 }

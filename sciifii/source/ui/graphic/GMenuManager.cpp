@@ -8,6 +8,8 @@
 #include <Libwui/UIManager.hpp>
 #include <sciifii/ui/graphic/GSciifiiLauncher.h>
 #include <Libwui/UIManager.hpp>
+#include <Libwiisys/Exceptions/AbortException.h>
+
 using namespace std;
 using namespace fastdelegate;
 using namespace Libwiisys::String;
@@ -17,7 +19,7 @@ using namespace Libwui::Events;
 using namespace Libwui;
 GMenuManager::GMenuManager()
 {
-  BackgroundImage("sd:/sciifii/default/advanced_screen.png");
+  BackgroundImage("advanced_screen.png");
   SetSize(640, 480);
 }
 
@@ -81,12 +83,12 @@ void GMenuManager::InitializeComponents()
   mb.SetTextPosition(16, 64);
   mb.SetTextSize(279, 45);
   mb.SetButtonPosition(76, 137);
-  mb.DefaultButtonImage("sd:/sciifii/default/go_button.png");
-  mb.OverButtonImage("sd:/sciifii/default/go_button_over.png");
-  mb.SetMessageBoxImage("sd:/sciifii/default/error_popup_screen.png");
+  mb.DefaultButtonImage("go_button.png");
+  mb.OverButtonImage("go_button_over.png");
+  mb.SetMessageBoxImage("error_popup_screen.png");
 
-  btnExit.DefaultImage("sd:/sciifii/default/exitbutton_normal.png");
-  btnExit.OverImage("sd:/sciifii/default/exitbutton_over.png");
+  btnExit.DefaultImage("exitbutton_normal.png");
+  btnExit.OverImage("exitbutton_over.png");
   btnExit.SetSize(44, 44);
   btnExit.SetPosition(600, 415);
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);

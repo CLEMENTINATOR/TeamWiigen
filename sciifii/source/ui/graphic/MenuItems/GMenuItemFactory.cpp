@@ -1,5 +1,6 @@
+#include <Libwiisys/String/UtilString.h>
+#include <Libwiisys/Exceptions/Exception.h>
 #include <sciifii/ui/graphic/MenuItems/GMenuItemFactory.h>
-
 #include "sciifii/ui/graphic/MenuItems/GNavigationMenuItem.h"
 #include "sciifii/ui/graphic/MenuItems/GMenuItemFactory.h"
 #include "sciifii/ui/graphic/MenuItems/GModeMenuItem.h"

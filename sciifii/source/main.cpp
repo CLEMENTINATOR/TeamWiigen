@@ -5,6 +5,8 @@
 #include <ogcsys.h>
 #include <Libwiisys/logging/Log.h>
 #include <Libwui/UIManager.hpp>
+#include <Libwui/Resources/ThemeManager.hpp>
+#include <Libwiisys/Exceptions/AbortException.h>
 #include <Libwui/Device/PadControllers.hpp>
 #include <sciifii/ui/text/VirtualPad.h>
 #include <sciifii/Tools.h>
@@ -17,6 +19,7 @@
 using namespace std;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Logging;
+using namespace Libwui::Resources;
 
 class IMain
 {
@@ -39,6 +42,10 @@ class MainUI : public IMain
         configFile = string(argv[1]);
 
       Config::Initialize(configFile);
+			
+			if(Config::ThemeDirectory().size() != 0)
+				ThemeManager::ThemeRootFolder(Config::ThemeDirectory());
+				
       Log::WriteLog(Log_Info, "config done!");
       GDisclaimer g;
       PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);

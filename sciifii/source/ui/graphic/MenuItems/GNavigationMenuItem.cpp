@@ -1,3 +1,4 @@
+#include <Libwiisys/String/UtilString.h>
 #include <sciifii/ui/graphic/MenuItems/GNavigationMenuItem.h>
 #include <FastDelegate.h>
 
@@ -21,9 +22,9 @@ void GNavigationMenuItem::InitializeComponents()
 
 	_btn.Text(_text);
   _btn.SetSize(164,40);
-  _btn.DefaultImage("sd:/sciifii/default/Nav_Default.png");
-  _btn.OverImage("sd:/sciifii/default/Nav_Over.png");
-  _btn.ClickedImage("sd:/sciifii/default/Nav_Clicked.png");
+  _btn.DefaultImage("Nav_Default.png");
+  _btn.OverImage("Nav_Over.png");
+  _btn.ClickedImage("Nav_Clicked.png");
 	AddChildren(&_btn);
 
 	Control::InitializeComponents();

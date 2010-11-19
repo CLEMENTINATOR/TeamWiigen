@@ -9,7 +9,7 @@
 #include <Libwui/Component/DropDownList.hpp>
 #include <Libwui/Component/MessageBox.hpp>
 #include <Libwui/Component/ProgressBar.h>
-#include <Libwiisys/threading/Thread.h>
+#include <Libwui/Component/BackgroundWorker.h>
 #include <sciifii/Config.h>
 
 class GSciifiiLauncher : public Libwui::Component::Form
@@ -32,7 +32,7 @@ class GSciifiiLauncher : public Libwui::Component::Form
     Libwui::Component::ProgressBar pBarActual;
     Libwui::Component::Button bOk;
     Libwui::Component::MessageBox mb;
-    Libwiisys::Threading::BackgroundWorker bw;
+    Libwui::Component::BackgroundWorker bw;
 
 };
 

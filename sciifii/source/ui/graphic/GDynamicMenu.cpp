@@ -1,5 +1,6 @@
 #include <sciifii/ui/graphic/GDynamicMenu.h>
 #include <Libwiisys/String/UtilString.h>
+#include <Libwiisys/Exceptions/Exception.h>
 #include <sciifii/ui/graphic/MenuItems/GMenuItemFactory.h>
 #include <sciifii/Config.h>
 #include <FastDelegate.h>
@@ -54,18 +55,18 @@ void GDynamicMenu::InitializeComponents()
 	_btnDown.SetPosition(0, -3);
 	_btnDown.VerticalAlignement(VAlign_Bottom);
 	_btnDown.HorizontalAlignement(HAlign_Center);
-	_btnDown.DefaultImage("sd:/sciifii/default/Down_Default.png");
-    _btnDown.OverImage("sd:/sciifii/default/Down_Over.png");
-    _btnDown.ClickedImage("sd:/sciifii/default/Down_Clicked.png");
+	_btnDown.DefaultImage("Down_Default.png");
+    _btnDown.OverImage("Down_Over.png");
+    _btnDown.ClickedImage("Down_Clicked.png");
 	AddChildren(&_btnDown);
 	
 	_btnUp.SetSize(36,36);
 	_btnUp.Enabled(false);
 	_btnUp.SetPosition(0, 9);
 	_btnUp.HorizontalAlignement(HAlign_Center);
-	_btnUp.DefaultImage("sd:/sciifii/default/Up_Default.png");
-    _btnUp.OverImage("sd:/sciifii/default/Up_Over.png");
-    _btnUp.ClickedImage("sd:/sciifii/default/Up_Clicked.png");
+	_btnUp.DefaultImage("Up_Default.png");
+    _btnUp.OverImage("Up_Over.png");
+    _btnUp.ClickedImage("Up_Clicked.png");
 	AddChildren(&_btnUp);
 	
 	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)

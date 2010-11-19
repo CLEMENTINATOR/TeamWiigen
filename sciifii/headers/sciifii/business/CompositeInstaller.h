@@ -10,7 +10,6 @@ class CompositeInstaller : public Installer
     std::vector<Installer*> _steps;
     std::string _name;
     u32 _currentStep;
-    bool _cleaned;
 
     void DisplayProgress(Object* sender, Libwiisys::Threading::ProgressEventArgs* args);
 

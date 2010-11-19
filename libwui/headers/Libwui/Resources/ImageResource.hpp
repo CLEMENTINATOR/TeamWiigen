@@ -1,8 +1,7 @@
 #ifndef _UI_RESOURCE_IMAGERESOURCE_HPP_
 #define _UI_RESOURCE_IMAGERESOURCE_HPP_
 
-#include <libwiisys/Object.h>
-
+#include "Resource.h"
 #include <ogcsys.h>
 #include <string>
 
@@ -10,7 +9,7 @@ namespace Libwui
 {
   namespace Resources
   {
-    class ImageResource : public Libwiisys::Object
+    class ImageResource : public Resource
     {
       public:
         ImageResource(const std::string& imgPath);

@@ -18,8 +18,8 @@ namespace Libwui
       public:
         static FontResource* Get(const std::string& fontPath);
       private:
+        FontResource* defaultResource;
         FontResourceManager();
-        std::map<std::string, FontResource*> _resources;
         static FontResourceManager& Current();
     };
   }

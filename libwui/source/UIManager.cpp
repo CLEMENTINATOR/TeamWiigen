@@ -3,7 +3,7 @@
 #include <libwui/audio.h>
 #include <wiiuse/wpad.h>
 #include <Libwui/Resources/ImageResourceManager.hpp>
-
+#include <Libwui/Resources/ResourceManager.h>
 
 using namespace Libwui;
 using namespace Libwui::Component;
@@ -14,7 +14,8 @@ UIManager::UIManager()
     : _uiThread(-1),
     _uiThreadDefined(false),
     _rootElement(NULL),
-    _modalDialog(NULL)
+    _modalDialog(NULL),
+    _untilNextCacheClean(20)
 {
   LWP_MutexInit(&_messageQueueMutex, true);
 
@@ -124,6 +125,12 @@ void UIManager::Update()
     delete message;
   }
   LWP_MutexUnlock(Current()._messageQueueMutex);
+
+  if(_untilNextCacheClean++ == 20)
+  {
+	  _untilNextCacheClean = 0;
+	  ResourceManager::Clean();
+  }
 }
 
 void UIManager::TrackWPads(bool track)

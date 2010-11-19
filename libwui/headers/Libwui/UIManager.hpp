@@ -21,7 +21,7 @@ namespace Libwui
       static bool IsUiThread();
       static void Run(Libwui::Component::Form& main);
       static void ShowDialog(Libwui::Component::Form& dialog);
-			static void TrackWPads(bool track);
+	  static void TrackWPads(bool track);
       ~UIManager();
 			
     private:
@@ -31,6 +31,7 @@ namespace Libwui
       bool _uiThreadDefined;
       Libwui::Component::Form* _rootElement;
       Libwui::Component::Form* _modalDialog;
+      u32 _untilNextCacheClean;
 
       UIManager();
       void Update();

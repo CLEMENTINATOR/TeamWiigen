@@ -1,11 +1,13 @@
 #include <libwui/Resources/ImageResource.hpp>
 #include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/IO/Device.h>
 #include <pngu.h>
 #include <malloc.h>
 
 using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::IO;
 
 
 ImageResource::ImageResource(const string& imgPath)
@@ -13,6 +15,8 @@ ImageResource::ImageResource(const string& imgPath)
   data = NULL;
   width = 0;
   height = 0;
+
+  Device::Mount(imgPath);
 
   if(imgPath.length() > 0)
   {
@@ -50,6 +54,8 @@ ImageResource::ImageResource(const string& imgPath)
       PNGU_ReleaseImageContext (ctx);
     }
   }
+
+  Device::UnMount(imgPath);
 
   if (!data)
     throw Exception("Error creating image from data.");

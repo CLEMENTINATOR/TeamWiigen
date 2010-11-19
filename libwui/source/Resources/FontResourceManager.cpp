@@ -1,6 +1,7 @@
 #include <Libwiisys/IO/File.h>
 #include <libwui/Resources/FontResourceManager.hpp>
 #include <Libwui/Resources/ThemeManager.hpp>
+#include <Libwui/Resources/ResourceManager.h>
 #include <font_ttf.h>
 
 using namespace Libwui::Resources;
@@ -16,10 +17,8 @@ FontResourceManager& FontResourceManager::Current()
 }
 
 FontResourceManager::FontResourceManager()
-{
-  FontResource* res = new FontResource(font_ttf, font_ttf_size);
-  _resources.insert(make_pair(".", res));
-}
+  : defaultResource(new FontResource(font_ttf, font_ttf_size))
+{}
 
 FontResource* FontResourceManager::Get(const string& fontPath)
 {
@@ -27,26 +26,23 @@ FontResource* FontResourceManager::Get(const string& fontPath)
   if(ThemeManager::IsInitialized())
     resourcePath = ThemeManager::GetResourcePath("font/" + fontPath);
 
-  map<string, FontResource*>::iterator element = Current()._resources.find(resourcePath);
-  if(element != Current()._resources.end())
-    return element->second;
-
+  FontResource* resource = (FontResource*)ResourceManager::GetResource("font." + resourcePath);
+  if(resource)
+	  return resource;
   try
   {
-    FontResource* resource = NULL;
-    //si ressource n'existe pas, on met defautla la place
+    //si ressource n'existe pas, on met defaut a la place
     if(!File::Exists(resourcePath))
-      resource = Current()._resources.find(".")->second;
-    else
-      resource = new FontResource(resourcePath);
+      return Current().defaultResource;
 
-    Current()._resources.insert(make_pair(resourcePath, resource));
+
+    resource = new FontResource(resourcePath);
+    ResourceManager::AddResource("font." + resourcePath, resource);
+
     return resource;
   }
   catch(...)
   {
-    FontResource* resource = Current()._resources.find(".")->second;
-    Current()._resources.insert(make_pair(resourcePath, resource));
-    return resource;
+    return Current().defaultResource;
   }
 }

@@ -48,7 +48,7 @@ class MainUI : public IMain
 				
       Log::WriteLog(Log_Info, "config done!");
       GDisclaimer g;
-      PadController::LoadCursorImages(0, "sd:/sciifii/default/cursor.png", 48, 48);
+      PadController::LoadCursorImages(0, "cursor.png", 48, 48);
       Log::WriteLog(Log_Info, "pad image Loaded!");
 			try
 			{

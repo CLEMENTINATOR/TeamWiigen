@@ -19,7 +19,7 @@ ImageResourceManager& ImageResourceManager::Current()
 }
 
 ImageResourceManager::ImageResourceManager()
-  : defaultImage(new ImageResource(notFound_png))
+  : defaultImage(notFound_png)
 {}
 
 ImageResource* ImageResourceManager::Get(const string& imagePath)
@@ -28,21 +28,23 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
   if(ThemeManager::IsInitialized())
     resourcePath = ThemeManager::GetResourcePath("image/" + imagePath);
 
-  ImageResource* resource = (ImageResource*)ResourceManager::GetResource("image." + resourcePath);
+  ImageResource* resource = (ImageResource*)ResourceManager::GetResource(resourcePath);
+
   if(resource)
 	return resource;
 
   try
   {
     if(!File::Exists(resourcePath))
-      return Current().defaultImage;
-
-    resource = new ImageResource(resourcePath);
-    ResourceManager::AddResource("image." + resourcePath, resource);
-    return resource;
+      resource = new ImageResource(Current().defaultImage);
+    else
+      resource = new ImageResource(resourcePath);
   }
   catch(...)
   {
-	  return Current().defaultImage;
+	  return &(Current().defaultImage);
   }
+
+  ResourceManager::AddResource(resourcePath, resource);
+  return resource;
 }

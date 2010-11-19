@@ -26,11 +26,11 @@ namespace Libwui
 			
     private:
       std::queue<Message*> _messageQueue;
+      std::vector<Libwui::Component::Form*> _dialogs;
       mutex_t _messageQueueMutex;
       lwp_t _uiThread;
       bool _uiThreadDefined;
       Libwui::Component::Form* _rootElement;
-      Libwui::Component::Form* _modalDialog;
       u32 _untilNextCacheClean;
 
       UIManager();

@@ -5,6 +5,7 @@
 #include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/ResourceManager.h>
 
+using namespace std;
 using namespace Libwui;
 using namespace Libwui::Component;
 using namespace Libwui::Device;
@@ -14,7 +15,6 @@ UIManager::UIManager()
     : _uiThread(-1),
     _uiThreadDefined(false),
     _rootElement(NULL),
-    _modalDialog(NULL),
     _untilNextCacheClean(20)
 {
   LWP_MutexInit(&_messageQueueMutex, false);
@@ -66,8 +66,8 @@ void UIManager::Run(Form &form)
 
 void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 {
-  Form *oldDial=Current()._modalDialog;
-  Current()._modalDialog = &dialog;
+  Current()._dialogs.push_back(&dialog);
+
   dialog.SetRoot(true, "dialog");
   dialog.InitializeComponents();
 
@@ -79,7 +79,8 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 
 
   dialog.SetRoot(false);
-  Current()._modalDialog = oldDial;
+
+  Current()._dialogs.pop_back();
 }
 
 void UIManager::Update()
@@ -88,8 +89,8 @@ void UIManager::Update()
   Current()._rootElement->StartDrawing();
 
   //then draw dialog if their is one
-  if(Current()._modalDialog)
-    Current()._modalDialog->StartDrawing();
+  for(vector<Form*>::iterator f = Current()._dialogs.begin(); f!= Current()._dialogs.end(); f++)
+    (*f)->StartDrawing();
 
   for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
   {
@@ -106,8 +107,8 @@ void UIManager::Update()
   for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
   {
     //Disable the root if a modalDialog is opened
-    if(Current()._modalDialog)
-      Current()._modalDialog->ProcessInput(PadController::Currents()[i]);
+    if(!Current()._dialogs.empty())
+    	Current()._dialogs.back()->ProcessInput(PadController::Currents()[i]);
     else
       Current()._rootElement->ProcessInput(PadController::Currents()[i]);
   }
@@ -118,15 +119,16 @@ void UIManager::Update()
   {
     Message *message = Current()._messageQueue.front();
     Current()._messageQueue.pop();
-    if(Current()._modalDialog)
-      Current()._modalDialog->ProcessMessage(*message);
+
+    if(!Current()._dialogs.empty())
+      Current()._dialogs.back()->ProcessMessage(*message);
     else
       Current()._rootElement->ProcessMessage(*message);
     delete message;
   }
   LWP_MutexUnlock(Current()._messageQueueMutex);
 
-  if(_untilNextCacheClean++ == 20)
+  if(_untilNextCacheClean++ == 100)
   {
 	  _untilNextCacheClean = 0;
 	  ResourceManager::Clean();

@@ -17,7 +17,7 @@ FontResourceManager& FontResourceManager::Current()
 }
 
 FontResourceManager::FontResourceManager()
-  : defaultResource(new FontResource(font_ttf, font_ttf_size))
+  : defaultResource(font_ttf, font_ttf_size)
 {}
 
 FontResource* FontResourceManager::Get(const string& fontPath)
@@ -26,23 +26,24 @@ FontResource* FontResourceManager::Get(const string& fontPath)
   if(ThemeManager::IsInitialized())
     resourcePath = ThemeManager::GetResourcePath("font/" + fontPath);
 
-  FontResource* resource = (FontResource*)ResourceManager::GetResource("font." + resourcePath);
+  FontResource* resource = (FontResource*)ResourceManager::GetResource(resourcePath);
+
   if(resource)
-	  return resource;
+	return resource;
+
   try
   {
     //si ressource n'existe pas, on met defaut a la place
     if(!File::Exists(resourcePath))
-      return Current().defaultResource;
-
-
-    resource = new FontResource(resourcePath);
-    ResourceManager::AddResource("font." + resourcePath, resource);
-
-    return resource;
+    	resource = new FontResource(Current().defaultResource);
+    else
+      resource = new FontResource(resourcePath);
   }
   catch(...)
   {
-    return Current().defaultResource;
+    return &(Current().defaultResource);
   }
+
+  ResourceManager::AddResource(resourcePath, resource);
+  return resource;
 }

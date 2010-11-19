@@ -5,7 +5,7 @@ using namespace std;
 using namespace Libwui::Resources;
 
 ResourceManager::ResourceManager()
-  : _cacheLimit(5)
+  : _cacheLimit(100)
 {}
 
 ResourceManager& ResourceManager::Current()

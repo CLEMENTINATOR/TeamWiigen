@@ -6,7 +6,8 @@
 
 #include "Message.hpp"
 #include "Device/PadControllers.hpp"
-#include <libwiisys.h>
+#include <Libwiisys/Object.h>
+#include <Libwiisys/Event.h>
 
 #include "Events/CursorEvent.h"
 

@@ -2,6 +2,8 @@
 #include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Path.h>
 #include <Libwiisys/Exceptions/Exception.h>
+#include <Libwui/Resources/ResourceManager.h>
+
 using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys::Exceptions;
@@ -25,15 +27,13 @@ void ThemeManager::ThemeRootFolder(const string& path)
 
   Current()._themeFolder = path;
 
-  vector<string> dirs = Directory::GetDirectories(Current()._themeFolder);
-
-  if(dirs.size() == 0)
+  if(AvailableThemes().size() == 0)
   {
     Current()._themeFolder = "";
     throw Exception("The theme directory doesn't contains any theme.");
   }
 
-  CurrentTheme(dirs[0]);
+  Current().CurrentTheme(AvailableThemes()[0]);
 }
 
 vector<string> ThemeManager::AvailableThemes()
@@ -46,8 +46,9 @@ void ThemeManager::CurrentTheme(const string& theme)
   if(Current()._themeFolder.length() == 0)
     throw Exception("The theme directory isn't specified.");
 
-  vector<string> dirs = Directory::GetDirectories(Current()._themeFolder);
+  vector<string> dirs = AvailableThemes();
   bool exists = false;
+	
   for(vector<string>::iterator ite = dirs.begin(); ite != dirs.end(); ite++)
     if(*ite == theme)
     {
@@ -59,6 +60,7 @@ void ThemeManager::CurrentTheme(const string& theme)
     throw Exception("The theme doesn't exists.");
 
   Current()._currentTheme = theme;
+	ResourceManager::Clean(true);
 }
 
 string ThemeManager::GetResourcePath(const string& path)

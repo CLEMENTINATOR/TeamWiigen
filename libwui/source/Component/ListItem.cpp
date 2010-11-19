@@ -1,6 +1,7 @@
 #include <libwui/Component/ListItem.h>
 #include <Libwui/Resources/Colors.h>
 #include <libwui/UIManager.hpp>
+#include <sstream>
 
 using namespace Libwui::Component;
 using namespace Libwui::Resources;

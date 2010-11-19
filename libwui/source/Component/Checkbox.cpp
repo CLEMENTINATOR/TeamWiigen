@@ -3,6 +3,7 @@
 #include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/Colors.h>
 #include <libwui/UIManager.hpp>
+#include <sstream>
 
 using namespace Libwui;
 using namespace Libwui::Component;

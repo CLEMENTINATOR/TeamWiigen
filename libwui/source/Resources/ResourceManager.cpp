@@ -29,12 +29,12 @@ void ResourceManager::AddResource(const std::string& key, Resource* res)
 	Current()._resources[key] = res;
 }
 
-void ResourceManager::Clean()
+void ResourceManager::Clean(bool force)
 {
 	vector<string> toDelete;
 
 	for(map<string,u32>::iterator ite = Current()._cacheCount.begin(); ite != Current()._cacheCount.end(); ite++)
-		if(ite->second > Current()._cacheLimit)
+		if(ite->second > Current()._cacheLimit || force)
 		{
 			Current()._resources.erase(ite->first);
 			toDelete.push_back(ite->first);

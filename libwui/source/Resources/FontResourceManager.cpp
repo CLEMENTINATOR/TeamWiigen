@@ -17,8 +17,10 @@ FontResourceManager& FontResourceManager::Current()
 }
 
 FontResourceManager::FontResourceManager()
-  : defaultResource(font_ttf, font_ttf_size)
-{}
+{
+	defaultResource=new FontResource(font_ttf, font_ttf_size);
+	defaultResource->isDefault=true;
+}
 
 FontResource* FontResourceManager::Get(const string& fontPath)
 {
@@ -35,13 +37,13 @@ FontResource* FontResourceManager::Get(const string& fontPath)
   {
     //si ressource n'existe pas, on met defaut a la place
     if(!File::Exists(resourcePath))
-    	resource = new FontResource(Current().defaultResource);
+    	resource = Current().defaultResource;
     else
       resource = new FontResource(resourcePath);
   }
   catch(...)
   {
-    return &(Current().defaultResource);
+    return Current().defaultResource;
   }
 
   ResourceManager::AddResource(resourcePath, resource);

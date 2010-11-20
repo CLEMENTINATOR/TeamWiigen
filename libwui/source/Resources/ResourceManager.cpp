@@ -36,8 +36,12 @@ void ResourceManager::Clean(bool force)
 	for(map<string,u32>::iterator ite = Current()._cacheCount.begin(); ite != Current()._cacheCount.end(); ite++)
 		if(ite->second > Current()._cacheLimit || force)
 		{
-			Current()._resources.erase(ite->first);
-			toDelete.push_back(ite->first);
+			if(Current()._resources[ite->first]->isDefault==false)
+			{
+				delete Current()._resources[ite->first];
+				Current()._resources.erase(ite->first);
+				toDelete.push_back(ite->first);
+			}
 		}
 
 	for(vector<string>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)

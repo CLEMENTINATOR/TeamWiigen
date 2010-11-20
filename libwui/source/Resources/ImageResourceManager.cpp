@@ -19,8 +19,11 @@ ImageResourceManager& ImageResourceManager::Current()
 }
 
 ImageResourceManager::ImageResourceManager()
-  : defaultImage(notFound_png)
-{}
+
+{
+	defaultImage=new ImageResource(notFound_png);
+	defaultImage->isDefault=true;
+}
 
 ImageResource* ImageResourceManager::Get(const string& imagePath)
 {
@@ -36,13 +39,13 @@ ImageResource* ImageResourceManager::Get(const string& imagePath)
   try
   {
     if(!File::Exists(resourcePath))
-      resource = new ImageResource(Current().defaultImage);
+      resource = Current().defaultImage;
     else
       resource = new ImageResource(resourcePath);
   }
   catch(...)
   {
-	  return &(Current().defaultImage);
+	  return Current().defaultImage;
   }
 
   ResourceManager::AddResource(resourcePath, resource);

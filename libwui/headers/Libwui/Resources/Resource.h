@@ -10,7 +10,9 @@ namespace Libwui
 	class Resource : public Libwiisys::Object
 	{
 	public:
+		Resource();
 		virtual ~Resource();
+		bool isDefault;
 	};
   }
 }

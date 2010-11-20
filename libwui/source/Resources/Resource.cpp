@@ -3,3 +3,6 @@
 using namespace Libwui::Resources;
 
 Resource::~Resource() {}
+Resource::Resource() {
+	isDefault=false;
+}

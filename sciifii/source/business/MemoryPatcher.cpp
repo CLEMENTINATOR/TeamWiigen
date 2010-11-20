@@ -33,8 +33,8 @@ void MemoryPatcher::AddPatch(MemoryPatch patch)
 
 void MemoryPatcher::Install()
 {
-  if(!HAVE_AHBPROT && Title::GetRunningIOS()==249)
-    throw Exception("Use HBC 1.0.7 or higher and don't reload the IOS in order to have the AHBPROT disabled, or run cios249");
+  if(!HAVE_AHBPROT )
+    throw Exception("Use HBC 1.0.7 or higher and don't reload the IOS in order to have the AHBPROT disabled");
 
   u32 mem2Status = read32(MEM2_PROT);
   write32(MEM2_PROT, mem2Status & 0x0000FFFF);

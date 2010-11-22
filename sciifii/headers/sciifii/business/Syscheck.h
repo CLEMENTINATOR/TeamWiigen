@@ -6,11 +6,12 @@
 #include <vector>
 #include <map>
 
-typedef struct 
+typedef struct
 {
-	bool isStub;
-	u16 revision;
-} CheckDescriptor;
+  bool isStub;
+  u16 revision;
+}
+CheckDescriptor;
 
 class Syscheck : public Installer
 {
@@ -31,11 +32,11 @@ class Syscheck : public Installer
     bool CheckUSB2(u32 titleID);
     bool IsIosStub(u8 tid,u16 revision);
     bool CheckFakeSignature();
-		u32 GetDeviceID();
-		u32 GetBoot2Version();
-		bool CheckBootmiiIOS(u8 id, const CheckDescriptor& descriptor);
-		void DeleteFakeTicket();
-		u32 GetSysMenuVersion();
+    u32 GetDeviceID();
+    u32 GetBoot2Version();
+    bool CheckBootmiiIOS(u8 id, const CheckDescriptor& descriptor);
+    void DeleteFakeTicket();
+    u32 GetSysMenuVersion();
 };
 
 

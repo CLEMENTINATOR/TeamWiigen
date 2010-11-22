@@ -135,7 +135,7 @@ void Syscheck::Install()
       f->Write(temp.str());
       temp.str("");
 
-      if(CheckBootmiiIOS((u32)*t, desc))
+      if(CheckBootmiiIOS(*t, desc))
       {
         f->Write("No,?,?,?,?,?,?\n");
         continue;

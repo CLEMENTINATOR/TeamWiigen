@@ -135,7 +135,7 @@ void Syscheck::Install()
       f->Write(temp.str());
       temp.str("");
 
-      if(CheckBootmiiIOS(*t, desc))
+      if(CheckBootmiiIOS((u32)*t, desc))
       {
         f->Write("No,?,?,?,?,?,?\n");
         continue;
@@ -149,7 +149,7 @@ void Syscheck::Install()
       f->Close();
       delete f;
       f = NULL;
-      Title::ReloadIOS(*t);
+      Title::ReloadIOS((u32)*t);
 
       f = &File::Open(fileName, FileMode_Write);
       f->Write("No,");
@@ -158,7 +158,7 @@ void Syscheck::Install()
       CheckFlashAccess() ? f->Write("Enabled,") : f->Write("Disabled,");
       CheckNANDAccess() ? f->Write("Enabled,") : f->Write("Disabled,");
       CheckBoot2Access() ? f->Write("Enabled,") : f->Write("Disabled,");
-      CheckUSB2() ? f->Write("Enabled") : f->Write("Disabled");
+      CheckUSB2((u32)*t) ? f->Write("Enabled") : f->Write("Disabled");
       f->Write("\n");
     }
 

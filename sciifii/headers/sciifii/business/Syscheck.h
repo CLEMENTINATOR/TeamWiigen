@@ -28,7 +28,7 @@ class Syscheck : public Installer
     bool CheckFlashAccess();
     bool CheckNANDAccess();
     bool CheckBoot2Access();
-    bool CheckUSB2();
+    bool CheckUSB2(u32 titleID);
     bool IsIosStub(u8 tid,u16 revision);
     bool CheckFakeSignature();
 		u32 GetDeviceID();

@@ -230,12 +230,11 @@ bool Syscheck::CheckFlashAccess()
   int ret = IOS_Open("/dev/flash", 1);
 
   if (ret >= 0)
+	{
     IOS_Close(ret);
-
-  if (ret < 0)
-    return false;
-  else
-    return true;
+		return true;
+	}
+	return false;
 }
 
 bool  Syscheck::CheckNANDAccess()
@@ -243,12 +242,11 @@ bool  Syscheck::CheckNANDAccess()
   int ret = IOS_Open("/title/00000001/00000002/content/title.tmd", 1);
 
   if (ret >= 0)
+	{
     IOS_Close(ret);
-
-  if (ret < 0)
-    return false;
-  else
-    return true;
+		return true;
+	}
+	return false;
 }
 
 bool  Syscheck::CheckBoot2Access()
@@ -256,30 +254,56 @@ bool  Syscheck::CheckBoot2Access()
   int ret = IOS_Open("/dev/boot2", 1);
 
   if (ret >= 0)
+	{
     IOS_Close(ret);
-
-  if (ret < 0)
-    return false;
-  else
-    return true;
+		return true;
+	}
+  return false;
 }
 
-bool Syscheck::CheckUSB2()
+bool Syscheck::CheckUSB2(u32 titleID)
 {
-  // Open USB 2.0 module
-  int ret = IOS_Open("/dev/usb2", 1);
+  // Nintendo's IOS58 and Hermes' IOS supports USB 2.0 module
+	switch (titleID)
+	{
+		case 58:
+			return true;
+			break;
 
-  // If fail, try old USB 2.0 module
-  if (ret < 0)
-    ret = IOS_Open("/dev/usb/ehc", 1);
+		case 202:
+			return true;
+			break;
 
-  if (ret >= 0)
-    IOS_Close(ret);
+		case 222:
+			return true;
+			break;
 
-  if (ret < 0)
-    return false;
-  else
-    return true;
+		case 223:
+			return true;
+			break;
+
+		case 224:
+			return true;
+			break;
+	}
+
+	// Open USB 2.0 module
+	int ret = IOS_Open("/dev/usb2", 1);
+
+	// If fail, try old USB 2.0 module (EHCI)
+	if (ret < 0)
+		ret = IOS_Open("/dev/usb/ehc", 1);
+
+	// If fail, try USB 2.0 module from cIOS Hermes v5.1
+	if (ret < 0)
+		ret = IOS_Open("/dev/usb123", 1);
+
+	if(ret >= 0)
+	{
+		IOS_Close(ret);
+		return true;
+	}
+	return false;
 }
 
 bool  Syscheck::CheckESIdentify()
@@ -313,14 +337,17 @@ bool Syscheck::IsIosStub(u8 tid,u16 revision)
 
   // Get the stored TMD size for the title
   if (ES_GetStoredTMDSize(IOS_FULL_ID(tid), &tmdSize) < 0)
-    return false;
+    throw Exception("Syscheck: Cannot get title tmd size.");
 
-  signed_blob *b_tmd = (signed_blob *)memalign(32, (tmdSize + 32) & (~31));
+  signed_blob *b_tmd = (signed_blob *)memalign(32, TITLE_ROUND_UP(tmdSize,32));
   memset(b_tmd, 0, tmdSize);
 
   // Get the stored TMD for the title
   if (ES_GetStoredTMD(IOS_FULL_ID(tid), b_tmd, tmdSize) < 0)
-    return false;
+	{
+		free(b_tmd);
+    throw Exception("Syscheck: Cannot find the tmd");
+	}
 
   tmd *iosTMD ATTRIBUTE_ALIGN(32);
   iosTMD = (tmd *)SIGNATURE_PAYLOAD(b_tmd);
@@ -331,8 +358,8 @@ bool Syscheck::IsIosStub(u8 tid,u16 revision)
   // - Title version is mostly 65280, or even better, the last 2 hexadecimal digits are 0;
   //  - Stub have one app of their own (type 0x1) and 2 shared apps (type 0x8001).
   bool isStub = false;
-  if (iosTMD->title_version == 0)
-    isStub = ((iosTMD->num_contents == 3) && (iosTMD->contents[0].type == 1 && iosTMD->contents[1].type == 0x8001 && iosTMD->contents[2].type == 0x8001));
+  if (((u8)iosTMD->title_version) == 0)
+    isStub = (iosTMD->num_contents == 3 && iosTMD->contents[0].type == 1 && iosTMD->contents[1].type == 0x8001 && iosTMD->contents[2].type == 0x8001);
   else
     isStub = false;
 

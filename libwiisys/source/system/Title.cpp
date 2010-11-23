@@ -793,8 +793,8 @@ vector<u8> Title::GetInstalledIos()
     //filtering ios from other titles
     for (u32 titleIndex = 0; titleIndex < nbTitle; titleIndex++)
     {
-      u32 type = *(u32*) (titlesBuffer + titleIndex);
-      u32 number = (u32) titlesBuffer[titleIndex];
+      u32 type = TITLE_TYPE(titlesBuffer[titleIndex]);
+      u32 number = TITLE_ID(titlesBuffer[titleIndex]);
 
       //If IOS
       if (type == 1 && 2 < number && number < 0x100)
@@ -803,6 +803,12 @@ vector<u8> Title::GetInstalledIos()
     free(titlesBuffer);
     titlesBuffer = NULL;
   }
+	catch(Exception& ex)
+	{
+		if (titlesBuffer)
+      free(titlesBuffer);
+    throw;
+	}
   catch (...)
   {
     if (titlesBuffer)
@@ -857,18 +863,27 @@ bool Title::IsInstalled(u64 titleId)
 
 u16 Title::GetInstalledTitleVersion(u64 titleId)
 {
-  u32 tmdLength;
-  s32 ret;
-  signed_blob* tmdBuffer = NULL;
-  u16 titleVersion;
+	if(IS_IOS(titleId) && GetRunningIOS() == TITLE_ID(titleId))
+		return (u16)IOS_GetRevision();
 
-  /* Get TMD size */
-  ret = ES_GetStoredTMDSize(titleId, &tmdLength);
+	signed_blob* tmdBuffer = GetTitleSignedTmd(titleId);
+  u16 titleVersion = ((tmd *) SIGNATURE_PAYLOAD(tmdBuffer))->title_version;
+  free(tmdBuffer);
+
+  return titleVersion;
+}
+
+signed_blob* Title::GetTitleSignedTmd(u64 titleId)
+{
+	u32 tmdLength;
+	
+	/* Get TMD size */
+  u32 ret = ES_GetStoredTMDSize(titleId, &tmdLength);
   if (ret < 0)
     throw SystemException("Error getting TMD length", ret);
 
   /* Allocate memory */
-  tmdBuffer = (signed_blob*) memalign(32, TITLE_ROUND_UP(tmdLength, 32));
+  signed_blob* tmdBuffer = (signed_blob*) memalign(32, TITLE_ROUND_UP(tmdLength, 32));
   if (!tmdBuffer)
     throw Exception("Not enough memory.");
 
@@ -879,11 +894,8 @@ u16 Title::GetInstalledTitleVersion(u64 titleId)
     free(tmdBuffer);
     throw SystemException("Error getting stored tmd.", ret);
   }
-
-  titleVersion = ((tmd *) SIGNATURE_PAYLOAD(tmdBuffer))->title_version;
-  free(tmdBuffer);
-
-  return titleVersion;
+	
+	return tmdBuffer;
 }
 
 void Title::CreateTempDirectory(u64 titleId, u16 revision,

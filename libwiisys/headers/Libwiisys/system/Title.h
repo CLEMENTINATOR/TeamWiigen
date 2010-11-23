@@ -345,7 +345,9 @@ namespace Libwiisys
          * \return The title version
          */
         static u16 GetInstalledTitleVersion(u64 titleId);
-
+				
+				static signed_blob* GetTitleSignedTmd(u64 titleId);
+				
         /*!
          * \brief Install the title
          * You need to be under an ios with sufficient privileges.

@@ -1,6 +1,6 @@
-#include <libwui/UIManager.hpp>
-#include <libwui/video.h>
-#include <libwui/audio.h>
+#include <Libwui/UIManager.hpp>
+#include <Libwui/video.h>
+#include <Libwui/audio.h>
 #include <wiiuse/wpad.h>
 #include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/ResourceManager.h>

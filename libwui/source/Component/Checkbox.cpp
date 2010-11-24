@@ -1,8 +1,8 @@
-#include <libwui/Component/Checkbox.hpp>
+#include <Libwui/Component/Checkbox.hpp>
 #include <Libwui/Resources/ImageResource.hpp>
 #include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/Colors.h>
-#include <libwui/UIManager.hpp>
+#include <Libwui/UIManager.hpp>
 #include <sstream>
 
 using namespace Libwui;

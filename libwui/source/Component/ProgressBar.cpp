@@ -1,7 +1,7 @@
-#include <libwui/Component/ProgressBar.h>
-#include <libwiisys/threading/ProgressEventArgs.h>
-#include <libwui/Resources/Colors.h>
-#include <libwui/UIManager.hpp>
+#include <Libwui/Component/ProgressBar.h>
+#include <Libwiisys/threading/ProgressEventArgs.h>
+#include <Libwui/Resources/Colors.h>
+#include <Libwui/UIManager.hpp>
 #include <Libwui/video.h>
 #include <sstream>
 

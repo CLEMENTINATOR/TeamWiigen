@@ -1,4 +1,4 @@
-#include <libwui/Resources/ImageResourceManager.hpp>
+#include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/ThemeManager.hpp>
 #include <Libwiisys/IO/File.h>
 #include <Libwiisys/IO/Device.h>

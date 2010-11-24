@@ -1,4 +1,4 @@
-#include <libwui/Device/PadControllers.hpp>
+#include <Libwui/Device/PadControllers.hpp>
 #include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwiisys/Exceptions/SystemException.h>
 

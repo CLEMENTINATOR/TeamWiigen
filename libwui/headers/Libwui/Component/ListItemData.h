@@ -9,7 +9,7 @@
 #define LISTITEMDATA_H_
 
 #include <string>
-#include <libwiisys/Object.h>
+#include <Libwiisys/Object.h>
 namespace Libwui
 {
   namespace Component

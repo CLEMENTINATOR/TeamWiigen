@@ -1,7 +1,7 @@
 #include <sstream>
-#include <libwui/Component/Button.hpp>
-#include <libwui/UIManager.hpp>
-#include <libwui/video.h>
+#include <Libwui/Component/Button.hpp>
+#include <Libwui/UIManager.hpp>
+#include <Libwui/video.h>
 #include <Libwui/Resources/ImageResource.hpp>
 #include <Libwui/Resources/ImageResourceManager.hpp>
 

@@ -1,5 +1,5 @@
-#include <libwui/Component/List.hpp>
-#include <fastdelegate.h>
+#include <Libwui/Component/List.hpp>
+#include <FastDelegate.h>
 #include <Libwui/Resources/ImageResource.hpp>
 #include <Libwui/Resources/ImageResourceManager.hpp>
 #include <Libwui/Resources/Colors.h>

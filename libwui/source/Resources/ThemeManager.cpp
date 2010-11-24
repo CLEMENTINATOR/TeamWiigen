@@ -1,4 +1,4 @@
-#include <libwui/Resources/ThemeManager.hpp>
+#include <Libwui/Resources/ThemeManager.hpp>
 #include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Path.h>
 #include <Libwiisys/Exceptions/Exception.h>

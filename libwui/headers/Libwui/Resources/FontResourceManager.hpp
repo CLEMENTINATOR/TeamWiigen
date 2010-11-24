@@ -5,7 +5,7 @@
 #include <string>
 #include <ogcsys.h>
 
-#include <libwiisys/Object.h>
+#include <Libwiisys/Object.h>
 
 #include "FontResource.hpp"
 

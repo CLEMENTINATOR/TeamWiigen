@@ -1,7 +1,7 @@
 #ifndef _UI_EVENTS_CURSOREVENT_H_
 #define _UI_EVENTS_CURSOREVENT_H_
 
-#include <libwiisys/Object.h>
+#include <Libwiisys/Object.h>
 
 #include "CursorEventArgs.h"
 #include <list>

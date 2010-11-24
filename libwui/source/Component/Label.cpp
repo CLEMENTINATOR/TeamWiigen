@@ -1,9 +1,9 @@
-#include <libwui/Component/Label.hpp>
-#include <libwui/FreeTypeGX.h>
+#include <Libwui/Component/Label.hpp>
+#include <Libwui/FreeTypeGX.h>
 #include <sstream>
 #include <Libwui/Resources/FontResource.hpp>
 #include <Libwui/Resources/FontResourceManager.hpp>
-#include <libwui/UIManager.hpp>
+#include <Libwui/UIManager.hpp>
 #include <Libwui/video.h>
 
 using namespace Libwui::Component;
@@ -197,18 +197,18 @@ void Label::Draw()
 
   string textToDisplay = txt;
 
-  //recupération du text réelle a afficher
+  //recupï¿½ration du text rï¿½elle a afficher
   if(needScroll)
   {
     //maj des variable de scroll
     if(FrameTimer % textScrollDelay == 0)
     {
-      //on attend le delai de départ
+      //on attend le delai de dï¿½part
       if(textScrollInitialDelay)
         textScrollInitialDelay--;
       else if(scrollToRight)
       {
-        // une fois arrivé au bout, on inverse le sens du scroll
+        // une fois arrivï¿½ au bout, on inverse le sens du scroll
         if((u32)(++textScrollPos + nbCharMax) == txt.length())
         {
           scrollToRight = !scrollToRight;

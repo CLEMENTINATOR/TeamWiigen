@@ -1,7 +1,7 @@
-#include <libwui/Component/MessageBox.hpp>
+#include <Libwui/Component/MessageBox.hpp>
 #include <Libwui/Resources/ImageResource.hpp>
 #include <Libwui/Resources/ImageResourceManager.hpp>
-#include <libwui/UIManager.hpp>
+#include <Libwui/UIManager.hpp>
 #include <Libwui/Resources/Colors.h>
 
 using namespace Libwui;

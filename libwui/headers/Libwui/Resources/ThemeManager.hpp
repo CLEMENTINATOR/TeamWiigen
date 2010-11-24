@@ -1,7 +1,7 @@
 #ifndef _UI_RESOURCES_THEME_MANAGER_H_
 #define _UI_RESOURCES_THEME_MANAGER_H_
 
-#include <libwiisys/Object.h>
+#include <Libwiisys/Object.h>
 
 #include <string>
 #include <vector>

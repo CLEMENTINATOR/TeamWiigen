@@ -1,4 +1,4 @@
-#include <libwui/Events/CursorEvent.h>
+#include <Libwui/Events/CursorEvent.h>
 
 using namespace Libwui::Events;
 

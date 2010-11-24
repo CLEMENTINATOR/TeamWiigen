@@ -1,4 +1,4 @@
-#include <libwui/Resources/FontResource.hpp>
+#include <Libwui/Resources/FontResource.hpp>
 #include <malloc.h>
 #include <Libwiisys/IO/File.h>
 

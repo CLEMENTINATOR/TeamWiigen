@@ -1,7 +1,7 @@
 #ifndef PROGRESSBAR_H_
 #define PROGRESSBAR_H_
 #include "../Control.hpp"
-#include <libwiisys/threading/ProgressEventArgs.h>
+#include <Libwiisys/threading/ProgressEventArgs.h>
 #include "Label.hpp"
 #include <string>
 

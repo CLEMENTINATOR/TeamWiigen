@@ -1,4 +1,4 @@
-#include <libwui/Resources/ImageResource.hpp>
+#include <Libwui/Resources/ImageResource.hpp>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/IO/Device.h>
 #include <pngu.h>

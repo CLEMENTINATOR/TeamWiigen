@@ -1,7 +1,7 @@
 #ifndef _UI_EVENTS_CURSOREVENTARGS_H_
 #define _UI_EVENTS_CURSOREVENTARGS_H_
 
-#include <libwiisys/EventArgs.h>
+#include <Libwiisys/EventArgs.h>
 
 #include "../Device/PadControllers.hpp"
 

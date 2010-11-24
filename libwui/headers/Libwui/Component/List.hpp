@@ -2,7 +2,7 @@
 #define _LIST_H_
 
 #include <vector>
-#include <libwiisys/Object.h>
+#include <Libwiisys/Object.h>
 #include "../Control.hpp"
 #include "../Message.hpp"
 #include "ListItem.h"

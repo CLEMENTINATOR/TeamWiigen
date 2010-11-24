@@ -1,5 +1,5 @@
 #include <Libwui/Component/TextAera.h>
-#include <libwui/UIManager.hpp>
+#include <Libwui/UIManager.hpp>
 
 #include <sstream>
 

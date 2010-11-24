@@ -1,5 +1,5 @@
 #include <Libwiisys/IO/File.h>
-#include <libwui/Resources/FontResourceManager.hpp>
+#include <Libwui/Resources/FontResourceManager.hpp>
 #include <Libwui/Resources/ThemeManager.hpp>
 #include <Libwui/Resources/ResourceManager.h>
 #include <font_ttf.h>

@@ -1,9 +1,9 @@
-#include <libwui/Component/Image.hpp>
+#include <Libwui/Component/Image.hpp>
 #include <sstream>
 #include <Libwui/Resources/ImageResource.hpp>
 #include <Libwui/Resources/ImageResourceManager.hpp>
-#include <libwui/UIManager.hpp>
-#include <libwui/video.h>
+#include <Libwui/UIManager.hpp>
+#include <Libwui/video.h>
 using namespace std;
 using namespace Libwui::Component;
 using namespace Libwui::Resources;

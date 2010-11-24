@@ -67,16 +67,15 @@ void UIManager::Run(Form &form)
 void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 {
   Current()._dialogs.push_back(&dialog);
-	Current()._rootElement->AddChildren(&dialog);
-  dialog.InitializeComponents();
-
+  Current()._rootElement->AddChildren(&dialog);
+  
   while(dialog.Visible())
   {
     Current().Update();
     LWP_YieldThread();
   }
 
-	Current()._rootElement->RemoveChildren(&dialog);
+  Current()._rootElement->RemoveChildren(&dialog);
   Current()._dialogs.pop_back();
 }
 

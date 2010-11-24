@@ -22,7 +22,8 @@ Label::Label(const string& text, int s, GXColor c)
     scrollToRight(true),
     textScrollInitialDelay(TEXT_SCROLL_INITIAL_DELAY),
     textScrollDelay(TEXT_SCROLL_DELAY),
-    style(FTGX_JUSTIFY_CENTER | FTGX_ALIGN_MIDDLE)
+    style(FTGX_JUSTIFY_CENTER | FTGX_ALIGN_MIDDLE),
+    useParentSize(true)
 {}
 
 void Label::ProcessMessage(Message& message)
@@ -191,13 +192,13 @@ void Label::Draw()
 
 
   //test si le text est trop long pour le label (et donc scroll)
-  u8 nbCharMax = ((Parent()->GetWidth() - _xoffset) * 2.0) / size;
+  u8 nbCharMax = (GetWidth() * 2.0) / size;
   bool needScroll = nbCharMax < txt.length();
 
 
   string textToDisplay = txt;
 
-  //recup�ration du text r�elle a afficher
+  //recuperation du text reelle a afficher
   if(needScroll)
   {
     //maj des variable de scroll
@@ -234,10 +235,10 @@ void Label::Draw()
     case FTGX_JUSTIFY_LEFT:
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay);
+      alignOffsetX = GetWidth() - resource->Font()->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
+      alignOffsetX = (GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
       break;
   }
 
@@ -246,10 +247,10 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay);
+      alignOffsetY = GetHeight() - resource->Font()->getHeight(textToDisplay);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
+      alignOffsetY = (GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
       break;
   }
 
@@ -267,4 +268,26 @@ std::string Label::Text()
 s32 Label::FontSize()
 {
   return size;
+}
+
+void Label::SetSize(s32 w, s32 h)
+{
+  useParentSize = false;
+  Control::SetSize(w, h);
+}
+
+s32 Label::GetWidth()
+{
+  if(useParentSize)
+	return Parent()->GetWidth() - _xoffset;
+	
+  return _width;
+}
+
+s32 Label::GetHeight()
+{
+  if(useParentSize)
+	return Parent()->GetHeight() - _yoffset;
+	
+  return _height;
 }

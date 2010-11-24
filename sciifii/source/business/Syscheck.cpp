@@ -105,6 +105,7 @@ void Syscheck::Install()
       stringstream s;
       s<<"Analysing  IOS" << (u32)desc->first << " (rev " << desc->second.revision << ")";
       OnProgress(s.str(),(f32)nb/(f32)descriptors.size());
+      nb++;
     }
     if (desc->first == 254)
       report << "No,?,?,?,?,?,?";
@@ -125,7 +126,7 @@ void Syscheck::Install()
     }
 
     report << endl;
-    nb++;
+
   }
   usleep(40000);
   Title::ReloadIOS(runningIOS);

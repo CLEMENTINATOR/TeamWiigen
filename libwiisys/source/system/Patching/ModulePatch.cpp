@@ -1,7 +1,7 @@
-#include <libwiisys/system/Patching/ModulePatch.h>
+#include <Libwiisys/system/Patching/ModulePatch.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/Exception.h>
 
 using namespace std;
 using namespace Libwiisys::System::Event;

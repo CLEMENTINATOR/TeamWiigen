@@ -4,9 +4,9 @@
 #include <fake_su_tmd_dat.h>
 #include <fake_su_ticket_dat.h>
 
-#include <libwiisys/system/Security/Identification.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/Exceptions/SystemException.h>
+#include <Libwiisys/system/Security/Identification.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/SystemException.h>
 
 using namespace Libwiisys::System::Security;
 using namespace Libwiisys::Exceptions;

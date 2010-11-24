@@ -1,7 +1,7 @@
-#include <libwiisys/system/Patching/TitlePatcher.h>
+#include <Libwiisys/system/Patching/TitlePatcher.h>
 #include <malloc.h>
 #include <limits.h>
-#include <libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/sha1.h>
 #include <Libwiisys/rijndael.h>
 

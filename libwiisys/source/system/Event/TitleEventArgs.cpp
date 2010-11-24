@@ -1,4 +1,4 @@
-#include <libwiisys/system/Event/TitleEventArgs.h>
+#include <Libwiisys/system/Event/TitleEventArgs.h>
 
 using namespace Libwiisys::System::Event;
 using namespace std;

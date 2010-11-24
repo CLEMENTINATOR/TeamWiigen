@@ -1,9 +1,9 @@
-#include <libwiisys/IO/Directory.h>
-#include <libwiisys/IO/Device.h>
-#include <libwiisys/IO/Path.h>
-#include <libwiisys/IO/FatDirectory.h>
-#include <libwiisys/IO/NandDirectory.h>
-#include <libwiisys/IO/File.h>
+#include <Libwiisys/IO/Directory.h>
+#include <Libwiisys/IO/Device.h>
+#include <Libwiisys/IO/Path.h>
+#include <Libwiisys/IO/FatDirectory.h>
+#include <Libwiisys/IO/NandDirectory.h>
+#include <Libwiisys/IO/File.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 

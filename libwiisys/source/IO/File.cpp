@@ -1,9 +1,9 @@
-#include <libwiisys/IO/File.h>
+#include <Libwiisys/IO/File.h>
 #include <malloc.h>
-#include <libwiisys/IO/Device.h>
-#include <libwiisys/IO/Path.h>
-#include <libwiisys/IO/FatFile.h>
-#include <libwiisys/IO/NandFile.h>
+#include <Libwiisys/IO/Device.h>
+#include <Libwiisys/IO/Path.h>
+#include <Libwiisys/IO/FatFile.h>
+#include <Libwiisys/IO/NandFile.h>
 #include <Libwiisys/Exceptions/Exception.h>
 
 using namespace std;

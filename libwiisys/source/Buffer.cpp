@@ -1,8 +1,8 @@
 #include <malloc.h>
 #include <cstring>
-#include <libwiisys/Buffer.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/sha1.h>
+#include <Libwiisys/Buffer.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/sha1.h>
 
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;

@@ -1,4 +1,4 @@
-#include <libwiisys/Object.h>
+#include <Libwiisys/Object.h>
 
 using namespace std;
 using namespace Libwiisys;

@@ -1,7 +1,7 @@
 #include <sstream>
-#include <libwiisys/String/UtilString.h>
-#include <libwiisys/String/NumberRepresentation.h>
-#include <libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/String/UtilString.h>
+#include <Libwiisys/String/NumberRepresentation.h>
+#include <Libwiisys/Exceptions/Exception.h>
 
 using namespace std;
 using namespace Libwiisys::String;

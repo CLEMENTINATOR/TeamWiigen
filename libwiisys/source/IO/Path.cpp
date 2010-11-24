@@ -1,5 +1,5 @@
 #include <ogcsys.h>
-#include <libwiisys/IO/Path.h>
+#include <Libwiisys/IO/Path.h>
 
 using namespace Libwiisys::IO;
 using namespace std;

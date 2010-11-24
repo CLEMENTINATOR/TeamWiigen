@@ -17,7 +17,7 @@ A million repetitions of "a"
 
 #include <stdio.h>
 #include <string.h>
-#include <libwiisys/sha1.h>
+#include <Libwiisys/sha1.h>
 
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
 

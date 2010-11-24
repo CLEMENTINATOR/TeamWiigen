@@ -1,7 +1,7 @@
-#include <libwiisys/logging/WebLogger.h>
+#include <Libwiisys/logging/WebLogger.h>
 #include <string>
 #include <vector>
-#include <libwiisys/Network/HttpRequest.h>
+#include <Libwiisys/Network/HttpRequest.h>
 
 using namespace std;
 using namespace Libwiisys::Logging;

@@ -1,11 +1,11 @@
-#include <libwiisys/Shell/Dol.h>
+#include <Libwiisys/Shell/Dol.h>
 
 #include <gccore.h>
 #include <ogc/machine/asm.h>
 #include <ogc/machine/processor.h>
 #include <string.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/IO/File.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/IO/File.h>
 
 using namespace std;
 using namespace Libwiisys::Shell;

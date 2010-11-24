@@ -1,4 +1,4 @@
-#include <libwiisys/logging/Log.h>
+#include <Libwiisys/logging/Log.h>
 
 using namespace Libwiisys::Logging;
 using namespace std;

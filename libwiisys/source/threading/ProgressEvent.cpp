@@ -1,4 +1,4 @@
-#include <libwiisys/threading/ProgressEvent.h>
+#include <Libwiisys/threading/ProgressEvent.h>
 
 using namespace Libwiisys::Threading;
 

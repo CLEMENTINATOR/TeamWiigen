@@ -163,7 +163,7 @@ bool GMenuManager::ExecuteSciifii()
   }
   catch(Exception& ex)
   {
-    mb.Show(this, "Error", ex.ToString());
+    mb.Show("Error", ex.ToString());
     return false;
   }
 }

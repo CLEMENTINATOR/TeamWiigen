@@ -11,24 +11,12 @@ using namespace Libwui::Events;
 using namespace std;
 using namespace fastdelegate;
 
-void MessageBox::Show(Control* _current, std::string text, std::string title)
+void MessageBox::Show(std::string text, std::string title)
 {
-  Control* parent = _current;
   _title.Text(title);
   _text.Text(text);
-  if (parent == NULL) //non modal
-    return;
-
-  while (parent->Parent() != NULL)
-    parent = parent->Parent();
-
-  ImageResource* resource = ImageResourceManager::Get(_boxImg.ImageLocation());
-  SetSize(parent->GetWidth(), parent->GetHeight());
   SetPosition(0, 0);
-  _boxImg.SetPosition((parent->GetWidth() - resource->Width()) / 2, (parent->GetHeight() - resource->Height()) / 2);
-
-  Visible(true);
-  Enabled(true);
+	
   UIManager::ShowDialog(*this);
 }
 
@@ -55,6 +43,10 @@ MessageBox::MessageBox()
 
 void MessageBox::InitializeComponents()
 {
+	ImageResource* resource = ImageResourceManager::Get(_boxImg.ImageLocation());
+	SetSize(Parent()->GetWidth(), Parent()->GetHeight());
+	_boxImg.SetPosition((Parent()->GetWidth() - resource->Width()) / 2, (Parent()->GetHeight() - resource->Height()) / 2);
+	 
   AddChildren(&_boxImg);
   _boxImg.AddChildren(&_title);
   _boxImg.AddChildren(&_text);

@@ -11,6 +11,7 @@
 #include <Libwiisys/logging/Log.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/fake_su_ticket_dat.h>
+#include <Libwiisys/system/Security/Certificate.h>
 
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;
@@ -214,12 +215,56 @@ u32 Syscheck::GetBoot2Version()
 
   return boot2version;
 }
+void Syscheck::RemoveTestTicket()
+{
+  tikview *viewdata = NULL;
+  u64  titleId = 0x100000000LL;
+  u32  cnt, views;
+  s32  ret;
 
+  // Get number of ticket views
+  ret = ES_GetNumTicketViews(titleId, &views);
+
+  if (ret < 0)
+    return ;
+
+  if (!views)
+    return ;
+  else
+  {
+    if (views > 16)
+      return ;
+  }
+
+  // Get ticket views
+  viewdata = (tikview*)memalign(32, sizeof(tikview) * views);
+  ret = ES_GetTicketViews(titleId, viewdata, views);
+
+  if (ret < 0)
+    return ;
+
+  // Remove tickets
+  for (cnt = 0; cnt < views; cnt++)
+  {
+    ret = ES_DeleteTicket(&viewdata[cnt]);
+
+    if (ret < 0)
+      return ;
+  }
+
+  return ;
+
+
+}
 bool Syscheck::HasFakeSignature()
 {
+  int ret = ES_AddTicket((signed_blob*) fake_su_ticket_dat, fake_su_ticket_dat_size, Certificate::GetContent(), Certificate::GetLength(), 0, 0);
 
+  if (ret > -1)
+    RemoveTestTicket();
 
-
+  if (ret > -1 || ret == -1028)
+    return true;
 
   return false;
 }

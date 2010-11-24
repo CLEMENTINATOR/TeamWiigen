@@ -34,6 +34,7 @@ class Syscheck : public Installer
 		bool HasNANDAccess();
 		bool HasBoot2Access();
 		bool HasUSB2();
+		void RemoveTestTicket();
 };
 
 

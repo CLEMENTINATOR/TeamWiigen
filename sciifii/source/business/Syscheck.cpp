@@ -1,12 +1,8 @@
-#include <sciifii/business/common/FileManager.h>
 #include <sciifii/business/Syscheck.h>
 #include <sciifii/Config.h>
-#include <libwiisys/system/Title.h>
-#include <libwiisys/system/Security/Identification.h>
-#include <libwiisys/system/Security/Certificate.h>
-#include <libwiisys/IO/File.h>
-#include <libwiisys/String/UtilString.h>
-#include <libwiisys/Buffer.h>
+#include <Libwiisys/system/Title.h>
+#include <Libwiisys/system/Security/Identification.h>
+#include <Libwiisys/IO/File.h>
 #include <sstream>
 #include <iostream>
 #include <iomanip>
@@ -21,7 +17,6 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::System;
 using namespace Libwiisys;
 using namespace Libwiisys::IO;
-using namespace Libwiisys::String;
 using namespace Libwiisys::System::Security;
 using namespace std;
 

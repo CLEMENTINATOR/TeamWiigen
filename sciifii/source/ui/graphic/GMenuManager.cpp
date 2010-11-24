@@ -3,7 +3,7 @@
 #include <sciifii/Sciifii.h>
 #include <sciifii/Config.h>
 #include <Libwui/Resources/Colors.h>
-#include <Libwiisys/string/UtilString.h>
+#include <Libwiisys/String/UtilString.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwui/UIManager.hpp>
 #include <sciifii/ui/graphic/GSciifiiLauncher.h>

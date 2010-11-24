@@ -1,6 +1,6 @@
 #include <gccore.h>
 #include <ogc/machine/processor.h>
-#include <libwiisys/system/Title.h>
+#include <Libwiisys/system/Title.h>
 #include <Libwiisys/system/Title.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/logging/Log.h>

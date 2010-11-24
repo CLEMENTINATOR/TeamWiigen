@@ -1,14 +1,14 @@
 #include <sciifii/ui/graphic/GSciifiiLauncher.h>
 #include <Libwiisys/Exceptions/AbortException.h>
 #include <sciifii/Sciifii.h>
-#include <Libwiisys/Logging/Log.h>
+#include <Libwiisys/logging/Log.h>
 #include <sciifii/ui/text/VirtualPad.h>
 #include <Libwui/UIManager.hpp>
-#include <libwui/Resources/Colors.h>
+#include <Libwui/Resources/Colors.h>
 #include <Libwui/video.h>
 #include <sstream>
-#include <libwiisys/threading/ThreadResultEvent.h>
-#include <libwiisys/threading/ThreadResultEventArgs.h>
+#include <Libwiisys/threading/ThreadResultEvent.h>
+#include <Libwiisys/threading/ThreadResultEventArgs.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 
 using namespace Libwiisys;

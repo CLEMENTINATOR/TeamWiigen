@@ -61,7 +61,6 @@
       <switchMenuItem name="cIOS250" text="Install cios250 rev 19 (base 37)         " />
       <switchMenuItem name="update" text="Update your wii to 4.3                   " />
       <switchMenuItem name="update4.2" text="Update your wii to 4.2                   " />
-      <switchMenuItem name="uninstall" text="Remove the cioses (install ios stubs)    " hidden="true"/>
       <switchMenuItem name="Preloader" text="Install the priiloader                   " />
       <switchMenuItem name="corp" text="Install the Darkcorp 1.1                 " />
       <switchMenuItem name="cmios" text="Install the cmios                        " />

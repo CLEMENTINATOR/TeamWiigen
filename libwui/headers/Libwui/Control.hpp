@@ -71,10 +71,10 @@ namespace Libwui
       std::string BackgroundImage() const;
 
 
-      s32 GetLeft();
-      s32 GetTop();
-      s32 GetWidth();
-      s32 GetHeight();
+      virtual s32 GetLeft();
+      virtual s32 GetTop();
+      virtual s32 GetWidth();
+      virtual s32 GetHeight();
 
       virtual void HorizontalAlignement(HAlign alignement);
       HAlign HorizontalAlignement() const;

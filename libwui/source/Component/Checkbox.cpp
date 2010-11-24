@@ -192,6 +192,6 @@ void Checkbox::EnsureItems()
     _checkBoxText.SetPosition(0, 0);
     _checkBoxImg.SetPosition(GetWidth()-resource->Width(), 0);
     _checkBoxText.SetTextAlignment(HAlign_Right, VAlign_Middle);
-    _checkBoxText.SetSize(GetWidth()-resource->Width(),GetHeight());
+    _checkBoxText.SetSize(GetWidth()-resource->Width() - 5,GetHeight());
   }
 }

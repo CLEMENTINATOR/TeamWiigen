@@ -13,11 +13,7 @@ namespace Libwui
     class Label : public Control
     {
       public:
-        Label(const std::string& text, s32 pixelSize = 12, GXColor c = (GXColor)
-              {
-                255, 255, 255, 255
-              }
-             );
+        Label(const std::string& text, s32 pixelSize = 12, GXColor c = (GXColor){255, 255, 255, 255});
 
         virtual void ProcessMessage(Message& message);
 
@@ -30,6 +26,11 @@ namespace Libwui
         void Draw();
         std::string Text();
         s32 FontSize();
+        
+        virtual void SetSize(s32 w, s32 h);
+        virtual s32 GetWidth();
+		virtual s32 GetHeight();
+      
       protected:
         std::string txt;
         std::string _font;
@@ -40,6 +41,7 @@ namespace Libwui
         s32 textScrollInitialDelay; //!< Delay to wait before starting to scroll
         s32 textScrollDelay; //!< Scrolling speed
         u16 style; //!< FreeTypeGX style attributes
+        bool useParentSize;
     };
   }
 }

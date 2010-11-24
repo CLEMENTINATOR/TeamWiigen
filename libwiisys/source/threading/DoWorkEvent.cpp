@@ -1,4 +1,4 @@
-#include <libwiisys/threading/DoWorkEvent.h>
+#include <Libwiisys/threading/DoWorkEvent.h>
 
 using namespace Libwiisys::Threading;
 

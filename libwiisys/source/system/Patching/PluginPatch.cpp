@@ -1,9 +1,9 @@
-#include <libwiisys/system/Patching/PluginPatch.h>
+#include <Libwiisys/system/Patching/PluginPatch.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/Exceptions/SystemException.h>
-#include <libwiisys/system/Title.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/SystemException.h>
+#include <Libwiisys/system/Title.h>
 
 using namespace std;
 using namespace Libwiisys::System::Patching;

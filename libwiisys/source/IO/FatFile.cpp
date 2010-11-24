@@ -1,6 +1,6 @@
 #include <malloc.h>
 #include <sys/stat.h>
-#include <libwiisys/IO/FatFile.h>
+#include <Libwiisys/IO/FatFile.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 

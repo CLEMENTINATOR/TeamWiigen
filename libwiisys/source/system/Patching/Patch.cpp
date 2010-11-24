@@ -1,4 +1,4 @@
-#include <libwiisys/system/Patching/Patch.h>
+#include <Libwiisys/system/Patching/Patch.h>
 #include <stdlib.h>
 #include <string.h>
 

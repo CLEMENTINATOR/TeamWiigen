@@ -1,8 +1,8 @@
-#include <libwiisys/Serialization/Xml.h>
+#include <Libwiisys/Serialization/Xml.h>
 #include <sstream>
-#include <libwiisys/IO/Device.h>
-#include <libwiisys/IO/File.h>
-#include <libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/IO/Device.h>
+#include <Libwiisys/IO/File.h>
+#include <Libwiisys/Exceptions/Exception.h>
 
 using namespace std;
 using namespace Libwiisys::Serialization;

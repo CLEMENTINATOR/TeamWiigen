@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
-#include <libwiisys/IO/FatDirectory.h>
+#include <Libwiisys/IO/FatDirectory.h>
 
 using namespace std;
 using namespace Libwiisys::IO;

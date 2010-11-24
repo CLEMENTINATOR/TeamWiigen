@@ -1,4 +1,4 @@
-#include <libwiisys/Network/NusServer.h>
+#include <Libwiisys/Network/NusServer.h>
 
 #include <iomanip>
 #include <string>

@@ -6,9 +6,9 @@
 #include <cstdio>
 #include <iomanip>
 #include <unistd.h>
-#include <libwiisys/system/Title.h>
-#include <libwiisys/sha1.h>
-#include <libwiisys/rijndael.h>
+#include <Libwiisys/system/Title.h>
+#include <Libwiisys/sha1.h>
+#include <Libwiisys/rijndael.h>
 #include <Libwiisys/Network/NusServer.h>
 #include <Libwiisys/Network/NetworkUtility.h>
 #include <Libwiisys/logging/Log.h>

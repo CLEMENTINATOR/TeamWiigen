@@ -2,11 +2,11 @@
 #include <sdcard/gcsd.h>
 #include <sdcard/wiisd_io.h>
 #include <fat.h>
-#include <libwiisys/IO/Device.h>
-#include <libwiisys/IO/Path.h>
-#include <libwiisys/IO/usbstorage.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/Exceptions/SystemException.h>
+#include <Libwiisys/IO/Device.h>
+#include <Libwiisys/IO/Path.h>
+#include <Libwiisys/IO/usbstorage.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/SystemException.h>
 
 
 using namespace std;

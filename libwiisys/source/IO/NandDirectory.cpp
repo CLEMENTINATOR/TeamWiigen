@@ -1,7 +1,7 @@
 #include <malloc.h>
 #include <ogc/isfs.h>
-#include <libwiisys/IO/Device.h>
-#include <libwiisys/IO/NandDirectory.h>
+#include <Libwiisys/IO/Device.h>
+#include <Libwiisys/IO/NandDirectory.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 

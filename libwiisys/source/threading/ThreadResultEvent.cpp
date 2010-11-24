@@ -1,4 +1,4 @@
-#include <libwiisys/threading/ThreadResultEvent.h>
+#include <Libwiisys/threading/ThreadResultEvent.h>
 
 using namespace Libwiisys::Threading;
 

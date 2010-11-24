@@ -1,12 +1,12 @@
-#include <libwiisys/Shell/Elf.h>
-#include <libwiisys/Shell/elf_abi.h>
+#include <Libwiisys/Shell/Elf.h>
+#include <Libwiisys/Shell/elf_abi.h>
 #include <gccore.h>
 #include <ogc/machine/asm.h>
 #include <ogc/machine/processor.h>
 #include <string.h>
 #include <stdlib.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/IO/File.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/IO/File.h>
 
 using namespace Libwiisys::Shell;
 using namespace Libwiisys::IO;

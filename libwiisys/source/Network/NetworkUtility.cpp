@@ -1,8 +1,8 @@
 #include <sstream>
-#include <libwiisys/Network/NetworkUtility.h>
+#include <Libwiisys/Network/NetworkUtility.h>
 #include <network.h>
-#include <libwiisys/Exceptions/Exception.h>
-#include <libwiisys/Exceptions/SystemException.h>
+#include <Libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/Exceptions/SystemException.h>
 
 using namespace std;
 using namespace Libwiisys::Network;

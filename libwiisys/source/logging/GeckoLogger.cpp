@@ -1,7 +1,7 @@
 #include <gccore.h>
 #include <sstream>
-#include <libwiisys/logging/GeckoLogger.h>
-#include <libwiisys/Exceptions/Exception.h>
+#include <Libwiisys/logging/GeckoLogger.h>
+#include <Libwiisys/Exceptions/Exception.h>
 
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;

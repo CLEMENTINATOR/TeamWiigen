@@ -1,6 +1,6 @@
 #include <malloc.h>
-#include <libwiisys/IO/Nandfile.h>
-#include <libwiisys/IO/Device.h>
+#include <Libwiisys/IO/NandFile.h>
+#include <Libwiisys/IO/Device.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-#include <libwiisys/Exceptions/SystemException.h>
+#include <Libwiisys/Exceptions/SystemException.h>
 #include <sstream>
 
 using namespace std;

@@ -4,7 +4,7 @@
 #include <FastDelegate.h>
 #include "../Object.h"
 #include <ogcsys.h>
-#include "../exceptions/Exception.h"
+#include "../Exceptions/Exception.h"
 
 namespace Libwiisys
 {

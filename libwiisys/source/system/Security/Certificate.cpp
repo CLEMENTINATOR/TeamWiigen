@@ -1,4 +1,4 @@
-#include <libwiisys/system/Security/Certificate.h>
+#include <Libwiisys/system/Security/Certificate.h>
 #include <stdlib.h>
 
 #include "../../../build/certs_dat.h"

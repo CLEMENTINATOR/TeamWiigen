@@ -67,8 +67,7 @@ void UIManager::Run(Form &form)
 void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 {
   Current()._dialogs.push_back(&dialog);
-
-  dialog.SetRoot(true, "dialog");
+	Current()._rootElement->AddChildren(&dialog);
   dialog.InitializeComponents();
 
   while(dialog.Visible())
@@ -77,9 +76,7 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
     LWP_YieldThread();
   }
 
-
-  dialog.SetRoot(false);
-
+	Current()._rootElement->RemoveChildren(&dialog);
   Current()._dialogs.pop_back();
 }
 
@@ -87,10 +84,6 @@ void UIManager::Update()
 {
   //draw root
   Current()._rootElement->StartDrawing();
-
-  //then draw dialog if their is one
-  for(vector<Form*>::iterator f = Current()._dialogs.begin(); f!= Current()._dialogs.end(); f++)
-    (*f)->StartDrawing();
 
   for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
   {

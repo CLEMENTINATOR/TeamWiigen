@@ -85,13 +85,14 @@ namespace Libwiisys
         std::string _hostName;
         std::string _path;
         std::map<std::string, std::string> _params;
-
         /*!
          * \brief Connect
          * \param hostname The hostname of the server
          */
         void Connect(std::string hostname);
-
+        
+        void Disconnect();
+        
         /*!
          * \brief Read data from the serv
          * \param b The Buffer where you want to store the readed data

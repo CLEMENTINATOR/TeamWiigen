@@ -2,6 +2,7 @@
 #define NETWORKUTILITY_H_
 
 #include <string>
+#include <ogcsys.h>
 #include "../Object.h"
 
 namespace Libwiisys
@@ -19,12 +20,6 @@ namespace Libwiisys
     {
       public:
         virtual std::string GetType();
-
-
-        /**
-         *\brief Destructor
-         */
-        virtual ~NetworkUtility();
 
         /*!
          * \brief Gets the wii IP
@@ -49,12 +44,13 @@ namespace Libwiisys
          * \brief Deinit networking
          */
         static void Deinit();
+        
+        static void Lock();
+        static void Release();
+        
       private :
         std::string _hostIp;
-        /**
-         *\brief Constructor
-         */
-        NetworkUtility();
+        mutex_t _networkMutex;
         /**
          *\brief Return if the NetworkUtility has been initialized
          *\return The current NetworkUtility

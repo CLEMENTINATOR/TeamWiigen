@@ -34,10 +34,15 @@ void HttpRequest::Connect(string hostname)
   struct sockaddr_in sa;
 
   s32 ret;
+  
+  NetworkUtility::Lock();
 
   /* Close socket if it is already open */
   if (sockfd >= 0)
+  {
     net_close(sockfd);
+    sockfd = -1;
+  }
 
   /* Create socket */
   sockfd = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
@@ -97,7 +102,7 @@ u32 HttpRequest::GetResponseLength()
   sprintf(request,
           "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",
           fullPath.str().c_str(), _hostName.c_str());
-
+  
   /* Connect to server */
   Connect(_hostName);
 
@@ -228,11 +233,7 @@ s32 HttpRequest::Write(Buffer& b)
 
 HttpRequest::~HttpRequest()
 {
-  if (sockfd >= 0)
-  {
-    net_close(sockfd);
-    sockfd = -1;
-  }
+  Disconnect();
 }
 
 Buffer HttpRequest::GetResponse()
@@ -274,4 +275,14 @@ void HttpRequest::AddParameter(const string& key, const string& value)
 std::string HttpRequest::GetType()
 {
   return "Libwiisys::Network::HttpRequest,"+Object::GetType();
+}
+
+void HttpRequest::Disconnect()
+{
+  if (sockfd >= 0)
+  {
+    net_close(sockfd);
+    sockfd = -1;
+    NetworkUtility::Release();
+  }
 }

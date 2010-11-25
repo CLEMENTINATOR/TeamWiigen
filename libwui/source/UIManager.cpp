@@ -69,6 +69,7 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
   Current()._dialogs.push_back(&dialog);
   dialog.MakeModal(Current()._rootElement);
   dialog.SetRoot(true);
+	dialog.InitializeComponents();
 	
   while(dialog.Visible())
   {

@@ -7,7 +7,8 @@ using namespace Libwui::Device;
 using namespace std;
 
 Form::Form()
-    : isRoot(false)
+    : _root(NULL),
+			isRoot(false)
 {}
 
 void Form::SetRoot(bool root, const string& id)
@@ -23,4 +24,17 @@ bool Form::IsInUITree()
     return true;
   else
     return Control::IsInUITree();
+}
+
+void Form::MakeModal(Form* rootForm)
+{
+	_root = rootForm;
+}
+
+Control* Form::Parent()
+{
+	if(_root)
+		return _root;
+	else
+		return Control::Parent();
 }

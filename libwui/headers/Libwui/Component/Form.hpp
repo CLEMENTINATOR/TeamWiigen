@@ -15,9 +15,12 @@ namespace Libwui
       protected:
         bool IsInUITree();
       public:
-        void SetRoot(bool root, const std::string& id = "root");
         Form();
+				Control* Parent();
+				void SetRoot(bool root, const std::string& id = "root");
+				void MakeModal(Form* rootForm);
       private:
+				Form* _root;
         bool isRoot;
     };
   }

@@ -1,7 +1,6 @@
 #ifndef _UI_UIMANAGER_
 #define _UI_UIMANAGER_
 
-#include <queue>
 #include <gctypes.h>
 #include "FreeTypeGX.h"
 

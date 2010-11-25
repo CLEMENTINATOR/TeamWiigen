@@ -138,7 +138,6 @@ void TextAera::SetSize(int w, int h)
   Control::SetSize(w, h);
 }
 
-
 void TextAera::EnsureItems()
 {
   u8 nbCharMax = (_width * 2.0) / size;
@@ -156,7 +155,8 @@ void TextAera::EnsureItems()
 
       txtStream.getline(buffer, nbCharMax + 1);
       Label* lbl = new Label(buffer, size, color);
-      lbl->SetPosition(0, _textItems.size() * size);
+      lbl->SetPosition(0, _textItems.size() * (size + 4) + 2);
+			lbl->SetSize(_width, size);
       _textItems.push_back(lbl);
       AddChildren(lbl);
     }

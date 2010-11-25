@@ -9,13 +9,6 @@ using namespace Libwiisys::Network;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys;
 
-NetworkUtility::NetworkUtility()
-{
-}
-
-NetworkUtility::~NetworkUtility()
-{
-}
 
 NetworkUtility &NetworkUtility::Current()
 {
@@ -40,6 +33,8 @@ string NetworkUtility::GetIp(void)
 
     Initialized() = true;
     Current()._hostIp = string(hostip);
+    //create the Mutex used to avoid network conflicts
+    LWP_MutexInit(&(Current()._networkMutex), true);
   }
 
   return Current()._hostIp;
@@ -134,3 +129,18 @@ std::string NetworkUtility::GetType()
   return "Libwiisys::Network::NetworkUtility,"+Object::GetType();
 }
 
+void NetworkUtility::Lock()
+{
+	if(!Initialized())
+		return;
+		
+	LWP_MutexLock(Current()._networkMutex);
+}
+
+void NetworkUtility::Release()
+{
+	if(!Initialized())
+		return;
+		
+	LWP_MutexUnlock(Current()._networkMutex);
+}

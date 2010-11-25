@@ -12,7 +12,7 @@ GMenuItem::GMenuItem(TiXmlElement* node)
     BreakBefore(false),
     BreakAfter(false)
 {
-  _text = UtilString::ToStr(node->Attribute("text"),"");
+  _text = UtilString::TrimSpace(UtilString::ToStr(node->Attribute("text"),""));
 }
 
 void GMenuItem::Validate()

@@ -14,6 +14,22 @@ string UtilString::ToStr(const char* value)
 
   return string(value);
 }
+string UtilString::TrimSpace(string s)
+{
+  string temp=s;
+  string::size_type pos = temp.find_last_not_of(' ');
+  if(pos != string::npos)
+  {
+    temp.erase(pos + 1);
+    pos = temp.find_first_not_of(' ');
+    if(pos != string::npos)
+      temp.erase(0, pos);
+  }
+  else
+    temp.erase(temp.begin(), temp.end());
+
+  return temp;
+}
 
 string UtilString::ToStr(const char* value, const string& defaultVal)
 {

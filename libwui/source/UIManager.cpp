@@ -68,13 +68,15 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
 {
   Current()._dialogs.push_back(&dialog);
   dialog.MakeModal(Current()._rootElement);
-  
+  dialog.SetRoot(true);
+	
   while(dialog.Visible())
   {
     Current().Update();
     LWP_YieldThread();
   }
 
+	dialog.SetRoot(false);
   dialog.MakeModal(NULL);
   Current()._dialogs.pop_back();
 }

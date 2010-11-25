@@ -227,7 +227,7 @@ void Label::Draw()
     do{
     	nbChar--;
     }while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
-	textToDisplay = textToDisplay.substr(textScrollPos, nbChar);
+	textToDisplay = textToDisplay.substr(textScrollPos, nbChar + 1);
   }
 
   //Get the real position

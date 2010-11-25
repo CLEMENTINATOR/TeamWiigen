@@ -84,6 +84,10 @@ void UIManager::Update()
   //draw root
   Current()._rootElement->StartDrawing();
 
+  //then draw dialog if their is one
+  for(vector<Form*>::iterator f = Current()._dialogs.begin(); f!= Current()._dialogs.end(); f++)
+    (*f)->StartDrawing();
+
   for(int i= PadController::NumberOfDefinedCursors() - 1; i >= 0; i--)
   {
     PadController& controler = PadController::Currents()[i];

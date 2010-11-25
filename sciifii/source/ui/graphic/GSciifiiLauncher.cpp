@@ -59,6 +59,8 @@ void GSciifiiLauncher::InitializeComponents()
   AddChildren(&pBarActual);
   AddChildren(&pBarGlobal);
   AddChildren(&bOk);
+	AddChildren(&bw);
+	
   Control::InitializeComponents();
   Run();
 }
@@ -158,14 +160,8 @@ void GSciifiiLauncher::Execute()
     catch (SystemException &ex)
     {
       bool ignore = false;
-      for (vector<s32>::iterator itex =
-             (*ite)->
-             IgnoredExceptions().begin();
-           itex
-           != (*ite)->IgnoredExceptions().end();
-           itex++)
-        if (*itex == ex.GetCode()
-           )
+      for (vector<s32>::iterator itex = (*ite)-> IgnoredExceptions().begin(); itex != (*ite)->IgnoredExceptions().end(); itex++)
+        if (*itex == ex.GetCode())
         {
           ignore = true;
           break;
@@ -180,8 +176,7 @@ void GSciifiiLauncher::Execute()
       }
     }
 
-    (*ite)->Progressing -= MakeDelegate(this,
-                                        &GSciifiiLauncher::SetValueActual);
+    (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
   }
 }
 

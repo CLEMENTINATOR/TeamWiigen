@@ -179,6 +179,9 @@ namespace Libwiisys
          * \return a vector with the splited strings
          */
         static std::vector<std::string> Split(const std::string& str, const char split, bool removeEmpty = false);
+
+
+        static std::string TrimSpace(std::string s);
     };
 
   }

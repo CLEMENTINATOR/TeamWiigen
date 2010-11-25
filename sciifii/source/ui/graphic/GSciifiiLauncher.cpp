@@ -190,8 +190,8 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
   UIManager::TrackWPads(true);
   if (args->Result.HasError)
   {
-    //mb.Show(this, args->Result.e->ToString(),  "Exception");
-    bOk.Text(args->Result.e->ToString());
+    mb.Show( args->Result.e->ToString(),  "Exception");
+  //  bOk.Text(args->Result.e->ToString());
   }
   else
   {

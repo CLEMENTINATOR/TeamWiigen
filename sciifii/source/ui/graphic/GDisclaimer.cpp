@@ -26,7 +26,7 @@ void GDisclaimer::InitializeComponents()
 	btnExit.Click += MakeDelegate(this, &GDisclaimer::Exit);
 
 	textDisclaimer.Text(Config::DisclaimerText());
-	textDisclaimer.SetPosition(130, 190);
+	textDisclaimer.SetPosition(130, 250);
 	textDisclaimer.SetSize(390, 150);
 	textDisclaimer.FontSize(12);
 	textDisclaimer.ForeColor((GXColor){255,0,0,255});

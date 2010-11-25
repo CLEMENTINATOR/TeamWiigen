@@ -14,7 +14,7 @@ Button::Button() :
     _lblText("", 12, (GXColor)
          {
            0,0,0,255
-         })
+         }, 10)
 {}
 
 void Button::InitializeComponents()

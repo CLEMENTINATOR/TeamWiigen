@@ -14,10 +14,11 @@ using namespace Libwiisys;
 #define TEXT_SCROLL_DELAY   8
 #define TEXT_SCROLL_INITIAL_DELAY 6
 
-Label::Label(const string& text, int s, GXColor c)
+Label::Label(const string& text, int s, GXColor c, int margin)
     : txt(text),
     size(s),
     color(c),
+    margin(margin),
     textScrollPos(0),
     scrollToRight(true),
     textScrollInitialDelay(TEXT_SCROLL_INITIAL_DELAY),
@@ -192,8 +193,7 @@ void Label::Draw()
 
 
   //test si le text est trop long pour le label (et donc scroll)
-  u8 nbCharMax = (GetWidth() * 2.0) / size;
-  bool needScroll = nbCharMax < txt.length();
+  bool needScroll = (GetWidth() - (2.0 * margin)) < resource->Font()->getWidth(txt);
 
 
   string textToDisplay = txt;
@@ -210,7 +210,7 @@ void Label::Draw()
       else if(scrollToRight)
       {
         // une fois arriv� au bout, on inverse le sens du scroll
-        if((u32)(++textScrollPos + nbCharMax) == txt.length())
+    	if(resource->Font()->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
         {
           scrollToRight = !scrollToRight;
           textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
@@ -223,7 +223,11 @@ void Label::Draw()
         textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
       }
     }
-    textToDisplay = txt.substr(textScrollPos, nbCharMax);
+    u8 nbChar = textToDisplay.substr(textScrollPos).size();
+    do{
+    	nbChar--;
+    }while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
+	textToDisplay = textToDisplay.substr(textScrollPos, nbChar);
   }
 
   //Get the real position
@@ -233,9 +237,10 @@ void Label::Draw()
   switch(style & 0x7)
   {
     case FTGX_JUSTIFY_LEFT:
+      alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = GetWidth() - resource->Font()->getWidth(textToDisplay);
+      alignOffsetX = margin + GetWidth() - resource->Font()->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
       alignOffsetX = (GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
@@ -290,4 +295,14 @@ s32 Label::GetHeight()
 	return Parent()->GetHeight() - _yoffset;
 	
   return _height;
+}
+
+s32 Label::GetMargin()
+{
+	return margin;
+}
+
+void Label::SetMargin(s32 m)
+{
+	margin = m;
 }

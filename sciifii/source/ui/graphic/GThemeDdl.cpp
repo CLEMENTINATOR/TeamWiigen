@@ -13,10 +13,10 @@ void GThemeDdl::InitializeComponents()
 		if(!ThemeManager::IsInitialized() || ThemeManager::AvailableThemes().size() < 1)
 		{
 			Visible(false);
-			DropDownList::InitializeComponents();
 			return;
 		}
 		
+		DropDownList::InitializeComponents();
 		//bind theme list
 		vector<string> themes = ThemeManager::AvailableThemes();
 		for(vector<string>::iterator theme = themes.begin(); theme != themes.end(); theme++)

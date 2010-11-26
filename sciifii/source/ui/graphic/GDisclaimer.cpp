@@ -38,8 +38,8 @@ void GDisclaimer::InitializeComponents()
 	btnContinue.SetPosition(238, 370);
 	btnContinue.Click += MakeDelegate(this, &GDisclaimer::Continue);
 	
-	_themeDdl.SetPosition(500, 10);
-	_themeDdl.SetSize(80, 20);
+	_themeDdl.SetPosition(400, 10);
+	_themeDdl.SetSize(80, 80);
 	
 	AddChildren(&btnExit);
 	AddChildren(&btnContinue);

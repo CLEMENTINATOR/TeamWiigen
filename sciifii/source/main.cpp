@@ -42,22 +42,22 @@ class MainUI : public IMain
         configFile = string(argv[1]);
 
       Config::Initialize(configFile);
-			
-			if(Config::ThemeDirectory().size() != 0)
-				ThemeManager::ThemeRootFolder(Config::ThemeDirectory());
-				
-      Log::WriteLog(Log_Info, "config done!");
+
+      if(Config::ThemeDirectory().size() != 0)
+        ThemeManager::ThemeRootFolder(Config::ThemeDirectory());
+
+
       GDisclaimer g;
       PadController::LoadCursorImages(0, "cursor.png", 48, 48);
-      Log::WriteLog(Log_Info, "pad image Loaded!");
-			try
-			{
-				UIManager::Run(g);
-				UIManager::Run(GMenuManager::Instance());
-			}
-			catch(AbortException &ex)
-			{}
-			
+
+      try
+      {
+        UIManager::Run(g);
+        UIManager::Run(GMenuManager::Instance());
+      }
+      catch(AbortException &ex)
+      {}
+
       return 0;
     }
 };

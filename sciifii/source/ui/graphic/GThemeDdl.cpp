@@ -10,17 +10,25 @@ using namespace Libwui::Resources;
 
 void GThemeDdl::InitializeComponents()
 {
-		if(!ThemeManager::IsInitialized() || ThemeManager::AvailableThemes().size() < 1)
-		{
-			Visible(false);
-			return;
-		}
+		DefaultImage("drop_normal.png");
+		OverImage("drop_over.png");
+		UpDefaultImage("arrow_up_normal.png");
+		UpClickedImage("arrow_up_clicked.png");
+		UpOverImage("arrow_up_over.png");
+		DownDefaultImage("arrow_down_normal.png");
+		DownClickedImage("arrow_down_clicked.png");
+		DownOverImage("arrow_down_over.png");
 		
+		if(!ThemeManager::IsInitialized() || ThemeManager::AvailableThemes().size() <= 1)
+			Visible(false);
+		else
+		{
+			//bind theme list
+			vector<string> themes = ThemeManager::AvailableThemes();
+			for(vector<string>::iterator theme = themes.begin(); theme != themes.end(); theme++)
+				AddItem(NULL, *theme);
+		}
 		DropDownList::InitializeComponents();
-		//bind theme list
-		vector<string> themes = ThemeManager::AvailableThemes();
-		for(vector<string>::iterator theme = themes.begin(); theme != themes.end(); theme++)
-			AddItem(NULL, *theme);
 }
 
 void GThemeDdl::OnSelectedItemChanged(PadController &c)

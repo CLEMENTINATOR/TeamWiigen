@@ -38,8 +38,6 @@ void GDisclaimer::InitializeComponents()
 	btnContinue.SetPosition(238, 370);
 	btnContinue.Click += MakeDelegate(this, &GDisclaimer::Continue);
 	
-	_themeDdl.DefaultImage("go_button_drop_normal.png");
-	_themeDdl.OverImage("go_button_drop_over.png");
 	_themeDdl.SetPosition(500, 10);
 	_themeDdl.SetSize(80, 20);
 	

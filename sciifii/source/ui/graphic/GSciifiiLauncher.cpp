@@ -24,7 +24,6 @@ using namespace Libwui;
 
 void GSciifiiLauncher::InitializeComponents()
 {
-  Visible(true);
   BackgroundColor(Colors::FromRGBA(122, 122, 122, 125));
   SetPosition(0, 0);
   SetSize(640, 480);
@@ -35,7 +34,18 @@ void GSciifiiLauncher::InitializeComponents()
   bOk.SetPosition(220, 250);
   bOk.DefaultImage("go_button.png");
   bOk.OverImage("go_button_over.png");
-  bOk.SetSize(164, 40);
+  bOk.SetSize(263, 40);
+
+  pBarGlobal.SetActualValue(0);
+  pBarGlobal.SetMaxValue(100);
+  pBarGlobal.SetSize(250, 20);
+  pBarGlobal.SetPosition(220, 190);
+  pBarGlobal.SetText("Sciifii is analysing your choice!");
+  
+  pBarActual.SetActualValue(0);
+  pBarActual.SetMaxValue(1);
+  pBarActual.SetSize(250, 20);
+  pBarActual.SetPosition(220, 220);
 
   mb.SetTitlePosition(16, 2);
   mb.SetTitleSize(279, 14);
@@ -45,21 +55,11 @@ void GSciifiiLauncher::InitializeComponents()
   mb.DefaultButtonImage("go_button.png");
   mb.OverButtonImage("go_button_over.png");
   mb.SetMessageBoxImage("error_popup_screen.png");
-
-  pBarGlobal.SetActualValue(0);
-  pBarGlobal.SetMaxValue(100);
-  pBarGlobal.SetSize(200, 20);
-  pBarGlobal.SetPosition(220, 190);
-
-  pBarActual.SetActualValue(0);
-  pBarActual.SetMaxValue(1);
-  pBarActual.SetSize(200, 20);
-  pBarActual.SetPosition(220, 220);
-
+  
   AddChildren(&pBarActual);
   AddChildren(&pBarGlobal);
   AddChildren(&bOk);
-	AddChildren(&bw);
+  AddChildren(&bw);
 	
   Control::InitializeComponents();
   Run();
@@ -201,8 +201,8 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 }
 void GSciifiiLauncher::Draw()
 {
-  Menu_DrawRectangle(190, 160, 256, 160, Colors::White(), 1);
-  Menu_DrawRectangle(191, 161, 254, 158, BackgroundColor(), 1);
+  Menu_DrawRectangle(190, 160, 286, 160, Colors::White(), 1);
+  Menu_DrawRectangle(191, 161, 284, 158, BackgroundColor(), 1);
   Control::Draw();
 }
 

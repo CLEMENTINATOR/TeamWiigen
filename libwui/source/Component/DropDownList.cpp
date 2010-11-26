@@ -12,6 +12,7 @@ using namespace fastdelegate;
 DropDownList::DropDownList()
 {
   _bSelected.Click += MakeDelegate(this, &DropDownList::ToggleList);
+	_list.RenderAsDropDown = true;
   _list.Enabled(false);
   _list.Visible(false);
 	_list.SelectedItemChanged += MakeDelegate(this, &DropDownList::List_SelectedItemChanged);

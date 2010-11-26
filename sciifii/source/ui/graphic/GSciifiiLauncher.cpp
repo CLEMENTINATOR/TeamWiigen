@@ -31,21 +31,21 @@ void GSciifiiLauncher::InitializeComponents()
   bOk.Enabled(false);
   bOk.Click += MakeDelegate(this, &GSciifiiLauncher::Exit);
   bOk.Text("Done !");
-  bOk.SetPosition(220, 250);
+  bOk.SetPosition(238, 250);
   bOk.DefaultImage("go_button.png");
   bOk.OverImage("go_button_over.png");
-  bOk.SetSize(263, 40);
+  bOk.SetSize(164, 40);
 
   pBarGlobal.SetActualValue(0);
   pBarGlobal.SetMaxValue(100);
-  pBarGlobal.SetSize(250, 20);
-  pBarGlobal.SetPosition(220, 190);
+  pBarGlobal.SetSize(270, 20);
+  pBarGlobal.SetPosition(185, 190);
   pBarGlobal.SetText("Sciifii is analysing your choice!");
   
   pBarActual.SetActualValue(0);
   pBarActual.SetMaxValue(1);
-  pBarActual.SetSize(250, 20);
-  pBarActual.SetPosition(220, 220);
+  pBarActual.SetSize(270, 20);
+  pBarActual.SetPosition(185, 220);
 
   mb.SetTitlePosition(16, 2);
   mb.SetTitleSize(279, 14);
@@ -186,7 +186,6 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
   if (args->Result.HasError)
   {
     mb.Show( args->Result.e->ToString(),  "Exception");
-  //  bOk.Text(args->Result.e->ToString());
   }
   else
   {
@@ -201,8 +200,8 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 }
 void GSciifiiLauncher::Draw()
 {
-  Menu_DrawRectangle(190, 160, 286, 160, Colors::White(), 1);
-  Menu_DrawRectangle(191, 161, 284, 158, BackgroundColor(), 1);
+  Menu_DrawRectangle(157, 160, 326, 160, Colors::White(), 1);
+  Menu_DrawRectangle(158, 161, 324, 158, BackgroundColor(), 1);
   Control::Draw();
 }
 

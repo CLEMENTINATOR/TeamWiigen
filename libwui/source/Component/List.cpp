@@ -201,8 +201,11 @@ void List::SelectedItem(ListItem* i)
 			{
 				if(!RenderAsDropDown)
 				{
-					_selectedItem->DefaultBackgroundColor(Colors::White());
-					_selectedItem->OverBackgroundColor(Colors::White());
+					if(_selectedItem)
+					{
+						_selectedItem->DefaultBackgroundColor(Colors::White());
+						_selectedItem->OverBackgroundColor(Colors::White());
+					}
 					(*ite)->DefaultBackgroundColor(Colors::Blue());
 					(*ite)->OverBackgroundColor(Colors::Blue());
 				}

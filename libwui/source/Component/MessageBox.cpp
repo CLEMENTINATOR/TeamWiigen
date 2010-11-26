@@ -37,8 +37,6 @@ MessageBox::MessageBox()
   BackgroundColor(Colors::FromRGBA(200, 200, 200, 175));
   _boxButton.Text("OK");
   _boxButton.Click += MakeDelegate(this, &MessageBox::Button_Clicked);
-  Visible(false);
-  Enabled(false);
 }
 
 void MessageBox::InitializeComponents()

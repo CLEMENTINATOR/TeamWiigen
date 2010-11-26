@@ -48,7 +48,7 @@ void GSciifiiLauncher::InitializeComponents()
   pBarActual.SetPosition(185, 220);
 
   mb.SetTitlePosition(16, 2);
-  mb.SetTitleSize(279, 14);
+  mb.SetTitleSize(279, 26);
   mb.SetTextPosition(16, 64);
   mb.SetTextSize(279, 45);
   mb.SetButtonPosition(76, 137);

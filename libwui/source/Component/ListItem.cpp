@@ -11,7 +11,7 @@ using namespace std;
 
 ListItem::ListItem(ListItemData data)
     : _lbl("", 12, Colors::Black()),
-    _overBackgroundColor(Colors::Blue()),
+    _overBackgroundColor(Colors::FromRGBA(150, 150, 150, 255)),
     _defaultBackgroundColor(Colors::FromRGBA(200, 200, 200, 255))
 {
   _data = data;

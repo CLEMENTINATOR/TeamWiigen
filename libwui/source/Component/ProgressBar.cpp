@@ -16,7 +16,7 @@ using namespace std;
 ProgressBar::ProgressBar() :
     MaxValue(1),
     ActualValue(0),
-    l("", 12, Colors::Black()),
+    l("", 12, Colors::Black(), 10),
     usedColor(Colors::Green()),
     defaultColor(Colors::White())
 

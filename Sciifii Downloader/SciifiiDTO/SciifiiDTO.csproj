@@ -69,6 +69,14 @@
     <Compile Include="Cios\SimplePatch.cs" />
     <Compile Include="Identifier.cs" />
     <Compile Include="MemoryPatcher.cs" />
+    <Compile Include="Menu\ExitMenuItem.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\ModeMenuItem.cs" />
+    <Compile Include="Menu\NavigationMenuItem.cs" />
+    <Compile Include="Menu\PreviousMenuItem.cs" />
+    <Compile Include="Menu\SeparatorMenuItem.cs" />
+    <Compile Include="Menu\StartMenuItem.cs" />
+    <Compile Include="Menu\SwitchMenuItem.cs" />
     <Compile Include="Preloader.cs" />
     <Compile Include="CompositeInstaller.cs" />
     <Compile Include="FileDownloader.cs" />

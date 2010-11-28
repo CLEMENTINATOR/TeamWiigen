@@ -125,7 +125,7 @@ namespace Sciifii
 
             this.datas = datas;
             if(datas != null)
-                UpdateTextBox(tbStatus, "Config.xml load with success.");
+                UpdateTextBox(tbStatus, "Config.xml v" + datas.Version + " load with success.");
 
             List<Mode> modes = new List<Mode>();
             modes.Add(new Mode { Text = "Advanced mode", OptionsString = "", Flag = "" });
@@ -139,11 +139,6 @@ namespace Sciifii
                     clbOption.Items.Add(option, false);
 
             ddlRegion.DataSource = Enum.GetNames(typeof(Regions)).Where(x => x != "ALL").OrderBy(x => x).ToList();        
-        }
-
-        public void SetDatas(SciifiiConfiguration datas)
-        {
-            this.datas = datas;
         }
         #endregion
 

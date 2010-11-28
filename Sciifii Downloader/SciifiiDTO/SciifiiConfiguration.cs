@@ -19,6 +19,9 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "MenuMessage")]
         public String MenuMessage { get; set; }
 
+        [XmlAttribute(AttributeName = "themeDirectory")]
+        public String ThemeDirectory { get; set; }
+
         [XmlAttribute(AttributeName = "AllowAdvancedMode")]
         public bool AllowAdvancedMode { get; set; }
 
@@ -33,6 +36,9 @@ namespace SciifiiDTO
 
         [XmlArray(ElementName = "modes")]
         public List<Mode> Modes { get; set; }
+
+        [XmlArray(ElementName = "menus")]
+        public List<Menu.Menu> Menus { get; set; }
 
         [XmlArray(ElementName = "options")]
         public List<Option> Options { get; set; }
@@ -50,13 +56,13 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "steps")]
         public List<Step> Steps { get; set; }
 
-        public SciifiiConfiguration()
+        /*public SciifiiConfiguration()
         {
             AllowAdvancedMode = true;
             workingDirectory = "sd:/sciifii/temp";
             ManagedFiles = new List<ManagedFile>();
             Modes = new List<Mode>();
             Steps = new List<Step>();
-        }
+        }*/
     }
 }

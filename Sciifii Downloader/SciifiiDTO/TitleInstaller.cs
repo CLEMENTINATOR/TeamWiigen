@@ -10,6 +10,8 @@ namespace SciifiiDTO
     {
         [XmlEnum("install")]
         Install,
+        [XmlEnum("update")]
+        Update,
         [XmlEnum("uninstall")]
         Uninstall,
         [XmlEnum("pack")]

@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormV4));
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.lbMode = new System.Windows.Forms.ListBox();
             this.sciifiiModeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbStatus = new System.Windows.Forms.TextBox();
@@ -47,10 +46,6 @@
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.Filter = "Fichier config.xml|config.xml";
             // 
             // lbMode
             // 
@@ -164,7 +159,7 @@
             this.ddlRegion.Size = new System.Drawing.Size(49, 21);
             this.ddlRegion.TabIndex = 2;
             // 
-            // MainForm
+            // MainFormV4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -176,7 +171,7 @@
             this.Controls.Add(this.tbStatus);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(900, 350);
-            this.Name = "MainForm";
+            this.Name = "MainFormV4";
             this.Text = "Sciifii downloader";
             ((System.ComponentModel.ISupportInitialize)(this.sciifiiModeBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -189,7 +184,6 @@
 
         #endregion
 
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ListBox lbMode;
         private System.Windows.Forms.TextBox tbStatus;
         private System.Windows.Forms.GroupBox groupBox1;

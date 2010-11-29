@@ -8,6 +8,8 @@
 #include <Libwui/Resources/ThemeManager.hpp>
 #include <Libwiisys/Exceptions/AbortException.h>
 #include <Libwui/Device/PadControllers.hpp>
+#include <Libwui/Component/MessageBox.hpp>
+#include <sciifii/business/Common/ExitSciifiiException.h>
 #include <sciifii/ui/text/VirtualPad.h>
 #include <sciifii/Tools.h>
 #include <sciifii/ui/text/MenuManager.h>
@@ -55,8 +57,21 @@ class MainUI : public IMain
         UIManager::Run(g);
         UIManager::Run(GMenuManager::Instance());
       }
-      catch(AbortException &ex)
+      catch(ExitSciifiiException &ex)
       {}
+			catch(Exception &ex)
+			{
+				MessageBox mb;
+				mb.SetTitlePosition(16, 2);
+				mb.SetTitleSize(279, 14);
+				mb.SetTextPosition(16, 64);
+				mb.SetTextSize(279, 45);
+				mb.SetButtonPosition(76, 137);
+				mb.DefaultButtonImage("go_button.png");
+				mb.OverButtonImage("go_button_over.png");
+				mb.SetMessageBoxImage("error_popup_screen.png");
+				mb.Show( ex.ToString(),  "Exception");
+			}
 
       return 0;
     }

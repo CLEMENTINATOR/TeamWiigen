@@ -1,5 +1,5 @@
 #include <sciifii/ui/graphic/GDisclaimer.h>
-#include <Libwiisys/Exceptions/AbortException.h>
+#include <sciifii/business/common/ExitSciifiiException.h>
 
 using namespace Libwiisys;
 using namespace Libwui::Component;
@@ -52,7 +52,7 @@ void GDisclaimer::InitializeComponents()
 void GDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
 	Visible(false);
-	throw AbortException();
+	throw ExitSciifiiException();
 }
 
 void GDisclaimer::Continue(Object* sender, CursorEventArgs* args)

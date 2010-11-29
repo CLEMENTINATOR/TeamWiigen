@@ -9,6 +9,7 @@
 #include <sciifii/ui/graphic/GSciifiiLauncher.h>
 #include <Libwui/UIManager.hpp>
 #include <Libwiisys/Exceptions/AbortException.h>
+#include <sciifii/business/common/ExitSciifiiException.h>
 
 using namespace std;
 using namespace fastdelegate;
@@ -157,7 +158,7 @@ bool GMenuManager::ExecuteSciifii()
 	  ite->second->Reset();
     return true;
   }
-  catch(AbortException& ex)
+  catch(ExitSciifiiException& ex)
   {
     return false;
   }

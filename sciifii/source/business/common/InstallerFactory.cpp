@@ -19,6 +19,8 @@
 #include <sciifii/business/TitleStep.h>
 #include <sciifii/business/WadBatch.h>
 #include <sciifii/business/Syscheck.h>
+#include <sciifii/business/StopSciifiiStep.h>
+
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::Serialization;
@@ -235,6 +237,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
     step = new FileSystemTask(target, action, type, destination, recursive);
   }
+	else if(nodeValue == "StopSciifii")
+		step = new StopSciifiiStep();
   else
     throw Exception("This step doesn't exists");
 

@@ -72,7 +72,7 @@ void DropDownList::SetButtonText(string s)
 
 void DropDownList::ToggleList(Object *o, CursorEventArgs* args)
 {
-	_list.Visible(!_list.Enabled());
+	_list.Visible(!_list.Visible());
 }
 
 void DropDownList::EnsureItems()

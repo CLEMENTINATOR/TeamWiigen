@@ -13,25 +13,25 @@ namespace SciifiiDTO.Menu
         [XmlAttribute(AttributeName = "id")]
         public String Id { get; set; }
 
-        [XmlArray(ElementName = "modeMenuItem")]
+        [XmlElementAttribute(ElementName = "modeMenuItem")]
         public List<ModeMenuItem> ModeMenuItem { get; set; }
 
-        [XmlArray(ElementName = "separatorMenuItem")]
+        [XmlElementAttribute(ElementName = "separatorMenuItem")]
         public List<SeparatorMenuItem> SeparatorMenuItem { get; set; }
 
-        [XmlArray(ElementName = "navigationMenuItem")]
+        [XmlElementAttribute(ElementName = "navigationMenuItem")]
         public List<NavigationMenuItem> NavigationMenuItem { get; set; }
 
-        [XmlArray(ElementName = "switchMenuItem")]
+        [XmlElementAttribute(ElementName = "switchMenuItem")]
         public List<SwitchMenuItem> SwitchMenuItem { get; set; }
 
-        [XmlArray(ElementName = "startMenuItem")]
+        [XmlElementAttribute(ElementName = "startMenuItem")]
         public List<StartMenuItem> StartMenuItem { get; set; }
 
-        [XmlArray(ElementName = "previousMenuItem")]
+        [XmlElementAttribute(ElementName = "previousMenuItem")]
         public List<PreviousMenuItem> PreviousMenuItem { get; set; }
 
-        [XmlArray(ElementName = "exitMenuItem")]
+        [XmlElementAttribute(ElementName = "exitMenuItem")]
         public List<ExitMenuItem> ExitMenuItem { get; set; }
     }
 }

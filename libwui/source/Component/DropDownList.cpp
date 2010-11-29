@@ -13,7 +13,6 @@ DropDownList::DropDownList()
 {
   _bSelected.Click += MakeDelegate(this, &DropDownList::ToggleList);
 	_list.RenderAsDropDown = true;
-  _list.Enabled(false);
   _list.Visible(false);
 	_list.SelectedItemChanged += MakeDelegate(this, &DropDownList::List_SelectedItemChanged);
 }
@@ -21,11 +20,15 @@ DropDownList::DropDownList()
 void DropDownList::AddItem(Libwiisys::Object* item, const std::string& text)
 {
   _list.AddItem(item, text);
+  if(!_list.Items().size() == 1)
+    _bSelected.Text(_list.Items()[0]->Text());
 }
 
 void DropDownList::AddItem(ListItemData d)
 {
   _list.AddItem(d);
+  if(!_list.Items().size() == 1)
+    _bSelected.Text(_list.Items()[0]->Text());
 }
 
 void DropDownList::List_SelectedItemChanged(Object *o, CursorEventArgs* args)
@@ -70,7 +73,6 @@ void DropDownList::SetButtonText(string s)
 void DropDownList::ToggleList(Object *o, CursorEventArgs* args)
 {
 	_list.Visible(!_list.Enabled());
-	_list.Enabled(!_list.Enabled());
 }
 
 void DropDownList::EnsureItems()

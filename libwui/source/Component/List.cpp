@@ -77,7 +77,7 @@ void List::OnSelectedItemChanged(Device::PadController &c)
 
 void List::ScrollDown(Object *o, CursorEventArgs* args)
 {
-  if (_startShowIndex <= _items.size() - _maxItemsShowable)
+  if (_startShowIndex + _maxItemsShowable < _items.size())
 	{
 		_startShowIndex++;
     Invalidate();
@@ -140,15 +140,13 @@ void List::DownOverImage(string image)
 void List::EnsureItems()
 {
   _maxItemsShowable = _height / 20;
-  _bScrollUp.SetPosition(_width-_bScrollUp.GetWidth(), 0);
-  _bScrollDown.SetPosition(_width-_bScrollDown.GetWidth(), _height - _bScrollDown.GetHeight());
 	
 	//reset buttons states
-	if ((s32) (_items.size() * 20) > _height) // needs scrool
+	if ((s32)_items.size() > _maxItemsShowable) // needs scrool
   {
-		_bScrollUp.Visible(true);
+	_bScrollUp.Visible(true);
     _bScrollDown.Visible(true);
-    _bScrollDown.Enabled(_startShowIndex != _items.size() - _maxItemsShowable);
+    _bScrollDown.Enabled(_startShowIndex + _maxItemsShowable < _items.size());
     _bScrollUp.Enabled(_startShowIndex != 0);
   }
   else
@@ -172,6 +170,12 @@ void List::EnsureItems()
 			i->Visible(true);
 			i->Enabled(true);
 			AddChildren(i);
+			
+			if(j - _startShowIndex == (_maxItemsShowable - 1))
+			{
+				_bScrollUp.SetPosition(_width - _bScrollUp.GetWidth(), 0);
+				_bScrollDown.SetPosition(_width - _bScrollDown.GetWidth(), (j - _startShowIndex + 1) * 20 - _bScrollDown.GetHeight());
+			}
 		}
 		else
 		{

@@ -25,14 +25,14 @@ namespace Libwui
         void DownClickedImage(std::string image);
         void UpOverImage(std::string image);
         void DownOverImage(std::string image);
-				ListItem* SelectedItem();
-				void SelectedItem(ListItem* item);
+		ListItem* SelectedItem();
+		void SelectedItem(ListItem* item);
+			
+		Events::CursorEvent SelectedItemChanged;
 				
-				Events::CursorEvent SelectedItemChanged;
-				
-			protected:
-				void EnsureItems();
-				virtual void OnSelectedItemChanged(Device::PadController &c);
+	  protected:
+		void EnsureItems();
+		virtual void OnSelectedItemChanged(Device::PadController &c);
 				
       private:
         Button _bSelected;

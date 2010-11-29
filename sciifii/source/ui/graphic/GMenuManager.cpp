@@ -18,6 +18,7 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwui::Resources;
 using namespace Libwui::Events;
 using namespace Libwui;
+
 GMenuManager::GMenuManager()
 {
   BackgroundImage("advanced_screen.png");
@@ -93,6 +94,9 @@ void GMenuManager::InitializeComponents()
   btnExit.SetSize(44, 44);
   btnExit.SetPosition(600, 415);
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
+	
+	_themeDdl.SetPosition(420, 5);
+	_themeDdl.SetSize(80, 80);
 
   AddChildren(&btnExit);
 

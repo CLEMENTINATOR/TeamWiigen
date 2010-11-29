@@ -7,7 +7,7 @@ using namespace std;
 using namespace Libwui::Component;
 using namespace Libwui::Device;
 using namespace Libwui::Resources;
-
+		
 void GThemeDdl::InitializeComponents()
 {
 		DefaultImage("drop_normal.png");
@@ -26,13 +26,21 @@ void GThemeDdl::InitializeComponents()
 			//bind theme list
 			vector<string> themes = ThemeManager::AvailableThemes();
 			for(vector<string>::iterator theme = themes.begin(); theme != themes.end(); theme++)
+			{
 				AddItem(NULL, *theme);
+				if(*theme == ThemeManager::CurrentTheme())
+					SelectedItem(Items()[Items().size() - 1]);
+			}
 		}
+		
 		DropDownList::InitializeComponents();
 }
 
 void GThemeDdl::OnSelectedItemChanged(PadController &c)
 {
-	ThemeManager::CurrentTheme(SelectedItem()->Text());
-	DropDownList::OnSelectedItemChanged(c);
+	if(SelectedItem()->Text() == ThemeManager::CurrentTheme())
+	{
+		ThemeManager::CurrentTheme(SelectedItem()->Text());
+		DropDownList::OnSelectedItemChanged(c);
+	}
 }

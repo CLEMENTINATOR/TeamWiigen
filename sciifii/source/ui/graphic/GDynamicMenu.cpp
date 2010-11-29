@@ -56,8 +56,9 @@ void GDynamicMenu::InitializeComponents()
 	_btnDown.VerticalAlignement(VAlign_Bottom);
 	_btnDown.HorizontalAlignement(HAlign_Center);
 	_btnDown.DefaultImage("Down_Default.png");
-    _btnDown.OverImage("Down_Over.png");
-    _btnDown.ClickedImage("Down_Clicked.png");
+  _btnDown.OverImage("Down_Over.png");
+  _btnDown.ClickedImage("Down_Clicked.png");
+	_btnDown.DefineTrigger(WPAD_BUTTON_DOWN);
 	AddChildren(&_btnDown);
 	
 	_btnUp.SetSize(36,36);
@@ -65,8 +66,9 @@ void GDynamicMenu::InitializeComponents()
 	_btnUp.SetPosition(0, 9);
 	_btnUp.HorizontalAlignement(HAlign_Center);
 	_btnUp.DefaultImage("Up_Default.png");
-    _btnUp.OverImage("Up_Over.png");
-    _btnUp.ClickedImage("Up_Clicked.png");
+  _btnUp.OverImage("Up_Over.png");
+  _btnUp.ClickedImage("Up_Clicked.png");
+	_btnUp.DefineTrigger(WPAD_BUTTON_UP);
 	AddChildren(&_btnUp);
 	
 	for (vector<GMenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)

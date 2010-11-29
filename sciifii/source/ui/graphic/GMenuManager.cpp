@@ -99,7 +99,8 @@ void GMenuManager::InitializeComponents()
 	_themeDdl.SetSize(80, 80);
 
   AddChildren(&btnExit);
-
+	AddChildren(&_themeDdl);
+	
   Form::InitializeComponents();
 }
 

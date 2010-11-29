@@ -94,6 +94,7 @@ void GMenuManager::InitializeComponents()
   btnExit.SetSize(44, 44);
   btnExit.SetPosition(600, 415);
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
+	btnExit.DefineTrigger(WPAD_BUTTON_HOME);
 	
 	_themeDdl.SetPosition(420, 5);
 	_themeDdl.SetSize(80, 80);

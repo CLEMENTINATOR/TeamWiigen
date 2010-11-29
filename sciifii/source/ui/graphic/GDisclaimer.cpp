@@ -23,6 +23,7 @@ void GDisclaimer::InitializeComponents()
 	btnExit.OverImage("exitbutton_over.png");
 	btnExit.SetSize(44, 44);
 	btnExit.SetPosition(545, 415);
+	btnExit.DefineTrigger(WPAD_BUTTON_HOME);
 	btnExit.Click += MakeDelegate(this, &GDisclaimer::Exit);
 
 	textDisclaimer.Text(Config::DisclaimerText());

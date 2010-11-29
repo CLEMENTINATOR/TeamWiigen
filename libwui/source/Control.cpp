@@ -620,3 +620,8 @@ void Control::OnCursorButtonUp(Device::PadController &c)
   CursorEventArgs e(c);
   CursorButtonUp(this, &e);
 }
+
+string Control::UniqueId()
+{
+	return _fullId;
+}

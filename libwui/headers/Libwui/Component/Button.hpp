@@ -19,9 +19,11 @@ namespace Libwui
         void OnCursorButtonUp(Libwui::Device::PadController &c);
       public:
         Button();
+				~Button();
         void InitializeComponents();
         void Draw();
         virtual void ProcessMessage(Message& message);
+				virtual void ProcessTrigger(Libwui::Device::PadController& c, std::string rootElementId);
         std::string CurrentImage();
         void DefaultImage(const std::string& imagePath);
         std::string DefaultImage() const;
@@ -35,12 +37,15 @@ namespace Libwui
         void Text(const std::string& text);
         void ForeColor(GXColor c);
         void TextSize(int pt);
+				void DefineTrigger(u32 flag);
+				
       private:
         std::string _currentImage;
         std::string _defaultImage;
         std::string _overImage;
         std::string _clickedImage;
         Label _lblText;
+				bool _triggerState;
     };
   }
 }

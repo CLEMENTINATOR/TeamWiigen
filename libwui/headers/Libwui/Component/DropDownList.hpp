@@ -25,20 +25,21 @@ namespace Libwui
         void DownClickedImage(std::string image);
         void UpOverImage(std::string image);
         void DownOverImage(std::string image);
-		ListItem* SelectedItem();
-		void SelectedItem(ListItem* item);
-			
-		Events::CursorEvent SelectedItemChanged;
+				ListItem* SelectedItem();
+				void SelectedItem(ListItem* item);
+				const std::vector<ListItem*>& Items();
+				
+				Events::CursorEvent SelectedItemChanged;
 				
 	  protected:
-		void EnsureItems();
-		virtual void OnSelectedItemChanged(Device::PadController &c);
+			void EnsureItems();
+			virtual void OnSelectedItemChanged(Device::PadController &c);
 				
-      private:
-        Button _bSelected;
-        List _list;
-        void ToggleList(Libwiisys::Object *o, Libwui::Events::CursorEventArgs* args);
-        void List_SelectedItemChanged(Libwiisys::Object *o, Libwui::Events::CursorEventArgs* args);
+		private:
+			Button _bSelected;
+			List _list;
+			void ToggleList(Libwiisys::Object *o, Libwui::Events::CursorEventArgs* args);
+			void List_SelectedItemChanged(Libwiisys::Object *o, Libwui::Events::CursorEventArgs* args);
     };
   }
 }

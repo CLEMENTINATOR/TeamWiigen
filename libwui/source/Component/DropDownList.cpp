@@ -129,3 +129,8 @@ void DropDownList::SelectedItem(ListItem* item)
 {
 	_list.SelectedItem(item);
 }
+
+const std::vector<ListItem*>& DropDownList::Items()
+{
+	return _list.Items();
+}

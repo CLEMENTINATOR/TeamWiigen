@@ -130,7 +130,10 @@ void Checkbox::FontSize(int pt)
 
 void Checkbox::OnClick(Libwui::Device::PadController &c)
 {
-  Checked(!Checked());
+	bool validClick = (c.btns_c & ((u16)WPAD_BUTTON_A)) != 0;
+	
+	if(validClick && Enabled())
+		Checked(!Checked());
   Control::OnClick(c);
 }
 

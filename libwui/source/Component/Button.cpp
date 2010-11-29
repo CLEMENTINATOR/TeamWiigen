@@ -8,14 +8,18 @@
 using namespace Libwui;
 using namespace Libwui::Component;
 using namespace Libwui::Resources;
+using namespace Libwui::Device;
 using namespace std;
 
-Button::Button() :
-    _lblText("", 12, (GXColor)
-         {
-           0,0,0,255
-         }, 10)
+Button::Button() 
+  : _lblText("", 12, (GXColor){0,0,0,255}, 10),
+	  _triggerState(false)
 {}
+
+Button::~Button()
+{
+	UIManager::SetTrigger(*this, 0);
+}
 
 void Button::InitializeComponents()
 {
@@ -113,10 +117,27 @@ string Button::ClickedImage() const
   return _clickedImage;
 }
 
-void Button::OnClick(Libwui::Device::PadController &c)
+void Button::ProcessTrigger(PadController& c, string rootElementId)
 {
-  if (Enabled())
+	if(_fullId.find(rootElementId) != 0)
+		return;
+		
+	_triggerState = true;
+	OnClick(c);
+	_triggerState = false;
+}
+
+void Button::OnClick(PadController &c)
+{
+	bool validForNonTrigger = !_triggerState && ((c.btns_c & ((u16)WPAD_BUTTON_A)) != 0);
+	
+  if (Enabled() && (_triggerState || validForNonTrigger))
     Control::OnClick(c);
+}
+
+void Button::DefineTrigger(u32 flag)
+{
+	UIManager::SetTrigger(*this, flag);
 }
 
 void Button::OnCursorEnter()

@@ -110,6 +110,14 @@ void UIManager::Update()
     	Current()._dialogs.back()->ProcessInput(PadController::Currents()[i]);
     else
       Current()._rootElement->ProcessInput(PadController::Currents()[i]);
+			
+		//Gestion des trigger
+		if(!Current()._dialogs.empty())
+			for(vector<Trigger>::iterator ite = _triggers.begin(); ite != _triggers.end(); ite++)
+				ite->Trig(PadController::Currents()[i], Current()._dialogs.back()->UniqueId());
+		else
+			for(vector<Trigger>::iterator ite = _triggers.begin(); ite != _triggers.end(); ite++)
+				ite->Trig(PadController::Currents()[i], Current()._rootElement->UniqueId());
   }
 
   //Gestion des messages
@@ -145,4 +153,28 @@ void UIManager::TrackWPads(bool track)
 UIManager::~UIManager()
 {
   LWP_MutexDestroy(_messageQueueMutex);
+}
+
+void UIManager::SetTrigger(Button& item, u32 flag)
+{
+	vector<Trigger>::iterator currentTrigger;
+	for(currentTrigger = Current()._triggers.begin(); currentTrigger != Current()._triggers.end(); currentTrigger++)
+		if(currentTrigger->TriggeredItem == &item)
+			break;
+		
+	if(flag == 0)
+	{
+		if(currentTrigger != Current()._triggers.end())
+			Current()._triggers.erase(currentTrigger);
+		return;
+	}
+	
+	if(currentTrigger != Current()._triggers.end())
+		currentTrigger->ButtonFlags = flag;
+	else
+	{
+		Trigger t(item, flag);
+		Current()._triggers.push_back(t);
+	}
+	
 }

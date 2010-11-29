@@ -46,8 +46,7 @@ namespace Libwui
 
       bool InvokeRequired();
       bool IsInside(s32 x, s32 y);
-      virtual bool IsInUITree();
-
+			
       virtual void SetId(const std::string& newId);
       virtual void OnCursorEnter();
       virtual void OnCursorLeave();
@@ -59,7 +58,8 @@ namespace Libwui
     public:
       Control();
       virtual void InitializeComponents();
-
+			virtual bool IsInUITree();
+			
       virtual void AddChildren(Control* child);
       virtual void RemoveChildren(Control* child);
       void StartDrawing();
@@ -69,7 +69,6 @@ namespace Libwui
 
       virtual void BackgroundImage(const std::string& image);
       std::string BackgroundImage() const;
-
 
       virtual s32 GetLeft();
       virtual s32 GetTop();
@@ -93,7 +92,9 @@ namespace Libwui
 
       bool Enabled() const;
       virtual void Enabled(bool enabled);
-
+			
+			std::string UniqueId();
+			
       virtual ~Control();
 
       Libwiisys::Event CursorEnter;

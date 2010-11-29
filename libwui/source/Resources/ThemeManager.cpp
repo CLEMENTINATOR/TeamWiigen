@@ -66,6 +66,11 @@ void ThemeManager::CurrentTheme(const string& theme)
 	ResourceManager::Clean(true);
 }
 
+string ThemeManager::CurrentTheme()
+{
+	return Current()._currentTheme;
+}
+
 string ThemeManager::GetResourcePath(const string& path)
 {
   return Path::CleanPath(Current()._themeFolder + "/" + Current()._currentTheme + "/" + path);

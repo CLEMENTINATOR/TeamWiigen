@@ -16,7 +16,7 @@ namespace Libwui
     class List: public Control
     {
       public:
-		List();
+				List();
         void AddItem(Libwiisys::Object* item, const std::string& text = "");
         void AddItem(const ListItemData& d);
         void AddItem(const ListItem& i);
@@ -26,14 +26,14 @@ namespace Libwui
         void UpClickedImage(std::string image);
         void DownClickedImage(std::string image);
         void UpOverImage(std::string image);
-		void DownOverImage(std::string image);
+				void DownOverImage(std::string image);
         void SetSize(s32 w, s32 h);
-		const std::vector<ListItem*>& Items();
-		ListItem* SelectedItem();
-		void SelectedItem(ListItem* item);
-		bool RenderAsDropDown;
+				const std::vector<ListItem*>& Items();
+				ListItem* SelectedItem();
+				void SelectedItem(ListItem* item);
+				bool RenderAsDropDown;
 				
-		Events::CursorEvent SelectedItemChanged;
+				Events::CursorEvent SelectedItemChanged;
 				
       private:
         std::vector<ListItem*> _items;
@@ -41,12 +41,12 @@ namespace Libwui
         Button _bScrollDown;
         u32 _startShowIndex;
         u32 _maxItemsShowable;
-		ListItem* _selectedItem;
+				ListItem* _selectedItem;
 			
-		void ItemClicked(Object *sender, Libwui::Events::CursorEventArgs* args);
+				void ItemClicked(Object *sender, Libwui::Events::CursorEventArgs* args);
 
       protected:
-		void OnSelectedItemChanged(Device::PadController &c);
+				void OnSelectedItemChanged(Device::PadController &c);
         void EnsureItems();
         void ScrollDown(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);
         void ScrollUp(Libwiisys::Object* sender, Libwui::Events::CursorEventArgs* args);

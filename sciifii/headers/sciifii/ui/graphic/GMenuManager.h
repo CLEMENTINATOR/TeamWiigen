@@ -7,6 +7,7 @@
 #include <Libwui/Component/MessageBox.hpp>
 #include <Libwiisys/Serialization/Xml.h>
 #include "GDynamicMenu.h"
+#include "GThemeDdl.h"
 
 class GMenuManager : public Libwui::Component::Form
 {
@@ -18,6 +19,7 @@ class GMenuManager : public Libwui::Component::Form
 		
 		Libwui::Component::Button btnExit;
 		Libwui::Component::MessageBox mb;
+		GThemeDdl _themeDdl;
 		
     GMenuManager();
     void Initialyze(TiXmlElement* node);

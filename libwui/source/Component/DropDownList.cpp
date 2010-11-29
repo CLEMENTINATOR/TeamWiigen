@@ -20,22 +20,25 @@ DropDownList::DropDownList()
 void DropDownList::AddItem(Libwiisys::Object* item, const std::string& text)
 {
   _list.AddItem(item, text);
-  if(!_list.Items().size() == 1)
-    _bSelected.Text(_list.Items()[0]->Text());
+  if(_list.Items().size() == 1)
+    _list.SelectedItem(_list.Items()[0]);
 }
 
 void DropDownList::AddItem(ListItemData d)
 {
   _list.AddItem(d);
-  if(!_list.Items().size() == 1)
-    _bSelected.Text(_list.Items()[0]->Text());
+  if(_list.Items().size() == 1)
+    _list.SelectedItem(_list.Items()[0]);
 }
 
 void DropDownList::List_SelectedItemChanged(Object *o, CursorEventArgs* args)
 {
   _bSelected.Text(_list.SelectedItem()->Text());
-  ToggleList(NULL, NULL);
-	OnSelectedItemChanged(args->Controller());
+	if(_list.Visible())
+		ToggleList(NULL, NULL);
+	
+	if(_list.Items().size() != 1)
+	  OnSelectedItemChanged(args->Controller());
 }
 
 void DropDownList::OnSelectedItemChanged(Device::PadController &c)

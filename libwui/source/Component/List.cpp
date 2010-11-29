@@ -140,11 +140,15 @@ void List::DownOverImage(string image)
 void List::EnsureItems()
 {
   _maxItemsShowable = _height / 20;
+
+	//set default button position
+	_bScrollUp.SetPosition(_width - _bScrollUp.GetWidth(), 0);
+	_bScrollDown.SetPosition(_width - _bScrollDown.GetWidth(), _height - _bScrollDown.GetHeight());
 	
 	//reset buttons states
 	if ((s32)_items.size() > _maxItemsShowable) // needs scrool
   {
-	_bScrollUp.Visible(true);
+	  _bScrollUp.Visible(true);
     _bScrollDown.Visible(true);
     _bScrollDown.Enabled(_startShowIndex + _maxItemsShowable < _items.size());
     _bScrollUp.Enabled(_startShowIndex != 0);
@@ -165,17 +169,18 @@ void List::EnsureItems()
 		
 		if(j >= _startShowIndex && j - _startShowIndex < _maxItemsShowable)
 		{
-			i->SetSize(_width-_bScrollDown.GetWidth(), 20);
+			if(_bScrollDown.Visible())
+				i->SetSize(_width - _bScrollDown.GetWidth(), 20);
+			else
+				i->SetSize(_width, 20);
+				
 			i->SetPosition(0, (j - _startShowIndex) * 20);
 			i->Visible(true);
 			i->Enabled(true);
 			AddChildren(i);
 			
-			if(j - _startShowIndex == (_maxItemsShowable - 1))
-			{
-				_bScrollUp.SetPosition(_width - _bScrollUp.GetWidth(), 0);
+			if(j - _startShowIndex == (_maxItemsShowable - 1) && RenderAsDropDown)
 				_bScrollDown.SetPosition(_width - _bScrollDown.GetWidth(), (j - _startShowIndex + 1) * 20 - _bScrollDown.GetHeight());
-			}
 		}
 		else
 		{
@@ -183,6 +188,8 @@ void List::EnsureItems()
 			i->Enabled(false);
 		}
   }
+	
+	
 }
 
 void List::SetSize(s32 w, s32 h)

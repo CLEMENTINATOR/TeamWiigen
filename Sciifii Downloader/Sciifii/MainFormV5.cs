@@ -134,7 +134,10 @@ namespace Sciifii
             sciifiiModeBindingSource.DataSource = datas.Menus;
 
             clbOption.Items.Clear();
-            foreach (SciifiiDTO.Menu.Menu menu in datas.Menus) { }
+            foreach (SciifiiDTO.Menu.Menu menu in datas.Menus) 
+                foreach (ModeMenuItem item in menu.ModeMenuItem)
+                    clbOption.Items.Add(item, false);
+
                 /*foreach (ModeMenuItem item in menu.ModeMenuItem)
                     clbOption.Items.Add(item, false);
                 /*if (!option.Hidden)

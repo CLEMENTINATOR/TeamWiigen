@@ -38,7 +38,7 @@ void GThemeDdl::InitializeComponents()
 
 void GThemeDdl::OnSelectedItemChanged(PadController &c)
 {
-	if(SelectedItem()->Text() == ThemeManager::CurrentTheme())
+	if(SelectedItem()->Text() != ThemeManager::CurrentTheme())
 	{
 		ThemeManager::CurrentTheme(SelectedItem()->Text());
 		DropDownList::OnSelectedItemChanged(c);

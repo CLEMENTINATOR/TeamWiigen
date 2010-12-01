@@ -31,12 +31,14 @@ void GDisclaimer::InitializeComponents()
 	textDisclaimer.SetSize(390, 150);
 	textDisclaimer.FontSize(12);
 	textDisclaimer.ForeColor((GXColor){255,0,0,255});
-
+	textDisclaimer.SetFont("Disclaimer.ttf");
+	
 	btnContinue.DefaultImage("go_button.png");
 	btnContinue.OverImage("go_button_over.png");
 	btnContinue.Text("Click here !");
 	btnContinue.SetSize(164, 40);
 	btnContinue.SetPosition(238, 370);
+	btnContinue.SetFont("DisclaimerButton.ttf");
 	btnContinue.Click += MakeDelegate(this, &GDisclaimer::Continue);
 	
 	_themeDdl.SetPosition(420, 5);

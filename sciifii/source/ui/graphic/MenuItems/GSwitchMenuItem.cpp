@@ -24,6 +24,7 @@ void GSwitchMenuItem::InitializeComponents()
 	_cbx.CheckedImage("enable_button.png");
 	_cbx.DefaultImage("disable_button.png");
 	_cbx.Text(_text);
+	_cbx.SetFont("SwitchMenuItem.ttf");
 	AddChildren(&_cbx);
 	
 	GMenuItem::InitializeComponents();

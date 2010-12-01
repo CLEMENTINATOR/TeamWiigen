@@ -24,6 +24,7 @@ void GStartMenuItem::InitializeComponents()
   _btn.DefaultImage("Mode_Default.png");
   _btn.OverImage("Mode_Over.png");
   _btn.ClickedImage("Mode_Clicked.png");
+	_btn.SetFont("StartMenuItem.ttf");
   AddChildren(&_btn);
 
   Control::InitializeComponents();

@@ -134,3 +134,18 @@ const std::vector<ListItem*>& DropDownList::Items()
 {
 	return _list.Items();
 }
+
+void DropDownList::SetButtonFont(const std::string& font)
+{
+	_bSelected.SetFont(font);
+}
+
+void DropDownList::SetButtonForeColor(GXColor c)
+{
+	_bSelected.ForeColor(c);
+}
+
+void DropDownList::SetButtonTextSize(int pt)
+{
+	_bSelected.TextSize(pt);
+}

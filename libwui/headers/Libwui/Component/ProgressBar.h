@@ -23,6 +23,7 @@ namespace Libwui
         void SetDefaultColor(GXColor c);
         void ForeColor(GXColor c);
         void TextSize(int pt);
+				void SetFont(const std::string& font);
         void SetTextAlignement(HAlign halign, VAlign valign);
       private:
         f32 MaxValue;

@@ -22,6 +22,7 @@ namespace Libwui
         void SetTitlePosition(int x, int y);
         void SetTitleSize(int x, int y);
         void SetTextPosition(int x, int y);
+				void SetFont(const std::string& font);
         void SetButtonPosition(int x, int y);
         void SetMessageBoxImage(std::string s);
         void DefaultButtonImage(std::string s);

@@ -52,6 +52,7 @@ void UIManager::Run(Form &form)
   Current()._uiThreadDefined = true;
   Current()._rootElement = &form;
   form.SetRoot(true);
+	form.SetId("root");
   form.InitializeComponents();
 
   while(form.Visible())
@@ -60,6 +61,7 @@ void UIManager::Run(Form &form)
     LWP_YieldThread();
   }
 
+	form.SetId("");
   Current()._uiThreadDefined = false;
   Current()._rootElement = NULL;
 }
@@ -69,6 +71,9 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
   Current()._dialogs.push_back(&dialog);
   dialog.MakeModal(Current()._rootElement);
   dialog.SetRoot(true);
+	stringstream id;
+	id << "dialog" << Current()._dialogs.size();
+	dialog.SetId(id.str());
 	dialog.InitializeComponents();
 	
   while(dialog.Visible())
@@ -77,6 +82,7 @@ void UIManager::ShowDialog(Libwui::Component::Form& dialog)
     LWP_YieldThread();
   }
 
+	dialog.SetId("");
 	dialog.SetRoot(false);
   dialog.MakeModal(NULL);
   Current()._dialogs.pop_back();

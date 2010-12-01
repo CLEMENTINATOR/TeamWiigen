@@ -166,3 +166,8 @@ void ProgressBar::SetTextAlignement(HAlign halign, VAlign valign)
   l.HorizontalAlignement(halign);
   l.VerticalAlignement(valign);
 }
+
+void ProgressBar::SetFont(const string& font)
+{
+	l.SetFont(font);
+}

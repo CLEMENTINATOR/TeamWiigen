@@ -34,6 +34,7 @@ namespace Libwui
         void Text(const std::string& text);
         void ForeColor(GXColor c);
         void FontSize(int pt);
+				void SetFont(const std::string& font);
         void TextPosition(const HAlign& align);
 
         Events::CursorEvent CheckChanged;

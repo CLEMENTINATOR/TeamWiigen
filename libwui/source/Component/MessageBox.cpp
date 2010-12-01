@@ -101,3 +101,10 @@ void MessageBox::SetButtonPosition(int x, int y)
 {
   _boxButton.SetPosition(x, y);
 }
+
+void MessageBox::SetFont(const string& font)
+{
+	_boxButton.SetFont(font);
+	_title.SetFont(font);
+  _text.SetFont(font);
+}

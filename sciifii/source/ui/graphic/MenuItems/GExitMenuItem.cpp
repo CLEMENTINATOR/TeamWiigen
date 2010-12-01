@@ -19,6 +19,7 @@ void GExitMenuItem::InitializeComponents()
   _btn.DefaultImage("Exit_Default.png");
   _btn.OverImage("Exit_Over.png");
   _btn.ClickedImage("Exit_Clicked.png");
+	_btn.SetFont("ExitMenuItem.ttf");
   AddChildren(&_btn);
   Control::InitializeComponents();
 }

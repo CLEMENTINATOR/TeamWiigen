@@ -32,6 +32,7 @@ void GModeMenuItem::InitializeComponents()
   _btn.DefaultImage("Mode_Default.png");
   _btn.OverImage("Mode_Over.png");
   _btn.ClickedImage("Mode_Clicked.png");
+	_btn.SetFont("ModeMenuItem.ttf");
 	AddChildren(&_btn);
 	
 	Control::InitializeComponents();

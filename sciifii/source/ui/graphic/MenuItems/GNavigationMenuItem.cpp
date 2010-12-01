@@ -25,6 +25,7 @@ void GNavigationMenuItem::InitializeComponents()
   _btn.DefaultImage("Nav_Default.png");
   _btn.OverImage("Nav_Over.png");
   _btn.ClickedImage("Nav_Clicked.png");
+	_btn.SetFont("NavigationMenuItem.ttf");
 	AddChildren(&_btn);
 
 	Control::InitializeComponents();

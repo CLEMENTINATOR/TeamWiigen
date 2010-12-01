@@ -35,18 +35,21 @@ void GSciifiiLauncher::InitializeComponents()
   bOk.DefaultImage("go_button.png");
   bOk.OverImage("go_button_over.png");
   bOk.SetSize(164, 40);
+  bOk.SetFont("BtnDone.ttf");
 
   pBarGlobal.SetActualValue(0);
   pBarGlobal.SetMaxValue(100);
   pBarGlobal.SetSize(270, 20);
   pBarGlobal.SetPosition(185, 190);
   pBarGlobal.SetText("Sciifii is analysing your choice!");
+  pBarGlobal.SetFont("ProgressBar.ttf");
   
   pBarActual.SetActualValue(0);
   pBarActual.SetMaxValue(1);
   pBarActual.SetSize(270, 20);
   pBarActual.SetPosition(185, 220);
-
+  pBarActual.SetFont("ProgressBar.ttf");
+  
   mb.SetTitlePosition(16, 2);
   mb.SetTitleSize(279, 26);
   mb.SetTextPosition(16, 64);
@@ -55,7 +58,9 @@ void GSciifiiLauncher::InitializeComponents()
   mb.DefaultButtonImage("go_button.png");
   mb.OverButtonImage("go_button_over.png");
   mb.SetMessageBoxImage("error_popup_screen.png");
+  mb.SetFont("MessageBox.ttf");
   
+
   AddChildren(&pBarActual);
   AddChildren(&pBarGlobal);
   AddChildren(&bOk);
@@ -184,9 +189,7 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 {
   UIManager::TrackWPads(true);
   if (args->Result.HasError)
-  {
     mb.Show( args->Result.e->ToString(),  "Exception");
-  }
   else
   {
     bOk.Text("Done !");

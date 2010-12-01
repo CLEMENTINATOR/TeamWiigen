@@ -19,6 +19,9 @@ namespace Libwui
         void OverImage(std::string s);
         void InitializeComponents();
         void SetButtonText(std::string s);
+				void SetButtonFont(const std::string& font);
+				void SetButtonForeColor(GXColor c);
+				void SetButtonTextSize(int pt);
         void UpDefaultImage(std::string image);
         void DownDefaultImage(std::string image);
         void UpClickedImage(std::string image);

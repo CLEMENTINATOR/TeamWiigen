@@ -198,3 +198,8 @@ void Checkbox::EnsureItems()
     _checkBoxText.SetSize(GetWidth()-resource->Width() - 5,GetHeight());
   }
 }
+
+void Checkbox::SetFont(const string& font)
+{
+	_checkBoxText.SetFont(font);
+}

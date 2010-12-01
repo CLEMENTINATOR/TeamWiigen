@@ -3,7 +3,7 @@
 
 #include <string>
 #include <set>
-
+#include <sstream>
 #include "Message.hpp"
 #include "Device/PadControllers.hpp"
 #include <Libwiisys/Object.h>
@@ -47,7 +47,6 @@ namespace Libwui
       bool InvokeRequired();
       bool IsInside(s32 x, s32 y);
 			
-      virtual void SetId(const std::string& newId);
       virtual void OnCursorEnter();
       virtual void OnCursorLeave();
       virtual void OnCursorMove(Device::PadController &c);
@@ -59,7 +58,7 @@ namespace Libwui
       Control();
       virtual void InitializeComponents();
 			virtual bool IsInUITree();
-			
+			virtual void SetId(const std::string& newId);
       virtual void AddChildren(Control* child);
       virtual void RemoveChildren(Control* child);
       void StartDrawing();

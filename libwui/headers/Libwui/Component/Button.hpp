@@ -37,6 +37,7 @@ namespace Libwui
         void Text(const std::string& text);
         void ForeColor(GXColor c);
         void TextSize(int pt);
+				void SetFont(const std::string& font);
 				void DefineTrigger(u32 flag);
 				
       private:

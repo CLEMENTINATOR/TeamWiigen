@@ -211,3 +211,8 @@ void Button::TextSize(int pt)
 {
   _lblText.FontSize(pt);
 }
+
+void Button::SetFont(const string& font)
+{
+	_lblText.SetFont(font);
+}

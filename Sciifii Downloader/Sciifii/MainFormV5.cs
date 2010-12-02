@@ -27,6 +27,52 @@ namespace Sciifii
         private Stopwatch m_total = new Stopwatch();
         private Stopwatch m_step = new Stopwatch();
 
+        private int COLUMN_NUMBER = 4;
+
+        private void DisplayButton()
+        { 
+            pnlMenus.Controls.Clear();
+            Button btn = new Button();
+
+            int nbElem = datas.Menus.Count;
+            
+            int nbColumn = this.COLUMN_NUMBER;
+            if (nbElem < nbColumn)
+                nbColumn = nbElem;
+
+            decimal nbLine = (Decimal)nbElem / nbColumn;
+            if (nbLine - Convert.ToInt32(Decimal.Round(nbElem / nbColumn)) * 100 != 0)
+                nbLine++;
+            
+            int[] topStep = new int[Convert.ToInt32(nbLine)];
+            int[] leftStep = new int[nbColumn];
+
+            for (int i = 1; i < topStep.Length; i++)
+            {
+                topStep[i - 1] = i * pnlMenus.Height / Convert.ToInt32(nbLine) + btn.Height / 2;
+            }
+
+            for (int i = 1; i < leftStep.Length; i++)
+            {
+                leftStep[i - 1 ] = i * pnlMenus.Width / nbColumn + btn.Width / 2;
+            }
+
+            int currentLine = 0;
+            for (int i = 0; i < nbElem; i++)
+            {
+                btn = new Button();
+                btn.Click += new EventHandler(btn_Click);
+                btn.Text = datas.Menus[i].Id;
+                btn.Name = Convert.ToString(i);
+                btn.Top = topStep[currentLine];
+                btn.Left = leftStep[i - (currentLine * nbColumn)];
+                pnlMenus.Controls.Add(btn);
+
+                if ((i + 1) % nbColumn == 0)
+                    currentLine++;
+            }
+        }
+
         private void StopJob()
         {
             m_UpTextBox(tbStatus, "Cancel in progress");
@@ -42,9 +88,9 @@ namespace Sciifii
             List<string> options = new List<string>();
             List<Step> steps = new List<Step>();
 
-            foreach (Option option in clbOption.CheckedItems)
+            /*foreach (Option option in clbOption.CheckedItems)
                 options.Add(option.Name);
-
+            */
             options.AddRange(hiddenOptions);
 
             foreach (Step s in datas.Steps)
@@ -121,34 +167,36 @@ namespace Sciifii
             tbStatus.Text = "";
             hiddenOptions = new List<string>();
 
-            clbOption.DisplayMember = "text";
-
             this.datas = datas;
             if(datas != null)
                 UpdateTextBox(tbStatus, "Config.xml v" + datas.Version + " load with success.");
 
-            /*List<Menu> modes = new List<Mode>();
-            modes.Add(new Mode { Text = "Advanced mode", OptionsString = "", Flag = "" });
-            modes.AddRange(datas.Modes);*/
-
-            sciifiiModeBindingSource.DataSource = datas.Menus;
-
-            clbOption.Items.Clear();
-            foreach (SciifiiDTO.Menu.Menu menu in datas.Menus) 
-                foreach (ModeMenuItem item in menu.ModeMenuItem)
-                    clbOption.Items.Add(item, false);
-
-                /*foreach (ModeMenuItem item in menu.ModeMenuItem)
-                    clbOption.Items.Add(item, false);
-                /*if (!option.Hidden)
-                    clbOption.Items.Add(option, false);
-            */
-            //ddlRegion.DataSource = Enum.GetNames(typeof(Regions)).Where(x => x != "ALL").OrderBy(x => x).ToList();        
+            DisplayButton();
         }
         #endregion
 
         #region events
-        protected void lbMode_SelectedIndexChanged(object sender, EventArgs e)
+        void btn_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            //Get menu from xml
+            SciifiiDTO.Menu.Menu selectedMenu = datas.Menus[Convert.ToInt32(btn.Name)];
+
+            String toDo = "";
+            foreach (ModeMenuItem mode in selectedMenu.ModeMenuItem)
+            {
+                toDo += mode.Text + " -> " + mode.Switches + "\r\n";
+            }
+
+            foreach (SwitchMenuItem switche in selectedMenu.SwitchMenuItem)
+            {
+                toDo += switche.Text + " -> " + switche.Name + "\r\n";
+            }
+
+            MessageBox.Show(toDo);
+        }
+        /*protected void lbMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (blockList)
                 return;
@@ -181,7 +229,7 @@ namespace Sciifii
             hiddenOptions.Clear();
             lbMenu.SelectedIndex = 0;
             blockList = false;
-        }
+        }*/
 
         protected void btnDownload_Click(object sender, EventArgs e)
         {

@@ -1,6 +1,7 @@
 #include <network.h>
 #include <cstring>
 #include <cstdio>
+#include <iostream>
 #include <malloc.h>
 #include <Libwiisys/Network/HttpRequest.h>
 #include <Libwiisys/Network/NetworkUtility.h>
@@ -34,7 +35,7 @@ void HttpRequest::Connect(string hostname)
   struct sockaddr_in sa;
 
   s32 ret;
-  
+
   NetworkUtility::Lock();
 
   /* Close socket if it is already open */
@@ -52,7 +53,7 @@ void HttpRequest::Connect(string hostname)
   /* Get host by name */
   he = net_gethostbyname(hostname.c_str());
   if (!he)
-    throw Exception("Error getting host name !");
+    throw Exception("Error getting host name : "+hostname);
 
   /* Setup socket */
   memcpy(&sa.sin_addr, he->h_addr_list[0], he->h_length);
@@ -69,6 +70,7 @@ void HttpRequest::SetRequest(const string& url)
   _url = url;
   _hostName = _url.substr(7, _url.find_first_of('/', 7) - 7);
   _path = url.substr(_hostName.size() + 7, string::npos);
+  _params.clear();
 }
 
 u32 HttpRequest::GetResponseLength()
@@ -102,7 +104,7 @@ u32 HttpRequest::GetResponseLength()
   sprintf(request,
           "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",
           fullPath.str().c_str(), _hostName.c_str());
-  
+
   /* Connect to server */
   Connect(_hostName);
 
@@ -143,11 +145,12 @@ u32 HttpRequest::GetResponseLength()
       free(newUrl);
       if(newUrlString.find("http://")==string::npos) // if pas http:// devant
       {
-    	  if(newUrlString.find("/")==0)  // path only
-    	  {
-    		  newUrlString=_hostName+newUrlString;
-    	  }
+        if(newUrlString.find("/")==0)  // path only
+        {
+          newUrlString=_hostName+newUrlString;
+        }
         newUrlString=string("http://")+newUrlString;
+
       }
       SetRequest(newUrlString);
       return this->GetResponseLength();

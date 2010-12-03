@@ -236,10 +236,10 @@ void Label::Draw()
       alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = Parent()->GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay);
+      alignOffsetX = margin + GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (Parent()->GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay)) / 2;
+      alignOffsetX = (GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay)) / 2;
       break;
   }
 
@@ -248,10 +248,10 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = Parent()->GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay);
+      alignOffsetY = GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (Parent()->GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay)) / 2;
+      alignOffsetY = (GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay)) / 2;
       break;
   }
 

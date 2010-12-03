@@ -28,7 +28,7 @@ namespace Libwui
 
       protected:
         std::map<s32,FreeTypeGX*> _fonts;
-		std::map<s32,u32> _cacheCount;
+		std::map<s32,bool> _cacheUsed;
         Libwiisys::Buffer _resource;
     };
   }

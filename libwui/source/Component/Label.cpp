@@ -1,5 +1,5 @@
 #include <Libwui/Component/Label.hpp>
-#include <Libwui/FreeTypeGX.h>
+#include <libwui/FreeTypeGX.h>
 #include <sstream>
 #include <Libwui/Resources/FontResource.hpp>
 #include <Libwui/Resources/FontResourceManager.hpp>
@@ -186,11 +186,8 @@ void Label::Draw()
 {
   FontResource* resource = FontResourceManager::Get(_font);
 
-  if(!resource->IsInitialized())
-    resource->Initialize();
-
-  resource->Font()->changeFontSize(size);
-
+  if(!resource->IsInitialized(size))
+    resource->Initialize(size);
 
   //test si le text est trop long pour le label (et donc scroll)
   bool needScroll = (GetWidth() - (2.0 * margin)) < resource->Font()->getWidth(txt);
@@ -240,10 +237,10 @@ void Label::Draw()
       alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = margin + GetWidth() - resource->Font()->getWidth(textToDisplay);
+      alignOffsetX = Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
+      alignOffsetX = (Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
       break;
   }
 
@@ -252,16 +249,16 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = GetHeight() - resource->Font()->getHeight(textToDisplay);
+      alignOffsetY = Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
+      alignOffsetY = (Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
       break;
   }
 
   u16 displayStyle = style & ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
   displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
-  resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
+  DrawText(*resource->Font(size), this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
 
 }
 
@@ -305,4 +302,29 @@ s32 Label::GetMargin()
 void Label::SetMargin(s32 m)
 {
 	margin = m;
+}
+
+uint16_t Label::GetTextWidth(FreeTypeGX& font, const string& text)
+{
+	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
+	uint16_t retVal = font.getWidth(wtext);
+	free(wtext);
+	return retVal;
+}
+
+uint16_t Label::GetTextHeight(FreeTypeGX& font, const string& text)
+{
+	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
+	uint16_t retVal = font.getHeight(wtext);
+	free(wtext);
+	return retVal;
+}
+
+
+uint16_t Label::DrawText(FreeTypeGX& font, int16_t x, int16_t y, const string& text, GXColor color, uint16_t textStyling)
+{
+	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
+	uint16_t retVal = font.drawText(x, y, wtext, color, textStyling);
+	free(wtext);
+	return retVal;
 }

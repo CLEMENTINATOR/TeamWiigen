@@ -8,7 +8,7 @@
 #ifndef COLORS_H_
 #define COLORS_H_
 
-#include "../FreeTypeGX.h"
+#include <ogc/gx.h>
 
 namespace Libwui
 {

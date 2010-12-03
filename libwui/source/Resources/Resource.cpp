@@ -7,3 +7,6 @@ Resource::~Resource() {}
 Resource::Resource()
   : isDefault(false)
 {}
+
+void Resource::Clean()
+{}

@@ -43,9 +43,14 @@ void ResourceManager::Clean(bool force)
 				toDelete.push_back(ite->first);
 			}
 		}
+		else
+			Current()._cacheCount[ite->first] = ite->second + 1;
 
 	for(vector<string>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
 		Current()._cacheCount.erase(*ite);
+		
+	for(map<string,Resource*>::iterator ite = Current()._resources.begin(); ite != Current()._resources.end(); ite++)
+		ite->second->Clean();
 }
 
 void ResourceManager::SetCacheDuration(u32 frameCount)

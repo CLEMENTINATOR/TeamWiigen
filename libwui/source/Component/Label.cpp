@@ -1,5 +1,4 @@
 #include <Libwui/Component/Label.hpp>
-#include <libwui/FreeTypeGX.h>
 #include <sstream>
 #include <Libwui/Resources/FontResource.hpp>
 #include <Libwui/Resources/FontResourceManager.hpp>
@@ -190,7 +189,7 @@ void Label::Draw()
     resource->Initialize(size);
 
   //test si le text est trop long pour le label (et donc scroll)
-  bool needScroll = (GetWidth() - (2.0 * margin)) < resource->Font()->getWidth(txt);
+  bool needScroll = (GetWidth() - (2.0 * margin)) < GetTextWidth(*resource->Font(size), txt);
 
 
   string textToDisplay = txt;
@@ -207,7 +206,7 @@ void Label::Draw()
       else if(scrollToRight)
       {
         // une fois arriv� au bout, on inverse le sens du scroll
-    	if(resource->Font()->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
+    	if(GetTextWidth(*resource->Font(size), textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
         {
           scrollToRight = !scrollToRight;
           textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
@@ -223,7 +222,7 @@ void Label::Draw()
     u8 nbChar = textToDisplay.substr(textScrollPos).size();
     do{
     	nbChar--;
-    }while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
+    }while(GetTextWidth(*resource->Font(size), textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
 	textToDisplay = textToDisplay.substr(textScrollPos, nbChar + 1);
   }
 
@@ -237,10 +236,10 @@ void Label::Draw()
       alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay);
+      alignOffsetX = Parent()->GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (Parent()->GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
+      alignOffsetX = (Parent()->GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay)) / 2;
       break;
   }
 
@@ -249,10 +248,10 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay);
+      alignOffsetY = Parent()->GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (Parent()->GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
+      alignOffsetY = (Parent()->GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay)) / 2;
       break;
   }
 

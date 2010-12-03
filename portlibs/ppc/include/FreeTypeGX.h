@@ -1,7 +1,7 @@
 /* 
  * FreeTypeGX is a wrapper class for libFreeType which renders a compiled
  * FreeType parsable font into a GX texture for Wii homebrew development.
- * Copyright (C) 2008-2010 Armin Tamzarian
+ * Copyright (C) 2008 Armin Tamzarian
  * 
  * This file is part of FreeTypeGX.
  * 
@@ -27,7 +27,7 @@
  * <br>
  * FreeTypeGX is written in C++ and makes use of a selectable pre-buffered or buffer-on-demand methodology to allow fast and efficient printing of text to the EFB.  
  * <p>
- * This library was developed in-full by Armin Tamzarian with the support of developers in \#wiidev on EFnet. Special thanks go out to Tantric of <a href = "http://code.google.com/u/dborth/">too much to list</a> and dimok of <a href="http://code.google.com/p/wiixplorer">WiiXplorer</a> for their performance modifications.
+ * This library was developed in-full by Armin Tamzarian with the support of developers in \#wiibrew on EFnet. 
  * 
  * \section sec_installation_source Installation (Source Code)
  * 
@@ -45,7 +45,7 @@
  * -# Ensure that you have the <a href = "http://sourceforge.net/projects/devkitpro/files/portlibs/">FreeType</a> Wii library installed in your development environment with the library added to your Makefile where appropriate.
  * -# Ensure that you have the <a href = "http://code.google.com/p/metaphrasis">Metaphrasis</a> library installed in your development environment with the library added to your Makefile where appropriate.
  * -# Extract the FreeTypeGX archive.
- * -# Copy the contents of the <i>libogc</i> directory into your <i>devKitPro/libogc</i> directory.
+ * -# Copy the contents of the <i>lib</i> directory into your <i>devKitPro/libogc</i> directory.
  * -# Include the FreeTypeGX header file in your code using syntax such as the following:
  * \code
  * #include "FreeTypeGX.h"
@@ -53,15 +53,26 @@
  * 
  * \section sec_freetypegx_prerequisites FreeTypeGX Prerequisites
  * 
- * Before you begin using FreeTypeGX in your project you must ensure that the you have some method by which to allocate the font data buffer for use within the initialization routines. For examples showing the most common methods to generate a font data buffer for use with FreeTypeGX see the included examples. These examples illustrate the following methods:
+ * Before you begin using FreeTypeGX in your project you must ensure that the desired font in compiled into your project. For this example I will assume you are building your project with a Makefile using devKitPro evironment and are attempting to include a font whose filename is rursus_compact_mono.ttf. 
+ *
+ * -# Copy the font into a directory which will be processed by the project's Makefile. If you are unsure about where you should place your font just copy the it into your project's source directory.
+ * \n\n
+ * -# Modify the Makefile to convert the font into an object file:
+ * \code
+ * %.ttf.o : %.ttf
+ * 	@echo $(notdir $<)
+ * 	$(bin2o)
+ * \endcode
  * \n
- * \li <i>example1</i> - Compiling a font into the executable
- * \li <i>example2</i> - Loading a font from a file located on an SD card or USB drive
- *
- * Note that both of these example result with the creation of the following example variables:
- *
- * \li <i>uint8_t* rursus_compact_mono_ttf</i> - A buffer containing the font data.
- * \li <i>FT_Long rursus_compact_mono_ttf_size</i> - A long value containing the size of the font data buffer in bytes.
+ * -# Include the font object's generated header file in your source code:
+ * \code
+ * #include "rursus_compact_mono_ttf.h"
+ * \endcode
+ * This header file defines the two variables that you will need for use within your project:
+ * \code
+ * extern const u8 rursus_compact_mono_ttf[];	A pointer to the font buffer within the compiled project.
+ * extern const u32 rursus_compact_mono_ttf_size;	The size of the font's buffer in bytes.
+ * \endcode
  * 
  * \section sec_freetypegx_usage FreeTypeGX Usage
  * 
@@ -122,7 +133,6 @@
  * \li <i>FTGX_JUSTIFY_CENTER</i>
  * \li <i>FTGX_JUSTIFY_RIGHT</i>
  * \li <i>FTGX_ALIGN_TOP</i>
- * \li <i>FTGX_ALIGN_MIDDLE</i>
  * \li <i>FTGX_ALIGN_BOTTOM</i>
  * \li <i>FTGX_STYLE_UNDERLINE</i>
  * \li <i>FTGX_STYLE_STRIKE</i>
@@ -147,6 +157,7 @@
 
 #include <malloc.h>
 #include <string.h>
+#include <wchar.h>
 #include <map>
 
 /*! \struct ftgxCharData_
@@ -167,24 +178,28 @@ typedef struct ftgxCharData_ {
 	uint32_t* glyphDataTexture;	/**< Glyph texture bitmap data buffer. */
 } ftgxCharData;
 
+/*! \struct ftgxDataOffset_
+ * 
+ * Offset structure which hold both a maximum and minimum value.
+ */
+typedef struct ftgxDataOffset_ {
+	uint16_t max;	/**< Maximum data offset. */
+	uint16_t min;	/**< Minimum data offset. */
+} ftgxDataOffset;
+
 #define _TEXT(t) L ## t /**< Unicode helper macro. */
-#define EXPLODE_UINT8_TO_UINT32(x) (x << 24) | (x << 16) | (x << 8) | x
 
 #define FTGX_NULL				0x0000
-
-#define FTGX_JUSTIFY_MASK		0x000f
 #define FTGX_JUSTIFY_LEFT		0x0001
 #define FTGX_JUSTIFY_CENTER		0x0002
 #define FTGX_JUSTIFY_RIGHT		0x0004
 
-#define FTGX_ALIGN_MASK			0x00f0
 #define FTGX_ALIGN_TOP			0x0010
 #define FTGX_ALIGN_MIDDLE		0x0020
 #define FTGX_ALIGN_BOTTOM		0x0040
 
-#define FTGX_STYLE_MASK			0x0f00
 #define FTGX_STYLE_UNDERLINE	0x0100
-#define FTGX_STYLE_STRIKE		0x0200
+#define FTGX_STYLE_STRIKE		0x0200 /**< Deprecated */
 
 #define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_MODULATE	0X0001
 #define FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_DECAL		0X0002
@@ -206,7 +221,7 @@ const GXColor ftgxWhite = (GXColor){0xff, 0xff, 0xff, 0xff}; /**< Constant color
 /*! \class FreeTypeGX
  * \brief Wrapper class for the FreeType library with GX rendering.
  * \author Armin Tamzarian
- * \version 0.3.1
+ * \version 0.2.4
  * 
  * FreeTypeGX acts as a wrapper class for the FreeType library. It supports precaching of transformed glyph data into
  * a specified texture format. Rendering of the data to the EFB is accomplished through the application of high performance
@@ -223,29 +238,26 @@ class FreeTypeGX {
 		FT_Short ftDescender;		/**< Descender value of the rendered font. */
 
 		bool ftKerningEnabled;		/**< Flag indicating the availability of font kerning data. */
-		FT_Face ftFace;				/**< Reusable FreeType FT_Face object. */
 		
 		uint8_t textureFormat;		/**< Defined texture format of the target EFB. */
 		uint8_t vertexIndex;		/**< Vertex format descriptor index. */
 		uint32_t compatibilityMode;	/**< Compatibility mode for default tev operations and vertex descriptors. */	
 		std::map<wchar_t, ftgxCharData> fontData; /**< Map which holds the glyph data structures for the corresponding characters. */
 
-		static uint16_t maxVideoWidth; /**< Maximum width of the video screen. */
-
 		static uint16_t adjustTextureWidth(uint16_t textureWidth, uint8_t textureFormat);
 		static uint16_t adjustTextureHeight(uint16_t textureHeight, uint8_t textureFormat);
 
 		uint16_t getStyleOffsetWidth(uint16_t width, uint16_t format);
-		uint16_t getStyleOffsetHeight(uint16_t format);
+		uint16_t getStyleOffsetHeight(ftgxDataOffset offset, uint16_t format);
 
 		void unloadFont();
-		ftgxCharData *cacheGlyphData(wchar_t charCode);
-		uint16_t cacheGlyphDataComplete();
+		ftgxCharData *cacheGlyphData(FT_Face ftFace, wchar_t charCode);
+		uint16_t cacheGlyphDataComplete(FT_Face ftFace);
 		void loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData);
 
 		void setDefaultMode();
 
-		void drawTextFeature(int16_t x, int16_t y, uint16_t width, uint16_t format, GXColor color);
+		void drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset offsetData, uint16_t format, GXColor color);
 		void copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, GXColor color);
 		void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY,  GXColor color);
 		
@@ -257,7 +269,6 @@ class FreeTypeGX {
 		static wchar_t* charToWideChar(const char* p);
 		void setVertexFormat(uint8_t vertexIndex);
 		void setCompatibilityMode(uint32_t compatibilityMode);
-		static uint16_t setMaxVideoWidth(uint16_t width);
 
 		uint16_t loadFont(uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll = false);
 		uint16_t loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll = false);
@@ -269,6 +280,8 @@ class FreeTypeGX {
 		uint16_t getWidth(wchar_t const *text);
 		uint16_t getHeight(wchar_t *text);
 		uint16_t getHeight(wchar_t const *text);
+		ftgxDataOffset getOffset(wchar_t *text);
+		ftgxDataOffset getOffset(wchar_t const *text);
 };
 
 #endif /* FREETYPEGX_H_ */

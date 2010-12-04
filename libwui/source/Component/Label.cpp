@@ -307,7 +307,7 @@ uint16_t Label::GetTextWidth(FreeTypeGX& font, const string& text)
 {
 	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
 	uint16_t retVal = font.getWidth(wtext);
-	free(wtext);
+	delete[] wtext;
 	return retVal;
 }
 
@@ -315,7 +315,7 @@ uint16_t Label::GetTextHeight(FreeTypeGX& font, const string& text)
 {
 	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
 	uint16_t retVal = font.getHeight(wtext);
-	free(wtext);
+	delete[] wtext;
 	return retVal;
 }
 
@@ -324,6 +324,6 @@ uint16_t Label::DrawText(FreeTypeGX& font, int16_t x, int16_t y, const string& t
 {
 	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
 	uint16_t retVal = font.drawText(x, y, wtext, color, textStyling);
-	free(wtext);
+	delete[] wtext;
 	return retVal;
 }

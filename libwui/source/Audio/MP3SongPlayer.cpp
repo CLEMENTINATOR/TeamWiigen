@@ -18,6 +18,9 @@ typedef union {
 	u32 adword;
 } dword;
 
+#define STACKSIZE				(32768)
+static u8 StreamPlay_Stack[STACKSIZE];
+
 static void DTCallback()
 {
 	MP3SongPlayer::Current().DataTransferCallback();
@@ -47,21 +50,37 @@ MP3SongPlayer::MP3SongPlayer(Libwiisys::Buffer& buffer)
 		_playing(false),
 		_needToStop(true),
 		_hasSample(false)
-{}
+{
+	MP3SongPlayer::_current = this;
+}
 
 void MP3SongPlayer::Play()
 {
 	_needToStop = false;
+	if(LWP_CreateThread(&_thread, ISongPlayer::Play, NULL, StreamPlay_Stack, STACKSIZE, 80)<0)
+		throw Exception("Cannot start the player thread.");
 }
 
 void MP3SongPlayer::Stop()
-{}
+{
+  if(!_needToStop)
+  {
+    _needToStop = true;
+    LWP_JoinThread(_thread,NULL);
+  }
+}
 
 void MP3SongPlayer::Pause()
-{}
+{
+	if(LWP_SuspendThread(_thread) < 0)
+    throw Exception("Cannot suspend the mp3 player.");
+}
 
 void MP3SongPlayer::Resume()
-{}
+{
+  if(LWP_ResumeThread(_thread) < 0)
+    throw Exception("Canno't resume the mp3 player");
+}
 
 void MP3SongPlayer::AsyncPlayer()
 {
@@ -84,7 +103,15 @@ void MP3SongPlayer::AsyncPlayer()
 	
 	while(!lastFrame && !_needToStop)
 	{
-		FeedData(lastFrame);
+		try
+		{
+			if(!FeedData(lastFrame))
+				continue;
+		}
+		catch(...)
+		{
+			break;
+		}
 		
 		mad_timer_add(&Timer,Frame.header.duration);
 		mad_synth_frame(&Synth,&Frame);
@@ -182,7 +209,7 @@ void MP3SongPlayer::Resample()
 			val16 = _eqs[1].Do(FixedToShort(Synth.pcm.samples[1][pos.aword.hi]));
 		val32 |= val16;
 		
-		if(_outputRing.Put(&val32,sizeof(u32)))
+		if(_outputRing.Put(&val32, sizeof(u32), _queue))
 		{
 			memset(CurrentBuffer(), 0, ADMA_BUFFERSIZE);
 
@@ -222,11 +249,11 @@ void MP3SongPlayer::DataTransferCallback()
 	AUDIO_StartDMA();
 
 	_outputIndex ^= 1;
-	_playing = (_outputRing.Get(CurrentBuffer(),ADMA_BUFFERSIZE)>0);
+	_playing = (_outputRing.Get(CurrentBuffer(), ADMA_BUFFERSIZE, _queue)>0);
 #else
 	if(_needToStop) 
 	{
-		_playing = (_outputRing.Get(CurrentBuffer(),ADMA_BUFFERSIZE)>0);
+		_playing = (_outputRing.Get(CurrentBuffer(), ADMA_BUFFERSIZE, _queue)>0);
 		return;
 	}
 	if(_hasSample)
@@ -241,7 +268,7 @@ void MP3SongPlayer::DataTransferCallback()
 	{
 		if(!_hasSample) 
 		{
-			_playing = (_outputRing.Get(CurrentBuffer(),ADMA_BUFFERSIZE)>0);
+			_playing = (_outputRing.Get(CurrentBuffer(), ADMA_BUFFERSIZE, _queue)>0);
 			_hasSample = true;
 		}
 	}

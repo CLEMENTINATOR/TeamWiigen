@@ -1,4 +1,5 @@
 #include <Libwui/Audio/MP3/EQState.h>
+#include <math.h>
 
 using namespace Libwui::Audio::MP3;
 

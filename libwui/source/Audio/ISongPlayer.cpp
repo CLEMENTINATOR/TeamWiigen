@@ -11,6 +11,12 @@ void ISongPlayer::OnPlayEnded(EventArgs& args)
 void ISongPlayer::Play()
 {}
 
+void* ISongPlayer::Play(void* iSongPlayer)
+{
+	((ISongPlayer*)iSongPlayer)->AsyncPlayer();
+	return NULL;
+}
+
 void ISongPlayer::Stop()
 {}
 

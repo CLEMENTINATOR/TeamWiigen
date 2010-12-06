@@ -1,6 +1,7 @@
 #ifndef _MP3_OUTPUT_BUFFER_H_
 #define _MP3_OUTPUT_BUFFER_H_
 
+#include <ogcsys.h>
 #include <Libwiisys/Object.h>
 
 #ifndef __SNDLIB_H__
@@ -20,7 +21,6 @@ namespace Libwui
 			class OutputBuffer : public Libwiisys::Object
 			{
 			private:
-				void* bs;
 				u32* put;
 				u32* get;
 				bool buf_filled;
@@ -29,8 +29,8 @@ namespace Libwui
 				OutputBuffer();
 				s32 Used();
 				s32 Space();
-				s32 Get(void* data, s32 len);
-				bool Put(void* data, s32 len);
+				s32 Get(void* data, s32 len, lwpq_t queue);
+				bool Put(void* data, s32 len, lwpq_t queue);
 			};
 		}
 	}

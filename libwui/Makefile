@@ -19,7 +19,7 @@ SystemName := $(shell uname)
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source source/Component source/Device source/Events \
-				source/Resources
+				source/Resources source/Audio
 DATA		:=	data  
 INCLUDES	:=	include headers
 

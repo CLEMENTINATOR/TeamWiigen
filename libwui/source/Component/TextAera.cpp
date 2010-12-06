@@ -155,7 +155,7 @@ void TextAera::EnsureItems()
 
       txtStream.getline(buffer, nbCharMax + 1);
       Label* lbl = new Label(buffer, size, color);
-      lbl->SetPosition(0, _textItems.size() * (size + 4) + 2);
+      lbl->SetPosition(0, _textItems.size() * (size + 6) + 2);
 			lbl->SetSize(_width, size);
 			lbl->SetFont(_font);
       _textItems.push_back(lbl);

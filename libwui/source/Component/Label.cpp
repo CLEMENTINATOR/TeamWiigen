@@ -252,15 +252,15 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = GetHeight() - resource->Font()->getHeight(textToDisplay);
+      alignOffsetY = GetHeight() - (size + 6);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
+      alignOffsetY = (GetHeight() - (size + 6)) / 2;
       break;
   }
 
   u16 displayStyle = style & ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
-  displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
+  displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_MIDDLE;
   resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
 
 }

@@ -1,66 +1,42 @@
 #include <Libwui/Resources/FontResource.hpp>
 #include <malloc.h>
 #include <Libwiisys/IO/File.h>
-#include <Libwiisys/Exceptions/Exception.h>
-#include <vector>
 
 using namespace Libwui::Resources;
 using namespace std;
 using namespace Libwiisys;
 using namespace Libwiisys::IO;
-using namespace Libwiisys::Exceptions;
 
 FontResource::FontResource(const string& fontPath)
+    : _font(NULL)
 {
   _resource = File::ReadToEnd(fontPath);
 }
 
 FontResource::FontResource(const u8* data, u32 size)
-    : _resource(data, size)
+    : _font(NULL),
+    _resource(data, size)
 {}
 
 FontResource::~FontResource()
 {
-  for(map<s32,FreeTypeGX*>::iterator ite = _fonts.begin(); ite != _fonts.end(); ite++)
-	delete ite->second;
+  if(_font)
+    delete _font;
+	_resource.Clear();
 }
 
-bool FontResource::IsInitialized(s32 size)
+bool FontResource::IsInitialized()
 {
-  return _fonts.find(size) != _fonts.end();
+  return _font != NULL;
 }
 
-void FontResource::Initialize(s32 size, bool cacheAll, uint8_t textureFormat, uint8_t vertexIndex)
+void FontResource::Initialize(bool cacheAll, uint8_t textureFormat, uint8_t vertexIndex)
 {
-  FreeTypeGX *font = new FreeTypeGX(textureFormat, vertexIndex);
-  font->loadFont((u8*)_resource.Content(), _resource.Length(), size, cacheAll);
-  _cacheUsed[size] = false;
-  _fonts[size] = font;
+  _font = new FreeTypeGX(textureFormat, vertexIndex);
+  _font->loadFont((u8*)_resource.Content(), _resource.Length(), 12,cacheAll);
 }
 
-FreeTypeGX* FontResource::Font(s32 size)
+FreeTypeGX* FontResource::Font()
 {
-  if(_fonts.find(size) == _fonts.end())
-    throw Exception("Font resource not initialized");
-	
-  _cacheUsed[size] = true;
-  return _fonts[size];
-}
-
-void FontResource::Clean()
-{
-	vector<s32> toDelete;
-
-	for(map<s32,bool>::iterator ite = _cacheUsed.begin(); ite != _cacheUsed.end(); ite++)
-		if(!ite->second)
-		{
-				delete _fonts[ite->first];
-				_fonts.erase(ite->first);
-				toDelete.push_back(ite->first);
-		}
-		else
-			_cacheUsed[ite->first] = false;
-		
-	for(vector<s32>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
-		_cacheUsed.erase(*ite);
+  return _font;
 }

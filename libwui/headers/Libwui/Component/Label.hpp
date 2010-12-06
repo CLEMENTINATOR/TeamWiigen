@@ -3,7 +3,6 @@
 
 #include "../Control.hpp"
 #include <string>
-#include <FreeTypeGX.h>
 
 #define MAX_FONT_SIZE 100
 
@@ -46,10 +45,6 @@ namespace Libwui
         s32 textScrollDelay; //!< Scrolling speed
         u16 style; //!< FreeTypeGX style attributes
         bool useParentSize;
-	  private:
-		uint16_t GetTextWidth(FreeTypeGX& font, const std::string& text);
-		uint16_t GetTextHeight(FreeTypeGX& font, const std::string& text);
-		uint16_t DrawText(FreeTypeGX& font, int16_t x, int16_t y, const std::string& text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
     };
   }
 }

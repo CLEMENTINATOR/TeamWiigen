@@ -12,7 +12,6 @@ namespace Libwui
 	public:
 		Resource();
 		virtual ~Resource();
-		virtual void Clean();
 		bool isDefault;
 	};
   }

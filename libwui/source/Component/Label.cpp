@@ -1,4 +1,5 @@
 #include <Libwui/Component/Label.hpp>
+#include <Libwui/FreeTypeGX.h>
 #include <sstream>
 #include <Libwui/Resources/FontResource.hpp>
 #include <Libwui/Resources/FontResourceManager.hpp>
@@ -185,11 +186,14 @@ void Label::Draw()
 {
   FontResource* resource = FontResourceManager::Get(_font);
 
-  if(!resource->IsInitialized(size))
-    resource->Initialize(size);
+  if(!resource->IsInitialized())
+    resource->Initialize();
+
+  resource->Font()->changeFontSize(size);
+
 
   //test si le text est trop long pour le label (et donc scroll)
-  bool needScroll = (GetWidth() - (2.0 * margin)) < GetTextWidth(*resource->Font(size), txt);
+  bool needScroll = (GetWidth() - (2.0 * margin)) < resource->Font()->getWidth(txt);
 
 
   string textToDisplay = txt;
@@ -206,7 +210,7 @@ void Label::Draw()
       else if(scrollToRight)
       {
         // une fois arriv� au bout, on inverse le sens du scroll
-    	if(GetTextWidth(*resource->Font(size), textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
+    	if(resource->Font()->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
         {
           scrollToRight = !scrollToRight;
           textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
@@ -222,7 +226,7 @@ void Label::Draw()
     u8 nbChar = textToDisplay.substr(textScrollPos).size();
     do{
     	nbChar--;
-    }while(GetTextWidth(*resource->Font(size), textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
+    }while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
 	textToDisplay = textToDisplay.substr(textScrollPos, nbChar + 1);
   }
 
@@ -236,10 +240,10 @@ void Label::Draw()
       alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = margin + GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay);
+      alignOffsetX = margin + GetWidth() - resource->Font()->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (GetWidth() - GetTextWidth(*resource->Font(size), textToDisplay)) / 2;
+      alignOffsetX = (GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
       break;
   }
 
@@ -248,16 +252,16 @@ void Label::Draw()
     case FTGX_ALIGN_TOP:
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay);
+      alignOffsetY = GetHeight() - resource->Font()->getHeight(textToDisplay);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (GetHeight() - GetTextHeight(*resource->Font(size), textToDisplay)) / 2;
+      alignOffsetY = (GetHeight() - resource->Font()->getHeight(textToDisplay)) / 2;
       break;
   }
 
   u16 displayStyle = style & ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
   displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
-  DrawText(*resource->Font(size), this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
+  resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
 
 }
 
@@ -301,29 +305,4 @@ s32 Label::GetMargin()
 void Label::SetMargin(s32 m)
 {
 	margin = m;
-}
-
-uint16_t Label::GetTextWidth(FreeTypeGX& font, const string& text)
-{
-	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
-	uint16_t retVal = font.getWidth(wtext);
-	delete[] wtext;
-	return retVal;
-}
-
-uint16_t Label::GetTextHeight(FreeTypeGX& font, const string& text)
-{
-	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
-	uint16_t retVal = font.getHeight(wtext);
-	delete[] wtext;
-	return retVal;
-}
-
-
-uint16_t Label::DrawText(FreeTypeGX& font, int16_t x, int16_t y, const string& text, GXColor color, uint16_t textStyling)
-{
-	wchar_t* wtext = FreeTypeGX::charToWideChar(text.c_str());
-	uint16_t retVal = font.drawText(x, y, wtext, color, textStyling);
-	delete[] wtext;
-	return retVal;
 }

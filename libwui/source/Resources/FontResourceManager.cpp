@@ -25,7 +25,6 @@ FontResourceManager::FontResourceManager()
 FontResource* FontResourceManager::Get(const string& fontPath)
 {
   string resourcePath = fontPath;
-  
   if(ThemeManager::IsInitialized())
     resourcePath = ThemeManager::GetResourcePath("font/" + fontPath);
 

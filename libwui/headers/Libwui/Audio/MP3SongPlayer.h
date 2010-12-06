@@ -27,6 +27,7 @@ namespace Libwui
 			bool _hasSample;
 			
 			lwpq_t _queue;
+			lwp_t _thread;
 			
 			struct mad_stream Stream;
 			struct mad_frame Frame;

@@ -1,6 +1,7 @@
 #ifndef _MP3_EQSTATE_H_
 #define _MP3_EQSTATE_H_
 
+#include <gctypes.h>
 #include <Libwiisys/Object.h>
 
 namespace Libwui

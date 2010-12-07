@@ -56,7 +56,26 @@
       <exitMenuItem text="Exit" />
     </menu>
 
+    <menu id="main1">
+    </menu>
 
+    <menu id="main2">
+    </menu>
+
+    <menu id="main3">
+    </menu>
+    <menu id="main4">
+    </menu>
+    <menu id="main5">
+    </menu>
+    <menu id="main6">
+    </menu>
+    <menu id="main7">
+    </menu>
+    <menu id="main8">
+    </menu>
+    <menu id="main">
+    </menu>
     <menu id="advanced">
       <switchMenuItem name="cIOS249" text="Install cios249 rev 17                   " />
       <switchMenuItem name="cIOS250" text="Install cios250 rev 19 (base 37)         " />

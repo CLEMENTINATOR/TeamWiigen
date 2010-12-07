@@ -63,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Downloader.cs" />
+    <Compile Include="LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogForm.Designer.cs">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainFormV4.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,8 +83,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainFormV4.resx">
       <DependentUpon>MainFormV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFormV5.en.resx">
+      <DependentUpon>MainFormV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFormV5.fr.resx">
+      <DependentUpon>MainFormV5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFormV5.resx">
       <DependentUpon>MainFormV5.cs</DependentUpon>
@@ -123,6 +138,7 @@
     <Content Include="configv4.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\exitbutton_normal.png" />
     <Content Include="Resources\icon.ico" />
     <None Include="Resources\advanced_screen.png" />
   </ItemGroup>

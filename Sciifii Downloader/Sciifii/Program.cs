@@ -48,8 +48,10 @@ namespace Sciifii
                         Application.Run(new MainFormV4(datas)); break;
                 }
             }
-            catch
-            { /*Nothing to do just leave if filename empty*/ }
+            catch (Exception e)
+            {
+                MessageBox.Show("Send this error to wiigenteam@gmail.fr to help us:\r\r" + e, "General error", MessageBoxButtons.OK);
+            }
         }
     }
 }

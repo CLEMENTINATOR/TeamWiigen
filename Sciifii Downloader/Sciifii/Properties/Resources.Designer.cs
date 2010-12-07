@@ -66,5 +66,12 @@ namespace Sciifii.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap exitbutton_normal {
+            get {
+                object obj = ResourceManager.GetObject("exitbutton_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

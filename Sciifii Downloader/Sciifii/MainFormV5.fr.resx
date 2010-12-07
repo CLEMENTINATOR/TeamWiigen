@@ -117,140 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>181, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pnlMenus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 145</value>
-  </data>
-  <data name="pnlMenus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 230</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pnlMenus.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;pnlMenus.Name" xml:space="preserve">
-    <value>pnlMenus</value>
-  </data>
-  <data name="&gt;&gt;pnlMenus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pnlMenus.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pnlMenus.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="pbStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 442</value>
-  </data>
-  <data name="pbStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>615, 23</value>
-  </data>
-  <data name="pbStatus.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;pbStatus.Name" xml:space="preserve">
-    <value>pbStatus</value>
-  </data>
-  <data name="&gt;&gt;pbStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pbStatus.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pbStatus.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="btnLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 413</value>
-  </data>
-  <data name="btnLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btnLog.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="btnLog.Text" xml:space="preserve">
-    <value>Log</value>
-  </data>
-  <data name="&gt;&gt;btnLog.Name" xml:space="preserve">
-    <value>btnLog</value>
-  </data>
-  <data name="&gt;&gt;btnLog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnLog.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnLog.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="pnlModeMenu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 145</value>
-  </data>
-  <data name="pnlModeMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 230</value>
-  </data>
-  <data name="pnlModeMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;pnlModeMenu.Name" xml:space="preserve">
-    <value>pnlModeMenu</value>
-  </data>
-  <data name="&gt;&gt;pnlModeMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pnlModeMenu.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pnlModeMenu.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>471, 413</value>
-  </data>
-  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Annuler</value>
   </data>
-  <data name="btnCancel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
-    <value>btnCancel</value>
-  </data>
-  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>639, 477</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAkAICAQAAEABADoAgAAlgAAABAQEAABAAQAKAEAAH4DAAAwMAAAAQAIAKgOAACmBAAAICAAAAEA
@@ -744,31 +614,170 @@
         D6xB4AesQeAHrEHAA6xBgAGsQYABrEEAAKxBOBysQQAArEGAAaxB4AesQfAPrEE=
 </value>
   </data>
+  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>655, 515</value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>655, 515</value>
+  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Sciifii downloader</value>
+  <data name="&gt;&gt;pnlModeMenu.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;backgroundWorker1.Name" xml:space="preserve">
-    <value>backgroundWorker1</value>
-  </data>
-  <data name="&gt;&gt;backgroundWorker1.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialog1.Name" xml:space="preserve">
-    <value>folderBrowserDialog1</value>
+  <data name="pnlModeMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 145</value>
   </data>
   <data name="&gt;&gt;folderBrowserDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainFormV5</value>
+  <data name="&gt;&gt;btnLog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>639, 477</value>
+  </data>
+  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>471, 413</value>
+  </data>
+  <data name="&gt;&gt;pbStatus.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib" />
+  <data name="btnCancel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="pnlMenus.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pnlMenus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 145</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pbStatus.Name" xml:space="preserve">
+    <value>pbStatus</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorker1.Name" xml:space="preserve">
+    <value>backgroundWorker1</value>
+  </data>
+  <data name="btnLog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>552, 413</value>
+  </data>
+  <data name="pnlModeMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>550, 230</value>
+  </data>
+  <data name="&gt;&gt;folderBrowserDialog1.Name" xml:space="preserve">
+    <value>folderBrowserDialog1</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>655, 515</value>
+  </data>
+  <data name="btnLog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="pbStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="pnlMenus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>550, 230</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
+    <value>btnCancel</value>
+  </data>
+  <data name="pbStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>615, 23</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Sciifii downloader</value>
+  </data>
+  <data name="&gt;&gt;btnLog.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlMenus.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorker1.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pbStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 442</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainFormV5</value>
+  </data>
+  <data name="&gt;&gt;pnlModeMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMenus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnLog.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.Language" type="System.Globalization.CultureInfo, mscorlib">
+    <value>fr</value>
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>17, 17</value>
+  </data>
+  <data name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>181, 17</value>
+  </data>
+  <data name="$Cancel" xml:space="preserve">
+    <value>Arret en cours</value>
+  </data>
+  <data name="$DlEnd" xml:space="preserve">
+    <value>Téléchargement terminé, temps total:</value>
+  </data>
+  <data name="$DlTime" xml:space="preserve">
+    <value>téléchargé en</value>
+  </data>
+  <data name="$Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="$ErrorS" xml:space="preserve">
+    <value>Une erreur s'est produite;</value>
+  </data>
+  <data name="$Exit" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="$LoadS" xml:space="preserve">
+    <value>chargé avec succès.</value>
+  </data>
+  <data name="$MenuE" xml:space="preserve">
+    <value>Ce menu ne contient aucun élément(modeMenuItem or switchMenuItem)</value>
+  </data>
+  <data name="$Move" xml:space="preserve">
+    <value>Traitement terminé, déplacer les fichiers sur la carte SD?</value>
+  </data>
+  <data name="$MoveE" xml:space="preserve">
+    <value>Erreur lors du déplacement des fichiers sur la carte SD</value>
+  </data>
+  <data name="$MoveS" xml:space="preserve">
+    <value>Fichiers déplacés sur la carte SD avec succès</value>
+  </data>
+  <data name="$Start" xml:space="preserve">
+    <value>Démarrage, cela peut prendre un peu de temps...</value>
+  </data>
+  <data name="$Success" xml:space="preserve">
+    <value>Succès</value>
+  </data>
+  <data name="$TimeFormat" xml:space="preserve">
+    <value>dd/MM/yyyy HH:mm:ss</value>
   </data>
 </root>

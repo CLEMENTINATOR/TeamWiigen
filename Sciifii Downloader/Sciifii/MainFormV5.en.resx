@@ -780,6 +780,9 @@
   <data name="$DlTime" xml:space="preserve">
     <value>downloaded in</value>
   </data>
+  <data name="$Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
   <data name="$Error" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -803,6 +806,9 @@
   </data>
   <data name="$MoveS" xml:space="preserve">
     <value>Files moved with success</value>
+  </data>
+  <data name="$NoWork" xml:space="preserve">
+    <value>No work to do</value>
   </data>
   <data name="$Start" xml:space="preserve">
     <value>Start of process, it could take some time...</value>

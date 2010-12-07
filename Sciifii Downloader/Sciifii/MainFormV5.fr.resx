@@ -760,7 +760,7 @@
     <value>chargé avec succès.</value>
   </data>
   <data name="$MenuE" xml:space="preserve">
-    <value>Ce menu ne contient aucun élément(modeMenuItem or switchMenuItem)</value>
+    <value>Ce menu ne contient aucun élément (modeMenuItem or switchMenuItem)</value>
   </data>
   <data name="$Move" xml:space="preserve">
     <value>Traitement terminé, déplacer les fichiers sur la carte SD?</value>
@@ -779,5 +779,11 @@
   </data>
   <data name="$TimeFormat" xml:space="preserve">
     <value>dd/MM/yyyy HH:mm:ss</value>
+  </data>
+  <data name="$Download" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="$NoWork" xml:space="preserve">
+    <value>Pas de travail à faire</value>
   </data>
 </root>

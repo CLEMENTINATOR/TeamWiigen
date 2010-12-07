@@ -45,10 +45,45 @@ namespace Sciifii
             btn.Width = Resources.exitbutton_normal.Width;
             btn.Height = Resources.exitbutton_normal.Height;
             btn.Click += new EventHandler(btn_ExitClick);
-
+            
             btn.Top = 184;
             btn.Left = 3;
             pnl.Controls.Add(btn);
+        }
+
+        /// <summary>
+        /// Add download button to panel
+        /// </summary>
+        /// <param name="pnl">Panel to add download button</param>
+        private void AddDownloadButton(Panel pnl)
+        {
+            Button btn = new Button();
+            btn.Text = Convert.ToString(resource.GetString("$Download"));
+            btn.Name = "¤advanced¤";
+            /*btn.Image = Resources.exitbutton_normal;
+            btn.Width = Resources.exitbutton_normal.Width;
+            btn.Height = Resources.exitbutton_normal.Height;*/
+            btn.Click += new EventHandler(btnDownload_Click);
+
+            btn.Top = 204;
+            btn.Left = 470;
+            pnl.Controls.Add(btn);
+        }
+
+        /// <summary>
+        /// Add tooltip to form control
+        /// </summary>
+        /// <param name="ctrl">Control to add tooltip</param>
+        /// <param name="display">String to display in tooltip</param>
+        private void AddToolTip(Control ctrl, String display)
+        {
+            ToolTip tt = new ToolTip();
+            tt.AutoPopDelay = 5000;
+            tt.InitialDelay = 1000;
+            tt.ReshowDelay = 500;
+            tt.ShowAlways = true;
+
+            tt.SetToolTip(ctrl, display);
         }
         
         /// <summary>
@@ -89,13 +124,13 @@ namespace Sciifii
             for (int i = 0; i < nbElem; i++)
             {
                 cb = new CheckBox();
-                cb.Name = Convert.ToString(i);
+                cb.Name = cb.Text = items[i].Name.Trim();
                 cb.Enabled = !items[i].Hidden;
                 
-                cb.Text = items[i].Name.Trim();
                 cb.Top = topStep[currentLine];
                 cb.Left = leftStep[i - (currentLine * nbColumn)] - cb.Width / 2;
 
+                AddToolTip(cb, items[i].Text.Trim());
                 pnlModeMenu.Controls.Add(cb);
 
                 if ((i + 1) % nbColumn == 0)
@@ -103,6 +138,7 @@ namespace Sciifii
             }
 
             AddReturnButton(pnlModeMenu);
+            AddDownloadButton(pnlModeMenu);
 
             pnlModeMenu.Visible = true;
         }
@@ -146,7 +182,7 @@ namespace Sciifii
             for (int i = 0; i < nbElem; i++)
             {
                 btn = new Button();
-                btn.Name = Convert.ToString(i);
+                btn.Name = items[i].Switches;
                 btn.Click += new EventHandler(btnDownload_Click);
 
                 btn.Text = items[i].Text.Trim();
@@ -237,18 +273,15 @@ namespace Sciifii
         /// <summary>
         /// Start background worker
         /// </summary>
-        private void StartJob()
+        /// <param name="options">List of switches selected</param>
+        private void StartJob(List<String> options)
         {
             m_UpTextBox(m_log.Log, "--------------------------------------------");
             m_UpTextBox(m_log.Log, resource.GetString("$Start"));
             m_total.Start();
             m_step.Start();
-            List<string> options = new List<string>();
             List<Step> steps = new List<Step>();
 
-            /*foreach (Option option in clbOption.CheckedItems)
-                options.Add(option.Name);
-            */
             options.AddRange(hiddenOptions);
 
             foreach (Step s in datas.Steps)
@@ -389,13 +422,39 @@ namespace Sciifii
         /// </summary>
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            if (!job)
+            List<String> switches = new List<String>();
+            
+            Button btn = sender as Button;
+
+            if (btn.Name == "¤advanced¤")
             {
-                FolderBrowserDialog dial = new FolderBrowserDialog();
-                if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                foreach (Control ctrl in pnlModeMenu.Controls)
                 {
-                    directory = dial.SelectedPath;
-                    StartJob();
+                    if (ctrl is CheckBox)
+                    {
+                        CheckBox cb = ctrl as CheckBox;
+                        if (cb.Checked)
+                            switches.Add(((CheckBox)ctrl).Name);
+                    }
+                }
+            }
+            else
+                switches.AddRange(btn.Name.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries));
+
+            if (switches.Count == 0)
+            {
+                MessageBox.Show(resource.GetString("$NoWork"), resource.GetString("$Error"), MessageBoxButtons.OK);
+            }
+            else
+            {
+                if (!job)
+                {
+                    FolderBrowserDialog dial = new FolderBrowserDialog();
+                    if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        directory = dial.SelectedPath;
+                        StartJob(switches);
+                    }
                 }
             }
         }

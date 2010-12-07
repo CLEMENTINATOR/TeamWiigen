@@ -92,16 +92,16 @@ void GMenuManager::InitializeComponents()
   btnExit.DefaultImage("exitbutton_normal.png");
   btnExit.OverImage("exitbutton_over.png");
   btnExit.SetSize(44, 44);
-  btnExit.SetPosition(600, 415);
+  btnExit.SetPosition(580, 415);
   btnExit.Click += MakeDelegate(this, &GMenuManager::Exit);
-	btnExit.DefineTrigger(WPAD_BUTTON_HOME);
-	
-	_themeDdl.SetPosition(420, 5);
-	_themeDdl.SetSize(80, 80);
+  btnExit.DefineTrigger(WPAD_BUTTON_HOME);
+
+  _themeDdl.SetPosition(420, 5);
+  _themeDdl.SetSize(80, 80);
 
   AddChildren(&btnExit);
-	AddChildren(&_themeDdl);
-	
+  AddChildren(&_themeDdl);
+
   Form::InitializeComponents();
 }
 
@@ -161,7 +161,7 @@ bool GMenuManager::ExecuteSciifii()
     UIManager::ShowDialog(g);
     Config::Reset();
     for(map<string,GDynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
-	  ite->second->Reset();
+      ite->second->Reset();
     return true;
   }
   catch(ExitSciifiiException& ex)

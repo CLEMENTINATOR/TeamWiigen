@@ -183,8 +183,7 @@ void Button::Draw()
 
 void Button::SetTextAlignement(HAlign halign, VAlign valign)
 {
-  _lblText.HorizontalAlignement(halign);
-  _lblText.VerticalAlignement(valign);
+  _lblText.SetTextAlignment(halign,valign);
 }
 
 HAlign Button::TextHorizontalAlignement() const

@@ -1,18 +1,18 @@
 #include <sciifii/ui/graphic/GDisclaimer.h>
 #include <sciifii/business/common/ExitSciifiiException.h>
+#include <Libwui/Audio/AudioPlayer.h>
 
 using namespace Libwiisys;
 using namespace Libwui::Component;
+using namespace Libwui::Audio;
 using namespace Libwui::Events;
 using namespace Libwiisys::Exceptions;
 using namespace std;
 using namespace fastdelegate;
 
 GDisclaimer::GDisclaimer() :
-	textDisclaimer(" ", 12, (GXColor)
-	{	255,255,255,255})
-{
-}
+	textDisclaimer(" ", 12, (GXColor){255,255,255,255})
+{}
 
 void GDisclaimer::InitializeComponents()
 {
@@ -50,15 +50,19 @@ void GDisclaimer::InitializeComponents()
 	AddChildren(&_themeDdl);
 
 	Form::InitializeComponents();
+	
+	AudioPlayer::GetAndReset().Play("sd:/test.mp3");
 }
 
 void GDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
+	AudioPlayer::GetAndReset();
 	Visible(false);
 	throw ExitSciifiiException();
 }
 
 void GDisclaimer::Continue(Object* sender, CursorEventArgs* args)
 {
+	AudioPlayer::GetAndReset();
 	Visible(false);
 }

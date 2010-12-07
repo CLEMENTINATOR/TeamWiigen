@@ -41,6 +41,7 @@ void AudioPlayer::Draw()
 AudioPlayer& AudioPlayer::GetAndReset()
 {
 	static AudioPlayer p;
+	p.Stop();
 	p.ClearTrackList();
 	return p;
 }

@@ -8,6 +8,8 @@
 #include "MP3/EQState.h"
 #include "MP3/OutputBuffer.h"
 
+#define MP3_PLAYER_STACKSIZE	(32768)
+
 namespace Libwui
 {
 	namespace Audio
@@ -33,7 +35,7 @@ namespace Libwui
 			struct mad_frame Frame;
 			struct mad_synth Synth;
 			
-			static MP3SongPlayer* _current;
+			u8 _stack[MP3_PLAYER_STACKSIZE];
 			
 			bool FeedData(bool& lastFrame);
 			void AsyncPlayer();
@@ -50,7 +52,7 @@ namespace Libwui
 			void Resume();
 			void DataTransferCallback();
 			
-			static MP3SongPlayer& Current();
+			static MP3SongPlayer*& Current();
 		};
 	}
 }

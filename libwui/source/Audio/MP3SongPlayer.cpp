@@ -18,17 +18,15 @@ typedef union {
 	u32 adword;
 } dword;
 
-#define STACKSIZE				(32768)
-static u8 StreamPlay_Stack[STACKSIZE];
-
 static void DTCallback()
 {
-	MP3SongPlayer::Current().DataTransferCallback();
+	MP3SongPlayer::Current()->DataTransferCallback();
 }
 
-MP3SongPlayer& MP3SongPlayer::Current()
+MP3SongPlayer*& MP3SongPlayer::Current()
 {
-	return *(MP3SongPlayer::_current);
+	static MP3SongPlayer* _current(NULL);
+	return _current;
 }
 
 MP3SongPlayer::MP3SongPlayer(const std::string& file)
@@ -39,7 +37,7 @@ MP3SongPlayer::MP3SongPlayer(const std::string& file)
 		_needToStop(true),
 		_hasSample(false)
 {
-	MP3SongPlayer::_current = this;
+	MP3SongPlayer::Current() = this;
 }
 
 
@@ -51,13 +49,13 @@ MP3SongPlayer::MP3SongPlayer(Libwiisys::Buffer& buffer)
 		_needToStop(true),
 		_hasSample(false)
 {
-	MP3SongPlayer::_current = this;
+	MP3SongPlayer::Current() = this;
 }
 
 void MP3SongPlayer::Play()
 {
 	_needToStop = false;
-	if(LWP_CreateThread(&_thread, ISongPlayer::Play, NULL, StreamPlay_Stack, STACKSIZE, 80)<0)
+	if(LWP_CreateThread(&_thread, ISongPlayer::Play, this, _stack, MP3_PLAYER_STACKSIZE, 80)<0)
 		throw Exception("Cannot start the player thread.");
 }
 

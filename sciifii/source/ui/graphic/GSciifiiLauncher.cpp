@@ -31,7 +31,7 @@ void GSciifiiLauncher::InitializeComponents()
   bOk.Enabled(false);
   bOk.Click += MakeDelegate(this, &GSciifiiLauncher::Exit);
   bOk.Text("Done !");
-  bOk.SetPosition(238, 250);
+  bOk.SetPosition(238, 290);
   bOk.DefaultImage("go_button.png");
   bOk.OverImage("go_button_over.png");
   bOk.SetSize(164, 40);
@@ -39,15 +39,15 @@ void GSciifiiLauncher::InitializeComponents()
 
   pBarGlobal.SetActualValue(0);
   pBarGlobal.SetMaxValue(100);
-  pBarGlobal.SetSize(270, 20);
+  pBarGlobal.SetSize(270, 40);
   pBarGlobal.SetPosition(185, 190);
   pBarGlobal.SetText("Sciifii is analysing your choice!");
   pBarGlobal.SetFont("ProgressBar.ttf");
   
   pBarActual.SetActualValue(0);
   pBarActual.SetMaxValue(1);
-  pBarActual.SetSize(270, 20);
-  pBarActual.SetPosition(185, 220);
+  pBarActual.SetSize(270, 40);
+  pBarActual.SetPosition(185, 240);
   pBarActual.SetFont("ProgressBar.ttf");
   
   mb.SetTitlePosition(16, 2);
@@ -203,8 +203,8 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 }
 void GSciifiiLauncher::Draw()
 {
-  Menu_DrawRectangle(157, 160, 326, 160, Colors::White(), 1);
-  Menu_DrawRectangle(158, 161, 324, 158, BackgroundColor(), 1);
+  Menu_DrawRectangle(157, 160, 326, 190, Colors::White(), 1);
+  Menu_DrawRectangle(158, 161, 324, 188, BackgroundColor(), 1);
   Control::Draw();
 }
 

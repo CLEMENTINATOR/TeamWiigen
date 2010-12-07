@@ -255,7 +255,7 @@ void Label::Draw()
       alignOffsetY = GetHeight() - (size + 6);
       break;
     case FTGX_ALIGN_MIDDLE:
-      alignOffsetY = (GetHeight() - (size + 6)) / 2;
+      alignOffsetY =GetHeight() / 2;
       break;
   }
 

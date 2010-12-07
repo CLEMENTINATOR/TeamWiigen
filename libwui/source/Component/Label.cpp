@@ -210,7 +210,7 @@ void Label::Draw()
       else if(scrollToRight)
       {
         // une fois arriv� au bout, on inverse le sens du scroll
-    	if(resource->Font()->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
+        if(resource->Font()->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
         {
           scrollToRight = !scrollToRight;
           textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
@@ -224,10 +224,12 @@ void Label::Draw()
       }
     }
     u8 nbChar = textToDisplay.substr(textScrollPos).size();
-    do{
-    	nbChar--;
-    }while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
-	textToDisplay = textToDisplay.substr(textScrollPos, nbChar + 1);
+    do
+    {
+      nbChar--;
+    }
+    while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
+    textToDisplay = textToDisplay.substr(textScrollPos, nbChar + 1);
   }
 
   //Get the real position
@@ -240,7 +242,7 @@ void Label::Draw()
       alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = margin + GetWidth() - resource->Font()->getWidth(textToDisplay);
+      alignOffsetX = (GetWidth()-margin) - resource->Font()->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
       alignOffsetX = (GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
@@ -250,9 +252,10 @@ void Label::Draw()
   switch(style & 0x70)
   {
     case FTGX_ALIGN_TOP:
+      alignOffsetY=size;
       break;
     case FTGX_ALIGN_BOTTOM:
-      alignOffsetY = GetHeight() - (size + 6);
+      alignOffsetY = GetHeight() - size;
       break;
     case FTGX_ALIGN_MIDDLE:
       alignOffsetY =GetHeight() / 2;
@@ -284,25 +287,25 @@ void Label::SetSize(s32 w, s32 h)
 s32 Label::GetWidth()
 {
   if(useParentSize)
-	return Parent()->GetWidth() - _xoffset;
-	
+    return Parent()->GetWidth() - _xoffset;
+
   return _width;
 }
 
 s32 Label::GetHeight()
 {
   if(useParentSize)
-	return Parent()->GetHeight() - _yoffset;
-	
+    return Parent()->GetHeight() - _yoffset;
+
   return _height;
 }
 
 s32 Label::GetMargin()
 {
-	return margin;
+  return margin;
 }
 
 void Label::SetMargin(s32 m)
 {
-	margin = m;
+  margin = m;
 }

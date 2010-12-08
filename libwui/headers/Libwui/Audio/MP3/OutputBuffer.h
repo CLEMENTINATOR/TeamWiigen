@@ -3,13 +3,9 @@
 
 #include <ogcsys.h>
 #include <Libwiisys/Object.h>
+#include <asndlib.h>
 
-#ifndef __SNDLIB_H__
-	#define ADMA_BUFFERSIZE			(4992)
-#else
-	#define ADMA_BUFFERSIZE			(8192)
-#endif
-
+#define ADMA_BUFFERSIZE			(8192)
 #define DATABUFFER_SIZE			(32768)
 
 namespace Libwui

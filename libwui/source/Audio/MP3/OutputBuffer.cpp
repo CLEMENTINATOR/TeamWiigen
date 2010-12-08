@@ -21,7 +21,7 @@ s32 OutputBuffer::Space()
 
 s32 OutputBuffer::Get(void *data, s32 len, lwpq_t queue)
 {
-	if(Used() != 0)
+	if(Used() < len)
 		len = Used();
 
 	if(len == 0)

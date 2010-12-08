@@ -3,6 +3,8 @@
 
 #include "../Control.hpp"
 #include "Label.hpp"
+#include "Button.hpp"
+#include "Image.hpp"
 
 namespace Libwui
 {
@@ -17,6 +19,8 @@ namespace Libwui
                  }
                 );
         virtual ~TextAera();
+
+        void InitializeComponents();
 
         virtual void ProcessMessage(Message& message);
 
@@ -38,6 +42,21 @@ namespace Libwui
 
       private:
         std::vector<Label*> _textItems;
+        Libwui::Component::Button _btnUp;
+        Libwui::Component::Button _btnDown;
+        Libwui::Component::Image _scrollBar;
+        Libwui::Component::Image _scrollBall;
+        bool _textChanged;
+        bool _scrollChanged;
+        int _nbSkip;
+        bool _scrollBallDrag;
+
+        void btnDown_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args);
+        void btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args);
+        void scrollBall_move(Object* sender, Libwui::Events::CursorEventArgs* args);
+        void scollBall_held(Object* sender, Libwui::Events::CursorEventArgs* args);
+        void scrollBall_release(Object* sender, Libwui::Events::CursorEventArgs* args);
+        void scrollBall_leave(Object* sender, Libwiisys::EventArgs* args);
     };
   }
 }

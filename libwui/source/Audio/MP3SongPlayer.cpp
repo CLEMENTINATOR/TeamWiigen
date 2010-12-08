@@ -3,6 +3,7 @@
 #include <Libwui/Audio/MP3SongPlayer.h>
 #include <ogc/machine/processor.h>
 #include <limits.h>
+#include <asndlib.h>
 
 using namespace std;
 using namespace Libwiisys;
@@ -18,7 +19,7 @@ typedef union {
 	u32 adword;
 } dword;
 
-static void DTCallback()
+static void DTCallback(s32 param)
 {
 	MP3SongPlayer::Current()->DataTransferCallback();
 }
@@ -89,11 +90,7 @@ void MP3SongPlayer::AsyncPlayer()
 	memset(_outputBuffers[1],0,ADMA_BUFFERSIZE);
 	
 	LWP_InitQueue(&_queue);
-	
-	#ifndef __SNDLIB_H__
-	AUDIO_RegisterDMACallback(DTCallback);
-	#endif
-	
+		
 	mad_stream_init(&Stream);
 	mad_frame_init(&Frame);
 	mad_synth_init(&Synth);
@@ -124,12 +121,7 @@ void MP3SongPlayer::AsyncPlayer()
 	while(_playing)
 		LWP_ThreadSleep(_queue);
 	
-	#ifndef __SNDLIB_H__
-	AUDIO_StopDMA();
-	AUDIO_RegisterDMACallback(NULL);
-	#else
 	SND_StopVoice(0);
-	#endif
 	
 	LWP_CloseQueue(_queue);
 }
@@ -210,16 +202,8 @@ void MP3SongPlayer::Resample()
 		if(_outputRing.Put(&val32, sizeof(u32), _queue))
 		{
 			memset(CurrentBuffer(), 0, ADMA_BUFFERSIZE);
-
-			#ifndef __SNDLIB_H__
-				DCFlushRange(CurrentBuffer(), ADMA_BUFFERSIZE);
-				AUDIO_InitDMA((u32)CurrentBuffer(), ADMA_BUFFERSIZE);
-				AUDIO_StartDMA();
-			#else
-				_hasSample = 0;
-				SND_SetVoice(0, VOICE_STEREO_16BIT, 48000, 0, CurrentBuffer(), ADMA_BUFFERSIZE, _volume, _volume, DTCallback);
-			#endif
-
+			_hasSample = 0;
+			SND_SetVoice(0, VOICE_STEREO_16BIT, 48000, 0, CurrentBuffer(), ADMA_BUFFERSIZE, _volume, _volume, DTCallback);
 			_outputIndex ^= 1;
 		}
 		
@@ -241,14 +225,6 @@ s16 MP3SongPlayer::FixedToShort(mad_fixed_t fixed)
 
 void MP3SongPlayer::DataTransferCallback()
 {
-#ifndef __SNDLIB_H__
-	AUDIO_StopDMA();
-	AUDIO_InitDMA((u32)CurrentBuffer(),ADMA_BUFFERSIZE);
-	AUDIO_StartDMA();
-
-	_outputIndex ^= 1;
-	_playing = (_outputRing.Get(CurrentBuffer(), ADMA_BUFFERSIZE, _queue)>0);
-#else
 	if(_needToStop) 
 	{
 		_playing = (_outputRing.Get(CurrentBuffer(), ADMA_BUFFERSIZE, _queue)>0);
@@ -270,7 +246,6 @@ void MP3SongPlayer::DataTransferCallback()
 			_hasSample = true;
 		}
 	}
-#endif
 }
 
 u8* MP3SongPlayer::CurrentBuffer()

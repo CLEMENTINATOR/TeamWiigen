@@ -46,7 +46,7 @@ namespace Libwui
 
       bool InvokeRequired();
       bool IsInside(s32 x, s32 y);
-			
+
       virtual void OnCursorEnter();
       virtual void OnCursorLeave();
       virtual void OnCursorMove(Device::PadController &c);
@@ -57,8 +57,8 @@ namespace Libwui
     public:
       Control();
       virtual void InitializeComponents();
-			virtual bool IsInUITree();
-			virtual void SetId(const std::string& newId);
+      virtual bool IsInUITree();
+      virtual void SetId(const std::string& newId);
       virtual void AddChildren(Control* child);
       virtual void RemoveChildren(Control* child);
       void StartDrawing();
@@ -91,9 +91,9 @@ namespace Libwui
 
       bool Enabled() const;
       virtual void Enabled(bool enabled);
-			
-			std::string UniqueId();
-			
+
+      std::string UniqueId();
+
       virtual ~Control();
 
       Libwiisys::Event CursorEnter;

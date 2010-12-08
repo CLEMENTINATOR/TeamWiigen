@@ -11,14 +11,18 @@ using namespace Libwui::Resources;
 using namespace Libwui::Device;
 using namespace std;
 
-Button::Button() 
-  : _lblText("", 12, (GXColor){0,0,0,255}, 10),
-	  _triggerState(false)
+Button::Button()
+    : _lblText("", 12, (GXColor)
+           {
+             0,0,0,255
+           }
+           , 10),
+_triggerState(false)
 {}
 
 Button::~Button()
 {
-	UIManager::SetTrigger(*this, 0);
+  UIManager::SetTrigger(*this, 0);
 }
 
 void Button::InitializeComponents()
@@ -119,25 +123,25 @@ string Button::ClickedImage() const
 
 void Button::ProcessTrigger(PadController& c, string rootElementId)
 {
-	if(_fullId.find(rootElementId) != 0)
-		return;
-		
-	_triggerState = true;
-	OnClick(c);
-	_triggerState = false;
+  if(_fullId.find(rootElementId) != 0)
+    return;
+
+  _triggerState = true;
+  OnClick(c);
+  _triggerState = false;
 }
 
 void Button::OnClick(PadController &c)
 {
-	bool validForNonTrigger = !_triggerState && ((c.btns_c & ((u16)WPAD_BUTTON_A)) != 0);
-	
+  bool validForNonTrigger = !_triggerState && ((c.btns_c & ((u16)WPAD_BUTTON_A)) != 0);
+
   if (Enabled() && (_triggerState || validForNonTrigger))
     Control::OnClick(c);
 }
 
 void Button::DefineTrigger(u32 flag)
 {
-	UIManager::SetTrigger(*this, flag);
+  UIManager::SetTrigger(*this, flag);
 }
 
 void Button::OnCursorEnter()
@@ -213,5 +217,5 @@ void Button::TextSize(int pt)
 
 void Button::SetFont(const string& font)
 {
-	_lblText.SetFont(font);
+  _lblText.SetFont(font);
 }

@@ -8,6 +8,7 @@
 
 using namespace Libwui::Component;
 using namespace Libwui::Resources;
+using namespace Libwui;
 using namespace std;
 using namespace Libwiisys;
 
@@ -68,10 +69,90 @@ void Label::ProcessMessage(Message& message)
     params >> h >> v;
     SetTextAlignment((HAlign)h, (VAlign)v);
   }
+  else if(tag == "HorizontalAlignement")
+  {
+    int align;
+    params >> align;
+    HorizontalAlignement((HAlign)align);
+  }
+  else if(tag == "VerticalAlignement")
+  {
+    int align;
+    params >> align;
+    VerticalAlignement((VAlign)align);
+  }
   else if(tag == "SetFont")
     SetFont(params.str());
   else
     Control::ProcessMessage(message);
+}
+
+void Label::VerticalAlignement(VAlign alignement)
+{
+  if(InvokeRequired())
+  {
+    stringstream params;
+    params << (int)alignement;
+    Message* m = new Message(_fullId, "VerticalAlignement", params.str());
+    UIManager::AddMessage(m);
+  }
+  else
+  {
+    style &= ~(FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
+    switch(alignement)
+    {
+      case VAlign_Top:
+        style |= FTGX_ALIGN_TOP;
+        break;
+      case VAlign_Bottom:
+        style |= FTGX_ALIGN_BOTTOM;
+        break;
+      default:
+        style |= FTGX_ALIGN_MIDDLE;
+        break;
+    }
+    Control::VerticalAlignement(alignement);
+  }
+
+}
+
+VAlign Label::VerticalAlignement() const
+{
+  return _vAlign;
+}
+
+void Label::HorizontalAlignement(HAlign alignement)
+{
+  if(InvokeRequired())
+  {
+    stringstream params;
+    params << (int)alignement;
+    Message* m = new Message(_fullId, "HorizontalAlignement", params.str());
+    UIManager::AddMessage(m);
+  }
+  else
+  {
+    style&=  ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER);
+    switch(alignement)
+    {
+      case HAlign_Left:
+        style |= FTGX_JUSTIFY_LEFT;
+        break;
+      case HAlign_Right:
+        style |= FTGX_JUSTIFY_RIGHT;
+        break;
+      default:
+        style |= FTGX_JUSTIFY_CENTER;
+        break;
+    }
+    Control::HorizontalAlignement(alignement);
+  }
+
+}
+
+HAlign Label::HorizontalAlignement() const
+{
+  return _hAlign;
 }
 
 void Label::Text(const string& text)

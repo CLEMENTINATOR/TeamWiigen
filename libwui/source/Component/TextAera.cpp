@@ -1,21 +1,80 @@
 #include <Libwui/Component/TextAera.h>
 #include <Libwui/UIManager.hpp>
-
+#include <Libwui/Resources/FontResource.hpp>
+#include <Libwui/Resources/FontResourceManager.hpp>
+#include <Libwiisys/String/UtilString.h>
+#include <FastDelegate.h>
+#include <math.h>
 #include <sstream>
 
 using namespace std;
+using namespace fastdelegate;
 using namespace Libwui;
 using namespace Libwui::Component;
+using namespace Libwui::Resources;
+using namespace Libwiisys::String;
 
 TextAera::TextAera(const string& text, int s, GXColor c)
     : txt(text),
     size(s),
-    color(c)
-{}
+    color(c),
+    _textChanged(true),
+    _scrollChanged(true),
+    _nbSkip(0),
+    _scrollBallDrag(false)
+{
+	_btnUp.Click += MakeDelegate(this, &TextAera::btnUp_Clicked);
+	_btnDown.Click += MakeDelegate(this, &TextAera::btnDown_Clicked);
+	_scrollBall.CursorMove += MakeDelegate(this, &TextAera::scrollBall_move);
+	_scrollBall.CursorButtonDown += MakeDelegate(this, &TextAera::scollBall_held);
+	_scrollBall.CursorButtonUp += MakeDelegate(this, &TextAera::scrollBall_release);
+	_scrollBall.CursorLeave += MakeDelegate(this, &TextAera::scrollBall_leave);
+}
 
 TextAera::~TextAera()
 {
   Invalidate();
+}
+
+void TextAera::InitializeComponents()
+{
+	_btnUp.SetSize(44, 44);
+	_btnUp.SetPosition(GetWidth() - 33, -10);
+	//_btnUp.HorizontalAlignement(HAlign_Right);
+	//_btnUp.VerticalAlignement(VAlign_Top);
+	_btnUp.Visible(true);
+	_btnUp.Enabled(false);
+	_btnUp.DefaultImage("arrow_up.png");
+	_btnUp.OverImage("arrow_up_over.png");
+	_btnUp.ClickedImage("arrow_up.png");
+	AddChildren(&_btnUp);
+
+	_btnDown.SetSize(44, 44);
+	_btnDown.SetPosition(GetWidth() - 33, GetHeight() - 34);
+	//_btnUp.HorizontalAlignement(HAlign_Right);
+	//_btnUp.VerticalAlignement(VAlign_Bottom);
+	_btnDown.Visible(true);
+	_btnDown.Enabled(false);
+	_btnDown.DefaultImage("arrow_Down.png");
+	_btnDown.OverImage("arrow_Down_over.png");
+	_btnDown.ClickedImage("arrow_Down.png");
+	AddChildren(&_btnDown);
+
+	_scrollBar.SetSize(44, GetHeight() - 10);
+	_scrollBar.SetPosition(GetWidth() - 33, 5);
+	_scrollBar.FillMode(ResizeMode_Fill);
+	_scrollBar.VerticalAlignement(VAlign_Top);
+	_scrollBar.Visible(true);
+	_scrollBar.ImageLocation("scrollbar.png");
+	AddChildren(&_scrollBar);
+
+	_scrollBall.SetSize(44, 44);
+	_scrollBall.SetPosition(0, 0);
+	_scrollBall.Visible(true);
+	_scrollBall.ImageLocation("scrollball.png");
+	_scrollBar.AddChildren(&_scrollBall);
+
+	Control::InitializeComponents();
 }
 
 void TextAera::Invalidate()
@@ -140,32 +199,177 @@ void TextAera::SetSize(int w, int h)
 
 void TextAera::EnsureItems()
 {
-  u8 nbCharMax = (_width * 2.0) / size;
+	if(_textChanged)
+	{
+		_scrollChanged = true;
+		_btnUp.Visible(true);
+		_btnDown.Visible(true);
+		_scrollBar.Visible(true);
+		_scrollBall.Visible(true);
+		FontResource* resource = FontResourceManager::Get(_font);
+		if(!resource->IsInitialized())
+		{
+			resource->Initialize();
+		}
 
-  char* buffer = new char[nbCharMax + 1];
-  try
-  {
-    stringstream txtStream;
-    txtStream << txt;
+		vector<string> lineList = UtilString::Split(txt, '\n');
+		for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
+		{
+			if(GetWidth() - 44 < resource->Font()->getWidth(*lineIt))
+			{
+				string labelText;
+				vector<string> wordList = UtilString::Split(*lineIt, ' ');
+				do{
+					int nbWord = wordList.size();
+					do{
+						labelText = "";
+						for(int i = 0; i < nbWord; i++)
+						{
+							labelText += wordList[i] + " ";
+						}
+						nbWord--;
+					}while(GetWidth() - 44 < resource->Font()->getWidth(labelText));
+					Label* lbl = new Label(labelText, size, color);
+					lbl->SetPosition(0, _textItems.size() * (size + 6));
+					lbl->SetSize(GetWidth(), size);
+					lbl->SetFont(_font);
+					_textItems.push_back(lbl);
+					AddChildren(lbl);
+					wordList.erase(wordList.begin(), wordList.begin() + nbWord + 1);
+				}while(!wordList.empty());
+			}
+			else
+			{
+				Label* lbl = new Label(*lineIt, size, color);
+				lbl->SetPosition(0, _textItems.size() * (size + 6));
+				lbl->SetSize(GetWidth(), size);
+				lbl->SetFont(_font);
+				_textItems.push_back(lbl);
+				AddChildren(lbl);
+			}
+		}
+		if(_textItems.back()->GetTop() + size <= GetHeight())
+		{
+			_scrollChanged = false;
+			_btnUp.Visible(false);
+			_btnDown.Visible(false);
+			_scrollBar.Visible(false);
+			_scrollBall.Visible(false);
+			for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
+			{
+				RemoveChildren(*ite);
+				delete *ite;
+			}
+			_textItems.clear();
+			for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
+			{
+				if(GetWidth() < resource->Font()->getWidth(*lineIt))
+				{
+					string labelText;
+					vector<string> wordList = UtilString::Split(*lineIt, ' ');
+					do{
+						int nbWord = wordList.size();
+						do{
+							labelText = "";
+							for(int i = 0; i < nbWord; i++)
+							{
+								labelText += wordList[i] + " ";
+							}
+							nbWord--;
+						}while(GetWidth() < resource->Font()->getWidth(labelText));
+						Label* lbl = new Label(labelText, size, color);
+						lbl->SetPosition(0, _textItems.size() * (size + 6));
+						lbl->SetSize(GetWidth(), size);
+						lbl->SetFont(_font);
+						_textItems.push_back(lbl);
+						AddChildren(lbl);
+						wordList.erase(wordList.begin(), wordList.begin() + nbWord + 1);
+					}while(!wordList.empty());
+				}
+				else
+				{
+					Label* lbl = new Label(*lineIt, size, color);
+					lbl->SetPosition(0, _textItems.size() * (size + 6));
+					lbl->SetSize(GetWidth(), size);
+					lbl->SetFont(_font);
+					_textItems.push_back(lbl);
+					AddChildren(lbl);
+				}
+			}
+		}
+	}
+	if(_scrollChanged)
+	{
+		for(vector<Label*>::iterator it = _textItems.begin(); it != _textItems.end(); it++)
+		{
+			(*it)->Visible(false);
+		}
+		int nbToDisplay = floor((GetHeight() + 6) / (size + 6));
+		int j = 0;
+		for(int i = _nbSkip; i < _nbSkip + nbToDisplay; i++)
+		{
+			_textItems[i]->Visible(true);
+			_textItems[i]->SetPosition(0, j * (size + 6));
+			j++;
+		}
+		if(_nbSkip == 0)
+		{
+			_btnUp.Enabled(false);
+			_btnDown.Enabled(true);
+		}
+		else if(_nbSkip + nbToDisplay == _textItems.size())
+		{
+			_btnUp.Enabled(true);
+			_btnDown.Enabled(false);
+		}
+		else
+		{
+			_btnUp.Enabled(true);
+			_btnDown.Enabled(true);
+		}
+		_scrollBall.SetPosition(0, floor(_nbSkip * ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay))));
+	}
+}
 
-    while(!txtStream.eof())
-    {
-      if(((s32)(_textItems.size() + 1) * size) > _height)
-        break;
+void TextAera::btnDown_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args)
+{
+	_nbSkip++;
+	_btnUp.Enabled(true);
+	_btnDown.Enabled(false);
+	_scrollChanged = true;
+	Invalidate();
+}
 
-      txtStream.getline(buffer, nbCharMax + 1);
-      Label* lbl = new Label(buffer, size, color);
-      lbl->SetPosition(0, _textItems.size() * (size + 6) + 2);
-			lbl->SetSize(_width, size);
-			lbl->SetFont(_font);
-      _textItems.push_back(lbl);
-      AddChildren(lbl);
-    }
+void TextAera::btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args)
+{
+	_nbSkip--;
+	_btnUp.Enabled(_nbSkip != 0);
+	_btnDown.Enabled(false);
+	_scrollChanged = true;
+	Invalidate();
+}
 
-    delete[] buffer;
-  }
-  catch(...)
-  {
-    delete[] buffer;
-  }
+void TextAera::scollBall_held(Object* sender, Libwui::Events::CursorEventArgs* args)
+{
+	_scrollBallDrag = true;
+}
+
+void TextAera::scrollBall_release(Object* sender, Libwui::Events::CursorEventArgs* args)
+{
+	_scrollBallDrag = false;
+}
+
+void TextAera::scrollBall_leave(Object* sender, Libwiisys::EventArgs* args)
+{
+	_scrollBallDrag = false;
+}
+
+void TextAera::scrollBall_move(Object* sender, Libwui::Events::CursorEventArgs* args)
+{
+	if(_scrollBallDrag)
+	{
+		Device::PadController* controller = (Device::PadController*)sender;
+		if(controller->wpad.ir.valid)
+			_scrollBall.SetPosition(0, (int)controller->wpad.ir.y - _scrollBar.GetTop());
+	}
 }

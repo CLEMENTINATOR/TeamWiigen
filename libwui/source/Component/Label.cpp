@@ -267,14 +267,11 @@ void Label::Draw()
 {
   FontResource* resource = FontResourceManager::Get(_font);
 
-  if(!resource->IsInitialized())
-    resource->Initialize();
-
-  resource->Font()->changeFontSize(size);
-
+  if(!resource->IsInitialized(size))
+    resource->Initialize(size);
 
   //test si le text est trop long pour le label (et donc scroll)
-  bool needScroll = (GetWidth() - (2.0 * margin)) < resource->Font()->getWidth(txt);
+  bool needScroll = (GetWidth() - (2.0 * margin)) < resource->Font(size)->getWidth(txt);
 
 
   string textToDisplay = txt;
@@ -291,7 +288,7 @@ void Label::Draw()
       else if(scrollToRight)
       {
         // une fois arriv� au bout, on inverse le sens du scroll
-        if(resource->Font()->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
+        if(resource->Font(size)->getWidth(textToDisplay.substr(++textScrollPos)) <= (GetWidth() - (2.0 * margin)))
         {
           scrollToRight = !scrollToRight;
           textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
@@ -309,7 +306,7 @@ void Label::Draw()
     {
       nbChar--;
     }
-    while(resource->Font()->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
+    while(resource->Font(size)->getWidth(textToDisplay.substr(textScrollPos, nbChar)) > (GetWidth() - (2.0 * margin)));
     textToDisplay = textToDisplay.substr(textScrollPos, nbChar + 1);
   }
 
@@ -323,10 +320,10 @@ void Label::Draw()
       alignOffsetX = margin;
       break;
     case FTGX_JUSTIFY_RIGHT:
-      alignOffsetX = (GetWidth()-margin) - resource->Font()->getWidth(textToDisplay);
+      alignOffsetX = (GetWidth()-margin) - resource->Font(size)->getWidth(textToDisplay);
       break;
     case FTGX_JUSTIFY_CENTER:
-      alignOffsetX = (GetWidth() - resource->Font()->getWidth(textToDisplay)) / 2;
+      alignOffsetX = (GetWidth() - resource->Font(size)->getWidth(textToDisplay)) / 2;
       break;
   }
 
@@ -345,7 +342,7 @@ void Label::Draw()
 
   u16 displayStyle = style & ~(FTGX_JUSTIFY_LEFT | FTGX_JUSTIFY_RIGHT | FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP | FTGX_ALIGN_BOTTOM | FTGX_ALIGN_MIDDLE);
   displayStyle |= FTGX_JUSTIFY_LEFT | FTGX_ALIGN_MIDDLE;
-  resource->Font()->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
+  resource->Font(size)->drawText(this->GetLeft() + alignOffsetX, this->GetTop() + alignOffsetY, textToDisplay, color, displayStyle);
 
 }
 

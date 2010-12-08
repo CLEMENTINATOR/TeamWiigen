@@ -51,18 +51,18 @@ void GDisclaimer::InitializeComponents()
 
 	Form::InitializeComponents();
 	
-	AudioPlayer::GetAndReset().Play("sd:/test.mp3");
+	//AudioPlayer::GetAndReset().Play("sd:/test.mp3");
 }
 
 void GDisclaimer::Exit(Object* sender, CursorEventArgs* args)
 {
-	AudioPlayer::GetAndReset();
+	//AudioPlayer::GetAndReset();
 	Visible(false);
 	throw ExitSciifiiException();
 }
 
 void GDisclaimer::Continue(Object* sender, CursorEventArgs* args)
 {
-	AudioPlayer::GetAndReset();
+	//AudioPlayer::GetAndReset();
 	Visible(false);
 }

@@ -7,6 +7,7 @@
 #include <Libwui/Component/ProgressBar.h>
 #include <sciifii/ui/graphic/GThemeDdl.h>
 #include <sciifii/Config.h>
+#include <sciifii/ui/graphic/GAudioPlayer.h>
 
 class GDisclaimer : public Libwui::Component::Form
 {
@@ -14,8 +15,9 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::Button btnContinue;
     Libwui::Component::Button btnExit;
     Libwui::Component::TextAera textDisclaimer;
-		GThemeDdl _themeDdl;
-		
+    GThemeDdl _themeDdl;
+    GAudioPlayer player;
+
   public:
     GDisclaimer() ;
 

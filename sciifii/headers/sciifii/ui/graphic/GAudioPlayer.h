@@ -23,4 +23,5 @@ class GAudioPlayer : public Libwui::Control
     void Previous(Object*sender,Libwui::Events::CursorEventArgs* args);
     void Next(Object*sender,Libwui::Events::CursorEventArgs* args);
     void Stop(Object*sender,Libwui::Events::CursorEventArgs* args);
+    void Draw();
 };

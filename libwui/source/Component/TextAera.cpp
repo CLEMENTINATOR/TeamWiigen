@@ -311,13 +311,13 @@ void TextAera::EnsureItems()
 		{
 			(*it)->Visible(false);
 		}
-		int nbToDisplay = floor((GetHeight() + 6) / (size + 6));
+		u32 nbToDisplay = floor((GetHeight() + 6) / (size + 6));
 		if(_scrollBallMoved)
 		{
 			_nbSkip = floor((_scrollBall.GetTop() - _scrollBar.GetTop()) / ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay)));
 		}
-		int j = 0;
-		for(int i = _nbSkip; i < _nbSkip + nbToDisplay; i++)
+		u32 j = 0;
+		for(u32 i = _nbSkip; i < _nbSkip + nbToDisplay; i++)
 		{
 			_textItems[i]->Visible(true);
 			_textItems[i]->SetPosition(0, j * (size + 6));
@@ -366,6 +366,7 @@ void TextAera::btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* ar
 void TextAera::scollBall_held(Object* sender, Libwui::Events::CursorEventArgs* args)
 {
 	_scrollBallDrag = true;
+	_scrollBallDragOffset = args->Controller().wpad.ir.y - _scrollBar.GetTop();
 }
 
 void TextAera::scrollBall_release(Object* sender, Libwui::Events::CursorEventArgs* args)
@@ -376,18 +377,28 @@ void TextAera::scrollBall_release(Object* sender, Libwui::Events::CursorEventArg
 void TextAera::scrollBall_move(Object* sender, Libwui::Events::CursorEventArgs* args)
 {
 	Device::PadController controller = args->Controller();
+	
 	if(controller.wpad.btns_h == 0)
-	{
 		_scrollBallDrag = false;
-	}
+		
+	if(!_scrollBallDrag)
+		return;
+	
 	if(_scrollBallDrag)
 	{
-		if(controller.wpad.ir.valid && controller.wpad.ir.y >= _scrollBar.GetTop() + 22 && controller.wpad.ir.y <= _scrollBar.GetTop() + _scrollBar.GetHeight() - 22)
-		{
-			_scrollBall.SetPosition(0, (int)controller.wpad.ir.y - _scrollBar.GetTop() - 22);
-			_scrollChanged = true;
-			_scrollBallMoved = true;
-			Invalidate();
-		}
+		int topPosition = controller.wpad.ir.y - _scrollBallDragOffset;
+		int yPosition;
+		
+		if(topPosition + 44 >  _scrollBar.GetTop() +  _scrollBar.GetHeight())
+			yPosition = _scrollBar.GetHeight() - 44;
+		else if(topPosition < _scrollBar.GetTop())
+			yPosition = 0;
+		else
+			yPosition = topPosition - _scrollBar.GetTop();
+		
+		_scrollBall.SetPosition(0, yPosition);
+		_scrollChanged = true;
+		_scrollBallMoved = true;
+		Invalidate();
 	}
 }

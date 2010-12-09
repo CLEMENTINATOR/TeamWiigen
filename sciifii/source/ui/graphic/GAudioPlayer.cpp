@@ -22,7 +22,7 @@ void GAudioPlayer::InitializeComponents()
 
   lblTitle.SetSize(100,22);
   lblTitle.SetPosition(0,0);
-  lblTitle.Text("Press play!");
+
   bPlay.DefaultImage("playbutton_normal.png");
   bPlay.OverImage("playbutton_over.png");
   bPlay.SetSize(24, 24);
@@ -111,5 +111,12 @@ void GAudioPlayer::Stop(Object*sender,CursorEventArgs* args)
 void GAudioPlayer::Previous(Object*sender,CursorEventArgs* args)
 {}
 
+
+void GAudioPlayer::Draw()
+{
+  AudioPlayer& a=AudioPlayer::Instance();
+  lblTitle.Text(Path::GetFileNameWithoutExtension(a.GetCurrent()));
+  Control::Draw();
+}
 void GAudioPlayer::Next(Object*sender,CursorEventArgs* args)
 {}

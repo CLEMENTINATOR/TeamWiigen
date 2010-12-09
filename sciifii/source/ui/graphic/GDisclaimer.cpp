@@ -51,7 +51,7 @@ void GDisclaimer::InitializeComponents()
   _themeDdl.SetPosition(420, 5);
   _themeDdl.SetSize(80, 80);
 
-  player.SetPosition(400,400);
+  player.SetPosition(0,400);
   player.SetTracklistFolder("sd:/mp3/");
 
   AddChildren(&btnExit);

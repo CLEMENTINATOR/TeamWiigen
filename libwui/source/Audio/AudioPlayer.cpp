@@ -26,11 +26,13 @@ void AudioPlayer::Draw()
 	if(_goNext)
 	{
 		_goNext = false;
-		
+		string uniqueTrack = _uniqueTrackTitle;
 		//if repeat we play the same song again
 		if(_repeat == aprm_Repeat || (_currentSong < 0 && _repeat == aprm_RepeatAll))
 		{
 			_player->Stop();
+			//we restore the unique track title
+			_uniqueTrackTitle = uniqueTrack;
 			_player->Play();
 			return;
 		}
@@ -92,6 +94,7 @@ void AudioPlayer::Play(const std::string& fileName)
 {
   Stop();
   _currentSong = -1;
+	_uniqueTrackTitle = fileName;
   _player = &PlayerFactory::GetPlayer(fileName);
   _player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
   _player->Play();
@@ -119,12 +122,14 @@ void AudioPlayer::ClearTrackList()
 {
 	Stop();
 	_trackList.clear();
+	_currentSong = -1;
 }
 
 void AudioPlayer::Stop()
 {
 	if(_player)
 	{
+		_uniqueTrackTitle = "";
 		_player->Stop();
 		_player->PlayEnded -= MakeDelegate(this,&AudioPlayer::EndOfSong);
 		delete _player;
@@ -156,6 +161,16 @@ void AudioPlayer::Reset()
 void AudioPlayer::AddTrack(const string& track)
 {
 	_trackList.push_back(track);
+}
+
+string AudioPlayer::GetCurrent()
+{
+	if(_currentSong == -1)
+		return _uniqueTrackTitle;
+	else if(_random)
+		return _randomList[_currentSong];
+		
+	return _trackList[_currentSong];
 }
 
 string AudioPlayer::GetNext()

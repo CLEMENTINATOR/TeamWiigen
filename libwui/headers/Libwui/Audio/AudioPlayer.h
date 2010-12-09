@@ -23,6 +23,7 @@ namespace Libwui
 		bool _random;
 		
 		std::vector<std::string> _trackList;
+		std::string _uniqueTrackTitle;
 		s32 _currentSong;
 		bool _goNext;
 		ISongPlayer* _player;
@@ -46,6 +47,7 @@ namespace Libwui
 		void Resume();
 		void Reset();
 		void AddTrack(const std::string& track);
+		std::string GetCurrent();
 		std::string GetNext();
 		std::string GetPrevious();
 		void RepeatMode(AudioPlayerRepeatMode mode);

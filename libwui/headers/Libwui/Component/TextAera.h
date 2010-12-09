@@ -13,11 +13,7 @@ namespace Libwui
     class TextAera : public Control
     {
       public:
-        TextAera(const std::string& text, int s = 12, GXColor c = (GXColor)
-                 {
-                   255, 255, 255, 255
-                 }
-                );
+        TextAera(const std::string& text, int s = 12, GXColor c = (GXColor){255, 255, 255, 255});
         virtual ~TextAera();
 
         void InitializeComponents();
@@ -49,8 +45,9 @@ namespace Libwui
         bool _textChanged;
         bool _scrollChanged;
         bool _scrollBallMoved;
-        int _nbSkip;
+        u32 _nbSkip;
         bool _scrollBallDrag;
+				u32 _scrollBallDragOffset;
 
         void btnDown_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args);
         void btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args);

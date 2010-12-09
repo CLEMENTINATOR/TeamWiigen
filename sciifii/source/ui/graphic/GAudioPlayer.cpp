@@ -46,12 +46,13 @@ void GAudioPlayer::InitializeComponents()
   bNext.SetSize(24,24);
   bNext.SetPosition(77,23);
   bNext.Click+=MakeDelegate(this,&GAudioPlayer::Next);
-
+  AudioPlayer& a=AudioPlayer::Instance();
   AddChildren(&bPlay);
   AddChildren(&bStop);
   AddChildren(&bPrevious);
   AddChildren(&bNext);
   AddChildren(&lblTitle);
+  AddChildren(&a);
 
   Control::InitializeComponents();
 

@@ -48,6 +48,7 @@ namespace Libwui
         Libwui::Component::Image _scrollBall;
         bool _textChanged;
         bool _scrollChanged;
+        bool _scrollBallMoved;
         int _nbSkip;
         bool _scrollBallDrag;
 

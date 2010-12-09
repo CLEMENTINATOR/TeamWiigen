@@ -6,6 +6,7 @@
 #include <FastDelegate.h>
 #include <math.h>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 using namespace fastdelegate;
@@ -20,6 +21,7 @@ TextAera::TextAera(const string& text, int s, GXColor c)
     color(c),
     _textChanged(true),
     _scrollChanged(true),
+    _scrollBallMoved(false),
     _nbSkip(0),
     _scrollBallDrag(false)
 {
@@ -28,7 +30,6 @@ TextAera::TextAera(const string& text, int s, GXColor c)
 	_scrollBall.CursorMove += MakeDelegate(this, &TextAera::scrollBall_move);
 	_scrollBall.CursorButtonDown += MakeDelegate(this, &TextAera::scollBall_held);
 	_scrollBall.CursorButtonUp += MakeDelegate(this, &TextAera::scrollBall_release);
-	_scrollBall.CursorLeave += MakeDelegate(this, &TextAera::scrollBall_leave);
 }
 
 TextAera::~TextAera()
@@ -311,6 +312,10 @@ void TextAera::EnsureItems()
 			(*it)->Visible(false);
 		}
 		int nbToDisplay = floor((GetHeight() + 6) / (size + 6));
+		if(_scrollBallMoved)
+		{
+			_nbSkip = floor((_scrollBall.GetTop() - _scrollBar.GetTop()) / ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay)));
+		}
 		int j = 0;
 		for(int i = _nbSkip; i < _nbSkip + nbToDisplay; i++)
 		{
@@ -333,7 +338,10 @@ void TextAera::EnsureItems()
 			_btnUp.Enabled(true);
 			_btnDown.Enabled(true);
 		}
-		_scrollBall.SetPosition(0, floor(_nbSkip * ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay))));
+		if(!_scrollBallMoved)
+			_scrollBall.SetPosition(0, floor(_nbSkip * ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay))));
+		_scrollChanged = false;
+		_scrollBallMoved = false;
 	}
 }
 
@@ -365,17 +373,21 @@ void TextAera::scrollBall_release(Object* sender, Libwui::Events::CursorEventArg
 	_scrollBallDrag = false;
 }
 
-void TextAera::scrollBall_leave(Object* sender, Libwiisys::EventArgs* args)
-{
-	_scrollBallDrag = false;
-}
-
 void TextAera::scrollBall_move(Object* sender, Libwui::Events::CursorEventArgs* args)
 {
-	if(true)//_scrollBallDrag)
+	Device::PadController controller = args->Controller();
+	if(controller.wpad.btns_h == 0)
 	{
-		Device::PadController* controller = (Device::PadController*)sender;
-		if(controller->wpad.ir.valid)
-			_scrollBall.SetPosition(0, (int)controller->wpad.ir.y);// - _scrollBar.GetTop());
+		_scrollBallDrag = false;
+	}
+	if(_scrollBallDrag)
+	{
+		if(controller.wpad.ir.valid && controller.wpad.ir.y >= _scrollBar.GetTop() + 22 && controller.wpad.ir.y <= _scrollBar.GetTop() + _scrollBar.GetHeight() - 22)
+		{
+			_scrollBall.SetPosition(0, (int)controller.wpad.ir.y - _scrollBar.GetTop() - 22);
+			_scrollChanged = true;
+			_scrollBallMoved = true;
+			Invalidate();
+		}
 	}
 }

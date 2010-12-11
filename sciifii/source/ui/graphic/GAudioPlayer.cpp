@@ -92,4 +92,7 @@ void GAudioPlayer::Draw()
   Control::Draw();
 }
 void GAudioPlayer::Next(Object*sender,CursorEventArgs* args)
-{}
+{
+	AudioPlayer& a=AudioPlayer::Instance();
+	a.Next();
+}

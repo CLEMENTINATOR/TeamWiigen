@@ -219,6 +219,11 @@ bool AudioPlayer::IsRandom()
   return _random;
 }
 
+void AudioPlayer::Next()
+{
+  _goNext=true;
+}
+
 void AudioPlayer::CreateRandomList()
 {
   _randomList.clear();

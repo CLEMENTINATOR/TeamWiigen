@@ -44,6 +44,7 @@ namespace Libwui
 		void ClearTrackList();
 		void Stop();
 		void Reset();
+		void Next();
 		void AddTrack(const std::string& track);
 		std::string GetCurrent();
 		std::string GetNext();

@@ -48,8 +48,6 @@ namespace Libwui
 			MP3SongPlayer(Libwiisys::Buffer& buffer);
 			void Play();
 			void Stop();
-			void Pause();
-			void Resume();
 			void DataTransferCallback();
 			
 			static MP3SongPlayer*& Current();

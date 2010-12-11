@@ -18,8 +18,6 @@ namespace Libwui
 		public:
 			virtual void Play() = 0;
 			virtual void Stop() = 0;
-			virtual void Pause() = 0;
-			virtual void Resume() = 0;
 			void SetVolume(u32 volume);
 			
 			static void* Play(void* iSongPlayer);

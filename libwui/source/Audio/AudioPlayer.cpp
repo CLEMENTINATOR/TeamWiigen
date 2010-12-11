@@ -141,18 +141,6 @@ void AudioPlayer::Stop()
   }
 }
 
-void AudioPlayer::Pause()
-{
-  if(_player)
-    _player->Pause();
-}
-
-void AudioPlayer::Resume()
-{
-  if(_player)
-    _player->Resume();
-}
-
 void AudioPlayer::Reset()
 {
   Stop();

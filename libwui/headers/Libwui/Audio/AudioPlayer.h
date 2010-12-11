@@ -43,8 +43,6 @@ namespace Libwui
 		void PlayTrackList();
 		void ClearTrackList();
 		void Stop();
-		void Pause();
-		void Resume();
 		void Reset();
 		void AddTrack(const std::string& track);
 		std::string GetCurrent();

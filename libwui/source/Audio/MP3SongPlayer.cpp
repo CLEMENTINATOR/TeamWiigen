@@ -69,18 +69,6 @@ void MP3SongPlayer::Stop()
   }
 }
 
-void MP3SongPlayer::Pause()
-{
-	if(LWP_SuspendThread(_thread) < 0)
-    throw Exception("Cannot suspend the mp3 player.");
-}
-
-void MP3SongPlayer::Resume()
-{
-  if(LWP_ResumeThread(_thread) < 0)
-    throw Exception("Canno't resume the mp3 player");
-}
-
 void MP3SongPlayer::AsyncPlayer()
 {
 	bool lastFrame = false;
@@ -147,19 +135,22 @@ bool MP3SongPlayer::FeedData(bool& lastFrame)
 		}
 
 		//get the new data
-		try
+		if(_nbLus >= _data.Length())
 		{
-			_currentFrame.Append((u8*)_data.Content() + _nbLus, toRead);
-			_nbLus += toRead;
-		}
-		catch(...)
-		//if an error occured during the acquisition
-		{
-			GuardPtr = (u8*)_currentFrame.Content() + _currentFrame.Length();
+			u32 gpointerOffset = _currentFrame.Length();
 			Buffer fill((u8)0, MAD_BUFFER_GUARD);
 			_currentFrame.Append(fill);
+			GuardPtr = (u8*)_currentFrame.Content() + gpointerOffset;
 			toRead = MAD_BUFFER_GUARD;
 			lastFrame = true;
+		}
+		else
+		{
+			u32 realRead = toRead;
+			if(_nbLus + toRead > _data.Length())
+				realRead = _data.Length() - _nbLus;
+			_currentFrame.Append((u8*)_data.Content() + _nbLus, realRead);
+			_nbLus += realRead;
 		}
 
 		mad_stream_buffer(&Stream, (const u8*)_currentFrame.Content(),_currentFrame.Length());

@@ -69,14 +69,14 @@ void GAudioPlayer::Play(Object*sender,CursorEventArgs* args)
   {
     a.Stop();
     _playing=false;
-    bPlay.DefaultImage("stopbutton_normal.png");
-    bPlay.OverImage("stopbutton_over.png");
+    bPlay.DefaultImage("playbutton_normal.png");
+    bPlay.OverImage("playbutton_over.png");
   }
   else
   {
     a.PlayTrackList();
-    bPlay.DefaultImage("pausebutton_normal.png");
-    bPlay.OverImage("pausebutton_over.png");
+    bPlay.DefaultImage("stopbutton_normal.png");
+    bPlay.OverImage("stopbutton_over.png");
     _playing=true;
   }
 }

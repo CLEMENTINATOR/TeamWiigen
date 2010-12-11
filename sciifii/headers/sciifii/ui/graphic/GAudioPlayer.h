@@ -15,13 +15,11 @@ class GAudioPlayer : public Libwui::Control
   private:
     bool _playing;
     Libwui::Component::Button bPlay;
-    Libwui::Component::Button bStop;
     Libwui::Component::Button bPrevious;
     Libwui::Component::Button bNext;
     Libwui::Component::Label lblTitle;
     void Play(Object*sender,Libwui::Events::CursorEventArgs* args);
     void Previous(Object*sender,Libwui::Events::CursorEventArgs* args);
     void Next(Object*sender,Libwui::Events::CursorEventArgs* args);
-    void Stop(Object*sender,Libwui::Events::CursorEventArgs* args);
     void Draw();
 };

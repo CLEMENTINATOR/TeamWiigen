@@ -11,10 +11,11 @@ using namespace Libwiisys;
 
 AudioPlayer::AudioPlayer()
     : _repeat(aprm_None),
-			_random(false),
-			_currentSong(0),
-			_goNext(false),
-			_player(NULL)
+    _random(false),
+    _currentSong(0),
+    _goNext(false),
+    _goPrevious(false),
+    _player(NULL)
 {}
 
 void AudioPlayer::EndOfSong(Object* sender, EventArgs* args)
@@ -28,32 +29,49 @@ void AudioPlayer::Draw()
   if(_goNext)
   {
     _goNext = false;
-		u32 actualSong = _currentSong;
-		Stop();
-		vector<string>* actualList = _random ? &_randomList : &_trackList;
-		
-		//if repeatAll and we are at the end of the playlist
-		if(_repeat == aprm_RepeatAll && (actualSong + 1) == actualList->size())
-		{
-			_randomList.clear();
-			Play();
-			return;
-		}
-		
-		//if repeat one
-		if(_repeat == aprm_Repeat)
-		{
-			_currentSong = actualSong;
-			Play();
-			return;
-		}
-		
-		if((actualSong + 1) == actualList->size())
-			return;
-			
-		_currentSong = actualSong + 1;
-		Play();
-		
+    u32 actualSong = _currentSong;
+    Stop();
+    vector<string>* actualList = _random ? &_randomList : &_trackList;
+
+    //if repeatAll and we are at the end of the playlist
+    if(_repeat == aprm_RepeatAll && (actualSong + 1) == actualList->size())
+    {
+      _randomList.clear();
+      Play();
+      return;
+    }
+
+    //if repeat one
+    if(_repeat == aprm_Repeat)
+    {
+      _currentSong = actualSong;
+      Play();
+      return;
+    }
+
+    if((actualSong + 1) == actualList->size())
+      return;
+
+    _currentSong = actualSong + 1;
+    Play();
+
+  }
+
+  if(_goPrevious)
+  {
+    _goPrevious = false;
+    u32 actualSong = _currentSong;
+    Stop();
+    vector<string>* actualList = _random ? &_randomList : &_trackList;
+    if(actualSong==0)
+    {
+      _currentSong=actualList->size()-1;
+    }
+    else
+    {
+      _currentSong=actualSong-1;
+    }
+    Play();
   }
 }
 
@@ -65,71 +83,86 @@ AudioPlayer& AudioPlayer::Instance()
 
 void AudioPlayer::Play(const std::string& fileName)
 {
-	Stop();
-	_trackList.clear();
-	_randomList.clear();
-	
-	_trackList.push_back(fileName);
-	Play();
+  Stop();
+  _trackList.clear();
+  _randomList.clear();
+
+  _trackList.push_back(fileName);
+  Play();
 }
 
 void AudioPlayer::PlayTrackList()
 {
-	Stop();
-	Play();
+  Stop();
+  Play();
 }
 
 void AudioPlayer::Stop()
 {
-	if(_player)
+  if(_player)
   {
     _player->Stop();
     _player->PlayEnded -= MakeDelegate(this,&AudioPlayer::EndOfSong);
     delete _player;
     _player = NULL;
   }
-	
-	_currentSong = 0;
+
+  _currentSong = 0;
 }
 
 void AudioPlayer::AddTrack(const string& track)
 {
-	_trackList.push_back(track);
+  _trackList.push_back(track);
 }
 
 string AudioPlayer::GetCurrent()
 {
-	if(_player)
-		return _trackList[_currentSong];
-	else
-		return "";
+  if(_player)
+    return _trackList[_currentSong];
+  else
+    return "";
+}
+
+void AudioPlayer::Pause()
+{
+  if(_player)
+  {
+    _player->Pause();
+  }
+}
+void AudioPlayer::Resume()
+{
+  if(_player)
+  {
+    _player->Resume();
+  }
 }
 
 string AudioPlayer::GetNext()
 {
-	if(_random)
-	{
-		if((u32)(_currentSong + 1) < _randomList.size())
-			return _randomList[_currentSong + 1];
-	}
-	else
-	{
-		if((u32)(_currentSong + 1) < _trackList.size())
-			return _trackList[_currentSong + 1];
-	}
-	
-	return "";
+  if(_random)
+  {
+    if((u32)(_currentSong + 1) < _randomList.size())
+      return _randomList[_currentSong + 1];
+  }
+  else
+  {
+    if((u32)(_currentSong + 1) < _trackList.size())
+      return _trackList[_currentSong + 1];
+  }
+
+  return "";
 }
 
 string AudioPlayer::GetPrevious()
 {
-	if(_currentSong == 0)
-		return "";
-		
-	if(_random)
-		return _randomList[_currentSong - 1];
-	else
-		return _trackList[_currentSong - 1];
+  if(_currentSong == 0)
+    return "";
+
+  if(_random)
+    return _randomList[_currentSong - 1];
+  else
+    return _trackList[_currentSong - 1];
 }
 
 void AudioPlayer::RepeatMode(AudioPlayerRepeatMode mode)
@@ -157,6 +190,10 @@ void AudioPlayer::Next()
   _goNext=true;
 }
 
+void AudioPlayer::Previous()
+{
+  _goPrevious=true;
+}
 void AudioPlayer::CreateRandomList()
 {
   _randomList.clear();
@@ -190,21 +227,21 @@ void AudioPlayer::CreateRandomList()
 
 void AudioPlayer::ClearTrackList()
 {
-	Stop();
-	_trackList.clear();
-	_randomList.clear();
+  Stop();
+  _trackList.clear();
+  _randomList.clear();
 }
 
 void AudioPlayer::Play()
 {
-	if(_randomList.size() == 0)
-		CreateRandomList();
-		
-	if(_random)
-		_player = &PlayerFactory::GetPlayer(_randomList[_currentSong]);
-	else
-		_player = &PlayerFactory::GetPlayer(_trackList[_currentSong]);
-		
-	_player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
-	_player->Play();
+  if(_randomList.size() == 0)
+    CreateRandomList();
+
+  if(_random)
+    _player = &PlayerFactory::GetPlayer(_randomList[_currentSong]);
+  else
+    _player = &PlayerFactory::GetPlayer(_trackList[_currentSong]);
+
+  _player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
+  _player->Play();
 }

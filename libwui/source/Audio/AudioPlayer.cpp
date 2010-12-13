@@ -10,10 +10,11 @@ using namespace Libwui::Audio;
 using namespace Libwiisys;
 
 AudioPlayer::AudioPlayer()
-    : _random(false),
-    _currentSong(-1),
-    _goNext(false),
-    _player(NULL)
+    : _repeat(aprm_None),
+			_random(false),
+			_currentSong(0),
+			_goNext(false),
+			_player(NULL)
 {}
 
 void AudioPlayer::EndOfSong(Object* sender, EventArgs* args)
@@ -27,61 +28,32 @@ void AudioPlayer::Draw()
   if(_goNext)
   {
     _goNext = false;
-    string uniqueTrack = _uniqueTrackTitle;
-    //if repeat we play the same song again
-    if(_repeat == aprm_Repeat || (_currentSong < 0 && _repeat == aprm_RepeatAll))
-    {
-      _player->Stop();
-      //we restore the unique track title
-      _uniqueTrackTitle = uniqueTrack;
-      _player->Play();
-      return;
-    }
-
-    Stop();
-
-    //if this was a single song, we just stop
-    if(_currentSong < 0)
-      return;
-
-    //if not repeat all, we left at the end of the playlist
-    if(_repeat != aprm_RepeatAll)
-    {
-      if(!_random && _currentSong + 1 >= (s32)_trackList.size())
-      {
-        _currentSong = -1;
-        return;
-      }
-
-      if(_random && _currentSong + 1 >= (s32)_randomList.size())
-      {
-        _currentSong = -1;
-        return;
-      }
-
-      _currentSong++;
-    }
-    //if repeat all and we are at the end of the tracklist
-    else
-    {
-      if(!_random && _currentSong + 1 >= (s32)_trackList.size())
-        _currentSong = 0;
-      else if(_random && _currentSong + 1 >= (s32)_randomList.size())
-      {
-        _currentSong = 0;
-        CreateRandomList();
-      }
-      else
-        _currentSong++;
-    }
-
-    if(!_random)
-      _player = &PlayerFactory::GetPlayer(_trackList[_currentSong]);
-    else
-      _player = &PlayerFactory::GetPlayer(_randomList[_currentSong]);
-
-    _player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
-    _player->Play();
+		u32 actualSong = _currentSong;
+		Stop();
+		vector<string>* actualList = _random ? &_randomList : &_trackList;
+		
+		//if repeatAll and we are at the end of the playlist
+		if(_repeat == aprm_RepeatAll && (actualSong + 1) == actualList->size())
+		{
+			_randomList.clear();
+			Play();
+			return;
+		}
+		
+		//if repeat one
+		if(_repeat == aprm_Repeat)
+		{
+			_currentSong = actualSong;
+			Play();
+			return;
+		}
+		
+		if((actualSong + 1) == actualList->size())
+			return;
+			
+		_currentSong = actualSong + 1;
+		Play();
+		
   }
 }
 
@@ -93,110 +65,71 @@ AudioPlayer& AudioPlayer::Instance()
 
 void AudioPlayer::Play(const std::string& fileName)
 {
-  Stop();
-  _currentSong = -1;
-  _uniqueTrackTitle = fileName;
-  _player = &PlayerFactory::GetPlayer(fileName);
-  _player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
-  _player->Play();
+	Stop();
+	_trackList.clear();
+	_randomList.clear();
+	
+	_trackList.push_back(fileName);
+	Play();
 }
 
 void AudioPlayer::PlayTrackList()
 {
-  Stop();
-  if(_trackList.size() == 0)
-    return;
-
-  _currentSong = 0;
-
-  if(_random)
-  {
-    CreateRandomList();
-    _player = &PlayerFactory::GetPlayer(_randomList[_currentSong]);
-  }
-  else
-  {
-    _player = &PlayerFactory::GetPlayer(_trackList[_currentSong]);
-  }
-  _player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
-  _player->Play();
-}
-
-void AudioPlayer::ClearTrackList()
-{
-  Stop();
-  _trackList.clear();
-  _currentSong = -1;
+	Stop();
+	Play();
 }
 
 void AudioPlayer::Stop()
 {
-  if(_player)
+	if(_player)
   {
-    _uniqueTrackTitle = "";
     _player->Stop();
     _player->PlayEnded -= MakeDelegate(this,&AudioPlayer::EndOfSong);
     delete _player;
     _player = NULL;
   }
-}
-
-void AudioPlayer::Reset()
-{
-  Stop();
-  ClearTrackList();
-  _repeat = aprm_None;
-  _random = false;
-  _currentSong = 0;
+	
+	_currentSong = 0;
 }
 
 void AudioPlayer::AddTrack(const string& track)
 {
-  _trackList.push_back(track);
+	_trackList.push_back(track);
 }
 
 string AudioPlayer::GetCurrent()
 {
-  if(_currentSong == -1)
-    return _uniqueTrackTitle;
-  else if(_random)
-    return _randomList[_currentSong];
-
-  return _trackList[_currentSong];
+	if(_player)
+		return _trackList[_currentSong];
+	else
+		return "";
 }
 
 string AudioPlayer::GetNext()
 {
-  if(_currentSong == 0)
-    return "";
-
-  if(_random)
-  {
-    if((s32)_randomList.size() >= _currentSong + 1)
-      return "";
-    else
-      return _randomList[_currentSong + 1];
-  }
-  else
-  {
-    if((s32)_trackList.size() >= _currentSong + 1)
-      return "";
-    else
-      return _trackList[_currentSong + 1];
-  }
+	if(_random)
+	{
+		if((u32)(_currentSong + 1) < _randomList.size())
+			return _randomList[_currentSong + 1];
+	}
+	else
+	{
+		if((u32)(_currentSong + 1) < _trackList.size())
+			return _trackList[_currentSong + 1];
+	}
+	
+	return "";
 }
 
 string AudioPlayer::GetPrevious()
 {
-  if(_currentSong == 0)
-    return "";
-
-  if(_random && (s32)_randomList.size() >= _currentSong)
-    return _randomList[_currentSong - 1];
-  else if(!_random && (s32)_trackList.size() >= _currentSong)
-    return _trackList[_currentSong - 1];
-
-  return "";
+	if(_currentSong == 0)
+		return "";
+		
+	if(_random)
+		return _randomList[_currentSong - 1];
+	else
+		return _trackList[_currentSong - 1];
 }
 
 void AudioPlayer::RepeatMode(AudioPlayerRepeatMode mode)
@@ -253,4 +186,25 @@ void AudioPlayer::CreateRandomList()
       }
     }
   }
+}
+
+void AudioPlayer::ClearTrackList()
+{
+	Stop();
+	_trackList.clear();
+	_randomList.clear();
+}
+
+void AudioPlayer::Play()
+{
+	if(_randomList.size() == 0)
+		CreateRandomList();
+		
+	if(_random)
+		_player = &PlayerFactory::GetPlayer(_randomList[_currentSong]);
+	else
+		_player = &PlayerFactory::GetPlayer(_trackList[_currentSong]);
+		
+	_player->PlayEnded += MakeDelegate(this,&AudioPlayer::EndOfSong);
+	_player->Play();
 }

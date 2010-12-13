@@ -56,23 +56,6 @@ MP3SongPlayer::MP3SongPlayer(Libwiisys::Buffer& buffer)
 void MP3SongPlayer::Play()
 {
 	_needToStop = false;
-	if(LWP_CreateThread(&_thread, ISongPlayer::Play, this, _stack, MP3_PLAYER_STACKSIZE, 80)<0)
-		throw Exception("Cannot start the player thread.");
-}
-
-void MP3SongPlayer::Stop()
-{
-  if(!_needToStop)
-  {
-    _needToStop = true;
-    LWP_JoinThread(_thread,NULL);
-  }
-}
-
-void MP3SongPlayer::AsyncPlayer()
-{
-	bool lastFrame = false;
-	mad_timer_t Timer;
 	
 	memset(_outputBuffers[0],0,ADMA_BUFFERSIZE);
 	memset(_outputBuffers[1],0,ADMA_BUFFERSIZE);
@@ -82,6 +65,38 @@ void MP3SongPlayer::AsyncPlayer()
 	mad_stream_init(&Stream);
 	mad_frame_init(&Frame);
 	mad_synth_init(&Synth);
+	
+	if(LWP_CreateThread(&_thread, ISongPlayer::Play, this, _stack, MP3_PLAYER_STACKSIZE, 80)<0)
+		throw Exception("Cannot start the player thread.");
+}
+
+void MP3SongPlayer::Stop()
+{
+  Pause();
+	_nbLus = 0;
+}
+
+void MP3SongPlayer::Pause()
+{
+  if(!_needToStop)
+  {
+    _needToStop = true;
+    LWP_JoinThread(_thread,NULL);
+  }
+}
+
+void MP3SongPlayer::Resume()
+{
+	_needToStop = false;
+	if(LWP_CreateThread(&_thread, ISongPlayer::Play, this, _stack, MP3_PLAYER_STACKSIZE, 80)<0)
+		throw Exception("Cannot start the player thread.");
+}
+
+void MP3SongPlayer::AsyncPlayer()
+{
+	bool lastFrame = false;
+	mad_timer_t Timer;
+	
 	mad_timer_reset(&Timer);
 	
 	while(!lastFrame && !_needToStop)

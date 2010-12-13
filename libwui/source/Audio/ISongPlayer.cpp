@@ -20,6 +20,12 @@ void* ISongPlayer::Play(void* iSongPlayer)
 void ISongPlayer::Stop()
 {}
 
+void ISongPlayer::Pause()
+{}
+
+void ISongPlayer::Resume()
+{}
+
 void ISongPlayer::SetVolume(u32 volume)
 {
 	if(volume>255) volume = 255;

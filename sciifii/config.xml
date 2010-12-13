@@ -157,13 +157,13 @@
 
     <CiosInstaller option="cIOS251" source="57" revision="5918" slot="251" ciosRevision="20" delete="true">
       <modules>
-        <module file="mload_module_20.dat" />
-        <module file="ehci_module_20.dat" position="3" />
+				<module file="ehci_module_20.dat" position="3" />
         <module file="fat_module_20.dat" />
         <module file="sdhc_module_20.dat" />
         <module file="dip_plugin_20.dat" />
         <module file="es_plugin_20.dat" />
         <module file="ffs_plugin_20.dat" />
+        <module file="mload_module_20.dat" />
       </modules>
 
       <patches>

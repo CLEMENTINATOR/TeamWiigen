@@ -56,7 +56,7 @@
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
-      <modeMenuItem text="Unhack your wii" switches="cIOS249|update|uninstall|deleteChannel" />
+      <modeMenuItem text="Unhack your wii" switches="cIOS249|update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
       <separatorMenuItem char=" " />
@@ -331,16 +331,6 @@
       <Title id="000100084843434A" revision="2" action="update" regions="0" />
     </CompositeInstaller>
 
-    <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
-      <Title id="00000001000000FE" revision="65280" action="install" />
-      <Title id="00000001000000DE" revision="65280" action="install" />
-      <Title id="00000001000000DF" revision="65280" action="install" />
-      <Title id="00000001000000FA" revision="65280" action="install" />
-      <Title id="00000001000000FB" action="uninstall" />
-      <IOSReloader id="36" />
-      <Title id="00000001000000F9" revision="65280" action="install" />
-    </CompositeInstaller>
-
     <CompositeInstaller option="deleteChannel" name="Channel deletion">
       <Title id="000100014E47534E" action="uninstall" />
       <Title id="00010001554E454F" action="uninstall" />
@@ -354,6 +344,16 @@
       <FileSystem target="sd:/apps/wiiflow" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/usbloader_gx" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/neogamma" action="delete" type="folder" recursive="true" />
+    </CompositeInstaller>
+
+    <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
+      <Title id="00000001000000FE" revision="65280" action="install" />
+      <Title id="00000001000000DE" revision="65280" action="install" />
+      <Title id="00000001000000DF" revision="65280" action="install" />
+      <Title id="00000001000000FA" revision="65280" action="install" />
+      <Title id="00000001000000FB" action="uninstall" />
+      <IOSReloader id="36" />
+      <Title id="00000001000000F9" revision="65280" action="install" />
     </CompositeInstaller>
 
 

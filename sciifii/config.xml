@@ -172,7 +172,7 @@
       </patches>
     </CiosInstaller>
 
-    <IOSReloader option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader" id="249"  />
+    <IOSReloader option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader|deleteChannel" id="249"  />
 
     <CompositeInstaller option="update" name="Update Ioses">
 

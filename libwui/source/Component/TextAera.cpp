@@ -267,7 +267,6 @@ void TextAera::EnsureItems()
 				delete *ite;
 			}
 			_textItems.clear();
-			_textItems.push_back(new Label("coucou", size, color));
 			for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
 			{
 				if(GetWidth() < resource->Font(size)->getWidth(*lineIt))

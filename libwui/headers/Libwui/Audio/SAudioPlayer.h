@@ -1,5 +1,5 @@
-#ifndef _AUDIO_PLAYER_H_
-#define _AUDIO_PLAYER_H_
+#ifndef _SAUDIO_PLAYER_H_
+#define _SAUDIO_PLAYER_H_
 
 #include "../Control.hpp"
 #include "ISongPlayer.h"
@@ -16,7 +16,7 @@ namespace Libwui
       aprm_RepeatAll,
     } AudioPlayerRepeatMode;
 
-    class AudioPlayer : public Control
+    class SAudioPlayer : public Control
     {
       private:
         std::vector<std::string> _trackList;
@@ -26,20 +26,15 @@ namespace Libwui
         bool _singleMode;
         bool _random;
         s32 _currentSong;
-        bool _goNext;
-        bool _goPrevious;
         ISongPlayer* _player;
 
-        AudioPlayer();
+        SAudioPlayer();
         void EndOfSong(Libwiisys::Object* sender, Libwiisys::EventArgs*);
         void CreateRandomList();
         void Play();
 
-      protected:
-        void Draw();
-
       public:
-        static AudioPlayer& Instance();
+        static SAudioPlayer& Instance();
         void Play(const std::string& fileName);
         void PlayTrackList();
         void ClearTrackList();
@@ -56,6 +51,8 @@ namespace Libwui
         AudioPlayerRepeatMode GetRepeatMode();
         void IsRandom(bool random);
         bool IsRandom();
+				
+				void ProcessMessage(Message& message);
     };
   }
 }

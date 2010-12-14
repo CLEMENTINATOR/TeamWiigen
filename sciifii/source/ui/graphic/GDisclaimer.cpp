@@ -1,6 +1,5 @@
 #include <sciifii/ui/graphic/GDisclaimer.h>
 #include <sciifii/business/common/ExitSciifiiException.h>
-#include <Libwui/Audio/AudioPlayer.h>
 
 using namespace Libwiisys;
 using namespace Libwui::Component;

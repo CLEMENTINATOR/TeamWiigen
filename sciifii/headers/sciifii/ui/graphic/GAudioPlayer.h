@@ -1,8 +1,7 @@
-
-#include <Libwui/Audio/AudioPlayer.h>
 #include <Libwui/Control.hpp>
 #include <Libwui/Component/Button.hpp>
 #include <Libwui/Component/Label.hpp>
+#include <Libwui/Component/AudioPlayer.h>
 
 class GAudioPlayer : public Libwui::Control
 {
@@ -14,6 +13,7 @@ class GAudioPlayer : public Libwui::Control
 
   private:
     bool _playing;
+		Libwui::Component::AudioPlayer player;
     Libwui::Component::Button bPlay;
     Libwui::Component::Button bResume;
     Libwui::Component::Button bPause;

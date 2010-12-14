@@ -3,8 +3,6 @@
 #include <Libwiisys/IO/File.h>
 #include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Path.h>
-#include <Libwui/Audio/AudioPlayer.h>
-
 
 using namespace Libwui::Resources;
 using namespace Libwui::Events;
@@ -13,11 +11,11 @@ using namespace Libwui::Audio;
 using namespace fastdelegate;
 
 GAudioPlayer::GAudioPlayer():
-    _playing(false),lblTitle(" ", 12, Colors::Black())
+    _playing(false), lblTitle(" ", 12, Colors::Black())
 {}
+
 void GAudioPlayer::InitializeComponents()
 {
-
   lblTitle.SetSize(100,22);
   lblTitle.SetPosition(0,0);
 
@@ -68,7 +66,7 @@ void GAudioPlayer::InitializeComponents()
   AddChildren(&bNext);
   AddChildren(&bResume);
   AddChildren(&lblTitle);
-  AddChildren(&AudioPlayer::Instance());
+  AddChildren(&player);
 
   Control::InitializeComponents();
 
@@ -77,11 +75,10 @@ void GAudioPlayer::InitializeComponents()
 
 void GAudioPlayer::SetTracklistFolder(const std::string& folder)
 {
-  AudioPlayer& a=AudioPlayer::Instance();
-  a.ClearTrackList();
+  player.ClearTrackList();
   std::vector<std::string> list=Directory::GetFiles(folder);
   for(u32 i =0;i<list.size();i++)
-    a.AddTrack(list[i]);
+    player.AddTrack(list[i]);
 }
 
 
@@ -89,8 +86,7 @@ void GAudioPlayer::Play(Object*sender,CursorEventArgs* args)
 {
   if(!_playing)
   {
-    AudioPlayer& a=AudioPlayer::Instance();
-    a.PlayTrackList();
+    player.PlayTrackList();
     bPlay.Enabled(false);
     bPause.Enabled(true);
     bPlay.Visible(false);
@@ -102,33 +98,25 @@ void GAudioPlayer::Play(Object*sender,CursorEventArgs* args)
 void GAudioPlayer::Previous(Object*sender,CursorEventArgs* args)
 {
   if(_playing)
-  {
-    AudioPlayer& a=AudioPlayer::Instance();
-    a.Previous();
-  }
+    player.Previous();
 }
 
 
 void GAudioPlayer::Draw()
 {
-  AudioPlayer& a=AudioPlayer::Instance();
-  lblTitle.Text(Path::GetFileNameWithoutExtension(a.GetCurrent()));
+  lblTitle.Text(Path::GetFileNameWithoutExtension(player.GetCurrent()));
   Control::Draw();
 }
+
 void GAudioPlayer::Next(Object*sender,CursorEventArgs* args)
 {
   if(_playing)
-  {
-    AudioPlayer& a=AudioPlayer::Instance();
-    a.Next();
-  }
-
+    player.Next();
 }
 
 void GAudioPlayer::Pause(Object*sender,Libwui::Events::CursorEventArgs* args)
 {
-  AudioPlayer& a=AudioPlayer::Instance();
-  a.Pause();
+  player.Pause();
   bResume.Enabled(true);
   bPause.Enabled(false);
   bResume.Visible(true);
@@ -141,8 +129,7 @@ void GAudioPlayer::Stop(Object*sender,Libwui::Events::CursorEventArgs* args)
 {
   if(_playing)
   {
-    AudioPlayer& a=AudioPlayer::Instance();
-    a.Stop();
+    player.Stop();
     bPlay.Enabled(true);
     bPlay.Visible(true);
     bResume.Enabled(false);
@@ -154,8 +141,7 @@ void GAudioPlayer::Stop(Object*sender,Libwui::Events::CursorEventArgs* args)
 }
 void GAudioPlayer::Resume(Object*sender,Libwui::Events::CursorEventArgs* args)
 {
-  AudioPlayer& a=AudioPlayer::Instance();
-  a.Resume();
+  player.Resume();
   bPause.Enabled(true);
   bResume.Enabled(false);
   bPause.Visible(true);

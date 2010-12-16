@@ -6,30 +6,24 @@
 #include <FastDelegate.h>
 #include <math.h>
 #include <sstream>
-#include <iostream>
+#include <Libwui/Resources/ImageResource.hpp>
+#include <Libwui/Resources/ImageResourceManager.hpp>
 
 using namespace std;
 using namespace fastdelegate;
 using namespace Libwui;
 using namespace Libwui::Component;
 using namespace Libwui::Resources;
+using namespace Libwui::Events;
 using namespace Libwiisys::String;
 
 TextAera::TextAera(const string& text, int s, GXColor c)
     : txt(text),
     size(s),
     color(c),
-    _textChanged(true),
-    _scrollChanged(true),
-    _scrollBallMoved(false),
-    _nbSkip(0),
-    _scrollBallDrag(false)
+    _nbToDisplay(0)
 {
-	_btnUp.Click += MakeDelegate(this, &TextAera::btnUp_Clicked);
-	_btnDown.Click += MakeDelegate(this, &TextAera::btnDown_Clicked);
-	_scrollBall.CursorMove += MakeDelegate(this, &TextAera::scrollBall_move);
-	_scrollBall.CursorButtonDown += MakeDelegate(this, &TextAera::scollBall_held);
-	_scrollBall.CursorButtonUp += MakeDelegate(this, &TextAera::scrollBall_release);
+	_trackBar.ValueChanged += MakeDelegate(this, &TextAera::ScrollChanged);
 }
 
 TextAera::~TextAera()
@@ -39,41 +33,11 @@ TextAera::~TextAera()
 
 void TextAera::InitializeComponents()
 {
-	_btnUp.SetSize(44, 44);
-	_btnUp.SetPosition(GetWidth() - 33, -10);
-	//_btnUp.HorizontalAlignement(HAlign_Right);
-	//_btnUp.VerticalAlignement(VAlign_Top);
-	_btnUp.Visible(false);
-	_btnUp.Enabled(false);
-	_btnUp.DefaultImage("arrow_up.png");
-	_btnUp.OverImage("arrow_up_over.png");
-	_btnUp.ClickedImage("arrow_up.png");
-	AddChildren(&_btnUp);
-
-	_btnDown.SetSize(44, 44);
-	_btnDown.SetPosition(GetWidth() - 33, GetHeight() - 34);
-	//_btnUp.HorizontalAlignement(HAlign_Right);
-	//_btnUp.VerticalAlignement(VAlign_Bottom);
-	_btnDown.Visible(false);
-	_btnDown.Enabled(false);
-	_btnDown.DefaultImage("arrow_Down.png");
-	_btnDown.OverImage("arrow_Down_over.png");
-	_btnDown.ClickedImage("arrow_Down.png");
-	AddChildren(&_btnDown);
-
-	_scrollBar.SetSize(44, GetHeight() - 10);
-	_scrollBar.SetPosition(GetWidth() - 33, 5);
-	_scrollBar.FillMode(ResizeMode_Fill);
-	_scrollBar.VerticalAlignement(VAlign_Top);
-	_scrollBar.Visible(false);
-	_scrollBar.ImageLocation("scrollbar.png");
-	AddChildren(&_scrollBar);
-
-	_scrollBall.SetSize(44, 44);
-	_scrollBall.SetPosition(0, 0);
-	_scrollBall.Visible(false);
-	_scrollBall.ImageLocation("scrollball.png");
-	_scrollBar.AddChildren(&_scrollBall);
+	ImageResource* resourceBar = ImageResourceManager::Get(_trackBar.ScrollBarImage());
+	_trackBar.SetSize(resourceBar->Width(), GetHeight());
+	_trackBar.SetPosition(GetWidth() - resourceBar->Width(), 0);
+	_trackBar.SetMinValue(0);
+	AddChildren(&_trackBar);
 
 	Control::InitializeComponents();
 }
@@ -100,7 +64,6 @@ void TextAera::Text(const string& text)
   }
 
   txt = text;
-  _textChanged = true;
   Invalidate();
 }
 
@@ -114,11 +77,7 @@ void TextAera::SetFont(const std::string& font)
   }
 
   _font = font;
-  _textChanged = true;
   Invalidate();
-  /*if(!_invalidated)
-    for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
-      (*ite)->SetFont(font);*/
 }
 
 void TextAera::FontSize(int size)
@@ -137,11 +96,7 @@ void TextAera::FontSize(int size)
   else
     this->size = size;
 
-  _textChanged = true;
   Invalidate();
-  /*if(!_invalidated)
-    for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
-      (*ite)->FontSize(size);*/
 }
 
 void TextAera::ForeColor(GXColor color)
@@ -200,28 +155,66 @@ void TextAera::SetSize(int w, int h)
 {
   Invalidate();
   Control::SetSize(w, h);
-  _textChanged = true;
 }
 
 void TextAera::EnsureItems()
 {
-	if(_textChanged)
+	_trackBar.Visible(true);
+	FontResource* resource = FontResourceManager::Get(_font);
+	if(!resource->IsInitialized(size))
 	{
-		_scrollChanged = true;
-		_btnUp.Visible(true);
-		_btnDown.Visible(true);
-		_scrollBar.Visible(true);
-		_scrollBall.Visible(true);
-		FontResource* resource = FontResourceManager::Get(_font);
-		if(!resource->IsInitialized(size))
-		{
-			resource->Initialize(size);
-		}
+		resource->Initialize(size);
+	}
 
-		vector<string> lineList = UtilString::Split(txt, '\n');
+	vector<string> lineList = UtilString::Split(txt, '\n');
+	for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
+	{
+		if(GetWidth() - 44 < resource->Font(size)->getWidth(*lineIt))
+		{
+			string labelText;
+			vector<string> wordList = UtilString::Split(*lineIt, ' ');
+			do{
+				int nbWord = wordList.size();
+				do{
+					labelText = "";
+					for(int i = 0; i < nbWord; i++)
+					{
+						labelText += wordList[i] + " ";
+					}
+					nbWord--;
+				}while(GetWidth() - 44 < resource->Font(size)->getWidth(labelText));
+				Label* lbl = new Label(labelText, size, color);
+				lbl->SetPosition(0, _textItems.size() * (size + 6));
+				lbl->SetSize(GetWidth(), size);
+				lbl->SetFont(_font);
+				_textItems.push_back(lbl);
+				AddChildren(lbl);
+				wordList.erase(wordList.begin(), wordList.begin() + nbWord + 1);
+			}while(!wordList.empty());
+		}
+		else
+		{
+			Label* lbl = new Label(*lineIt, size, color);
+			lbl->SetPosition(0, _textItems.size() * (size + 6));
+			lbl->SetSize(GetWidth(), size);
+			lbl->SetFont(_font);
+			_textItems.push_back(lbl);
+			AddChildren(lbl);
+		}
+	}
+	if(_textItems.back()->GetTop() + size <= GetHeight() + GetTop())
+	{
+		_trackBar.Visible(false);
+		for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
+		{
+			RemoveChildren(*ite);
+			delete *ite;
+		}
+		_textItems.clear();
+		_textItems.push_back(new Label("coucou", size, color));
 		for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
 		{
-			if(GetWidth() - 44 < resource->Font(size)->getWidth(*lineIt))
+			if(GetWidth() < resource->Font(size)->getWidth(*lineIt))
 			{
 				string labelText;
 				vector<string> wordList = UtilString::Split(*lineIt, ' ');
@@ -234,7 +227,7 @@ void TextAera::EnsureItems()
 							labelText += wordList[i] + " ";
 						}
 						nbWord--;
-					}while(GetWidth() - 44 < resource->Font(size)->getWidth(labelText));
+					}while(GetWidth() < resource->Font(size)->getWidth(labelText));
 					Label* lbl = new Label(labelText, size, color);
 					lbl->SetPosition(0, _textItems.size() * (size + 6));
 					lbl->SetSize(GetWidth(), size);
@@ -254,150 +247,103 @@ void TextAera::EnsureItems()
 				AddChildren(lbl);
 			}
 		}
-		if(_textItems.back()->GetTop() + size <= GetHeight() + GetTop())
-		{
-			_scrollChanged = false;
-			_btnUp.Visible(false);
-			_btnDown.Visible(false);
-			_scrollBar.Visible(false);
-			_scrollBall.Visible(false);
-			for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
-			{
-				RemoveChildren(*ite);
-				delete *ite;
-			}
-			_textItems.clear();
-			for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
-			{
-				if(GetWidth() < resource->Font(size)->getWidth(*lineIt))
-				{
-					string labelText;
-					vector<string> wordList = UtilString::Split(*lineIt, ' ');
-					do{
-						int nbWord = wordList.size();
-						do{
-							labelText = "";
-							for(int i = 0; i < nbWord; i++)
-							{
-								labelText += wordList[i] + " ";
-							}
-							nbWord--;
-						}while(GetWidth() < resource->Font(size)->getWidth(labelText));
-						Label* lbl = new Label(labelText, size, color);
-						lbl->SetPosition(0, _textItems.size() * (size + 6));
-						lbl->SetSize(GetWidth(), size);
-						lbl->SetFont(_font);
-						_textItems.push_back(lbl);
-						AddChildren(lbl);
-						wordList.erase(wordList.begin(), wordList.begin() + nbWord + 1);
-					}while(!wordList.empty());
-				}
-				else
-				{
-					Label* lbl = new Label(*lineIt, size, color);
-					lbl->SetPosition(0, _textItems.size() * (size + 6));
-					lbl->SetSize(GetWidth(), size);
-					lbl->SetFont(_font);
-					_textItems.push_back(lbl);
-					AddChildren(lbl);
-				}
-			}
-		}
 	}
-	if(_scrollChanged)
+	_nbToDisplay = floor((GetHeight() + 6) / (size + 6));
+	_trackBar.SetValue(0);
+	_trackBar.SetMaxValue(_textItems.size() - _nbToDisplay);
+}
+
+void TextAera::ScrollChanged(Object* sender, TrackBarEventArgs* args)
+{
+	for(vector<Label*>::iterator it = _textItems.begin(); it != _textItems.end(); it++)
 	{
-		for(vector<Label*>::iterator it = _textItems.begin(); it != _textItems.end(); it++)
-		{
-			(*it)->Visible(false);
-		}
-		u32 nbToDisplay = floor((GetHeight() + 6) / (size + 6));
-		if(_scrollBallMoved)
-		{
-			_nbSkip = floor((_scrollBall.GetTop() - _scrollBar.GetTop()) / ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay)));
-		}
-		u32 j = 0;
-		for(u32 i = _nbSkip; i < _nbSkip + nbToDisplay; i++)
-		{
-			_textItems[i]->Visible(true);
-			_textItems[i]->SetPosition(0, j * (size + 6));
-			j++;
-		}
-		if(_nbSkip == 0)
-		{
-			_btnUp.Enabled(false);
-			_btnDown.Enabled(true);
-		}
-		else if(_nbSkip + nbToDisplay == _textItems.size())
-		{
-			_btnUp.Enabled(true);
-			_btnDown.Enabled(false);
-		}
-		else
-		{
-			_btnUp.Enabled(true);
-			_btnDown.Enabled(true);
-		}
-		if(!_scrollBallMoved)
-			_scrollBall.SetPosition(0, floor(_nbSkip * ((_scrollBar.GetHeight() - 44) / (_textItems.size() - nbToDisplay))));
-		_scrollChanged = false;
-		_scrollBallMoved = false;
+		(*it)->Visible(false);
 	}
-}
-
-void TextAera::btnDown_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args)
-{
-	_nbSkip++;
-	_btnUp.Enabled(true);
-	_btnDown.Enabled(false);
-	_scrollChanged = true;
-	Invalidate();
-}
-
-void TextAera::btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args)
-{
-	_nbSkip--;
-	_btnUp.Enabled(_nbSkip != 0);
-	_btnDown.Enabled(false);
-	_scrollChanged = true;
-	Invalidate();
-}
-
-void TextAera::scollBall_held(Object* sender, Libwui::Events::CursorEventArgs* args)
-{
-	_scrollBallDrag = true;
-	_scrollBallDragOffset = args->Controller().wpad.ir.y - _scrollBar.GetTop();
-}
-
-void TextAera::scrollBall_release(Object* sender, Libwui::Events::CursorEventArgs* args)
-{
-	_scrollBallDrag = false;
-}
-
-void TextAera::scrollBall_move(Object* sender, Libwui::Events::CursorEventArgs* args)
-{
-	Device::PadController controller = args->Controller();
-	
-	if(controller.wpad.btns_h == 0)
-		_scrollBallDrag = false;
-		
-	if(!_scrollBallDrag)
-		return;
-	
-	if(_scrollBallDrag)
+	u32 j = 0;
+	for(u32 i = args->Value(); i < args->Value() + _nbToDisplay; i++)
 	{
-		int topPosition = controller.wpad.ir.y - _scrollBallDragOffset;
-		int yPosition;
-		
-		if(topPosition + 44 >  _scrollBar.GetTop() +  _scrollBar.GetHeight())
-			yPosition = _scrollBar.GetHeight() - 44;
-		else if(topPosition < _scrollBar.GetTop())
-			yPosition = 0;
-		else
-			yPosition = topPosition - _scrollBar.GetTop();
-		
-		_scrollBall.SetPosition(0, yPosition);
-		_scrollChanged = true;
-		_scrollBallMoved = true;
-		Invalidate();
+		_textItems[i]->Visible(true);
+		_textItems[i]->SetPosition(0, j * (size + 6));
+		j++;
 	}
+}
+
+void TextAera::UpDefaultImage(const std::string& imagePath)
+{
+	_trackBar.UpDefaultImage(imagePath);
+}
+
+std::string TextAera::UpDefaultImage() const
+{
+	return _trackBar.UpDefaultImage();
+}
+
+void TextAera::UpOverImage(const std::string& imagePath)
+{
+	_trackBar.UpOverImage(imagePath);
+}
+
+std::string TextAera::UpOverImage() const
+{
+	return _trackBar.UpOverImage();
+}
+
+void TextAera::UpClickedImage(const std::string& imagePath)
+{
+	_trackBar.UpClickedImage(imagePath);
+}
+
+std::string TextAera::UpClickedImage() const
+{
+	return _trackBar.UpClickedImage();
+}
+
+void TextAera::DownDefaultImage(const std::string& imagePath)
+{
+	_trackBar.DownDefaultImage(imagePath);
+}
+
+std::string TextAera::DownDefaultImage() const
+{
+	return _trackBar.DownDefaultImage();
+}
+
+void TextAera::DownOverImage(const std::string& imagePath)
+{
+	_trackBar.DownOverImage(imagePath);
+}
+
+std::string TextAera::DownOverImage() const
+{
+	return _trackBar.DownOverImage();
+}
+
+void TextAera::DownClickedImage(const std::string& imagePath)
+{
+	_trackBar.DownClickedImage(imagePath);
+}
+
+std::string TextAera::DownClickedImage() const
+{
+	return _trackBar.DownClickedImage();
+}
+
+void TextAera::ScrollBarImage(const std::string& imagePath)
+{
+	_trackBar.ScrollBarImage(imagePath);
+}
+
+std::string TextAera::ScrollBarImage() const
+{
+	return _trackBar.ScrollBarImage();
+}
+
+void TextAera::ScrollBallImage(const std::string& imagePath)
+{
+	_trackBar.ScrollBallImage(imagePath);
+}
+
+std::string TextAera::ScrollBallImage() const
+{
+	return _trackBar.ScrollBallImage();
 }

@@ -3,8 +3,7 @@
 
 #include "../Control.hpp"
 #include "Label.hpp"
-#include "Button.hpp"
-#include "Image.hpp"
+#include "TrackBar.hpp"
 
 namespace Libwui
 {
@@ -26,6 +25,22 @@ namespace Libwui
         void SetFont(const std::string& font);
         void FontSize(int size);
         void ForeColor(GXColor c);
+		void UpDefaultImage(const std::string& imagePath);
+		std::string UpDefaultImage() const;
+		void UpOverImage(const std::string& imagePath);
+		std::string UpOverImage() const;
+		void UpClickedImage(const std::string& imagePath);
+		std::string UpClickedImage() const;
+		void DownDefaultImage(const std::string& imagePath);
+        std::string DownDefaultImage() const;
+        void DownOverImage(const std::string& imagePath);
+        std::string DownOverImage() const;
+        void DownClickedImage(const std::string& imagePath);
+        std::string DownClickedImage() const;
+        void ScrollBarImage(const std::string& imagePath);
+		std::string ScrollBarImage() const;
+		void ScrollBallImage(const std::string& imagePath);
+		std::string ScrollBallImage() const;
 
       protected:
         std::string txt;
@@ -38,23 +53,9 @@ namespace Libwui
 
       private:
         std::vector<Label*> _textItems;
-        Libwui::Component::Button _btnUp;
-        Libwui::Component::Button _btnDown;
-        Libwui::Component::Image _scrollBar;
-        Libwui::Component::Image _scrollBall;
-        bool _textChanged;
-        bool _scrollChanged;
-        bool _scrollBallMoved;
-        u32 _nbSkip;
-        bool _scrollBallDrag;
-				u32 _scrollBallDragOffset;
-
-        void btnDown_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args);
-        void btnUp_Clicked(Object* sender, Libwui::Events::CursorEventArgs* args);
-        void scrollBall_move(Object* sender, Libwui::Events::CursorEventArgs* args);
-        void scollBall_held(Object* sender, Libwui::Events::CursorEventArgs* args);
-        void scrollBall_release(Object* sender, Libwui::Events::CursorEventArgs* args);
-        void scrollBall_leave(Object* sender, Libwiisys::EventArgs* args);
+        u32 _nbToDisplay;
+        TrackBar _trackBar;
+        void ScrollChanged(Libwiisys::Object* sender, Libwui::Events::TrackBarEventArgs* args);
     };
   }
 }

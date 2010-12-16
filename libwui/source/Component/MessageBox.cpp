@@ -108,3 +108,83 @@ void MessageBox::SetFont(const string& font)
 	_title.SetFont(font);
   _text.SetFont(font);
 }
+
+void MessageBox::UpDefaultImage(const std::string& imagePath)
+{
+	_text.UpDefaultImage(imagePath);
+}
+
+std::string MessageBox::UpDefaultImage() const
+{
+	return _text.UpDefaultImage();
+}
+
+void MessageBox::UpOverImage(const std::string& imagePath)
+{
+	_text.UpOverImage(imagePath);
+}
+
+std::string MessageBox::UpOverImage() const
+{
+	return _text.UpOverImage();
+}
+
+void MessageBox::UpClickedImage(const std::string& imagePath)
+{
+	_text.UpClickedImage(imagePath);
+}
+
+std::string MessageBox::UpClickedImage() const
+{
+	return _text.UpClickedImage();
+}
+
+void MessageBox::DownDefaultImage(const std::string& imagePath)
+{
+	_text.DownDefaultImage(imagePath);
+}
+
+std::string MessageBox::DownDefaultImage() const
+{
+	return _text.DownDefaultImage();
+}
+
+void MessageBox::DownOverImage(const std::string& imagePath)
+{
+	_text.DownOverImage(imagePath);
+}
+
+std::string MessageBox::DownOverImage() const
+{
+	return _text.DownOverImage();
+}
+
+void MessageBox::DownClickedImage(const std::string& imagePath)
+{
+	_text.DownClickedImage(imagePath);
+}
+
+std::string MessageBox::DownClickedImage() const
+{
+	return _text.DownClickedImage();
+}
+
+void MessageBox::ScrollBarImage(const std::string& imagePath)
+{
+	_text.ScrollBarImage(imagePath);
+}
+
+std::string MessageBox::ScrollBarImage() const
+{
+	return _text.ScrollBarImage();
+}
+
+void MessageBox::ScrollBallImage(const std::string& imagePath)
+{
+	_text.ScrollBallImage(imagePath);
+}
+
+std::string MessageBox::ScrollBallImage() const
+{
+	return _text.ScrollBallImage();
+}

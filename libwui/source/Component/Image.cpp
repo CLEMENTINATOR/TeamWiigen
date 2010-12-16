@@ -83,8 +83,8 @@ void Image::Draw()
   //find x and y ratios
   if(_mode != ResizeMode_None)
   {
-    xscale = ((f32)GetWidth())/resource->Width();
-    yscale = ((f32)GetHeight())/resource->Height();
+    xscale = ((f32)GetWidth())/((f32)resource->Width());
+    yscale = ((f32)GetHeight())/((f32)resource->Height());
   }
 
   if(_mode == ResizeMode_FitToFill)

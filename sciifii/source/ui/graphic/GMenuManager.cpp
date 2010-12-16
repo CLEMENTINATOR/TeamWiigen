@@ -88,6 +88,14 @@ void GMenuManager::InitializeComponents()
   mb.DefaultButtonImage("go_button.png");
   mb.OverButtonImage("go_button_over.png");
   mb.SetMessageBoxImage("error_popup_screen.png");
+  mb.UpDefaultImage("arrow_up.png");
+  mb.UpOverImage("arrow_up_over.png");
+  mb.UpClickedImage("arrow_up.png");
+  mb.DownDefaultImage("arrow_down.png");
+  mb.DownOverImage("arrow_down_over.png");
+  mb.DownClickedImage("arrow_down.png");
+  mb.ScrollBarImage("scrollbar.png");
+  mb.ScrollBallImage("scrollball.png");
 
   btnExit.DefaultImage("exitbutton_normal.png");
   btnExit.OverImage("exitbutton_over.png");

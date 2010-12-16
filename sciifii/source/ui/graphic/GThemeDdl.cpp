@@ -10,6 +10,7 @@ using namespace Libwui::Resources;
 		
 void GThemeDdl::InitializeComponents()
 {
+		SetButtonText("Thème");
 		SetButtonFont("ThemeDll.ttf");
 		DefaultImage("drop_normal.png");
 		OverImage("drop_over.png");

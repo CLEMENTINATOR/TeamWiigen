@@ -59,6 +59,14 @@ void GSciifiiLauncher::InitializeComponents()
   mb.OverButtonImage("go_button_over.png");
   mb.SetMessageBoxImage("error_popup_screen.png");
   mb.SetFont("MessageBox.ttf");
+  mb.UpDefaultImage("arrow_up.png");
+  mb.UpOverImage("arrow_up_over.png");
+  mb.UpClickedImage("arrow_up.png");
+  mb.DownDefaultImage("arrow_down.png");
+  mb.DownOverImage("arrow_down_over.png");
+  mb.DownClickedImage("arrow_down.png");
+  mb.ScrollBarImage("scrollbar.png");
+  mb.ScrollBallImage("scrollball.png");
   
 
   AddChildren(&pBarActual);

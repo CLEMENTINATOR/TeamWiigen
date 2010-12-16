@@ -28,6 +28,22 @@ namespace Libwui
         void DefaultButtonImage(std::string s);
         void OverButtonImage(std::string s);
         void ClickedButtonImage(std::string s);
+		void UpDefaultImage(const std::string& imagePath);
+		std::string UpDefaultImage() const;
+		void UpOverImage(const std::string& imagePath);
+		std::string UpOverImage() const;
+		void UpClickedImage(const std::string& imagePath);
+		std::string UpClickedImage() const;
+		void DownDefaultImage(const std::string& imagePath);
+        std::string DownDefaultImage() const;
+        void DownOverImage(const std::string& imagePath);
+        std::string DownOverImage() const;
+        void DownClickedImage(const std::string& imagePath);
+        std::string DownClickedImage() const;
+        void ScrollBarImage(const std::string& imagePath);
+		std::string ScrollBarImage() const;
+		void ScrollBallImage(const std::string& imagePath);
+		std::string ScrollBallImage() const;
       private:
         void Hide();
         void Button_Clicked(Libwiisys::Object*sender, Events::CursorEventArgs *c);

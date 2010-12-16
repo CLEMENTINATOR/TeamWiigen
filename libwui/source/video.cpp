@@ -250,7 +250,7 @@ void Menu_DrawImg(f32 xpos, f32 ypos, u16 width, u16 height, u8 data[],
 
   GXTexObj texObj;
 
-  GX_InitTexObj(&texObj, data, width,height, GX_TF_RGBA8,GX_CLAMP, GX_CLAMP,GX_FALSE);
+  GX_InitTexObj(&texObj, data, width/scaleX,height/scaleY, GX_TF_RGBA8,GX_CLAMP, GX_CLAMP,GX_FALSE);
   GX_LoadTexObj(&texObj, GX_TEXMAP0);
   GX_InvalidateTexAll();
 
@@ -261,7 +261,6 @@ void Menu_DrawImg(f32 xpos, f32 ypos, u16 width, u16 height, u8 data[],
   width *=.5;
   height*=.5;
   guMtxIdentity (m1);
-  guMtxScaleApply(m1,m1,scaleX,scaleY,1.0);
   guVector axis = (guVector)
                   {
                     0 , 0, 1

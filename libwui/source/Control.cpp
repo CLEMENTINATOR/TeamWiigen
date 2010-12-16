@@ -145,7 +145,7 @@ int Control::GetLeft()
   int pWidth = 0;
   int pLeft = 0;
 
-  if(_parent)
+  if(_parent != NULL)
   {
     pWidth = _parent->GetWidth();
     pLeft = _parent->GetLeft();
@@ -176,7 +176,7 @@ int Control::GetTop()
   int pHeight = 0;
   int pTop = 0;
 
-  if(_parent)
+  if(_parent != NULL)
   {
     pHeight = _parent->GetHeight();
     pTop = _parent->GetTop();

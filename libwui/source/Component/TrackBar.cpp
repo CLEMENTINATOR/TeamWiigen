@@ -135,6 +135,7 @@ void TrackBar::EnsureItems()
 		_scrollBall.SetSize(resourceBall->Width(), resourceBall->Height());
 		_modeChanged = false;
 		_value = 0;
+		DrawUpdate();
 	}
 }
 
@@ -263,6 +264,7 @@ void TrackBar::SetMode(TrackBarMode mode)
 	{
 		_mode = mode;
 		_modeChanged = true;
+		Invalidate();
 		DrawUpdate();
 	}
 }

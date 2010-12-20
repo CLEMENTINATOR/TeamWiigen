@@ -26,22 +26,22 @@ namespace Libwui
         void SetFont(const std::string& font);
         void FontSize(int size);
         void ForeColor(GXColor c);
-				void UpDefaultImage(const std::string& imagePath);
-				std::string UpDefaultImage() const;
-				void UpOverImage(const std::string& imagePath);
-				std::string UpOverImage() const;
-				void UpClickedImage(const std::string& imagePath);
-				std::string UpClickedImage() const;
-				void DownDefaultImage(const std::string& imagePath);
+		void UpDefaultImage(const std::string& imagePath);
+		std::string UpDefaultImage() const;
+		void UpOverImage(const std::string& imagePath);
+		std::string UpOverImage() const;
+		void UpClickedImage(const std::string& imagePath);
+		std::string UpClickedImage() const;
+		void DownDefaultImage(const std::string& imagePath);
         std::string DownDefaultImage() const;
         void DownOverImage(const std::string& imagePath);
         std::string DownOverImage() const;
         void DownClickedImage(const std::string& imagePath);
         std::string DownClickedImage() const;
         void ScrollBarImage(const std::string& imagePath);
-				std::string ScrollBarImage() const;
-				void ScrollBallImage(const std::string& imagePath);
-				std::string ScrollBallImage() const;
+		std::string ScrollBarImage() const;
+		void ScrollBallImage(const std::string& imagePath);
+		std::string ScrollBallImage() const;
 
       protected:
         std::string txt;
@@ -54,14 +54,14 @@ namespace Libwui
       private:
         std::vector<Label*> _textItems;
         u32 _nbToDisplay;
-				u32 _nbToSkip;
-				bool _rebuildVector;
+		u32 _nbToSkip;
+		bool _rebuildVector;
         TrackBar _trackBar;
         void ScrollChanged(Libwiisys::Object* sender, Libwui::Events::TrackBarEventArgs* args);
-				void InvalidateLabelVector();
-				void RebuildLabelVector(Libwui::Resources::FontResource* resource);
-				void ApplyLabelStyles();
-				void CheckScrollValues();
+		void InvalidateLabelVector();
+		void RebuildLabelVector(Libwui::Resources::FontResource* resource);
+		void ApplyLabelStyles();
+		void CheckScrollVisibility();
     };
   }
 }

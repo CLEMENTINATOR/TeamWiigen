@@ -11,8 +11,8 @@ using namespace fastdelegate;
 static int usedMemory = 0;
 
 GMemoryViewer::GMemoryViewer()
-  : view("", 12, (GXColor){255,255,255,255}),
-		diff("", 12, (GXColor){255,255,255,255})
+  : view("", 12, (GXColor){0,0,0,255}),
+		diff("", 12, (GXColor){0,0,0,255})
 {
 	SetSize(164,120);
 }

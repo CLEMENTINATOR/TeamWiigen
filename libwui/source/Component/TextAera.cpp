@@ -1,6 +1,5 @@
 #include <Libwui/Component/TextAera.h>
 #include <Libwui/UIManager.hpp>
-#include <Libwui/Resources/FontResource.hpp>
 #include <Libwui/Resources/FontResourceManager.hpp>
 #include <Libwiisys/String/UtilString.h>
 #include <FastDelegate.h>
@@ -21,14 +20,22 @@ TextAera::TextAera(const string& text, int s, GXColor c)
     : txt(text),
     size(s),
     color(c),
-    _nbToDisplay(0)
+    _nbToDisplay(0),
+		_nbToSkip(0),
+		_rebuildVector(true)
 {
 	_trackBar.ValueChanged += MakeDelegate(this, &TextAera::ScrollChanged);
 }
 
 TextAera::~TextAera()
 {
-  Invalidate();
+	for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
+  {
+    RemoveChildren(*ite);
+    delete *ite;
+  }
+
+  _textItems.clear();
 }
 
 void TextAera::InitializeComponents()
@@ -42,7 +49,7 @@ void TextAera::InitializeComponents()
 	Control::InitializeComponents();
 }
 
-void TextAera::Invalidate()
+void TextAera::InvalidateLabelVector()
 {
   for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
   {
@@ -51,7 +58,8 @@ void TextAera::Invalidate()
   }
 
   _textItems.clear();
-  Control::Invalidate();
+	_rebuildVector = true;
+  Invalidate();
 }
 
 void TextAera::Text(const string& text)
@@ -64,7 +72,7 @@ void TextAera::Text(const string& text)
   }
 
   txt = text;
-  Invalidate();
+  InvalidateLabelVector();
 }
 
 void TextAera::SetFont(const std::string& font)
@@ -77,7 +85,7 @@ void TextAera::SetFont(const std::string& font)
   }
 
   _font = font;
-  Invalidate();
+  InvalidateLabelVector();
 }
 
 void TextAera::FontSize(int size)
@@ -96,7 +104,7 @@ void TextAera::FontSize(int size)
   else
     this->size = size;
 
-  Invalidate();
+  InvalidateLabelVector();
 }
 
 void TextAera::ForeColor(GXColor color)
@@ -111,6 +119,7 @@ void TextAera::ForeColor(GXColor color)
   }
 
   this->color = color;
+	
   if(!_invalidated)
     for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
       (*ite)->ForeColor(color);
@@ -153,119 +162,110 @@ void TextAera::ProcessMessage(Message& message)
 
 void TextAera::SetSize(int w, int h)
 {
-  Invalidate();
+  InvalidateLabelVector();
   Control::SetSize(w, h);
 }
 
-void TextAera::EnsureItems()
+void TextAera::RebuildLabelVector(FontResource* resource)
 {
-	_trackBar.Visible(true);
-	FontResource* resource = FontResourceManager::Get(_font);
-	if(!resource->IsInitialized(size))
-	{
-		resource->Initialize(size);
-	}
-
 	vector<string> lineList = UtilString::Split(txt, '\n');
 	for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
 	{
-		if(GetWidth() - 44 < resource->Font(size)->getWidth(*lineIt))
+		//if the line is too large to be displayed as a single line, we wrap the text
+		if(GetWidth() < resource->Font(size)->getWidth(*lineIt))
 		{
-			string labelText;
+			stringstream labelText;
 			vector<string> wordList = UtilString::Split(*lineIt, ' ');
-			do{
+			do
+			{
 				int nbWord = wordList.size();
-				do{
-					labelText = "";
-					for(int i = 0; i < nbWord; i++)
+				//search the larger string we can put in the window
+				do
+				{
+					labelText.str("");
+					for(int i = 0; i < nbWord - 1; i++)
 					{
-						labelText += wordList[i] + " ";
+						labelText << wordList[i] << " ";
 					}
+					labelText << wordList[nbWord - 1];
 					nbWord--;
-				}while(GetWidth() - 44 < resource->Font(size)->getWidth(labelText));
-				Label* lbl = new Label(labelText, size, color);
-				lbl->SetPosition(0, _textItems.size() * (size + 6));
+				} while(GetWidth() < resource->Font(size)->getWidth(labelText.str()));
+				
+				Label* lbl = new Label(labelText.str(), size, color);
+				//lbl->SetPosition(0, _textItems.size() * (size + 6));
 				lbl->SetSize(GetWidth(), size);
 				lbl->SetFont(_font);
 				_textItems.push_back(lbl);
 				AddChildren(lbl);
 				wordList.erase(wordList.begin(), wordList.begin() + nbWord + 1);
-			}while(!wordList.empty());
+			} while(!wordList.empty());
 		}
 		else
 		{
 			Label* lbl = new Label(*lineIt, size, color);
-			lbl->SetPosition(0, _textItems.size() * (size + 6));
 			lbl->SetSize(GetWidth(), size);
 			lbl->SetFont(_font);
 			_textItems.push_back(lbl);
 			AddChildren(lbl);
 		}
 	}
-	if(_textItems.back()->GetTop() + size <= GetHeight() + GetTop())
+}
+
+void TextAera::CheckScrollValues()
+{
+	_trackBar.Visible(_nbToDisplay > _textItems.size());
+	
+	if(_nbToSkip + _nbToDisplay >  _textItems.size())
 	{
-		_trackBar.Visible(false);
-		for(vector<Label*>::iterator ite = _textItems.begin(); ite != _textItems.end(); ite++)
+		_nbToSkip = _textItems.size() - _nbToDisplay;
+		
+		if(_nbToSkip < 0)
+		  _nbToSkip = 0;
+		
+		_trackBar.SetValue(_nbToSkip);
+	}
+}
+
+void TextAera::ApplyLabelStyles()
+{
+	u32 displayedLines = 0;
+	for(u32 i = 0; i < _textItems.size() ; i++)
+	{
+		if(i < _nbToSkip || i >= _nbToSkip + _nbToDisplay)
+			_textItems[i]->Visible(false);
+		else
 		{
-			RemoveChildren(*ite);
-			delete *ite;
-		}
-		_textItems.clear();
-		_textItems.push_back(new Label("coucou", size, color));
-		for(vector<string>::iterator lineIt = lineList.begin(); lineIt != lineList.end(); lineIt++)
-		{
-			if(GetWidth() < resource->Font(size)->getWidth(*lineIt))
-			{
-				string labelText;
-				vector<string> wordList = UtilString::Split(*lineIt, ' ');
-				do{
-					int nbWord = wordList.size();
-					do{
-						labelText = "";
-						for(int i = 0; i < nbWord; i++)
-						{
-							labelText += wordList[i] + " ";
-						}
-						nbWord--;
-					}while(GetWidth() < resource->Font(size)->getWidth(labelText));
-					Label* lbl = new Label(labelText, size, color);
-					lbl->SetPosition(0, _textItems.size() * (size + 6));
-					lbl->SetSize(GetWidth(), size);
-					lbl->SetFont(_font);
-					_textItems.push_back(lbl);
-					AddChildren(lbl);
-					wordList.erase(wordList.begin(), wordList.begin() + nbWord + 1);
-				}while(!wordList.empty());
-			}
-			else
-			{
-				Label* lbl = new Label(*lineIt, size, color);
-				lbl->SetPosition(0, _textItems.size() * (size + 6));
-				lbl->SetSize(GetWidth(), size);
-				lbl->SetFont(_font);
-				_textItems.push_back(lbl);
-				AddChildren(lbl);
-			}
+			_textItems[i]->Visible(true);
+			_textItems[i]->SetPosition(0, displayedLines++ * (size + 6));
 		}
 	}
+}
+
+void TextAera::EnsureItems()
+{
+	_trackBar.Visible(true);
+	
+	FontResource* resource = FontResourceManager::Get(_font);
+	if(!resource->IsInitialized(size))
+		resource->Initialize(size);
+	
 	_nbToDisplay = floor((GetHeight() + 6) / (size + 6));
-	_trackBar.SetValue(0);
-	_trackBar.SetMaxValue(_textItems.size() - _nbToDisplay);
+	
+	if(_rebuildVector)
+	{
+		RebuildLabelVector(resource);
+		_trackBar.SetMaxValue(_textItems.size());
+	}
+
+	CheckScrollValues();
+	
+	ApplyLabelStyles();
 }
 
 void TextAera::ScrollChanged(Object* sender, TrackBarEventArgs* args)
 {
-	for(vector<Label*>::iterator it = _textItems.begin(); it != _textItems.end(); it++)
-	{
-		(*it)->Visible(false);
-	}
-	u32 j = 0;
-	for(u32 i = args->Value(); i < args->Value() + _nbToDisplay; i++)
-	{
-		_textItems[i]->Visible(true);
-		_textItems[i]->SetPosition(0, j * (size + 6));
-		j++;
-	}
+	_nbToSkip = args->Value();
+	Invalidate();
 }
 
 void TextAera::UpDefaultImage(const std::string& imagePath)

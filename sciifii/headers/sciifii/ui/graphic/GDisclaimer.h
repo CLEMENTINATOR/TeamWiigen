@@ -8,6 +8,7 @@
 #include <sciifii/ui/graphic/GThemeDdl.h>
 #include <sciifii/Config.h>
 #include <sciifii/ui/graphic/GAudioPlayer.h>
+#include <sciifii/ui/graphic/GMemoryViewer.h>
 
 class GDisclaimer : public Libwui::Component::Form
 {
@@ -17,6 +18,7 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::TextAera textDisclaimer;
     GThemeDdl _themeDdl;
     GAudioPlayer player;
+		GMemoryViewer _memViewer;
   public:
     GDisclaimer() ;
 

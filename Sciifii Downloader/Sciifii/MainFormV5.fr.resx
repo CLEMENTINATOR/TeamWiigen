@@ -786,4 +786,13 @@
   <data name="$NoWork" xml:space="preserve">
     <value>Pas de travail à faire</value>
   </data>
+  <data name="$Clean" xml:space="preserve">
+    <value>Téléchargement interrompu, supprimer les fichiers temporaires?</value>
+  </data>
+  <data name="$CleanE" xml:space="preserve">
+    <value>Erreur lors de la purge des fichiers</value>
+  </data>
+  <data name="$CleanS" xml:space="preserve">
+    <value>Purge effectuée avec succès</value>
+  </data>
 </root>

@@ -38,10 +38,22 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // folderBrowserDialog1
+            // 
+            resources.ApplyResources(this.folderBrowserDialog1, "folderBrowserDialog1");
+            // 
             // pnlMenus
             // 
-            this.pnlMenus.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.pnlMenus, "pnlMenus");
+            this.pnlMenus.BackColor = System.Drawing.Color.Transparent;
             this.pnlMenus.Name = "pnlMenus";
             // 
             // pbStatus
@@ -58,8 +70,8 @@
             // 
             // pnlModeMenu
             // 
-            this.pnlModeMenu.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.pnlModeMenu, "pnlModeMenu");
+            this.pnlModeMenu.BackColor = System.Drawing.Color.Transparent;
             this.pnlModeMenu.Name = "pnlModeMenu";
             // 
             // btnCancel

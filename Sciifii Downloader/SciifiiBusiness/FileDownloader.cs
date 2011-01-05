@@ -75,6 +75,9 @@ namespace SciifiiBusiness
             }
             else
             {
+                if (workingDirectory == null) //Set default working directory
+                    workingDirectory = "sd:/sciifii";
+                
                 device = workingDirectory + "/" + key;
                 sdDirectory = device.Substring(device.IndexOf('/'));
                 device = device.Substring(0, device.IndexOf('/') - 1);

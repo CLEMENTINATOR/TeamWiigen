@@ -43,9 +43,17 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "action")]
         public FST_Action Action { get; set; }
 
-        public FileSystemTask()
+        public FileSystemTask(string target, 
+            string destination,
+            bool recursive,
+            FST_Type type,
+            FST_Action action)
         {
-            Recursive = false;
+            this.Target = target;
+            this.Destination = destination;
+            this.Recursive = recursive;
+            this.Type = type;
+            this.Action = action;
         }
     }
 }

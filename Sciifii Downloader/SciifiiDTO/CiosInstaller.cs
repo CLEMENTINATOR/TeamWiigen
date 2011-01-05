@@ -15,7 +15,7 @@ namespace SciifiiDTO
         public UInt32 Source { get; set; }
 
         [XmlAttribute(AttributeName = "revision")]
-        public ushort SourceRevision { get; set; }
+        public UInt16 SourceRevision { get; set; }
 
         [XmlAttribute(AttributeName = "slot")]
         public UInt32 DestinationSlot { get; set; }
@@ -36,11 +36,21 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "patches")]
         public List<Patch> Patches { get; set; }
 
-        public CiosInstaller()
+        public CiosInstaller(uint source, 
+            ushort sourceRevision, 
+            uint destinationSlot, 
+            int destinationRevision, 
+            List<CiosModule> modules, 
+            List<Plugin> plugins,
+            List<Patch> patches)
         {
-            Plugins = new List<Plugin>();
-            Modules = new List<CiosModule>();
-            DestinationRevision = -1;
+            this.Source = source;
+            this.SourceRevision = sourceRevision;
+            this.DestinationSlot = destinationSlot;
+            this.DestinationRevision = DestinationRevision;
+            this.Modules = modules;
+            this.Plugins = plugins;
+            this.Patches = patches;
         }
     }
 }

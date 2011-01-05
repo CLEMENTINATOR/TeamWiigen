@@ -26,18 +26,11 @@ namespace SciifiiDTO
     [XmlType("Title")]
     public class TitleInstaller : Step
     {
-        public TitleInstaller()
-        {
-            Action = TI_Action.Install;
-            TitleId = "";
-            TitleRevision = 0;
-        }
-
         [XmlAttribute(AttributeName = "action")]
         public TI_Action Action { get; set; }
 
         [XmlAttribute(AttributeName = "wad")]
-        public string Wad { get; set; }
+        public String Wad { get; set; }
 
         [XmlAttribute(AttributeName = "id")]
         public String TitleId { get; set; }
@@ -46,6 +39,15 @@ namespace SciifiiDTO
         public UInt16 TitleRevision { get; set; }
 
         [XmlAttribute(AttributeName = "path")]
-        public string Path { get; set; }
+        public String Path { get; set; }
+
+        public TitleInstaller(TI_Action action, string wad, string titleId, ushort titleRevision, string path)
+        {
+            this.Action = action;
+            this.Wad = wad;
+            this.TitleId = titleId;
+            this.TitleRevision = titleRevision;
+            this.Path = path;            
+        } 
     }
 }

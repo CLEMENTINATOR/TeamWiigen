@@ -12,5 +12,10 @@ namespace SciifiiDTO.Menu
     {
         [XmlAttribute(AttributeName = "char")]
         public String Char { get; set; }
+
+        public SeparatorMenuItem(string car)
+        {
+            this.Char = car;
+        }
     }
 }

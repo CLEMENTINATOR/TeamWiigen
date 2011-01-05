@@ -10,9 +10,6 @@ namespace SciifiiDTO.Cios
     [XmlType("ciosPlugin")]
     public class Plugin
     {
-        public Plugin()
-        { }
-
         [XmlAttribute(AttributeName = "dest")]
         public String ModuleName { get; set; }
 
@@ -27,5 +24,18 @@ namespace SciifiiDTO.Cios
 
         [XmlElement(ElementName = "handle")]
         public List<PluginHandle> Handles { get; set; }
+
+        public Plugin(string moduleName, 
+            string file, 
+            ushort segment, 
+            PluginHeader header, 
+            List<PluginHandle> handles)
+        {
+            this.ModuleName = moduleName;
+            this.File = file;
+            this.Segment = segment;
+            this.Header = header;
+            this.Handles = handles;
+        }
     }
 }

@@ -12,5 +12,10 @@ namespace SciifiiDTO.Menu
     {
         [XmlAttribute(AttributeName = "text")]
         public String Text { get; set; }
+
+        public ExitMenuItem(string text)
+        {
+            this.Text = text;
+        }
     }
 }

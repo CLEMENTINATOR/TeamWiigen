@@ -17,5 +17,11 @@ namespace SciifiiDTO
 
         [XmlArray(ElementName = "items")]
         public List<CorpItem> Items { get; set; }
+
+        public CiosCorp(List<CorpModule> modules, List<CorpItem> items)
+        {
+            this.Modules = modules;
+            this.Items = items;
+        }
     }
 }

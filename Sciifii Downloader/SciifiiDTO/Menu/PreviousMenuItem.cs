@@ -15,5 +15,11 @@ namespace SciifiiDTO.Menu
 
         [XmlAttribute(AttributeName = "saveOptions")]
         public Boolean SaveOptions { get; set; }
+
+        public PreviousMenuItem(string text, bool saveOptions)
+        {
+            this.Text = text;
+            this.SaveOptions = saveOptions;
+        }
     }
 }

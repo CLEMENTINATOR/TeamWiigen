@@ -11,12 +11,19 @@ namespace SciifiiDTO.Cios
     public class SimplePatch : Patch
     {
         [XmlAttribute(AttributeName = "pattern")]
-        public string Pattern { get; set; }
+        public String Pattern { get; set; }
 
         [XmlAttribute(AttributeName = "value")]
-        public string Value { get; set; }
+        public String Value { get; set; }
 
         [XmlAttribute(AttributeName = "module")]
-        public string Module { get; set; }
+        public String Module { get; set; }
+
+        public SimplePatch(string pattern, string value, string module)
+        {
+            this.Pattern = pattern;
+            this.Value = value;
+            this.Module = module;
+        }
     }
 }

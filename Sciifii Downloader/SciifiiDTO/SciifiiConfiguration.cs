@@ -23,7 +23,7 @@ namespace SciifiiDTO
         public String ThemeDirectory { get; set; }
 
         [XmlAttribute(AttributeName = "AllowAdvancedMode")]
-        public bool AllowAdvancedMode { get; set; }
+        public Boolean AllowAdvancedMode { get; set; }
 
         [XmlAttribute(AttributeName = "workingDirectory")]
         public String workingDirectory { get; set; }
@@ -56,13 +56,27 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "steps")]
         public List<Step> Steps { get; set; }
 
-        /*public SciifiiConfiguration()
+        public SciifiiConfiguration(ushort version,
+            string menuMessage,
+            string themeDirectory,
+            string workingDirectory,
+            string disclaimer,
+            List<ManagedFile> managedFiles,
+            List<Mode> modes,
+            List<Menu.Menu> menus,
+            List<Option> options,
+            List<Step> steps)
         {
-            AllowAdvancedMode = true;
-            workingDirectory = "sd:/sciifii/temp";
-            ManagedFiles = new List<ManagedFile>();
-            Modes = new List<Mode>();
-            Steps = new List<Step>();
-        }*/
+            this.Version = version;
+            this.MenuMessage = menuMessage;
+            this.ThemeDirectory = themeDirectory;
+            this.workingDirectory = workingDirectory;
+            this.Disclaimer = disclaimer;
+            this.ManagedFiles = managedFiles;
+            this.Modes = modes;
+            this.Menus = menus;
+            this.Options = options;
+            this.Steps = steps;
+        }
     }
 }

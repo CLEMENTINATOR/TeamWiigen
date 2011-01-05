@@ -13,9 +13,9 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "id")]
         public UInt32 Id { get; set; }
 
-        public IOSReloader()
+        public IOSReloader(uint id)
         {
-            
+            this.Id = id;
         }
     }
 }

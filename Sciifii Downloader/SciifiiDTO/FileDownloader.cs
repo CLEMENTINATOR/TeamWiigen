@@ -11,6 +11,11 @@ namespace SciifiiDTO
     public class FileDownloader : Step
     {
         [XmlAttribute(AttributeName = "file")]
-        public string FileKey { get; set; }
+        public String FileKey { get; set; }
+
+        public FileDownloader(string fileKey)
+        {
+            this.FileKey = fileKey;
+        }
     }
 }

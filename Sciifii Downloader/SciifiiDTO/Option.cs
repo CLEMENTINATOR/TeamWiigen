@@ -10,11 +10,6 @@ namespace SciifiiDTO
     [XmlType(TypeName = "option")]
     public class Option
     {
-        public Option()
-        {
-            Hidden = false;
-        }
-
         [XmlAttribute(AttributeName = "name")]
         public String Name { get; set; }
 
@@ -23,5 +18,12 @@ namespace SciifiiDTO
 
         [XmlAttribute(AttributeName = "hidden")]
         public Boolean Hidden { get; set; }
+
+        public Option(string name, string text, bool hidden)
+        {
+            this.Name = name;
+            this.Text = text;
+            this.Hidden = hidden;
+        }
     }
 }

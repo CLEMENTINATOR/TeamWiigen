@@ -18,5 +18,12 @@ namespace SciifiiDTO.Menu
 
         [XmlAttribute(AttributeName = "hidden")]
         public Boolean Hidden { get; set; }
+
+        public SwitchMenuItem(string name, string text, bool hidden)
+        {
+            this.Name = name;
+            this.Text = text;
+            this.Hidden = hidden;
+        }
     }
 }

@@ -11,12 +11,19 @@ namespace SciifiiDTO.Cios
     public class PluginHandle
     {
         [XmlAttribute(AttributeName = "name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [XmlAttribute(AttributeName = "pattern")]
-        public string Pattern { get; set; }
+        public String Pattern { get; set; }
 
         [XmlAttribute(AttributeName = "value")]
-        public string Value { get; set; }
+        public String Value { get; set; }
+
+        public PluginHandle(string name, string pattern, string value)
+        {
+            this.Name = name;
+            this.Pattern = pattern;
+            this.Value = value;
+        }
     }
 }

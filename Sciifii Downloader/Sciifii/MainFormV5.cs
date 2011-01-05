@@ -22,6 +22,7 @@ namespace Sciifii
         private SciifiiConfiguration datas;
         private bool blockList = false;
         private bool job = false;
+        private bool canceledJob = false;
         private string directory;
         private List<String> hiddenOptions;
         private TaskFactory m_taskFact;
@@ -60,9 +61,6 @@ namespace Sciifii
             Button btn = new Button();
             btn.Text = Convert.ToString(resource.GetString("$Download"));
             btn.Name = "¤advanced¤";
-            /*btn.Image = Resources.exitbutton_normal;
-            btn.Width = Resources.exitbutton_normal.Width;
-            btn.Height = Resources.exitbutton_normal.Height;*/
             btn.Click += new EventHandler(btnDownload_Click);
 
             btn.Top = 204;
@@ -266,6 +264,7 @@ namespace Sciifii
         /// </summary>
         private void StopJob()
         {
+            canceledJob = true;
             m_UpTextBox(m_log.Log, resource.GetString("$Cancel")); 
             backgroundWorker1.CancelAsync();
         }
@@ -347,6 +346,39 @@ namespace Sciifii
                     }
                 }
         }
+
+        /// <summary>
+        /// Clean temp file on computer
+        /// </summary>
+        private void CleanTemp()
+        {
+            if (MessageBox.Show(resource.GetString("$Clean"),
+                                resource.GetString("$Success"),
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    foreach (FileInfo toDel in new DirectoryInfo(directory).GetFiles("*", SearchOption.AllDirectories))
+                    {
+                        toDel.Delete();
+                    }
+                    
+                    MessageBox.Show(resource.GetString("$CleanS"),
+                                            resource.GetString("$Success"),
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(resource.GetString("$CleanE") + ex.Message,
+                            resource.GetString("$Error"),
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                }
+            }
+
+        }
         #endregion
 
         #region public
@@ -363,6 +395,11 @@ namespace Sciifii
             m_UpTextBox = new UpdateTextBoxDelegate(this.UpdateTextBox);
 
             m_log.Log.Text = "";
+
+            //Call 2 time to display and mask log form use this enable invoking form
+            btnLog_Click(null, EventArgs.Empty);
+            btnLog_Click(null, EventArgs.Empty);
+
             hiddenOptions = new List<string>();
 
             this.datas = datas;
@@ -466,6 +503,8 @@ namespace Sciifii
         {
             if (job)
                 StopJob();
+
+            btnCancel.Enabled = false;
         }
 
         /// <summary>
@@ -474,7 +513,17 @@ namespace Sciifii
         protected void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             job = true;
-            btnCancel.Visible = true;
+            canceledJob = false;
+            this.Invoke(new MethodInvoker(delegate()
+            {
+                try
+                {
+                    pnlModeMenu.Controls["¤advanced¤"].Enabled = false;
+                }
+                catch{}
+                pnlModeMenu.Controls[Convert.ToString(resource.GetString("$Exit"))].Enabled = false;
+                btnCancel.Enabled = btnCancel.Visible = true;
+            }));      
             
             Directory.CreateDirectory(directory);
             CompositeInstaller container = new CompositeInstaller();
@@ -509,10 +558,22 @@ namespace Sciifii
                 UpdateTextBox(m_log.Log, resource.GetString("$ErrorS") + "\n" + e.Error.Message);
 
             job = false;
-            btnCancel.Visible = false;
+            this.Invoke(new MethodInvoker(delegate()
+            {
+                btnCancel.Visible = false;
+                try
+                {
+                    pnlModeMenu.Controls["¤advanced¤"].Enabled = true;
+                }
+                catch{}
+                pnlModeMenu.Controls[Convert.ToString(resource.GetString("$Exit"))].Enabled = true;
+            }));   
 
-            if (e.Error == null)
+            if (e.Error == null && !canceledJob)
                 UploadToSd();
+
+            if (canceledJob)
+                CleanTemp();
         }
         #endregion
 

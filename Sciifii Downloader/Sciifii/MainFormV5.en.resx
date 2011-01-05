@@ -819,4 +819,13 @@
   <data name="$TimeFormat" xml:space="preserve">
     <value>yyyy/MM/dd hh:mm:ss</value>
   </data>
+  <data name="$Clean" xml:space="preserve">
+    <value>Download interupted, clean temp files?</value>
+  </data>
+  <data name="$CleanE" xml:space="preserve">
+    <value>Error while cleaned temp files</value>
+  </data>
+  <data name="$CleanS" xml:space="preserve">
+    <value>Files cleaned with success</value>
+  </data>
 </root>

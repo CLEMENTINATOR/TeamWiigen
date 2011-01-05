@@ -47,6 +47,10 @@ namespace Sciifii
                     default:
                         Application.Run(new MainFormV4(datas)); break;
                 }
+
+                //When close application if configuration edited save
+                using (Stream config = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
+                    new XmlSerializer(typeof(SciifiiConfiguration)).Serialize(config, datas);
             }
             catch (Exception e)
             {

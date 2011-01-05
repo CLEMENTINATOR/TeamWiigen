@@ -30,8 +30,12 @@ namespace SciifiiDTO
         }
 
         public Step()
+        { }
+        
+        public Step(string optionsString, string regionsString)
         {
-            RegionsString = "-1";
+            this.OptionsString = optionsString;
+            this.RegionsString = regionsString;
         }
     }
 }

@@ -11,11 +11,11 @@ namespace SciifiiDTO
     public class Identifier : Step
     {
         [XmlAttribute(AttributeName = "user")]
-        public UInt32 userId { get; set; }
+        public UInt32 UserId { get; set; }
 
-        public Identifier()
+        public Identifier(uint userId)
         {
-
+            this.UserId = userId;
         }
     }
 }

@@ -11,15 +11,23 @@ namespace SciifiiDTO
     public class ManagedFile
     {
         [XmlAttribute(AttributeName = "key")]
-        public string Key { get; set; }
+        public String Key { get; set; }
 
         [XmlAttribute(AttributeName = "url")]
         public String Url { get; set; }
 
         [XmlAttribute(AttributeName = "sha1")]
-        public string ShaUrl { get; set; }
+        public String ShaUrl { get; set; }
 
         [XmlAttribute(AttributeName = "path")]
-        public string FilePath { get; set; }
+        public String FilePath { get; set; }
+
+        public ManagedFile(string key, string url, string shaUrl, string filePath)
+        {
+            this.Key = key;
+            this.Url = url;
+            this.ShaUrl = shaUrl;
+            this.FilePath = filePath;
+        }
     }
 }

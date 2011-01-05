@@ -11,18 +11,31 @@ namespace SciifiiDTO.Cios
     public class PluginHeader
     {
         [XmlAttribute(AttributeName = "type")]
-        public int Type { get; set; }
+        public Int32 Type { get; set; }
 
         [XmlAttribute(AttributeName = "vaddr")]
-        public string VirtualAddress { get; set; }
+        public String VirtualAddress { get; set; }
 
         [XmlAttribute(AttributeName = "paddr")]
-        public String PhisicalAddress { get; set; }
+        public String PhysicalAddress { get; set; }
 
         [XmlAttribute(AttributeName = "flag")]
         public String Flag { get; set; }
 
         [XmlAttribute(AttributeName = "align")]
-        public int Align { get; set; }
+        public Int32 Align { get; set; }
+
+        public PluginHeader(int type, 
+            string virtualAddress, 
+            string physicalAddress, 
+            string flag, 
+            int align)
+        {
+            this.Type = type;
+            this.VirtualAddress = virtualAddress;
+            this.PhysicalAddress = physicalAddress;
+            this.Flag = flag;
+            this.Align = align;
+        }
     }
 }

@@ -21,5 +21,12 @@ namespace SciifiiDTO
 
         [XmlIgnore]
         public List<String> Options { get { return OptionsString.Split('|').ToList(); } }
+
+        public Mode(string text, string flag, string optionsString)
+        {
+            this.Text = text;
+            this.Flag = flag;
+            this.OptionsString = optionsString;
+        }
     }
 }

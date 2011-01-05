@@ -11,6 +11,11 @@ namespace SciifiiDTO
     public class Preloader : Step
     {
         [XmlAttribute(AttributeName = "file")]
-        public string File { get; set; }
+        public String File { get; set; }
+
+        public Preloader(string file)
+        {
+            this.File = file;
+        }
     }
 }

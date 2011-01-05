@@ -11,10 +11,10 @@ namespace SciifiiDTO.Corp
     public class CorpItem
     {
         [XmlAttribute(AttributeName = "slot")]
-        public string Slot { get; set; }
+        public String Slot { get; set; }
 
         [XmlAttribute(AttributeName = "source")]
-        public string Source { get; set; }
+        public String Source { get; set; }
 
         [XmlAttribute(AttributeName = "revision")]
         public UInt16 TitleRevision { get; set; }
@@ -32,12 +32,31 @@ namespace SciifiiDTO.Corp
         public Boolean LocalOnly { get; set; }
 
         [XmlAttribute(AttributeName = "modules")]
-        public string ModulesString { get; set; }
+        public String ModulesString { get; set; }
 
         [XmlIgnore]
         public List<String> Modules
         {
             get { return ModulesString.Split('|').ToList(); }
+        }
+
+        public CorpItem(string slot,
+            string source, 
+            ushort titleRevision, 
+            bool identifyPatch, 
+            bool nandPatch, 
+            bool koreanPatch, 
+            bool localOnly, 
+            string modulesString)
+        {
+            this.Slot = slot;
+            this.Source = source;
+            this.TitleRevision = titleRevision;
+            this.IdentifyPatch = identifyPatch;
+            this.NandPatch = nandPatch;
+            this.KoreanPatch = koreanPatch;
+            this.LocalOnly = localOnly;
+            this.ModulesString = modulesString;
         }
     }
 }

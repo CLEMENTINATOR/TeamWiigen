@@ -8,5 +8,7 @@ namespace SciifiiDTO.Cios
     [Serializable]
     public class Patch
     {
+        public Patch()
+        { }
     }
 }

@@ -11,12 +11,19 @@ namespace SciifiiDTO.Corp
     public class CorpModule
     {
         [XmlAttribute(AttributeName = "type")]
-        public string ModuleName { get; set; }
+        public String ModuleName { get; set; }
 
         [XmlAttribute(AttributeName = "name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [XmlAttribute(AttributeName = "file")]
-        public string File { get; set; }
+        public String File { get; set; }
+
+        public CorpModule(string moduleName, string name, string file)
+        {
+            this.ModuleName = moduleName;
+            this.Name = name;
+            this.File = file;
+        }
     }
 }

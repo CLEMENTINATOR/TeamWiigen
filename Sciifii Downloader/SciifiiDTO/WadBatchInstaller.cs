@@ -12,5 +12,10 @@ namespace SciifiiDTO
     {
         [XmlAttribute(AttributeName = "folder")]
         public String Folder { get; set; }
+
+        public WadBatchInstaller(string folder)
+        {
+            this.Folder = folder;
+        }
     }
 }

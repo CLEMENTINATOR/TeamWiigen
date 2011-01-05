@@ -15,5 +15,11 @@ namespace SciifiiDTO
 
         [XmlAttribute(AttributeName = "revision")]
         public UInt16 Revision { get; set; }
+
+        public TitleDowngrader(string id, ushort revision)
+        {
+            this.Id = id;
+            this.Revision = revision;
+        }
     }
 }

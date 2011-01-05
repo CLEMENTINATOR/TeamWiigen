@@ -16,9 +16,10 @@ namespace SciifiiDTO.Cios
         [XmlAttribute(AttributeName = "position")]
         public UInt16 Position { get; set; }
 
-        public CiosModule()
+        public CiosModule(string file, ushort position)
         {
-            Position = 0;
+            this.File = file;
+            this.Position = position;
         }
     }
 }

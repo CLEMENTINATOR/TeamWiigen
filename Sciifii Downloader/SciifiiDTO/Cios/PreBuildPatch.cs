@@ -11,6 +11,11 @@ namespace SciifiiDTO.Cios
     public class PreBuildPatch : Patch
     {
         [XmlAttribute(AttributeName = "name")]
-        public string Name { get; set; }
+        public String Name { get; set; }
+
+        public PreBuildPatch(string name)
+        {
+            this.Name = name;
+        }
     }
 }

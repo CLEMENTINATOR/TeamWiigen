@@ -26,13 +26,8 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "name")]
         public String Name { get; set; }
 
-        public CompositeInstaller()
-        {
-            Steps = new List<Step>();
-        }
-
         [XmlIgnore]
-        public int StepsFullCount
+        public Int32 StepsFullCount
         {
             get
             {
@@ -48,6 +43,17 @@ namespace SciifiiDTO
 
                 return nbSteps;
             }
+        }
+
+        public CompositeInstaller()
+        {
+            this.Steps = new List<Step>();
+        }
+
+        public CompositeInstaller(List<Step> steps, string name)
+        {
+            this.Steps = steps;
+            this.Name = name;
         }
     }
 }

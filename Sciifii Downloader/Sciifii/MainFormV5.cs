@@ -20,7 +20,6 @@ namespace Sciifii
     {
         #region private
         private SciifiiConfiguration datas;
-        private bool blockList = false;
         private bool job = false;
         private bool canceledJob = false;
         private string directory;

@@ -128,7 +128,7 @@ namespace Sciifii
                 UpdateTextBox(tbStatus, "Config.xml v" + datas.Version + " load with success.");
 
             List<Mode> modes = new List<Mode>();
-            modes.Add(new Mode { Text = "Advanced mode", OptionsString = "", Flag = "" });
+            modes.Add(new Mode ("Advanced mode", "", ""));
             modes.AddRange(datas.Modes);
 
             sciifiiModeBindingSource.DataSource = modes;

@@ -107,6 +107,12 @@
     <EmbeddedResource Include="Utils\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Utils\EditForm.en.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\EditForm.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utils\ErrorBox.en.resx">
       <DependentUpon>ErrorBox.cs</DependentUpon>
     </EmbeddedResource>

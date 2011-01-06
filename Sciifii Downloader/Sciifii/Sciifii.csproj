@@ -62,11 +62,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Downloader.cs" />
-    <Compile Include="LogForm.cs">
+    <Compile Include="Utils\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogForm.Designer.cs">
+    <Compile Include="Utils\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Downloader.cs" />
+    <Compile Include="Utils\EditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\EditForm.Designer.cs">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ErrorBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\ErrorBox.Designer.cs">
+      <DependentUpon>ErrorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\LogForm.Designer.cs">
       <DependentUpon>LogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainFormV4.cs">
@@ -83,16 +101,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LogForm.resx">
+    <EmbeddedResource Include="Utils\AboutForm.en.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFormV4.resx">
       <DependentUpon>MainFormV4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFormV5.en.resx">
-      <DependentUpon>MainFormV5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainFormV5.fr.resx">
       <DependentUpon>MainFormV5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFormV5.resx">

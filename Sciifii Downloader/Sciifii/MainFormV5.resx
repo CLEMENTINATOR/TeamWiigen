@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>181, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>17, 17</value>
+  </data>
+  <data name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>181, 17</value>
+  </data>
   <data name="pnlMenus.Location" type="System.Drawing.Point, System.Drawing">
     <value>46, 145</value>
   </data>
@@ -144,7 +144,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlMenus.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="pbStatus.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 442</value>
@@ -165,7 +165,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pbStatus.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="btnLog.Location" type="System.Drawing.Point, System.Drawing">
     <value>552, 413</value>
@@ -189,7 +189,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnLog.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="pnlModeMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>46, 145</value>
@@ -210,7 +210,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlModeMenu.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>471, 413</value>
@@ -237,14 +237,81 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>339, 19</value>
+  </data>
+  <data name="fichierToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 20</value>
+  </data>
+  <data name="fichierToolStripMenuItem.Text" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 20</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>639, 24</value>
+  </data>
+  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="menuStrip1.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="msEdit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="msEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="msEdit.Text" xml:space="preserve">
+    <value>Edition</value>
+  </data>
+  <data name="msQuit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="msQuit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="msQuit.Text" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="msWeb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="msWeb.Text" xml:space="preserve">
+    <value>Sciifii site web</value>
+  </data>
+  <data name="msAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="msAbout.Text" xml:space="preserve">
+    <value>A propos</value>
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
@@ -765,10 +832,103 @@
   <data name="&gt;&gt;folderBrowserDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;fichierToolStripMenuItem.Name" xml:space="preserve">
+    <value>fichierToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fichierToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;msEdit.Name" xml:space="preserve">
+    <value>msEdit</value>
+  </data>
+  <data name="&gt;&gt;msEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;msQuit.Name" xml:space="preserve">
+    <value>msQuit</value>
+  </data>
+  <data name="&gt;&gt;msQuit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;msWeb.Name" xml:space="preserve">
+    <value>msWeb</value>
+  </data>
+  <data name="&gt;&gt;msWeb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;msAbout.Name" xml:space="preserve">
+    <value>msAbout</value>
+  </data>
+  <data name="&gt;&gt;msAbout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainFormV5</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$Cancel" xml:space="preserve">
+    <value>Arret en cours</value>
+  </data>
+  <data name="$Clean" xml:space="preserve">
+    <value>Téléchargement interrompu, supprimer les fichiers temporaires?</value>
+  </data>
+  <data name="$CleanE" xml:space="preserve">
+    <value>Erreur lors de la purge des fichiers</value>
+  </data>
+  <data name="$CleanS" xml:space="preserve">
+    <value>Purge effectuée avec succès</value>
+  </data>
+  <data name="$DlEnd" xml:space="preserve">
+    <value>Téléchargement terminé, temps total:</value>
+  </data>
+  <data name="$DlTime" xml:space="preserve">
+    <value>téléchargé en</value>
+  </data>
+  <data name="$Download" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="$Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="$ErrorS" xml:space="preserve">
+    <value>Une erreur s'est produite;</value>
+  </data>
+  <data name="$Exit" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="$LoadS" xml:space="preserve">
+    <value>chargé avec succès.</value>
+  </data>
+  <data name="$MenuE" xml:space="preserve">
+    <value>Ce menu ne contient aucun élément (modeMenuItem or switchMenuItem)</value>
+  </data>
+  <data name="$Move" xml:space="preserve">
+    <value>Traitement terminé, déplacer les fichiers sur la carte SD?</value>
+  </data>
+  <data name="$MoveE" xml:space="preserve">
+    <value>Erreur lors du déplacement des fichiers sur la carte SD</value>
+  </data>
+  <data name="$MoveS" xml:space="preserve">
+    <value>Fichiers déplacés sur la carte SD avec succès</value>
+  </data>
+  <data name="$NoWork" xml:space="preserve">
+    <value>Pas de travail à faire</value>
+  </data>
+  <data name="$Start" xml:space="preserve">
+    <value>Démarrage, cela peut prendre un peu de temps...</value>
+  </data>
+  <data name="$Success" xml:space="preserve">
+    <value>Succès</value>
+  </data>
+  <data name="$TimeFormat" xml:space="preserve">
+    <value>dd/MM/yyyy HH:mm:ss</value>
   </data>
 </root>

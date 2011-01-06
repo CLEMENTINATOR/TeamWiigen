@@ -13,6 +13,7 @@ using System.IO;
 using SciifiiDTO.Menu;
 using Sciifii.Properties;
 using System.Resources;
+using Sciifii.Utils;
 
 namespace Sciifii
 {
@@ -410,6 +411,30 @@ namespace Sciifii
         #endregion
 
         #region events
+        /// <summary>
+        /// Manage click on menu
+        /// </summary>
+        protected void menuStrip_ItemClicked(object sender, EventArgs e)
+        {
+            switch (((ToolStripDropDownItem)sender).Name)
+            {
+                case "msEdit":
+                    new EditForm().Show(this);
+                    break;
+                case "msQuit":
+                    this.Close();
+                    break;
+                case "msWeb":
+                    Process.Start("http://www.teamwiigen.fr.cr/");
+                    break;
+                case "msAbout":
+                    new AboutForm().Show(this);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         /// <summary>
         /// Show / Mask log form
         /// </summary>

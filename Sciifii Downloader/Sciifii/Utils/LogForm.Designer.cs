@@ -1,4 +1,4 @@
-﻿namespace Sciifii
+﻿namespace Sciifii.Utils
 {
     partial class LogForm
     {

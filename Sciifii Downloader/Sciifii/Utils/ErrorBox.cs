@@ -7,15 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Sciifii
+namespace Sciifii.Utils
 {
-    public partial class LogForm : Form
+    public partial class ErrorBox : Form
     {
-        public LogForm()
+        public ErrorBox()
         {
             InitializeComponent();
         }
-
-        public TextBox Log { get { return tbStatus; } set { tbStatus = value; } }
     }
 }

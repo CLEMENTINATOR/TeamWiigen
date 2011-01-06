@@ -13,6 +13,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "file")]
         public String File { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public Preloader()
+        { }
+        
         public Preloader(string file)
         {
             this.File = file;

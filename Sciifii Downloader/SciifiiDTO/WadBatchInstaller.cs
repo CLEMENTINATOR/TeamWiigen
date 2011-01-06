@@ -13,6 +13,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "folder")]
         public String Folder { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public WadBatchInstaller()
+        { }
+        
         public WadBatchInstaller(string folder)
         {
             this.Folder = folder;

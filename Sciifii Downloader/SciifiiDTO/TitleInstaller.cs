@@ -41,6 +41,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "path")]
         public String Path { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public TitleInstaller()
+        { }
+        
         public TitleInstaller(TI_Action action, string wad, string titleId, ushort titleRevision, string path)
         {
             this.Action = action;

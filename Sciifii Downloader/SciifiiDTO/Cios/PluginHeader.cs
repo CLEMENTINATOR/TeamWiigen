@@ -25,6 +25,12 @@ namespace SciifiiDTO.Cios
         [XmlAttribute(AttributeName = "align")]
         public Int32 Align { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public PluginHeader()
+        { }
+        
         public PluginHeader(int type, 
             string virtualAddress, 
             string physicalAddress, 

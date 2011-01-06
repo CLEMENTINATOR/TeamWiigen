@@ -13,6 +13,12 @@ namespace SciifiiDTO.Cios
         [XmlAttribute(AttributeName = "name")]
         public String Name { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public PreBuildPatch()
+        { }
+        
         public PreBuildPatch(string name)
         {
             this.Name = name;

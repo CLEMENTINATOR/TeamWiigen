@@ -22,6 +22,12 @@ namespace SciifiiDTO
         [XmlIgnore]
         public List<String> Options { get { return OptionsString.Split('|').ToList(); } }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public Mode()
+        { }
+        
         public Mode(string text, string flag, string optionsString)
         {
             this.Text = text;

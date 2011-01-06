@@ -36,6 +36,16 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "patches")]
         public List<Patch> Patches { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public CiosInstaller()
+        {
+            this.Modules = new List<CiosModule>();
+            this.Plugins = new List<Plugin>();
+            this.Patches = new List<Patch>();
+        }
+        
         public CiosInstaller(uint source, 
             ushort sourceRevision, 
             uint destinationSlot, 

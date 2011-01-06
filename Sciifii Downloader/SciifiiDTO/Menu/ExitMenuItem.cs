@@ -13,6 +13,12 @@ namespace SciifiiDTO.Menu
         [XmlAttribute(AttributeName = "text")]
         public String Text { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public ExitMenuItem()
+        { }
+        
         public ExitMenuItem(string text)
         {
             this.Text = text;

@@ -14,6 +14,14 @@ namespace SciifiiDTO
         [XmlArrayItem(ElementName = "patch", Type = typeof(SimplePatch))]
         public List<SimplePatch> Patches { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public MemoryPatcher()
+        {
+            this.Patches = new List<SimplePatch>();
+        }
+        
         public MemoryPatcher(List<SimplePatch> patches)
         {
             this.Patches = patches;

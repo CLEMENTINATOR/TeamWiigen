@@ -19,6 +19,12 @@ namespace SciifiiDTO.Corp
         [XmlAttribute(AttributeName = "file")]
         public String File { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public CorpModule()
+        { }
+        
         public CorpModule(string moduleName, string name, string file)
         {
             this.ModuleName = moduleName;

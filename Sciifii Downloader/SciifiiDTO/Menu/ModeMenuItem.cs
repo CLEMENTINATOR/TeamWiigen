@@ -16,6 +16,12 @@ namespace SciifiiDTO.Menu
         [XmlAttribute(AttributeName = "switches")]
         public String Switches { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public ModeMenuItem()
+        { }
+
         public ModeMenuItem(string text, string switches)
         {
             this.Text = text;

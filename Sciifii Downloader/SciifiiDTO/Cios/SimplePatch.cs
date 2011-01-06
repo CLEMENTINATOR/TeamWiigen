@@ -19,6 +19,12 @@ namespace SciifiiDTO.Cios
         [XmlAttribute(AttributeName = "module")]
         public String Module { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public SimplePatch()
+        { }
+        
         public SimplePatch(string pattern, string value, string module)
         {
             this.Pattern = pattern;

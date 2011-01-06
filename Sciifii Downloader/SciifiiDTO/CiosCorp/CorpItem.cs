@@ -40,6 +40,12 @@ namespace SciifiiDTO.Corp
             get { return ModulesString.Split('|').ToList(); }
         }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public CorpItem()
+        { }
+
         public CorpItem(string slot,
             string source, 
             ushort titleRevision, 

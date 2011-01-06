@@ -13,9 +13,6 @@ namespace SciifiiBusiness
     {
         private string GetRealPath(string folder, string path)
         {
-            if (path == null) //Set default working directory
-                path = "sd:/sciifii";
-            
             string sdDirectory = path.Substring(path.IndexOf('/'));
             string device = path.Substring(0, path.IndexOf('/') - 1);
             

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using SciifiiDTO;
 using System.Xml.Serialization;
+using Sciifii.Utils;
 
 namespace Sciifii
 {
@@ -47,14 +48,10 @@ namespace Sciifii
                     default:
                         Application.Run(new MainFormV4(datas)); break;
                 }
-
-                //When close application if configuration edited save
-                using (Stream config = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
-                    new XmlSerializer(typeof(SciifiiConfiguration)).Serialize(config, datas);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Send this error to wiigenteam@gmail.fr to help us:\r\r" + e, "General error", MessageBoxButtons.OK);
+                ErrorBox.Show(e);
             }
         }
     }

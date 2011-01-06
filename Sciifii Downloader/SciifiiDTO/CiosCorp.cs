@@ -18,6 +18,15 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "items")]
         public List<CorpItem> Items { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public CiosCorp()
+        {
+            this.Modules = new List<CorpModule>();
+            this.Items = new List<CorpItem>();
+        }
+        
         public CiosCorp(List<CorpModule> modules, List<CorpItem> items)
         {
             this.Modules = modules;

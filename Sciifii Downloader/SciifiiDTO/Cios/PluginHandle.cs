@@ -19,6 +19,12 @@ namespace SciifiiDTO.Cios
         [XmlAttribute(AttributeName = "value")]
         public String Value { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public PluginHandle()
+        { }
+        
         public PluginHandle(string name, string pattern, string value)
         {
             this.Name = name;

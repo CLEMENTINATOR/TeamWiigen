@@ -25,6 +25,14 @@ namespace SciifiiDTO.Cios
         [XmlElement(ElementName = "handle")]
         public List<PluginHandle> Handles { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public Plugin()
+        {
+            this.Handles = new List<PluginHandle>();
+        }
+        
         public Plugin(string moduleName, 
             string file, 
             ushort segment, 

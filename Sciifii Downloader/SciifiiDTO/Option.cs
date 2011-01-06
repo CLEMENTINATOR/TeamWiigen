@@ -19,6 +19,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "hidden")]
         public Boolean Hidden { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public Option()
+        { }
+        
         public Option(string name, string text, bool hidden)
         {
             this.Name = name;

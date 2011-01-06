@@ -29,8 +29,13 @@ namespace SciifiiDTO
             }
         }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
         public Step()
-        { }
+        {
+            RegionsString = "-1";
+        }
         
         public Step(string optionsString, string regionsString)
         {

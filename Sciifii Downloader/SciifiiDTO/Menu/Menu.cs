@@ -34,6 +34,20 @@ namespace SciifiiDTO.Menu
         [XmlElementAttribute(ElementName = "exitMenuItem")]
         public List<ExitMenuItem> ExitMenuItem { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public Menu()
+        { 
+            this.ModeMenuItem  = new List<ModeMenuItem>();
+            this.SeparatorMenuItem = new List<SeparatorMenuItem>();
+            this.NavigationMenuItem = new List<NavigationMenuItem>();
+            this.SwitchMenuItem = new List<SwitchMenuItem>();
+            this.StartMenuItem = new List<StartMenuItem>();
+            this.PreviousMenuItem = new List<PreviousMenuItem>();
+            this.ExitMenuItem = new List<ExitMenuItem>();
+        }
+        
         public Menu(string id, 
             List<ModeMenuItem> modeMenuItem, 
             List<SeparatorMenuItem> separatorMenuItem, 

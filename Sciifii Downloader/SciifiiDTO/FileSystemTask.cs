@@ -43,6 +43,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "action")]
         public FST_Action Action { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public FileSystemTask()
+        { }
+        
         public FileSystemTask(string target, 
             string destination,
             bool recursive,

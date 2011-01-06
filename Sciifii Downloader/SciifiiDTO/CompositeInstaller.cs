@@ -45,6 +45,9 @@ namespace SciifiiDTO
             }
         }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
         public CompositeInstaller()
         {
             this.Steps = new List<Step>();

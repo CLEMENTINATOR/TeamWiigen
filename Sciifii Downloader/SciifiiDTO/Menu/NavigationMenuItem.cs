@@ -19,6 +19,12 @@ namespace SciifiiDTO.Menu
         [XmlAttribute(AttributeName = "saveOptions")]
         public Boolean SaveOptions { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public NavigationMenuItem()
+        { }
+        
         public NavigationMenuItem(string text, string menuId, bool saveOptions)
         {
             this.Text = text;

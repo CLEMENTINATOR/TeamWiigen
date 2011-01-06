@@ -13,6 +13,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "file")]
         public String FileKey { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public FileDownloader()
+        { }
+        
         public FileDownloader(string fileKey)
         {
             this.FileKey = fileKey;

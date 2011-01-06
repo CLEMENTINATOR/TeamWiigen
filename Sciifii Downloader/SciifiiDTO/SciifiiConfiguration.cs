@@ -56,6 +56,19 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "steps")]
         public List<Step> Steps { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public SciifiiConfiguration()
+        {
+            workingDirectory = "sd:/sciifii";
+            this.ManagedFiles = new List<ManagedFile>();
+            this.Modes = new List<Mode>();
+            this.Menus = new List<Menu.Menu>();
+            this.Options = new List<Option>();
+            this.Steps = new List<Step>();
+        }
+        
         public SciifiiConfiguration(ushort version,
             string menuMessage,
             string themeDirectory,

@@ -22,6 +22,12 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "path")]
         public String FilePath { get; set; }
 
+        /// <summary>
+        /// Need by serialization
+        /// </summary>
+        public ManagedFile()
+        { }
+        
         public ManagedFile(string key, string url, string shaUrl, string filePath)
         {
             this.Key = key;

@@ -28,11 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditForm));
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.SuspendLayout();
+            // 
+            // treeView1
+            // 
+            resources.ApplyResources(this.treeView1, "treeView1");
+            this.treeView1.Name = "treeView1";
+            // 
+            // EditForm
+            // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "EditForm";
+            this.Controls.Add(this.treeView1);
+            this.Name = "EditForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditForm_FormClosing);
+            this.Shown += new System.EventHandler(this.EditForm_Shown);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TreeView treeView1;
     }
 }

@@ -44,7 +44,7 @@ namespace Sciifii
                 switch (datas.Version)
                 {
                     case 5:
-                        Application.Run(new MainFormV5(datas)); break;
+                        Application.Run(new MainFormV5(datas, fileName)); break;
                     default:
                         Application.Run(new MainFormV4(datas)); break;
                 }

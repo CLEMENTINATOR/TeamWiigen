@@ -21,6 +21,7 @@ namespace Sciifii
     {
         #region private
         private SciifiiConfiguration datas;
+        private String fileName;
         private bool job = false;
         private bool canceledJob = false;
         private string directory;
@@ -382,7 +383,7 @@ namespace Sciifii
         #endregion
 
         #region public
-        public MainFormV5(SciifiiConfiguration datas)
+        public MainFormV5(SciifiiConfiguration datas, String fileName)
         {
             InitializeComponent();
 
@@ -402,6 +403,8 @@ namespace Sciifii
 
             hiddenOptions = new List<string>();
 
+            this.fileName = fileName;
+            
             this.datas = datas;
             if(datas != null)
                 UpdateTextBox(m_log.Log, "config.xml v" + datas.Version + " " + resource.GetString("$LoadS"));
@@ -419,7 +422,7 @@ namespace Sciifii
             switch (((ToolStripDropDownItem)sender).Name)
             {
                 case "msEdit":
-                    new EditForm().Show(this);
+                    new EditForm(datas, fileName).Show(this);
                     break;
                 case "msQuit":
                     this.Close();

@@ -19,18 +19,18 @@ namespace SciifiiDTO
         [XmlAttribute(AttributeName = "MenuMessage")]
         public String MenuMessage { get; set; }
 
-        [XmlAttribute(AttributeName = "themeDirectory")]
-        public String ThemeDirectory { get; set; }
-
         [XmlAttribute(AttributeName = "AllowAdvancedMode")]
         public Boolean AllowAdvancedMode { get; set; }
 
         [XmlAttribute(AttributeName = "workingDirectory")]
         public String workingDirectory { get; set; }
 
-        [XmlElement(ElementName = "Disclaimer")]
-        public String Disclaimer { get; set; }
+        [XmlAttribute(AttributeName = "themeDirectory")]
+        public String ThemeDirectory { get; set; }
 
+        [XmlArray(ElementName = "logs")]
+        public List<Log.Log> Logs { get; set; }
+        
         [XmlArray(ElementName = "files")]
         public List<ManagedFile> ManagedFiles { get; set; }
 
@@ -56,12 +56,16 @@ namespace SciifiiDTO
         [XmlArray(ElementName = "steps")]
         public List<Step> Steps { get; set; }
 
+        [XmlElement(ElementName = "Disclaimer")]
+        public String Disclaimer { get; set; }
+
         /// <summary>
         /// Need by serialization
         /// </summary>
         public SciifiiConfiguration()
         {
             workingDirectory = "sd:/sciifii";
+            this.Logs = new List<Log.Log>();
             this.ManagedFiles = new List<ManagedFile>();
             this.Modes = new List<Mode>();
             this.Menus = new List<Menu.Menu>();
@@ -74,6 +78,7 @@ namespace SciifiiDTO
             string themeDirectory,
             string workingDirectory,
             string disclaimer,
+            List<Log.Log> logs,
             List<ManagedFile> managedFiles,
             List<Mode> modes,
             List<Menu.Menu> menus,
@@ -85,6 +90,7 @@ namespace SciifiiDTO
             this.ThemeDirectory = themeDirectory;
             this.workingDirectory = workingDirectory;
             this.Disclaimer = disclaimer;
+            this.Logs = logs;
             this.ManagedFiles = managedFiles;
             this.Modes = modes;
             this.Menus = menus;

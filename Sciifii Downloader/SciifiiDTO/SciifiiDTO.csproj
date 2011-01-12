@@ -68,6 +68,9 @@
     <Compile Include="Cios\PreBuildPatch.cs" />
     <Compile Include="Cios\SimplePatch.cs" />
     <Compile Include="Identifier.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Log\LogCategory.cs" />
+    <Compile Include="Log\LogType.cs" />
     <Compile Include="MemoryPatcher.cs" />
     <Compile Include="Menu\ExitMenuItem.cs" />
     <Compile Include="Menu\Menu.cs" />

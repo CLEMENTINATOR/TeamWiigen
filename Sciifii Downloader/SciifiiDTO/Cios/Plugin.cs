@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace SciifiiDTO.Cios
 {
@@ -16,12 +17,12 @@ namespace SciifiiDTO.Cios
         [XmlAttribute(AttributeName = "file")]
         public String File { get; set; }
 
-        [XmlAttribute(AttributeName = "offset")]
-        public UInt32 Offset { get; set; }
+        [XmlElement(ElementName = "offset")]
+        public Nullable<UInt32> Offset { get; set; }
 
-        [XmlAttribute(AttributeName = "bss")]
-        public UInt32 Bss { get; set; }
-
+        [XmlElement(ElementName = "bss")]
+        public Nullable<UInt32> Bss { get; set; }
+        
         [XmlAttribute(AttributeName = "segment")]
         public UInt16 Segment { get; set; }
 

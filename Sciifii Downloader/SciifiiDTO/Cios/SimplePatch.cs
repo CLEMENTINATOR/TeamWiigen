@@ -10,12 +10,6 @@ namespace SciifiiDTO.Cios
     [XmlType("SimplePatch")]
     public class SimplePatch : Patch
     {
-        [XmlAttribute(AttributeName = "pattern")]
-        public String Pattern { get; set; }
-
-        [XmlAttribute(AttributeName = "value")]
-        public String Value { get; set; }
-
         [XmlAttribute(AttributeName = "module")]
         public String Module { get; set; }
 
@@ -25,10 +19,8 @@ namespace SciifiiDTO.Cios
         public SimplePatch()
         { }
         
-        public SimplePatch(string pattern, string value, string module)
+        public SimplePatch(string module)
         {
-            this.Pattern = pattern;
-            this.Value = value;
             this.Module = module;
         }
     }

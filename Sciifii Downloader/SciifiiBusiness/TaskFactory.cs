@@ -209,22 +209,25 @@ namespace SciifiiBusiness
 
         public Task CreateTask(Step step)
         {
-            if (step is CiosCorp)
-                return new Task { Step = step, job = PrepareCorp };
-            else if (step is CiosInstaller)
-                return new Task { Step = step, job = PrepareCiosInstaller };
-            else if (step is TitleInstaller)
-                return new Task { Step = step, job = PrepareTitleInstaller };
-            else if (step is TitleDowngrader)
-                return new Task { Step = step, job = PrepareTitleDowngrader };
-            else if (step is SciifiiDTO.FileDownloader)
-                return new Task { Step = step, job = PrepareFileDownloader };
-            else if (step is CompositeInstaller)
-                return new Task { Step = step, job = PrepareComposite };
-            else if (step is Preloader)
-                return new Task { Step = step, job = PreparePreloader };
-            else
-                return new Task { Step = step, job = PrepareEmptyTask };
+            switch(step.GetType().Name)
+            {
+                case "CiosCorp":
+                    return new Task { Step = step, job = PrepareCorp };
+                case "CiosCCiosInstallerorp":
+                    return new Task { Step = step, job = PrepareCiosInstaller };
+                case "TitleInstaller":
+                    return new Task { Step = step, job = PrepareTitleInstaller };
+                case "TitleDowngrader":
+                    return new Task { Step = step, job = PrepareTitleDowngrader };
+                case "FileDownloader":
+                    return new Task { Step = step, job = PrepareFileDownloader };
+                case "CompositeInstaller":
+                    return new Task { Step = step, job = PrepareComposite };
+                case "Preloader":
+                    return new Task { Step = step, job = PreparePreloader };
+                default:
+                    return new Task { Step = step, job = PrepareEmptyTask };
+            }
         }
 
         public MessageEventHandler message;

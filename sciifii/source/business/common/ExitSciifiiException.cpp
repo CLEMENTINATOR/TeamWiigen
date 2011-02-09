@@ -1,4 +1,4 @@
-#include <sciifii/business/Common/ExitSciifiiException.h>
+#include <sciifii/business/common/ExitSciifiiException.h>
 
 using namespace Libwiisys::Exceptions;
 

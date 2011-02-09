@@ -9,7 +9,7 @@
 #include <Libwiisys/Exceptions/AbortException.h>
 #include <Libwui/Device/PadControllers.hpp>
 #include <Libwui/Component/MessageBox.hpp>
-#include <sciifii/business/Common/ExitSciifiiException.h>
+#include <sciifii/business/common/ExitSciifiiException.h>
 #include <sciifii/ui/text/VirtualPad.h>
 #include <sciifii/Tools.h>
 #include <sciifii/ui/text/MenuManager.h>

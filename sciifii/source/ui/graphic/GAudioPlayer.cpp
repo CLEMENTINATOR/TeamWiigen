@@ -1,4 +1,4 @@
-#include <Sciifii/ui/graphic/GAudioPlayer.h>
+#include <sciifii/ui/graphic/GAudioPlayer.h>
 #include <Libwui/Resources/Colors.h>
 #include <Libwiisys/IO/File.h>
 #include <Libwiisys/IO/Directory.h>

@@ -184,6 +184,12 @@ void GSciifiiLauncher2::Execute()
 	if (!ignore)
 	  throw;
   }
+
+  if(stepIndex == Config::Steps().size())
+	{
+	  jobAlreadyDone = true;
+	  stepIndex = 0;
+	}
 }
 
 void GSciifiiLauncher2::Draw()

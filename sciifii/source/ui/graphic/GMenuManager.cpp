@@ -6,7 +6,7 @@
 #include <Libwiisys/String/UtilString.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwui/UIManager.hpp>
-#include <sciifii/ui/graphic/GSciifiiLauncher.h>
+#include <sciifii/ui/graphic/GSciifiiLauncher2.h>
 #include <Libwui/UIManager.hpp>
 #include <Libwiisys/Exceptions/AbortException.h>
 #include <sciifii/business/common/ExitSciifiiException.h>
@@ -168,7 +168,7 @@ bool GMenuManager::ExecuteSciifii()
 {
   try
   {
-    GSciifiiLauncher g;
+    GSciifiiLauncher2 g;
     UIManager::ShowDialog(g);
     Config::Reset();
     for(map<string,GDynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)

@@ -52,14 +52,15 @@
 
   <menus start="main">
     <menu id="main">
-      <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
+      <!--<modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
       <modeMenuItem text="Unhack your wii" switches="cIOS249|update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
-      <separatorMenuItem char=" " />
+      <separatorMenuItem char=" " />-->
+      <modeMenuItem text="Pour tester sciifii" switches="test" />
       <exitMenuItem text="Exit" />
     </menu>
 
@@ -433,30 +434,200 @@
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
 
-    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-      <stub tid="3" revision="65280"/>
-      <stub tid="4" revision="65280"/>
-      <stub tid="10" revision="768"/>
-      <stub tid="11" revision="256"/>
-      <stub tid="16" revision="512"/>
-      <stub tid="20" revision="256"/>
-      <stub tid="30" revision="2816"/>
-      <stub tid="40" revision="3072"/>
-      <stub tid="50" revision="5120"/>
-      <stub tid="51" revision="4864"/>
-      <stub tid="52" revision="5888"/>
-      <stub tid="60" revision="6400"/>
-      <stub tid="70" revision="6912"/>
-      <stub tid="222" revision="65280"/>
-      <stub tid="223" revision="65280"/>
-      <stub tid="249" revision="65280"/>
-      <stub tid="250" revision="65280"/>
-      <stub tid="254" revision="2"/>
-      <stub tid="254" revision="3"/>
-      <stub tid="254" revision="260"/>
-      <stub tid="254" revision="65280"/>
-      <stub tid="254" revision="65281"/>
-    </Syscheck>
+	<CompositeInstaller option="test" name="Wiiflow">
+		<Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+	      <stub tid="3" revision="65280"/>
+	      <stub tid="4" revision="65280"/>
+	      <stub tid="10" revision="768"/>
+	      <stub tid="11" revision="256"/>
+	      <stub tid="16" revision="512"/>
+	      <stub tid="20" revision="256"/>
+	      <stub tid="30" revision="2816"/>
+	      <stub tid="40" revision="3072"/>
+	      <stub tid="50" revision="5120"/>
+	      <stub tid="51" revision="4864"/>
+	      <stub tid="52" revision="5888"/>
+	      <stub tid="60" revision="6400"/>
+	      <stub tid="70" revision="6912"/>
+	      <stub tid="222" revision="65280"/>
+	      <stub tid="223" revision="65280"/>
+	      <stub tid="249" revision="65280"/>
+	      <stub tid="250" revision="65280"/>
+	      <stub tid="254" revision="2"/>
+	      <stub tid="254" revision="3"/>
+	      <stub tid="254" revision="260"/>
+	      <stub tid="254" revision="65280"/>
+	      <stub tid="254" revision="65281"/>
+	    </Syscheck>
+	</CompositeInstaller>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>

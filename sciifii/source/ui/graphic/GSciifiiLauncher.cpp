@@ -85,6 +85,13 @@ bool GSciifiiLauncher::Run()
 {
   try
   {
+    UIManager::TrackWPads(false);
+	Config::ValidateOptions();
+
+    vector<Installer*> steps = Config::Steps();
+    for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+      (*ite)->Progressing += MakeDelegate(this,&GSciifiiLauncher::SetValueActual);
+	  
     bw.DoWork += MakeDelegate(this, &GSciifiiLauncher::LaunchProcess);
     bw.WorkDone += MakeDelegate(this, &GSciifiiLauncher::JobDone);
     bw.RunWorkerAsync(NULL);
@@ -114,62 +121,47 @@ void GSciifiiLauncher::Exit(Object *sender, CursorEventArgs *p)
 
 void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
 {
-  Config::ValidateOptions();
-
-  vector<Installer*> steps = Config::Steps();
-  for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
-    (*ite)->Progressing += MakeDelegate(this,
-                                        &GSciifiiLauncher::SetValueActual);
-
-  UIManager::TrackWPads(false);
   if (Prepare())
   {
     Execute();
-    pBarGlobal.SetText("Done !");
+    //pBarGlobal.SetText("Done !");
   }
   else
-  {
-    bOk.Enabled(true);
-    bOk.Visible(true);
-    UIManager::TrackWPads(true);
     throw Exception("An error occured during prepare.");
-  }
-
-  UIManager::TrackWPads(true);
 }
 
 bool GSciifiiLauncher::Prepare()
 {
   bool sucess = true;
-  pBarGlobal.SetText("Preparation");
+  //pBarGlobal.SetText("Preparation");
   u32 step = 0;
   vector<Installer*> steps = Config::Steps();
-  pBarGlobal.SetMaxValue(steps.size() * 2);
+  //pBarGlobal.SetMaxValue(steps.size() * 2);
   for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
   {
     sucess &= (*ite)->Prepare();
     step++;
-    pBarGlobal.SetActualValue(step);
+    //pBarGlobal.SetActualValue(step);
     stringstream s;
     s << "Step " << step << " / " << steps.size() * 2;
-    pBarGlobal.SetText(s.str());
+    //pBarGlobal.SetText(s.str());
   }
   return sucess;
 }
 
 void GSciifiiLauncher::Execute()
 {
-  pBarGlobal.SetText("Installation");
+  //pBarGlobal.SetText("Installation");
   vector<Installer*> steps = Config::Steps();
   u32 step = 0;
   for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
   {
     try
     {
-      pBarGlobal.SetActualValue(step + steps.size());
+      //pBarGlobal.SetActualValue(step + steps.size());
       stringstream s;
       s << "Step " << step + steps.size() << " / " << steps.size() * 2;
-      pBarGlobal.SetText(s.str());
+      //pBarGlobal.SetText(s.str());
       step++;
       (*ite)->Install();
     }
@@ -187,18 +179,20 @@ void GSciifiiLauncher::Execute()
         throw;
       else
       {
-        pBarActual.SetActualValue(1);
-        pBarActual.SetText("Step skipped !");
+        //pBarActual.SetActualValue(1);
+        //pBarActual.SetText("Step skipped !");
       }
     }
-
-    (*ite)->Progressing -= MakeDelegate(this, &GSciifiiLauncher::SetValueActual);
   }
 }
 
 void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 {
+  vector<Installer*> steps = Config::Steps();
+  for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
+    (*ite)->Progressing -= MakeDelegate(this,&GSciifiiLauncher::SetValueActual);
   UIManager::TrackWPads(true);
+  
   if (args->Result.HasError)
     mb.Show( args->Result.e->ToString(),  "Exception");
   else
@@ -212,6 +206,7 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
 
   bOk.Enabled(true);
 }
+
 void GSciifiiLauncher::Draw()
 {
   Menu_DrawRectangle(157, 160, 326, 190, Colors::White(), 1);

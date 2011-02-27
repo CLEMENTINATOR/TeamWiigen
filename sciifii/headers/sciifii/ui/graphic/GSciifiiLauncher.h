@@ -11,7 +11,6 @@
 #include <Libwui/Component/ProgressBar.h>
 #include <Libwui/Component/BackgroundWorker.h>
 #include <sciifii/Config.h>
-#include <sciifii/ui/graphic/GMemoryViewer.h>
 
 class GSciifiiLauncher : public Libwui::Component::Form
 {
@@ -34,7 +33,6 @@ class GSciifiiLauncher : public Libwui::Component::Form
     Libwui::Component::Button bOk;
     Libwui::Component::MessageBox mb;
     Libwui::Component::BackgroundWorker bw;
-		GMemoryViewer _memViewer;
 };
 
 

@@ -8,7 +8,6 @@
 #include <Libwiisys/Serialization/Xml.h>
 #include "GDynamicMenu.h"
 #include "GThemeDdl.h"
-#include <sciifii/ui/graphic/GMemoryViewer.h>
 
 class GMenuManager : public Libwui::Component::Form
 {
@@ -21,7 +20,6 @@ class GMenuManager : public Libwui::Component::Form
 		Libwui::Component::Button btnExit;
 		Libwui::Component::MessageBox mb;
 		GThemeDdl _themeDdl;
-		GMemoryViewer _memViewer;
 		
     GMenuManager();
     void Initialyze(TiXmlElement* node);

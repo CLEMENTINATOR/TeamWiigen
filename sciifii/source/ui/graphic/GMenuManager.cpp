@@ -110,9 +110,6 @@ void GMenuManager::InitializeComponents()
   AddChildren(&btnExit);
   AddChildren(&_themeDdl);
 	
-	_memViewer.SetPosition(10,50);
-	AddChildren(&_memViewer);
-
   Form::InitializeComponents();
 }
 

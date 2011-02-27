@@ -73,10 +73,7 @@ void GSciifiiLauncher::InitializeComponents()
   AddChildren(&pBarGlobal);
   AddChildren(&bOk);
   AddChildren(&bw);
-	
-	_memViewer.SetPosition(10,50);
-	AddChildren(&_memViewer);
-	
+
   Control::InitializeComponents();
   Run();
 }
@@ -111,7 +108,6 @@ void GSciifiiLauncher::SetValueGlobal(Object *sender, ProgressEventArgs *p)
 void GSciifiiLauncher::SetValueActual(Object *sender, ProgressEventArgs *p)
 {
   pBarActual.SetValue(sender, p);
-	_memViewer.DisplayMemory(NULL, NULL);
 }
 
 void GSciifiiLauncher::Exit(Object *sender, CursorEventArgs *p)

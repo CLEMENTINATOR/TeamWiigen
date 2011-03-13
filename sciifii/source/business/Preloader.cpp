@@ -47,8 +47,10 @@ Buffer Preloader::GetSysMenuTMD()
   memset(s_tmd, 0, (tmd_size+32)&(~31));
   ret = ES_GetStoredTMD(title_id, s_tmd, tmd_size);
   if (ret < 0)
+  {
+	free(s_tmd);
     throw SystemException("Cant read SysMenu tmd!", ret);
-
+  }
   Buffer returnValue(s_tmd, (tmd_size+32)&(~31));
   free(s_tmd);
 

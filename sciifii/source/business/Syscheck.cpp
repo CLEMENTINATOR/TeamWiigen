@@ -241,17 +241,22 @@ void Syscheck::RemoveTestTicket()
   ret = ES_GetTicketViews(titleId, viewdata, views);
 
   if (ret < 0)
+  {
+    free(viewdata);
     return ;
-
+  }
   // Remove tickets
   for (cnt = 0; cnt < views; cnt++)
   {
     ret = ES_DeleteTicket(&viewdata[cnt]);
 
     if (ret < 0)
+	{
+	  free(viewdata);
       return ;
+	}
   }
-
+  free(viewdata);
   return ;
 
 

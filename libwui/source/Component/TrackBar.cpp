@@ -299,9 +299,9 @@ void TrackBar::DrawUpdate()
 {
 	float step = 0.0;
 	if(_mode == TrackBarMode_Vertical)
-		step = ((float)(_scrollBar.GetHeight() - 24)) / ((float)(_maxValue - _minValue));
+		step = ((float)(_scrollBar.GetHeight() - _scrollBall.GetHeight())) / ((float)(_maxValue - _minValue));
 	else if(_mode == TrackBarMode_Horizontal)
-		step = ((float)(_scrollBar.GetWidth() - 24)) / ((float)(_maxValue - _minValue));
+		step = ((float)(_scrollBar.GetWidth() - _scrollBall.GetWidth())) / ((float)(_maxValue - _minValue));
 	if(_scrollBallMoved)
 	{
 		if(_mode == TrackBarMode_Vertical)
@@ -329,9 +329,9 @@ void TrackBar::DrawUpdate()
 	if(!_scrollBallMoved)
 	{
 		if(_mode == TrackBarMode_Vertical)
-			_scrollBall.SetPosition(10, ((float)_value)* step);
+			_scrollBall.SetPosition((_scrollBar.GetWidth() - _scrollBall.GetWidth()) / 2, ((float)_value)* step);
 		else if(_mode == TrackBarMode_Horizontal)
-			_scrollBall.SetPosition(((float)_value)* step, 10);
+			_scrollBall.SetPosition(((float)_value)* step, (_scrollBar.GetHeight() - _scrollBall.GetHeight()) / 2);
 	}
 	_scrollBallMoved = false;
 	OnValueChanged();

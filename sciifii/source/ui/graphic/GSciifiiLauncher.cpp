@@ -120,7 +120,7 @@ void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
   if (Prepare())
   {
     Execute();
-    //pBarGlobal.SetText("Done !");
+    pbarGlobal.SetText("Done !");
   }
   else
     throw Exception("An error occured during prepare.");
@@ -129,35 +129,35 @@ void GSciifiiLauncher::LaunchProcess(Object *sender, Object *args)
 bool GSciifiiLauncher::Prepare()
 {
   bool sucess = true;
-  //pBarGlobal.SetText("Preparation");
+  pbarGlobal.SetText("Preparation");
   u32 step = 0;
   vector<Installer*> steps = Config::Steps();
-  //pBarGlobal.SetMaxValue(steps.size() * 2);
+  pbarGlobal.SetMaxValue(steps.size() * 2);
   for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
   {
     sucess &= (*ite)->Prepare();
     step++;
-    //pBarGlobal.SetActualValue(step);
+    pbarGlobal.SetActualValue(step);
     stringstream s;
     s << "Step " << step << " / " << steps.size() * 2;
-    //pBarGlobal.SetText(s.str());
+    pbarGlobal.SetText(s.str());
   }
   return sucess;
 }
 
 void GSciifiiLauncher::Execute()
 {
-  //pBarGlobal.SetText("Installation");
+  pbarGlobal.SetText("Installation");
   vector<Installer*> steps = Config::Steps();
   u32 step = 0;
   for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
   {
     try
     {
-      //pBarGlobal.SetActualValue(step + steps.size());
+      pbarGlobal.SetActualValue(step + steps.size());
       stringstream s;
       s << "Step " << step + steps.size() << " / " << steps.size() * 2;
-      //pBarGlobal.SetText(s.str());
+      pbarGlobal.SetText(s.str());
       step++;
       (*ite)->Install();
     }
@@ -175,8 +175,8 @@ void GSciifiiLauncher::Execute()
         throw;
       else
       {
-        //pBarActual.SetActualValue(1);
-        //pBarActual.SetText("Step skipped !");
+        pBarActual.SetActualValue(1);
+        pBarActual.SetText("Step skipped !");
       }
     }
   }

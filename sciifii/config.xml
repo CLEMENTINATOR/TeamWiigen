@@ -48,26 +48,28 @@
     <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appfiles/neoforwarder.wad" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appfiles/neo.dol" path="sd:/apps/neogamma/boot.dol" />
     <file key="Neoxml" url="http://teamwiigen.fr.cr/appfiles/neo.xml" path="sd:/apps/neogamma/meta.xml" />
+    <file key="cios249" url="http://teamwiigen.fr.cr/appfiles/IOS249R21.wad" />
+    <file key="cios250" url="http://teamwiigen.fr.cr/appfiles/IOS250R21.wad" />
+    <file key="cios251" url="http://teamwiigen.fr.cr/appfiles/IOS251R21.wad" />
   </files>
 
   <menus start="main">
     <menu id="main">
-      <!--<modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
+      <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
       <modeMenuItem text="Unhack your wii" switches="cIOS249|update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
-      <separatorMenuItem char=" " />-->
-      <modeMenuItem text="Pour tester sciifii" switches="test" />
+      <separatorMenuItem char=" " />
       <exitMenuItem text="Exit" />
     </menu>
 
     <menu id="advanced">
-      <switchMenuItem name="cIOS249" text="Install cios249 rev 17" />
-      <switchMenuItem name="cIOS250" text="Install cios250 rev 19 (base 37)" />
-      <switchMenuItem name="cIOS251" text="Install cios251 rev 20b (base 57)" />
+      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(base 38)" />
+      <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (base 37)" />
+      <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (base 57)" />
       <switchMenuItem name="update" text="Update your wii to 4.3" />
       <switchMenuItem name="update4.2" text="Update your wii to 4.2" />
       <switchMenuItem name="Preloader" text="Install the priiloader" />
@@ -97,82 +99,15 @@
       <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
     </MemoryPatcher>
 
-    <CiosInstaller option="cIOS249" source="38" revision="3867" slot="249" ciosRevision="17" delete="true">
-      <modules>
-        <module file="ehci_module.dat" position="3" />
-        <module file="fat_module.dat" />
-        <module file="sdhc_module.dat" />
-      </modules>
-      <plugins>
-        <plugin dest="DIP" file="dip_plugin.dat" offset="200" bss="2C000">
-          <handle name="DIP_Cmd1" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x46, 0xB4, 0xC0, 0x68, 0x05, 0x46, 0x8A, 0x21" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x01, 0x68, 0x05, 0x46, 0x8A, 0x21" />
-          <handle name="DIP_Cmd2" pattern="0xB5, 0xF0, 0x46, 0x5F, 0x46, 0x56, 0x46, 0x4D, 0x46, 0x44, 0xB4, 0xF0, 0x4B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x20, 0x82, 0x05, 0x46, 0x44, 0xB4, 0xF0, 0x4B" />
-        </plugin>
-        <plugin dest="ES" file="es_plugin.dat" offset="200" bss="5000" >
-          <handle name="ES_Cmd" pattern="0xB5, 0x70, 0xB0, 0x88, 0x68, 0x85, 0x1C, 0x01, 0x31, 0x0C, 0x22, 0xC0" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x10, 0xB2, 0x01, 0x31, 0x0C, 0x22, 0xC0" />
-        </plugin>
-        <plugin dest="FFS" file="ffs_plugin.dat" offset="7200" bss="47000">
-          <handle name="FFS_OpenCmd" pattern="0xB5, 0xF0, 0x46, 0x47, 0xB4, 0x80, 0xB0, 0x81, 0x1C, 0x04, 0x1C, 0x05, 0x35" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x1C, 0x04, 0x1C, 0x05, 0x35" />
-          <handle name="FFS_CloseCmd" pattern="0xB5, 0x70, 0x26, 0x00, 0x68, 0x84, 0x6A, 0x23, 0x2B, 0x00, 0xD0, 0x00, 0x1C" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x2B, 0x00, 0xD0, 0x00, 0x1C" />
-          <handle name="FFS_ReadCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x22, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x22, 0x0C, 0x18" />
-          <handle name="FFS_WriteCmd" pattern="0xB5, 0xF0, 0x46, 0x57, 0x46, 0x4E, 0x46, 0x45, 0xB4, 0xE0, 0x21, 0x0C, 0x18" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0xB4, 0xE0, 0x21, 0x0C, 0x18" />
-          <handle name="FFS_SeekCmd" pattern="0xB5, 0x10, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x81, 0x6A, 0x08, 0x28, 0x00, 0xD1" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x6A, 0x08, 0x28, 0x00, 0xD1" />
-          <handle name="FFS_IoctlCmd" pattern="0xB5, 0xF0, 0xB0, 0x9C, 0x24, 0x00, 0x1C, 0x05, 0x35, 0x0C, 0x68, 0x81, 0x26" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x35, 0x0C, 0x68, 0x81, 0x26" />
-          <handle name="FFS_IoctlvCmd" pattern="0xB5, 0xF0, 0xB0, 0x81, 0x1C, 0x04, 0x34, 0x0C, 0x68, 0x85, 0x68, 0xC3, 0x2B" value="0x4B, 0x00, 0x47, 0x18, 0x20, 0x00, 0x72, 0x01, 0x68, 0x85, 0x68, 0xC3, 0x2B" />
-        </plugin>
-      </plugins>
-      <patches>
-        <prebuild name="ES_HashCheck_Old" />
-        <prebuild name="ES_HashCheck_New" />
-        <prebuild name="ES_Identify" />
-        <prebuild name="ES_OpenTitleContent1" />
-        <prebuild name="ES_OpenTitleContent2" />
-        <prebuild name="ES_ReadContent" />
-        <prebuild name="ES_CloseContent" />
-        <prebuild name="ES_SetUIDCheck" />
-        <prebuild name="ES_TitleVersionCheck" />
-        <prebuild name="ES_TitleDeleteCheck" />
-        <prebuild name="ES_MEM2Protection" />
-        <prebuild name="FFS_PermsCheck" />
-        <prebuild name="DIP_UnencryptedLimit" />
-        <prebuild name="DIP_EnableDvdVideo" />
-      </patches>
-    </CiosInstaller>
-
-
-    <CiosInstaller option="cIOS250" source="37" revision="3869" slot="250" ciosRevision="19" delete="true">
-      <modules>
-        <module file="mload_module_19.dat" />
-        <module file="ehci_module_19.dat" position="3" />
-        <module file="fat_module_19.dat" />
-        <module file="sdhc_module_19.dat" />
-        <module file="dip_plugin_19.dat" />
-        <module file="ffs_plugin_19.dat" />
-      </modules>
-
-      <patches>
-        <SimplePatch module="IOSP" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" />
-        <prebuild name="DIP_EnableDvdVideo" />
-      </patches>
-    </CiosInstaller>
-
-    <CiosInstaller option="cIOS251" source="57" revision="5918" slot="251" ciosRevision="20" delete="true">
-      <modules>
-				<module file="mload_module_20.dat" />
-				<module file="fat_module_20.dat" position="2" />
-				<module file="sdhc_module_20.dat" />
-				<module file="dip_plugin_20.dat" />
-				<module file="es_plugin_20.dat" />
-				<module file="ffs_plugin_20.dat" />
-				<module file="ehci_module_20.dat" />
-      </modules>
-
-      <patches>
-        <SimplePatch module="IOSP" pattern="0xFF, 0xFF, 0x5D, 0x9A, 0xFF, 0xFF, 0x5D, 0x32" value="0xFF, 0xFF, 0x5D, 0x9A, 0x13, 0x6D, 0x00, 0x11" />
-        <prebuild name="DIP_EnableDvdVideo" />
-      </patches>
-    </CiosInstaller>
-
+    <Title wad="cios249" option="cIOS249" action="uninstall" />
+    <Title wad="cios249" option="cIOS249" action="install" />
+    
+    <Title wad="cios250"  option="cIOS250" action="uninstall" />
+    <Title wad="cios250"  option="cIOS250" action="install" /> 
+    
+    <Title wad="cios251"  option="cIOS251" action="uninstall" />
+    <Title wad="cios251"  option="cIOS251" action="install" />
+   
     <IOSReloader option="update|update4.2|uninstall|Preloader|corp|cmios|GXLoader|wiiflow|batch|clean|NeoLoader|deleteChannel" id="249"  />
 
     <CompositeInstaller option="update" name="Update Ioses">
@@ -364,54 +299,8 @@
       <FileDownloader file="hacks_hash.ini" />
     </CompositeInstaller>
 
-    <CorpInstaller option="corp">
-      <modules>
-        <module type="DIP" name="dip13" file="dip13.dat" />
-        <module type="DIP" name="dip17" file="dip17.dat" />
-      </modules>
-      <items>
-        <item slot="0000000100000009" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000000B" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000011" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000014" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000015" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000001C" source="000000010000001C" revision="1293" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
-        <item slot="000000010000001E" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000021" source="0000000100000021" revision="2834" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
-        <item slot="0000000100000023" source="0000000100000023" revision="3092" modules="dip17" identifyPatch="true" nandPatch="false" kkPatch="false" />
-        <item slot="0000000100000024" source="0000000100000024" revision="3094" modules="dip13" identifyPatch="true" nandPatch="true" kkPatch="false" />
-        <item slot="0000000100000025" source="0000000100000025" revision="3612" modules="dip17" identifyPatch="true" nandPatch="true" kkPatch="true" />
-        <item slot="0000000100000026" source="0000000100000026" revision="3867" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="false" />
-        <item slot="0000000100000028" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000029" source="0000000100000029" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000002B" source="000000010000002B" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000002D" source="000000010000002D" revision="3091" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000002E" source="000000010000002E" revision="3093" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000030" source="0000000100000030" revision="4123" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000032" source="0000000100000032" revision="4889" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000034" source="0000000100000034" revision="5661" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000035" source="0000000100000035" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000037" source="0000000100000037" revision="5149" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000038" source="0000000100000038" revision="5661" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000039" source="0000000100000039" revision="5918" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000003A" source="000000010000003A" revision="6175" modules="dip17" identifyPatch="false" nandPatch="false" kkPatch="true" />
-        <item slot="000000010000003C" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000046" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-        <item slot="0000000100000050" source="000000010000003C" revision="6174" modules="dip13" identifyPatch="true" nandPatch="false" kkPatch="true" />
-      </items>
-    </CorpInstaller>
 
-    <CiosInstaller option="cmios" source="257" revision="8" slot="257" ciosRevision="8" >
-      <plugins>
-        <plugin dest="IOS" file="cmios_plugin.dat">
-          <header type="1" vaddr="0x01000000" paddr="0x01000000" flag="0x00F00005" align="1" />
-          <handle name="cmios_handle" pattern="0x81, 0x30, 0x02, 0x00, 0x81, 0x32" value="0x81, 0x00, 0x00, 0x00, 0x81, 0x32" />
-        </plugin>
-      </plugins>
-      <patches>
-        <SimplePatch pattern="0x23, 0x80, 0x03, 0x9b, 0x43, 0x1a" value="0x23, 0x80, 0x03, 0x9b, 0x43, 0x9a" />
-      </patches>
-    </CiosInstaller>
+ 
 
 
     <CompositeInstaller option="NeoLoader" name="NeoLoader">
@@ -434,200 +323,30 @@
       <Title wad="wiiflow.wad" action="install" />
     </CompositeInstaller>
 
-	<CompositeInstaller option="test" name="Wiiflow">
-		<Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
-	      <stub tid="3" revision="65280"/>
-	      <stub tid="4" revision="65280"/>
-	      <stub tid="10" revision="768"/>
-	      <stub tid="11" revision="256"/>
-	      <stub tid="16" revision="512"/>
-	      <stub tid="20" revision="256"/>
-	      <stub tid="30" revision="2816"/>
-	      <stub tid="40" revision="3072"/>
-	      <stub tid="50" revision="5120"/>
-	      <stub tid="51" revision="4864"/>
-	      <stub tid="52" revision="5888"/>
-	      <stub tid="60" revision="6400"/>
-	      <stub tid="70" revision="6912"/>
-	      <stub tid="222" revision="65280"/>
-	      <stub tid="223" revision="65280"/>
-	      <stub tid="249" revision="65280"/>
-	      <stub tid="250" revision="65280"/>
-	      <stub tid="254" revision="2"/>
-	      <stub tid="254" revision="3"/>
-	      <stub tid="254" revision="260"/>
-	      <stub tid="254" revision="65280"/>
-	      <stub tid="254" revision="65281"/>
-	    </Syscheck>
-	</CompositeInstaller>
+    <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">
+      <stub tid="3" revision="65280"/>
+      <stub tid="4" revision="65280"/>
+      <stub tid="10" revision="768"/>
+      <stub tid="11" revision="256"/>
+      <stub tid="16" revision="512"/>
+      <stub tid="20" revision="256"/>
+      <stub tid="30" revision="2816"/>
+      <stub tid="40" revision="3072"/>
+      <stub tid="50" revision="5120"/>
+      <stub tid="51" revision="4864"/>
+      <stub tid="52" revision="5888"/>
+      <stub tid="60" revision="6400"/>
+      <stub tid="70" revision="6912"/>
+      <stub tid="222" revision="65280"/>
+      <stub tid="223" revision="65280"/>
+      <stub tid="249" revision="65280"/>
+      <stub tid="250" revision="65280"/>
+      <stub tid="254" revision="2"/>
+      <stub tid="254" revision="3"/>
+      <stub tid="254" revision="260"/>
+      <stub tid="254" revision="65280"/>
+      <stub tid="254" revision="65281"/>
+    </Syscheck>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>

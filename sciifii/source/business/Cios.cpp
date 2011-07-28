@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 #include <Libwiisys/system/Patching/PluginPatch.h>
 #include <Libwiisys/system/Title.h>
 #include <Libwiisys/IO/File.h>

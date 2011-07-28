@@ -50,7 +50,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		TiXmlElement* stubs = node->FirstChildElement();
 		while (stubs != NULL)
 		{
-			if (stubs->Type() != TiXmlElement::COMMENT)
+			if (stubs->Type() != TiXmlNode::TINYXML_COMMENT)
 			{
 				string nodeValue = UtilString::ToStr(stubs->Value());
 				if(nodeValue == "stub")
@@ -109,7 +109,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
     TiXmlElement* section = node->FirstChildElement();
     while (section != NULL)
     {
-      if (section->Type() != TiXmlElement::COMMENT)
+      if (section->Type() != TiXmlNode::TINYXML_COMMENT)
       {
         string nodeValue = UtilString::ToStr(section->Value());
         if(nodeValue == "items")
@@ -129,7 +129,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
     TiXmlElement* patch = node->FirstChildElement();
     while (patch != NULL)
     {
-      if (patch->Type() != TiXmlElement::COMMENT)
+      if (patch->Type() != TiXmlNode::TINYXML_COMMENT)
       {
         string nodeValue = UtilString::ToStr(patch->Value());
         if(nodeValue == "patch")
@@ -264,7 +264,7 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
   TiXmlElement* section = node->FirstChildElement();
   while (section != NULL)
   {
-    if (section->Type() != TiXmlElement::COMMENT)
+    if (section->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       string nodeValue = UtilString::ToStr(section->Value());
       if(nodeValue == "modules")
@@ -287,7 +287,7 @@ void InstallerFactory::FillCiosModules(Installer* cios, TiXmlElement* xml)
   TiXmlElement* module = xml->FirstChildElement();
   while (module != NULL)
   {
-    if (module->Type() != TiXmlElement::COMMENT)
+    if (module->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if(UtilString::ToStr(module->Value()) != "module")
         throw Exception("There can only be module item in modules");
@@ -310,7 +310,7 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
   TiXmlElement* child = xml->FirstChildElement();
   while (child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       string nodeValue = UtilString::ToStr(child->Value());
       if(nodeValue=="prebuild")
@@ -357,7 +357,7 @@ void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
   TiXmlElement* plugin = xml->FirstChildElement();
   while (plugin != NULL)
   {
-    if (plugin->Type() != TiXmlElement::COMMENT)
+    if (plugin->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if(UtilString::ToStr(plugin->Value()) != "plugin")
         throw Exception("There can only be plugin item in plugins");
@@ -389,7 +389,7 @@ vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
 
   while (handle != NULL)
   {
-    if (handle->Type() != TiXmlElement::COMMENT)
+    if (handle->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if(UtilString::ToStr(handle->Value()) == "handle")
       {
@@ -430,7 +430,7 @@ bool InstallerFactory::GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header)
 
   while (handle != NULL)
   {
-    if (handle->Type() != TiXmlElement::COMMENT)
+    if (handle->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if(UtilString::ToStr(handle->Value()) == "header")
       {
@@ -453,7 +453,7 @@ void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
   TiXmlElement* child = xml->FirstChildElement();
   while (child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if (UtilString::ToStr(child->Value()) != "item")
         throw Exception("CorpItem child node is invalid");
@@ -484,7 +484,7 @@ void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
   TiXmlElement* child = xml->FirstChildElement();
   while (child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if (UtilString::ToStr(child->Value()) != "module")
         throw Exception("CorpItem module child node is invalid");
@@ -512,7 +512,7 @@ void InstallerFactory::FillCompositeInstaller(Installer* composite, TiXmlElement
 
   while(child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       Installer* innerstep = InstallerFactory::Create(child);
       bool addToList = innerstep->Region().size() == 0;

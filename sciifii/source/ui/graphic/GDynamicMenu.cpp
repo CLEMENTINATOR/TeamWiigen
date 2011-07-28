@@ -24,7 +24,7 @@ GDynamicMenu::GDynamicMenu(TiXmlElement* node)
 	TiXmlElement* item = node->FirstChildElement();
 	while (item != NULL)
 	{
-		if (item->Type() != TiXmlElement::COMMENT)
+		if (item->Type() != TiXmlNode::TINYXML_COMMENT)
 		{
 			GMenuItem *mitem = GMenuItemFactory::CreateItem(item);
 			mitem->NavigateRequested += MakeDelegate(this,	&GDynamicMenu::Item_NavigateRequested);

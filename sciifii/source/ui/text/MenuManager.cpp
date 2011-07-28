@@ -7,7 +7,7 @@
 #include <sciifii/Config.h>
 #include <sciifii/Sciifii.h>
 #include <sciifii/ui/text/VirtualPad.h>
-
+#include <iostream>
 using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
@@ -41,7 +41,7 @@ void MenuManager::Initialyze(TiXmlElement* node)
   TiXmlElement* menu = node->FirstChildElement();
   while (menu != NULL)
   {
-    if (menu->Type() != TiXmlElement::COMMENT)
+    if (menu->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       DynamicMenu *dmenu = new DynamicMenu(menu);
       _menus.insert(pair<string,DynamicMenu*>(dmenu->MenuId, dmenu));

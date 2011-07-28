@@ -80,7 +80,7 @@ void Config::Initialize(const string& configFilePath)
 
   while (child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       string nodeValue = UtilString::ToStr(child->Value());
 
@@ -118,7 +118,7 @@ void Config::CreateLogs(TiXmlElement* element)
 
   while (child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if (string(child->Value()) != "log")
         throw Exception("options child node is invalid");
@@ -176,7 +176,7 @@ void Config::CreateStepList(TiXmlElement* element)
 
   while (child != NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       Installer* step = InstallerFactory::Create(child);
       bool addToList = step->Region().size() == 0;

@@ -36,7 +36,7 @@ void FileManager::Init(TiXmlElement* config)
   FileManager &fm = FileManager::Instance();
   while (child!=NULL)
   {
-    if (child->Type() != TiXmlElement::COMMENT)
+    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if (string(child->Value()) != "file")
         throw Exception("Invalid file child node name");

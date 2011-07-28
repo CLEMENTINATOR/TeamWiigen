@@ -51,7 +51,7 @@ void GMenuManager::Initialyze(TiXmlElement* node)
   TiXmlElement* menu = node->FirstChildElement();
   while (menu != NULL)
   {
-    if (menu->Type() != TiXmlElement::COMMENT)
+    if (menu->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       GDynamicMenu *dmenu = new GDynamicMenu(menu);
       _menus.insert(pair<string,GDynamicMenu*>(dmenu->MenuId, dmenu));

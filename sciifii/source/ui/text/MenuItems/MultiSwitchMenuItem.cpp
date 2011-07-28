@@ -21,7 +21,7 @@ MultiSwitchMenuItem::MultiSwitchMenuItem(TiXmlElement* node) :
 
   while (item != NULL)
   {
-    if (item->Type() != TiXmlElement::COMMENT)
+    if (item->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       if (UtilString::ToStr(item->Value(), "") != "switch")
         throw Exception("Child of multiswitch isnt \"switch");

@@ -28,7 +28,7 @@ DynamicMenu::DynamicMenu(TiXmlElement* node) :
   TiXmlElement* item = node->FirstChildElement();
   while (item != NULL)
   {
-    if (item->Type() != TiXmlElement::COMMENT)
+    if (item->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       MenuItem *mitem = MenuItemFactory::CreateItem(item);
       mitem->NavigateRequested += MakeDelegate(this,

@@ -28,15 +28,18 @@ void Device::EnsureShutdown()
   {
     fatDevice *tempDevice = devices + deviceIndex;
     if (tempDevice->deviceHandles > 0)
-      throw SystemException("Can shutdown device. Files are used.",
-                            tempDevice->deviceHandles);
+      throw SystemException("Can shutdown device. Files are used.", tempDevice->deviceHandles);
   }
 
   for (u16 deviceIndex = 0; deviceIndex < NB_DEVICES; deviceIndex++)
   {
     fatDevice *tempDevice = devices + deviceIndex;
+
     if (tempDevice->interface != NULL && tempDevice->started)
+	{
       tempDevice->interface->shutdown();
+	  tempDevice->started = false;
+	}
   }
 }
 
@@ -51,8 +54,7 @@ bool Device::IsFatPath(const std::string &path)
   return Path::GetRootName(path) != WII_ROOT_DIRECTORY;
 }
 
-fatDevice&
-Device::FindDevice(const std::string &pathName)
+fatDevice& Device::FindDevice(const std::string &pathName)
 {
   string mountName = Path::GetRootName(pathName);
   fatDevice *device = NULL;

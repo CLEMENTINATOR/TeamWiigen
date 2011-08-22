@@ -42,8 +42,11 @@ string NetworkUtility::GetIp(void)
 
 void NetworkUtility::Deinit(void)
 {
-  Initialized() = false;
-  net_deinit();
+  if(!Initialized())
+  {
+    Initialized() = false;
+    net_deinit();
+  }
 }
 
 string NetworkUtility::URLEncode(string s)

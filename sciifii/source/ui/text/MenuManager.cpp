@@ -7,7 +7,9 @@
 #include <sciifii/Config.h>
 #include <sciifii/Sciifii.h>
 #include <sciifii/ui/text/VirtualPad.h>
+#include <sciifii/Tools.h>
 #include <iostream>
+
 using namespace std;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
@@ -108,7 +110,7 @@ bool MenuManager::ExecuteSciifii()
       Config::Reset();
       for(map<string,DynamicMenu*>::iterator ite = _menus.begin(); ite != _menus.end(); ite++)
       	  ite->second->Reset();
-      cout << "Installation done! Press A to exit.";
+      cout << "Installation done! Press A to continue.";
     }
     else
     {
@@ -116,11 +118,11 @@ bool MenuManager::ExecuteSciifii()
       throw Exception("An error occured during prepare.");
     }
     VPAD_Init();
+	Pause();
     return true;
   }
   catch(AbortException& ex)
   {
     return false;
   }
-  VPAD_Init();
 }

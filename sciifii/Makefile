@@ -19,7 +19,9 @@ SystemName := $(shell uname)
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/business/common source/business/tools source/business
+SOURCES		:=	source source/business/common source/business/tools source/business \
+				source/ui/Events source/ui/graphic/ source/ui/graphic/MenuItems \
+				source/ui/text source/ui/text/MenuItems source/ui/Events
 DATA		:=	data  
 INCLUDES	:=	include headers
 
@@ -32,17 +34,9 @@ STYLEFIX	= 2>&1 | sed -e 's/\([a-zA-Z\.]\+\):\([0-9]\+\):\([0-9]\+:\)\?\(.\+\)/\
 # options for code generation
 #---------------------------------------------------------------------------------
 
-ifeq ($(USE_UI),1)
-SOURCES := $(SOURCES) source/ui/Events source/ui/graphic/ source/ui/graphic/MenuItems
-CFLAGS	= -O2 -Wall $(MACHDEP) $(INCLUDE) -DUSE_ADVANCED_UI
-else
-SOURCES := $(SOURCES) source/ui/text source/ui/text/MenuItems source/ui/Events
-CFLAGS	= -O2 -Wall $(MACHDEP) $(INCLUDE)
-endif
-
+CFLAGS	= -g -O0 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
-
-LDFLAGS	=	$(MACHDEP) -Wl,-Map,$(notdir $@).map
+LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project

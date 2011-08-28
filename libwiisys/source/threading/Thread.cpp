@@ -1,10 +1,16 @@
 #include <Libwiisys/threading/Thread.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
+#include <vector>
+#include <map>
 
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Threading;
+using namespace std;
+
+static map<lwp_t, Thread*> _threadList;
+static vector<Thread*> _threadToResume;
 
 Thread::Thread(ThreadStart start)
 {
@@ -12,6 +18,7 @@ Thread::Thread(ThreadStart start)
   _threadResult.HasError = false;
  _threadResult.e=NULL;
 }
+
 Thread::~Thread()
 {
   if(_threadResult.e!=NULL)
@@ -22,8 +29,12 @@ void Thread::Start(Object* params)
 {
   _params = params; //record the parameters
   s32 code = LWP_CreateThread(&_threadId, Thread::EntryPoint, this, NULL, 0, 70);
+  
   if (code < 0)
     throw SystemException("Error creating thread.", code);
+
+  _threadList[_threadId] = this;
+
 }
 
 void* Thread::Run()
@@ -52,6 +63,7 @@ void * Thread::EntryPoint(void * pthis)
 
   ThreadResultEventArgs args(pt->_threadResult, pt->_threadId);
   pt->ThreadTerminated(pt, &args);
+  _threadList.erase(_threadList.find(pt->_threadId));
   return NULL;
 }
 
@@ -80,4 +92,25 @@ void* Thread::Join()
   if(_threadResult.HasError)
     throw Exception("The subthread thrown an exception.");
   return _threadResult.Result;
+}
+
+void Thread::SuspendOtherThreads()
+{
+	lwp_t currentThread = LWP_GetSelf();
+	for(map<lwp_t, Thread*>::iterator ite = _threadList.begin(); ite != _threadList.end(); ite++)
+	{
+		if(ite->first != currentThread && !LWP_ThreadIsSuspended(ite->second->_threadId))
+		{
+			ite->second->Suspend();
+			_threadToResume.push_back(ite->second);
+		}
+	}
+}
+
+void Thread::ResumeOtherThreads()
+{
+	for(vector<Thread*>::iterator ite = _threadToResume.begin(); ite != _threadToResume.end(); ite++)
+		(*ite)->Resume();
+		
+	_threadToResume.clear();
 }

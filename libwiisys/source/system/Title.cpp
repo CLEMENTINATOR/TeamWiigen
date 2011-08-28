@@ -18,6 +18,7 @@
 #include <Libwiisys/IO/Device.h>
 #include <Libwiisys/system/Security/Certificate.h>
 #include <Libwiisys/system/wadHeader.h>
+#include <Libwiisys/threading/Thread.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 #include <Libwiisys/Exceptions/AbortException.h>
@@ -31,6 +32,7 @@ using namespace Libwiisys::System;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys::System::Security;
 using namespace Libwiisys::Exceptions;
+using namespace Libwiisys::Threading;
 
 #define ISALIGNED(x) ((((u32)x)&0x1F)==0)
 
@@ -1194,9 +1196,12 @@ void Title::ReloadIOS(u32 ios)
     NetworkUtility::Deinit();
     Log::Pause();
     Device::EnsureShutdown();
-    usleep(500000);
+	Thread::SuspendOtherThreads();
+    
     ret = IOS_ReloadIOS(ios);
-    usleep(500000);
+    
+	Thread::ResumeOtherThreads();
+	
     if (ret < 0)
       throw SystemException("Can't reload ios" + ios, ret);
     _runningIos = ios;

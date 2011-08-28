@@ -42,6 +42,9 @@ namespace Libwiisys
         void Suspend();
         void Resume();
         void* Join();
+		
+		static void SuspendOtherThreads();
+		static void ResumeOtherThreads();
 
         ThreadResultEvent ThreadTerminated;
 

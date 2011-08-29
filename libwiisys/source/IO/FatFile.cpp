@@ -116,6 +116,10 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
   }
 
   void* tempBuffer = malloc(len);
+  if(tempBuffer == NULL)
+  {
+	   throw SystemException((char*) "Out of memory FatFile::Read");
+  }
   s32 nbLus = fread(tempBuffer, 1, len, _fd);
 
   if (nbLus < 0)

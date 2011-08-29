@@ -97,7 +97,7 @@ void FatFile::Write(const Buffer& b)
 
     nbWrited = fwrite((u8*) b.Content() + nbWritten, 1, nbToRight, _fd);
     if (nbWrited == 0)
-      throw Exception((char*) "Error writing file!");
+      throw Exception("Error writing file!");
 
     nbWritten += nbWrited;
     totalToRight -= nbWrited;
@@ -116,16 +116,15 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
   }
 
   void* tempBuffer = malloc(len);
-  if(tempBuffer == NULL)
-  {
-	   throw SystemException((char*) "Out of memory FatFile::Read");
-  }
+  if(!tempBuffer)
+	   throw Exception("Out of memory FatFile::Read");
+  
   s32 nbLus = fread(tempBuffer, 1, len, _fd);
 
   if (nbLus < 0)
   {
     free(tempBuffer);
-    throw SystemException((char*) "Error reading file!", nbLus);
+    throw SystemException("Error reading file!", nbLus);
   }
 
   b.Append(tempBuffer, nbLus);

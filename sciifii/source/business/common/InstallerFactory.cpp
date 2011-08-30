@@ -6,8 +6,8 @@
 
 #include <sciifii/Config.h>
 #include <sciifii/business/common/InstallerFactory.h>
+#include <sciifii/business/common/KoreanKeyPatch.h>
 #include <sciifii/business/Cios.h>
-#include <sciifii/business/CiosCorp.h>
 #include <sciifii/business/CompositeInstaller.h>
 #include <sciifii/business/FileDownloader.h>
 #include <sciifii/business/FileSystemTask.h>
@@ -102,26 +102,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   }
   else if(nodeValue == "CiosInstaller")
     step = CreateCios(node);
-  else if(nodeValue == "CorpInstaller")
-  {
-    step = new CiosCorp();
-
-    TiXmlElement* section = node->FirstChildElement();
-    while (section != NULL)
-    {
-      if (section->Type() != TiXmlNode::TINYXML_COMMENT)
-      {
-        string nodeValue = UtilString::ToStr(section->Value());
-        if(nodeValue == "items")
-          FillCiosCorpItems(step, section);
-        else if(nodeValue == "modules")
-          FillCiosCorpModules(step, section);
-        else
-          throw Exception("Child node of Corp not defined.");
-      }
-      section=section->NextSiblingElement();
-    }
-  }
   else if(nodeValue == "MemoryPatcher")
   {
     step = new MemoryPatcher();
@@ -269,8 +249,6 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
       string nodeValue = UtilString::ToStr(section->Value());
       if(nodeValue == "modules")
         FillCiosModules(step, section);
-      else if(nodeValue == "plugins")
-        FillCiosPlugins(step, section);
       else if(nodeValue=="patches")
         FillCiosPatches(step, section);
       else
@@ -316,7 +294,13 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
       if(nodeValue=="prebuild")
       {
         string patchName=UtilString::ToStr(child->Attribute("name"));
-        ((Cios*)cios)->AddPatch(new SimplePatch(*SimplePatch::getPatch(patchName)));
+		if(patchName == "KoreanKey")
+		{
+			((Cios*)cios)->AddPatch(SimplePatch::KoreanKey_EnablePatch());
+			((Cios*)cios)->AddPatch(new KoreanKeyPatch());
+		}
+		else
+			((Cios*)cios)->AddPatch(new SimplePatch(*SimplePatch::getPatch(patchName)));
       }
 
       if(nodeValue=="SimplePatch")
@@ -348,158 +332,6 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
       }
 
     }
-    child = child->NextSiblingElement();
-  }
-}
-
-void InstallerFactory::FillCiosPlugins(Installer* cios, TiXmlElement* xml)
-{
-  TiXmlElement* plugin = xml->FirstChildElement();
-  while (plugin != NULL)
-  {
-    if (plugin->Type() != TiXmlNode::TINYXML_COMMENT)
-    {
-      if(UtilString::ToStr(plugin->Value()) != "plugin")
-        throw Exception("There can only be plugin item in plugins");
-
-      string dest = UtilString::ToStr(plugin->Attribute("dest"));
-      string file = UtilString::ToStr(plugin->Attribute("file"));
-      u32 offset = UtilString::ToU32(plugin->Attribute("offset"),0, nr_hex);
-      u32 bss = UtilString::ToU32(plugin->Attribute("bss"),0, nr_hex);
-      u32 segment = UtilString::ToU32(plugin->Attribute("segment"),0);
-      vector<SimplePatch> handles = GetPluginHandles(plugin);
-
-      //get headers
-      Elf32_Phdr header;
-      bool hasHeader = GetPluginHeader(plugin, header);
-      ((Cios*)cios)->AddPlugin((pluginDescriptor)
-                               {
-                                 dest, file, offset, bss, handles, hasHeader, segment, header
-                               }
-                              );
-    }
-    plugin = plugin->NextSiblingElement();
-  }
-}
-
-vector<SimplePatch> InstallerFactory::GetPluginHandles(TiXmlElement* xml)
-{
-  vector<SimplePatch> patches;
-  TiXmlElement* handle = xml->FirstChildElement();
-
-  while (handle != NULL)
-  {
-    if (handle->Type() != TiXmlNode::TINYXML_COMMENT)
-    {
-      if(UtilString::ToStr(handle->Value()) == "handle")
-      {
-        Buffer pattern;
-        Buffer value;
-        vector<string> splitPattern = UtilString::Split(UtilString::ToStr(handle->Attribute("pattern")),',');
-        vector<string> splitValue = UtilString::Split(UtilString::ToStr(handle->Attribute("value")),',');
-
-        for(u16 i = 0; i < splitPattern.size(); i++)
-        {
-          vector<string> val = UtilString::Split(splitPattern[i], 'x');
-          if(val.size() != 2)
-            throw Exception("Value length != 2");
-
-          u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-          pattern.Append(&v, 1);
-        }
-
-        for(u16 i = 0; i < splitValue.size(); i++)
-        {
-          vector<string> val = UtilString::Split(splitValue[i], 'x');
-          u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
-          value.Append(&v, 1);
-        }
-
-        patches.push_back(SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length()));
-      }
-    }
-    handle = handle->NextSiblingElement();
-  }
-
-  return patches;
-}
-
-bool InstallerFactory::GetPluginHeader(TiXmlElement* xml, Elf32_Phdr& header)
-{
-  TiXmlElement* handle = xml->FirstChildElement();
-
-  while (handle != NULL)
-  {
-    if (handle->Type() != TiXmlNode::TINYXML_COMMENT)
-    {
-      if(UtilString::ToStr(handle->Value()) == "header")
-      {
-        header.p_type = UtilString::ToU32(handle->Attribute("type"));
-        header.p_vaddr = UtilString::ToU32(handle->Attribute("vaddr"), nr_hex);
-        header.p_paddr = UtilString::ToU32(handle->Attribute("paddr"), nr_hex);
-        header.p_flags = UtilString::ToU32(handle->Attribute("flag"), nr_hex);
-        header.p_align = UtilString::ToU32(handle->Attribute("align"));
-        return true;
-      }
-    }
-    handle = handle->NextSiblingElement();
-  }
-
-  return false;
-}
-
-void InstallerFactory::FillCiosCorpItems(Installer* corp, TiXmlElement* xml)
-{
-  TiXmlElement* child = xml->FirstChildElement();
-  while (child != NULL)
-  {
-    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
-    {
-      if (UtilString::ToStr(child->Value()) != "item")
-        throw Exception("CorpItem child node is invalid");
-
-      u64 slot = UtilString::ToU64(child->Attribute("slot"),nr_hex);
-      u64 source = UtilString::ToU64(child->Attribute("source"),nr_hex);
-      u16 revision = UtilString::ToU16(child->Attribute("revision"));
-      string modulesfull=UtilString::ToStr(child->Attribute("modules"));
-      vector<string> modules = UtilString::Split(UtilString::ToStr(child->Attribute("modules")), '|');
-      bool identifyPatch = UtilString::ToBool(child->Attribute("identifyPatch"));
-      bool nandPatch = UtilString::ToBool(child->Attribute("nandPatch"));
-      bool kkPatch = UtilString::ToBool(child->Attribute("kkPatch"));
-      bool localOnly = UtilString::ToBool(child->Attribute("localOnly"), false);
-
-      ((CiosCorp*)corp)->AddItem((ciosDesc)
-                                 {
-                                   slot, source, revision, modules, identifyPatch, nandPatch, kkPatch, localOnly
-                                 }
-                                );
-    }
-
-    child = child->NextSiblingElement();
-  }
-}
-
-void InstallerFactory::FillCiosCorpModules(Installer* corp, TiXmlElement* xml)
-{
-  TiXmlElement* child = xml->FirstChildElement();
-  while (child != NULL)
-  {
-    if (child->Type() != TiXmlNode::TINYXML_COMMENT)
-    {
-      if (UtilString::ToStr(child->Value()) != "module")
-        throw Exception("CorpItem module child node is invalid");
-
-      string type = UtilString::ToStr(child->Attribute("type"));
-      string name = UtilString::ToStr(child->Attribute("name"));
-      string file = UtilString::ToStr(child->Attribute("file"));
-
-      ((CiosCorp*)corp)->AddModule(name, (moduleDesc)
-                                   {
-                                     type, file
-                                   }
-                                  );
-    }
-
     child = child->NextSiblingElement();
   }
 }

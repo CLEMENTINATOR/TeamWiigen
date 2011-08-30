@@ -16,24 +16,10 @@ typedef struct
 }
 customModule;
 
-typedef struct
-{
-  std::string moduleName;
-  std::string file;
-  u32 offset;
-  u32 bss;
-  std::vector<Libwiisys::System::Patching::SimplePatch> handles;
-  bool replaceSection;
-  u32 segment;
-  Elf32_Phdr header;
-}
-pluginDescriptor;
-
 class Cios : public Installer
 {
   private:
     std::vector<customModule> _modules;
-    std::vector<pluginDescriptor> _plugins;
     std::vector<Libwiisys::System::Patching::Patch*> _patches;
     u32 _iosId;
     u16 _iosRevision;
@@ -47,7 +33,6 @@ class Cios : public Installer
     void Install();
     void SendToLog();
     void AddModule(customModule descriptor);
-    void AddPlugin(pluginDescriptor descriptor);
     void AddPatch(Libwiisys::System::Patching::Patch* descriptor);
 
     virtual ~Cios();

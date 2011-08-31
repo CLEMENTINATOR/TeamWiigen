@@ -63,11 +63,13 @@ bool Cios::Prepare()
 
   for(vector<customModule>::iterator ite = _modules.begin(); ite != _modules.end(); ite++)
   {
-    FileManager::Download(ite->file);
+    if(!FileManager::Download(ite->file))
+			throw Exception("Error downloading modules" + ite->file);
   }
   
   if(_bannerFile != "")
-	FileManager::Download(_bannerFile);
+	if(!FileManager::Download(_bannerFile))
+		throw Exception("Error downloading banner" +_bannerFile);
 
   OnProgress("cIOS preparation done !", 1);
   return true;

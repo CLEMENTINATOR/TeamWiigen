@@ -21,6 +21,9 @@
     <file key="ffs_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_module_d2x6.dat.sha" />
     <file key="mload_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_d2x6.dat.sha" />
     <file key="sdhc_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x6.dat.sha" />
+	<file key="banner_d2x6_249.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat.sha" />
+	<file key="banner_d2x6_250.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat.sha" />
+	<file key="banner_d2x6_251.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat.sha" />
     <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
     <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
     <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/hacks_hash.ini" />
@@ -79,7 +82,7 @@
       <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
     </MemoryPatcher>
 	
-	<CiosInstaller option="cIOS249" delete="true" ciosRevision="21006" slot="249" revision="4123" source="38"> 
+	<CiosInstaller option="cIOS249" delete="true" ciosRevision="21006" slot="249" revision="4123" source="38" banner="banner_d2x6_249.dat" > 
 	  <modules>
 	    <module file="mload_module_d2x6.dat"/>
 		<module file="fat_module_d2x6.dat"/>
@@ -95,7 +98,7 @@
 	  </patches>
 	</CiosInstaller>
 	
-	<CiosInstaller option="cIOS250" delete="true" ciosRevision="21006" slot="250" revision="5662" source="37"> 
+	<CiosInstaller option="cIOS250" delete="true" ciosRevision="21006" slot="250" revision="5662" source="37" banner="banner_d2x6_250.dat"> 
 	  <modules>
 	    <module file="mload_module_d2x6.dat"/>
 		<module file="fat_module_d2x6.dat"/>
@@ -112,7 +115,7 @@
 	  </patches>
 	</CiosInstaller>
 	
-	<CiosInstaller option="cIOS251" delete="true" ciosRevision="21006" slot="251" revision="5918" source="57"> 
+	<CiosInstaller option="cIOS251" delete="true" ciosRevision="21006" slot="251" revision="5918" source="57" banner="banner_d2x6_251.dat" > 
 	  <modules>
 	    <module file="mload_module_d2x6.dat"/>
 		<module file="fat_module_d2x6.dat"/>

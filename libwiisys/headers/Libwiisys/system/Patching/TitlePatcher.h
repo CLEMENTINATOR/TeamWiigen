@@ -34,7 +34,9 @@ namespace Libwiisys
         private:
           std::list<const Patch*> _patchList;
           std::list<TitleModule> _moduleList;
+		  Buffer _newBanner;
 
+		  bool _hasNewBanner;
           bool _tmdDirty;
           bool _tikDirty;
 
@@ -69,6 +71,8 @@ namespace Libwiisys
            * @param module  TitleModule to add
            */
           void AddModule(TitleModule module);
+		  
+		  void DefineNewBanner(const Buffer& newBanner);
       };
 
     }

@@ -20,13 +20,14 @@ using namespace Libwiisys::System;
 using namespace Libwiisys::System::Patching;
 
 
-Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision, bool del)
+Cios::Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision, string bannerFile, bool del)
     : Installer(),
     _iosId(iosId),
     _iosRevision(iosRevision),
     _slot(slot),
     _ciosRevision(ciosRevision),
-    _delete(del)
+	_bannerFile(bannerFile),
+    _delete(del)	
 {}
 
 void Cios::AddModule(customModule descriptor)
@@ -64,6 +65,9 @@ bool Cios::Prepare()
   {
     FileManager::Download(ite->file);
   }
+  
+  if(_bannerFile != "")
+	FileManager::Download(_bannerFile);
 
   OnProgress("cIOS preparation done !", 1);
   return true;
@@ -83,6 +87,11 @@ void Cios::Install()
       cios.AddModule(tmodule);
     }
 
+	if(_bannerFile != "")
+	{
+		Buffer banner = FileManager::GetFile(_bannerFile);
+		cios.DefineNewBanner(banner);
+	}
 
     stringstream wadFile;
     wadFile << Config::WorkingDirectory() << "/" << Title::GetWadFormatedName(0x0000000100000000ULL + _iosId, _iosRevision);

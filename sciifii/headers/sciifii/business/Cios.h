@@ -25,10 +25,11 @@ class Cios : public Installer
     u16 _iosRevision;
     u32 _slot;
     s32 _ciosRevision;
+	std::string _bannerFile;
     bool _delete;
 
   public:
-    Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision, bool del = false);
+    Cios(u32 iosId, u16 iosRevision, u32 slot, s32 ciosRevision, std::string bannerFile = "", bool del = false);
     bool Prepare();
     void Install();
     void SendToLog();

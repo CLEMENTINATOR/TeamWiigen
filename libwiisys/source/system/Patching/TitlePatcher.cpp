@@ -11,7 +11,7 @@ using namespace Libwiisys::System::Event;
 using namespace Libwiisys::Exceptions;
 
 TitlePatcher::TitlePatcher(u64 titleId, s32 revision,bool fakeSign) :
-    _patchList(), _moduleList(), _tmdDirty(false), _tikDirty(false), _titleId(
+    _patchList(), _moduleList(), _newBanner(), _hasNewBanner(false), _tmdDirty(false), _tikDirty(false), _titleId(
       titleId), _revision(revision),_fakeSign(fakeSign)
 {}
 
@@ -23,6 +23,12 @@ void TitlePatcher::AddPatch(const Patch* patch)
 void TitlePatcher::AddModule(TitleModule module)
 {
   _moduleList.push_back(module);
+}
+
+void TitlePatcher::DefineNewBanner(const Buffer& newBanner)
+{
+	_newBanner = newBanner;
+	_hasNewBanner = true;
 }
 
 void TitlePatcher::OnTmdLoading(TitleEventArgs &processControl)
@@ -103,13 +109,22 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
 void TitlePatcher::OnContentLoading(TitleEventArgs &processControl)
 {
   DecryptContent(processControl.buffer, processControl.tmdInfo);
-  for (list<const Patch*>::const_iterator ite = _patchList.begin(); ite
-       != _patchList.end(); ite++)
-    if ((*ite)->ApplyPatch(processControl) > 0)
-    {
-      processControl.tmdInfo->type = 1;
-      _tmdDirty = true;
-    }
+  
+  if(processControl.tmdInfo->index == 0 && _hasNewBanner)
+  {
+    processControl.buffer.Clear();
+	processControl.buffer.Append(_newBanner);
+    _tmdDirty = true;
+  }
+  else
+  {
+    for (list<const Patch*>::const_iterator ite = _patchList.begin(); ite != _patchList.end(); ite++)
+      if ((*ite)->ApplyPatch(processControl) > 0)
+      {
+        processControl.tmdInfo->type = 1;
+        _tmdDirty = true;
+      }
+  }
 
   EncryptContent(processControl.buffer, processControl.tmdInfo);
 

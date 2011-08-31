@@ -239,7 +239,9 @@ Installer* InstallerFactory::CreateCios(TiXmlElement* node)
 
   bool del = UtilString::ToBool(node->Attribute("delete"), false);
 
-  Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision, del);
+  string banner = UtilString::ToStr(node->Attribute("banner"), "");
+  
+  Cios* step = new Cios(iosSource, iosRevision, iosDest, ciosRevision, banner, del);
 
   TiXmlElement* section = node->FirstChildElement();
   while (section != NULL)

@@ -100,7 +100,7 @@ bool FileManager::Download(const std::string& fileKey)
     }
     catch(...)
     {
-      return false;
+      throw;
     }
   }
   else if(fo.url == "")

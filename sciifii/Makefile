@@ -117,7 +117,7 @@ run:
 	wiiload $(TARGET).dol
 
 runtext:
-	wiiload $(TARGET).dol "sd:/sciifii/configText.xml"
+	wiiload $(TARGET).dol "sd://sciifii//configText.xml"
 	
 #---------------------------------------------------------------------------------
 prepare:

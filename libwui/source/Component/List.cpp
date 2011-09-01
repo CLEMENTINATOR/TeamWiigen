@@ -18,6 +18,12 @@ List::List()
 		_selectedItem(NULL)
 {}
 
+List::~List()
+{
+  for(vector<ListItem*>::iterator ite = _items.begin(); ite != _items.end(); ite++)
+	delete (*ite);
+}
+
 void List::AddItem(Object* item, const std::string& text)
 {
 	ListItem* i = new ListItem((ListItemData){item, text});
@@ -44,6 +50,7 @@ void List::AddItem(const ListItem& li)
 	if(!RenderAsDropDown)
 		i->OverBackgroundColor(i->DefaultBackgroundColor());
 	i->Click += MakeDelegate(this, &List::ItemClicked);
+  _items.push_back(i);
   Invalidate();
 }
 

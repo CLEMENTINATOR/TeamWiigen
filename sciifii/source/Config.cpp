@@ -72,6 +72,7 @@ void Config::Initialize(const string& configFilePath)
         root->Value()) != "sciifii")
     throw Exception("Config file version not supported");
 
+  c._uiMode = UtilString::ToStr(root->Attribute("uiMode"), "text");
   c._menuMessage = root->Attribute("MenuMessage");
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
 	c._themeDirectory = UtilString::ToStr(root->Attribute("themeDirectory"), "");
@@ -277,5 +278,5 @@ string Config::ThemeDirectory()
 
 bool Config::IsUiMode()
 {
-  return true;
+  return Instance()._uiMode=="graphic"?true:false;
 }

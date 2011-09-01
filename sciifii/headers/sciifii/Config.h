@@ -17,13 +17,14 @@ class Config : public Libwiisys::Object
   private:
     s32 _region;
     bool _hasNetwork;
+	std::string _uiMode;
 
     std::map<std::string,std::string> _switches;
 
     std::string _menuMessage;
     std::string _workingDirectory;
     std::string _disclaimer;
-		std::string _themeDirectory;
+	std::string _themeDirectory;
 
     std::vector<Installer*> _availableSteps;
     std::vector<Installer*> _validatedSteps;

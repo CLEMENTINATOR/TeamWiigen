@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/">
+<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/" uiMode="graphic">
 
   <!-- Region:
     JAP: 0

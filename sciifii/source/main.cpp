@@ -22,6 +22,10 @@ using namespace std;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::Logging;
 using namespace Libwui::Resources;
+using namespace Libwui;
+using namespace Libwui::Component;
+using namespace Libwui::Device;
+
 
 class IMain
 {
@@ -29,22 +33,12 @@ class IMain
     virtual int main(int argc, char **argv) = 0;
 };
 
-#ifdef USE_ADVANCED_UI
 
-using namespace Libwui;
-using namespace Libwui::Component;
-using namespace Libwui::Device;
 
 class MainUI : public IMain
 {
     int main(int argc, char **argv)
     {
-      string configFile = "sd:/sciifii/config.xml";
-      if(argc == 2)
-        configFile = string(argv[1]);
-
-      Config::Initialize(configFile);
-
       if(Config::ThemeDirectory().size() != 0)
         ThemeManager::ThemeRootFolder(Config::ThemeDirectory());
 
@@ -76,8 +70,6 @@ class MainUI : public IMain
       return 0;
     }
 };
-
-#else
 
 static void *xfb;
 static GXRModeObj *vmode;
@@ -112,23 +104,6 @@ class MainText : public IMain
 
       try
       {
-        string configFile = "sd:/sciifii/config.xml";
-        if(argc == 2)
-          configFile = string(argv[1]);
-
-        Config::Initialize(configFile);
-      }
-      catch (Exception &ex)
-      {
-        cout << endl << "\x1b[33m" << ex << "\x1b[37m" << endl
-        << "Press A to exit and relaunch sciifii.";
-        Log::WriteLog(Log_Error,ex.ToString());
-        Pause();
-        return 0;
-      }
-
-      try
-      {
         MenuManager::Instance().DisplayMenu();
       }
       catch (Exception &ex)
@@ -152,19 +127,20 @@ class MainText : public IMain
       return 0;
     }
 };
-#endif
 
 int main(int argc, char **argv)
 {
   Log::Init("sciifii", SCIIFII_VERSION);
+  string configFile = "sd:/sciifii/config.xml";
+  if(argc == 2)
+    configFile = string(argv[1]);
+  Config::Initialize(configFile);
+	  
   IMain *m = NULL;
-#ifdef USE_ADVANCED_UI
-
-  m = new MainUI();
-#else
-
-  m = new MainText();
-#endif
+  if(Config::IsUiMode())
+	m = new MainUI();
+  else
+    m = new MainText();
 
   return m->main(argc, argv);
 }

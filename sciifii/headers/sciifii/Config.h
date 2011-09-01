@@ -10,7 +10,6 @@
 #include <map>
 #include "Switch.h"
 
-#define USE_ADVANCED_UI
 #define SCIIFII_VERSION "5"
 
 class Config : public Libwiisys::Object
@@ -45,8 +44,9 @@ class Config : public Libwiisys::Object
     static std::vector<Installer*> Steps();
     static std::string MenuMessage();
     static std::string DisclaimerText();
-		static std::string ThemeDirectory();
+	static std::string ThemeDirectory();
     static void Reset();
+	static bool IsUiMode();
 };
 
 #endif

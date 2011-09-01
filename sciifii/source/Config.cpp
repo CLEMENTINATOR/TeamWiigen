@@ -94,13 +94,10 @@ void Config::Initialize(const string& configFilePath)
         c._disclaimer = UtilString::Replace(UtilString::ToStr(child->FirstChild()->Value(), ""), "\\n", "\n");
       else if (nodeValue == "menus")
       {
-#ifdef USE_ADVANCED_UI
-        GMenuManager::Instance(child);
-#else
-
-        MenuManager::Instance(child);
-#endif
-
+		if(IsUiMode())
+          GMenuManager::Instance(child);
+		else
+          MenuManager::Instance(child);
       }
       else
         throw Exception("Invalid XmlNode.");
@@ -276,4 +273,9 @@ void Config::Reset()
 string Config::ThemeDirectory()
 {
 	return Instance()._themeDirectory;
+}
+
+bool Config::IsUiMode()
+{
+  return true;
 }

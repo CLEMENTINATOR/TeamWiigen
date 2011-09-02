@@ -26,6 +26,11 @@ FontResource::~FontResource()
   if(_font)
     delete _font;
   _resource.Clear();
+
+  for(map<s32,FreeTypeGX*>::iterator ite = _fonts.begin(); ite != _fonts.end(); ite++)
+  {
+	  delete ite->second;
+  }
 }
 
 bool FontResource::IsInitialized(s32 size)

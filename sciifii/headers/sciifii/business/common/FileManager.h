@@ -11,6 +11,7 @@ typedef struct
   std::string url;
   std::string sha1;
   std::string path;
+  bool overwrite;
 }
 fileObject;
 

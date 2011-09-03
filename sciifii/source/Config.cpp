@@ -15,11 +15,17 @@
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Serialization/Xml.h>
 #include <Libwiisys/String/UtilString.h>
+#include <Libwiisys/IO/File.h>
+#include <Libwiisys/IO/Path.h>
+#include <Libwiisys/Buffer.h>
+#include <Libwiisys/Network/HttpRequest.h>
 
 using namespace std;
 using namespace Libwiisys;
-using namespace Libwiisys::Network;
 using namespace Libwiisys::Logging;
+using namespace Libwiisys::IO;
+using namespace Libwiisys::Network;
+
 using namespace Libwiisys::Serialization;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
@@ -65,17 +71,68 @@ void Config::Initialize(const string& configFilePath)
     Log::AddLogProvider(Lgt_All, sciifiiLog);
   }
 
-  TiXmlDocument& doc = Xml::Load(configFilePath);
-  TiXmlElement* root = doc.RootElement();
+  TiXmlDocument* doc = Xml::Load(configFilePath);
+  TiXmlElement* root = doc->RootElement();
 
   if (string(root->Attribute("version")) != SCIIFII_VERSION || string(
+        root->Value()) != "sciifii")
+    throw Exception("Config file version not supported");
+
+	string updateUrl = UtilString::ToStr(root->Attribute("update"), ""); // update of xml file
+	if(Config::HasNetwork() && updateUrl!="")
+	{
+		delete doc;
+		doc = NULL;
+		try{
+
+			HttpRequest req(updateUrl);
+			Buffer response = req.GetResponse();
+			
+			Buffer actual = File::ReadToEnd(configFilePath);
+			if(!(response==actual)) // different shit
+			{
+				
+				stringstream oldpath;
+				oldpath << Path::GetParentDirectory(configFilePath) << "/"<<Path::GetFileNameWithoutExtension(configFilePath)<<"_old."<<Path::GetFileExtension(configFilePath);
+				
+				if(File::Exists(Path::CleanPath(oldpath.str())))
+					File::Delete(Path::CleanPath(oldpath.str()));
+
+				File::Copy(configFilePath,Path::CleanPath(oldpath.str()));
+				
+				File::Delete(configFilePath);
+				
+				File &file = File::Create(configFilePath);
+				file.Write(response);
+				file.Close();
+				delete &file;
+			}
+			
+
+		}
+		catch(Exception &e)
+		{
+		Log::WriteLog(Log_Info,e.GetMessage());
+		}
+		catch(...)
+		{
+		
+		}
+
+		doc = Xml::Load(configFilePath);
+		root = doc->RootElement();
+		
+	}
+
+ if (string(root->Attribute("version")) != SCIIFII_VERSION || string(
         root->Value()) != "sciifii")
     throw Exception("Config file version not supported");
 
   c._uiMode = UtilString::ToStr(root->Attribute("uiMode"), "text");
   c._menuMessage = root->Attribute("MenuMessage");
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
-	c._themeDirectory = UtilString::ToStr(root->Attribute("themeDirectory"), "");
+  c._themeDirectory = UtilString::ToStr(root->Attribute("themeDirectory"), "");
+
 	
   TiXmlElement* child = root->FirstChildElement();
 
@@ -107,7 +164,7 @@ void Config::Initialize(const string& configFilePath)
     child = child->NextSiblingElement();
   }
 
-  delete &doc;
+  delete doc;
 }
 
 void Config::CreateLogs(TiXmlElement* element)

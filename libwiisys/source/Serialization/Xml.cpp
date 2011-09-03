@@ -9,7 +9,7 @@ using namespace Libwiisys::Serialization;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::Exceptions;
 
-TiXmlDocument& Xml::Load(const std::string &file)
+TiXmlDocument* Xml::Load(const std::string &file)
 {
   if (!File::Exists(file))
     throw Exception("The specified xml file not found !");
@@ -19,6 +19,6 @@ TiXmlDocument& Xml::Load(const std::string &file)
   doc->LoadFile();
   Device::UnMount(file);
 	
-  return *doc;
+  return doc;
 }
 

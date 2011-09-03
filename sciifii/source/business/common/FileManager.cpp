@@ -56,6 +56,9 @@ void FileManager::Init(TiXmlElement* config)
 	  if(path.length()==0 && overwrite) // dont overwrite temp files
 		  overwrite = false;
 
+	  if(!Config::HasNetwork()) //no network, no overwrite
+		  overwrite = false;
+
       if (path.length() == 0)
         path = Config::WorkingDirectory() + "/" + key;
 

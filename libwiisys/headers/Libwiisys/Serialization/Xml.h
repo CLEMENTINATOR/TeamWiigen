@@ -29,7 +29,7 @@ namespace Libwiisys
          *\param file The file path
          *\return The TiXmlDocument loaded
          */
-        static TiXmlDocument& Load(const std::string &file);
+        static TiXmlDocument* Load(const std::string &file);
     };
 
   }

@@ -45,9 +45,16 @@ void FileManager::Init(TiXmlElement* config)
       string url = UtilString::ToStr(child->Attribute("url"), "");
       string sha1 = UtilString::ToStr(child->Attribute("sha1"), "");
       string path = UtilString::ToStr(child->Attribute("path"), "");
+	  bool overwrite = UtilString::ToBool(child->Attribute("overwrite"), false);
 
       if (key.length() == 0)
         throw Exception("The file key must be provided");
+
+	  if (url.length() == 0)
+        throw Exception("The file url must be provided");
+
+	  if(path.length()==0 && overwrite) // dont overwrite temp files
+		  overwrite = false;
 
       if (path.length() == 0)
         path = Config::WorkingDirectory() + "/" + key;
@@ -57,7 +64,7 @@ void FileManager::Init(TiXmlElement* config)
 
       fileObject fo = (fileObject)
                       {
-                        url, sha1, path
+                        url, sha1, path,overwrite
                       };
 
       fm._fileList.insert(pair<string,fileObject>(key, fo));
@@ -83,6 +90,10 @@ bool FileManager::Download(const std::string& fileKey)
   str<<"File("<<fileKey<<","<<fo.url<<","<<fo.sha1<<","<<fo.path<<")";
   Log::WriteLog(Log_Info,str.str());
 
+  if(File::Exists(fo.path) && fo.overwrite)
+  {
+	  File::Delete(fo.path);
+  }
   if(!File::Exists(fo.path) && fo.url != "")
   {
     try

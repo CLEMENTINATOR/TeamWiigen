@@ -143,7 +143,7 @@ void Device::UnMount()
 
 void Device::UnMount(fatDevice &device)
 {
-  string devicePath = device.mount + ":";
+  string devicePath = device.mount + ":/";
   /* Unmount device */
   fatUnmount(devicePath.c_str());
 }

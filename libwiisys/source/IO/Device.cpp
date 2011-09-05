@@ -143,7 +143,7 @@ void Device::UnMount()
 
 void Device::UnMount(fatDevice &device)
 {
-  string devicePath = device.mount + ":/";
+  string devicePath = device.mount + ":";
   /* Unmount device */
   fatUnmount(devicePath.c_str());
 }
@@ -156,7 +156,7 @@ vector<string> Device::GetAvailableRoots()
   {
     try
     {
-      string devicePath = devices[deviceIndex].mount + ":/";
+      string devicePath = devices[deviceIndex].mount + ":";
       Device::Mount(devicePath);
       Device::UnMount(devicePath);
       availableDevices.push_back(devicePath);

@@ -12,7 +12,6 @@
 #include <sciifii/business/FileDownloader.h>
 #include <sciifii/business/FileSystemTask.h>
 #include <sciifii/business/Identifier.h>
-#include <sciifii/business/IosReloader.h>
 #include <sciifii/business/MemoryPatcher.h>
 #include <sciifii/business/Preloader.h>
 #include <sciifii/business/TitleDowngrader.h>
@@ -64,11 +63,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 		}
 
   }
-  else if(nodeValue == "IOSReloader")
-  {
-    u32 id = UtilString::ToU32(node->Attribute("id"));
-    step = new IosReloader(id);
-  }
+  
   else if(nodeValue == "Title")
   {
     u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);

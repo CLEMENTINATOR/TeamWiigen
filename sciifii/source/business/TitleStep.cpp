@@ -148,14 +148,22 @@ void TitleStep::Install()
   else if (_action == ti_Install)
   {
     TitlePatcher t(0,-1,_fakesign);
+	string wadFile;
+
 
     if (_id == 0)
-      str << "Loading title from " << _file;
+	{
+	  wadFile = FileManager::GetPath(_file);
+      str << "Loading title from " << wadFile;
+	}
     else
+	{
       str << "Loading title  " << hex << setfill('0') << setw(16) << _id
       << dec;
+	  wadFile = _file;
+	}
     OnProgress(str.str(), 0.25);
-    t.LoadFromWad(_file);
+    t.LoadFromWad(wadFile);
     stringstream str2;
     if (_id == 0)
       str2 << "Installing title " << _file;

@@ -131,8 +131,6 @@
 		<prebuild name="KoreanKey"/>
 	  </patches>
 	</CiosInstaller>
-   
-    <IOSReloader option="update|update4.2|uninstall|Preloader|GXLoader|wiiflow|batch|clean|NeoLoader|deleteChannel" id="249"  />
 
     <CompositeInstaller option="update" name="Update Ioses">
 

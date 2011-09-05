@@ -5,7 +5,7 @@
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/logging/Log.h>
 #include <sciifii/business/MemoryPatcher.h>
-
+#include <sstream>
 #define HAVE_AHBPROT (*(vu32*)0xcd800064 == 0xFFFFFFFF)
 #define MEM2_PROT 0xd8b420A
 #define IOS_MEM_ADDRESS 0x93400000
@@ -40,9 +40,19 @@ void MemoryPatcher::Install()
   u32 mem2Status = read32(MEM2_PROT);
   write32(MEM2_PROT, mem2Status & 0x0000FFFF);
 
+  u32 cpt = 1;
+
   for(vector<MemoryPatch>::iterator ite = _patchList.begin(); ite != _patchList.end(); ite++)
   {
-    u8 *ptr = (u8 *)IOS_MEM_ADDRESS;
+    
+
+	stringstream sstr;
+	sstr << "Patch " <<cpt<<"/"<<_patchList.size();
+	OnProgress(sstr.str(), (float)cpt/(float)_patchList.size());
+
+
+	cpt++;
+	u8 *ptr = (u8 *)IOS_MEM_ADDRESS;
     while ((u32)ptr < (IOS_MEM_ENDADDRESS - (u32)(ite->pattern.Length())))
     {
       if (!memcmp(ptr, ite->pattern.Content(), ite->pattern.Length()))
@@ -52,6 +62,8 @@ void MemoryPatcher::Install()
       }
       ptr++;
     }
+	
+	
   }
 
   write32(MEM2_PROT, mem2Status);

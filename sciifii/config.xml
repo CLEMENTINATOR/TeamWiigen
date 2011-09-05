@@ -310,7 +310,6 @@
       <Title id="00000001000000DF" revision="65280" action="install" />
       <Title id="00000001000000FA" revision="65280" action="install" />
       <Title id="00000001000000FB" action="uninstall" />
-      <IOSReloader id="36" />
       <Title id="00000001000000F9" revision="65280" action="install" />
     </CompositeInstaller>
 

@@ -15,17 +15,18 @@ using namespace std;
 using namespace Libwiisys::Logging;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::System;
+using namespace Libwiisys::System::Patching;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys;
 
 
-TitleStep::TitleStep(u64 titleId, u16 revision, TitleAction a, string path) :
-    _id(titleId), _revision(revision), _action(a), _file(""), _path(path)
+TitleStep::TitleStep(u64 titleId, u16 revision, TitleAction a, string path,Libwiisys::System::Patching::Fakesign_Type fakesign) :
+    _id(titleId), _revision(revision), _action(a), _file(""), _path(path),_fakesign(fakesign)
 {}
 
-TitleStep::TitleStep(string file, TitleAction a, string path) :
-    _id(0), _revision(0), _action(a), _file(file), _path(path)
+TitleStep::TitleStep(string file, TitleAction a, string path,Libwiisys::System::Patching::Fakesign_Type fakesign) :
+    _id(0), _revision(0), _action(a), _file(file), _path(path),_fakesign(fakesign)
 {}
 
 bool TitleStep::Prepare()
@@ -147,7 +148,8 @@ void TitleStep::Install()
   }
   else if (_action == ti_Install)
   {
-    Title t;
+    TitlePatcher t(0,-1,_fakesign);
+
     if (_id == 0)
       str << "Loading title from " << _file;
     else

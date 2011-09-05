@@ -2,6 +2,7 @@
 #define _TITLE_STEP_H_
 
 #include "common/Installer.h"
+#include <Libwiisys/system/Patching/TitlePatcher.h>
 
 typedef enum
 {
@@ -21,10 +22,12 @@ class TitleStep : public Installer
     TitleAction _action;
     std::string _file;
     std::string _path;
+	Libwiisys::System::Patching::Fakesign_Type _fakesign;
+	
 
   public:
-    TitleStep(u64 titleId, u16 revision, TitleAction a, std::string path = "");
-    TitleStep(std::string file, TitleAction a, std::string path = "");
+    TitleStep(u64 titleId, u16 revision, TitleAction a, std::string path = "",Libwiisys::System::Patching::Fakesign_Type fakesign = Libwiisys::System::Patching::Fakesign_None);
+    TitleStep(std::string file, TitleAction a, std::string path = "",Libwiisys::System::Patching::Fakesign_Type fakesign = Libwiisys::System::Patching::Fakesign_None);
     bool Prepare();
     void Install();
     void SendtoLog();

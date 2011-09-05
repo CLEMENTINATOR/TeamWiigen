@@ -3,6 +3,7 @@
 #include <Libwiisys/String/UtilString.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/system/Patching/SimplePatch.h>
+#include <Libwiisys/system/Patching/TitlePatcher.h>
 
 #include <sciifii/Config.h>
 #include <sciifii/business/common/InstallerFactory.h>
@@ -26,6 +27,7 @@ using namespace Libwiisys::Serialization;
 using namespace Libwiisys::String;
 using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::System::Patching;
+
 
 Installer* InstallerFactory::Create(TiXmlElement* node)
 {
@@ -73,6 +75,14 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
     TitleAction action;
     string choice = UtilString::ToStr(node->Attribute("action"),"install");
 
+	bool fakesignbool =  UtilString::ToBool(node->Attribute("fakesign"),false);
+	Fakesign_Type fakesign;
+	if(fakesignbool)
+		fakesign = Fakesign_Force;
+	else 
+		fakesign = Fakesign_None;
+
+
     if(choice == "install")
       action = ti_Install;
     else if(choice == "uninstall")
@@ -89,9 +99,9 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
       throw Exception("Can't parse TitleAction enum from xml!");
 
     if (titleId!=0 && file=="")
-      step= new TitleStep(titleId, revision, action, path);
+      step= new TitleStep(titleId, revision, action, path,fakesign);
     else if (titleId==0 && file!="")
-      step= new TitleStep(file, action, path);
+      step= new TitleStep(file, action, path,fakesign);
     else
       throw Exception("Title XML error");
   }

@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/sha1.h>
+#include <iostream>
 #include <Libwiisys/rijndael.h>
 
 using namespace std;
@@ -10,7 +11,7 @@ using namespace Libwiisys::System::Patching;
 using namespace Libwiisys::System::Event;
 using namespace Libwiisys::Exceptions;
 
-TitlePatcher::TitlePatcher(u64 titleId, s32 revision,bool fakeSign) :
+TitlePatcher::TitlePatcher(u64 titleId, s32 revision,Fakesign_Type fakeSign) :
     _patchList(), _moduleList(), _newBanner(), _hasNewBanner(false), _tmdDirty(false), _tikDirty(false), _titleId(
       titleId), _revision(revision),_fakeSign(fakeSign)
 {}
@@ -139,11 +140,18 @@ void TitlePatcher::OnTicketLoading(TitleEventArgs &processControl)
 
 void TitlePatcher::OnTicketInstalling(TitleEventArgs &processControl)
 {
-  if(!_fakeSign)
+  if(_fakeSign==Fakesign_None)
     return;
-  if (_tikDirty)
+  if (_tikDirty || _fakeSign==Fakesign_Force)
   {
     signed_blob* s_tik = (signed_blob*) processControl.buffer.Content();
+
+
+	u8 *data = (u8 *)s_tik;
+	u8 *ckey = data + 0x1F1;
+
+	if (*ckey > 1) 
+		*ckey = 0;
 
     /* Zero signature */
     memset((u8*) s_tik + 4, 0, SIGNATURE_SIZE(s_tik) - 4);
@@ -178,9 +186,9 @@ void TitlePatcher::OnTmdInstalling(TitleEventArgs &processControl)
     _tmdDirty = true;
     InsertModule(*ite, processControl.buffer);
   }
-  if(!_fakeSign)
+   if(_fakeSign==Fakesign_None)
     return;
-  if (_tmdDirty)
+  if (_tmdDirty || _fakeSign==Fakesign_Force)
   {
     signed_blob* s_tmd = (signed_blob*) processControl.buffer.Content();
 

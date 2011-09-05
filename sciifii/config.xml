@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/" uiMode="graphic">
+<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/" uiMode="text">
 
   <!-- Region:
     JAP: 0
@@ -36,6 +36,7 @@
     <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appfiles/neoforwarder.wad" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appfiles/neo.dol" path="sd:/apps/neogamma/boot.dol" />
     <file key="Neoxml" url="http://teamwiigen.fr.cr/appfiles/neo.xml" path="sd:/apps/neogamma/meta.xml" />
+	 <file key="test" url="http://teamwiigen.fr.cr/appfiles/test.wad" />
   </files>
 
   <menus start="main">
@@ -61,6 +62,7 @@
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma" />
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX" />
       <switchMenuItem name="wiiflow" text="Install Wiiflow" />
+	  <switchMenuItem name="test" text="test" />
       <switchMenuItem name="Syscheck" text="Execute syscheck" />
       <switchMenuItem name="clean" text="Clean temp files on exit" />
       <separatorMenuItem char=" " />
@@ -327,7 +329,7 @@
       <Title wad="Neoforwarder" action="install" fakesign="true"/>
     </CompositeInstaller>
 
-
+  	<Title wad="test" option="test" action="install" />
     <CompositeInstaller option="GXLoader" name="GXLoader">
       <FileDownloader file="GXDol" />
       <FileDownloader file="GXmeta" />

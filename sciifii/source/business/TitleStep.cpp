@@ -50,10 +50,9 @@ bool TitleStep::Prepare()
 
   if (_file!="") /* Si fichier donne en parametre */
   {
-    OnProgress("Getting wad file", 0.25);
+    OnProgress("Getting wad file : "+ _file, 0.25);
     if (!FileManager::Download(_file))
       throw Exception("Error downloading " + _file);
-    _file = FileManager::GetPath(_file);
   }
   else /*  Si tid */
   {

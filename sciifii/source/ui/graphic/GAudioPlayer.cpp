@@ -76,11 +76,18 @@ void GAudioPlayer::InitializeComponents()
 void GAudioPlayer::SetTracklistFolder(const std::string& folder)
 {
   player.ClearTrackList();
-  if(Directory::Exists(folder))
+  try
   {
-	  std::vector<std::string> list=Directory::GetFiles(folder);
-	  for(u32 i =0;i<list.size();i++)
-		player.AddTrack(list[i]);
+	  if(Directory::Exists(folder))
+	  {
+		  std::vector<std::string> list=Directory::GetFiles(folder);
+		  for(u32 i =0;i<list.size();i++)
+			player.AddTrack(list[i]);
+	  }
+  }
+  catch(...)
+  {
+	  return;
   }
 }
 

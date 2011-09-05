@@ -324,7 +324,7 @@
     <CompositeInstaller option="NeoLoader" name="NeoLoader">
       <FileDownloader file="Neodol" />
       <FileDownloader file="Neoxml" />
-      <Title wad="Neoforwarder" action="install" />
+      <Title wad="Neoforwarder" action="install" fakesign="true"/>
     </CompositeInstaller>
 
 
@@ -332,13 +332,13 @@
       <FileDownloader file="GXDol" />
       <FileDownloader file="GXmeta" />
       <FileDownloader file="GXicon" />
-      <Title wad="GXForwarder" action="install" />
+      <Title wad="GXForwarder" action="install" fakesign="true" />
     </CompositeInstaller>
 
 
     <CompositeInstaller option="wiiflow" name="Wiiflow">
       <FileDownloader file="wiiflow.dol" />
-      <Title wad="wiiflow.wad" action="install" />
+      <Title wad="wiiflow.wad" action="install" fakesign="true"/>
     </CompositeInstaller>
 
     <Syscheck file="sd:/sciifiisyscheck.csv" option="Syscheck">

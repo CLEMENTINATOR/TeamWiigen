@@ -20,6 +20,13 @@ namespace Libwiisys
     namespace Patching
     {
 
+		typedef  enum {
+			Fakesign_Normal,
+			Fakesign_Force,
+			Fakesign_None
+		}Fakesign_Type;
+
+
       /**
        * \class TitlePatcher
        * \brief Class used to patch Title
@@ -43,7 +50,7 @@ namespace Libwiisys
 
           u64 _titleId;
           s32 _revision;
-          bool _fakeSign;
+          Fakesign_Type _fakeSign;
           virtual void DecryptTitleKey(Buffer& b_tik);
           void InsertModule(TitleModule& module, Buffer& b_tmd);
         public:
@@ -53,7 +60,7 @@ namespace Libwiisys
            * @param titleId The title id of the title
            * @param revision The revision of the title
            */
-          TitlePatcher(u64 titleId = 0, s32 revision = -1,bool fakeSign=true);
+          TitlePatcher(u64 titleId = 0, s32 revision = -1,Fakesign_Type fakeSign=Fakesign_Normal);
           virtual void OnTicketLoading(Event::TitleEventArgs &processControl);
           virtual void OnTmdLoading(Event::TitleEventArgs &processControl);
           virtual void OnContentLoading(Event::TitleEventArgs &processControl);

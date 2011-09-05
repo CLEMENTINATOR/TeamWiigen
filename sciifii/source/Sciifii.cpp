@@ -3,6 +3,7 @@
 #include <FastDelegate.h>
 #include <sciifii/Sciifii.h>
 #include <sciifii/Config.h>
+#include <sciifii/Tools.h>
 #include <Libwiisys/logging/Log.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 #include <gccore.h>
@@ -95,7 +96,8 @@ void Sciifii::Execute()
         throw;
       else
       {
-        cout << endl << "\x1b[33mStep skipped!\x1b[37m";
+        cout << endl << "\x1b[33mStep skipped!\x1b[37m : " << ex.GetMessage() ;
+		Pause();
         hasDisplayed = true;
       }
     }

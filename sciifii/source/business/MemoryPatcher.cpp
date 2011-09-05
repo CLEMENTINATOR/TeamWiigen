@@ -36,6 +36,7 @@ void MemoryPatcher::Install()
   if(!HAVE_AHBPROT )
     throw Exception("Use HBC 1.0.7 or higher and don't reload the IOS in order to have the AHBPROT disabled");
 
+  OnProgress("Patching running ios...", 0);
   u32 mem2Status = read32(MEM2_PROT);
   write32(MEM2_PROT, mem2Status & 0x0000FFFF);
 

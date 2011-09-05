@@ -108,22 +108,26 @@ class MainText : public IMain
       }
       catch (Exception &ex)
       {
-        cout << endl << "\x1b[33m" << ex << "\x1b[37m" << endl
+         cout << endl << "\x1b[33m" << ex << "\x1b[37m" << endl
         << "Press A to exit and relaunch sciifii.";
+		
 
         stringstream str;
         str<< ex <<" in : "<<Sciifii::LastStepMessage();
         Log::WriteLog(Log_Error,str.str());
+		VPAD_Init();
+	   Pause();
       }
       catch (...)
       {
         cout << "Unexpected Exception!" << endl
         << "Press A to exit and relaunch sciifii.";
-
+		
         Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
-      }
-      VPAD_Init();
+		VPAD_Init();
       Pause();
+      }
+      
       return 0;
     }
 };

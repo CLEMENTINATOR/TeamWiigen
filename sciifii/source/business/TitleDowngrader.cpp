@@ -83,11 +83,11 @@ void TitleDowngrader::Install()
   Title newTitle;
   newTitle.TmdInstalledEvent += MakeDelegate(this, &TitleDowngrader::DowngradeTmd);
 
-  newTitle.LoadFromWad(newFile.str() , "sd:/temp");
+  newTitle.LoadFromWad(newFile.str() , Config::WorkingDirectory());
 
   Title oldTitle;
   oldTitle.TicketInstallingEvent += MakeDelegate(this, &TitleDowngrader::SkipStep);
-  oldTitle.LoadFromWad(oldFile.str(), "sd:/temp");
+  oldTitle.LoadFromWad(oldFile.str(), Config::WorkingDirectory());
 
   OnProgress("Installing the fake title", 0.2);
 

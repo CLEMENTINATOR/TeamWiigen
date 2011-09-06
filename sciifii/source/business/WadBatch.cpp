@@ -4,6 +4,7 @@
 #include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Path.h>
 #include <sciifii/business/WadBatch.h>
+#include <sciifii/Config.h>
 
 using namespace std;
 using namespace Libwiisys::IO;
@@ -36,7 +37,7 @@ void WadBatch::Install()
       continue;
     }
     OnProgress("Loading " + fileName, currentStep / steps);
-    wad.LoadFromWad(*ite);
+    wad.LoadFromWad(*ite,Config::WorkingDirectory());
     if(a==ti_Install)
     {
       OnProgress("Install " + fileName, (currentStep + 0.5) / steps);

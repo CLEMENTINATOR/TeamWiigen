@@ -82,7 +82,7 @@
       <patch pattern="0xD2, 0x01, 0x4E, 0x56" value="0xE0, 0x01, 0x4E, 0x56" />
     </MemoryPatcher>
 	
-	<CiosInstaller option="cIOS249" delete="true" ciosRevision="21006" slot="249" revision="4123" source="38" banner="banner_d2x6_249.dat" > 
+	<CiosInstaller option="cIOS249" ciosRevision="21006" slot="249" revision="4123" source="38" banner="banner_d2x6_249.dat" > 
 	  <modules>
 	    <module file="mload_module_d2x6.dat"/>
 		<module file="fat_module_d2x6.dat"/>
@@ -98,7 +98,7 @@
 	  </patches>
 	</CiosInstaller>
 	
-	<CiosInstaller option="cIOS250" delete="true" ciosRevision="21006" slot="250" revision="5662" source="37" banner="banner_d2x6_250.dat"> 
+	<CiosInstaller option="cIOS250" ciosRevision="21006" slot="250" revision="5662" source="37" banner="banner_d2x6_250.dat"> 
 	  <modules>
 	    <module file="mload_module_d2x6.dat"/>
 		<module file="fat_module_d2x6.dat"/>
@@ -115,7 +115,7 @@
 	  </patches>
 	</CiosInstaller>
 	
-	<CiosInstaller option="cIOS251" delete="true" ciosRevision="21006" slot="251" revision="5918" source="57" banner="banner_d2x6_251.dat" > 
+	<CiosInstaller option="cIOS251" ciosRevision="21006" slot="251" revision="5918" source="57" banner="banner_d2x6_251.dat" > 
 	  <modules>
 	    <module file="mload_module_d2x6.dat"/>
 		<module file="fat_module_d2x6.dat"/>

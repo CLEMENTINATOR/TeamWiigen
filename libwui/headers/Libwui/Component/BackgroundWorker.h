@@ -18,10 +18,11 @@ namespace Libwui
         Libwiisys::Threading::DoWorkEvent DoWork;
         Libwiisys::Threading::ThreadResultEvent WorkDone;
         BackgroundWorker();
-				void ProcessMessage(Message& message);
+		~BackgroundWorker();
+		void ProcessMessage(Message& message);
         void ReportProgress(f32 progress,std::string s);
         void RunWorkerAsync(Libwiisys::Object *params);
-			protected:
+	  protected:
 				void Draw();
       private:
 				Libwiisys::Threading::ThreadResultEventArgs* r;

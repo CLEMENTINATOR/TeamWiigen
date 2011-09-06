@@ -141,7 +141,7 @@ void TitleStep::Install()
     Title t;
     str << "Loading title from " << _file;
     OnProgress(str.str(), 0.25);
-    t.LoadFromWad(_file);
+    t.LoadFromWad(_file,Config::WorkingDirectory());
     stringstream str2;
     str2 << "Uninstalling title " << _file;
     OnProgress(str2.str(), 0.75);
@@ -161,7 +161,7 @@ void TitleStep::Install()
       << dec;
 	}
     OnProgress(str.str(), 0.25);
-    t.LoadFromWad(_file);
+    t.LoadFromWad(_file, Config::WorkingDirectory());
     stringstream str2;
     if (_id == 0)
       str2 << "Installing title " << _file;
@@ -187,7 +187,7 @@ void TitleStep::Install()
     str << "Extracting title  " << hex << setfill('0') << setw(16) << _id
     << dec;
     OnProgress(str.str(), 0.25);
-    t.LoadFromNand(_id);
+    t.LoadFromNand(_id, Config::WorkingDirectory());
 
     stringstream str2;
     str2 << "Packing title  " << hex << setfill('0') << setw(16) << _id
@@ -204,7 +204,7 @@ void TitleStep::Install()
       str << "Loading title  " << hex << setfill('0') << setw(16) << _id
       << dec;
     OnProgress(str.str(), 0.25);
-    t.LoadFromWad(_file);
+    t.LoadFromWad(_file, Config::WorkingDirectory());
     stringstream str2;
     if (_id == 0)
       str2 << "Extracting content from " << _file << " to " << _path;

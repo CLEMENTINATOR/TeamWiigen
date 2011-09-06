@@ -22,11 +22,11 @@ using namespace Libwiisys;
 
 
 TitleStep::TitleStep(u64 titleId, u16 revision, TitleAction a, string path,Libwiisys::System::Patching::Fakesign_Type fakesign) :
-    _id(titleId), _revision(revision), _action(a), _file(""), _path(path),_fakesign(fakesign)
+    _id(titleId), _revision(revision), _action(a), _file(""),_key(""), _path(path),_fakesign(fakesign)
 {}
 
-TitleStep::TitleStep(string file, TitleAction a, string path,Libwiisys::System::Patching::Fakesign_Type fakesign) :
-    _id(0), _revision(0), _action(a), _file(file), _path(path),_fakesign(fakesign)
+TitleStep::TitleStep(string key, TitleAction a, string path,Libwiisys::System::Patching::Fakesign_Type fakesign) :
+    _id(0), _revision(0), _action(a), _file(""),_key(key), _path(path),_fakesign(fakesign)
 {}
 
 bool TitleStep::Prepare()
@@ -35,7 +35,7 @@ bool TitleStep::Prepare()
     throw Exception(
       "You must specify a wad file path in order to store the wad");
 
-  if (_action == ti_PackAsWad && _file != "")
+  if (_action == ti_PackAsWad && _key != "")
     throw Exception("This is impossible to create a wad from an other wad!");
 
   if (_action == ti_Decrypt && _path == "")
@@ -45,14 +45,16 @@ bool TitleStep::Prepare()
     throw Exception(
       "You must specify a wad file path in order to store the extracted title");
 
-  if (_action == ti_Extract && _file != "")
+  if (_action == ti_Extract && _key != "")
     throw Exception("This is impossible to extract a title from a wad!");
 
-  if (_file!="") /* Si fichier donne en parametre */
+  if (_key!="") /* Si fichier donne en parametre */
   {
-    OnProgress("Getting wad file : "+ _file, 0.25);
-    if (!FileManager::Download(_file))
-      throw Exception("Error downloading " + _file);
+    OnProgress("Getting wad file : "+ _key, 0.25);
+    if (!FileManager::Download(_key))
+      throw Exception("Error downloading " + _key);
+
+	_file = FileManager::GetPath(_key);
   }
   else /*  Si tid */
   {
@@ -118,7 +120,7 @@ void TitleStep::Install()
 
   if (_action == ti_Update)
   {
-    if (!_revision)
+    if (_revision!=0)
     {
       if(_revision<=Title::GetInstalledTitleVersion(_id))
       {
@@ -148,22 +150,18 @@ void TitleStep::Install()
   else if (_action == ti_Install)
   {
     TitlePatcher t(0,-1,_fakesign);
-	string wadFile;
-
 
     if (_id == 0)
 	{
-	  wadFile = FileManager::GetPath(_file);
-      str << "Loading title from " << wadFile;
+      str << "Loading title from " << _file;
 	}
     else
 	{
       str << "Loading title  " << hex << setfill('0') << setw(16) << _id
       << dec;
-	  wadFile = _file;
 	}
     OnProgress(str.str(), 0.25);
-    t.LoadFromWad(wadFile);
+    t.LoadFromWad(_file);
     stringstream str2;
     if (_id == 0)
       str2 << "Installing title " << _file;

@@ -74,6 +74,4 @@ void BackgroundWorker::Draw()
 
 BackgroundWorker::~BackgroundWorker()
 {
-	if(r)
-		delete r;
 }

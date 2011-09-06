@@ -26,15 +26,17 @@ string Path::GetRootName(const string &path)
 
 string Path::GetParentDirectory(const string &path)
 {
-  u32 slashPosition = path.find_last_of('/');
+  string workingPath = Path::CleanPath(path);
 
-  if (slashPosition == string::npos || path == GetRoot(path))
+  u32 slashPosition = workingPath.find_last_of('/');
+
+  if (slashPosition == string::npos || workingPath == GetRoot(workingPath))
     return "";
 
   // On retire le dernier slash si besoin
-  string workingRepresentation = path;
-  if (slashPosition == path.length() - 1)
-    workingRepresentation.erase(path.size() - 1);
+  string workingRepresentation = workingPath;
+  if (slashPosition == workingPath.length() - 1)
+    workingRepresentation.erase(workingPath.size() - 1);
 
   slashPosition = workingRepresentation.find_last_of('/');
   string parentDir = workingRepresentation.substr(0, slashPosition);

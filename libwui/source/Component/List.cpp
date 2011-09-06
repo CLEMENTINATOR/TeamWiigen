@@ -21,7 +21,10 @@ List::List()
 List::~List()
 {
   for(vector<ListItem*>::iterator ite = _items.begin(); ite != _items.end(); ite++)
-	delete (*ite);
+  {
+	  (*ite)->Click -= MakeDelegate(this, &List::ItemClicked);
+	  delete (*ite);
+  }
 }
 
 void List::AddItem(Object* item, const std::string& text)

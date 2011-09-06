@@ -16,6 +16,7 @@ BackgroundWorker::BackgroundWorker()
     : _thread(MakeDelegate(this, &BackgroundWorker::AsyncJob))
 {
 	_thread.ThreadTerminated += MakeDelegate(this,&BackgroundWorker::JobDone);
+	r = NULL;
 }
 
 void BackgroundWorker::ReportProgress(f32 progress, std::string s)
@@ -59,13 +60,22 @@ void BackgroundWorker::JobDone(Object* sender, ThreadResultEventArgs* args)
 {
 	if(InvokeRequired())
 	{
+		if(r)
+			delete r;
 		r = new ThreadResultEventArgs(*args);
-    Message* m = new Message(_fullId, "JobDone", "");
-    UIManager::AddMessage(m);
-    return;
+		Message* m = new Message(_fullId, "JobDone", "");
+		UIManager::AddMessage(m);
+		return;
 	}
 	WorkDone(this,args);
 }
 
 void BackgroundWorker::Draw()
 {}
+
+
+BackgroundWorker::~BackgroundWorker()
+{
+	if(r)
+		delete r;
+}

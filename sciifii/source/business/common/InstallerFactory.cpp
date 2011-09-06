@@ -15,10 +15,8 @@
 #include <sciifii/business/Identifier.h>
 #include <sciifii/business/MemoryPatcher.h>
 #include <sciifii/business/Preloader.h>
-#include <sciifii/business/TitleDowngrader.h>
 #include <sciifii/business/TitleStep.h>
 #include <sciifii/business/WadBatch.h>
-#include <sciifii/business/Syscheck.h>
 #include <sciifii/business/StopSciifiiStep.h>
 
 using namespace std;
@@ -35,38 +33,9 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
   string nodeValue = UtilString::ToStr(node->Value());
 
-  if(nodeValue == "TitleDowngrader")
-  {
-    u64 titleId = UtilString::ToU64(node->Attribute("id"),nr_hex);
-    u16 revision = UtilString::ToU16(node->Attribute("revision"));
-
-
-    step = new TitleDowngrader(titleId, revision);
-  }
-  else if(nodeValue == "Syscheck")
-  {
-		string file = UtilString::ToStr(node->Attribute("file"));
-		step = new Syscheck(file);
-
-		TiXmlElement* stubs = node->FirstChildElement();
-		while (stubs != NULL)
-		{
-			if (stubs->Type() != TiXmlNode::TINYXML_COMMENT)
-			{
-				string nodeValue = UtilString::ToStr(stubs->Value());
-				if(nodeValue == "stub")
-				{
-					u16 revision=UtilString::ToU16(stubs->Attribute("revision"));
-					u8 tid=UtilString::ToU8(stubs->Attribute("tid"));
-					((Syscheck*)step)->AddStub(tid,revision);
-				}
-			}
-			stubs=stubs->NextSiblingElement();
-		}
-
-  }
   
-  else if(nodeValue == "Title")
+
+  if(nodeValue == "Title")
   {
     u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
     u16 revision = UtilString::ToU16(node->Attribute("revision"),0);

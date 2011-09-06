@@ -16,6 +16,7 @@
 #include <Libwiisys/Serialization/Xml.h>
 #include <Libwiisys/String/UtilString.h>
 #include <Libwiisys/IO/File.h>
+#include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Path.h>
 #include <Libwiisys/Buffer.h>
 #include <Libwiisys/Network/HttpRequest.h>
@@ -133,6 +134,8 @@ void Config::Initialize(const string& configFilePath)
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
   c._themeDirectory = UtilString::ToStr(root->Attribute("themeDirectory"), "");
 
+  if(c._themeDirectory!="" && c._uiMode=="graphic" && !Directory::Exists(c._themeDirectory))
+	  c._uiMode = "text";
 	
   TiXmlElement* child = root->FirstChildElement();
 

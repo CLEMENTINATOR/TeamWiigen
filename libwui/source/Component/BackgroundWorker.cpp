@@ -60,8 +60,6 @@ void BackgroundWorker::JobDone(Object* sender, ThreadResultEventArgs* args)
 {
 	if(InvokeRequired())
 	{
-		if(r)
-			delete r;
 		r = new ThreadResultEventArgs(*args);
 		Message* m = new Message(_fullId, "JobDone", "");
 		UIManager::AddMessage(m);

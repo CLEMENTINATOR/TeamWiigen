@@ -21,13 +21,14 @@ class TitleStep : public Installer
     u16 _revision;
     TitleAction _action;
     std::string _file;
+	std::string _key;
     std::string _path;
 	Libwiisys::System::Patching::Fakesign_Type _fakesign;
 	
 
   public:
     TitleStep(u64 titleId, u16 revision, TitleAction a, std::string path = "",Libwiisys::System::Patching::Fakesign_Type fakesign = Libwiisys::System::Patching::Fakesign_None);
-    TitleStep(std::string file, TitleAction a, std::string path = "",Libwiisys::System::Patching::Fakesign_Type fakesign = Libwiisys::System::Patching::Fakesign_None);
+    TitleStep(std::string key, TitleAction a, std::string path = "",Libwiisys::System::Patching::Fakesign_Type fakesign = Libwiisys::System::Patching::Fakesign_None);
     bool Prepare();
     void Install();
     void SendtoLog();

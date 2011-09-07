@@ -2,7 +2,7 @@
  * FreeTypeGX is a wrapper class for libFreeType which renders a compiled
  * FreeType parsable font into a GX texture for Wii homebrew development.
  * Copyright (C) 2008 Armin Tamzarian
- * Modified by Arasium (2010)
+ * Modified by Arasium (2010),TeToNN(2011)
  *
  * This file is part of FreeTypeGX.
  * 
@@ -23,8 +23,6 @@
 #include <string>
 #include <map>
 #include <Libwui/FreeTypeGX.h>
-
-std::map<std::string, FreeTypeGX*> instances;
 
 /**
  * Default constructor for the FreeTypeGX class.
@@ -63,20 +61,25 @@ FreeTypeGX::~FreeTypeGX()
  * @param strChar Character string to be converted.
  * @return Wide character representation of supplied character string.
  */
-wchar_t* FreeTypeGX::charToWideChar(const char* strChar)
+wchar_t* FreeTypeGX::charToWideChar( char* strChar)
 {
-  wchar_t *strWChar;
-  strWChar = new wchar_t[strlen(strChar) + 1];
+    wchar_t *strWChar = new wchar_t[strlen(strChar) + 1];
 
-  const char *tempSrc = strChar;
-  wchar_t *tempDest = strWChar;
-  while((*tempDest++ = *tempSrc++))
-    ;
+        int bt = mbstowcs(strWChar, strChar, strlen(strChar));
+        if (bt) {
+                strWChar[bt] = (wchar_t)'\0';
+                return strWChar;
+        }
 
-  return strWChar;
+        wchar_t *tempDest = strWChar;
+        while((*tempDest++ = *strChar++));
+
+        return strWChar;
 }
 
-
+wchar_t* FreeTypeGX::charToWideChar(const char* strChar) {
+        return FreeTypeGX::charToWideChar((char*) strChar);
+}
 /**
  * Setup the vertex attribute formats for the glyph textures.
  * 

@@ -44,7 +44,7 @@
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
-      <modeMenuItem text="Unhack your wii" switches="cIOS249|update|deleteChannel|uninstall" />
+      <modeMenuItem text="Unhack your wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
       <separatorMenuItem char=" " />
@@ -52,9 +52,9 @@
     </menu>
 
     <menu id="advanced">
-      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(base 38)" />
-      <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (base 37)" />
-      <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (base 57)" />
+      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38)" />
+      <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
+      <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />
       <switchMenuItem name="update" text="Update your wii to 4.3" />
       <switchMenuItem name="update4.2" text="Update your wii to 4.2" />
       <switchMenuItem name="Preloader" text="Install the priiloader" />

@@ -42,13 +42,14 @@ class MainUI : public IMain
       if(Config::ThemeDirectory().size() != 0)
         ThemeManager::ThemeRootFolder(Config::ThemeDirectory());
 
-
-      GDisclaimer g;
-      PadController::LoadCursorImages(0, "cursor.png", 48, 48);
+		PadController::LoadCursorImages(0, "cursor.png", 48, 48);
 
       try
       {
-        UIManager::Run(g);
+		/*{
+			GDisclaimer g;
+			UIManager::Run(g);
+	    }*/
         UIManager::Run(GMenuManager::Instance());
       }
       catch(ExitSciifiiException &ex)

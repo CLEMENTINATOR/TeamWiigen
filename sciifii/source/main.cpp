@@ -43,13 +43,10 @@ class MainUI : public IMain
         ThemeManager::ThemeRootFolder(Config::ThemeDirectory());
 
 		PadController::LoadCursorImages(0, "cursor.png", 48, 48);
-
+		GDisclaimer g;
       try
       {
-		/*{
-			GDisclaimer g;
-			UIManager::Run(g);
-	    }*/
+		UIManager::Run(g);
         UIManager::Run(GMenuManager::Instance());
       }
       catch(ExitSciifiiException &ex)
@@ -116,7 +113,7 @@ class MainText : public IMain
         stringstream str;
         str<< ex <<" in : "<<Sciifii::LastStepMessage();
         Log::WriteLog(Log_Error,str.str());
-		VPAD_Init();
+		
 	   Pause();
       }
       catch (...)
@@ -125,7 +122,7 @@ class MainText : public IMain
         << "Press A to exit and relaunch sciifii.";
 		
         Log::WriteLog(Log_Error,"UnHandled Exception ! "+Sciifii::LastStepMessage());
-		VPAD_Init();
+		
       Pause();
       }
       

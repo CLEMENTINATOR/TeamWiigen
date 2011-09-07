@@ -35,7 +35,7 @@ std::map<std::string, FreeTypeGX*> instances;
 FreeTypeGX::FreeTypeGX(uint8_t textureFormat, uint8_t vertexIndex)
 {
   FT_Init_FreeType(&this->ftLibrary);
-
+  this->ftFace = NULL;
   this->textureFormat = textureFormat;
   this->setVertexFormat(vertexIndex);
   this->setCompatibilityMode(FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE);
@@ -46,7 +46,12 @@ FreeTypeGX::FreeTypeGX(uint8_t textureFormat, uint8_t vertexIndex)
  */
 FreeTypeGX::~FreeTypeGX()
 {
+	 
   this->unloadFont();
+  if(ftFace)
+	FT_Done_Face(ftFace);
+  FT_Done_FreeType(ftLibrary);
+
 }
 
 /**

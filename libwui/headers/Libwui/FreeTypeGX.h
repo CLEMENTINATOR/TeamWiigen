@@ -273,8 +273,8 @@ class FreeTypeGX
   public:
     FreeTypeGX(uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
     ~FreeTypeGX();
-
-    static wchar_t* charToWideChar(const char* p);
+	 wchar_t* charToWideChar( char* strChar);
+     wchar_t* charToWideChar(const char* p);
     void setVertexFormat(uint8_t vertexIndex);
     void setCompatibilityMode(uint32_t compatibilityMode);
 

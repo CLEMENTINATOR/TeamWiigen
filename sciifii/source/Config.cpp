@@ -1,7 +1,7 @@
 #include <ogc/conf.h>
 #include <cstdlib>
 #include <iostream>
-
+#include <debug.h>
 #include <sciifii/Config.h>
 #include <sciifii/business/common/FileManager.h>
 #include <sciifii/business/common/InstallerFactory.h>
@@ -42,6 +42,9 @@ Config::Config() :
   }
   catch (...)
   {}
+ /* DEBUG_Init(GDBSTUB_DEVICE_WIFI, 8000); // Port 8000 (use whatever you want)
+  _break();
+  */
 }
 
 bool Config::HasNetwork()

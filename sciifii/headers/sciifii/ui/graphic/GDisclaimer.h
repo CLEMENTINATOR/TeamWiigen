@@ -16,7 +16,7 @@ class GDisclaimer : public Libwui::Component::Form
     Libwui::Component::Button btnExit;
     Libwui::Component::TextAera textDisclaimer;
     GThemeDdl _themeDdl;
-    //GAudioPlayer player;
+    GAudioPlayer player;
 	
   public:
     GDisclaimer() ;

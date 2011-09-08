@@ -11,16 +11,20 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 
 FontResource::FontResource(const string& fontPath)
+    : _font(NULL)
 {
   _resource = File::ReadToEnd(fontPath);
 }
 
 FontResource::FontResource(const u8* data, u32 size)
-    : _resource(data, size)
+    : _font(NULL),
+    _resource(data, size)
 {}
 
 FontResource::~FontResource()
 {
+  if(_font)
+    delete _font;
   _resource.Clear();
 
   for(map<s32,FreeTypeGX*>::iterator ite = _fonts.begin(); ite != _fonts.end(); ite++)

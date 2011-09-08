@@ -54,14 +54,14 @@ void GDisclaimer::InitializeComponents()
 	_themeDdl.SetPosition(420, 5);
 	_themeDdl.SetSize(80, 80);
 
-	/*player.SetPosition(10,400);
-	player.SetTracklistFolder("sd:/mp3/");*/
+	player.SetPosition(10,400);
+	player.SetTracklistFolder("sd:/mp3/");
 	
 	AddChildren(&btnExit);
 	AddChildren(&btnContinue);
 	AddChildren(&textDisclaimer);
 	AddChildren(&_themeDdl);
-	//AddChildren(&player);
+	AddChildren(&player);
 	Form::InitializeComponents();
 
 	//AudioPlayer::GetAndReset().Play("sd:/test.mp3");

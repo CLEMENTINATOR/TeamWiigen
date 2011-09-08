@@ -35,11 +35,18 @@ void Device::EnsureShutdown()
   {
     fatDevice *tempDevice = devices + deviceIndex;
 
-    if (tempDevice->interface != NULL && tempDevice->started)
+	if(tempDevice->started!=true) continue;
+
+    if (tempDevice->interface != NULL)
 	{
-      tempDevice->interface->shutdown();
-	  tempDevice->started = false;
+      UnMount(*tempDevice);
 	}
+	else
+	{
+		UnMount();
+	}
+	tempDevice->started = false;
+	
   }
 }
 
@@ -78,7 +85,7 @@ void Device::Mount(const std::string &path)
 {
   fatDevice& device = FindDevice(path);
   /* if not already mounted */
-  if (device.deviceHandles == 0)
+  if (device.deviceHandles == 0 && !device.started)
   {
     //Si ISFS
     if (device.interface == NULL)
@@ -86,6 +93,8 @@ void Device::Mount(const std::string &path)
     //Si device externe
     else
       Mount(device);
+
+	device.started = true;
   }
 
   device.deviceHandles++;
@@ -102,13 +111,6 @@ void Device::Mount()
 
 void Device::Mount(fatDevice &device)
 {
-  /* Initialize interface */
-  if (!device.started)
-  {
-    device.interface->startup();
-    device.started = true;
-  }
-
   /* Mount device */
   s32 ret = fatMountSimple(device.mount.c_str(), device.interface);
   if (!ret)
@@ -123,17 +125,6 @@ void Device::UnMount(const std::string &path)
     return;
 
   device.deviceHandles--;
-
-  /* if there is other handles, we don't unmount the device */
-  if (device.deviceHandles != 0)
-    return;
-
-  //Si ISFS
-  if (device.interface == NULL)
-    UnMount();
-  //Si device externe
-  else
-    UnMount(device);
 }
 
 void Device::UnMount()
@@ -146,6 +137,7 @@ void Device::UnMount(fatDevice &device)
   string devicePath = device.mount + ":";
   /* Unmount device */
   fatUnmount(devicePath.c_str());
+  device.interface->shutdown();
 }
 
 vector<string> Device::GetAvailableRoots()

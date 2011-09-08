@@ -46,8 +46,6 @@ FreeTypeGX::~FreeTypeGX()
 {
 	 
   this->unloadFont();
-  if(ftFace)
-	FT_Done_Face(ftFace);
   FT_Done_FreeType(ftLibrary);
 
 }
@@ -216,6 +214,8 @@ void FreeTypeGX::unloadFont()
   {
     free(i->second.glyphDataTexture);
   }
+if(ftFace)
+	FT_Done_Face(ftFace);
 
   this->fontData.clear();
 }

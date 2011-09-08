@@ -82,7 +82,6 @@ bool GSciifiiLauncher::Run()
 {
   try
   {
-    UIManager::TrackWPads(false);
 	Config::ValidateOptions();
 
     vector<Installer*> steps = Config::Steps();
@@ -187,7 +186,6 @@ void GSciifiiLauncher::JobDone(Object* sender, ThreadResultEventArgs* args)
   vector<Installer*> steps = Config::Steps();
   for (vector<Installer*>::iterator ite = steps.begin(); ite != steps.end(); ite++)
     (*ite)->Progressing -= MakeDelegate(this,&GSciifiiLauncher::SetValueActual);
-  UIManager::TrackWPads(true);
   
   if (args->Result.HasError)
     mb.Show( args->Result.e->ToString(),  "Exception");

@@ -189,11 +189,9 @@ void TextAera::RebuildLabelVector(FontResource* resource)
 					labelText.str("");
 					for(int i = 0; i < nbWord - 1; i++)
 					{
-						if(i>=0) labelText << wordList[i] << " ";
+						labelText << wordList[i] << " ";
 					}
-					if(nbWord>0)
-						labelText << wordList[nbWord - 1];
-
+					labelText << wordList[nbWord - 1];
 					nbWord--;
 				} while(GetWidth() - trackBarWidth < resource->Font(size)->getWidth(labelText.str()));
 				

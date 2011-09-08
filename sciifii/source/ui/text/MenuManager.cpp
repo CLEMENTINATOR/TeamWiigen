@@ -101,6 +101,7 @@ bool MenuManager::ExecuteSciifii()
   {
     Config::ValidateOptions();
     Disclaimer::Show();
+    VPAD_Shutdown();
 
     Sciifii sci;
     if (sci.Prepare())
@@ -116,6 +117,7 @@ bool MenuManager::ExecuteSciifii()
       Log::WriteLog(Log_Error,Sciifii::LastStepMessage());
       throw Exception("An error occured during prepare.");
     }
+    VPAD_Init();
 	Pause();
     return true;
   }

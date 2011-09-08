@@ -2,7 +2,7 @@
  * FreeTypeGX is a wrapper class for libFreeType which renders a compiled
  * FreeType parsable font into a GX texture for Wii homebrew development.
  * Copyright (C) 2008 Armin Tamzarian
- * Modified by Arasium (2010),TeToNN(2011)
+ * Modified by Arasium (2010)
  *
  * This file is part of FreeTypeGX.
  * 
@@ -24,6 +24,8 @@
 #include <map>
 #include <Libwui/FreeTypeGX.h>
 
+std::map<std::string, FreeTypeGX*> instances;
+
 /**
  * Default constructor for the FreeTypeGX class.
  * 
@@ -33,7 +35,7 @@
 FreeTypeGX::FreeTypeGX(uint8_t textureFormat, uint8_t vertexIndex)
 {
   FT_Init_FreeType(&this->ftLibrary);
-  this->ftFace = NULL;
+
   this->textureFormat = textureFormat;
   this->setVertexFormat(vertexIndex);
   this->setCompatibilityMode(FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE);
@@ -44,10 +46,7 @@ FreeTypeGX::FreeTypeGX(uint8_t textureFormat, uint8_t vertexIndex)
  */
 FreeTypeGX::~FreeTypeGX()
 {
-	 
   this->unloadFont();
-  FT_Done_FreeType(ftLibrary);
-
 }
 
 /**
@@ -59,25 +58,20 @@ FreeTypeGX::~FreeTypeGX()
  * @param strChar Character string to be converted.
  * @return Wide character representation of supplied character string.
  */
-wchar_t* FreeTypeGX::charToWideChar( char* strChar)
+wchar_t* FreeTypeGX::charToWideChar(const char* strChar)
 {
-    wchar_t *strWChar = new wchar_t[strlen(strChar) + 1];
+  wchar_t *strWChar;
+  strWChar = new wchar_t[strlen(strChar) + 1];
 
-        int bt = mbstowcs(strWChar, strChar, strlen(strChar));
-        if (bt) {
-                strWChar[bt] = (wchar_t)'\0';
-                return strWChar;
-        }
+  const char *tempSrc = strChar;
+  wchar_t *tempDest = strWChar;
+  while((*tempDest++ = *tempSrc++))
+    ;
 
-        wchar_t *tempDest = strWChar;
-        while((*tempDest++ = *strChar++));
-
-        return strWChar;
+  return strWChar;
 }
 
-wchar_t* FreeTypeGX::charToWideChar(const char* strChar) {
-        return FreeTypeGX::charToWideChar((char*) strChar);
-}
+
 /**
  * Setup the vertex attribute formats for the glyph textures.
  * 
@@ -181,7 +175,7 @@ uint16_t FreeTypeGX::loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_
   FT_Set_Pixel_Sizes(this->ftFace, 0, this->ftPointSize);
 
   this->ftSlot = this->ftFace->glyph;
-  this->ftKerningEnabled = false;
+  this->ftKerningEnabled = FT_HAS_KERNING(this->ftFace);
 
   if (cacheAll)
   {
@@ -214,8 +208,6 @@ void FreeTypeGX::unloadFont()
   {
     free(i->second.glyphDataTexture);
   }
-if(ftFace)
-	FT_Done_Face(ftFace);
 
   this->fontData.clear();
 }

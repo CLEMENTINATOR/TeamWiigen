@@ -1,7 +1,7 @@
 #include <ogc/conf.h>
 #include <cstdlib>
 #include <iostream>
-#include <debug.h>
+
 #include <sciifii/Config.h>
 #include <sciifii/business/common/FileManager.h>
 #include <sciifii/business/common/InstallerFactory.h>
@@ -42,9 +42,6 @@ Config::Config() :
   }
   catch (...)
   {}
- /* DEBUG_Init(GDBSTUB_DEVICE_WIFI, 8000); // Port 8000 (use whatever you want)
-  _break();
-  */
 }
 
 bool Config::HasNetwork()
@@ -69,10 +66,10 @@ void Config::Initialize(const string& configFilePath)
 
   if (Config::HasNetwork())
   {
-   /* WebLogger* sciifiiLog = new WebLogger(
+    WebLogger* sciifiiLog = new WebLogger(
                               "http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx",
                               "message", "line", "file", "application", "version");
-    Log::AddLogProvider(Lgt_All, sciifiiLog);*/
+    Log::AddLogProvider(Lgt_All, sciifiiLog);
   }
 
   TiXmlDocument* doc = Xml::Load(configFilePath);

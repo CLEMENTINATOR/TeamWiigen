@@ -28,7 +28,7 @@ Thread::~Thread()
 void Thread::Start(Object* params)
 {
   _params = params; //record the parameters
-  s32 code = LWP_CreateThread(&_threadId, Thread::EntryPoint, this, NULL, 0, 40);
+  s32 code = LWP_CreateThread(&_threadId, Thread::EntryPoint, this, NULL, 16384, 50);
   
   if (code < 0)
     throw SystemException("Error creating thread.", code);

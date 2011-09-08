@@ -181,7 +181,7 @@ uint16_t FreeTypeGX::loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_
   FT_Set_Pixel_Sizes(this->ftFace, 0, this->ftPointSize);
 
   this->ftSlot = this->ftFace->glyph;
-  this->ftKerningEnabled = FT_HAS_KERNING(this->ftFace);
+  this->ftKerningEnabled = false;
 
   if (cacheAll)
   {

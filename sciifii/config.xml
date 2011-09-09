@@ -24,18 +24,19 @@
 	<file key="banner_d2x6_249.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat.sha" />
 	<file key="banner_d2x6_250.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat.sha" />
 	<file key="banner_d2x6_251.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat.sha" />
-    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appfiles/priiloader.dat" sha1="http://teamwiigen.fr.cr/appfiles/priiloader.dat.sha" />
-    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/hacks.ini" />
-    <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/hacks_hash.ini" />
-    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appfiles/wiiflow.wad" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.wad.sha" />
-    <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appfiles/wiiflow.dol" sha1="http://teamwiigen.fr.cr/appfiles/wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
-    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appfiles/r937.wad" sha1="http://teamwiigen.fr.cr/appfiles/r937.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
-    <file key="GXDol" url="http://teamwiigen.fr.cr/appfiles/r937.dol" sha1="http://teamwiigen.fr.cr/appfiles/r937.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
-    <file key="GXmeta" url="http://teamwiigen.fr.cr/appfiles/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
-    <file key="GXicon" url="http://teamwiigen.fr.cr/appfiles/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
-    <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appfiles/neoforwarder.wad" path="sd:/sciifii/temp/neoforwarder.wad" />
-    <file key="Neodol" url="http://teamwiigen.fr.cr/appfiles/neo.dol" path="sd:/apps/neogamma/boot.dol" />
-    <file key="Neoxml" url="http://teamwiigen.fr.cr/appfiles/neo.xml" path="sd:/apps/neogamma/meta.xml" />
+    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/apps/priiloader/hacks.ini" />
+    <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/apps/priiloader/hacks_hash.ini" />
+    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" />
+    <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/r374.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/r374.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
+    <file key="GXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/r1000.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/r1000.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
+    <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+    <file key="GXicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+    <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
+    <file key="Neodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neor9v50.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neor9v50.dol.sha" path="sd:/apps/neogamma/boot.dol" />
+    <file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
+	<file key="channelsciifii" url="http://dl.dropbox.com/u/40433483/Sciifii.wad"/>
   </files>
 
   <menus start="main">
@@ -44,6 +45,7 @@
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
+	  <modeMenuItem text="channelsciifii" switches="channelsciifii" />
       <modeMenuItem text="Unhack your wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
@@ -52,9 +54,9 @@
     </menu>
 
     <menu id="advanced">
-      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x,base 38)" />
-      <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x,base 37)" />
-      <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x,base 57)" />
+      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38)" />
+      <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
+      <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />
       <switchMenuItem name="update" text="Update your wii to 4.3" />
       <switchMenuItem name="update4.2" text="Update your wii to 4.2" />
       <switchMenuItem name="Preloader" text="Install the priiloader" />
@@ -337,6 +339,11 @@
     <CompositeInstaller option="wiiflow" name="Wiiflow">
       <FileDownloader file="wiiflow.dol" />
       <Title wad="wiiflow.wad" action="install" fakesign="true"/>
+    </CompositeInstaller>
+	
+	
+	 <CompositeInstaller option="channelsciifii" name="channelsciifii">
+      <Title wad="channelsciifii" action="install" fakesign="true"/>
     </CompositeInstaller>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />

@@ -166,13 +166,33 @@ u32 HttpRequest::GetResponseLength()
 
 
   /* Retrieve content size */
+  
   ptr = strstr(buf, "Content-Length:");
   if (!ptr)
-    throw Exception("Error retrieving response lengt");
+  {
+	ptr = strstr(buf, "content-length:");
+	if(!ptr)
+	{
+		throw Exception("Error retrieving response lengt");
+	}
+	else
+	{
+		u32 length;
+	  sscanf(ptr, "content-length: %u", &length);
+	  return length;
 
-  u32 length;
-  sscanf(ptr, "Content-Length: %u", &length);
-  return length;
+	}
+  }
+  else
+  {
+	  u32 length;
+	  sscanf(ptr, "Content-Length: %u", &length);
+	  return length;
+
+  }
+   
+  
+ 
 }
 
 s32 HttpRequest::Read(Buffer& b, u32 len)

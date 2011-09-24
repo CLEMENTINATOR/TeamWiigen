@@ -130,7 +130,6 @@ void Config::Initialize(const string& configFilePath)
     throw Exception("Config file version not supported");
 
   c._uiMode = UtilString::ToStr(root->Attribute("uiMode"), "text");
-  c._menuMessage = root->Attribute("MenuMessage");
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");
   c._themeDirectory = UtilString::ToStr(root->Attribute("themeDirectory"), "");
 
@@ -296,10 +295,6 @@ vector<Installer*> Config::Steps()
   return Instance()._validatedSteps;
 }
 
-string Config::MenuMessage()
-{
-  return Instance()._menuMessage;
-}
 
 string Config::DisclaimerText()
 {

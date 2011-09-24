@@ -25,6 +25,9 @@ DynamicMenu::DynamicMenu(TiXmlElement* node) :
     throw Exception("Can't create DynamicMenu with no MenuId");
 
 
+  _title = UtilString::ToStr(node->Attribute("title"),"");
+  _message = UtilString::ToStr(node->Attribute("message"),"");
+
   TiXmlElement* item = node->FirstChildElement();
   while (item != NULL)
   {
@@ -57,6 +60,12 @@ DynamicMenu::~DynamicMenu()
 void DynamicMenu::Display()
 {
   Disclaimer::Show();
+
+  if(!_title.empty())
+	cout<< _title << endl;
+
+  if(!_message.empty())
+	cout<<_message << endl;
 
   for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
   {

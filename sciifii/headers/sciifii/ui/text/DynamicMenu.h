@@ -16,7 +16,8 @@ class DynamicMenu : public MenuBase
     std::vector<MenuItem*> items;
     u32 selectIndex;
     NavigateEventArgs nav;
-
+	std::string _message;
+	std::string _title;
     void Display();
     void SwitchSelectionChanged(Libwiisys::Object* sender, SwitchEventArgs* args);
     void NavigateRequested(Libwiisys::Object* sender, NavigateEventArgs* args);

@@ -39,7 +39,7 @@
   </files>
 
   <menus start="main">
-    <menu id="main">
+    <menu id="main" title="Main Menu" message="">
       <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
@@ -51,7 +51,7 @@
       <exitMenuItem text="Exit" />
     </menu>
 
-    <menu id="advanced">
+    <menu id="advanced" title="Advanced Menu" message="">
       <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38)" />
       <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
       <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />

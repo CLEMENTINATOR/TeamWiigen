@@ -21,7 +21,6 @@ class Config : public Libwiisys::Object
 
     std::map<std::string,std::string> _switches;
 
-    std::string _menuMessage;
     std::string _workingDirectory;
     std::string _disclaimer;
 	std::string _themeDirectory;
@@ -43,7 +42,6 @@ class Config : public Libwiisys::Object
     static bool HasNetwork();
     static bool AutoClean();
     static std::vector<Installer*> Steps();
-    static std::string MenuMessage();
     static std::string DisclaimerText();
 	static std::string ThemeDirectory();
     static void Reset();

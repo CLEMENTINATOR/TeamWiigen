@@ -62,10 +62,10 @@ void DynamicMenu::Display()
   Disclaimer::Show();
 
   if(!_title.empty())
-	cout<< _title << endl;
+	cout<< _title << endl << endl;
 
   if(!_message.empty())
-	cout<<_message << endl;
+	cout<<_message << endl << endl;
 
   for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
   {

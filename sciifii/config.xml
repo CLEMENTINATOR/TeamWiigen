@@ -46,7 +46,7 @@
     <file key="GXicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
     <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
-    <file key="Neodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
+    <file key="Neodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" />
 	<file key="UpNeodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
     <file key="UpNeodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
 	<file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/" uiMode="text">
-
+<sciifii version="5" MenuMessage="Choose an option : ">
+  
   <!-- Region:
     JAP: 0
     EUR: 2
     KK: 4
     US: 1
   -->
-
+  
   <logs>
     <log type="file" path="sd:/sciifii.log" />
   </logs>
-
   <files>
     <file key="dip_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/dip_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/dip_module_d2x6.dat.sha" />
     <file key="ehci_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x6.dat.sha" />
@@ -24,60 +22,117 @@
 	<file key="banner_d2x6_249.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat.sha" />
 	<file key="banner_d2x6_250.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat.sha" />
 	<file key="banner_d2x6_251.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat.sha" />
-    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat.sha" />
-    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/apps/priiloader/hacks.ini" />
-    <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/apps/priiloader/hacks_hash.ini" />
+    <file key="priiloaderfr.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader07r138fr.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader07r138fr.dat.sha" />
+    <file key="hacksfr.ini" url="http://teamwiigen.fr.cr/appfiles/Preloader/fr/hacks_fr_s.ini" path="sd:/hacks.ini" />
+    <file key="hacks_hashfr.ini" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/hacks_hash_fr_s.ini" path="sd:/hacks_hash.ini" />
+	<file key="priiloader.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/apps/Priiloader/hacks.ini" />
+    <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/apps/Priiloader/hacks_hash.ini" />
     <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" />
     <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+	<file key="wiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" />
+	<file key="wiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" />
+	<file key="Upwiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" overwrite="true" />
+	<file key="Upwiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" overwrite="true" />
 	<file key="Upwiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" overwrite="true" />
     <file key="GXForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
     <file key="GXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
+	<file key="GXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" />
+	<file key="GXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" />
+	<file key="UpGXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" overwrite="true" />
+	<file key="UpGXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" overwrite="true" />
 	<file key="UpGXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" overwrite="true" />
     <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
     <file key="GXicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
     <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
+    <file key="Neodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
 	<file key="UpNeodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
-    <file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
+    <file key="UpNeodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
+	<file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
   </files>
-
   <menus start="main">
-    <menu id="main">
+    <menu id="main" title="Main Menu" message="Choose your language:">
+	  <separatorMenuItem char=" " />
+      <navigationMenuItem  text="English Menu" menuId="mainen" saveOptions="false" />
+	  <separatorMenuItem char=" " />
+      <navigationMenuItem  text="Menu en francais" menuId="mainfr" saveOptions="false" />
+	  <separatorMenuItem char=" " />
+      <exitMenuItem text="Exit" />
+    </menu>
+    <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
+	  <separatorMenuItem char=" " />
       <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
       <modeMenuItem text="Unhack your wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
-      <navigationMenuItem  text="Advanced Menu" menuId="advanced" saveOptions="false" />
+      <navigationMenuItem  text="Advanced Menu" menuId="advanceden" saveOptions="false" />
       <separatorMenuItem char=" " />
+      <previousMenuItem text="Return to language menu" />
       <exitMenuItem text="Exit" />
     </menu>
-
-    <menu id="advanced">
-      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38)" />
+	
+    <menu id="mainfr" title="Menu principal"  message="Bienvenue sur Sciifii">
+	  <separatorMenuItem char=" " />
+      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|NeoLoaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloadefrr|GXLoaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|wiiflowfr" />
+      <modeMenuItem text="Enlever les modifications de votre Wii" switches="update|deleteChannel|uninstall" />
+      <separatorMenuItem char=" " />
+      <navigationMenuItem  text="Menu avance" menuId="advancedfr" saveOptions="false" />
+      <separatorMenuItem char=" " />
+      <previousMenuItem text="Retourner au menu langues" />
+      <exitMenuItem text="Sortir" />
+    </menu>
+	
+    <menu id="advanceden" title="Advanced Menu" message="">
+	  <separatorMenuItem char=" " />
+      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38) " />
       <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
       <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />
-      <switchMenuItem name="update" text="Update your wii to 4.3" />
-      <switchMenuItem name="update4.2" text="Update your wii to 4.2" />
-      <switchMenuItem name="Preloader" text="Install the priiloader" />
-      <switchMenuItem name="NeoLoader" text="Install the NeoGamma" />
-      <switchMenuItem name="GXLoader" text="Install the USB LoaderGX" />
-      <switchMenuItem name="wiiflow" text="Install Wiiflow" />
-      <switchMenuItem name="UpNeoLoader" text="update the NeoGamma" />
-      <switchMenuItem name="UpGXLoader" text="Update USB LoaderGX" />
-      <switchMenuItem name="Upwiiflow" text="Update Wiiflow" />	  
-      <switchMenuItem name="clean" text="Clean temporary files" />
+      <switchMenuItem name="update" text="Update your wii to 4.3               " />
+      <switchMenuItem name="update4.2" text="Update your wii to 4.2               " />
+      <switchMenuItem name="Preloader" text="Install the priiloader               " />
+      <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
+      <switchMenuItem name="GXLoader" text="Install the USB LoaderGX             " />
+      <switchMenuItem name="wiiflow" text="Install Wiiflow                      " />
+      <switchMenuItem name="UpNeoLoader" text="update the NeoGamma                  " />
+      <switchMenuItem name="UpGXLoader" text="Update USB LoaderGX                  " />
+      <switchMenuItem name="Upwiiflow" text="Update Wiiflow                       " />	  
+      <switchMenuItem name="clean" text="Clean temporary files                " />
       <separatorMenuItem char=" " />
-      <previousMenuItem text="Return to simple menu" saveOptions="false" />
+      <previousMenuItem text="Return to simple menu" />
       <startMenuItem text="start" saveOptions="true" />
       <separatorMenuItem char=" " />
       <exitMenuItem text="Exit" />
     </menu>
+	
+    <menu id="advancedfr" title="Menu avance" message="">
+	  <separatorMenuItem char=" " />
+      <switchMenuItem name="cIOS249" text="Installer le cios249 rev 21(d2x, base 38) " />
+      <switchMenuItem name="cIOS250" text="Installer le cios250 rev 21 (d2x, base 37)" />
+      <switchMenuItem name="cIOS251" text="Installer le cios251 rev 21 (d2x, base 57)" />
+      <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
+      <switchMenuItem name="update4.2" text="Mettre a jour votre wii en 4.2            " />
+      <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
+      <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
+      <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
+      <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
+	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour the NeoGamma                  " />
+      <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
+      <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
+      <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
+      <separatorMenuItem char=" " />
+      <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
+      <startMenuItem text="Demarrer" saveOptions="true" />
+      <separatorMenuItem char=" " />
+      <exitMenuItem text="Sortir" />
+    </menu>
   </menus>
-
   <steps>
-
     <MemoryPatcher option="">
       <patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08" value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
       <patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66" value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
@@ -87,59 +142,55 @@
       <patch pattern="0x20, 0x07, 0x4B, 0x0B" value="0x20, 0x00, 0x4B, 0x0B" />
       <patch pattern="0xD2, 0x01, 0x4E, 0x56" value="0xE0, 0x01, 0x4E, 0x56" />
     </MemoryPatcher>
-	
-	<CiosInstaller option="cIOS249" ciosRevision="21006" slot="249" revision="4123" source="38" banner="banner_d2x6_249.dat" > 
-	  <modules>
-	    <module file="mload_module_d2x6.dat"/>
-		<module file="fat_module_d2x6.dat"/>
-		<module file="sdhc_module_d2x6.dat"/>
-		<module file="ehci_module_d2x6.dat" position="3"/>
-		<module file="dip_module_d2x6.dat"/>
-		<module file="es_module_d2x6.dat"/>
-		<module file="ffs_module_d2x6.dat"/>
-	  </modules>
-	  <patches>
-	    <SimplePatch value="0xFF, 0xFF, 0x5B, 0x3A, 0x13, 0x6D, 0x00, 0x11" pattern="0xFF, 0xFF, 0x5B, 0x3A, 0xFF, 0xFF, 0x5A, 0xD2" module="IOSP"/> 
-		<prebuild name="DIP_EnableDvdVideo"/>
-	  </patches>
-	</CiosInstaller>
-	
-	<CiosInstaller option="cIOS250" ciosRevision="21006" slot="250" revision="5662" source="37" banner="banner_d2x6_250.dat"> 
-	  <modules>
-	    <module file="mload_module_d2x6.dat"/>
-		<module file="fat_module_d2x6.dat"/>
-		<module file="sdhc_module_d2x6.dat"/>
-		<module file="ehci_module_d2x6.dat" position="3"/>
-		<module file="dip_module_d2x6.dat"/>
-		<module file="es_module_d2x6.dat"/>
-		<module file="ffs_module_d2x6.dat"/>
-	  </modules>
-	  <patches>
-	    <SimplePatch value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" module="IOSP"/> 
-		<prebuild name="DIP_EnableDvdVideo"/>
-		<prebuild name="KoreanKey"/>
-	  </patches>
-	</CiosInstaller>
-	
-	<CiosInstaller option="cIOS251" ciosRevision="21006" slot="251" revision="5918" source="57" banner="banner_d2x6_251.dat" > 
-	  <modules>
-	    <module file="mload_module_d2x6.dat"/>
-		<module file="fat_module_d2x6.dat"/>
-		<module file="sdhc_module_d2x6.dat"/>
-		<module file="ehci_module_d2x6.dat" position="2"/>
-		<module file="dip_module_d2x6.dat"/>
-		<module file="es_module_d2x6.dat"/>
-		<module file="ffs_module_d2x6.dat"/>
-	  </modules>
-	  <patches>
-	    <SimplePatch value="0xFF, 0xFF, 0x5D, 0x9A, 0x13, 0x6D, 0x00, 0x11" pattern="0xFF, 0xFF, 0x5D, 0x9A, 0xFF, 0xFF, 0x5D, 0x32" module="IOSP"/> 
-		<prebuild name="DIP_EnableDvdVideo"/>
-		<prebuild name="KoreanKey"/>
-	  </patches>
-	</CiosInstaller>
-
+    <CiosInstaller option="cIOS249" ciosRevision="21006" slot="249" revision="4123" source="38" banner="banner_d2x6_249.dat" >
+      <modules>
+        <module file="mload_module_d2x6.dat"/>
+        <module file="fat_module_d2x6.dat"/>
+        <module file="sdhc_module_d2x6.dat"/>
+        <module file="ehci_module_d2x6.dat" position="3"/>
+        <module file="dip_module_d2x6.dat"/>
+        <module file="es_module_d2x6.dat"/>
+        <module file="ffs_module_d2x6.dat"/>
+      </modules>
+      <patches>
+        <SimplePatch value="0xFF, 0xFF, 0x5B, 0x3A, 0x13, 0x6D, 0x00, 0x11" pattern="0xFF, 0xFF, 0x5B, 0x3A, 0xFF, 0xFF, 0x5A, 0xD2" module="IOSP"/>
+        <prebuild name="DIP_EnableDvdVideo"/>
+      </patches>
+    </CiosInstaller>
+    <CiosInstaller option="cIOS250" ciosRevision="21006" slot="250" revision="5662" source="37" banner="banner_d2x6_250.dat">
+      <modules>
+        <module file="mload_module_d2x6.dat"/>
+        <module file="fat_module_d2x6.dat"/>
+        <module file="sdhc_module_d2x6.dat"/>
+        <module file="ehci_module_d2x6.dat" position="3"/>
+        <module file="dip_module_d2x6.dat"/>
+        <module file="es_module_d2x6.dat"/>
+        <module file="ffs_module_d2x6.dat"/>
+      </modules>
+      <patches>
+        <SimplePatch value="0xFF, 0xFF, 0x5B, 0xB6, 0x13, 0x6D, 0x00, 0x11" pattern="0xFF, 0xFF, 0x5B, 0xB6, 0xFF, 0xFF, 0x5B, 0x4E" module="IOSP"/>
+        <prebuild name="DIP_EnableDvdVideo"/>
+        <prebuild name="KoreanKey"/>
+      </patches>
+    </CiosInstaller>
+    <CiosInstaller option="cIOS251" ciosRevision="21006" slot="251" revision="5918" source="57" banner="banner_d2x6_251.dat" >
+      <modules>
+        <module file="mload_module_d2x6.dat"/>
+        <module file="fat_module_d2x6.dat"/>
+        <module file="sdhc_module_d2x6.dat"/>
+        <module file="ehci_module_d2x6.dat" position="2"/>
+        <module file="dip_module_d2x6.dat"/>
+        <module file="es_module_d2x6.dat"/>
+        <module file="ffs_module_d2x6.dat"/>
+      </modules>
+      <patches>
+        <SimplePatch value="0xFF, 0xFF, 0x5D, 0x9A, 0x13, 0x6D, 0x00, 0x11" pattern="0xFF, 0xFF, 0x5D, 0x9A, 0xFF, 0xFF, 0x5D, 0x32" module="IOSP"/>
+        <prebuild name="DIP_EnableDvdVideo"/>
+        <prebuild name="KoreanKey"/>
+      </patches>
+    </CiosInstaller>
     <CompositeInstaller option="update" name="Update Ioses">
-
+      
       <!-- classic ioses -->
       <Title id="0000000100000004" revision="65280" action="install" />
       <Title id="000000010000000A" revision="768" action="install" />
@@ -174,14 +225,14 @@
       <Title id="0000000100000050" revision="6944" action="install" />
       <Title id="0000000100000100" revision="6" action="install" />
       <Title id="0000000100000101" revision="10" action="install" />
-
+      
       <!-- System Menu -->
       <Title id="0000000100000002" revision="512" action="install" regions="0" />
       <Title id="0000000100000002" revision="513" action="install" regions="1" />
       <Title id="0000000100000002" revision="514" action="install" regions="2" />
       <Title id="0000000100000002" revision="518" action="install" regions="4" />
       <CiosInstaller source="60" revision="6174" slot="80" ciosRevision="6944" />
-
+      
       <!-- Old sysMenus stubs -->
       <Title id="0000000100000009" revision="1034" action="install" />
       <Title id="000000010000000B" revision="256" action="install" />
@@ -192,7 +243,7 @@
       <Title id="0000000100000034" revision="5888" action="install" />
       <Title id="000000010000003C" revision="6400" action="install" />
       <Title id="0000000100000046" revision="6912" action="install" />
-
+      
       <!-- Channels -->
       <Title id="0001000248414241" revision="20" action="update" regions="0,1,2" />
       <Title id="000100024841424B" revision="20" action="update" regions="4" />
@@ -215,9 +266,8 @@
       <Title id="0001000848414C50" revision="2" action="update" regions="2" />
       <Title id="000100084843434A" revision="2" action="update" regions="0" />
     </CompositeInstaller>
-
     <CompositeInstaller option="update4.2" name="Update Ioses 4.2">
-
+      
       <!-- classic ioses -->
       <Title id="0000000100000004" revision="65280" action="install" />
       <Title id="0000000100000009" revision="778" action="install" />
@@ -253,14 +303,14 @@
       <Title id="000000010000003A" revision="6176" action="install" />
       <Title id="000000010000003d" revision="5405" action="install" />
       <Title id="0000000100000046" revision="6687" action="install" />
-
+      
       <!-- System Menu -->
       <Title id="0000000100000002" revision="480" regions="0" action="install"/>
       <Title id="0000000100000002" revision="481" regions="1" action="install"/>
       <Title id="0000000100000002" revision="482" regions="2" action="install"/>
       <Title id="0000000100000002" revision="486" regions="4" action="install"/>
       <CiosInstaller source="60" revision="6174" slot="70" ciosRevision="6687" />
-
+      
       <!-- Old sysMenus stubs -->
       <Title id="0000000100000009" revision="1034" action="install" />
       <Title id="000000010000000B" revision="256" action="install" />
@@ -270,8 +320,7 @@
       <Title id="0000000100000032" revision="5120" action="install" />
       <Title id="0000000100000034" revision="5888" action="install" />
       <Title id="000000010000003C" revision="6400" action="install" />
-
-
+      
       <!-- Channels -->
       <Title id="0001000248414241" revision="20" action="update" regions="0,1,2" />
       <Title id="000100024841424B" revision="20" action="update" regions="4" />
@@ -294,7 +343,6 @@
       <Title id="0001000848414C50" revision="2" action="update" regions="2" />
       <Title id="000100084843434A" revision="2" action="update" regions="0" />
     </CompositeInstaller>
-
     <CompositeInstaller option="deleteChannel" name="Channel deletion">
       <Title id="000100014E47534E" action="uninstall" />
       <Title id="00010001554E454F" action="uninstall" />
@@ -303,6 +351,24 @@
       <Title id="0001000157465846" action="uninstall" />
       <Title id="000100015343494F" action="uninstall" />
       <Title id="00010001554C4E52" action="uninstall" />
+	  <Title id="000100014143504c" action="uninstall" />
+      <Title id="0001000144464742" action="uninstall" />
+      <Title id="0001000144464e45" action="uninstall" />
+      <Title id="00010001534d4758" action="uninstall" />
+      <Title id="0001000155435846" action="uninstall" />
+      <Title id="0001000157493634" action="uninstall" />
+      <Title id="0001000157494958" action="uninstall" />
+	  <Title id="0001000157494d43" action="uninstall" />
+      <Title id="0001000159414241" action="uninstall" />
+	  <Title id="00010001534e4553" action="uninstall" />
+	  <Title id="00000001000000ec" action="uninstall" />
+	  <Title id="00000001000000fb" action="uninstall" />
+	  <Title id="00000001000000ca" action="uninstall" />
+	  <Title id="00000001000000e0" action="uninstall" />
+	
+	  
+	  
+	  
       <FileSystem target="sd:/wiiflow" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/config" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/wiiflow" action="delete" type="folder" recursive="true" />
@@ -345,28 +411,66 @@
       <Title wad="wiiflow.wad" action="install" fakesign="true"/>
     </CompositeInstaller>
 	
+	    <CompositeInstaller option="Preloaderfr" name="Preloaderfr">
+      <Preloader  file="priiloaderfr.dat" />
+      <FileDownloader file="hacksfr.ini" />
+      <FileDownloader file="hacks_hashfr.ini" />
+    </CompositeInstaller>
+
+    <CompositeInstaller option="NeoLoaderfr" name="NeoLoaderfr">
+      <FileDownloader file="Neodolfr" />
+      <FileDownloader file="Neoxml" />
+      <Title wad="Neoforwarder" action="install" fakesign="true"/>
+    </CompositeInstaller>
+
+    <CompositeInstaller option="GXLoaderfr" name="GXLoaderfr">
+      <FileDownloader file="GXDol" />
+      <FileDownloader file="GXmeta" />
+      <FileDownloader file="GXicon" />
+	  <FileDownloader file="GXglobalfr" />
+	  <FileDownloader file="GXlangfr" />
+      <Title wad="GXForwarder" action="install" fakesign="true" />
+    </CompositeInstaller>
+
+
+    <CompositeInstaller option="wiiflowfr" name="Wiiflowfr">
+      <FileDownloader file="wiiflow.dol" />
+	  <FileDownloader file="wiiflowlangfr" />
+	  <FileDownloader file="wiiflowinifr" />
+      <Title wad="wiiflow.wad" action="install" fakesign="true"/>
+    </CompositeInstaller>
+	
 	<CompositeInstaller option="UpNeoLoader" name="UpNeoLoader">
       <FileDownloader file="UpNeodol" />
+    </CompositeInstaller>
+	
+	<CompositeInstaller option="UpNeoLoaderfr" name="UpNeoLoaderfr">
+      <FileDownloader file="UpNeodolfr" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoader" name="UpGXLoader">
       <FileDownloader file="UpGXDol" />
     </CompositeInstaller>
 
+    <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
+      <FileDownloader file="UpGXDol" />
+	  <FileDownloader file="UpGXglobalfr" />
+	  <FileDownloader file="UpGXlangfr" />
+    </CompositeInstaller>
 
     <CompositeInstaller option="Upwiiflow" name="Upwiiflow">
       <FileDownloader file="Upwiiflow.dol" />
     </CompositeInstaller>
 	
+	<CompositeInstaller option="Upwiiflowfr" name="Upwiiflowfr">
+      <FileDownloader file="Upwiiflow.dol" />
+	  <FileDownloader file="Upwiiflowlangfr" />
+	  <FileDownloader file="Upwiiflowinifr" />
+	</CompositeInstaller>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>
-
-
-  <Disclaimer>
-    This software comes with NO WARRANTY WHATSOEVER.\n
+  <Disclaimer>This software comes with NO WARRANTY WHATSOEVER.\n
     You may use this software at your own risk.\n
-    We take no responsibility for damage caused by Sciifii.\n
-  </Disclaimer>
-
+    We take no responsibility for damage caused by Sciifii.\n</Disclaimer>
 </sciifii>

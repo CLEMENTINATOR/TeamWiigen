@@ -32,8 +32,12 @@
     <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
 	<file key="wiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" />
 	<file key="wiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" />
+	<file key="wiiflowicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/icon.png" path="sd:/apps/Wiiflow/icon.png" />
+	<file key="wiiflowxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/meta.xml" path="sd:/apps/Wiiflow/meta.xml" />
+	<file key="Upwiiflowxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/meta.xml" path="sd:/apps/Wiiflow/meta.xml" overwrite="true" />
 	<file key="Upwiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" overwrite="true" />
 	<file key="Upwiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" overwrite="true" />
+	<file key="Upwiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" path="sd:/sciifii/temp/WiiFlow_ForWarder.wad" overwrite="true" />
 	<file key="Upwiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" overwrite="true" />
     <file key="GXForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
     <file key="GXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" />
@@ -43,6 +47,7 @@
 	<file key="UpGXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" overwrite="true" />
 	<file key="UpGXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" overwrite="true" />
     <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+	<file key="UpGXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true" />
     <file key="GXicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
     <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
@@ -50,7 +55,10 @@
 	<file key="UpNeodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
     <file key="UpNeodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
 	<file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
+	<file key="UpNeoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" overwrite="true" />
+	<file key="Neoicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/icon.png" path="sd:/apps/neogamma/icon.png" />
   </files>
+  
   <menus start="main">
     <menu id="main" title="Main Menu" message="Choose your language:">
 	  <separatorMenuItem char=" " />
@@ -68,7 +76,8 @@
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
       <modeMenuItem text="Unhack your wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
-      <navigationMenuItem  text="Advanced Menu" menuId="advanceden" saveOptions="false" />
+      <navigationMenuItem  text="Update Loaders Menu" menuId="Updateden" saveOptions="false" />
+	  <navigationMenuItem  text="Advanced Menu" menuId="advanceden" saveOptions="false" />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to language menu" />
       <exitMenuItem text="Exit" />
@@ -82,6 +91,7 @@
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|wiiflowfr" />
       <modeMenuItem text="Enlever les modifications de votre Wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
+	  <navigationMenuItem  text="Menu Mise a jour loaders" menuId="Updatedfr" saveOptions="false" />
       <navigationMenuItem  text="Menu avance" menuId="advancedfr" saveOptions="false" />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu langues" />
@@ -94,7 +104,6 @@
       <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
       <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />
       <switchMenuItem name="update" text="Update your wii to 4.3               " />
-      <switchMenuItem name="update4.2" text="Update your wii to 4.2               " />
       <switchMenuItem name="Preloader" text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX             " />
@@ -110,18 +119,29 @@
       <exitMenuItem text="Exit" />
     </menu>
 	
+	    <menu id="Updateden" title="Update loaders Menu" message="">
+	  <separatorMenuItem char=" " />
+      <switchMenuItem name="UpNeoLoader" text="update the NeoGamma                  " />
+      <switchMenuItem name="UpGXLoader" text="Update USB LoaderGX                  " />
+      <switchMenuItem name="Upwiiflow" text="Update Wiiflow                       " />	  
+      <separatorMenuItem char=" " />
+      <previousMenuItem text="Return to simple menu" />
+      <startMenuItem text="start" saveOptions="true" />
+      <separatorMenuItem char=" " />
+      <exitMenuItem text="Exit" />
+    </menu>
+
     <menu id="advancedfr" title="Menu avance" message="">
 	  <separatorMenuItem char=" " />
       <switchMenuItem name="cIOS249" text="Installer le cios249 rev 21(d2x, base 38) " />
       <switchMenuItem name="cIOS250" text="Installer le cios250 rev 21 (d2x, base 37)" />
       <switchMenuItem name="cIOS251" text="Installer le cios251 rev 21 (d2x, base 57)" />
       <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
-      <switchMenuItem name="update4.2" text="Mettre a jour votre wii en 4.2            " />
       <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
       <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
       <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
-	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour NeoGamma                  " />
+	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour the NeoGamma                  " />
       <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
       <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
       <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
@@ -131,6 +151,19 @@
       <separatorMenuItem char=" " />
       <exitMenuItem text="Sortir" />
     </menu>
+	
+	<menu id="Updatedfr" title="Menu Mise a jour loaders" message="">
+	  <separatorMenuItem char=" " />
+	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour the NeoGamma                  " />
+      <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
+      <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
+      <separatorMenuItem char=" " />
+      <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
+      <startMenuItem text="Demarrer" saveOptions="true" />
+      <separatorMenuItem char=" " />
+      <exitMenuItem text="Sortir" />
+    </menu>
+	
   </menus>
   <steps>
     <MemoryPatcher option="">
@@ -395,6 +428,7 @@
     <CompositeInstaller option="NeoLoader" name="NeoLoader">
       <FileDownloader file="Neodol" />
       <FileDownloader file="Neoxml" />
+	  <FileDownloader file="Neoicon" />
       <Title wad="Neoforwarder" action="install" fakesign="true"/>
     </CompositeInstaller>
 
@@ -408,6 +442,8 @@
 
     <CompositeInstaller option="wiiflow" name="Wiiflow">
       <FileDownloader file="wiiflow.dol" />
+	  <FileDownloader file="wiiflowicon" />
+	  <FileDownloader file="wiiflowxml" />
       <Title wad="wiiflow.wad" action="install" fakesign="true"/>
     </CompositeInstaller>
 	
@@ -420,6 +456,7 @@
     <CompositeInstaller option="NeoLoaderfr" name="NeoLoaderfr">
       <FileDownloader file="Neodolfr" />
       <FileDownloader file="Neoxml" />
+	  <FileDownloader file="Neoicon" />
       <Title wad="Neoforwarder" action="install" fakesign="true"/>
     </CompositeInstaller>
 
@@ -437,35 +474,45 @@
       <FileDownloader file="wiiflow.dol" />
 	  <FileDownloader file="wiiflowlangfr" />
 	  <FileDownloader file="wiiflowinifr" />
+	  <FileDownloader file="wiiflowicon" />
+	  <FileDownloader file="wiiflowxml" />
       <Title wad="wiiflow.wad" action="install" fakesign="true"/>
     </CompositeInstaller>
 	
 	<CompositeInstaller option="UpNeoLoader" name="UpNeoLoader">
       <FileDownloader file="UpNeodol" />
+	  <FileDownloader file="UpNeoxml" />
     </CompositeInstaller>
 	
 	<CompositeInstaller option="UpNeoLoaderfr" name="UpNeoLoaderfr">
       <FileDownloader file="UpNeodolfr" />
+	  <FileDownloader file="UpNeoxml" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoader" name="UpGXLoader">
       <FileDownloader file="UpGXDol" />
+	  <FileDownloader file="UpGXmeta" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
       <FileDownloader file="UpGXDol" />
 	  <FileDownloader file="UpGXglobalfr" />
 	  <FileDownloader file="UpGXlangfr" />
+	  <FileDownloader file="UpGXmeta" />
     </CompositeInstaller>
 
     <CompositeInstaller option="Upwiiflow" name="Upwiiflow">
       <FileDownloader file="Upwiiflow.dol" />
+	  <FileDownloader file="Upwiiflowxml" />
+	  <FileDownloader file="Upwiiflow.wad" />
     </CompositeInstaller>
 	
 	<CompositeInstaller option="Upwiiflowfr" name="Upwiiflowfr">
       <FileDownloader file="Upwiiflow.dol" />
 	  <FileDownloader file="Upwiiflowlangfr" />
 	  <FileDownloader file="Upwiiflowinifr" />
+	  <FileDownloader file="Upwiiflowxml" />
+	  <FileDownloader file="Upwiiflow.wad" />
 	</CompositeInstaller>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />

@@ -141,7 +141,7 @@
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
       <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
       <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
-	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour the NeoGamma                  " />
+	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour NeoGamma                      " />
       <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
       <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
       <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
@@ -154,7 +154,7 @@
 	
 	<menu id="Updatedfr" title="Menu Mise a jour loaders" message="">
 	  <separatorMenuItem char=" " />
-	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour the NeoGamma                  " />
+	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour NeoGamma                      " />
       <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
       <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
       <separatorMenuItem char=" " />

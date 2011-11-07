@@ -44,7 +44,6 @@
 	<file key="GXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" />
 	<file key="GXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" />
 	<file key="UpGXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" overwrite="true" />
-	<file key="UpGXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" overwrite="true" />
 	<file key="UpGXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" overwrite="true" />
     <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
 	<file key="UpGXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true" />
@@ -496,7 +495,6 @@
 
     <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
       <FileDownloader file="UpGXDol" />
-	  <FileDownloader file="UpGXglobalfr" />
 	  <FileDownloader file="UpGXlangfr" />
 	  <FileDownloader file="UpGXmeta" />
     </CompositeInstaller>

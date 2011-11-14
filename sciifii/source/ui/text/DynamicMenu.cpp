@@ -67,6 +67,8 @@ void DynamicMenu::Display()
   if(!_message.empty())
 	cout<<_message << endl << endl;
 
+  cout << endl;
+
   for (vector<MenuItem*>::iterator ite = items.begin(); ite != items.end(); ite++)
   {
     (*ite)->Render();

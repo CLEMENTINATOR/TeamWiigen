@@ -1,0 +1,26 @@
+﻿<Page x:Class="Sciifii.Downloader.Views.DisclaimerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Sciifii.Downloader.ViewModel"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+        Title="MainWindow" d:DesignHeight="480" d:DesignWidth="640" >
+
+    <Grid>
+        <Thumb DragDelta="Thumb_DragDelta">
+            <Thumb.Background>
+            <ImageBrush ImageSource="pack://application:,,,/images/disclaimer.png" Stretch="UniformToFill" />
+            </Thumb.Background>
+        </Thumb>
+        
+        <Canvas>
+            <Canvas.RenderTransform>
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+            </Canvas.RenderTransform>
+            <TextBlock Canvas.Left="130" Canvas.Top="250" Width="390" Height="150" Foreground="Red" Text="{Binding Text, Mode=OneWay}" FontSize="12" TextAlignment="Center" />
+            <Button Canvas.Left="238" Canvas.Top="370" Content="Continue" Command="{Binding ContinueCommand}" FontSize="12" />
+            <Button Canvas.Left="580" Canvas.Top="415" Style="{StaticResource ExitButton}" Command="{Binding ExitCommand}" />
+        </Canvas>
+    </Grid>
+</Page>

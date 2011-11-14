@@ -44,7 +44,6 @@
 	<file key="GXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" />
 	<file key="GXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" />
 	<file key="UpGXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" overwrite="true" />
-	<file key="UpGXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" overwrite="true" />
 	<file key="UpGXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" overwrite="true" />
     <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
 	<file key="UpGXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true" />
@@ -61,7 +60,6 @@
   
   <menus start="main">
     <menu id="main" title="Main Menu" message="Choose your language:">
-	  <separatorMenuItem char=" " />
       <navigationMenuItem  text="English Menu" menuId="mainen" saveOptions="false" />
 	  <separatorMenuItem char=" " />
       <navigationMenuItem  text="Menu en francais" menuId="mainfr" saveOptions="false" />
@@ -69,7 +67,6 @@
       <exitMenuItem text="Exit" />
     </menu>
     <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
-	  <separatorMenuItem char=" " />
       <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
@@ -84,7 +81,6 @@
     </menu>
 	
     <menu id="mainfr" title="Menu principal"  message="Bienvenue sur Sciifii">
-	  <separatorMenuItem char=" " />
       <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|NeoLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloadefr|GXLoaderfr" />
@@ -99,7 +95,6 @@
     </menu>
 	
     <menu id="advanceden" title="Advanced Menu" message="">
-	  <separatorMenuItem char=" " />
       <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38) " />
       <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
       <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />
@@ -120,7 +115,6 @@
     </menu>
 	
 	    <menu id="Updateden" title="Update loaders Menu" message="">
-	  <separatorMenuItem char=" " />
       <switchMenuItem name="UpNeoLoader" text="update the NeoGamma                  " />
       <switchMenuItem name="UpGXLoader" text="Update USB LoaderGX                  " />
       <switchMenuItem name="Upwiiflow" text="Update Wiiflow                       " />	  
@@ -132,7 +126,6 @@
     </menu>
 
     <menu id="advancedfr" title="Menu avance" message="">
-	  <separatorMenuItem char=" " />
       <switchMenuItem name="cIOS249" text="Installer le cios249 rev 21(d2x, base 38) " />
       <switchMenuItem name="cIOS250" text="Installer le cios250 rev 21 (d2x, base 37)" />
       <switchMenuItem name="cIOS251" text="Installer le cios251 rev 21 (d2x, base 57)" />
@@ -153,7 +146,6 @@
     </menu>
 	
 	<menu id="Updatedfr" title="Menu Mise a jour loaders" message="">
-	  <separatorMenuItem char=" " />
 	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour NeoGamma                      " />
       <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
       <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
@@ -496,7 +488,6 @@
 
     <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
       <FileDownloader file="UpGXDol" />
-	  <FileDownloader file="UpGXglobalfr" />
 	  <FileDownloader file="UpGXlangfr" />
 	  <FileDownloader file="UpGXmeta" />
     </CompositeInstaller>

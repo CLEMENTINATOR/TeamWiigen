@@ -147,6 +147,18 @@
   <ItemGroup>
     <Resource Include="images\error_popup_screen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\disable_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\enable_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\drop_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\drop_over.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -84,8 +84,7 @@
                         <Setter.Value>
                             <ControlTemplate>
                                 <StackPanel Orientation="Horizontal" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" Grid.ColumnSpan="{Binding ColumnSpan}">
-                                    <CheckBox IsChecked="{Binding Path=Key, Converter={StaticResource switchConverter}, Mode=OneWay}" Command="{Binding Path=DataContext.SwitchCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding Key}"/>
-                                    <TextBlock Text="{Binding Text, Mode=OneWay}" />
+                                    <CheckBox IsChecked="{Binding Path=Key, Converter={StaticResource switchConverter}, Mode=OneWay}" Command="{Binding Path=DataContext.SwitchCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding Key}" Content="{Binding Text, Mode=OneWay}"/>
                                 </StackPanel>
                             </ControlTemplate>
                         </Setter.Value>
@@ -104,6 +103,8 @@
                 </Style>
             </Canvas.Resources>
 
+            <ComboBox Canvas.Left="420" Canvas.Top="5" Width="80" Height="20" ItemsSource="{Binding AvailableRegions}" SelectedItem="{Binding SelectedRegion}" />
+            
             <Canvas x:Name="dynamicMenu" Canvas.Left="44" Canvas.Top="142" Height="230" Width="552">
                 <Button Canvas.Left="258" Canvas.Top="9" Style="{StaticResource UpButton}" x:Name="btnUp" Click="btnUp_Click"  />
                 <Button Canvas.Left="258" Canvas.Top="191" Style="{StaticResource DownButton}" x:Name="btnDown" Click="btnDown_Click"  />
@@ -112,12 +113,13 @@
 
             <Canvas Width="640" Height="480" Background="Transparent" Visibility="{Binding ShowPopUp}">
                 <Thumb DragDelta="Thumb_DragDelta" Opacity="0.3"  Width="640" Height="480" Background="#000000" />
+                
                 <Border Background="White" BorderThickness="1" BorderBrush="#7D7A7A7A" Width="324" Height="148" Canvas.Left="157" Canvas.Top="160" />
                 <ProgressBar x:Name="pBar" Maximum="100" Width="270" Height="40" Canvas.Left="185" Canvas.Top="190" Value="{Binding Progression}" />
                 <Border BorderBrush="{x:Null}" Width="270" Height="40" Canvas.Left="185" Canvas.Top="190">
                     <TextBlock  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Message}" FontSize="12" />
                 </Border>
-                <Button x:Name="btnOk" Content="Done !" Canvas.Left="238" Canvas.Top="250" IsEnabled="{Binding JobDone}" Command="{Binding ExitCommand}" />
+                <Button x:Name="btnOk" Content="{Binding PopUpButtonMessage}" Canvas.Left="238" Canvas.Top="250" IsEnabled="{Binding EnablePopUpButton}" Command="{Binding ValidateDownloadCommand}" />
             </Canvas>
         </Canvas>
     </Grid>

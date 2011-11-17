@@ -46,7 +46,6 @@ namespace Sciifii.DTO.Steps
 
         public Title()
         {
-            Id = "0";
             Revision = 0;
         }
     }

@@ -69,25 +69,29 @@ namespace Sciifii.Business
         internal void PrepareTitleInstaller(BaseStep s, string folder, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)
         {
             Title step = s as Title;
-            if (!String.IsNullOrEmpty(step.Id))
+            if (step.Action == TitleAction.Install || step.Action == TitleAction.PackAsWad || step.Action == TitleAction.Update) // steps which requires download
             {
 
-                NUSDownloader.DownloadWad(UInt64.Parse(step.Id, System.Globalization.NumberStyles.HexNumber), step.Revision, GetRealPath(folder, Configuration.Current.WorkingDirectory));
-                if (step.Revision != 0) 
-                    message("Title " + step.Id + " rev" + step.Revision);
-                else 
-                    message("Title " + step.Id);
+                if (!String.IsNullOrEmpty(step.Id))
+                {
 
-            }
-            else
-            {
-                File file = Configuration.Current.Files.Where(mf => mf.Key == step.WadFile).First();
-                FileDownloader.Download(file.Key, file.Url, file.Sha1Url, file.Path, folder, Configuration.Current.WorkingDirectory);
-                message(file.Key);
+                    NUSDownloader.DownloadWad(UInt64.Parse(step.Id, System.Globalization.NumberStyles.HexNumber), step.Revision, GetRealPath(folder, Configuration.Current.WorkingDirectory));
+                    if (step.Revision != 0)
+                        message("Title " + step.Id + " rev" + step.Revision);
+                    else
+                        message("Title " + step.Id);
+
+                }
+                else
+                {
+                    File file = Configuration.Current.Files.Where(mf => mf.Key == step.WadFile).First();
+                    FileDownloader.Download(file.Key, file.Url, file.Sha1Url, file.Path, folder, Configuration.Current.WorkingDirectory);
+                    message(file.Key);
+                }
             }
 
-            double progress = (double)(stepIndex + 1) / nbSteps;
-            worker.ReportProgress((int)(100 * progress));
+                double progress = (double)(stepIndex + 1) / nbSteps;
+                worker.ReportProgress((int)(100 * progress));
         }
 
         internal void PrepareFileDownloader(BaseStep s, string folder, System.ComponentModel.BackgroundWorker worker, System.ComponentModel.DoWorkEventArgs workerArgs, int stepIndex, int nbSteps)

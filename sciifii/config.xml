@@ -81,9 +81,9 @@
     </menu>
 	
     <menu id="mainfr" title="Menu principal"  message="Bienvenue sur Sciifii">
-      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
+      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|NeoLoaderfr" />
-      <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloadefr|GXLoaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|GXLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|wiiflowfr" />
       <modeMenuItem text="Enlever les modifications de votre Wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />

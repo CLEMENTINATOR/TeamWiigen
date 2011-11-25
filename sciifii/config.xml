@@ -107,10 +107,7 @@
       <switchMenuItem name="Preloader" text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX             " />
-      <switchMenuItem name="wiiflow" text="Install Wiiflow                      " />
-      <switchMenuItem name="UpNeoLoader" text="update the NeoGamma                  " />
-      <switchMenuItem name="UpGXLoader" text="Update USB LoaderGX                  " />
-      <switchMenuItem name="Upwiiflow" text="Update Wiiflow                       " />	  
+      <switchMenuItem name="wiiflow" text="Install Wiiflow                      " />	  
       <switchMenuItem name="clean" text="Clean temporary files                " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to simple menu" />
@@ -141,9 +138,6 @@
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
       <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
       <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
-	  <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour NeoGamma                      " />
-      <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
-      <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
       <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
@@ -399,6 +393,10 @@
 	  <Title id="00000001000000ca" action="uninstall" />
 	  <Title id="00000001000000e0" action="uninstall" />
 	  <Title id="0001000144574641" action="uninstall" />
+	  <Title id="00000001000000f5" action="uninstall" />
+	  <Title id="00000001000000f6" action="uninstall" />
+	  <Title id="00000001000000f7" action="uninstall" />
+	  <Title id="00000001000000f8" action="uninstall" />
 	  
 	  
 	  

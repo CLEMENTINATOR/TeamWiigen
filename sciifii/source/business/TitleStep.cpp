@@ -60,13 +60,17 @@ bool TitleStep::Prepare()
   {
     if (_action == ti_Update && _revision != 0)
     {
-      if (_revision > Title::GetInstalledTitleVersion(_id))
-        _action = ti_Install;
-      else
-      { // no need for update
-        OnProgress("Title update not necessary !", 1);
-        return true;
-      }
+	   if(Title::IsInstalled(_id))
+	   {
+		  if (_revision > Title::GetInstalledTitleVersion(_id))
+			_action = ti_Install;
+		  else
+		  { // no need for update
+			OnProgress("Title update not necessary !", 1);
+			return true;
+		  }
+	  }
+	  else _action = ti_Install;
     }
 
     if (_action!=ti_Uninstall&& _action!=ti_Extract)

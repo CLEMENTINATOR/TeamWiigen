@@ -49,7 +49,7 @@ bool TitleStep::Prepare()
   if (_action == ti_Extract && _key != "")
     throw Exception("This is impossible to extract a title from a wad!");
 
-   if (_action == ti_Update && _id !=0 && _revision = 0 )
+   if (_action == ti_Update && _id !=0 && _revision == 0 )
     throw Exception("No update possible if revision not given!");
 
   if (_key!="") /* Si fichier donne en parametre */

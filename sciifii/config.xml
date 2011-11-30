@@ -70,7 +70,7 @@
     </menu>
     <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
 	  <separatorMenuItem char=" " />
-      <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
+      <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader|UpdateIOS58" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
@@ -85,7 +85,7 @@
 	
     <menu id="mainfr" title="Menu principal"  message="Bienvenue sur Sciifii">
 	  <separatorMenuItem char=" " />
-      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|UpdateIOS58" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|NeoLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|GXLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|wiiflowfr" />
@@ -398,8 +398,6 @@
 	  <Title id="00000001000000f7" action="uninstall" />
 	  <Title id="00000001000000f8" action="uninstall" />
 	  
-	  
-	  
       <FileSystem target="sd:/wiiflow" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/config" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/wiiflow" action="delete" type="folder" recursive="true" />
@@ -428,13 +426,15 @@
       <FileDownloader file="Neoxml" />
 	  <FileDownloader file="Neoicon" />
       <Title wad="Neoforwarder" action="install" fakesign="true"/>
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
     <CompositeInstaller option="GXLoader" name="GXLoader">
       <FileDownloader file="GXDol" />
       <FileDownloader file="GXmeta" />
       <FileDownloader file="GXicon" />
-      <Title wad="GXForwarder" action="install" fakesign="true" />
+	  <Title wad="GXForwarder" action="install" fakesign="true" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
 
@@ -442,7 +442,8 @@
       <FileDownloader file="wiiflow.dol" />
 	  <FileDownloader file="wiiflowicon" />
 	  <FileDownloader file="wiiflowxml" />
-      <Title wad="wiiflow.wad" action="install" fakesign="true"/>
+	  <Title wad="wiiflow.wad" action="install" fakesign="true"/>
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 	
 	    <CompositeInstaller option="Preloaderfr" name="Preloaderfr">
@@ -456,6 +457,7 @@
       <FileDownloader file="Neoxml" />
 	  <FileDownloader file="Neoicon" />
       <Title wad="Neoforwarder" action="install" fakesign="true"/>
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
     <CompositeInstaller option="GXLoaderfr" name="GXLoaderfr">
@@ -465,6 +467,7 @@
 	  <FileDownloader file="GXglobalfr" />
 	  <FileDownloader file="GXlangfr" />
       <Title wad="GXForwarder" action="install" fakesign="true" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
 
@@ -475,21 +478,25 @@
 	  <FileDownloader file="wiiflowicon" />
 	  <FileDownloader file="wiiflowxml" />
       <Title wad="wiiflow.wad" action="install" fakesign="true"/>
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 	
 	<CompositeInstaller option="UpNeoLoader" name="UpNeoLoader">
       <FileDownloader file="UpNeodol" />
 	  <FileDownloader file="UpNeoxml" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 	
 	<CompositeInstaller option="UpNeoLoaderfr" name="UpNeoLoaderfr">
       <FileDownloader file="UpNeodolfr" />
 	  <FileDownloader file="UpNeoxml" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoader" name="UpGXLoader">
       <FileDownloader file="UpGXDol" />
 	  <FileDownloader file="UpGXmeta" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
@@ -497,12 +504,14 @@
 	  <FileDownloader file="UpGXglobalfr" />
 	  <FileDownloader file="UpGXlangfr" />
 	  <FileDownloader file="UpGXmeta" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 
     <CompositeInstaller option="Upwiiflow" name="Upwiiflow">
       <FileDownloader file="Upwiiflow.dol" />
 	  <FileDownloader file="Upwiiflowxml" />
 	  <FileDownloader file="Upwiiflow.wad" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
     </CompositeInstaller>
 	
 	<CompositeInstaller option="Upwiiflowfr" name="Upwiiflowfr">
@@ -511,8 +520,13 @@
 	  <FileDownloader file="Upwiiflowinifr" />
 	  <FileDownloader file="Upwiiflowxml" />
 	  <FileDownloader file="Upwiiflow.wad" />
+	  <Title id="000000010000003A" revision="6176" action="update" />
 	</CompositeInstaller>
-
+	
+	<CompositeInstaller option="UpdateIOS58" name="UpdateIOS58">
+    <Title id="000000010000003A" revision="6176" action="update" />
+	</CompositeInstaller>
+ 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
   </steps>
   <Disclaimer>This software comes with NO WARRANTY WHATSOEVER.\n

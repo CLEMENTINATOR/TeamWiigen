@@ -31,6 +31,7 @@ TitleStep::TitleStep(string key, TitleAction a, string path,Libwiisys::System::P
 
 bool TitleStep::Prepare()
 {
+  
   if (_action == ti_PackAsWad && Path::GetFileExtension(_path) != "wad")
     throw Exception(
       "You must specify a wad file path in order to store the wad");
@@ -48,6 +49,9 @@ bool TitleStep::Prepare()
   if (_action == ti_Extract && _key != "")
     throw Exception("This is impossible to extract a title from a wad!");
 
+   if (_action == ti_Update && _id !=0 && _revision = 0 )
+    throw Exception("No update possible if revision not given!");
+
   if (_key!="") /* Si fichier donne en parametre */
   {
     OnProgress("Getting wad file : "+ _key, 0.25);
@@ -62,15 +66,12 @@ bool TitleStep::Prepare()
     {
 	   if(Title::IsInstalled(_id))
 	   {
-		  if (_revision > Title::GetInstalledTitleVersion(_id))
-			_action = ti_Install;
-		  else
-		  { // no need for update
+		  if (_revision <= Title::GetInstalledTitleVersion(_id))
+		  { 
 			OnProgress("Title update not necessary !", 1);
 			return true;
 		  }
 	  }
-	  else _action = ti_Install;
     }
 
     if (_action!=ti_Uninstall&& _action!=ti_Extract)
@@ -124,14 +125,40 @@ void TitleStep::Install()
 
   if (_action == ti_Update)
   {
-    if (_revision!=0)
+    if (_revision!=0) // tid+rev given
     {
       if(_revision<Title::GetInstalledTitleVersion(_id))
       {
         OnProgress("Title update install done!", 1);
         return ;
       }
+	  else
+	  {
+		TitlePatcher t(0,-1,_fakesign);
+		str << "Loading title  " << hex << setfill('0') << setw(16) << _id
+		<< dec;
+		OnProgress(str.str(), 0.25);
+		t.LoadFromWad(_file, Config::WorkingDirectory());
+		stringstream str2;
+		str2 << "Installing title  " << hex << setfill('0') << setw(16)
+		<< _id << dec;
+		OnProgress(str2.str(), 0.75);
+		t.Install();
+		OnProgress("Title installation  done!", 1);
+	  }
     }
+	else // file given, not done yet
+	{
+		TitlePatcher t(0,-1,_fakesign);
+		str << "Loading title from " << _file;
+		OnProgress(str.str(), 0.25);
+		t.LoadFromWad(_file, Config::WorkingDirectory());	
+		stringstream str2;
+		str2 << "Installing title " << _file<< _id << dec;
+		OnProgress(str2.str(), 0.75);
+		t.Install();
+		OnProgress("Title installation  done!", 1);
+	}
   }
   if (_action == ti_Uninstall && _id != 0)
   {

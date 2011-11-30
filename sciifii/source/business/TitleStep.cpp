@@ -126,7 +126,7 @@ void TitleStep::Install()
   {
     if (_revision!=0)
     {
-      if(_revision<=Title::GetInstalledTitleVersion(_id))
+      if(_revision<Title::GetInstalledTitleVersion(_id))
       {
         OnProgress("Title update install done!", 1);
         return ;

@@ -127,11 +127,14 @@ void TitleStep::Install()
   {
     if (_revision!=0) // tid+rev given
     {
-      if(_revision<Title::GetInstalledTitleVersion(_id))
-      {
-        OnProgress("Title update install done!", 1);
-        return ;
-      }
+		if(Title::IsInstalled(_id))
+		{
+			if(_revision<Title::GetInstalledTitleVersion(_id))
+			{
+			OnProgress("Title update not neccesary!", 1);
+			return ;
+			}
+		}
 	  else
 	  {
 		TitlePatcher t(0,-1,_fakesign);
@@ -144,7 +147,7 @@ void TitleStep::Install()
 		<< _id << dec;
 		OnProgress(str2.str(), 0.75);
 		t.Install();
-		OnProgress("Title installation  done!", 1);
+		OnProgress("Title update  done!", 1);
 	  }
     }
 	else // file given, not done yet

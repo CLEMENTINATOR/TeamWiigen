@@ -445,6 +445,9 @@ namespace Libwiisys
 
         /**  Event associated to the OnContentLoaded fct*/
         Event::TitleEvent ContentLoadedEvent;
+
+		u16 GetRevision();
+		u64 GetTitleId();
       private:
         u32 _tikLen;
         u32 _tmdLen;

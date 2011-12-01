@@ -49,9 +49,6 @@ bool TitleStep::Prepare()
   if (_action == ti_Extract && _key != "")
     throw Exception("This is impossible to extract a title from a wad!");
 
-   if (_action == ti_Update && _id !=0 && _revision == 0 )
-    throw Exception("No update possible if revision not given!");
-
   if (_key!="") /* Si fichier donne en parametre */
   {
     OnProgress("Getting wad file : "+ _key, 0.25);
@@ -122,48 +119,40 @@ bool TitleStep::Prepare()
 void TitleStep::Install()
 {
   stringstream str;
-
+  
   if (_action == ti_Update)
   {
-    if (_revision!=0) // tid+rev given
-    {
-		if(Title::IsInstalled(_id))
-		{
-			if(_revision<Title::GetInstalledTitleVersion(_id))
-			{
-			OnProgress("Title update not neccesary!", 1);
-			return ;
-			}
-		}
-	  else
-	  {
-		TitlePatcher t(0,-1,_fakesign);
+	TitlePatcher t(0,-1,_fakesign);
+	if (_id == 0)
+	{
+		str << "Loading title from " << _file;
+	}
+	else
+	{
 		str << "Loading title  " << hex << setfill('0') << setw(16) << _id
 		<< dec;
-		OnProgress(str.str(), 0.25);
-		t.LoadFromWad(_file, Config::WorkingDirectory());
-		stringstream str2;
-		str2 << "Installing title  " << hex << setfill('0') << setw(16)
-		<< _id << dec;
-		OnProgress(str2.str(), 0.75);
-		t.Install();
-		OnProgress("Title update  done!", 1);
-	  }
-    }
-	else // file given, not done yet
-	{
-		TitlePatcher t(0,-1,_fakesign);
-		str << "Loading title from " << _file;
-		OnProgress(str.str(), 0.25);
-		t.LoadFromWad(_file, Config::WorkingDirectory());	
-		stringstream str2;
-		str2 << "Installing title " << _file<< _id << dec;
-		OnProgress(str2.str(), 0.75);
-		t.Install();
-		OnProgress("Title installation  done!", 1);
 	}
+	OnProgress(str.str(), 0.25);
+    t.LoadFromWad(_file, Config::WorkingDirectory());
+	if(Title::IsInstalled(t.GetTitleId()))
+	   {
+		  if (t.getRevision() <= Title::GetInstalledTitleVersion(_id)) //need update
+		  { 
+			if (_id == 0)
+			  str2 << "Installing title " << _file;
+			else
+			  str2 << "Installing title  " << hex << setfill('0') << setw(16)
+			  << _id << dec;
+			OnProgress(str2.str(), 0.75);
+			t.Install();
+		  }
+		  else 
+		  {
+			  OnProgress("Title update not necessary !", 1);
+		  }
+	   }
   }
-  if (_action == ti_Uninstall && _id != 0)
+  else if (_action == ti_Uninstall && _id != 0)
   {
     str << "Uninstalling title " << hex << setfill('0') << setw(16) << _id
     << dec;

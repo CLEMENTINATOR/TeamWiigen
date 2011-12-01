@@ -146,6 +146,7 @@ void TitleStep::Install()
 			  << _id << dec;
 			OnProgress(str2.str(), 0.75);
 			t.Install();
+			OnProgress("Title updated succesfully !", 1);
 		  }
 		  else 
 		  {

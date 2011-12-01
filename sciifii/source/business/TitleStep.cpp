@@ -138,6 +138,7 @@ void TitleStep::Install()
 	   {
 		  if (t.GetRevision() <= Title::GetInstalledTitleVersion(t.GetTitleId())) //need update
 		  { 
+		    stringstream str2;
 			if (_id == 0)
 			  str2 << "Installing title " << _file;
 			else

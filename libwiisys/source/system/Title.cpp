@@ -39,7 +39,7 @@ using namespace Libwiisys::Threading;
 static u32 _runningIos = 0;
 
 Title::Title(bool automaticCleaning) :
-    _dataLen(0), automaticClean(automaticCleaning)
+    _titleId(0),_revision(0),_dataLen(0), automaticClean(automaticCleaning)
 {}
 
 void Title::Ticket(const Buffer& buffer)
@@ -184,6 +184,8 @@ void Title::LoadFromNusServer(u64 titleId, u16 revision,
     tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD(
                       (signed_blob*) b_tmd.Content());
 
+	this->_titleId = tmd_data->title_id;
+	this->_revision = tmd_data->title_version;
     //Get contents
     for (u16 cnt = 0; cnt < tmd_data->num_contents; cnt++)
     {
@@ -245,7 +247,7 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 
   signed_blob *btmd = (signed_blob *) memalign(32, (tmd_size + 31) & (~31));
   if (btmd == NULL)
-    throw Exception("Not enough memory");
+    throw Exception("Not enough memory (Title::LoadFromNand)");
   memset(btmd, 0, tmd_size);
 
   ret = ES_GetStoredTMD(titleId, btmd, tmd_size);
@@ -257,6 +259,10 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
 
   tmd *tmd_data = NULL;
   tmd_data = (tmd *) SIGNATURE_PAYLOAD(btmd);
+
+  this->_titleId = tmd_data->title_id;
+  this->_revision = tmd_data->title_version;
+
   CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder); /* Creating temp docs */
 
   processControl.buffer = File::ReadToEnd(ticketPath.str()); /* cetk */
@@ -353,6 +359,10 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
     Buffer p_tmd;
     wadBuffer.Read(p_tmd, TITLE_ROUND_UP(header->tmd_len, 64), o_tmd);
     tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) p_tmd.Content());
+
+	this->_titleId = tmd_data->title_id;
+	this->_revision = tmd_data->title_id;
+
     CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
 
     // register certs and crl
@@ -1219,4 +1229,14 @@ u32 Title::GetRunningIOS()
 std::string Title::GetType()
 {
   return "Libwiisys::System::Title,"+Object::GetType();
+}
+
+
+u16 Title::GetRevision()
+{
+	return _revision;
+}
+u64 Title::GetTitleId()
+{
+	return _titleId;
 }

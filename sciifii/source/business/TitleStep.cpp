@@ -136,7 +136,7 @@ void TitleStep::Install()
     t.LoadFromWad(_file, Config::WorkingDirectory());
 	if(Title::IsInstalled(t.GetTitleId()))
 	   {
-		  if (t.getRevision() <= Title::GetInstalledTitleVersion(_id)) //need update
+		  if (t.GetRevision() <= Title::GetInstalledTitleVersion(t.GetTitleId())) //need update
 		  { 
 			if (_id == 0)
 			  str2 << "Installing title " << _file;

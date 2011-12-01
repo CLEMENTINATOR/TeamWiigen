@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="log">
+    <xs:annotation>
+      <xs:documentation>A log entry. Each type of log is diferentiated by the type attribute.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="type" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The type of the log:
+          - file: a file logger. You must indicate the path where to log (via the path attribute)
+          - gecko: a gecko logger. You must plug the gecko to not hang the application
+          - web: the application will send http request with parameters. You must provide a valide url wich will handle the logs
+        </xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="file" />
+          <xs:enumeration value="gecko" />
+          <xs:enumeration value="web" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The path must be provided for the file logger. It indicates where to store the log.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="url" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The url must be provided for the web logger. It indicates the page where to send http get requests.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="category" use="optional" default="all">
+      <xs:annotation>
+        <xs:documentation>
+          This is to define kind of information will be logged.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="all" />
+          <xs:enumeration value="error" />
+          <xs:enumeration value="warning" />
+          <xs:enumeration value="info" />
+          <xs:enumeration value="debug" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="file">
+    <xs:annotation>
+      <xs:documentation>A file entry. When sciifii refer to a file, the file manager will get it for you.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="key" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>An unique key used to identify the file.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="url" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>If the file doesn't exists on your sd, Sciifii will use this url to download it.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="sha1" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>This url indicates where to download an hash for the file. You should provide it for security reasons.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The path where to store the file localy. The file manager will check this path before downloading the file.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="overwrite" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation>If true, Sciifii will always download it (be carreful, wii must have a network access).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="separatorMenuItem">
+    <xs:annotation>
+      <xs:documentation>A item used to create a visual separation in the menu.</xs:documentation>
+    </xs:annotation>
+
+    <xs:attribute name="char" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>In text mode of sciifii, this caracter is repeated to create the separation.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="navigationMenuItem">
+    <xs:annotation>
+      <xs:documentation>This item will allow the user to navigate to another menu.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The text displayed for this menu entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="menuId" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The id of the menu to navigate to.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="saveOptions" type="xs:boolean" use="optional" default="true">
+      <xs:annotation>
+        <xs:documentation>This indicates if Sciifii should record all user choices before changing menu.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="modeMenuItem">
+    <xs:annotation>
+      <xs:documentation>This menu entry will start the execution. It is associated with a list of switches wich will be activated (only this switches will be used during the execution).</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The text displayed for this menu entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="switches" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The list of switches. Each switch is separated by a |</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="exitMenuItem">
+    <xs:annotation>
+      <xs:documentation>This will allow the user to exit from the application.</xs:documentation>
+    </xs:annotation>
+
+    <xs:attribute name="text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The text displayed for this menu entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="previousMenuItem">
+    <xs:annotation>
+      <xs:documentation>This allow the user to return to the previous menu.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The text displayed for this menu entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="saveOptions" type="xs:boolean" use="optional" default="true">
+      <xs:annotation>
+        <xs:documentation>This indicates if Sciifii should record all user choices before changing menu.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="switchMenuItem">
+    <xs:annotation>
+      <xs:documentation>This allow the user to switch on or off a single switch.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The associated switch.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The text displayed for this menu entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="startMenuItem">
+    <xs:annotation>
+      <xs:documentation>This will create an item to start the execution.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="text" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The text displayed for this menu entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="saveOptions" type="xs:boolean" use="optional" default="true">
+      <xs:annotation>
+        <xs:documentation>This indicates if Sciifii should record all user choices before changing menu.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="menu">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="separatorMenuItem" type="separatorMenuItem" />
+      <xs:element name="navigationMenuItem" type="navigationMenuItem" />
+      <xs:element name="exitMenuItem" type="exitMenuItem" />
+      <xs:element name="modeMenuItem" type="modeMenuItem" />
+      <xs:element name="previousMenuItem" type="previousMenuItem" />
+      <xs:element name="switchMenuItem" type="switchMenuItem" />
+      <xs:element name="startMenuItem" type="startMenuItem" />
+    </xs:choice>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>An unique id used to identify the menu.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="title" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>An optional title sciifii will display</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="message" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>An optional message sciifii will display</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="simplePatch">
+    <xs:annotation>
+      <xs:documentation>A custom simple patch.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="value" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The patch to apply. It has the same format as the pattern</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="pattern" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>A binary pattern to search in the IOS. The format is 0xyy. The yy is the hexa value of the byte. Each byte are separated by a coma.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="module" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>If specified, the patch will only be applied if the pattern is found on this module (aka IOSP, ES...)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="prebuildPatch">
+    <xs:annotation>
+      <xs:documentation>
+        A patch alerady include in sciifii framework. All classic patch are prebuild in sciifii:
+        - ES_HashCheck_Old
+        - ES_HashCheck_New
+        - ES_Identify
+        - ES_OpenTitleContent1
+        - ES_OpenTitleContent2
+        - ES_ReadContent
+        - ES_CloseContent
+        - ES_SetUIDCheck
+        - ES_TitleVersionCheck
+        - ES_TitleDeleteCheck
+        - ES_MEM2Protection
+        - FFS_PermsCheck
+        - DIP_UnencryptedLimit
+        - DIP_EnableDvdVideo
+        - KoreanKey
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="name" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ES_HashCheck_Old" />
+          <xs:enumeration value="ES_HashCheck_New" />
+          <xs:enumeration value="ES_Identify" />
+          <xs:enumeration value="ES_OpenTitleContent1" />
+          <xs:enumeration value="ES_OpenTitleContent2" />
+          <xs:enumeration value="ES_ReadContent" />
+          <xs:enumeration value="ES_CloseContent" />
+          <xs:enumeration value="ES_SetUIDCheck" />
+          <xs:enumeration value="ES_TitleVersionCheck" />
+          <xs:enumeration value="ES_TitleDeleteCheck" />
+          <xs:enumeration value="ES_MEM2Protection" />
+          <xs:enumeration value="FFS_PermsCheck" />
+          <xs:enumeration value="DIP_UnencryptedLimit" />
+          <xs:enumeration value="DIP_EnableDvdVideo" />
+          <xs:enumeration value="KoreanKey" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="module">
+    <xs:attribute name="file" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The module source. This is the key of the file used by the file manager.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="position" type="xs:unsignedByte" use="optional">
+      <xs:annotation>
+        <xs:documentation>You can specify a specific index for the module.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="step">
+    <xs:annotation>
+      <xs:documentation>The base for all steps</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="regions" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          The regions on wich apply the step (separated by comas):
+          JAP: 0
+          US: 1
+          EUR: 2
+          KK: 4
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="option" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The list of switches that can activate this step. Each switch is separated by a |</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="memoryPatcher">
+    <xs:annotation>
+      <xs:documentation>This is used to patch the running IOS.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="patch" type="simplePatch" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ciosInstaller">
+    <xs:annotation>
+      <xs:documentation>This step is used to create a cIOS from an IOS and install it.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:all>
+          <xs:element minOccurs="0" name="modules">
+            <xs:annotation>
+              <xs:documentation>The list of modules you can insert int the cIOS</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="module" type="module" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="patches">
+            <xs:annotation>
+              <xs:documentation>
+                A list of patches that will be applied on the cIOS.
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:choice maxOccurs="unbounded">
+                <xs:element name="SimplePatch" type="simplePatch" />
+                <xs:element name="prebuild" type="prebuildPatch" />
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+        <xs:attribute name="ciosRevision" type="xs:unsignedShort" use="optional">
+          <xs:annotation>
+            <xs:documentation>You can modify the revision of the cIOS.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="slot" type="xs:unsignedByte" use="optional">
+          <xs:annotation>
+            <xs:documentation>You can specify the slot where to install the cIOS.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="revision" type="xs:unsignedShort" use="required">
+          <xs:annotation>
+            <xs:documentation>The revision of the IOS base.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="source" type="xs:unsignedByte" use="required">
+          <xs:annotation>
+            <xs:documentation>The IOS base id.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="banner" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation>A banner that will replace the original one. This is a file manager key.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="delete" type="xs:boolean" default="false" use="optional">
+          <xs:annotation>
+            <xs:documentation>If true, the IOS on the slot will be deleted before the installation (to avoid version conflicts)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="fileSystem">
+    <xs:annotation>
+      <xs:documentation>This step is used to manipulate files and folders</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:attribute name="target" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The path of the file/folder to work on.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="file" />
+              <xs:enumeration value="folder" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="action" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="move" />
+              <xs:enumeration value="copy" />
+              <xs:enumeration value="delete" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="recursive" type="xs:boolean" use="optional" default="false" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="title">
+    <xs:annotation>
+      <xs:documentation>This action is used to manipulate titles. This can use title ids or Wad as source.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:attribute name="id" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation>The id of the title to manipulate. It must be like 0xaaaaaaaabbbbbbbb (title type for "a" and id for "b")</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="revision" type="xs:unsignedShort" use="optional">
+          <xs:annotation>
+            <xs:documentation>The specific revision to use (if not specified, it use the last known)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="action" use="optional" default="install">
+          <xs:annotation>
+            <xs:documentation>
+              The type of work to do on the title:
+              - install (install a title from nus with the provided id or from a wad)
+              - uninstall (uninstall the specified title or the specified wad)
+              - pack (create a wad from an installed title)
+              - extract (extract the title from the wii or a wad)
+              - decrypt (extract and decrypt a title from the wii or a wad)
+              - update (update the specified title)
+            </xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="install" />
+              <xs:enumeration value="uninstall" />
+              <xs:enumeration value="pack" />
+              <xs:enumeration value="extract" />
+              <xs:enumeration value="decrypt" />
+              <xs:enumeration value="update" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="wad" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              The wad to use. It's a file manager key.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="fakesign" type="xs:boolean" use="optional" default="false">
+          <xs:annotation>
+            <xs:documentation>If true, the title is fakesigned (useless for recent cIOSes)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="preloader">
+    <xs:annotation>
+      <xs:documentation>This task is used to install an elf has a preloader (be carrefull it's quite dangerous)</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:attribute name="file" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The file manager key to the elf file.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="fileDownloader">
+    <xs:annotation>
+      <xs:documentation>This task is just to download a file via the file manager.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:attribute name="file" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The file manager key.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="stopSciifii">
+    <xs:annotation>
+      <xs:documentation>This is used to abort and exit Sciifii during the execution (for example, to avoid to return to the menu at the end)</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step" />
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="wadBatch">
+    <xs:annotation>
+      <xs:documentation>This is to install a series of wad without to detail each one.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:attribute name="folder">
+          <xs:annotation>
+            <xs:documentation>The folder where to search wads (this isn't recursive)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="action">
+          <xs:annotation>
+            <xs:documentation>You can choose to install or uninstall the wads</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="install" />
+              <xs:enumeration value="uninstall" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="composite">
+    <xs:annotation>
+      <xs:documentation>This is a step container. The switch of all substeps will be ignored.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="Title" type="title" />
+          <xs:element name="CiosInstaller" type="ciosInstaller" />
+          <xs:element name="FileSystem" type="fileSystem" />
+          <xs:element name="Preloader" type="preloader" />
+          <xs:element name="FileDownloader" type="fileDownloader" />
+          <xs:element name="MemoryPatcher" type="memoryPatcher" />
+          <xs:element name="StopSciifii" type="stopSciifii" />
+          <xs:element name="WadBatch" type="wadBatch" />
+          <xs:element name="CompositeInstaller" type="composite" />
+        </xs:choice>
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>Used to report progress and display the step (it's just an indicator).</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="sciifii">
+    <xs:annotation>
+      <xs:documentation>This is the root of the configuration file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="logs" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The list of all active logs.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="log" type="log" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="files" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The list of files managed by the file manager.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="file" type="file" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="menus">
+          <xs:annotation>
+            <xs:documentation>The list of all the menus. The menus allow the user to navigate between them, activate some switch, exit or start the execution.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="menu" type="menu" />
+            </xs:sequence>
+            <xs:attribute name="start" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>The menu id on wich sciifii will boot.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="steps">
+          <xs:annotation>
+            <xs:documentation>
+              The list of step Sciifii can execute. Each step can be activated by a switch (the step is always activated if no switch is provided).
+              You can also specify regions. If region is specified, the step will only be executed on wiis from that region.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+              <xs:element name="Title" type="title" />
+              <xs:element name="CiosInstaller" type="ciosInstaller" />
+              <xs:element name="FileSystem" type="fileSystem" />
+              <xs:element name="Preloader" type="preloader" />
+              <xs:element name="FileDownloader" type="fileDownloader" />
+              <xs:element name="MemoryPatcher" type="memoryPatcher" />
+              <xs:element name="StopSciifii" type="stopSciifii" />
+              <xs:element name="WadBatch" type="wadBatch" />
+              <xs:element name="CompositeInstaller" type="composite" />
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Disclaimer" minOccurs="0" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>A text wich will be displayed as a disclaimer. You can insert line break with \n.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="version" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The version of Sciifii to use with this configuration file.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="update" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>If specified, Sciifii will update the configuration with the one found on this url.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="workingDirectory" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>This is the temporary directory used by Sciifii to download the required files.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

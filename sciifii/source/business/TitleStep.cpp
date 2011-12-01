@@ -152,6 +152,17 @@ void TitleStep::Install()
 			  OnProgress("Title update not necessary !", 1);
 		  }
 	   }
+	else
+	{
+		stringstream str2;
+		if (_id == 0)
+			str2 << "Installing title " << _file;
+		else
+			str2 << "Installing title  " << hex << setfill('0') << setw(16)
+			<< _id << dec;
+		OnProgress(str2.str(), 0.75);
+		t.Install();
+	}
   }
   else if (_action == ti_Uninstall && _id != 0)
   {

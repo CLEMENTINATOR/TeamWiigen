@@ -24,7 +24,7 @@ class TitleStep : public Installer
 	std::string _key;
     std::string _path;
 	Libwiisys::System::Patching::Fakesign_Type _fakesign;
-	
+	bool _skipUpdate;
 
   public:
     TitleStep(u64 titleId, u16 revision, TitleAction a, std::string path = "",Libwiisys::System::Patching::Fakesign_Type fakesign = Libwiisys::System::Patching::Fakesign_None);

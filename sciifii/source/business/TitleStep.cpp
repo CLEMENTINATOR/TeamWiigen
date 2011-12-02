@@ -136,7 +136,7 @@ void TitleStep::Install()
     t.LoadFromWad(_file, Config::WorkingDirectory());
 	if(Title::IsInstalled(t.GetTitleId()))
 	   {
-		  if (t.GetRevision() <= Title::GetInstalledTitleVersion(t.GetTitleId())) //need update
+		  if (t.GetRevision() > Title::GetInstalledTitleVersion(t.GetTitleId())) //need update
 		  { 
 		    stringstream str2;
 			if (_id == 0)

@@ -446,7 +446,16 @@ namespace Libwiisys
         /**  Event associated to the OnContentLoaded fct*/
         Event::TitleEvent ContentLoadedEvent;
 
+		/*!
+         * \brief Get revision of a loaded title
+         * \return The revision number, or 0 if not loaded
+         */
 		u16 GetRevision();
+
+		/*!
+         * \brief Get id of a loaded title
+         * \return The  id, or 0 if not loaded
+         */
 		u64 GetTitleId();
       private:
         u32 _tikLen;

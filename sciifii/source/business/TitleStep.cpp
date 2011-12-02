@@ -31,6 +31,9 @@ TitleStep::TitleStep(string key, TitleAction a, string path,Libwiisys::System::P
 
 bool TitleStep::Prepare()
 {
+  //reset the execution flags
+  _skipUpdate = false;
+  
   // Impossible to do from Wad files
   if (_action == ti_PackAsWad && _key != "")
     throw Exception("This is impossible to create a wad from an other wad!");

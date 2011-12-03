@@ -201,6 +201,7 @@ void TitleStep::Install()
       << _id << dec;
     OnProgress(str2.str(), 0.75);
     t.Install();
+    OnProgress("Title updated!", 1);
   }
   else if (_action == ti_PackAsWad)
   {

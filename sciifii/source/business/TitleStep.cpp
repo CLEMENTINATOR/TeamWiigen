@@ -118,7 +118,7 @@ bool TitleStep::Prepare()
 	}
   }
 
-  switch(action)
+  switch(_action)
   {
     case ti_Update:
 		OnProgress("Title update preparation done!", 1);

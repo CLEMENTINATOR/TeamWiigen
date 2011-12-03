@@ -361,7 +361,7 @@ void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
     tmd* tmd_data = (tmd *) SIGNATURE_PAYLOAD((signed_blob*) p_tmd.Content());
 
 	this->_titleId = tmd_data->title_id;
-	this->_revision = tmd_data->title_id;
+	this->_revision = tmd_data->title_version;
 
     CreateTempDirectory(tmd_data->title_id, tmd_data->title_version, tempFolder);
 

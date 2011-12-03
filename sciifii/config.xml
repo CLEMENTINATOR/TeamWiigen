@@ -411,9 +411,6 @@
       <FileSystem target="sd:/apps/neogamma" action="delete" type="folder" recursive="true" />
     </CompositeInstaller>
 	
-	<CompositeInstaller option="delete58" name="58 deletion">
-	<Title id="000000010000003A" action="uninstall" />
-	</CompositeInstaller>
 	
     <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
       <Title id="00000001000000FE" revision="65280" action="install" />

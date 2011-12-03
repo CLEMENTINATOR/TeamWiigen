@@ -150,45 +150,26 @@ void TitleStep::Install()
   if (_action == ti_Update && !_skipUpdate)
   {
 	TitlePatcher t(0,-1,_fakesign);
-	if (_id == 0)
+
+    if (_id == 0)
 	{
-		str << "Loading title from " << _file;
+      str << "Loading title from " << _file;
 	}
-	else
+    else
 	{
-		str << "Loading title  " << hex << setfill('0') << setw(16) << _id
-		<< dec;
+      str << "Loading title  " << hex << setfill('0') << setw(16) << _id
+      << dec;
 	}
-	OnProgress(str.str(), 0.25);
+    OnProgress(str.str(), 0.25);
     t.LoadFromWad(_file, Config::WorkingDirectory());
-	if(Title::IsInstalled(t.GetTitleId()))
-	   {
-		  if (t.GetRevision() > Title::GetInstalledTitleVersion(t.GetTitleId())) //need update
-		  { 
-		    stringstream str2;
-			if (_id == 0)
-			  str2 << "Installing title " << _file;
-			else
-			  str2 << "Installing title  " << hex << setfill('0') << setw(16) << _id << dec;
-			OnProgress(str2.str(), 0.75);
-			t.Install();
-			OnProgress("Title updated succesfully !", 1);
-		  }
-		  else 
-		  {
-			  OnProgress("Title update not necessary !", 1);
-		  }
-	   }
-	else
-	{
-		stringstream str2;
-		if (_id == 0)
-			str2 << "Installing title " << _file;
-		else
-			str2 << "Installing title  " << hex << setfill('0') << setw(16) << _id << dec;
-		OnProgress(str2.str(), 0.75);
-		t.Install();
-	}
+    stringstream str2;
+    if (_id == 0)
+      str2 << "Updating title " << _file;
+    else
+      str2 << "Updating title  " << hex << setfill('0') << setw(16)
+      << _id << dec;
+    OnProgress(str2.str(), 0.75);
+    t.Install();
   }
   else if (_action == ti_Uninstall)
   {

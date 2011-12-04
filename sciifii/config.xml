@@ -410,16 +410,19 @@
     <CompositeInstaller option="UpNeoLoader" name="UpNeoLoader">
       <FileDownloader file="UpNeodol" />
       <FileDownloader file="UpNeoxml" />
+	  <Title wad="Neoforwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpNeoLoaderfr" name="UpNeoLoaderfr">
       <FileDownloader file="UpNeodolfr" />
       <FileDownloader file="UpNeoxml" />
+	  <Title wad="Neoforwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoader" name="UpGXLoader">
       <FileDownloader file="UpGXDol" />
       <FileDownloader file="UpGXmeta" />
+	  <Title wad="GXForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
@@ -427,6 +430,7 @@
       <FileDownloader file="UpGXglobalfr" />
       <FileDownloader file="UpGXlangfr" />
       <FileDownloader file="UpGXmeta" />
+	  <Title wad="GXForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="Upwiiflow" name="Upwiiflow">

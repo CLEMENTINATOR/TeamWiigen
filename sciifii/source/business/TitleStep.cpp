@@ -151,7 +151,7 @@ void TitleStep::Install()
   {
 	TitlePatcher t(0,-1,_fakesign);
 
-    if (_id == 0)
+    if (_key != "")
 	{
       str << "Loading title from " << _file;
 	}
@@ -163,7 +163,7 @@ void TitleStep::Install()
     OnProgress(str.str(), 0.25);
     t.LoadFromWad(_file, Config::WorkingDirectory());
     stringstream str2;
-    if (_id == 0)
+    if (_key != "")
       str2 << "Updating title " << _file;
     else
       str2 << "Updating title  " << hex << setfill('0') << setw(16)
@@ -183,7 +183,7 @@ void TitleStep::Install()
   {
     TitlePatcher t(0,-1,_fakesign);
 
-    if (_id == 0)
+    if (_key != "")
 	{
       str << "Loading title from " << _file;
 	}
@@ -195,7 +195,7 @@ void TitleStep::Install()
     OnProgress(str.str(), 0.25);
     t.LoadFromWad(_file, Config::WorkingDirectory());
     stringstream str2;
-    if (_id == 0)
+    if (_key != "")
       str2 << "Installing title " << _file;
     else
       str2 << "Installing title  " << hex << setfill('0') << setw(16)
@@ -231,7 +231,7 @@ void TitleStep::Install()
   else if (_action == ti_Decrypt)
   {
     Title t;
-    if (_id == 0)
+    if (_key != "")
       str << "Loading title from " << _file;
     else
       str << "Loading title  " << hex << setfill('0') << setw(16) << _id

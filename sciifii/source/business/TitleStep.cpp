@@ -55,7 +55,7 @@ bool TitleStep::Prepare()
 
 	_file = FileManager::GetPath(_key);
 	Title ios;
-	ios.LoadFromWad(_file);
+	ios.LoadFromWad(_file, Config::WorkingDirectory());
 	_id = ios.GetTitleId();
 	_revision = ios.GetRevision();
   }

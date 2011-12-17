@@ -56,6 +56,16 @@
     <file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
     <file key="UpNeoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" overwrite="true" />
     <file key="Neoicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/icon.png" path="sd:/apps/neogamma/icon.png" />
+  <!-- D2xv7 -->
+    <file key="dipp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat.sha" />
+    <file key="ehci_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat.sha" />
+    <file key="esp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat.sha" />
+    <file key="fat_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/fat_module_d2x7.dat.sha" />
+    <file key="ffsp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x7.dat"  sha1="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x7.dat.sha" />
+    <file key="mload_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_d2x7.dat"  sha1="http://teamwiigen.fr.cr/appfiles/mload_module_d2x7.dat.sha" />
+    <file key="sdhc_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x7.dat.sha" />
+    <file key="banner_d2x7_56.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x7_56.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x7_56.dat.sha" />
+    <file key="banner_d2x7_57.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x7_57.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x7_57.dat.sha" />
   </files>
 
   <menus start="main">
@@ -97,9 +107,9 @@
     </menu>
 
     <menu id="advanceden" title="Advanced Menu" message="">
-      <switchMenuItem name="cIOS249" text="Install cios249 rev 21(d2x, base 38) " />
-      <switchMenuItem name="cIOS250" text="Install cios250 rev 21 (d2x, base 37)" />
-      <switchMenuItem name="cIOS251" text="Install cios251 rev 21 (d2x, base 57)" />
+      <switchMenuItem name="cIOS249" text="Install cios249 d2x7, base 56 " />
+      <switchMenuItem name="cIOS250" text="Install cios249 d2x6, base 37" />
+      <switchMenuItem name="cIOS251" text="Install cios249 d2x7, base 57" />
       <switchMenuItem name="update" text="Update your wii to 4.3               " />
       <switchMenuItem name="Preloader" text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
@@ -125,9 +135,9 @@
     </menu>
 
     <menu id="advancedfr" title="Menu avance" message="">
-      <switchMenuItem name="cIOS249" text="Installer le cios249 rev 21(d2x, base 38) " />
-      <switchMenuItem name="cIOS250" text="Installer le cios250 rev 21 (d2x, base 37)" />
-      <switchMenuItem name="cIOS251" text="Installer le cios251 rev 21 (d2x, base 57)" />
+      <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv7 base 56 " />
+      <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv6 base 37" />
+      <switchMenuItem name="cIOS251" text="Installer le cios251  d2xv7 base 57" />
       <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
       <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
@@ -173,21 +183,35 @@
              value="0xE0, 0x01, 0x4E, 0x56" />
     </MemoryPatcher>
 
-    <CiosInstaller option="cIOS249" ciosRevision="21006" slot="249" revision="4123" source="38" banner="banner_d2x6_249.dat">
+    
+    
+
+
+
+    <CiosInstaller option="cIOS249" ciosRevision="21007" slot="249" revision="5661" source="56" banner="banner_d2x7_56.dat">
       <modules>
-        <module file="mload_module_d2x6.dat" />
-        <module file="fat_module_d2x6.dat" />
-        <module file="sdhc_module_d2x6.dat" />
-        <module file="ehci_module_d2x6.dat" position="3" />
-        <module file="dip_module_d2x6.dat" />
-        <module file="es_module_d2x6.dat" />
-        <module file="ffs_module_d2x6.dat" />
+        <module file="mload_module_d2x7.dat" />
+        <module file="fat_module_d2x7.dat" />
+        <module file="sdhc_module_d2x7.dat" />
+        <module file="ehci_module_d2x7.dat" position="3" />
+        <module file="dipp_module_d2x7.dat" />
+        <module file="esp_module_d2x7.dat" />
+        <module file="ffsp_module_d2x7.dat" />
       </modules>
       <patches>
-        <SimplePatch value="0xFF, 0xFF, 0x5B, 0x3A, 0x13, 0x6D, 0x00, 0x11"
-                     pattern="0xFF, 0xFF, 0x5B, 0x3A, 0xFF, 0xFF, 0x5A, 0xD2"
-                     module="IOSP" />
+
+        <prebuild name="KoreanKey" />
         <prebuild name="DIP_EnableDvdVideo" />
+        <SimplePatch value="0xFF, 0x5D, 0x5C, 0xFF, 0xFF"
+                     pattern="0xFF, 0x5D, 0x52, 0xFF, 0xFF"
+                     module="IOSP" />
+        <SimplePatch value="0x9A ,0x13, 0x6D, 0x00, 0x11"
+                    pattern="0x9A ,0xFF, 0xFF, 0x5D, 0x32"
+                    module="IOSP" />
+        <SimplePatch value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
+                     pattern="0x63 ,0xB8, 0x2B, 0xB4, 0xF4, 0x61, 0x4E, 0x2E, 0x13, 0xF2, 0xFE, 0xFB, 0xFA, 0xFB, 0xBA, 0x4C, 0x9B, 0x7E"
+                    module="IOSP" />
+      
       </patches>
     </CiosInstaller>
 
@@ -210,20 +234,26 @@
       </patches>
     </CiosInstaller>
 
-    <CiosInstaller option="cIOS251" ciosRevision="21006" slot="251" revision="5918" source="57" banner="banner_d2x6_251.dat">
+    <CiosInstaller option="cIOS251" ciosRevision="21007" slot="251" revision="5918" source="57" banner="banner_d2x7_57.dat">
       <modules>
-        <module file="mload_module_d2x6.dat" />
-        <module file="fat_module_d2x6.dat" />
-        <module file="sdhc_module_d2x6.dat" />
-        <module file="ehci_module_d2x6.dat" position="2" />
-        <module file="dip_module_d2x6.dat" />
-        <module file="es_module_d2x6.dat" />
-        <module file="ffs_module_d2x6.dat" />
+        <module file="mload_module_d2x7.dat" />
+        <module file="fat_module_d2x7.dat" />
+        <module file="sdhc_module_d2x7.dat" />
+        <module file="ehci_module_d2x7.dat" position="3" />
+        <module file="dipp_module_d2x7.dat" />
+        <module file="esp_module_d2x7.dat" />
+        <module file="ffsp_module_d2x7.dat" />
       </modules>
       <patches>
-        <SimplePatch value="0xFF, 0xFF, 0x5D, 0x9A, 0x13, 0x6D, 0x00, 0x11"
-                     pattern="0xFF, 0xFF, 0x5D, 0x9A, 0xFF, 0xFF, 0x5D, 0x32"
+        <SimplePatch value="0xFF, 0x5D, 0x5C, 0xFF, 0xFF"
+                     pattern="0xFF, 0x5D, 0x52, 0xFF, 0xFF"
                      module="IOSP" />
+        <SimplePatch value="0x9A ,0x13, 0x6D, 0x00, 0x11"
+                   pattern="0x9A ,0xFF, 0xFF, 0x5D, 0x32"
+                   module="IOSP" />
+        <SimplePatch value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
+                     pattern="0x63 ,0xB8, 0x2B, 0xB4, 0xF4, 0x61, 0x4E, 0x2E, 0x13, 0xF2, 0xFE, 0xFB, 0xFA, 0xFB, 0xBA, 0x4C, 0x9B, 0x7E"
+                    module="IOSP" />
         <prebuild name="DIP_EnableDvdVideo" />
         <prebuild name="KoreanKey" />
       </patches>

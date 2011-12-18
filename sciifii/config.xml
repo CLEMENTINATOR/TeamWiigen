@@ -18,9 +18,7 @@
     <file key="ffs_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/ffs_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/ffs_module_d2x6.dat.sha" />
     <file key="mload_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/mload_module_d2x6.dat.sha" />
     <file key="sdhc_module_d2x6.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x6.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x6.dat.sha" />
-    <file key="banner_d2x6_249.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_249.dat.sha" />
     <file key="banner_d2x6_250.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_250.dat.sha" />
-    <file key="banner_d2x6_251.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x6_251.dat.sha" />
     <file key="priiloaderfr.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader07r138fr.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader07r138fr.dat.sha" />
     <file key="hacksfr.ini" url="http://teamwiigen.fr.cr/appfiles/Preloader/fr/hacks_fr_s.ini" path="sd:/hacks.ini" />
     <file key="hacks_hashfr.ini" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/hacks_hash_fr_s.ini" path="sd:/hacks_hash.ini" />
@@ -79,10 +77,10 @@
     </menu>
 
     <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
-      <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|cIOS251|Preloader" />
-      <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloader|NeoLoader" />
-      <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloader|GXLoader" />
-      <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloader|wiiflow" />
+      <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS251|Preloader" />
+      <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS251|Preloader|NeoLoader" />
+      <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS251|Preloader|GXLoader" />
+      <modeMenuItem text="Hack your wii ! (Full Mode with wiiflow)" switches="cIOS249|cIOS251|Preloader|wiiflow" />
       <modeMenuItem text="Unhack your wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem text="Update Loaders Menu" menuId="Updateden" saveOptions="false" />
@@ -93,10 +91,10 @@
     </menu>
 
     <menu id="mainfr" title="Menu principal" message="Bienvenue sur Sciifii">
-      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr" />
-      <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|NeoLoaderfr" />
-      <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|GXLoaderfr" />
-      <modeMenuItem text="Modifier votre wii ! (Mode complet avec wiiflow)" switches="cIOS249|cIOS250|cIOS251|Preloaderfr|wiiflowfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS251|Preloaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS251|Preloaderfr|NeoLoaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS251|Preloaderfr|GXLoaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode complet avec wiiflow)" switches="cIOS249|cIOS251|Preloaderfr|wiiflowfr" />
       <modeMenuItem text="Enlever les modifications de votre Wii" switches="update|deleteChannel|uninstall" />
       <separatorMenuItem char=" " />
       <navigationMenuItem text="Menu Mise a jour loaders" menuId="Updatedfr" saveOptions="false" />
@@ -107,9 +105,8 @@
     </menu>
 
     <menu id="advanceden" title="Advanced Menu" message="">
-      <switchMenuItem name="cIOS249" text="Install cios249 d2x7, base 56 " />
-      <switchMenuItem name="cIOS250" text="Install cios249 d2x6, base 37" />
-      <switchMenuItem name="cIOS251" text="Install cios249 d2x7, base 57" />
+      <switchMenuItem name="cIOS249" text="Install cios249 d2x7, base 56          " />
+      <switchMenuItem name="cIOS251" text="Install cios249 d2x7, base 57          " />
       <switchMenuItem name="update" text="Update your wii to 4.3               " />
       <switchMenuItem name="Preloader" text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
@@ -135,9 +132,8 @@
     </menu>
 
     <menu id="advancedfr" title="Menu avance" message="">
-      <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv7 base 56 " />
-      <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv6 base 37" />
-      <switchMenuItem name="cIOS251" text="Installer le cios251  d2xv7 base 57" />
+      <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv7 base 56          " />
+      <switchMenuItem name="cIOS251" text="Installer le cios251  d2xv7 base 57         " />
       <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
       <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />

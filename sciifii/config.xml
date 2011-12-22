@@ -105,7 +105,7 @@
       <separatorMenuItem char=" " />
       <navigationMenuItem text="Menu Mise a jour loaders" menuId="Updatedfr" saveOptions="false" />
       <navigationMenuItem text="Menu avance" menuId="advancedfr" saveOptions="false" />
-      <separatorMenuItem char=" " />f
+      <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu langues" />
       <exitMenuItem text="Sortir" />
     </menu>

@@ -53,12 +53,12 @@
 	<file key="CFGForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad.sha" path="sd:/sciifii/temp/USBLoader.wad" />
 	<file key="CFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol"  />
     <file key="CFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" />
-    <file key="CFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+    <file key="CFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" />
 	<file key="CFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" />
-	<file key="CFGICON" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+	<file key="CFGICON" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/icon.png" path="sd:/apps/USBLoader/icon.png" />
     <file key="UpCFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol" overwrite="true" />
     <file key="UpCFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
-    <file key="UpCFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true"/>
+    <file key="UpCFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
 	<file key="UpCFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
   <!-- D2xv7 -->
     <file key="dipp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat.sha" />

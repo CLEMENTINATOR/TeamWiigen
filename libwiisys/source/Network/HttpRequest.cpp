@@ -77,122 +77,70 @@ u32 HttpRequest::GetResponseLength()
 {
   if (_path.length() == 0 || _hostName.length() == 0)
     throw Exception("The request isn't properly initialised.");
-
-  char buf[2048], request[256];
-
+	
   s32 ret;
-
-  stringstream fullPath;
-  fullPath << _path;
+  stringstream request, response;
+  char responseChar;
+  
+  request << "GET " << _path;
 
   if (!_params.empty())
   {
     bool isFirstParam = true;
-    fullPath << "?";
-    for (map<string, string>::iterator ite = _params.begin(); ite
-         != _params.end(); ++ite)
+    request << "?";
+    for (map<string, string>::iterator ite = _params.begin(); ite != _params.end(); ++ite)
     {
       if (!isFirstParam)
-        fullPath << "&";
-      fullPath << NetworkUtility::URLEncode(ite->first) << "="
-      << NetworkUtility::URLEncode(ite->second);
+        request << "&";
+		
+      request << NetworkUtility::URLEncode(ite->first) << "=" << NetworkUtility::URLEncode(ite->second);
       isFirstParam = false;
     }
   }
 
   /* Generate HTTP request */
-  sprintf(request,
-          "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",
-          fullPath.str().c_str(), _hostName.c_str());
+  request << " HTTP/1.1\r\nHost: " << _hostName << "\r\nConnection: close\r\n\r\n";
 
   /* Connect to server */
   Connect(_hostName);
 
   /* Send request */
-  ret = net_send(sockfd, request, strlen(request), 0);
+  ret = net_send(sockfd, request.str().c_str(), request.str().length(), 0);
   if (ret < 0)
     throw SystemException("Error sending request.", ret);
 
-  /* Clear buffer */
-  memset(buf, 0, sizeof(buf));
-
   /* Read HTTP header */
-  for (u32 cnt = 0; !strstr(buf, "\r\n\r\n"); cnt++)
-    if (net_recv(sockfd, buf + cnt, 1, 0) <= 0)
+  while(response.str().find("\r\n\r\n") == string::npos)
+  {
+    if (net_recv(sockfd, &responseChar, 1, 0) <= 0)
       throw Exception("Error reading http header");
+	else
+		response << responseChar;
+  }
 
   /* HTTP request OK? */
   u32 code;
-  char *ptr = strstr(buf, "HTTP/1.1");
-  if (ptr)
-  {
-    sscanf(ptr, "HTTP/1.1 %u", &code);
-  }
+  u32 position = response.str().find("HTTP/1.1");
+  if (position != string::npos)
+    sscanf(response.str().substr(position).c_str(), "HTTP/1.1 %u", &code);
   else
     throw Exception("No http 1.1 response");
 
-  if(code>300 && code<304)
-  {
-    ptr=strstr(buf, "Location:");
-    if(ptr)
-    {
-      int s;
-      s= (int)(strstr(ptr, "\n") - ptr - 10);
-      char *newUrl = (char*)malloc(sizeof(char)*(s+1));
-      memcpy(newUrl, ptr+10, s);
-      newUrl[s]='\0';
-      string newUrlString=string(newUrl);
-      free(newUrl);
-      if(newUrlString.find("http://")==string::npos) // if pas http:// devant
-      {
-        if(newUrlString.find("/")==0)  // path only
-        {
-          newUrlString=_hostName+newUrlString;
-        }
-        newUrlString=string("http://")+newUrlString;
-
-      }
-      SetRequest(newUrlString);
-      return this->GetResponseLength();
-    }
-  }
-  else if (code==200)
-  {}
-  else
-  {
+  if (code != 200)
     throw Exception("Error http "+code);
-  }
-
-
 
   /* Retrieve content size */
   
-  ptr = strstr(buf, "Content-Length:");
-  if (!ptr)
-  {
-	ptr = strstr(buf, "content-length:");
-	if(!ptr)
-	{
-		throw Exception("Error retrieving response lengt");
-	}
-	else
-	{
-		u32 length;
-	  sscanf(ptr, "content-length: %u", &length);
-	  return length;
-
-	}
-  }
-  else
-  {
-	  u32 length;
-	  sscanf(ptr, "Content-Length: %u", &length);
-	  return length;
-
-  }
-   
-  
- 
+  position = response.str().find("Content-Length:");
+  if (position == string::npos)
+	position = response.str().find("content-Length:");
+	
+  if(position == string::npos)
+	throw Exception("Error retrieving response lengt");
+		
+  u32 length;
+  sscanf(response.str().substr(position).c_str(), "content-length: %u", &length);
+  return length;
 }
 
 s32 HttpRequest::Read(Buffer& b, u32 len)

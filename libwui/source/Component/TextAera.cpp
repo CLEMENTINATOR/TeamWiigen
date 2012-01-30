@@ -179,7 +179,7 @@ void TextAera::RebuildLabelVector(FontResource* resource)
 		if(GetWidth() - trackBarWidth < resource->Font(size)->getWidth(*lineIt))
 		{
 			stringstream labelText;
-			vector<string> wordList = UtilString::Split(*lineIt, ' ');
+			vector<string> wordList = UtilString::Split(*lineIt, ' ',true);
 			do
 			{
 				int nbWord = wordList.size();
@@ -191,9 +191,10 @@ void TextAera::RebuildLabelVector(FontResource* resource)
 					{
 						labelText << wordList[i] << " ";
 					}
-					labelText << wordList[nbWord - 1];
+					if(nbWord-1 >= 0) labelText << wordList[nbWord - 1];
 					nbWord--;
 				} while(GetWidth() - trackBarWidth < resource->Font(size)->getWidth(labelText.str()));
+				
 				
 				Label* lbl = new Label(labelText.str(), size, color);
 				lbl->SetSize(GetWidth(), size);

@@ -139,7 +139,7 @@ u32 HttpRequest::GetResponseLength()
 	throw Exception("Error retrieving response lengt");
 		
   u32 length;
-  sscanf(response.str().substr(position).c_str(), "content-length: %u", &length);
+  sscanf(response.str().substr(position).c_str(), "Content-Length: %u", &length);
   return length;
 }
 

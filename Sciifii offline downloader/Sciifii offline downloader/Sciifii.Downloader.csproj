@@ -56,12 +56,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Marquee.cs" />
     <Compile Include="Tools\ImageSourceConverter.cs" />
     <Compile Include="Tools\SwitchConverter.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DisclaimerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

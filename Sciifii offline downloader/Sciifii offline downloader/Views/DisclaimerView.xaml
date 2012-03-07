@@ -4,6 +4,7 @@
         xmlns:vm="clr-namespace:Sciifii.Downloader.ViewModel"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ctrls="clr-namespace:Sciifii.Downloader.Controls"
       mc:Ignorable="d"
         Title="MainWindow" d:DesignHeight="480" d:DesignWidth="640" >
 
@@ -19,7 +20,11 @@
                 <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
             </Canvas.RenderTransform>
             <TextBlock Canvas.Left="130" Canvas.Top="250" Width="390" Height="150" Foreground="Red" Text="{Binding Text, Mode=OneWay}" FontSize="12" TextAlignment="Center" />
-            <Button Canvas.Left="238" Canvas.Top="370" Content="Continue" Command="{Binding ContinueCommand}" FontSize="12" />
+            
+            <Button Canvas.Left="238" Canvas.Top="370" Command="{Binding ContinueCommand}" FontSize="12">
+                <ctrls:Marquee Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Content="Continue" />
+            </Button>
+            
             <Button Canvas.Left="580" Canvas.Top="415" Style="{StaticResource ExitButton}" Command="{Binding ExitCommand}" />
         </Canvas>
     </Grid>

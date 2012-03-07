@@ -5,6 +5,7 @@
         xmlns:mi="clr-namespace:Sciifii.DTO.Menus;assembly=Sciifii.DTO"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:t="clr-namespace:Sciifii.Downloader.Tools"
+      xmlns:ctrls="clr-namespace:Sciifii.Downloader.Controls"
       mc:Ignorable="d"
         Title="Test" d:DesignHeight="350" d:DesignWidth="525">
     <Page.Resources>
@@ -28,7 +29,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Button Content="{Binding Text, Mode=OneWay}" CommandParameter="{Binding}" Command="{Binding Path=DataContext.NavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}"/>
+                                <Button CommandParameter="{Binding}" Command="{Binding Path=DataContext.NavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}">
+                                    <ctrls:Marquee Content="{Binding Text, Mode=OneWay}" Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" />
+                                </Button>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -39,7 +42,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Button Content="{Binding Text, Mode=OneWay}" CommandParameter="{Binding}" Command="{Binding Path=DataContext.NavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}"/>
+                                <Button CommandParameter="{Binding}" Command="{Binding Path=DataContext.NavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}">
+                                    <ctrls:Marquee Content="{Binding Text, Mode=OneWay}" Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" />
+                                </Button>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -50,7 +55,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Button Content="{Binding Text, Mode=OneWay}" Command="{Binding Path=DataContext.ExitCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}"/>
+                                <Button Command="{Binding Path=DataContext.ExitCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}">
+                                    <ctrls:Marquee Content="{Binding Text, Mode=OneWay}" Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" />
+                                </Button>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -72,7 +79,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Button Content="{Binding Text, Mode=OneWay}" Command="{Binding Path=DataContext.ModeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding Switches}"/>
+                                <Button Command="{Binding Path=DataContext.ModeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding Switches}">
+                                    <ctrls:Marquee Content="{Binding Text, Mode=OneWay}" Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" />
+                                </Button>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -84,7 +93,9 @@
                         <Setter.Value>
                             <ControlTemplate>
                                 <StackPanel Orientation="Horizontal" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" Grid.ColumnSpan="{Binding ColumnSpan}">
-                                    <CheckBox IsChecked="{Binding Path=Key, Converter={StaticResource switchConverter}, Mode=OneWay}" Command="{Binding Path=DataContext.SwitchCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding Key}" Content="{Binding Text, Mode=OneWay}"/>
+                                    <CheckBox IsChecked="{Binding Path=Key, Converter={StaticResource switchConverter}, Mode=OneWay}" Command="{Binding Path=DataContext.SwitchCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding Key}">
+                                        <ctrls:Marquee Content="{Binding Text, Mode=OneWay}" Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=CheckBox, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=CheckBox, AncestorLevel=1}}" />
+                                    </CheckBox>
                                 </StackPanel>
                             </ControlTemplate>
                         </Setter.Value>
@@ -96,7 +107,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Button Content="{Binding Text, Mode=OneWay}" Command="{Binding Path=DataContext.StartCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding SaveOptions}"/>
+                                <Button Command="{Binding Path=DataContext.StartCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" CommandParameter="{Binding SaveOptions}">
+                                    <ctrls:Marquee Content="{Binding Text, Mode=OneWay}" Height="{Binding Path=Height, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" Width="{Binding Path=Width, RelativeSource={RelativeSource FindAncestor, AncestorType=Button, AncestorLevel=1}}" />
+                                </Button>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

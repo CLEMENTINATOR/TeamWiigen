@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sciifii version="5">
+<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/" uiMode="graphic">
   <!-- Region:
     JAP: 0
     EUR: 2
@@ -60,7 +60,7 @@
     <file key="UpCFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
     <file key="UpCFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
 	<file key="UpCFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
-  <!-- D2xv7 -->
+  <!-- D2xv7
     <file key="dipp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat.sha" />
     <file key="ehci_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat.sha" />
     <file key="esp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat.sha" />
@@ -70,6 +70,24 @@
     <file key="sdhc_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x7.dat.sha" />
     <file key="banner_d2x7_56.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x7_56.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x7_56.dat.sha" />
     <file key="banner_d2x7_57.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x7_57.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x7_57.dat.sha" />
+
+ -->
+
+    <!-- D2xv8 -->
+    <file key="dipp_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x8.dat.sha" />
+    <file key="ehci_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x8.dat.sha" />
+    <file key="esp_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/esp_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/esp_module_d2x8.dat.sha" />
+    <file key="fat_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/fat_module_d2x8.dat.sha" />
+    <file key="ffsp_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x8.dat"  sha1="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x8.dat.sha" />
+    <file key="mload_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_d2x8.dat"  sha1="http://teamwiigen.fr.cr/appfiles/mload_module_d2x8.dat.sha" />
+    <file key="sdhc_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x8.dat.sha" />
+    <file key="banner_d2x8_56.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x8_56.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x8_56.dat.sha" />
+    <file key="banner_d2x8_57.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x8_57.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x8_57.dat.sha" />
+
+
+
+
+
   </files>
 
   <menus start="main">
@@ -140,8 +158,8 @@
     </menu>
 
     <menu id="advancedfr" title="Menu avance" message="">
-      <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv7 base 56          " />
-      <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv7 base 57          " />
+      <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv8 base 56          " />
+      <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv8 base 57          " />
       <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
       <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
@@ -190,15 +208,15 @@
              value="0xE0, 0x01, 0x4E, 0x56" />
     </MemoryPatcher>
 
-    <CiosInstaller option="cIOS249" ciosRevision="21007" slot="249" revision="5661" source="56" banner="banner_d2x7_56.dat">
+    <CiosInstaller option="cIOS249" ciosRevision="21008" slot="249" revision="5661" source="56" banner="banner_d2x8_56.dat">
       <modules>
-        <module file="mload_module_d2x7.dat" />
-        <module file="fat_module_d2x7.dat" />
-        <module file="sdhc_module_d2x7.dat" />
-        <module file="ehci_module_d2x7.dat" position="3" />
-        <module file="dipp_module_d2x7.dat" />
-        <module file="esp_module_d2x7.dat" />
-        <module file="ffsp_module_d2x7.dat" />
+        <module file="mload_module_d2x8.dat" />
+        <module file="fat_module_d2x8.dat" />
+        <module file="sdhc_module_d2x8.dat" />
+        <module file="ehci_module_d2x8.dat" position="3" />
+        <module file="dipp_module_d2x8.dat" />
+        <module file="esp_module_d2x8.dat" />
+        <module file="ffsp_module_d2x8.dat" />
       </modules>
       <patches>
 
@@ -206,26 +224,23 @@
         <prebuild name="DIP_EnableDvdVideo" />
         <SimplePatch value="0xFF, 0x5D, 0x5C, 0xFF, 0xFF"
                      pattern="0xFF, 0x5D, 0x52, 0xFF, 0xFF"
-                     module="IOSP" />
+                     module="IOSP" /> 
         <SimplePatch value="0x9A ,0x13, 0x6D, 0x00, 0x11"
                     pattern="0x9A ,0xFF, 0xFF, 0x5D, 0x32"
-                    module="IOSP" />
-        <SimplePatch value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
-                     pattern="0x63 ,0xB8, 0x2B, 0xB4, 0xF4, 0x61, 0x4E, 0x2E, 0x13, 0xF2, 0xFE, 0xFB, 0xFA, 0xFB, 0xBA, 0x4C, 0x9B, 0x7E"
-                    module="IOSP" />
-      
+                    module="IOSP" /> 
+        
       </patches>
     </CiosInstaller>
 
-    <CiosInstaller option="cIOS250" ciosRevision="21007" slot="250" revision="5918" source="57" banner="banner_d2x7_57.dat">
+    <CiosInstaller option="cIOS250" ciosRevision="21008" slot="250" revision="5918" source="57" banner="banner_d2x8_57.dat">
       <modules>
-        <module file="mload_module_d2x7.dat" />
-        <module file="fat_module_d2x7.dat" />
-        <module file="sdhc_module_d2x7.dat" />
-        <module file="ehci_module_d2x7.dat" position="2" />
-        <module file="dipp_module_d2x7.dat" />
-        <module file="esp_module_d2x7.dat" />
-        <module file="ffsp_module_d2x7.dat" />
+        <module file="mload_module_d2x8.dat" />
+        <module file="fat_module_d2x8.dat" />
+        <module file="sdhc_module_d2x8.dat" />
+        <module file="ehci_module_d2x8.dat" position="2" />
+        <module file="dipp_module_d2x8.dat" />
+        <module file="esp_module_d2x8.dat" />
+        <module file="ffsp_module_d2x8.dat" />
       </modules>
       <patches>
         <SimplePatch value="0xFF, 0x5D, 0x5C, 0xFF, 0xFF"
@@ -234,9 +249,10 @@
         <SimplePatch value="0x9A ,0x13, 0x6D, 0x00, 0x11"
                    pattern="0x9A ,0xFF, 0xFF, 0x5D, 0x32"
                    module="IOSP" />
-        <SimplePatch value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
-                     pattern="0x63 ,0xB8, 0x2B, 0xB4, 0xF4, 0x61, 0x4E, 0x2E, 0x13, 0xF2, 0xFE, 0xFB, 0xFA, 0xFB, 0xBA, 0x4C, 0x9B, 0x7E"
-                    module="IOSP" />
+      
+
+
+        
         <prebuild name="DIP_EnableDvdVideo" />
         <prebuild name="KoreanKey" />
       </patches>

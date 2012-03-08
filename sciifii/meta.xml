@@ -9,5 +9,5 @@
 	It can be done online or offline. Read the readme.txt file
 	to use the offline installation or if you encounter 
 	some problems with the online mode.</long_description>
-	<no_ios_reload/>
+  <ahb_access/>
 </app>

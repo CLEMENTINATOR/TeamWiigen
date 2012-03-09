@@ -2,6 +2,8 @@
 #include <cstring>
 #include <cstdio>
 #include <iostream>
+#include <cctype>
+#include <algorithm>
 #include <malloc.h>
 #include <Libwiisys/Network/HttpRequest.h>
 #include <Libwiisys/Network/NetworkUtility.h>
@@ -79,7 +81,7 @@ u32 HttpRequest::GetResponseLength()
     throw Exception("The request isn't properly initialised.");
 	
   s32 ret;
-  stringstream request, response;
+  stringstream request, responseStream;
   char responseChar;
   
   request << "GET " << _path;
@@ -110,36 +112,40 @@ u32 HttpRequest::GetResponseLength()
     throw SystemException("Error sending request.", ret);
 
   /* Read HTTP header */
-  while(response.str().find("\r\n\r\n") == string::npos)
+  while(responseStream.str().find("\r\n\r\n") == string::npos)
   {
     if (net_recv(sockfd, &responseChar, 1, 0) <= 0)
       throw Exception("Error reading http header");
 	else
-		response << responseChar;
+		responseStream << responseChar;
   }
-
+  
+  string response = responseStream.str();
+  
   /* HTTP request OK? */
   u32 code;
-  u32 position = response.str().find("HTTP/1.1");
+  u32 position = response.find("HTTP/1.1");
   if (position != string::npos)
-    sscanf(response.str().substr(position).c_str(), "HTTP/1.1 %u", &code);
+    sscanf(response.substr(position).c_str(), "HTTP/1.1 %u", &code);
   else
     throw Exception("No http 1.1 response");
 
   if (code != 200)
     throw Exception("Error http "+code);
 
-  /* Retrieve content size */
+  /* toLower */
+  transform(response.begin(), response.end(), response.begin(), (int(*)(int)) toupper);
   
-  position = response.str().find("Content-Length:");
+  /* Retrieve content size */
+  position = response.find("Content-Length:");
   if (position == string::npos)
-	position = response.str().find("content-Length:");
+	position = response.find("content-Length:");
 	
   if(position == string::npos)
 	throw Exception("Error retrieving response lengt");
 		
   u32 length;
-  sscanf(response.str().substr(position).c_str(), "Content-Length: %u", &length);
+  sscanf(response.substr(position).c_str(), "Content-Length: %u", &length);
   return length;
 }
 

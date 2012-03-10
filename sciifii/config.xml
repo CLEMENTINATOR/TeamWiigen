@@ -129,8 +129,8 @@
     </menu>
 
     <menu id="advanceden" title="Advanced Menu" message="">
-      <switchMenuItem name="cIOS249" text="Install cios249 d2x7, base 56          " />
-      <switchMenuItem name="cIOS250" text="Install cios250 d2x7, base 57          " />
+      <switchMenuItem name="cIOS249" text="Install cios249 d2x8, base 56          " />
+      <switchMenuItem name="cIOS250" text="Install cios250 d2x8, base 57          " />
       <switchMenuItem name="update" text="Update your wii to 4.3               " />
       <switchMenuItem name="Preloader" text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />

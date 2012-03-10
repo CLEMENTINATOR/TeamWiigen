@@ -134,18 +134,15 @@ u32 HttpRequest::GetResponseLength()
     throw Exception("Error http "+code);
 
   /* toLower */
-  transform(response.begin(), response.end(), response.begin(), (int(*)(int)) toupper);
+  transform(response.begin(), response.end(), response.begin(), (int(*)(int)) tolower);
   
   /* Retrieve content size */
-  position = response.find("Content-Length:");
+  position = response.find("content-length:");
   if (position == string::npos)
-	position = response.find("content-Length:");
-	
-  if(position == string::npos)
-	throw Exception("Error retrieving response lengt");
+	throw Exception("Error retrieving response length");
 		
   u32 length;
-  sscanf(response.substr(position).c_str(), "Content-Length: %u", &length);
+  sscanf(response.substr(position).c_str(), "content-length: %u", &length);
   return length;
 }
 

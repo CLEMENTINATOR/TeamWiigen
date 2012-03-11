@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sciifii version="5" MenuMessage="Choose an option : " themeDirectory="sd:/sciifii/ui/" uiMode="text">
+<sciifii version="5"  uiMode="text">
   <!-- Region:
     JAP: 0
     EUR: 2
@@ -17,8 +17,8 @@
     <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat.sha" />
     <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/apps/Priiloader/hacks.ini" />
     <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/apps/Priiloader/hacks_hash.ini" />
-  <!-- WIIFLOW -->
-	<file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" />
+    <!-- WIIFLOW -->
+    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" />
     <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
     <file key="wiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" />
     <file key="wiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" />
@@ -29,8 +29,8 @@
     <file key="Upwiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" overwrite="true" />
     <file key="Upwiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" path="sd:/sciifii/temp/WiiFlow_ForWarder.wad" />
     <file key="Upwiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" overwrite="true" />
-  <!-- UsbLoaderGX -->
-	<file key="GXForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
+    <!-- UsbLoaderGX -->
+    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
     <file key="GXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol"  />
     <file key="GXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" />
     <file key="GXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" />
@@ -40,8 +40,8 @@
     <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
     <file key="UpGXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true" />
     <file key="GXicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
-  <!-- NEOGAMMA -->
-	<file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
+    <!-- NEOGAMMA -->
+    <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
     <file key="Neodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
     <file key="Neodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" />
     <file key="UpNeodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
@@ -49,18 +49,18 @@
     <file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
     <file key="UpNeoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" overwrite="true" />
     <file key="Neoicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/icon.png" path="sd:/apps/neogamma/icon.png" />
-  <!-- CFG -->
-	<file key="CFGForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad.sha" path="sd:/sciifii/temp/USBLoader.wad" />
-	<file key="CFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol"  />
+    <!-- CFG -->
+    <file key="CFGForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad.sha" path="sd:/sciifii/temp/USBLoader.wad" />
+    <file key="CFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol"  />
     <file key="CFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" />
     <file key="CFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" />
-	<file key="CFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" />
-	<file key="CFGICON" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/icon.png" path="sd:/apps/USBLoader/icon.png" />
+    <file key="CFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" />
+    <file key="CFGICON" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/icon.png" path="sd:/apps/USBLoader/icon.png" />
     <file key="UpCFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol" overwrite="true" />
     <file key="UpCFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
     <file key="UpCFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
-	<file key="UpCFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
-  <!-- D2xv7
+    <file key="UpCFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
+    <!-- D2xv7
     <file key="dipp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat.sha" />
     <file key="ehci_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat.sha" />
     <file key="esp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat.sha" />
@@ -135,7 +135,7 @@
       <switchMenuItem name="Preloader" text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX             " />
-	  <switchMenuItem name="CFG" text="Install the CFG                      " />
+      <switchMenuItem name="CFG" text="Install the CFG                      " />
       <switchMenuItem name="wiiflow" text="Install Wiiflow                      " />
       <switchMenuItem name="clean" text="Clean temporary files                " />
       <separatorMenuItem char=" " />
@@ -148,7 +148,7 @@
     <menu id="Updateden" title="Update loaders Menu" message="">
       <switchMenuItem name="UpNeoLoader" text="Update the NeoGamma                  " />
       <switchMenuItem name="UpGXLoader" text="Update USB LoaderGX                  " />
-	  <switchMenuItem name="UpCFG" text="Update CFG                           " />
+      <switchMenuItem name="UpCFG" text="Update CFG                           " />
       <switchMenuItem name="Upwiiflow" text="Update Wiiflow                       " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to simple menu" />
@@ -164,7 +164,7 @@
       <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
       <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
-	  <switchMenuItem name="CFGfr" text="Installer CFG                             " />
+      <switchMenuItem name="CFGfr" text="Installer CFG                             " />
       <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
       <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
       <separatorMenuItem char=" " />
@@ -178,7 +178,7 @@
       <switchMenuItem name="UpNeoLoaderfr" text="Mise a jour NeoGamma                      " />
       <switchMenuItem name="UpGXLoaderfr" text="Mise a jour USB LoaderGX                  " />
       <switchMenuItem name="UpCFGfr" text="Mise a jour CFG                             " />
-	    <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
+      <switchMenuItem name="Upwiiflowfr" text="Mise a jour Wiiflow                       " />
 
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
@@ -224,11 +224,11 @@
         <prebuild name="DIP_EnableDvdVideo" />
         <SimplePatch value="0xFF, 0x5D, 0x5C, 0xFF, 0xFF"
                      pattern="0xFF, 0x5D, 0x52, 0xFF, 0xFF"
-                     module="IOSP" /> 
+                     module="IOSP" />
         <SimplePatch value="0x9A ,0x13, 0x6D, 0x00, 0x11"
                     pattern="0x9A ,0xFF, 0xFF, 0x5D, 0x32"
-                    module="IOSP" /> 
-        
+                    module="IOSP" />
+
       </patches>
     </CiosInstaller>
 
@@ -249,10 +249,10 @@
         <SimplePatch value="0x9A ,0x13, 0x6D, 0x00, 0x11"
                    pattern="0x9A ,0xFF, 0xFF, 0x5D, 0x32"
                    module="IOSP" />
-      
 
 
-        
+
+
         <prebuild name="DIP_EnableDvdVideo" />
         <prebuild name="KoreanKey" />
       </patches>
@@ -364,11 +364,11 @@
       <FileSystem target="sd:/apps/wiiflow" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/usbloader_gx" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/neogamma" action="delete" type="folder" recursive="true" />
-	  <FileSystem target="sd:/usb-loader" action="delete" type="folder" recursive="true" />
-	  <FileSystem target="sd:/apps/USBLoader" action="delete" type="folder" recursive="true" />
+      <FileSystem target="sd:/usb-loader" action="delete" type="folder" recursive="true" />
+      <FileSystem target="sd:/apps/USBLoader" action="delete" type="folder" recursive="true" />
     </CompositeInstaller>
-	
-	
+
+
     <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
       <Title id="00000001000000FE" revision="65280" action="install" />
       <Title id="00000001000000DE" revision="65280" action="install" />
@@ -385,7 +385,7 @@
     </CompositeInstaller>
 
     <Title option="NeoLoader|GXLoader|wiiflow|NeoLoaderfr|GXLoaderfr|wiiflowfr|UpNeoLoader|UpNeoLoaderfr|UpGXLoader|UpGXLoaderfr|Upwiiflow|Upwiiflowfr|CFG|CFGfr|UpCFG|UpCFGfr" id="000000010000003A" revision="6176" action="update" />
-    
+
     <CompositeInstaller option="NeoLoader" name="NeoLoader">
       <FileDownloader file="Neodol" />
       <FileDownloader file="Neoxml" />
@@ -399,12 +399,12 @@
       <FileDownloader file="GXicon" />
       <Title wad="GXForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
-	
-	<CompositeInstaller option="CFG" name="CFG">
+
+    <CompositeInstaller option="CFG" name="CFG">
       <FileDownloader file="CFGDol" />
       <FileDownloader file="CFGMETA" />
       <FileDownloader file="CFGICON" />
-	  <FileDownloader file="CFGsetting" />
+      <FileDownloader file="CFGsetting" />
       <Title wad="CFGForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
@@ -445,32 +445,32 @@
       <FileDownloader file="wiiflowxml" />
       <Title wad="wiiflow.wad" action="update" fakesign="true" />
     </CompositeInstaller>
-	
-	<CompositeInstaller option="CFGfr" name="CFGfr">
+
+    <CompositeInstaller option="CFGfr" name="CFGfr">
       <FileDownloader file="CFGDol" />
       <FileDownloader file="CFGMETA" />
       <FileDownloader file="CFGICON" />
-	  <FileDownloader file="CFGsetting" />
-	  <FileDownloader file="CFGlangfr" />
+      <FileDownloader file="CFGsetting" />
+      <FileDownloader file="CFGlangfr" />
       <Title wad="CFGForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpNeoLoader" name="UpNeoLoader">
       <FileDownloader file="UpNeodol" />
       <FileDownloader file="UpNeoxml" />
-	  <Title wad="Neoforwarder" action="update" fakesign="true" />
+      <Title wad="Neoforwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpNeoLoaderfr" name="UpNeoLoaderfr">
       <FileDownloader file="UpNeodolfr" />
       <FileDownloader file="UpNeoxml" />
-	  <Title wad="Neoforwarder" action="update" fakesign="true" />
+      <Title wad="Neoforwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoader" name="UpGXLoader">
       <FileDownloader file="UpGXDol" />
       <FileDownloader file="UpGXmeta" />
-	  <Title wad="GXForwarder" action="update" fakesign="true" />
+      <Title wad="GXForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="UpGXLoaderfr" name="UpGXLoaderfr">
@@ -478,7 +478,7 @@
       <FileDownloader file="UpGXglobalfr" />
       <FileDownloader file="UpGXlangfr" />
       <FileDownloader file="UpGXmeta" />
-	  <Title wad="GXForwarder" action="update" fakesign="true" />
+      <Title wad="GXForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
     <CompositeInstaller option="Upwiiflow" name="Upwiiflow">
@@ -494,23 +494,23 @@
       <FileDownloader file="Upwiiflowxml" />
       <Title wad="Upwiiflow.wad" action="update" fakesign="true" />
     </CompositeInstaller>
-	
-	<CompositeInstaller option="UpCFG" name="UpCFG">
+
+    <CompositeInstaller option="UpCFG" name="UpCFG">
       <FileDownloader file="UpCFGDol" />
       <FileDownloader file="UpCFGMETA" />
-	  <FileDownloader file="UpCFGsetting" />
+      <FileDownloader file="UpCFGsetting" />
       <Title wad="CFGForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
-	
-	<CompositeInstaller option="UpCFGfr" name="UpCFGfr">
+
+    <CompositeInstaller option="UpCFGfr" name="UpCFGfr">
       <FileDownloader file="UpCFGDol" />
       <FileDownloader file="UpCFGMETA" />
-	  <FileDownloader file="UpCFGsetting" />
-	  <FileDownloader file="UpCFGlangfr" />
+      <FileDownloader file="UpCFGsetting" />
+      <FileDownloader file="UpCFGlangfr" />
       <Title wad="CFGForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
-	
-	
+
+
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
 

@@ -11,7 +11,7 @@
   </logs>
 
   <files>
-    <file key="priiloaderfr.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader07r138fr.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader07r138fr.dat.sha" />
+    <file key="priiloaderfr.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader08rev151.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader08rev151.dat.sha" />
     <file key="hacksfr.ini" url="http://teamwiigen.fr.cr/appfiles/Preloader/fr/hacks_fr_s.ini" path="sd:/hacks.ini" />
     <file key="hacks_hashfr.ini" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/hacks_hash_fr_s.ini" path="sd:/hacks_hash.ini" />
     <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat.sha" />

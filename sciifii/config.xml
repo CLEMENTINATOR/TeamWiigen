@@ -11,78 +11,78 @@
   </logs>
 
   <files>
-    <file key="priiloaderfr.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader08rev151.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/fr/priiloader08rev151.dat.sha" />
-    <file key="hacksfr.ini" url="http://teamwiigen.fr.cr/appfiles/Preloader/fr/hacks_fr_s.ini" path="sd:/hacks.ini" />
-    <file key="hacks_hashfr.ini" url="http://teamwiigen.fr.cr/appFiles/Preloader/fr/hacks_hash_fr_s.ini" path="sd:/hacks_hash.ini" />
-    <file key="priiloader.dat" url="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.fr.cr/appFiles/Preloader/priiloader.dat.sha" />
-    <file key="hacks.ini" url="http://teamwiigen.fr.cr/appfiles/hacks.ini" path="sd:/apps/Priiloader/hacks.ini" />
-    <file key="hacks_hash.ini" url="http://teamwiigen.fr.cr/appFiles/hacks_hash.ini" path="sd:/apps/Priiloader/hacks_hash.ini" />
+    <file key="priiloaderfr.dat" url="http://teamwiigen.com/appFiles/Preloader/fr/priiloader08rev151.dat" sha1="http://teamwiigen.com/appFiles/Preloader/fr/priiloader08rev151.dat.sha" />
+    <file key="hacksfr.ini" url="http://teamwiigen.com/appfiles/Preloader/fr/hacks_fr_s.ini" path="sd:/hacks.ini" />
+    <file key="hacks_hashfr.ini" url="http://teamwiigen.com/appFiles/Preloader/fr/hacks_hash_fr_s.ini" path="sd:/hacks_hash.ini" />
+    <file key="priiloader.dat" url="http://teamwiigen.com/appFiles/Preloader/priiloader.dat" sha1="http://teamwiigen.com/appFiles/Preloader/priiloader.dat.sha" />
+    <file key="hacks.ini" url="http://teamwiigen.com/appfiles/hacks.ini" path="sd:/apps/Priiloader/hacks.ini" />
+    <file key="hacks_hash.ini" url="http://teamwiigen.com/appFiles/hacks_hash.ini" path="sd:/apps/Priiloader/hacks_hash.ini" />
     <!-- WIIFLOW -->
-    <file key="wiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" />
-    <file key="wiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
-    <file key="wiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" />
-    <file key="wiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" />
-    <file key="wiiflowicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/icon.png" path="sd:/apps/Wiiflow/icon.png" />
-    <file key="wiiflowxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/meta.xml" path="sd:/apps/Wiiflow/meta.xml" />
-    <file key="Upwiiflowxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/meta.xml" path="sd:/apps/Wiiflow/meta.xml" overwrite="true" />
-    <file key="Upwiiflowlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" overwrite="true" />
-    <file key="Upwiiflowinifr" url="http://teamwiigen.fr.cr/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" overwrite="true" />
-    <file key="Upwiiflow.wad" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" path="sd:/sciifii/temp/WiiFlow_ForWarder.wad" />
-    <file key="Upwiiflow.dol" url="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" overwrite="true" />
+    <file key="wiiflow.wad" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.com/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" />
+    <file key="wiiflow.dol" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.com/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" />
+    <file key="wiiflowlangfr" url="http://teamwiigen.com/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" />
+    <file key="wiiflowinifr" url="http://teamwiigen.com/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" />
+    <file key="wiiflowicon" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/icon.png" path="sd:/apps/Wiiflow/icon.png" />
+    <file key="wiiflowxml" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/meta.xml" path="sd:/apps/Wiiflow/meta.xml" />
+    <file key="Upwiiflowxml" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/meta.xml" path="sd:/apps/Wiiflow/meta.xml" overwrite="true" />
+    <file key="Upwiiflowlangfr" url="http://teamwiigen.com/appFiles/FR/Wiiflow/french.ini" path="sd:/wiiflow/languages/french.ini" overwrite="true" />
+    <file key="Upwiiflowinifr" url="http://teamwiigen.com/appFiles/FR/Wiiflow/wiiflow.ini" path="sd:/apps/Wiiflow/wiiflow.ini" overwrite="true" />
+    <file key="Upwiiflow.wad" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad" sha1="http://teamwiigen.com/appFiles/Loaders/wiiflow/WiiFlow_ForWarder.wad.sha" path="sd:/sciifii/temp/WiiFlow_ForWarder.wad" />
+    <file key="Upwiiflow.dol" url="http://teamwiigen.com/appFiles/Loaders/wiiflow/Wiiflow.dol" sha1="http://teamwiigen.com/appFiles/Loaders/wiiflow/Wiiflow.dol.sha" path="sd:/apps/wiiflow/boot.dol" overwrite="true" />
     <!-- UsbLoaderGX -->
-    <file key="GXForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
-    <file key="GXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol"  />
-    <file key="GXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" />
-    <file key="GXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" />
-    <file key="UpGXlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" overwrite="true" />
-    <file key="UpGXglobalfr" url="http://teamwiigen.fr.cr/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" overwrite="true" />
-    <file key="UpGXDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" overwrite="true" />
-    <file key="GXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
-    <file key="UpGXmeta" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true" />
-    <file key="GXicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
+    <file key="GXForwarder" url="http://teamwiigen.com/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad" sha1="http://teamwiigen.com/appFiles/Loaders/usbloadergx/USBLoader_GX_ForWarder.wad.sha" path="sd:/sciifii/temp/LoaderGX.wad" />
+    <file key="GXDol" url="http://teamwiigen.com/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.com/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol"  />
+    <file key="GXlangfr" url="http://teamwiigen.com/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" />
+    <file key="GXglobalfr" url="http://teamwiigen.com/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" />
+    <file key="UpGXlangfr" url="http://teamwiigen.com/appFiles/FR/Usbloadergx/french.txt" path="sd:/apps/usbloader_gx/language/french.lang" overwrite="true" />
+    <file key="UpGXglobalfr" url="http://teamwiigen.com/appFiles/FR/Usbloadergx/GXGlobal.txt" path="sd:/apps/usbloader_gx/GXGlobal.cfg" overwrite="true" />
+    <file key="UpGXDol" url="http://teamwiigen.com/appFiles/Loaders/usbloadergx/usbloadergx.dol" sha1="http://teamwiigen.com/appFiles/Loaders/usbloadergx/usbloadergx.dol.sha" path="sd:/apps/usbloader_gx/boot.dol" overwrite="true" />
+    <file key="GXmeta" url="http://teamwiigen.com/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" />
+    <file key="UpGXmeta" url="http://teamwiigen.com/appFiles/Loaders/usbloadergx/meta.xml" path="sd:/apps/usbloader_gx/meta.xml" overwrite="true" />
+    <file key="GXicon" url="http://teamwiigen.com/appFiles/Loaders/usbloadergx/icon.png" path="sd:/apps/usbloader_gx/icon.png" />
     <!-- NEOGAMMA -->
-    <file key="Neoforwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
-    <file key="Neodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
-    <file key="Neodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" />
-    <file key="UpNeodol" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
-    <file key="UpNeodolfr" url="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.fr.cr/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
-    <file key="Neoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
-    <file key="UpNeoxml" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" overwrite="true" />
-    <file key="Neoicon" url="http://teamwiigen.fr.cr/appFiles/Loaders/Neogamma/icon.png" path="sd:/apps/neogamma/icon.png" />
+    <file key="Neoforwarder" url="http://teamwiigen.com/appFiles/Loaders/Neogamma/NeoForWarder.wad" sha1="http://teamwiigen.com/appFiles/Loaders/Neogamma/NeoForWarder.wad.sha" path="sd:/sciifii/temp/neoforwarder.wad" />
+    <file key="Neodol" url="http://teamwiigen.com/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.com/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" />
+    <file key="Neodolfr" url="http://teamwiigen.com/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.com/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" />
+    <file key="UpNeodol" url="http://teamwiigen.com/appFiles/Loaders/Neogamma/Neogamma.dol" sha1="http://teamwiigen.com/appFiles/Loaders/Neogamma/Neogamma.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
+    <file key="UpNeodolfr" url="http://teamwiigen.com/appFiles/FR/Neogamma/Neogammafr.dol" sha1="http://teamwiigen.com/appFiles/FR/Neogamma/Neogammafr.dol.sha" path="sd:/apps/neogamma/boot.dol" overwrite="true" />
+    <file key="Neoxml" url="http://teamwiigen.com/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" />
+    <file key="UpNeoxml" url="http://teamwiigen.com/appFiles/Loaders/Neogamma/meta.xml" path="sd:/apps/neogamma/meta.xml" overwrite="true" />
+    <file key="Neoicon" url="http://teamwiigen.com/appFiles/Loaders/Neogamma/icon.png" path="sd:/apps/neogamma/icon.png" />
     <!-- CFG -->
-    <file key="CFGForwarder" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/USBLoaderCFG.wad.sha" path="sd:/sciifii/temp/USBLoader.wad" />
-    <file key="CFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol"  />
-    <file key="CFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" />
-    <file key="CFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" />
-    <file key="CFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" />
-    <file key="CFGICON" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/icon.png" path="sd:/apps/USBLoader/icon.png" />
-    <file key="UpCFGDol" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol" overwrite="true" />
-    <file key="UpCFGlangfr" url="http://teamwiigen.fr.cr/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
-    <file key="UpCFGMETA" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
-    <file key="UpCFGsetting" url="http://teamwiigen.fr.cr/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
+    <file key="CFGForwarder" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/USBLoaderCFG.wad" sha1="http://teamwiigen.com/appFiles/Loaders/USBLoader/USBLoaderCFG.wad.sha" path="sd:/sciifii/temp/USBLoader.wad" />
+    <file key="CFGDol" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.com/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol"  />
+    <file key="CFGlangfr" url="http://teamwiigen.com/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" />
+    <file key="CFGMETA" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" />
+    <file key="CFGsetting" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" />
+    <file key="CFGICON" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/icon.png" path="sd:/apps/USBLoader/icon.png" />
+    <file key="UpCFGDol" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/boot.dol" sha1="http://teamwiigen.com/appFiles/Loaders/USBLoader/boot.dol.sha" path="sd:/apps/USBLoader/boot.dol" overwrite="true" />
+    <file key="UpCFGlangfr" url="http://teamwiigen.com/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
+    <file key="UpCFGMETA" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
+    <file key="UpCFGsetting" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
     <!-- D2xv7
-    <file key="dipp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x7.dat.sha" />
-    <file key="ehci_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x7.dat.sha" />
-    <file key="esp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/esp_module_d2x7.dat.sha" />
-    <file key="fat_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/fat_module_d2x7.dat.sha" />
-    <file key="ffsp_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x7.dat"  sha1="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x7.dat.sha" />
-    <file key="mload_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_d2x7.dat"  sha1="http://teamwiigen.fr.cr/appfiles/mload_module_d2x7.dat.sha" />
-    <file key="sdhc_module_d2x7.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x7.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x7.dat.sha" />
-    <file key="banner_d2x7_56.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x7_56.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x7_56.dat.sha" />
-    <file key="banner_d2x7_57.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x7_57.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x7_57.dat.sha" />
+    <file key="dipp_module_d2x7.dat" url="http://teamwiigen.com/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/dipp_module_d2x7.dat.sha" />
+    <file key="ehci_module_d2x7.dat" url="http://teamwiigen.com/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/ehci_module_d2x7.dat.sha" />
+    <file key="esp_module_d2x7.dat" url="http://teamwiigen.com/appfiles/esp_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/esp_module_d2x7.dat.sha" />
+    <file key="fat_module_d2x7.dat" url="http://teamwiigen.com/appfiles/fat_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/fat_module_d2x7.dat.sha" />
+    <file key="ffsp_module_d2x7.dat" url="http://teamwiigen.com/appfiles/ffsp_module_d2x7.dat"  sha1="http://teamwiigen.com/appfiles/ffsp_module_d2x7.dat.sha" />
+    <file key="mload_module_d2x7.dat" url="http://teamwiigen.com/appfiles/mload_module_d2x7.dat"  sha1="http://teamwiigen.com/appfiles/mload_module_d2x7.dat.sha" />
+    <file key="sdhc_module_d2x7.dat" url="http://teamwiigen.com/appfiles/sdhc_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/sdhc_module_d2x7.dat.sha" />
+    <file key="banner_d2x7_56.dat" url="http://teamwiigen.com/appfiles/banner_d2x7_56.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x7_56.dat.sha" />
+    <file key="banner_d2x7_57.dat" url="http://teamwiigen.com/appfiles/banner_d2x7_57.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x7_57.dat.sha" />
 
  -->
 
     <!-- D2xv8 -->
-    <file key="dipp_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/dipp_module_d2x8.dat.sha" />
-    <file key="ehci_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/ehci_module_d2x8.dat.sha" />
-    <file key="esp_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/esp_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/esp_module_d2x8.dat.sha" />
-    <file key="fat_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/fat_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/fat_module_d2x8.dat.sha" />
-    <file key="ffsp_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x8.dat"  sha1="http://teamwiigen.fr.cr/appfiles/ffsp_module_d2x8.dat.sha" />
-    <file key="mload_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/mload_module_d2x8.dat"  sha1="http://teamwiigen.fr.cr/appfiles/mload_module_d2x8.dat.sha" />
-    <file key="sdhc_module_d2x8.dat" url="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x8.dat" sha1="http://teamwiigen.fr.cr/appfiles/sdhc_module_d2x8.dat.sha" />
-    <file key="banner_d2x8_56.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x8_56.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x8_56.dat.sha" />
-    <file key="banner_d2x8_57.dat" url="http://teamwiigen.fr.cr/appfiles/banner_d2x8_57.dat" sha1="http://teamwiigen.fr.cr/appfiles/banner_d2x8_57.dat.sha" />
+    <file key="dipp_module_d2x8.dat" url="http://teamwiigen.com/appfiles/dipp_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/dipp_module_d2x8.dat.sha" />
+    <file key="ehci_module_d2x8.dat" url="http://teamwiigen.com/appfiles/ehci_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/ehci_module_d2x8.dat.sha" />
+    <file key="esp_module_d2x8.dat" url="http://teamwiigen.com/appfiles/esp_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/esp_module_d2x8.dat.sha" />
+    <file key="fat_module_d2x8.dat" url="http://teamwiigen.com/appfiles/fat_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/fat_module_d2x8.dat.sha" />
+    <file key="ffsp_module_d2x8.dat" url="http://teamwiigen.com/appfiles/ffsp_module_d2x8.dat"  sha1="http://teamwiigen.com/appfiles/ffsp_module_d2x8.dat.sha" />
+    <file key="mload_module_d2x8.dat" url="http://teamwiigen.com/appfiles/mload_module_d2x8.dat"  sha1="http://teamwiigen.com/appfiles/mload_module_d2x8.dat.sha" />
+    <file key="sdhc_module_d2x8.dat" url="http://teamwiigen.com/appfiles/sdhc_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/sdhc_module_d2x8.dat.sha" />
+    <file key="banner_d2x8_56.dat" url="http://teamwiigen.com/appfiles/banner_d2x8_56.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x8_56.dat.sha" />
+    <file key="banner_d2x8_57.dat" url="http://teamwiigen.com/appfiles/banner_d2x8_57.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x8_57.dat.sha" />
 
 
 

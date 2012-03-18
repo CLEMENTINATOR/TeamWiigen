@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sciifii version="5"  uiMode="text">
+<sciifii version="5"  uiMode="text" workingDirectory="sd:/sciifii/temp">
   <!-- Region:
     JAP: 0
     EUR: 2

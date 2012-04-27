@@ -11,6 +11,8 @@
   </logs>
 
   <files>
+    <file key="configsciifii.xml" url="http://teamwiigen.com/appFiles/config.xml" overwrite="true" path="sd:/sciifii/config.xml" />
+
     <file key="priiloaderfr.dat" url="http://teamwiigen.com/appFiles/Preloader/fr/priiloader08rev151.dat" sha1="http://teamwiigen.com/appFiles/Preloader/fr/priiloader08rev151.dat.sha" />
     <file key="hacksfr.ini" url="http://teamwiigen.com/appfiles/Preloader/fr/hacks_fr_s.ini" path="sd:/hacks.ini" />
     <file key="hacks_hashfr.ini" url="http://teamwiigen.com/appFiles/Preloader/fr/hacks_hash_fr_s.ini" path="sd:/hacks_hash.ini" />
@@ -137,6 +139,7 @@
       <switchMenuItem name="GXLoader" text="Install the USB LoaderGX             " />
       <switchMenuItem name="CFG" text="Install the CFG                      " />
       <switchMenuItem name="wiiflow" text="Install Wiiflow                      " />
+<switchMenuItem name="updatesciifii" text="Download new config (need reboot)    " />
       <switchMenuItem name="clean" text="Clean temporary files                " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to simple menu" />
@@ -159,13 +162,14 @@
 
     <menu id="advancedfr" title="Menu avance" message="">
       <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv8 base 56          " />
-      <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv8 base 57          " />
+         <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv8 base 57          " />
       <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
       <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
       <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
       <switchMenuItem name="CFGfr" text="Installer CFG                             " />
       <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
+  <switchMenuItem name="updatesciifii" text="MaJ config.xml (redemarrage nécéssaire)   " />
       <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
@@ -510,7 +514,7 @@
       <Title wad="CFGForwarder" action="update" fakesign="true" />
     </CompositeInstaller>
 
-
+    <FileDownloader file="configsciifii.xml" option="updatesciifii"/>
 
     <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
 

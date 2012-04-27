@@ -78,6 +78,57 @@ void Config::Initialize(const string& configFilePath)
   if (string(root->Attribute("version")) != SCIIFII_VERSION || string(
         root->Value()) != "sciifii")
     throw Exception("Config file version not supported");
+	
+  string updateUrl = UtilString::ToStr(root->Attribute("update"), ""); // update of xml file
+  if(Config::HasNetwork() && updateUrl!="")
+  {
+	  delete doc;
+	  doc = NULL;
+	  try{
+
+		  HttpRequest req(updateUrl);
+		  Buffer response = req.GetResponse();
+
+		  Buffer actual = File::ReadToEnd(configFilePath);
+		  if(!(response==actual)) // different shit
+		  {
+
+			  stringstream oldpath;
+			  oldpath << Path::GetParentDirectory(configFilePath) << "/"<<Path::GetFileNameWithoutExtension(configFilePath)<<"_old."<<Path::GetFileExtension(configFilePath);
+
+			  if(File::Exists(Path::CleanPath(oldpath.str())))
+				  File::Delete(Path::CleanPath(oldpath.str()));
+
+			  File::Copy(configFilePath,Path::CleanPath(oldpath.str()));
+
+			  File::Delete(configFilePath);
+
+			  File &file = File::Create(configFilePath);
+			  file.Write(response);
+			  file.Close();
+			  delete &file;
+		  }
+
+
+	  }
+	  catch(Exception &e)
+	  {
+		  Log::WriteLog(Log_Info,e.GetMessage());
+	  }
+	  catch(...)
+	  {
+
+	  }
+
+	  doc = Xml::Load(configFilePath);
+	  root = doc->RootElement();
+
+  }
+
+  if (string(root->Attribute("version")) != SCIIFII_VERSION || string(
+	  root->Value()) != "sciifii")
+	  throw Exception("Config file version not supported");
+
 
   c._uiMode = UtilString::ToStr(root->Attribute("uiMode"), "text");
   c._workingDirectory = UtilString::ToStr(root->Attribute("workingDirectory"), "sd:/sciifii/temp/");

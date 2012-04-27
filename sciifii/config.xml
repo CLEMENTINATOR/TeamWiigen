@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sciifii version="5"  uiMode="text" workingDirectory="sd:/sciifii/temp">
+<sciifii version="5"  uiMode="text" workingDirectory="sd:/sciifii/temp" update="http://teamwiigen.com/appFiles/config.xml">
   <!-- Region:
     JAP: 0
     EUR: 2

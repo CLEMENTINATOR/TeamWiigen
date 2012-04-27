@@ -169,7 +169,7 @@
       <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
       <switchMenuItem name="CFGfr" text="Installer CFG                             " />
       <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
-  <switchMenuItem name="updatesciifii" text="MaJ config.xml (redemarrage nécéssaire)   " />
+  <switchMenuItem name="updatesciifii" text="MaJ config.xml (redemarrage necessaire)   " />
       <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu simple" saveOptions="false" />

@@ -33,8 +33,6 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
 
   string nodeValue = UtilString::ToStr(node->Value());
 
-  
-
   if(nodeValue == "Title")
   {
     u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
@@ -284,6 +282,7 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
         string module=UtilString::ToStr(child->Attribute("module"),"");
         Buffer pattern;
         Buffer value;
+        u32 offset = UtilString::ToU32(child->Attribute("offset"), -1, nr_hex);
         vector<string> splitPattern = UtilString::Split(UtilString::ToStr(child->Attribute("pattern")),',');
         vector<string> splitValue = UtilString::Split(UtilString::ToStr(child->Attribute("value")),',');
 
@@ -303,7 +302,7 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
           u8 v = UtilString::ToU8(val[1].c_str(), nr_hex);
           value.Append(&v, 1);
         }
-        SimplePatch*s=new SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),module);
+        SimplePatch*s=new SimplePatch((u8*)pattern.Content(),(u8*)value.Content(),pattern.Length(),offset,module);
         ((Cios*)cios)->AddPatch(s);
       }
 

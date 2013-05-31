@@ -20,10 +20,28 @@ SimplePatch::SimplePatch(const u8* pattern, const u8* patch, const u32 length,
 
   _patch = new u8[length];
   memcpy(_patch, patch, length);
+  
+  _offset = -1;
 }
 
+ SimplePatch::SimplePatch(const u8* pattern, const u8* patch, const u32 length, const u32 offset,
+             const std::string &module) :
+    Patch(module), _pattern(NULL), _patch(NULL), _length(length), _offset(offset)
+ {
+   if (!pattern || !patch)
+    throw Exception("You need to indicate a pattern and a patch.");
+
+  _pattern = new u8[length];
+  memcpy(_pattern, pattern, length);
+
+  _patch = new u8[length];
+  memcpy(_patch, patch, length);
+
+ }
+
+
 SimplePatch::SimplePatch(const SimplePatch& patch) :
-    Patch(patch), _pattern(NULL), _patch(NULL), _length(patch._length)
+    Patch(patch), _pattern(NULL), _patch(NULL), _length(patch._length), _offset(patch._offset)
 {
   _pattern = new u8[patch._length];
   memcpy(_pattern, patch._pattern, patch._length);
@@ -49,7 +67,7 @@ SimplePatch& SimplePatch::operator=(const SimplePatch& patch)
   memcpy(_patch, patch._patch, patch._length);
 
   _length = patch._length;
-
+  _offset = patch._length;
   return *this;
 }
 
@@ -64,18 +82,37 @@ u32 SimplePatch::Patching(TitleEventArgs &processControl) const
 {
   u32 nbPatch = 0;
 
-  for (u32 cnt = 0; cnt < processControl.buffer.Length() - _length; cnt++)
+  if(_offset != (u32)-1)
   {
-    u8 *ptr = (u8*) processControl.buffer.Content() + cnt;
-
-    if (!memcmp(ptr, _pattern, _length))
+    if (_offset + _length > processControl.buffer.Length())
     {
-      /* Replace code */
-      memcpy(ptr, _patch, _length);
-      cnt += _length;
-      nbPatch++;
+        throw Exception("Patch too big");
+    }
+    else
+    {
+        u8 *ptr = (u8*) processControl.buffer.Content();
+        if (!memcmp(ptr + _offset, _pattern, _length))
+        {
+            memcpy(ptr + _offset, _patch, _length);
+            nbPatch++;
+        }
     }
   }
+  else
+  {
+      for (u32 cnt = 0; cnt < processControl.buffer.Length() - _length; cnt++)
+      {
+        u8 *ptr = (u8*) processControl.buffer.Content() + cnt;
+
+        if (!memcmp(ptr, _pattern, _length))
+        {
+          /* Replace code */
+          memcpy(ptr, _patch, _length);
+          cnt += _length;
+          nbPatch++;
+        }
+      }
+    }
 
   return nbPatch;
 }

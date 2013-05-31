@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sciifii version="5"  uiMode="text" workingDirectory="sd:/sciifii/temp">
+<sciifii version="5.1" workingDirectory="sd:/sciifii/temp">
   <!-- Region:
     JAP: 0
     EUR: 2
@@ -62,6 +62,7 @@
     <file key="UpCFGlangfr" url="http://teamwiigen.com/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
     <file key="UpCFGMETA" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
     <file key="UpCFGsetting" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
+    
     <!-- D2xv7
     <file key="dipp_module_d2x7.dat" url="http://teamwiigen.com/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/dipp_module_d2x7.dat.sha" />
     <file key="ehci_module_d2x7.dat" url="http://teamwiigen.com/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/ehci_module_d2x7.dat.sha" />
@@ -72,9 +73,8 @@
     <file key="sdhc_module_d2x7.dat" url="http://teamwiigen.com/appfiles/sdhc_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/sdhc_module_d2x7.dat.sha" />
     <file key="banner_d2x7_56.dat" url="http://teamwiigen.com/appfiles/banner_d2x7_56.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x7_56.dat.sha" />
     <file key="banner_d2x7_57.dat" url="http://teamwiigen.com/appfiles/banner_d2x7_57.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x7_57.dat.sha" />
-
- -->
-
+    -->
+    
     <!-- D2xv8 -->
     <file key="dipp_module_d2x8.dat" url="http://teamwiigen.com/appfiles/dipp_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/dipp_module_d2x8.dat.sha" />
     <file key="ehci_module_d2x8.dat" url="http://teamwiigen.com/appfiles/ehci_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/ehci_module_d2x8.dat.sha" />
@@ -86,8 +86,16 @@
     <file key="banner_d2x8_56.dat" url="http://teamwiigen.com/appfiles/banner_d2x8_56.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x8_56.dat.sha" />
     <file key="banner_d2x8_57.dat" url="http://teamwiigen.com/appfiles/banner_d2x8_57.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x8_57.dat.sha" />
 
-
-
+    <!-- D2xv10-beta53 -->
+    <file key="banner-d2x-v10beta53-56.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat.sha" />
+    <file key="banner-d2x-v10beta53-57.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat.sha" />
+    <file key="banner-d2x-v10beta53-58.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat.sha" />
+    <file key="dipp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/dipp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/dipp-d2x-v10beta53.dat.sha" />
+    <file key="esp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/esp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/esp-d2x-v10beta53.dat.sha" />
+    <file key="ffsp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/ffsp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/ffsp-d2x-v10beta53.dat.sha" />
+    <file key="mload-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/mload-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/mload-d2x-v10beta53.dat.sha" />
+    <file key="usbs-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/usbs-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/usbs-d2x-v10beta53.dat.sha" />
+    <file key="ehci-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/ehci-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/ehci-d2x-v10beta53.dat.sha" />
 
 
   </files>
@@ -104,6 +112,7 @@
 
     <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
       <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
+      <modeMenuItem text="Hack your wii ! (Light Mode,d2x-v10-beta53)" switches="cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with CFG)" switches="cIOS249|cIOS250|Preloader|CFG" />
@@ -118,6 +127,7 @@
 
     <menu id="mainfr" title="Menu principal" message="Bienvenue sur Sciifii">
       <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|Preloaderfr" />
+      <modeMenuItem text="Modifier votre wii ! (Mode simple,d2x-v10-beta53)" switches="cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53|Preloader" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|Preloaderfr|NeoLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|Preloaderfr|GXLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec CFG)" switches="cIOS249|cIOS250|Preloaderfr|CFGfr" />
@@ -131,16 +141,21 @@
     </menu>
 
     <menu id="advanceden" title="Advanced Menu" message="">
-      <switchMenuItem name="cIOS249" text="Install cios249 d2x8, base 56          " />
-      <switchMenuItem name="cIOS250" text="Install cios250 d2x8, base 57          " />
-      <switchMenuItem name="update" text="Update your wii to 4.3               " />
-      <switchMenuItem name="Preloader" text="Install the priiloader               " />
-      <switchMenuItem name="NeoLoader" text="Install the NeoGamma                 " />
-      <switchMenuItem name="GXLoader" text="Install the USB LoaderGX             " />
-      <switchMenuItem name="CFG" text="Install the CFG                      " />
-      <switchMenuItem name="wiiflow" text="Install Wiiflow                      " />
-<switchMenuItem name="updatesciifii" text="Download new config (need reboot)    " />
-      <switchMenuItem name="clean" text="Clean temporary files                " />
+      <switchMenuItem name="cIOS249"                text="Install cios249 d2x8, base 56        " />
+      <switchMenuItem name="cIOS250"                text="Install cios250 d2x8, base 57        " />
+      
+      <switchMenuItem name="cIOS259-d2x-v10-beta53" text="Install cios249 d2x10-beta53, base 56" />
+      <switchMenuItem name="cIOS250-d2x-v10-beta53" text="Install cios250 d2x10-beta53, base 57" />
+      <switchMenuItem name="cIOS251-d2x-v10-beta53" text="Install cios251 d2x10-beta53, base 56" />
+      
+      <switchMenuItem name="update"                 text="Update your wii to 4.3               " />
+      <switchMenuItem name="Preloader"              text="Install the priiloader               " />
+      <switchMenuItem name="NeoLoader"              text="Install the NeoGamma                 " />
+      <switchMenuItem name="GXLoader"               text="Install the USB LoaderGX             " />
+      <switchMenuItem name="CFG"                    text="Install the CFG                      " />
+      <switchMenuItem name="wiiflow"                text="Install Wiiflow                      " />
+      <switchMenuItem name="updatesciifii"          text="Download new config (need reboot)    " />
+      <switchMenuItem name="clean"                  text="Clean temporary files                " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to simple menu" />
       <startMenuItem text="start" saveOptions="true" />
@@ -161,16 +176,21 @@
     </menu>
 
     <menu id="advancedfr" title="Menu avance" message="">
-      <switchMenuItem name="cIOS249" text="Installer le cios249 d2xv8 base 56          " />
-         <switchMenuItem name="cIOS250" text="Installer le cios250 d2xv8 base 57          " />
-      <switchMenuItem name="update" text="Mettre a jour votre wii en 4.3            " />
-      <switchMenuItem name="Preloaderfr" text="Installer le priiloader                   " />
-      <switchMenuItem name="NeoLoaderfr" text="Installer NeoGamma                        " />
-      <switchMenuItem name="GXLoaderfr" text="Installer USB LoaderGX                    " />
-      <switchMenuItem name="CFGfr" text="Installer CFG                             " />
-      <switchMenuItem name="wiiflowfr" text="Installer Wiiflow                         " />
-  <switchMenuItem name="updatesciifii" text="MaJ config.xml (redemarrage necessaire)   " />
-      <switchMenuItem name="clean" text="Nettoyer les fichiers temporaires           " />
+      <switchMenuItem name="cIOS249"                text="Installer le cios249 d2xv8 base 56        " />
+      <switchMenuItem name="cIOS250"                text="Installer le cios250 d2xv8 base 57        " />
+      
+      <switchMenuItem name="cIOS259-d2x-v10-beta53" text="Installer le cios249 d2x10-beta53, base 56" />
+      <switchMenuItem name="cIOS250-d2x-v10-beta53" text="Installer le cios250 d2x10-beta53, base 57" />
+      <switchMenuItem name="cIOS251-d2x-v10-beta53" text="Installer le cios251 d2x10-beta53, base 58" />
+      
+      <switchMenuItem name="update"                 text="Mettre a jour votre wii en 4.3            " />
+      <switchMenuItem name="Preloaderfr"            text="Installer le priiloader                   " />
+      <switchMenuItem name="NeoLoaderfr"            text="Installer NeoGamma                        " />
+      <switchMenuItem name="GXLoaderfr"             text="Installer USB LoaderGX                    " />
+      <switchMenuItem name="CFGfr"                  text="Installer CFG                             " />
+      <switchMenuItem name="wiiflowfr"              text="Installer Wiiflow                         " />
+     <switchMenuItem name="updatesciifii"           text="MaJ config.xml (redemarrage necessaire)   " />
+      <switchMenuItem name="clean"                  text="Nettoyer les fichiers temporaires         " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
       <startMenuItem text="Demarrer" saveOptions="true" />
@@ -194,7 +214,7 @@
   </menus>
 
   <steps>
-
+    
     <MemoryPatcher option="">
       <patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08"
              value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
@@ -212,6 +232,79 @@
              value="0xE0, 0x01, 0x4E, 0x56" />
     </MemoryPatcher>
 
+    <!-- d2x-v10-beta53 -->
+    <!-- beta53 base 56  sur slot 249 -->
+    <CiosInstaller option="cIOS259-d2x-v10-beta53" ciosRevision="65535" slot="249" revision="5661" source="56" banner="banner-d2x-v10beta53-56.dat">
+      <modules>
+        <module file="ffsp-d2x-v10beta53.dat" />
+        <module file="ehci-d2x-v10beta53.dat" position="3"/>
+        <module file="dipp-d2x-v10beta53.dat" />
+        <module file="esp-d2x-v10beta53.dat" />
+        <module file="mload-d2x-v10beta53.dat" />
+      </modules>
+      <patches>
+        <SimplePatch offset="0x6E5"  pattern="0x01" value="0x00" module="DIP"/>
+        <SimplePatch offset="0x775"  pattern="0x01" value="0x00" module="DIP"/>
+        <!-- Register alternative SDI module name without the initial slash -->
+        <SimplePatch offset="0x2138" pattern="0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x90,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xB0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xD0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xF0,0xE1,0x2F,0xFF,0x1E" value="0xE9,0x2D,0x40,0x00,0xE9,0x2D,0x00,0x03,0xEB,0x00,0x00,0x04,0xE8,0xBD,0x00,0x03,0xE2,0x80,0x00,0x01,0xEB,0x00,0x00,0x01,0xE8,0xBD,0x40,0x00,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E" module="SDI" />
+        <!-- Reroute IRQ9 to mload -->
+        <SimplePatch offset="0x28544" pattern="0xFF,0xFF,0x5D,0x32" value="0x13,0x6D,0x00,0x11" module="IOSP"/>
+        <!-- korean key check-->
+        <SimplePatch offset="0x21424" pattern="0xD0" value="0xE0" module="ES"/>
+        <!-- Korean key -->
+        <SimplePatch offset="0x29078" pattern="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" value="0x63,0xB8,0x2B,0xB4,0xF4,0x61,0x4E,0x2E,0x13,0xF2,0xFE,0xFB,0xBA,0x4C,0x9B,0x7E" module="IOSP"/>
+      </patches>
+    </CiosInstaller>
+
+    <!-- beta53 base 57  sur slot 250 -->
+    <CiosInstaller option="cIOS250-d2x-v10-beta53" ciosRevision="65535" slot="250" revision="5918" source="57" banner="banner-d2x-v10beta53-57.dat">
+      <modules>
+        <module file="ffsp-d2x-v10beta53.dat" />
+        <module file="ehci-d2x-v10beta53.dat" position="3"/>
+        <module file="dipp-d2x-v10beta53.dat" />
+        <module file="esp-d2x-v10beta53.dat" />
+        <module file="mload-d2x-v10beta53.dat" />
+      </modules>
+      <patches>
+        <SimplePatch offset="0x6E5"  pattern="0x01" value="0x00" module="DIP"/>
+        <SimplePatch offset="0x775"  pattern="0x01" value="0x00" module="DIP"/>
+        <!-- Register alternative SDI module name without the initial slash -->
+        <SimplePatch offset="0x2138" pattern="0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x90,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xB0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xD0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xF0,0xE1,0x2F,0xFF,0x1E" value="0xE9,0x2D,0x40,0x00,0xE9,0x2D,0x00,0x03,0xEB,0x00,0x00,0x04,0xE8,0xBD,0x00,0x03,0xE2,0x80,0x00,0x01,0xEB,0x00,0x00,0x01,0xE8,0xBD,0x40,0x00,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E" module="SDI" />
+        <!-- Reroute IRQ9 to mload -->
+        <SimplePatch offset="0x28544" pattern="0xFF,0xFF,0x5D,0x32" value="0x13,0x6D,0x00,0x11" module="IOSP"/>
+        <!-- korean key check-->
+        <SimplePatch offset="0x21424" pattern="0xD0" value="0xE0" module="ES"/>
+        <!-- Korean key -->
+        <SimplePatch offset="0x29078" pattern="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" value="0x63,0xB8,0x2B,0xB4,0xF4,0x61,0x4E,0x2E,0x13,0xF2,0xFE,0xFB,0xBA,0x4C,0x9B,0x7E" module="IOSP"/>
+      </patches>
+    </CiosInstaller>
+
+    <!-- beta53 base 58 (avec usbs?) sur slot 251-->
+    <CiosInstaller option="cIOS251-d2x-v10-beta53" ciosRevision="65535" slot="251" revision="6175" source="58" banner="banner-d2x-v10beta53-58.dat">
+      <modules>
+        <module file="ffsp-d2x-v10beta53.dat" />
+        <module file="usbs-d2x-v10beta53.dat" />
+        <module file="dipp-d2x-v10beta53.dat" />
+        <module file="esp-d2x-v10beta53.dat" />
+        <module file="mload-d2x-v10beta53.dat" />
+      </modules>
+      <patches>
+        <SimplePatch offset="0x6E5"  pattern="0x01" value="0x00" module="DIP"/>
+        <SimplePatch offset="0x775"  pattern="0x01" value="0x00" module="DIP"/>
+        <!-- Register alternative SDI module name without the initial slash -->
+        <SimplePatch offset="0x2138" pattern="0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x90,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xB0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xD0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xF0,0xE1,0x2F,0xFF,0x1E" value="0xE9,0x2D,0x40,0x00,0xE9,0x2D,0x00,0x03,0xEB,0x00,0x00,0x04,0xE8,0xBD,0x00,0x03,0xE2,0x80,0x00,0x01,0xEB,0x00,0x00,0x01,0xE8,0xBD,0x40,0x00,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E" module="SDI" />
+        <!-- Reroute IRQ9 to mload -->
+        <SimplePatch offset="0x28544" pattern="0xFF,0xFF,0x5D,0x32" value="0x13,0x6D,0x00,0x11" module="IOSP"/>
+        <!-- korean key check-->
+        <SimplePatch offset="0x21424" pattern="0xD0" value="0xE0" module="ES"/>
+        <!-- Korean key -->
+        <SimplePatch offset="0x29078" pattern="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" value="0x63,0xB8,0x2B,0xB4,0xF4,0x61,0x4E,0x2E,0x13,0xF2,0xFE,0xFB,0xBA,0x4C,0x9B,0x7E" module="IOSP"/>
+      </patches>
+    </CiosInstaller>
+    
+    
+    
+    <!-- d2x-v8 -->
     <CiosInstaller option="cIOS249" ciosRevision="21008" slot="249" revision="5661" source="56" banner="banner_d2x8_56.dat">
       <modules>
         <module file="mload_module_d2x8.dat" />
@@ -371,7 +464,6 @@
       <FileSystem target="sd:/usb-loader" action="delete" type="folder" recursive="true" />
       <FileSystem target="sd:/apps/USBLoader" action="delete" type="folder" recursive="true" />
     </CompositeInstaller>
-
 
     <CompositeInstaller option="uninstall" name="Replace cioses by nintendo stubs">
       <Title id="00000001000000FE" revision="65280" action="install" />

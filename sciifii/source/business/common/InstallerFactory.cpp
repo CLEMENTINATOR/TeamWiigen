@@ -18,6 +18,7 @@
 #include <sciifii/business/TitleStep.h>
 #include <sciifii/business/WadBatch.h>
 #include <sciifii/business/StopSciifiiStep.h>
+#include <sciifii/business/SystemStep.h>
 
 using namespace std;
 using namespace Libwiisys;
@@ -32,8 +33,16 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   Installer* step(NULL);
 
   string nodeValue = UtilString::ToStr(node->Value());
-
-  if(nodeValue == "Title")
+  if(nodeValue == "SystemStep")
+  {
+    string message = UtilString::ToStr(node->Attribute("message"),"");
+    string action = UtilString::ToStr(node->Attribute("action"),"");
+    if (action != "reboot" && action != "exit")
+         throw Exception("SystemStep action non existing");
+         
+    step = new SystemStep(action, message);     
+  }
+  else if(nodeValue == "Title")
   {
     u64 titleId = UtilString::ToU64(node->Attribute("id"),0, nr_hex);
     u16 revision = UtilString::ToU16(node->Attribute("revision"),0);

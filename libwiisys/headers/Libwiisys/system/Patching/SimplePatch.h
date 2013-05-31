@@ -27,6 +27,7 @@ namespace Libwiisys
           u8* _pattern;
           u8* _patch;
           u32 _length;
+          u32 _offset;
 
         protected:
           u32 Patching(Libwiisys::System::Event::TitleEventArgs &processControl) const;
@@ -41,6 +42,17 @@ namespace Libwiisys
            * @param module The module name to patch ( default = "" ( none))
            */
           SimplePatch(const u8* pattern, const u8* patch, const u32 length, const std::string &module = "");
+          
+          
+          /**
+           * @brief Constructor
+           * @param pattern The pattern to patch
+           * @param patch The patch
+           * @param length The patch lentgh
+           * @param module The module name to patch ( default = "" ( none))
+           * @param offset offset for the patch
+           */
+          SimplePatch(const u8* pattern, const u8* patch, const u32 length, const u32 offset, const std::string &module = "");
 
           /**
            * @brief Copy Constructor

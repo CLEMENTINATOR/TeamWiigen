@@ -10,7 +10,7 @@
 #include <map>
 #include "Switch.h"
 
-#define SCIIFII_VERSION "5"
+#define SCIIFII_VERSION "5.1"
 
 class Config : public Libwiisys::Object
 {

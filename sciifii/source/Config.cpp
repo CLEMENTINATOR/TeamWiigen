@@ -64,14 +64,6 @@ void Config::Initialize(const string& configFilePath)
 {
   Config& c = Instance();
 
-  if (Config::HasNetwork())
-  {
-    WebLogger* sciifiiLog = new WebLogger(
-                              "http://www.teamwiigen.fr.cr/WebLogging/Logger.aspx",
-                              "message", "line", "file", "application", "version");
-    Log::AddLogProvider(Lgt_All, sciifiiLog);
-  }
-
   TiXmlDocument* doc = Xml::Load(configFilePath);
   TiXmlElement* root = doc->RootElement();
 

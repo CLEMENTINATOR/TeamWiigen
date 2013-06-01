@@ -1,4 +1,4 @@
-oute #include <Libwiisys/IO/Directory.h>
+#include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Device.h>
 #include <Libwiisys/IO/Path.h>
 #include <Libwiisys/IO/FatDirectory.h>

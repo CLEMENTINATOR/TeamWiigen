@@ -38,7 +38,7 @@ void Directory::Create(const string &name)
    if (Path::GetRoot(path) == path + "/")
     return;
 
-  string parent = Path::GetParentDirectory(name);
+  string parent = Path::GetParentDirectory(path);
 
   if (!Exists(parent))
     Create(parent);
@@ -49,7 +49,7 @@ void Directory::Create(const string &name)
     if (Device::IsFatPath(path))
       FatDirectory::Create(path);
     else
-      NandDirectory::Create(Device::GetWiiPath(name));
+      NandDirectory::Create(Device::GetWiiPath(path));
   }
   Device::UnMount(name);
 }
@@ -57,7 +57,6 @@ void Directory::Create(const string &name)
 void Directory::Delete(const string &name, bool recursive)
 {
   string path = CleanPath(name);
-
   Device::Mount(path);
 
   if (Exists(path))
@@ -69,16 +68,18 @@ void Directory::Delete(const string &name, bool recursive)
     vector < string > subDirectories = GetDirectories(path);
 
     for (vector<string>::iterator file = files.begin(); file != files.end(); file++)
+    {
       File::Delete(*file);
+    }
 
     for (vector<string>::iterator dir = subDirectories.begin(); dir
          != subDirectories.end(); dir++)
       Directory::Delete(*dir, true);
 
     if (Device::IsFatPath(path))
-      FatDirectory::Delete(name);
+      FatDirectory::Delete(path);
     else
-      NandDirectory::Delete(Device::GetWiiPath(name));
+      NandDirectory::Delete(Device::GetWiiPath(path));
   }
 
   Device::UnMount(path);
@@ -97,7 +98,7 @@ vector<string> Directory::GetFiles(const string &name)
     throw Exception(path + " doesn't exists.");
   }
 
-  string cleanedPath = CleanPath(path);
+  string cleanedPath = path + "/";
 
   if (Device::IsFatPath(cleanedPath))
     returnValue = FatDirectory::GetFiles(cleanedPath);
@@ -121,7 +122,7 @@ vector<string> Directory::GetDirectories(const string &name)
     throw Exception(path + " doesn't exists.");
   }
 
-  string cleanedPath = CleanPath(path);
+  string cleanedPath = path + "/";
 
   if (Device::IsFatPath(cleanedPath))
     returnValue = FatDirectory::GetDirectories(cleanedPath);

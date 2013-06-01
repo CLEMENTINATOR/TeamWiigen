@@ -112,6 +112,7 @@
 
     <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
       <modeMenuItem text="Hack your wii ! (Light Mode)" switches="cIOS249|cIOS250|Preloader" />
+      <modeMenuItem text="Hack your wiiU (vWii) ! (Light Mode,d2x-v10-beta53)" switches="vwii|cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53" />
       <modeMenuItem text="Hack your wii ! (Light Mode,d2x-v10-beta53)" switches="cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53|Preloader" />
       <modeMenuItem text="Hack your wii ! (Full mode with NeoGamma)" switches="cIOS249|cIOS250|Preloader|NeoLoader" />
       <modeMenuItem text="Hack your wii ! (Full Mode with LoaderGX)" switches="cIOS249|cIOS250|Preloader|GXLoader" />
@@ -127,6 +128,7 @@
 
     <menu id="mainfr" title="Menu principal" message="Bienvenue sur Sciifii">
       <modeMenuItem text="Modifier votre wii ! (Mode simple)" switches="cIOS249|cIOS250|Preloaderfr" />
+      <modeMenuItem text="Modifier votre wiiU (vWii) ! (Mode simple,d2x-v10-beta53)" switches="vwii|cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53" />
       <modeMenuItem text="Modifier votre wii ! (Mode simple,d2x-v10-beta53)" switches="cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53|Preloader" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec NeoGamma)" switches="cIOS249|cIOS250|Preloaderfr|NeoLoaderfr" />
       <modeMenuItem text="Modifier votre wii ! (Mode complet avec LoaderGX)" switches="cIOS249|cIOS250|Preloaderfr|GXLoaderfr" />

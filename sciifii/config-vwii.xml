@@ -34,14 +34,14 @@
     </menu>
 
     <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
-      <modeMenuItem text="Hack your wiiU (vWii) ! (Light Mode,d2x-v10-beta53)" switches="vWii|cIOS259-d2x-v10-beta53-vWii|cIOS250-d2x-v10-beta53-vWii|cIOS251-d2x-v10-beta53-vWii" />
+      <modeMenuItem text="Hack your wiiU (vWii) ! (Light Mode,d2x-v10-beta53)" switches="clean" />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to language menu" />
       <exitMenuItem text="Exit" />
     </menu>
 
     <menu id="mainfr" title="Menu principal" message="Bienvenue sur Sciifii">
-      <modeMenuItem text="Modifier votre wiiU (vWii) ! (Mode simple,d2x-v10-beta53)" switches="vwii|cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53" />
+      <modeMenuItem text="Modifier votre wiiU (vWii) ! (Mode simple,d2x-v10-beta53)" switches="clean" />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Return to language menu" />
       <exitMenuItem text="Exit" />
@@ -83,7 +83,27 @@
      value="0x68, 0xFB, 0x2B, 0x00, 0xDB, 0x10" />
     </MemoryPatcher>
 
- 
+    <CiosInstaller option="cIOS259-d2x-v10-beta53-vWii" ciosRevision="65535" slot="249" revision="5661" source="56" banner="banner-d2x-v10beta53-56.dat">
+      <modules>
+        <module file="ffsp-d2x-v10beta53.dat" />
+        <module file="ehci-d2x-v10beta53.dat" position="3"/>
+        <module file="dipp-d2x-v10beta53.dat" />
+        <module file="esp-d2x-v10beta53.dat" />
+        <module file="mload-d2x-v10beta53.dat" />
+      </modules>
+      <patches>
+        <SimplePatch offset="0x6E5"  pattern="0x01" value="0x00" module="DIP"/>
+        <SimplePatch offset="0x775"  pattern="0x01" value="0x00" module="DIP"/>
+        <!-- Register alternative SDI module name without the initial slash -->
+        <SimplePatch offset="0x2138" pattern="0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x90,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xB0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xD0,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0xF0,0xE1,0x2F,0xFF,0x1E" value="0xE9,0x2D,0x40,0x00,0xE9,0x2D,0x00,0x03,0xEB,0x00,0x00,0x04,0xE8,0xBD,0x00,0x03,0xE2,0x80,0x00,0x01,0xEB,0x00,0x00,0x01,0xE8,0xBD,0x40,0x00,0xE1,0x2F,0xFF,0x1E,0xE6,0x00,0x03,0x70,0xE1,0x2F,0xFF,0x1E" module="SDI" />
+        <!-- Reroute IRQ9 to mload -->
+        <SimplePatch offset="0x28544" pattern="0xFF,0xFF,0x5D,0x32" value="0x13,0x6D,0x00,0x11" module="IOSP"/>
+        <!-- korean key check-->
+        <SimplePatch offset="0x21424" pattern="0xD0" value="0xE0" module="ES"/>
+        <!-- Korean key -->
+        <SimplePatch offset="0x29078" pattern="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" value="0x63,0xB8,0x2B,0xB4,0xF4,0x61,0x4E,0x2E,0x13,0xF2,0xFE,0xFB,0xBA,0x4C,0x9B,0x7E" module="IOSP"/>
+      </patches>
+    </CiosInstaller>
 
 
    

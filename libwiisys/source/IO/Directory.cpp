@@ -1,4 +1,4 @@
-#include <Libwiisys/IO/Directory.h>
+oute #include <Libwiisys/IO/Directory.h>
 #include <Libwiisys/IO/Device.h>
 #include <Libwiisys/IO/Path.h>
 #include <Libwiisys/IO/FatDirectory.h>
@@ -13,7 +13,7 @@ using namespace Libwiisys::Exceptions;
 
 bool Directory::Exists(const string &name)
 {
-  string path = Path::CleanPath(name);
+  string path = CleanPath(name);
 
   Device::Mount(path);
 
@@ -33,9 +33,9 @@ void Directory::Create(const string &name)
   if (name == "")
     return;
 
-  string path = Path::CleanPath(name);
-
-  if (Path::GetRoot(path) == path)
+   string path = CleanPath(name);
+   
+   if (Path::GetRoot(path) == path + "/")
     return;
 
   string parent = Path::GetParentDirectory(name);
@@ -56,7 +56,7 @@ void Directory::Create(const string &name)
 
 void Directory::Delete(const string &name, bool recursive)
 {
-  string path = Path::CleanPath(name);
+  string path = CleanPath(name);
 
   Device::Mount(path);
 
@@ -86,7 +86,7 @@ void Directory::Delete(const string &name, bool recursive)
 
 vector<string> Directory::GetFiles(const string &name)
 {
-  string path = Path::CleanPath(name);
+  string path = CleanPath(name);
 
   Device::Mount(path);
   vector < string > returnValue;
@@ -111,7 +111,7 @@ vector<string> Directory::GetFiles(const string &name)
 
 vector<string> Directory::GetDirectories(const string &name)
 {
-  string path = Path::CleanPath(name);
+  string path = CleanPath(name);
   Device::Mount(path);
   vector < string > returnValue;
 
@@ -136,23 +136,20 @@ vector<string> Directory::GetDirectories(const string &name)
 
 string Directory::CleanPath(const string &path)
 {
-  if (path == (WII_ROOT_DIRECTORY ":/"))
+  if (path == Path::GetRoot(path))
     return path;
 
   string outs = Path::CleanPath(path);
-  bool needSlash = Device::IsFatPath(outs);
 
-  if (!needSlash && outs[outs.length() - 1] == '/')
+  if (outs[outs.length() - 1] == '/')
     outs.erase(outs.size() - 1);
-  else if (needSlash && outs[outs.length() - 1] != '/')
-    outs.push_back('/');
 
   return outs;
 }
 
 bool Directory::IsEmpty(const string &name)
 {
-  string path = Path::CleanPath(name);
+  string path = Directory::CleanPath(name);
   Device::Mount(path);
 
   if (!Exists(path))
@@ -175,21 +172,28 @@ bool Directory::IsEmpty(const string &name)
 
 void Directory::Copy(const string &name, const string &dest, bool recursive)
 {
-  string path = Path::CleanPath(name);
+  string path = Directory::CleanPath(name);
+
   string cdest = "";
 
   //create the directory?
-  if (name.c_str()[name.size() - 1] == '/' && recursive)
-    cdest = Path::CleanPath(dest + "/" + Path::GetDirectoryName(name));
+  if (path.c_str()[path.size() - 1] == '/' && recursive)
+  {
+    cdest = Directory::CleanPath(dest + "/" + Path::GetDirectoryName(path));
+  }
   else
-    cdest = Path::CleanPath(dest);
-
+  {
+    cdest = Directory::CleanPath(dest);
+  }
+   
   Device::Mount(path);
 
   if (Exists(path))
   {
     if (!Exists(cdest))
+    {
       Create(cdest);
+    }
 
     vector < string > files = GetFiles(path);
     vector < string > subDirectories = GetDirectories(path);
@@ -207,7 +211,7 @@ void Directory::Copy(const string &name, const string &dest, bool recursive)
       {
         string directoryName = Path::GetDirectoryName(*dir);
         string destination = cdest + "/" + directoryName;
-        Directory::Copy(*dir, destination);
+        Directory::Copy(*dir, destination,recursive);
       }
     }
   }

@@ -35,22 +35,38 @@ bool FileSystemTask::Prepare()
 
 void FileSystemTask::Install()
 {
+  stringstream str;
+  
   if(_action == FSTAction_Copy)
   {
+    str << "Copying " << _target << " to " << _destination;
+    OnProgress(str.str(), 0.25);
     if(_type == FSTType_File)
       File::Copy(_target, _destination);
     else
       Directory::Copy(_target, _destination, _recursive);
+      
+    stringstream str2;
+    str2 << "Copy done." << _target;
+    OnProgress(str2.str(), 1);
   }
   else if(_action == FSTAction_Move)
   {
+    str << "Moving " << _target << " to " << _destination;
+    OnProgress(str.str(), 0.25);
     if(_type == FSTType_File)
       File::Move(_target, _destination);
     else
       Directory::Move(_target, _destination);
+      
+    stringstream str2;
+    str2 << "Moving done." << _target;
+    OnProgress(str2.str(), 1);
   }
   else if(_action == FSTAction_Delete)
   {
+    str << "Deleting " << _target;
+    OnProgress(str.str(), 0.25);
     if(_type == FSTType_File)
     {
       if(File::Exists(_target))
@@ -61,6 +77,9 @@ void FileSystemTask::Install()
       if(Directory::Exists(_target))
         Directory::Delete(_target, _recursive);
     }
+    stringstream str2;
+    str2 << "Delete done." << _target;
+    OnProgress(str2.str(), 1);
   }
 }
 void FileSystemTask::SendToLog()

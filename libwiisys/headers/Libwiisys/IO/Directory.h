@@ -74,8 +74,6 @@ namespace Libwiisys
          * \return true if the directory is empty, false if it isn't
          */
         static bool IsEmpty(const std::string &name);
-      private:
-
         /*!
          * \brief "Cleans" the path( Change all the // into /)
          * \param name The filePath who needs to be cleaned

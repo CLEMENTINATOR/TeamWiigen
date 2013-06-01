@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sciifii version="5.1" workingDirectory="sd:/sciifii/temp">
+  <!-- Region:
+    JAP: 0
+    EUR: 2
+    KK: 4
+    US: 1
+  -->
+  <logs>
+    <log type="file" path="sd:/sciifii.log" />
+  </logs>
+
+  <files>
+    <!-- D2xv10-beta53 -->
+    <file key="banner-d2x-v10beta53-56.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat.sha" />
+    <file key="banner-d2x-v10beta53-57.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat.sha" />
+    <file key="banner-d2x-v10beta53-58.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat.sha" />
+    <file key="dipp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/dipp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/dipp-d2x-v10beta53.dat.sha" />
+    <file key="esp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/esp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/esp-d2x-v10beta53.dat.sha" />
+    <file key="ffsp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/ffsp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/ffsp-d2x-v10beta53.dat.sha" />
+    <file key="mload-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/mload-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/mload-d2x-v10beta53.dat.sha" />
+    <file key="usbs-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/usbs-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/usbs-d2x-v10beta53.dat.sha" />
+    <file key="ehci-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/ehci-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/ehci-d2x-v10beta53.dat.sha" />
+  </files>
+
+  <menus start="main">
+
+    <menu id="main" title="Main Menu" message="Choose your language:">
+      <navigationMenuItem text="English Menu" menuId="mainen" saveOptions="false" />
+      <separatorMenuItem char=" " />
+      <navigationMenuItem text="Menu en francais" menuId="mainfr" saveOptions="false" />
+      <separatorMenuItem char=" " />
+      <exitMenuItem text="Exit" />
+    </menu>
+
+    <menu id="mainen" title="Main Menu" message="Welcome in sciifii!">
+      <modeMenuItem text="Hack your wiiU (vWii) ! (Light Mode,d2x-v10-beta53)" switches="vWii|cIOS259-d2x-v10-beta53-vWii|cIOS250-d2x-v10-beta53-vWii|cIOS251-d2x-v10-beta53-vWii" />
+      <separatorMenuItem char=" " />
+      <previousMenuItem text="Return to language menu" />
+      <exitMenuItem text="Exit" />
+    </menu>
+
+    <menu id="mainfr" title="Menu principal" message="Bienvenue sur Sciifii">
+      <modeMenuItem text="Modifier votre wiiU (vWii) ! (Mode simple,d2x-v10-beta53)" switches="vwii|cIOS259-d2x-v10-beta53|cIOS250-d2x-v10-beta53|cIOS251-d2x-v10-beta53" />
+      <separatorMenuItem char=" " />
+      <previousMenuItem text="Return to language menu" />
+      <exitMenuItem text="Exit" />
+    </menu>
+
+  
+  </menus>
+
+  <steps>
+
+    <MemoryPatcher option="">
+      <!-- di readlimit -->
+      <patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08"
+             value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
+      <!-- isfs permissions -->
+      <patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66"
+             value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
+      <!-- setuid -->
+      <patch pattern="0xD1, 0x2A, 0x1C, 0x39"
+             value="0x46, 0xC0, 0x1C, 0x39" />
+      <!-- es identify -->
+      <patch pattern="0x28, 0x03, 0xD1, 0x23"
+             value="0x28, 0x03, 0x00, 0x00" />
+      <!-- hash -->
+      <patch pattern="0x20, 0x07, 0x23, 0xA2"
+             value="0x20, 0x00, 0x23, 0xA2" />
+      <!-- new hash -->
+      <patch pattern="0x20, 0x07, 0x4B, 0x0B"
+             value="0x20, 0x00, 0x4B, 0x0B" />
+      <!-- es title version check -->
+      <patch pattern="0xD2, 0x01, 0x4E, 0x56"
+             value="0xE0, 0x01, 0x4E, 0x56" />
+      <!-- Kill_AntiSysTitleInstallv3 -->
+      <patch pattern="0x68, 0x1A, 0x2A, 0x01, 0xD0, 0x05"
+                  value="0x68, 0x1A, 0x2A, 0x01, 0x46, 0xC0" />
+      <patch pattern="0xD0, 0x02, 0x33, 0x06, 0x42, 0x9A, 0xD1, 0x01"
+                value="0x46, 0xC0, 0x33, 0x06, 0x42, 0x9A, 0xE0, 0x01" />
+      <patch pattern="0x68, 0xFB, 0x2B, 0x00, 0xDB, 0x01"
+     value="0x68, 0xFB, 0x2B, 0x00, 0xDB, 0x10" />
+    </MemoryPatcher>
+
+ 
+
+
+   
+    <FileSystem option="clean" target="sd:/sciifii/temp" type="folder" action="delete" recursive="true" />
+
+  </steps>
+  <Disclaimer>
+    This software comes with NO WARRANTY WHATSOEVER.\n
+    You may use this software at your own risk.\n We take no
+    responsibility for damage caused by Sciifii.\n
+  </Disclaimer>
+</sciifii>

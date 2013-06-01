@@ -62,7 +62,7 @@
     <file key="UpCFGlangfr" url="http://teamwiigen.com/appFiles/FR/usb_loader/languages/FR.txt" path="sd:/usb-loader/languages/FR.lang" overwrite="true"/>
     <file key="UpCFGMETA" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/meta.xml" path="sd:/apps/USBLoader/meta.xml" overwrite="true"/>
     <file key="UpCFGsetting" url="http://teamwiigen.com/appFiles/Loaders/USBLoader/settings.txt" path="sd:/usb-loader/settings.cfg" overwrite="true" />
-    
+
     <!-- D2xv7
     <file key="dipp_module_d2x7.dat" url="http://teamwiigen.com/appfiles/dipp_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/dipp_module_d2x7.dat.sha" />
     <file key="ehci_module_d2x7.dat" url="http://teamwiigen.com/appfiles/ehci_module_d2x7.dat" sha1="http://teamwiigen.com/appfiles/ehci_module_d2x7.dat.sha" />
@@ -74,7 +74,7 @@
     <file key="banner_d2x7_56.dat" url="http://teamwiigen.com/appfiles/banner_d2x7_56.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x7_56.dat.sha" />
     <file key="banner_d2x7_57.dat" url="http://teamwiigen.com/appfiles/banner_d2x7_57.dat" sha1="http://teamwiigen.com/appfiles/banner_d2x7_57.dat.sha" />
     -->
-    
+
     <!-- D2xv8 -->
     <file key="dipp_module_d2x8.dat" url="http://teamwiigen.com/appfiles/dipp_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/dipp_module_d2x8.dat.sha" />
     <file key="ehci_module_d2x8.dat" url="http://teamwiigen.com/appfiles/ehci_module_d2x8.dat" sha1="http://teamwiigen.com/appfiles/ehci_module_d2x8.dat.sha" />
@@ -143,11 +143,11 @@
     <menu id="advanceden" title="Advanced Menu" message="">
       <switchMenuItem name="cIOS249"                text="Install cios249 d2x8, base 56        " />
       <switchMenuItem name="cIOS250"                text="Install cios250 d2x8, base 57        " />
-      
+
       <switchMenuItem name="cIOS259-d2x-v10-beta53" text="Install cios249 d2x10-beta53, base 56" />
       <switchMenuItem name="cIOS250-d2x-v10-beta53" text="Install cios250 d2x10-beta53, base 57" />
       <switchMenuItem name="cIOS251-d2x-v10-beta53" text="Install cios251 d2x10-beta53, base 56" />
-      
+
       <switchMenuItem name="update"                 text="Update your wii to 4.3               " />
       <switchMenuItem name="Preloader"              text="Install the priiloader               " />
       <switchMenuItem name="NeoLoader"              text="Install the NeoGamma                 " />
@@ -178,18 +178,18 @@
     <menu id="advancedfr" title="Menu avance" message="">
       <switchMenuItem name="cIOS249"                text="Installer le cios249 d2xv8 base 56        " />
       <switchMenuItem name="cIOS250"                text="Installer le cios250 d2xv8 base 57        " />
-      
+
       <switchMenuItem name="cIOS259-d2x-v10-beta53" text="Installer le cios249 d2x10-beta53, base 56" />
       <switchMenuItem name="cIOS250-d2x-v10-beta53" text="Installer le cios250 d2x10-beta53, base 57" />
       <switchMenuItem name="cIOS251-d2x-v10-beta53" text="Installer le cios251 d2x10-beta53, base 58" />
-      
+
       <switchMenuItem name="update"                 text="Mettre a jour votre wii en 4.3            " />
       <switchMenuItem name="Preloaderfr"            text="Installer le priiloader                   " />
       <switchMenuItem name="NeoLoaderfr"            text="Installer NeoGamma                        " />
       <switchMenuItem name="GXLoaderfr"             text="Installer USB LoaderGX                    " />
       <switchMenuItem name="CFGfr"                  text="Installer CFG                             " />
       <switchMenuItem name="wiiflowfr"              text="Installer Wiiflow                         " />
-     <switchMenuItem name="updatesciifii"           text="MaJ config.xml (redemarrage necessaire)   " />
+      <switchMenuItem name="updatesciifii"           text="MaJ config.xml (redemarrage necessaire)   " />
       <switchMenuItem name="clean"                  text="Nettoyer les fichiers temporaires         " />
       <separatorMenuItem char=" " />
       <previousMenuItem text="Retourner au menu simple" saveOptions="false" />
@@ -214,23 +214,42 @@
   </menus>
 
   <steps>
-    
+
     <MemoryPatcher option="">
+      <!-- di readlimit -->
       <patch pattern="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08"
              value="0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0xD4" />
+      <!-- isfs permissions -->
       <patch pattern="0x42, 0x8B, 0xD0, 0x01, 0x25, 0x66"
              value="0x42, 0x8B, 0xE0, 0x01, 0x25, 0x66" />
+      <!-- setuid -->
       <patch pattern="0xD1, 0x2A, 0x1C, 0x39"
              value="0x46, 0xC0, 0x1C, 0x39" />
+      <!-- es identify -->
       <patch pattern="0x28, 0x03, 0xD1, 0x23"
              value="0x28, 0x03, 0x00, 0x00" />
+      <!-- hash -->
       <patch pattern="0x20, 0x07, 0x23, 0xA2"
              value="0x20, 0x00, 0x23, 0xA2" />
+      <!-- new hash -->
       <patch pattern="0x20, 0x07, 0x4B, 0x0B"
              value="0x20, 0x00, 0x4B, 0x0B" />
+      <!-- es title version check -->
       <patch pattern="0xD2, 0x01, 0x4E, 0x56"
              value="0xE0, 0x01, 0x4E, 0x56" />
     </MemoryPatcher>
+
+    <MemoryPatcher option="vwii">
+      <!-- Kill_AntiSysTitleInstallv3 -->
+      <patch pattern="0x68, 0x1A, 0x2A, 0x01, 0xD0, 0x05"
+                  value="0x68, 0x1A, 0x2A, 0x01, 0x46, 0xC0" />
+      <patch pattern="0xD0, 0x02, 0x33, 0x06, 0x42, 0x9A, 0xD1, 0x01"
+                value="0x46, 0xC0, 0x33, 0x06, 0x42, 0x9A, 0xE0, 0x01" />
+      <patch pattern="0x68, 0xFB, 0x2B, 0x00, 0xDB, 0x01"
+     value="0x68, 0xFB, 0x2B, 0x00, 0xDB, 0x10" />
+
+    </MemoryPatcher>
+
 
     <!-- d2x-v10-beta53 -->
     <!-- beta53 base 56  sur slot 249 -->
@@ -301,9 +320,9 @@
         <SimplePatch offset="0x29078" pattern="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00" value="0x63,0xB8,0x2B,0xB4,0xF4,0x61,0x4E,0x2E,0x13,0xF2,0xFE,0xFB,0xBA,0x4C,0x9B,0x7E" module="IOSP"/>
       </patches>
     </CiosInstaller>
-    
-    
-    
+
+
+
     <!-- d2x-v8 -->
     <CiosInstaller option="cIOS249" ciosRevision="21008" slot="249" revision="5661" source="56" banner="banner_d2x8_56.dat">
       <modules>

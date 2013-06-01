@@ -12,9 +12,9 @@
 
   <files>
     <!-- D2xv10-beta53 -->
-    <file key="banner-d2x-v10beta53-56.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat.sha" />
-    <file key="banner-d2x-v10beta53-57.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat.sha" />
-    <file key="banner-d2x-v10beta53-58.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat.sha" />
+    <file key="banner-d2x-v10beta53-56-vwii.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-56.dat.sha" />
+    <file key="banner-d2x-v10beta53-57-vwii.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-57.dat.sha" />
+    <file key="banner-d2x-v10beta53-58-vwii.dat" url="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat" sha1="http://teamwiigen.com/appfiles/banner-d2x-v10beta53-58.dat.sha" />
     <file key="dipp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/dipp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/dipp-d2x-v10beta53.dat.sha" />
     <file key="esp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/esp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/esp-d2x-v10beta53.dat.sha" />
     <file key="ffsp-d2x-v10beta53.dat" url="http://teamwiigen.com/appfiles/ffsp-d2x-v10beta53.dat" sha1="http://teamwiigen.com/appfiles/ffsp-d2x-v10beta53.dat.sha" />
@@ -83,7 +83,7 @@
      value="0x68, 0xFB, 0x2B, 0x00, 0xDB, 0x10" />
     </MemoryPatcher>
 
-    <CiosInstaller option="cIOS249-d2x-v10-beta53-vWii" ciosRevision="65535" slot="249" revision="5918" source="56" banner="banner-d2x-v10beta53-56.dat">
+    <CiosInstaller option="cIOS249-d2x-v10-beta53-vWii" ciosRevision="65535" slot="249" revision="5918" source="56" banner="banner-d2x-v10beta53-56-vwii.dat">
       <modules>
         <module file="mload-d2x-v10beta53.dat" />
         <module file="ehci-d2x-v10beta53.dat" position="3"/>
@@ -102,7 +102,7 @@
       </patches>
     </CiosInstaller>
 
-    <CiosInstaller option="cIOS250-d2x-v10-beta53-vWii" ciosRevision="65535" slot="250" revision="6175" source="57" banner="banner-d2x-v10beta53-57.dat">
+    <CiosInstaller option="cIOS250-d2x-v10-beta53-vWii" ciosRevision="65535" slot="250" revision="6175" source="57" banner="banner-d2x-v10beta53-57-vwii.dat">
       <modules>
         <module file="mload-d2x-v10beta53.dat" />
         <module file="ehci-d2x-v10beta53.dat" position="2"/>
@@ -121,7 +121,7 @@
       </patches>
     </CiosInstaller>
 
-    <CiosInstaller option="cIOS251-d2x-v10-beta53-vWii" ciosRevision="65535" slot="251" revision="6432" source="58" banner="banner-d2x-v10beta53-58.dat">
+    <CiosInstaller option="cIOS251-d2x-v10-beta53-vWii" ciosRevision="65535" slot="251" revision="6432" source="58" banner="banner-d2x-v10beta53-58-vwii.dat">
       <modules>
         <module file="mload-d2x-v10beta53.dat" />
         <module file="usbs-d2x-v10beta53.dat" />

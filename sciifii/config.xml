@@ -260,7 +260,7 @@
     <CiosInstaller option="cIOS250-d2x-v10-beta53" ciosRevision="65535" slot="250" revision="5918" source="57" banner="banner-d2x-v10beta53-57.dat">
       <modules>
         <module file="ffsp-d2x-v10beta53.dat" />
-        <module file="ehci-d2x-v10beta53.dat" position="3"/>
+        <module file="ehci-d2x-v10beta53.dat" position="2"/>
         <module file="dipp-d2x-v10beta53.dat" />
         <module file="esp-d2x-v10beta53.dat" />
         <module file="mload-d2x-v10beta53.dat" />

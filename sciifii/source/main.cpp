@@ -118,6 +118,13 @@ class MainText : public IMain
 		
 	   Pause();
       }
+      catch (std::exception& e)
+      {
+         cout << endl << "\x1b[33m" << e.what() << "\x1b[37m" << endl
+        << "Press A to exit and relaunch sciifii.";
+		
+	   Pause();
+      }
       catch (...)
       {
         cout << "Unexpected Exception!" << endl

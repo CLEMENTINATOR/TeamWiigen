@@ -1,5 +1,6 @@
 #include <ogcsys.h>
 #include <Libwiisys/IO/Path.h>
+#include <Libwiisys/IO/Directory.h>
 
 using namespace Libwiisys::IO;
 using namespace std;
@@ -61,15 +62,13 @@ string Path::GetFileName(const string &path)
 
 string Path::GetDirectoryName(const string &path)
 {
-  u32 slashPosition = path.find_last_of('/');
+  // removes last /
+  string workingRepresentation = Directory::CleanPath(path);
+  
+  u32 slashPosition = workingRepresentation.find_last_of('/');
 
   if (slashPosition == string::npos)
     return "";
-
-  // On retire le dernier slash si besoin
-  string workingRepresentation = path;
-  if (slashPosition == path.length() - 1)
-    workingRepresentation.erase(path.size() - 1);
 
   if (GetRootName(workingRepresentation) + ":" == workingRepresentation)
     return "";

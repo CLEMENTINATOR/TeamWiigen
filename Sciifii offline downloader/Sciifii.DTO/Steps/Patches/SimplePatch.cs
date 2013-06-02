@@ -19,6 +19,8 @@ namespace Sciifii.DTO.Steps.Patches
         [XmlAttribute("module")]
         public string Module { get; set; }
 
+        [XmlAttribute("offset")]
+        public string Offset { get; set; }
         #region Helpers
 
         [XmlIgnore]

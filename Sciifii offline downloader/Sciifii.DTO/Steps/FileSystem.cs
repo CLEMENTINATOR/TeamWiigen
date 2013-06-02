@@ -13,7 +13,9 @@ namespace Sciifii.DTO.Steps
         [XmlEnum("copy")]
         Copy,
         [XmlEnum("delete")]
-        Delete
+        Delete,
+        [XmlEnum("create")]
+        Create
     }
 
     public enum FileSystemType
@@ -30,7 +32,6 @@ namespace Sciifii.DTO.Steps
     {
         [XmlAttribute("target")]
         public string Target { get; set; }
-
 
         [XmlAttribute("destination")]
         public string Destination { get; set; }

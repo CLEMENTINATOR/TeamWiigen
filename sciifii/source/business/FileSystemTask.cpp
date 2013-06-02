@@ -81,6 +81,24 @@ void FileSystemTask::Install()
     str2 << "Delete done." << _target;
     OnProgress(str2.str(), 1);
   }
+  else if (_action == FSTAction_Create)
+  {
+	  str << "Creating " << _target;
+	  OnProgress(str.str(), 0.25);
+	  if(_type == FSTType_File)
+	  {
+		  File &f = File::Create(_target);
+		  f.Close();
+		  delete &f;
+	  }
+	  else
+	  {
+		  Directory::Create(_target);
+	  }
+	  stringstream str2;
+	  str2 << "Creation done." << _target;
+	  OnProgress(str2.str(), 1);
+  }
 }
 void FileSystemTask::SendToLog()
 {

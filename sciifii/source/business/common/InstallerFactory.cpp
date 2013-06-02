@@ -33,7 +33,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   Installer* step(NULL);
 
   string nodeValue = UtilString::ToStr(node->Value());
-  if(nodeValue == "SystemStep")
+  if(nodeValue == "System")
   {
     string message = UtilString::ToStr(node->Attribute("message"),"");
     string action = UtilString::ToStr(node->Attribute("action"),"");
@@ -194,6 +194,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
       action = FSTAction_Copy;
     else if(saction == "delete")
       action = FSTAction_Delete;
+	else if(saction == "create")
+      action = FSTAction_Create;
 
     step = new FileSystemTask(target, action, type, destination, recursive);
   }

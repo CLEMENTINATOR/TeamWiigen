@@ -98,12 +98,10 @@ vector<string> Directory::GetFiles(const string &name)
     throw Exception(path + " doesn't exists.");
   }
 
-  string cleanedPath = path + "/";
-
-  if (Device::IsFatPath(cleanedPath))
-    returnValue = FatDirectory::GetFiles(cleanedPath);
+  if (Device::IsFatPath(path))
+    returnValue = FatDirectory::GetFiles(path + "/");
   else
-    returnValue = NandDirectory::GetFiles(Device::GetWiiPath(cleanedPath));
+    returnValue = NandDirectory::GetFiles(Device::GetWiiPath(path));
 
   Device::UnMount(path);
 
@@ -122,13 +120,11 @@ vector<string> Directory::GetDirectories(const string &name)
     throw Exception(path + " doesn't exists.");
   }
 
-  string cleanedPath = path + "/";
-
-  if (Device::IsFatPath(cleanedPath))
-    returnValue = FatDirectory::GetDirectories(cleanedPath);
+  if (Device::IsFatPath(path))
+    returnValue = FatDirectory::GetDirectories(path + "/");
   else
     returnValue = NandDirectory::GetDirectories(Device::GetWiiPath(
-                    cleanedPath));
+                    path));
 
   Device::UnMount(path);
 

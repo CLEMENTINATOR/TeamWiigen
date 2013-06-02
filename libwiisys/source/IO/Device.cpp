@@ -4,7 +4,7 @@
 #include <fat.h>
 #include <Libwiisys/IO/Device.h>
 #include <Libwiisys/IO/Path.h>
-#include <Libwiisys/IO/usbstorage.h>
+#include <ogc/usbstorage.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
 
@@ -16,7 +16,6 @@ using namespace Libwiisys::Exceptions;
 static fatDevice devices[] = { { WII_ROOT_DIRECTORY, "Wii file system", NULL,0, false },
                                { "sd", "Wii SD Slot", &__io_wiisd, 0, false },
                                { "usb","USB Mass Storage Device", &__io_usbstorage, 0, false },
-                               { "usb2","USB 2.0 Mass Storage Device", &__io_usb2storage, 0, false },
                                { "gca","SD Gecko (Slot A)", &__io_gcsda, 0, false },
                                { "gcb","SD Gecko (Slot B)", &__io_gcsdb, 0, false }, };
 

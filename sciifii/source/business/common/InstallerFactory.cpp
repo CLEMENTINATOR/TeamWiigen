@@ -33,7 +33,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   Installer* step(NULL);
 
   string nodeValue = UtilString::ToStr(node->Value());
-  if(nodeValue == "System")
+  if(nodeValue == "SystemTask")
   {
     string message = UtilString::ToStr(node->Attribute("message"),"");
     string action = UtilString::ToStr(node->Attribute("action"),"");

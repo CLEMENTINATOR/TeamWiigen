@@ -14,6 +14,7 @@ typedef enum
   FSTAction_Copy,
   FSTAction_Delete,
   FSTAction_Move,
+  FSTAction_Create
 } FSTAction;
 
 class FileSystemTask : public Installer

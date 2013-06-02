@@ -401,7 +401,7 @@
   </xs:complexType>
 
 
-  <xs:complexType name="systemStep">
+  <xs:complexType name="system">
     <xs:annotation>
       <xs:documentation>This step is used to reboot or return to HBC</xs:documentation>
     </xs:annotation>
@@ -450,6 +450,7 @@
               <xs:enumeration value="move" />
               <xs:enumeration value="copy" />
               <xs:enumeration value="delete" />
+              <xs:enumeration value="create" />
             </xs:restriction>
           </xs:simpleType>
         </xs:attribute>
@@ -659,7 +660,7 @@
               <xs:element name="FileSystem" type="fileSystem" />
               <xs:element name="Preloader" type="preloader" />
               <xs:element name="FileDownloader" type="fileDownloader" />
-              <xs:element name="SystemStep" type="systemStep" />
+              <xs:element name="System" type="system" />
               <xs:element name="MemoryPatcher" type="memoryPatcher" />
               <xs:element name="StopSciifii" type="stopSciifii" />
               <xs:element name="WadBatch" type="wadBatch" />

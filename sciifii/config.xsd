@@ -401,7 +401,7 @@
   </xs:complexType>
 
 
-  <xs:complexType name="SystemStep">
+  <xs:complexType name="systemStep">
     <xs:annotation>
       <xs:documentation>This step is used to reboot or return to HBC</xs:documentation>
     </xs:annotation>
@@ -429,6 +429,11 @@
         <xs:attribute name="target" type="xs:string" use="required">
           <xs:annotation>
             <xs:documentation>The path of the file/folder to work on.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="destination" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation>The destination for copy/move options</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="type" use="required">
@@ -654,6 +659,7 @@
               <xs:element name="FileSystem" type="fileSystem" />
               <xs:element name="Preloader" type="preloader" />
               <xs:element name="FileDownloader" type="fileDownloader" />
+              <xs:element name="SystemStep" type="systemStep" />
               <xs:element name="MemoryPatcher" type="memoryPatcher" />
               <xs:element name="StopSciifii" type="stopSciifii" />
               <xs:element name="WadBatch" type="wadBatch" />

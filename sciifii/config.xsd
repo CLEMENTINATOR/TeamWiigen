@@ -231,6 +231,11 @@
         <xs:documentation>A binary pattern to search in the IOS. The format is 0xyy. The yy is the hexa value of the byte. Each byte are separated by a coma.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="offset" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>If specified, the patch will be applied at this offset</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="module" type="xs:string" use="optional">
       <xs:annotation>
         <xs:documentation>If specified, the patch will only be applied if the pattern is found on this module (aka IOSP, ES...)</xs:documentation>
@@ -391,6 +396,26 @@
             <xs:documentation>If true, the IOS on the slot will be deleted before the installation (to avoid version conflicts)</xs:documentation>
           </xs:annotation>
         </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:complexType name="SystemStep">
+    <xs:annotation>
+      <xs:documentation>This step is used to reboot or return to HBC</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="step">
+        <xs:attribute name="action" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="reboot" />
+              <xs:enumeration value="exit" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="message" type="xs:string" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

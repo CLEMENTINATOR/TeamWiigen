@@ -160,8 +160,7 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
   else if(nodeValue == "CompositeInstaller")
   {
     string name = UtilString::ToStr(node->Attribute("name"));
-
-
+    
     step = new CompositeInstaller(name);
     FillCompositeInstaller(step, node);
   }

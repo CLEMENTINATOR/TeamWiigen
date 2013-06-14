@@ -35,6 +35,7 @@ namespace Libwiisys
          */
         static File& Create(const std::string &fileName);
 
+
         /*!
          * \brief Open a file
          * \param fileName The fullpath of the file
@@ -44,6 +45,8 @@ namespace Libwiisys
          */
         static File& Open(const std::string &fileName, FileMode mode);
 
+        
+        static void Rename(const std::string &oldname, const std::string &newname);
         /*!
          * \brief Delete a file
          * \param fileName The fullpath of the file

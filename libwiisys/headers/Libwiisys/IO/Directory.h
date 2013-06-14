@@ -24,6 +24,8 @@ namespace Libwiisys
          * \param name The fullpath of the file
          */
         static void Create(const std::string &name);
+        
+        static void Rename(const std::string &oldname, const std::string &newname);
 
         /*!
          * \brief Delete a directory

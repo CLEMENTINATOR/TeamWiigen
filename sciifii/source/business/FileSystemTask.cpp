@@ -27,8 +27,8 @@ bool FileSystemTask::Prepare()
   if(_target == "")
     throw Exception("The target of the FileSystemTask must be provided.");
 
-  if((_action == FSTAction_Move || _action == FSTAction_Copy) && _destination == "")
-    throw Exception("A destination must be specified for copy/move actions.");
+  if((_action == FSTAction_Move || _action == FSTAction_Copy || _action == FSTAction_Rename) && _destination == "")
+    throw Exception("A destination must be specified for copy/move/rename actions.");
 
   return true;
 }
@@ -85,7 +85,7 @@ void FileSystemTask::Install()
   {
 	  str << "Creating " << _target;
 	  OnProgress(str.str(), 0.25);
-	  if(_type == FSTType_File)
+	  if (_type == FSTType_File)
 	  {
 		  File &f = File::Create(_target);
 		  f.Close();
@@ -98,6 +98,17 @@ void FileSystemTask::Install()
 	  stringstream str2;
 	  str2 << "Creation done." << _target;
 	  OnProgress(str2.str(), 1);
+  }
+  else if (_action == FSTAction_Rename)
+  {
+    if (_type == FSTType_File)
+    {
+        File::Rename(_target, _destination);
+    }
+    else
+    {
+        Directory::Rename(_target, _destination);
+    }
   }
 }
 void FileSystemTask::SendToLog()

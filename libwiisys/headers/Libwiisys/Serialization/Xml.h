@@ -2,7 +2,7 @@
 #define _UTILS_XML_H
 
 #include <string>
-#include <tinyxml.h>
+#include "tinyxml/tinyxml.h"
 
 /*! \namespace Libwiisys::Serialization
  * \brief Serialization tool

@@ -9,6 +9,14 @@ using namespace Libwiisys::Exceptions;
 using namespace Libwiisys::IO;
 using namespace std;
 
+void NandDirectory::Rename(const std::string &oldname, const std::string &newname)
+{
+    s32 ret = ISFS_Rename(oldname.c_str(),newname.c_str());
+    if (ret < 0)
+        throw SystemException("Couldn't rename directory : " + oldname, ret);
+}
+
+
 void NandDirectory::Create(const string &name)
 {
   /* Create directory */
@@ -152,3 +160,4 @@ std::string NandDirectory::GetType()
 {
   return "Libwiisys::IO::NandDirectory,"+Object::GetType();
 }
+

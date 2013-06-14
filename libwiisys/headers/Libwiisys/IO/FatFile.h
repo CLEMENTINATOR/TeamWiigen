@@ -41,6 +41,7 @@ namespace Libwiisys
          */
         static FatFile& Open(const std::string &fileName, const std::string &mode);
 
+        static void Rename(const std::string &oldname, const std::string &newname);
         /**
          * \brief Delete a file
          * \param fileName The fullpath of the file

@@ -20,6 +20,8 @@ namespace Libwiisys
     {
       public:
         virtual std::string GetType();
+        
+        static void Rename(const std::string &oldname, const std::string &newname);
         /**
          *\brief Create the given directory
          *\param name The absolute path of the directory

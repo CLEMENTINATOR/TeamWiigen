@@ -196,6 +196,8 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
       action = FSTAction_Delete;
 	else if(saction == "create")
       action = FSTAction_Create;
+    else if(saction == "rename")
+      action = FSTAction_Rename;
 
     step = new FileSystemTask(target, action, type, destination, recursive);
   }

@@ -40,6 +40,8 @@ namespace Libwiisys
          */
         static NandFile& Open(const std::string &fileName, u8 mode);
 
+        
+        static void Rename(const std::string &oldname, const std::string &newname);
         /**
          * \brief Delete a file
          * \param fileName The fullpath of the file

@@ -5,7 +5,7 @@
 #include <string>
 #include <Libwiisys/Object.h>
 #include <vector>
-#include <tinyxml.h>
+#include <Libwiisys/Serialization/tinyxml/tinyxml.h>
 #include "business/common/Installer.h"
 #include <map>
 #include "Switch.h"

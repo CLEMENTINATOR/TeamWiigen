@@ -3,11 +3,20 @@
 #include <Libwiisys/IO/FatFile.h>
 #include <Libwiisys/Exceptions/Exception.h>
 #include <Libwiisys/Exceptions/SystemException.h>
+#include <cstdio>
 
 using namespace std;
 using namespace Libwiisys::IO;
 using namespace Libwiisys::Exceptions;
 
+
+
+void FatFile::Rename(const std::string &oldname, const std::string &newname)
+{
+    int result = rename(oldname.c_str(), newname.c_str());
+    if (result != 0)
+        throw SystemException("Error renaming "+ oldname,result);
+}
 
 FatFile::FatFile(FILE *fd, const string &fileName)
 {
@@ -18,7 +27,6 @@ FatFile::FatFile(FILE *fd, const string &fileName)
   _fileLength = ftell(fd);
   fseek(fd, 0, SEEK_SET);
 }
-
 
 bool FatFile::Exists(const string &fileName)
 {

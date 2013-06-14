@@ -4,9 +4,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <Libwiisys/IO/FatDirectory.h>
+#include <cstdio>
+#include <Libwiisys/Exceptions/SystemException.h>
 
 using namespace std;
 using namespace Libwiisys::IO;
+using namespace Libwiisys::Exceptions;
+
+
+void FatDirectory::Rename(const std::string &oldname, const std::string &newname)
+{
+    int result = rename(oldname.c_str(), newname.c_str());
+    if (result != 0)
+        throw SystemException("Error renaming "+ oldname,result);
+}
 
 bool FatDirectory::Exists(const string &name)
 {

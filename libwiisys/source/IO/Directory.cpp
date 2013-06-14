@@ -28,6 +28,27 @@ bool Directory::Exists(const string &name)
   return exists;
 }
 
+void Directory::Rename(const std::string &oldname, const std::string &newname)
+{
+  string path = CleanPath(oldname);
+  string newPath = CleanPath(newname);
+  
+  Device::Mount(path);
+  Device::Mount(newPath); //if different paths
+  
+    if (!Exists(path))
+        throw Exception(path + " doesn't exists.");
+ 
+    if (Device::IsFatPath(path))
+        FatDirectory::Rename(path,newPath);
+    else
+        NandDirectory::Rename(Device::GetWiiPath(path),Device::GetWiiPath(newPath));
+  
+  Device::UnMount(path);
+  Device::UnMount(newPath);
+}
+
+
 void Directory::Create(const string &name)
 {
   if (name == "")
@@ -51,7 +72,7 @@ void Directory::Create(const string &name)
     else
       NandDirectory::Create(Device::GetWiiPath(path));
   }
-  Device::UnMount(name);
+  Device::UnMount(path);
 }
 
 void Directory::Delete(const string &name, bool recursive)

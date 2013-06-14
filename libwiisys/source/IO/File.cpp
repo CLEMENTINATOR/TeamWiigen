@@ -10,8 +10,25 @@ using namespace std;
 using namespace Libwiisys::IO;
 using namespace Libwiisys;
 using namespace Libwiisys::Exceptions;
-
 using namespace std;
+
+void File::Rename(const std::string &oldname, const std::string &newname)
+{
+    string path = Path::CleanPath(oldname);
+    string newPath = Path::CleanPath(newname);
+
+    Device::Mount(path);
+    Device::Mount(newPath);
+
+    if(Device::IsFatPath(path))
+        FatFile::Rename(path,newPath);
+    else
+        NandFile::Rename(Device::GetWiiPath(path), Device::GetWiiPath(newPath));
+
+        
+    Device::UnMount(path);
+    Device::UnMount(newPath);
+}
 
 
 bool File::Exists(const string &fileName)

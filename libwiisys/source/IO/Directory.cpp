@@ -53,12 +53,12 @@ void Directory::Create(const string &name)
 {
   if (name == "")
     return;
-
-   string path = CleanPath(name);
-   
-   if (Path::GetRoot(path) == path + "/")
+    
+  if (Path::GetRoot(name) == name)
     return;
-
+    
+  string path = CleanPath(name); 
+  
   string parent = Path::GetParentDirectory(path);
 
   if (!Exists(parent))
@@ -205,6 +205,7 @@ void Directory::Copy(const string &name, const string &dest, bool recursive)
   }
    
   Device::Mount(path);
+  Device::Mount(cdest);
 
   if (Exists(path))
   {
@@ -235,6 +236,7 @@ void Directory::Copy(const string &name, const string &dest, bool recursive)
   }
 
   Device::UnMount(path);
+  Device::Mount(cdest);
 }
 
 void Directory::Move(const string &name, const string &dest)

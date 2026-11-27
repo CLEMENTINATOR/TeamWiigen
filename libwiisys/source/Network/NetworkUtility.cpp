@@ -27,7 +27,7 @@ string NetworkUtility::GetIp(void)
   if (!Initialized())
   {
     char hostip[17] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    s32 ret = if_config(hostip, NULL, NULL, true);
+    s32 ret = if_config(hostip, NULL, NULL, true, 20);
     if (ret < 0)
       throw SystemException("Error initialising network !", ret);
 

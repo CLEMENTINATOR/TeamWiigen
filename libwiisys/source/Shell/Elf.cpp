@@ -17,7 +17,19 @@ Elf::Elf(const std::string &path, void* physicalAddress) :
 {
   File &elfFile = File::Open(path, FileMode_Read);
 
-  if (elfFile.Read(content, elfFile.Size()) != elfFile.Size())
+  bool readOk = false;
+  try
+  {
+    readOk = (elfFile.Read(content, elfFile.Size()) == elfFile.Size());
+  }
+  catch (...)
+  {
+    elfFile.Close();
+    delete &elfFile;
+    throw;
+  }
+
+  if (!readOk)
   {
     elfFile.Close();
     delete &elfFile;

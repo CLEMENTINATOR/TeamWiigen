@@ -40,10 +40,14 @@ PluginPatch::PluginPatch(const Buffer& plugin, Elf32_Phdr newHeader,
 
 PluginPatch& PluginPatch::operator=(const PluginPatch& patch)
 {
+  if (this == &patch)
+    return *this;
+
   Patch::operator=(patch);
 
   if (_newProgramSection)
     delete _newProgramSection;
+  _newProgramSection = NULL;
 
   _plugin = patch._plugin;
   _offset = patch._offset;
@@ -382,8 +386,16 @@ u32 PluginPatch::Patching(TitleEventArgs &processControl) const
   }
 
   processControl.buffer.Clear();
-  processControl.buffer.Append(destElf,
-                               TITLE_ROUND_UP(newElfLength + armLength, 64));
+  try
+  {
+    processControl.buffer.Append(destElf,
+                                 TITLE_ROUND_UP(newElfLength + armLength, 64));
+  }
+  catch (...)
+  {
+    free(destElf);
+    throw;
+  }
   processControl.tmdInfo->size = TITLE_ROUND_UP(newElfLength + armLength, 64);
   free(destElf);
 

@@ -46,7 +46,8 @@ void MenuManager::Initialyze(TiXmlElement* node)
     if (menu->Type() != TiXmlNode::TINYXML_COMMENT)
     {
       DynamicMenu *dmenu = new DynamicMenu(menu);
-      _menus.insert(pair<string,DynamicMenu*>(dmenu->MenuId, dmenu));
+      if(!_menus.insert(pair<string,DynamicMenu*>(dmenu->MenuId, dmenu)).second)
+        delete dmenu;
     }
     menu = menu->NextSiblingElement();
   }

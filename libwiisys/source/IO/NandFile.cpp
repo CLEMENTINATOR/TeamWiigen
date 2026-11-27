@@ -119,6 +119,8 @@ u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
   //To be 32 aligned (and add more space at the end, in case of non 32 bit request)
   s32 alignedRead = 32 - (restToRead % 32) + restToRead;
   u8* tempBuffer = (u8*) memalign(32, alignedRead);
+  if (!tempBuffer)
+    throw Exception("Not enough memory.");
   s32 ret = IOS_Read(_fd, tempBuffer, alignedRead);
 
   if (ret < 0)
@@ -127,16 +129,24 @@ u32 NandFile::Read(Buffer& b, u32 len, u32 offset)
     throw SystemException("Error reading file!", nbLus);
   }
 
-  if (ret > restToRead)
+  try
   {
-    b.Append(tempBuffer, restToRead);
-    _rest.Append(tempBuffer + restToRead, ret - restToRead);
-    nbLus += restToRead;
+    if (ret > restToRead)
+    {
+      b.Append(tempBuffer, restToRead);
+      _rest.Append(tempBuffer + restToRead, ret - restToRead);
+      nbLus += restToRead;
+    }
+    else
+    {
+      b.Append(tempBuffer, ret);
+      nbLus += ret;
+    }
   }
-  else
+  catch (...)
   {
-    b.Append(tempBuffer, ret);
-    nbLus += ret;
+    free(tempBuffer);
+    throw;
   }
 
   free(tempBuffer);
@@ -153,9 +163,11 @@ void NandFile::Seek(u32 offset)
 
 void NandFile::Close()
 {
-  if (_fd)
-    IOS_Close(_fd);
+  //Close() is called again by the destructor: only unmount once
+  if (!_fd)
+    return;
 
+  IOS_Close(_fd);
   _fd = 0;
 
   File::Close();

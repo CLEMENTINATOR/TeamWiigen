@@ -36,7 +36,19 @@ Dol::Dol(const std::string &path, void* physicalAddress) :
 {
   File &dolFile = File::Open(path, FileMode_Read);
 
-  if (dolFile.Read(content, dolFile.Size()) != dolFile.Size())
+  bool readOk = false;
+  try
+  {
+    readOk = (dolFile.Read(content, dolFile.Size()) == dolFile.Size());
+  }
+  catch (...)
+  {
+    dolFile.Close();
+    delete &dolFile;
+    throw;
+  }
+
+  if (!readOk)
   {
     dolFile.Close();
     delete &dolFile;

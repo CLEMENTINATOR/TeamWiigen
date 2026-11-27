@@ -108,8 +108,17 @@ bool FileManager::Download(const std::string& fileKey)
         Directory::Create(Path::GetParentDirectory(fo.path));
 
       File &file = File::Create(fo.path);
-      file.Write(response);
-      file.Close();
+      try
+      {
+        file.Write(response);
+        file.Close();
+      }
+      catch(...)
+      {
+        try { file.Close(); } catch(...) {}
+        delete &file;
+        throw;
+      }
       delete &file;
     }
     catch(...)

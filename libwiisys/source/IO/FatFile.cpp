@@ -135,7 +135,15 @@ u32 FatFile::Read(Buffer& b, u32 len, u32 offset)
     throw SystemException("Error reading file!", nbLus);
   }
 
-  b.Append(tempBuffer, nbLus);
+  try
+  {
+    b.Append(tempBuffer, nbLus);
+  }
+  catch (...)
+  {
+    free(tempBuffer);
+    throw;
+  }
   free(tempBuffer);
   return (u32) nbLus;
 }

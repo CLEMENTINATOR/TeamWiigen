@@ -38,6 +38,32 @@ using namespace Libwiisys::Threading;
 
 static u32 _runningIos = 0;
 
+/* Frees a malloc/memalign'ed block on every exit path */
+struct MallocGuard
+{
+  void* ptr;
+  MallocGuard(void* p) : ptr(p) {}
+  ~MallocGuard() { free(ptr); }
+};
+
+/* Create a file, write the buffer and always close/delete the File */
+static void WriteNewFile(const string& fileName, const Buffer& buffer)
+{
+  File &f = File::Create(fileName);
+  try
+  {
+    f.Write(buffer);
+  }
+  catch (...)
+  {
+    f.Close();
+    delete &f;
+    throw;
+  }
+  f.Close();
+  delete &f;
+}
+
 Title::Title(bool automaticCleaning) :
     _titleId(0),_revision(0),_dataLen(0), automaticClean(automaticCleaning)
 {}
@@ -47,10 +73,7 @@ void Title::Ticket(const Buffer& buffer)
   string fileName = _directory + "/cetk";
   if (File::Exists(fileName))
     File::Delete(fileName);
-  File &f = File::Create(fileName);
-  f.Write(buffer);
-  f.Close();
-  delete &f;
+  WriteNewFile(fileName, buffer);
 }
 
 Buffer Title::GetTitleElementFromTemp(const string &path)
@@ -73,10 +96,7 @@ void Title::Tmd(const Buffer& buffer)
   string fileName = _directory + "/tmd";
   if (File::Exists(fileName))
     File::Delete(fileName);
-  File &f = File::Create(fileName);
-  f.Write(buffer);
-  f.Close();
-  delete &f;
+  WriteNewFile(fileName, buffer);
 }
 
 Buffer Title::Tmd()
@@ -90,10 +110,7 @@ void Title::Certificate(const Buffer& buffer)
   string fileName = _directory + "/cert";
   if (File::Exists(fileName))
     File::Delete(fileName);
-  File &f = File::Create(fileName);
-  f.Write(buffer);
-  f.Close();
-  delete &f;
+  WriteNewFile(fileName, buffer);
 }
 
 Buffer Title::Certificate()
@@ -114,10 +131,7 @@ void Title::Crl(const Buffer& buffer)
   string fileName = _directory + "/crl";
   if (File::Exists(fileName))
     File::Delete(fileName);
-  File &f = File::Create(fileName);
-  f.Write(buffer);
-  f.Close();
-  delete &f;
+  WriteNewFile(fileName, buffer);
 }
 
 Buffer Title::Crl()
@@ -131,10 +145,7 @@ void Title::AddContent(const Buffer& buffer, u32 id)
   stringstream fileName;
   fileName << _directory << "/" << hex << setw(8) << setfill('0') << id
   << dec;
-  File &f = File::Create(fileName.str());
-  f.Write(buffer);
-  f.Close();
-  delete &f;
+  WriteNewFile(fileName.str(), buffer);
 }
 
 Buffer Title::GetContent(u32 id)
@@ -248,12 +259,12 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
   signed_blob *btmd = (signed_blob *) memalign(32, (tmd_size + 31) & (~31));
   if (btmd == NULL)
     throw Exception("Not enough memory (Title::LoadFromNand)");
+  MallocGuard btmdGuard(btmd); //freed on every exit path (incl. exceptions)
   memset(btmd, 0, tmd_size);
 
   ret = ES_GetStoredTMD(titleId, btmd, tmd_size);
   if (ret < 0)
   {
-    free(btmd);
     throw SystemException("Unable to get stored tmd", ret);
   }
 
@@ -304,7 +315,6 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
     }
     else
     {
-      free(btmd);
       throw Exception("Unknown content type !");
     }
 
@@ -329,7 +339,6 @@ void Title::LoadFromNand(u64 titleId, const std::string& tempFolder)
     INIT_PROCESS_CONTROL(processControl, NULL);
     OnTmdLoaded(processControl);
   }
-  free(btmd);
 }
 
 void Title::LoadFromWad(const std::string& file, const std::string& tempFolder)
@@ -682,7 +691,10 @@ void Title::Install()
       throw SystemException("Error finising title installation", ret);
   }
   catch (AbortException &abort)
-  {}
+  {
+    //Don't leave the ES installation transaction open
+    ES_AddTitleCancel();
+  }
   catch (Exception &ex)
   {
     //Cancel install
@@ -1078,13 +1090,21 @@ void Title::EncryptContent(Buffer& b, tmd_content* tmdInfo)
   AES_SetKey(_titleKey);
 
   /* Decrypt content */
-  AES_Encrypt(ivkey, (u8*) b.Content(), outbuf, bufferLength);
+  WS_AES_Encrypt(ivkey, (u8*) b.Content(), outbuf, bufferLength);
 
   /* Put the new hash */
   SHA1((u8*) b.Content(), tmdInfo->size, tmdInfo->hash);
 
   b.Clear();
-  b.Append(outbuf, bufferLength);
+  try
+  {
+    b.Append(outbuf, bufferLength);
+  }
+  catch (...)
+  {
+    free(outbuf);
+    throw;
+  }
 
   free(outbuf);
 }
@@ -1105,7 +1125,7 @@ void Title::DecryptContent(Buffer& b, tmd_content* tmdInfo)
   AES_SetKey(_titleKey);
 
   /* Decrypt content */
-  AES_Decrypt(ivkey, (u8*) b.Content(), outbuf, bufferLength);
+  WS_AES_Decrypt(ivkey, (u8*) b.Content(), outbuf, bufferLength);
 
   /* Check content hash */
   u8 hash[20];
@@ -1119,7 +1139,15 @@ void Title::DecryptContent(Buffer& b, tmd_content* tmdInfo)
     throw Exception(str.str());
   }
   b.Clear();
-  b.Append(outbuf, bufferLength);
+  try
+  {
+    b.Append(outbuf, bufferLength);
+  }
+  catch (...)
+  {
+    free(outbuf);
+    throw;
+  }
   free(outbuf);
 }
 
@@ -1144,7 +1172,7 @@ void Title::DecryptTitleKey(Buffer& b_tik)
 
   /* Decrypt title key */
   AES_SetKey(commonkey);
-  AES_Decrypt(iv, enc, dec, sizeof(enc));
+  WS_AES_Decrypt(iv, enc, dec, sizeof(enc));
   memcpy(_titleKey, dec, sizeof(dec)); /* Copy title key */
 }
 

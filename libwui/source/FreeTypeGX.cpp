@@ -305,6 +305,13 @@ ftgxCharData *FreeTypeGX::cacheGlyphData(wchar_t charCode)
       textureWidth = adjustTextureWidth(glyphBitmap->width, this->textureFormat);
       textureHeight = adjustTextureHeight(glyphBitmap->rows, this->textureFormat);
 
+      std::map<wchar_t, ftgxCharData>::iterator old = this->fontData.find(charCode);
+      if(old != this->fontData.end() && old->second.glyphDataTexture)
+      {
+        free(old->second.glyphDataTexture);
+        old->second.glyphDataTexture = NULL;
+      }
+
       this->fontData[charCode] = (ftgxCharData)
                                  {
                                    this->ftSlot->advance.x >> 6,

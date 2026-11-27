@@ -43,7 +43,8 @@ void DropDownList::List_SelectedItemChanged(Object *o, CursorEventArgs* args)
 
 void DropDownList::OnSelectedItemChanged(Device::PadController &c)
 {
-	SelectedItemChanged(this, new CursorEventArgs(c));
+	CursorEventArgs e(c);
+	SelectedItemChanged(this, &e);
 }
 
 void DropDownList::DefaultImage(string s)

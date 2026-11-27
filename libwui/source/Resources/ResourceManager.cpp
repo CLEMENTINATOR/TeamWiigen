@@ -34,6 +34,11 @@ void ResourceManager::Clean(bool force)
 	vector<string> toDelete;
 
 	for(map<string,u32>::iterator ite = Current()._cacheCount.begin(); ite != Current()._cacheCount.end(); ite++)
+	{
+		//Clean is called about every 100 frames by UIManager; GetResource resets the counter
+		if(!force)
+			ite->second += 100;
+
 		if(ite->second > Current()._cacheLimit || force)
 		{
 			if(Current()._resources[ite->first]->isDefault==false)
@@ -43,6 +48,7 @@ void ResourceManager::Clean(bool force)
 				toDelete.push_back(ite->first);
 			}
 		}
+	}
 
 	for(vector<string>::iterator ite = toDelete.begin(); ite != toDelete.end(); ite++)
 		Current()._cacheCount.erase(*ite);

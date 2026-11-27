@@ -30,6 +30,7 @@ using namespace Libwui::Device;
 class IMain
 {
   public:
+    virtual ~IMain() {}
     virtual int main(int argc, char **argv) = 0;
 };
 
@@ -153,6 +154,8 @@ int main(int argc, char **argv)
   else
     m = new MainText();
 
-  return m->main(argc, argv);
+  int ret = m->main(argc, argv);
+  delete m;
+  return ret;
 }
 

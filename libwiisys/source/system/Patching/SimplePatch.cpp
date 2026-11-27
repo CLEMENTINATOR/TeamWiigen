@@ -52,6 +52,9 @@ SimplePatch::SimplePatch(const SimplePatch& patch) :
 
 SimplePatch& SimplePatch::operator=(const SimplePatch& patch)
 {
+  if (this == &patch)
+    return *this;
+
   Patch::operator=(patch);
 
   delete[] _pattern;
@@ -67,7 +70,7 @@ SimplePatch& SimplePatch::operator=(const SimplePatch& patch)
   memcpy(_patch, patch._patch, patch._length);
 
   _length = patch._length;
-  _offset = patch._length;
+  _offset = patch._offset;
   return *this;
 }
 

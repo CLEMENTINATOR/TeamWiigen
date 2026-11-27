@@ -404,7 +404,7 @@ void AES_SetKey(u8 *key)
   gkey(4, 4, (char *)key);
 }
 
-void AES_Decrypt(u8 *iv, u8 *inbuf, u8 *outbuf, u64 len)
+void WS_AES_Decrypt(u8 *iv, u8 *inbuf, u8 *outbuf, u64 len)
 {
   u8  block[16];
   u32 blockno = 0, i;
@@ -437,7 +437,7 @@ void AES_Decrypt(u8 *iv, u8 *inbuf, u8 *outbuf, u64 len)
   }
 }
 
-void AES_Encrypt(u8 *iv, u8 *inbuf, u8 *outbuf, u64 len)
+void WS_AES_Encrypt(u8 *iv, u8 *inbuf, u8 *outbuf, u64 len)
 {
   u8  block[16];
   u32 blockno = 0, i;

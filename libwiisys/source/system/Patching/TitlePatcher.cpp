@@ -96,13 +96,21 @@ void TitlePatcher::InsertModule(TitleModule& module, Buffer& b_tmd)
     newEntry = &(tmd_data->contents[module.Position()]);
   }
 
-  Buffer copyModule(module);
-  EncryptContent(copyModule, newEntry);
-  AddContent(copyModule, newEntry->cid);
+  try
+  {
+    Buffer copyModule(module);
+    EncryptContent(copyModule, newEntry);
+    AddContent(copyModule, newEntry->cid);
 
-  tmd_data->num_contents++;
-  b_tmd.Clear();
-  b_tmd.Append(newTmd, newTmdLen);
+    tmd_data->num_contents++;
+    b_tmd.Clear();
+    b_tmd.Append(newTmd, newTmdLen);
+  }
+  catch (...)
+  {
+    free(newTmd);
+    throw;
+  }
 
   free(newTmd);
 }
@@ -234,7 +242,7 @@ void TitlePatcher::DecryptTitleKey(Buffer& b_tik)
     p_tik->titleid = _titleId;
     memset(iv, 0, sizeof(iv));
     memcpy(iv, &p_tik->titleid, sizeof(u64));
-    AES_Encrypt(iv, dec, enc, sizeof(dec));
+    WS_AES_Encrypt(iv, dec, enc, sizeof(dec));
     memcpy(p_tik->cipher_title_key, enc, sizeof(enc));
     _tikDirty = true;
   }

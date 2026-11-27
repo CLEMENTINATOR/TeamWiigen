@@ -82,7 +82,8 @@ void List::ItemClicked(Object *sender, CursorEventArgs* args)
 
 void List::OnSelectedItemChanged(Device::PadController &c)
 {
-	SelectedItemChanged(this, new CursorEventArgs(c));
+	CursorEventArgs e(c);
+	SelectedItemChanged(this, &e);
 }
 
 void List::ScrollDown(Object *o, CursorEventArgs* args)

@@ -67,7 +67,21 @@ void MP3SongPlayer::Play()
 	mad_synth_init(&Synth);
 	
 	if(LWP_CreateThread(&_thread, ISongPlayer::Play, this, _stack, MP3_PLAYER_STACKSIZE, 80)<0)
+	{
+		_needToStop = true;
+		mad_synth_finish(&Synth);
+		mad_frame_finish(&Frame);
+		mad_stream_finish(&Stream);
+		LWP_CloseQueue(_queue);
 		throw Exception("Cannot start the player thread.");
+	}
+}
+
+MP3SongPlayer::~MP3SongPlayer()
+{
+	Stop();
+	if(Current() == this)
+		Current() = NULL;
 }
 
 void MP3SongPlayer::Stop()

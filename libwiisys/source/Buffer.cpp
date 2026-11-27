@@ -56,6 +56,9 @@ _length(b._length), _innerBuffer(NULL), _checksum(b._checksum)
 
 Buffer& Buffer::operator=(const Buffer& b)
 {
+  if (this == &b)
+    return *this;
+
   if (_innerBuffer)
     free(_innerBuffer);
 

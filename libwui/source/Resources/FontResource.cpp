@@ -40,6 +40,12 @@ bool FontResource::IsInitialized(s32 size)
 
 void FontResource::Initialize(s32 size, bool cacheAll, uint8_t textureFormat , uint8_t vertexIndex )
 {
+  if(_fonts.find(size) != _fonts.end())
+  {
+    delete _fonts[size];
+    _fonts.erase(size);
+  }
+
   FreeTypeGX *font = new FreeTypeGX(textureFormat, vertexIndex);
   font->loadFont((u8*)_resource.Content(), _resource.Length(), size, cacheAll);
   _cacheUsed[size] = false;

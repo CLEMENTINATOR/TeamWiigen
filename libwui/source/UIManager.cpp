@@ -158,6 +158,11 @@ void UIManager::TrackWPads(bool track)
 
 UIManager::~UIManager()
 {
+  while(!_messageQueue.empty())
+  {
+    delete _messageQueue.front();
+    _messageQueue.pop();
+  }
   LWP_MutexDestroy(_messageQueueMutex);
 }
 

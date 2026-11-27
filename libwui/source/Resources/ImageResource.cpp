@@ -63,6 +63,7 @@ ImageResource::ImageResource(const string& imgPath)
 
 ImageResource::ImageResource(const u8 * buffer)
 {
+  data = NULL;
   width = 0;
   height = 0;
   if(buffer)

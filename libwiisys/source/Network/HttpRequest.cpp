@@ -38,19 +38,20 @@ void HttpRequest::Connect(string hostname)
 
   s32 ret;
 
-  NetworkUtility::Lock();
+  /* Close socket (and release the network lock) if it is already open */
+  Disconnect();
 
-  /* Close socket if it is already open */
-  if (sockfd >= 0)
-  {
-    net_close(sockfd);
-    sockfd = -1;
-  }
+  NetworkUtility::Lock();
 
   /* Create socket */
   sockfd = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
   if (sockfd < 0)
-    throw SystemException("Error openning socket !", sockfd);
+  {
+    s32 err = sockfd;
+    sockfd = -1;
+    NetworkUtility::Release(); //nothing to disconnect later
+    throw SystemException("Error openning socket !", err);
+  }
 
   /* Get host by name */
   he = net_gethostbyname(hostname.c_str());
@@ -158,6 +159,8 @@ s32 HttpRequest::Read(Buffer& b, u32 len)
 
     /* Read network data */
     void* tempBuffer = memalign(32, size);
+    if (!tempBuffer)
+      throw Exception("Not enough memory.");
     s32 nbRead = net_read(sockfd, tempBuffer, size);
     if (nbRead < 0)
     {
@@ -165,7 +168,15 @@ s32 HttpRequest::Read(Buffer& b, u32 len)
       throw SystemException("Error reading http response.", nbRead);
     }
 
-    b.Append(tempBuffer, nbRead);
+    try
+    {
+      b.Append(tempBuffer, nbRead);
+    }
+    catch (...)
+    {
+      free(tempBuffer);
+      throw;
+    }
     free(tempBuffer);
 
     /* Read finished */

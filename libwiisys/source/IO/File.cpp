@@ -20,12 +20,20 @@ void File::Rename(const std::string &oldname, const std::string &newname)
     Device::Mount(path);
     Device::Mount(newPath);
 
-    if(Device::IsFatPath(path))
-        FatFile::Rename(path,newPath);
-    else
-        NandFile::Rename(Device::GetWiiPath(path), Device::GetWiiPath(newPath));
+    try
+    {
+        if(Device::IsFatPath(path))
+            FatFile::Rename(path,newPath);
+        else
+            NandFile::Rename(Device::GetWiiPath(path), Device::GetWiiPath(newPath));
+    }
+    catch(...)
+    {
+        Device::UnMount(path);
+        Device::UnMount(newPath);
+        throw;
+    }
 
-        
     Device::UnMount(path);
     Device::UnMount(newPath);
 }
@@ -174,7 +182,7 @@ Buffer File::ReadToEnd(const string& path)
     f.Close();
     delete &f;
   }
-  catch(Exception &ex)
+  catch(...)
   {
     f.Close();
     delete &f;
@@ -206,7 +214,16 @@ void File::Copy(const std::string &fileToCopy,const std::string &destFile)
 
   Buffer b=File::ReadToEnd(fileToCopy);
   File&f=File::Create(destFile);
-  f.Write(b);
+  try
+  {
+    f.Write(b);
+  }
+  catch(...)
+  {
+    f.Close();
+    delete &f;
+    throw;
+  }
   f.Close();
   delete &f;
 }

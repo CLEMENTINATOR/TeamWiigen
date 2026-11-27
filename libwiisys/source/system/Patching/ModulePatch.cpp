@@ -28,6 +28,9 @@ ModulePatch::ModulePatch(const ModulePatch& patch) :
 
 ModulePatch& ModulePatch::operator=(const ModulePatch& patch)
 {
+  if (this == &patch)
+    return *this;
+
   Patch::operator=(patch);
 
   delete[] _patch;

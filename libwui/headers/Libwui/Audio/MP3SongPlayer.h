@@ -46,6 +46,7 @@ namespace Libwui
 		public:
 			MP3SongPlayer(const std::string& file);
 			MP3SongPlayer(Libwiisys::Buffer& buffer);
+			virtual ~MP3SongPlayer();
 			void Play();
 			void Stop();
 			void Pause();

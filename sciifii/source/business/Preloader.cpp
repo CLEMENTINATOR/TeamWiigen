@@ -128,8 +128,17 @@ void Preloader::RestoreSysMenu()
     File::Delete(sysMenuApp.str());
 
   File &sysMenu = File::Create(sysMenuApp.str());
-  sysMenu.Write(b_backup);
-  sysMenu.Close();
+  try
+  {
+    sysMenu.Write(b_backup);
+    sysMenu.Close();
+  }
+  catch(...)
+  {
+    try { sysMenu.Close(); } catch(...) {}
+    delete &sysMenu;
+    throw;
+  }
   delete &sysMenu;
 }
 
@@ -181,8 +190,17 @@ void Preloader::Install()
     OnProgress("Creating priiloader.", 0.8);
     Buffer originalPloader = FileManager::GetFile(_file);
     File &ploader = File::Create(sysMenuApp.str());
-    ploader.Write(originalPloader);
-    ploader.Close();
+    try
+    {
+      ploader.Write(originalPloader);
+      ploader.Close();
+    }
+    catch(...)
+    {
+      try { ploader.Close(); } catch(...) {}
+      delete &ploader;
+      throw;
+    }
     delete &ploader;
 
     //checking installation

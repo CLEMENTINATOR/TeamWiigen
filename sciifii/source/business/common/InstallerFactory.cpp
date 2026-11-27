@@ -162,7 +162,15 @@ Installer* InstallerFactory::Create(TiXmlElement* node)
     string name = UtilString::ToStr(node->Attribute("name"));
     
     step = new CompositeInstaller(name);
-    FillCompositeInstaller(step, node);
+    try
+    {
+      FillCompositeInstaller(step, node);
+    }
+    catch(...)
+    {
+      delete step;
+      throw;
+    }
   }
   else if(nodeValue == "FileDownloader")
   {
@@ -282,7 +290,7 @@ void InstallerFactory::FillCiosPatches(Installer* cios, TiXmlElement* xml)
         string patchName=UtilString::ToStr(child->Attribute("name"));
 		if(patchName == "KoreanKey")
 		{
-			((Cios*)cios)->AddPatch(SimplePatch::KoreanKey_EnablePatch());
+			((Cios*)cios)->AddPatch(new SimplePatch(*SimplePatch::KoreanKey_EnablePatch()));
 			((Cios*)cios)->AddPatch(new KoreanKeyPatch());
 		}
 		else
